@@ -101,9 +101,9 @@
   </distributionManagement>
 
   <scm>
-    <connection>scm:git:https://github.com/PowerStat/ValidationUtils.git</connection>
-    <developerConnection>scm:git:https://github.com/PowerStat/ValidationUtils.git</developerConnection>
-    <url>https://github.com/PowerStat/ValidationUtils</url>
+    <connection>scm:git:https://github.com/PowerStat/Validation.git</connection>
+    <developerConnection>scm:git:https://github.com/PowerStat/Validation.git</developerConnection>
+    <url>https://github.com/PowerStat/Validation</url>
     <tag>HEAD</tag>
   </scm>
 
@@ -222,7 +222,7 @@
             <manifestEntries>
               <!-- <Build-Number>${buildNumber}</Build-Number> -->
               <Version>${project.version}</Version>
-              <GIT>https://github.com/PowerStat/ValidationUtils.git</GIT>
+              <GIT>https://github.com/PowerStat/Validation.git</GIT>
               <SCM-Revision>${buildNumber}</SCM-Revision>
             </manifestEntries>
             <addMavenDescriptor>false</addMavenDescriptor>
