@@ -54,6 +54,80 @@
       </build>
     </profile>
 
+    <profile>
+      <id>Windows</id>
+      <activation>
+        <os>
+          <family>Windows</family>
+        </os>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.8</version>
+            <executions>
+              <execution>
+                <phase>generate-sources</phase>
+                <configuration>
+                  <target>
+                   <mkdir dir="${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated"/>
+                    <exec executable="cmd.exe">
+                      <arg value="/c" />
+                      <arg value="${project.basedir}\generator.bat" />
+                      <arg value="${project.build.directory}\downloaded\tlds-alpha-by-domain.txt" />
+                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated\GeneratedTlds.java" />
+                    </exec>
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>unix</id>
+      <activation>
+        <os>
+          <family>unix</family>
+        </os>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.8</version>
+            <executions>
+              <execution>
+                <phase>generate-sources</phase>
+                <configuration>
+                  <target>
+                   <mkdir dir="${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated"/>
+                    <exec executable="${project.basedir}\generator.sh">
+                      <arg value="${project.build.directory}\downloaded\tlds-alpha-by-domain.txt" />
+                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated\GeneratedTlds.java" />
+                    </exec>
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+
   </profiles>
 
   <licenses>
@@ -173,6 +247,7 @@
         </dependencies>
         <configuration>
           <forkCount>0</forkCount>
+          <trimStackTrace>false</trimStackTrace>
         </configuration>
       </plugin>
 
@@ -433,6 +508,9 @@
         <groupId>org.pitest</groupId>
         <artifactId>pitest-maven</artifactId>
         <version>1.4.9</version>
+        <configuration>
+          <timestampedReports>false</timestampedReports>
+        </configuration>
         <dependencies>
           <dependency>
             <groupId>org.pitest</groupId>
@@ -484,6 +562,44 @@
           </dependency>
         </dependencies>
 
+      </plugin>
+
+      <plugin>
+        <groupId>com.googlecode.maven-download-plugin</groupId>
+        <artifactId>download-maven-plugin</artifactId>
+        <version>1.4.2</version>
+        <executions>
+          <execution>
+            <id>install-tlds</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>wget</goal>
+            </goals>
+            <configuration>
+              <url>https://data.iana.org/TLD/tlds-alpha-by-domain.txt</url>
+              <outputDirectory>${project.build.directory}/downloaded</outputDirectory>
+             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${project.build.directory}/generated-sources/main/java</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
 
     </plugins>
