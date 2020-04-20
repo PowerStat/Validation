@@ -1,6 +1,6 @@
 # PowerStat's validation utilities
 
-These validation utilities are used by some of my projects.
+These validation utilities should be useful value classes.
 
 ## Installation
 
@@ -11,7 +11,7 @@ For example when using Apache Maven you could add the following dependency to yo
     <dependency>
       <groupId>de.powerstat</groupId>
       <artifactId>validation</artifactId>
-      <version>1.0</version>
+      <version>2.0</version>
     </dependency>
 
 Other build tools like gradle will work analogous.

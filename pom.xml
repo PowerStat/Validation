@@ -4,7 +4,7 @@
 
   <groupId>de.powerstat.validation</groupId>
   <artifactId>validation</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  <version>2.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>PowerStatsValidationUtilities</name>
@@ -75,9 +75,27 @@
                    <mkdir dir="${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated"/>
                     <exec executable="cmd.exe">
                       <arg value="/c" />
-                      <arg value="${project.basedir}\generator.bat" />
+                      <arg value="${project.basedir}\generatorTLD.bat" />
                       <arg value="${project.build.directory}\downloaded\tlds-alpha-by-domain.txt" />
                       <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated\GeneratedTlds.java" />
+                    </exec>
+                    <exec executable="cmd.exe">
+                      <arg value="/c" />
+                      <arg value="${project.basedir}\generatorCountries.bat" />
+                      <arg value="${project.build.directory}\downloaded\countries.csv" />
+                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated\GeneratedISO3166A2.java" />
+                    </exec>
+                    <exec executable="cmd.exe">
+                      <arg value="/c" />
+                      <arg value="${project.basedir}\generatorLanguages.bat" />
+                      <arg value="${project.build.directory}\downloaded\languages.csv" />
+                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated\GeneratedISO6391.java" />
+                    </exec>
+                    <exec executable="cmd.exe">
+                      <arg value="/c" />
+                      <arg value="${project.basedir}\generatorCurrencies.bat" />
+                      <arg value="${project.build.directory}\downloaded\currencies.csv" />
+                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated\GeneratedISO4217.java" />
                     </exec>
                   </target>
                 </configuration>
@@ -110,10 +128,18 @@
                 <phase>generate-sources</phase>
                 <configuration>
                   <target>
-                   <mkdir dir="${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated"/>
-                    <exec executable="${project.basedir}\generator.sh">
-                      <arg value="${project.build.directory}\downloaded\tlds-alpha-by-domain.txt" />
-                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated\GeneratedTlds.java" />
+                    <mkdir dir="${project.build.directory}/generated-sources/main/java/de/powerstat/validation/generated"/>
+                    <exec executable="${project.basedir}/generatorTLD.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/validation/generated/GeneratedTlds.java" error="${project.build.directory}/error.log">
+                      <arg value="${project.build.directory}/downloaded/tlds-alpha-by-domain.txt" />
+                    </exec>
+                    <exec executable="${project.basedir}/generatorCountries.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/validation/generated/GeneratedISO3166A2.java" error="${project.build.directory}/error.log">
+                      <arg value="${project.build.directory}/downloaded/countries.csv" />
+                    </exec>
+                    <exec executable="${project.basedir}/generatorLanguages.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/validation/generated/GeneratedISO6391.java" error="${project.build.directory}/error.log">
+                      <arg value="${project.build.directory}/downloaded/languages.csv" />
+                    </exec>
+                    <exec executable="${project.basedir}/generatorCurrencies.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/validation/generated/GeneratedISO4217.java" error="${project.build.directory}/error.log">
+                      <arg value="${project.build.directory}/downloaded/currencies.csv" />
                     </exec>
                   </target>
                 </configuration>
@@ -461,7 +487,7 @@
       <plugin>
         <groupId>org.owasp</groupId>
         <artifactId>dependency-check-maven</artifactId>
-        <version>5.2.1</version>
+        <version>5.3.2</version>
         <!- -
         <configuration>
           <skipProvidedScope>true</skipProvidedScope>
@@ -567,10 +593,10 @@
       <plugin>
         <groupId>com.googlecode.maven-download-plugin</groupId>
         <artifactId>download-maven-plugin</artifactId>
-        <version>1.4.2</version>
+        <version>1.5.1</version>
         <executions>
           <execution>
-            <id>install-tlds</id>
+            <id>get-tlds</id>
             <phase>initialize</phase>
             <goals>
               <goal>wget</goal>
@@ -578,6 +604,47 @@
             <configuration>
               <url>https://data.iana.org/TLD/tlds-alpha-by-domain.txt</url>
               <outputDirectory>${project.build.directory}/downloaded</outputDirectory>
+              <outputFileName>tlds-alpha-by-domain.txt</outputFileName>
+              <!-- <skipCache>true</skipCache> -->
+             </configuration>
+          </execution>
+          <execution>
+            <id>get-countrycodes</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>wget</goal>
+            </goals>
+            <configuration>
+              <url>https://datahub.io/core/country-list/r/data.csv</url>
+              <outputDirectory>${project.build.directory}/downloaded</outputDirectory>
+              <outputFileName>countries.csv</outputFileName>
+              <!-- <skipCache>true</skipCache> -->
+             </configuration>
+          </execution>
+          <execution>
+            <id>get-languagecodes</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>wget</goal>
+            </goals>
+            <configuration>
+              <url>https://datahub.io/core/language-codes/r/language-codes.csv</url>
+              <outputDirectory>${project.build.directory}/downloaded</outputDirectory>
+              <outputFileName>languages.csv</outputFileName>
+              <!-- <skipCache>true</skipCache> -->
+             </configuration>
+          </execution>
+          <execution>
+            <id>get-currencycodes</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>wget</goal>
+            </goals>
+            <configuration>
+              <url>https://datahub.io/core/currency-codes/r/codes-all.csv</url>
+              <outputDirectory>${project.build.directory}/downloaded</outputDirectory>
+              <outputFileName>currencies.csv</outputFileName>
+              <!-- <skipCache>true</skipCache> -->
              </configuration>
           </execution>
         </executions>
@@ -728,7 +795,7 @@
       <plugin>
         <groupId>org.owasp</groupId>
         <artifactId>dependency-check-maven</artifactId>
-        <version>5.2.1</version>
+        <version>5.3.2</version>
       </plugin>
 
       <!--

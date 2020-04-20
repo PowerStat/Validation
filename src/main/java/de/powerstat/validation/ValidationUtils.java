@@ -50,10 +50,14 @@ public final class ValidationUtils
    *
    * @param address IP V4 address
    * @return true when IP V4 address, false otherwise
+   * @throws NullPointerException If address is null
+   * @deprecated Use de.powerstat.validation.values.IPV4Address instead.
    */
+  @Deprecated
   public static boolean isIPV4(final String address)
    {
-    return (address != null) && address.matches("^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$"); //$NON-NLS-1$
+    Objects.requireNonNull(address, "address"); //$NON-NLS-1$
+    return address.matches("^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$"); //$NON-NLS-1$
    }
 
 
@@ -64,13 +68,15 @@ public final class ValidationUtils
    * @return IP V4 address
    * @throws NullPointerException If address is null
    * @throws IllegalArgumentException If not an IP V4 address
+   * @deprecated Use de.powerstat.validation.values.IPV4Address instead.
    */
+  @Deprecated
   public static String checkIPV4(final String address)
    {
     Objects.requireNonNull(address, "address"); //$NON-NLS-1$
     if (!isIPV4(address))
      {
-      throw new IllegalArgumentException("Not an IP V4 address: " + address); //$NON-NLS-1$
+      throw new IllegalArgumentException("Not an IP V4 address"); //$NON-NLS-1$
      }
     return address;
    }
@@ -88,7 +94,9 @@ public final class ValidationUtils
    * @return true when private address, otherwise false
    * @throws NullPointerException If address is null
    * @throws IllegalArgumentException If not an IP V4 address
+   * @deprecated Use de.powerstat.validation.values.IPV4Address.isPrivate() instead.
    */
+  @Deprecated
   public static boolean isIPV4private(final String address)
    {
     /* String checkedAddress = */ checkIPV4(address);
@@ -129,7 +137,9 @@ public final class ValidationUtils
    * @return true when special address, otherwise false
    * @throws NullPointerException If address is null
    * @throws IllegalArgumentException If not an IP V4 address
+   * @deprecated Use de.powerstat.validation.values.IPV4Address.isSpecial() instead.
    */
+  @Deprecated
   public static boolean isIPV4special(final String address)
    {
     /* String checkedAddress = */ checkIPV4(address);
@@ -173,7 +183,9 @@ public final class ValidationUtils
    * @return true when public address, otherwise false
    * @throws NullPointerException If address is null
    * @throws IllegalArgumentException If not an IP V4 address
+   * @deprecated Use de.powerstat.validation.values.IPV4Address.isPublic() instead.
    */
+  @Deprecated
   public static boolean isIPV4public(final String address)
    {
     return !isIPV4private(address) && !isIPV4special(address);
@@ -185,7 +197,9 @@ public final class ValidationUtils
    *
    * @param mask Netmask prefix length 0-32
    * @return true if prefix length, false otherwise
+   * @deprecated Use de.powerstat.validation.values.IPV4Mask instead.
    */
+  @Deprecated
   public static boolean isIPV4prefixLength(final int mask)
    {
     return (mask >= 0) && (mask <= 32);
@@ -198,7 +212,9 @@ public final class ValidationUtils
    * @param mask Netmask prefix length 0-32
    * @return Netmask prefix length
    * @throws IndexOutOfBoundsException If mask is outside 0-32 range
+   * @deprecated Use de.powerstat.validation.values.IPV4Mask instead.
    */
+  @Deprecated
   public static int checkIPV4prefixLength(final int mask)
    {
     if (!isIPV4prefixLength(mask))
@@ -214,7 +230,9 @@ public final class ValidationUtils
    *
    * @param mask Netmask prefix length 0-128
    * @return true if prefix length, false otherwise
+   * @deprecated Use de.powerstat.validation.values.IPV6Mask instead.
    */
+  @Deprecated
   public static boolean isIPV6prefixLength(final int mask)
    {
     return (mask >= 0) && (mask <= 128);
@@ -227,7 +245,9 @@ public final class ValidationUtils
    * @param mask Netmask prefix length 0-128
    * @return Netmask prefix length
    * @throws IndexOutOfBoundsException If mask is outside 0-128 range
+   * @deprecated Use de.powerstat.validation.values.IPV6Mask instead.
    */
+  @Deprecated
   public static int checkIPV6prefixLength(final int mask)
    {
     if (!isIPV4prefixLength(mask))
@@ -250,54 +270,137 @@ public final class ValidationUtils
    * @return IPV6 address
    * @throws NullPointerException If address is null
    * @throws IllegalArgumentException If not an IP V6 address
+   * @deprecated Use de.powerstat.validation.values.IPV6Address instead.
    */
+  @Deprecated
   public static String checkIPV6(final String address)
    {
     Objects.requireNonNull(address, "address"); //$NON-NLS-1$
     String expandedAddress = address.toLowerCase(Locale.getDefault());
-    final int ipv4pos = expandedAddress.indexOf('.');
+    expandedAddress = expandIPV4Address(expandedAddress);
+    expandedAddress = expandExpansionBlock(expandedAddress);
+    if (!expandedAddress.matches("^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$")) //$NON-NLS-1$
+     {
+      throw new IllegalArgumentException("Not an IP V6 address"); //$NON-NLS-1$
+     }
+    return normalizeIPV6Address(expandedAddress);
+   }
+
+
+  /**
+   * Expand a possibly embedded IP V4 address.
+   *
+   * @param address IP V6 address
+   * @return IP V6 address
+   */
+  private static String expandIPV4Address(String address)
+   {
+    assert address != null;
+    final int ipv4pos = address.indexOf('.');
     if (ipv4pos > -1)
      {
-      final int blockStart = expandedAddress.lastIndexOf(':', ipv4pos);
-      final String ipv4 = expandedAddress.substring(blockStart + 1);
+      final int blockStart = address.lastIndexOf(':', ipv4pos);
+      final String ipv4 = address.substring(blockStart + 1);
       if (!isIPV4(ipv4))
        {
-        throw new IllegalArgumentException("Not an IP V6 address (incorrect ip v4 address embedded): " + address); //$NON-NLS-1$
+        throw new IllegalArgumentException("Not an IP V6 address (incorrect ip v4 address embedded)"); //$NON-NLS-1$
        }
-      expandedAddress = expandedAddress.substring(0, blockStart + 1);
+      address = address.substring(0, blockStart + 1);
       final String[] parts = ipv4.split("\\."); //$NON-NLS-1$
       final int block1 = Integer.parseInt(parts[0]);
       final int block2 = Integer.parseInt(parts[1]);
       final int block3 = Integer.parseInt(parts[2]);
       final int block4 = Integer.parseInt(parts[3]);
-      expandedAddress += Integer.toHexString(block1) + String.format("%02x", block2) + ':' + Integer.toHexString(block3) + String.format("%02x", block4); //$NON-NLS-1$ //$NON-NLS-2$
+      address += Integer.toHexString(block1) + String.format("%02x", block2) + ':' + Integer.toHexString(block3) + String.format("%02x", block4); //$NON-NLS-1$ //$NON-NLS-2$
      }
-    final int expPos = expandedAddress.indexOf("::"); //$NON-NLS-1$
-    final int expLen = expandedAddress.length();
-    if ((expPos != -1))
+    return address;
+   }
+
+
+  /**
+   * Count colons.
+   *
+   * @param str String to count coolons in
+   * @return Numbe rof colons found
+   */
+  private static int countColons(final String str)
+   {
+    int colons = 0;
+    int expPos = -1;
+    do
      {
-      if (expandedAddress.indexOf("::", expPos + 2) != -1) //$NON-NLS-1$
+      expPos = str.indexOf(':', expPos + 1);
+      if (expPos > -1)
        {
-        throw new IllegalArgumentException("Not an IP V6 address (more than one expansion block): " + address); //$NON-NLS-1$
+        ++colons;
        }
-      int blocks = 8 - expandedAddress.split(":").length; //$NON-NLS-1$
-      String replace = ":0"; //$NON-NLS-1$
-      while (blocks > 1)
+     }
+    while (expPos > -1);
+    return colons;
+   }
+
+
+  /**
+   * Expand possible expansion block.
+   *
+   * @param address IP V6 address
+   * @return IP V6 address
+   */
+  private static String expandExpansionBlock(final String address)
+   {
+    assert address != null;
+    final int expPos = address.indexOf("::"); //$NON-NLS-1$
+    if ((expPos == -1))
+     {
+      return address;
+     }
+    if (address.indexOf("::", expPos + 1) != -1) //$NON-NLS-1$
+     {
+      throw new IllegalArgumentException("Not an IP V6 address (more than one expansion block)"); //$NON-NLS-1$
+     }
+    final String start = address.substring(0, expPos);
+    final String end = address.substring(expPos + 2);
+    int blocks = 8;
+    if (start.length() > 0)
+     {
+      blocks -= countColons(start) + 1;
+     }
+    if (end.length() > 0)
+     {
+      blocks -= countColons(end) + 1;
+     }
+    final StringBuilder replace = new StringBuilder();
+    if (start.length() > 0)
        {
-        replace += ":0"; //$NON-NLS-1$
+      replace.append(':');
+       }
+    while (blocks > 0)
+       {
+      replace.append("0000"); //$NON-NLS-1$
         --blocks;
-       }
-      if ((expPos + 2) < expLen)
+      if (blocks > 0)
        {
-        replace += ":0:"; //$NON-NLS-1$
+        replace.append(':');
        }
-      expandedAddress = expandedAddress.replaceFirst("::", replace); //$NON-NLS-1$
+       }
+    if (end.length() > 0)
+       {
+      replace.append(':');
+       }
+    return start + replace.toString() + end;
      }
-    if (!expandedAddress.matches("^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$")) //$NON-NLS-1$
+
+
+  /**
+   * Normalize IP V6 address.
+   *
+   * @param address IP V6 address
+   * @return Normalized IP V6 address
+   */
+  private static String normalizeIPV6Address(final String address)
      {
-      throw new IllegalArgumentException("Not an IP V6 address: " + address); //$NON-NLS-1$
-     }
-    final String[] parts = expandedAddress.split(":"); //$NON-NLS-1$
+    assert address != null;
+    final String[] parts = address.split(":"); //$NON-NLS-1$
     final StringBuilder normalizedAddress = new StringBuilder();
     for (String part : parts)
      {
@@ -305,7 +408,7 @@ public final class ValidationUtils
        {
         part = "0" + part; //$NON-NLS-1$
        }
-      normalizedAddress.append(part).append(":"); //$NON-NLS-1$
+      normalizedAddress.append(part).append(':');
      }
     normalizedAddress.setLength(normalizedAddress.length() - 1);
     return normalizedAddress.toString();
@@ -317,7 +420,9 @@ public final class ValidationUtils
    *
    * @param address IP V6 address
    * @return true when IP V6 address, false otherwise
+   * @deprecated Use de.powerstat.validation.values.IPV6Address instead.
    */
+  @Deprecated
   public static boolean isIPV6(final String address)
    {
     try
@@ -343,7 +448,9 @@ public final class ValidationUtils
    * @return true if private, false otherwise
    * @throws NullPointerException If address is null
    * @throws IllegalArgumentException If not an IP V6 address
+   * @deprecated Use de.powerstat.validation.values.IPV6Address.isPrivate() instead.
    */
+  @Deprecated
   public static boolean isIPV6private(final String address)
    {
     final String expandedAddress = checkIPV6(address);
@@ -371,7 +478,9 @@ public final class ValidationUtils
    * @return true if special, false otherwise
    * @throws NullPointerException If address is null
    * @throws IllegalArgumentException If not an IP V6 address
+   * @deprecated Use de.powerstat.validation.values.IPV6Address.isSpecial() instead.
    */
+  @Deprecated
   public static boolean isIPV6special(final String address)
    {
     final String expandedAddress = checkIPV6(address);
@@ -404,7 +513,9 @@ public final class ValidationUtils
    * @return true when public address, otherwise false
    * @throws NullPointerException If address is null
    * @throws IllegalArgumentException If not an IP V6 address
+   * @deprecated Use de.powerstat.validation.values.IPV6Address.isPublic() instead.
    */
+  @Deprecated
   public static boolean isIPV6public(final String address)
    {
     return !isIPV6private(address) && !isIPV6special(address);
@@ -419,13 +530,15 @@ public final class ValidationUtils
    * @throws NullPointerException when hostname is null
    * @throws StringIndexOutOfBoundsException When the hostname is less than 4 characters or greater than 253 characters, or when a hostname part is empty or greater than 63 characters
    * @throws IllegalArgumentException When the hostname contains illegal characters or is not a minimum of 'subdomain.topleveldomain', or has a '-' character in as subdomain start/end character, or if the top level domain is unknown
+   * @deprecated Use de.powerstat.validation.values.Hostname instead.
    */
+  @Deprecated
   public static String checkHostname(final String hostname)
    {
     Objects.requireNonNull(hostname, "hostname"); //$NON-NLS-1$
-    if ((hostname.length() < 4) || (hostname.length() > 253))
+    if ((hostname.length() < 2) || (hostname.length() > 253))
      {
-      throw new StringIndexOutOfBoundsException("Hostname to short/long: " + hostname + "; length: " + hostname.length()); //$NON-NLS-1$ //$NON-NLS-2$
+      throw new StringIndexOutOfBoundsException("Hostname to short/long"); //$NON-NLS-1$
      }
     if (isIPV4(hostname) || isIPV6(hostname))
      {
@@ -433,27 +546,27 @@ public final class ValidationUtils
      }
     if (!hostname.matches("^[.0-9a-zA-Z-]+$")) //$NON-NLS-1$
      {
-      throw new IllegalArgumentException("Hostname contains illegal character: " + hostname); //$NON-NLS-1$
+      throw new IllegalArgumentException("Hostname contains illegal character"); //$NON-NLS-1$
      }
     final String[] parts = hostname.split("\\."); //$NON-NLS-1$
     if (parts.length < 2)
      {
-      throw new IllegalArgumentException("Hostname must be at a minimum consist of subdomain.topleveldomain: " + hostname); //$NON-NLS-1$
+      throw new IllegalArgumentException("Hostname must be at a minimum consist of subdomain.topleveldomain"); //$NON-NLS-1$
      }
     for (final String part : parts)
      {
       if (part.isEmpty() || (part.length() > 63))
        {
-        throw new StringIndexOutOfBoundsException("Hostname part empty or to long: " + hostname + "; part: " + part); //$NON-NLS-1$ //$NON-NLS-2$
+        throw new StringIndexOutOfBoundsException("Hostname part empty or to long"); //$NON-NLS-1$
        }
       if ((part.charAt(0) == '-') || (part.charAt(part.length() - 1) == '-'))
        {
-        throw new IllegalArgumentException("Illegal character '-' at name start or end: " + hostname + "; part: " + part); //$NON-NLS-1$ //$NON-NLS-2$
+        throw new IllegalArgumentException("Illegal character '-' at name start or end"); //$NON-NLS-1$
        }
      }
     if (!GeneratedTlds.contains(parts[parts.length - 1]))
      {
-      throw new IllegalArgumentException("Unknown top level domain in hostname: " + hostname + "; tld: " + parts[parts.length - 1]); //$NON-NLS-1$ //$NON-NLS-2$
+      throw new IllegalArgumentException("Unknown top level domain in hostname"); //$NON-NLS-1$
      }
     return hostname;
    }
@@ -464,7 +577,9 @@ public final class ValidationUtils
    *
    * @param hostname Hostname
    * @return true: hostname, otherwise false
+   * @deprecated Use de.powerstat.validation.values.Hostname instead.
    */
+  @Deprecated
   public static boolean isHostname(final String hostname)
    {
     try
@@ -485,7 +600,9 @@ public final class ValidationUtils
    * @param port Port number
    * @return Port number when it's ok
    * @throws IndexOutOfBoundsException When the port is less than 0 or greater than 65535
+   * @deprecated Use de.powerstat.validation.values.Port instead.
    */
+  @Deprecated
   public static int checkPort(final int port)
    {
     if ((port < 0) || (port > 65535))
@@ -501,7 +618,9 @@ public final class ValidationUtils
    *
    * @param port Port number
    * @return true: legal port number, otherwise false
+   * @deprecated Use de.powerstat.validation.values.Port instead.
    */
+  @Deprecated
   public static boolean isPort(final int port)
    {
     try
@@ -521,7 +640,9 @@ public final class ValidationUtils
    *
    * @param port Port number
    * @return true: system port number, otherwise false
+   * @deprecated Use de.powerstat.validation.values.Port.isSystem() instead.
    */
+  @Deprecated
   public static boolean isSystemPort(final int port)
    {
     try
@@ -541,7 +662,9 @@ public final class ValidationUtils
    *
    * @param port Port number
    * @return true: registered port number, otherwise false
+   * @deprecated Use de.powerstat.validation.values.Port.isRegistered() instead.
    */
+  @Deprecated
   public static boolean isRegisteredPort(final int port)
    {
     try
@@ -561,7 +684,9 @@ public final class ValidationUtils
    *
    * @param port Port number
    * @return true: dynamic port number, otherwise false
+   * @deprecated Use de.powerstat.validation.values.Port.isDynamic() instead.
    */
+  @Deprecated
   public static boolean isDynamicPort(final int port)
    {
     try
@@ -581,7 +706,9 @@ public final class ValidationUtils
    *
    * @param hostname Hostname, IP V4 or IP V6 address
    * @return true if hostname was found, false otherwise
+   * @deprecated Use de.powerstat.validation.values.Hostname.exist() instead.
    */
+  @Deprecated
   public static boolean existHostname(final String hostname)
    {
     try

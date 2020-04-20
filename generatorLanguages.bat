@@ -1,6 +1,6 @@
 @echo off
 rem Generate Java class source from tld text file.
-rem 
+rem
 rem $0 script
 rem $1 Path to downloaded file
 setlocal ENABLEDELAYEDEXPANSION
@@ -13,28 +13,28 @@ echo import java.util.List;
 echo import java.util.Locale;
 echo:
 echo:
-echo public final class GeneratedTlds
+echo public final class GeneratedISO6391
 echo  {
-echo   private static final List^<String^> TOP_LEVEL_DOMAINS = new ArrayList^<^>();
+echo   private static final List^<String^> CODES = new ArrayList^<^>();
 echo:
 echo:
 echo   static
 echo    {
-FOR /F "usebackq" %%i IN (`findstr /v # %1`) DO (
-  echo     TOP_LEVEL_DOMAINS.add("%%i".toLowerCase(Locale.getDefault(^)^)^);
+FOR /F "usebackq tokens=1 delims=," %%i IN (`findstr /R "^[a-z][a-z]," %1`) DO (
+  echo     CODES.add("%%i".toLowerCase(Locale.getDefault(^)^)^);
 )
 echo    }
 echo:
 echo:
-echo   private GeneratedTlds()
+echo   private GeneratedISO6391()
 echo    {
 echo     super();
 echo    }
 echo:
 echo:
-echo   public static boolean contains(String tld)
+echo   public static boolean contains(String code)
 echo    {
-echo     return TOP_LEVEL_DOMAINS.contains(tld.toLowerCase(Locale.getDefault()));
+echo     return CODES.contains(code.toLowerCase(Locale.getDefault()));
 echo    }
 echo:
 echo:

@@ -67,7 +67,7 @@ public final class ValidationUtilsTests
    * @param hostname Hostname
    */
   @ParameterizedTest
-  @ValueSource(strings = {"p.d", "www..de", "www.powerstat0123456789012345678901234567890123456789012345678901234.de", "www.powerstat1234123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234.de"})
+  @ValueSource(strings = {"p", "www..de", "www.powerstat0123456789012345678901234567890123456789012345678901234.de", "www.powerstat1234123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234.de"})
   public void checkHostnameLength(final String hostname)
    {
     assertThrows(StringIndexOutOfBoundsException.class, () ->
@@ -80,6 +80,8 @@ public final class ValidationUtilsTests
 
   /**
    * Test checkHostname with illegal parameters.
+   *
+   * @param hostname Hostname
    */
   @ParameterizedTest
   @ValueSource(strings = {"www.power~stat.de", "www.powerstat.unknown", "ACCOUNTANT", "www.-powerstat.de", "www.powerstat-.de"})
@@ -128,7 +130,7 @@ public final class ValidationUtilsTests
    * Test sanitizeUrlPath with valid url.
    */
   @Test
-  public void sanitizeUrlPathOk()
+  public void sanitizeUrlPathO()
    {
     final String url = "/ValidationUtils"; //$NON-NLS-1$
     final String resultUrl = ValidationUtils.sanitizeUrlPath(url);
@@ -165,7 +167,11 @@ public final class ValidationUtilsTests
   @Test
   public void isIPV4Null()
    {
-    assertFalse(ValidationUtils.isIPV4(null), "Null is not an IP V4 address!"); //$NON-NLS-1$
+    assertThrows(NullPointerException.class, () ->
+     {
+      ValidationUtils.isIPV4(null);
+     }
+    );
    }
 
 
@@ -320,6 +326,7 @@ public final class ValidationUtilsTests
    * Check valid IP V6 addresses.
    *
    * @param address IP V6 address
+   * @param expandedAddress Expanded IP V6 address
    */
   @ParameterizedTest
   @CsvSource({"'fe:80::', '00fe:0080:0000:0000:0000:0000:0000:0000'", "'fe:80::192.168.0.1', '00fe:0080:0000:0000:0000:0000:c0a8:0001'"})
@@ -373,8 +380,6 @@ public final class ValidationUtilsTests
 
   /**
    * Is not an IP V6 private address.
-   *
-   * @param address IP V6 public/special address
    */
   @Test
   public void isIPV6NonePrivate()
@@ -398,8 +403,6 @@ public final class ValidationUtilsTests
 
   /**
    * Is not an IP V6 special address.
-   *
-   * @param address IP V6 public/private address
    */
   @Test
   public void isIPV6NoneSpecial()
@@ -410,8 +413,6 @@ public final class ValidationUtilsTests
 
   /**
    * Is an IP V6 public address.
-   *
-   * @param address IP V6 public address
    */
   @Test
   public void isIPV6Public()
@@ -475,6 +476,8 @@ public final class ValidationUtilsTests
 
   /**
    * Is system port.
+   *
+   * @param port Port
    */
   @ParameterizedTest
   @ValueSource(ints = {0, 1023})
@@ -486,6 +489,8 @@ public final class ValidationUtilsTests
 
   /**
    * Is not a system port.
+   *
+   * @param port Port
    */
   @ParameterizedTest
   @ValueSource(ints = {49152, 65536})
@@ -497,6 +502,8 @@ public final class ValidationUtilsTests
 
   /**
    * Is registered port.
+   *
+   * @param port Port
    */
   @ParameterizedTest
   @ValueSource(ints = {1024, 49151})
@@ -508,6 +515,8 @@ public final class ValidationUtilsTests
 
   /**
    * Is not a registered port.
+   *
+   * @param port Port
    */
   @ParameterizedTest
   @ValueSource(ints = {1023, 65536})
@@ -519,6 +528,8 @@ public final class ValidationUtilsTests
 
   /**
    * Is dynamic port.
+   *
+   * @param port Port
    */
   @ParameterizedTest
   @ValueSource(ints = {49152, 65535})
@@ -530,6 +541,8 @@ public final class ValidationUtilsTests
 
   /**
    * Is not a dynamic port.
+   *
+   * @param port Port
    */
   @ParameterizedTest
   @ValueSource(ints = {1023, 65536})
