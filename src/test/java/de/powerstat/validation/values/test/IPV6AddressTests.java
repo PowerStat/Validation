@@ -207,6 +207,17 @@ public class IPV6AddressTests
 
 
   /**
+   * Test if ip v6 is not public.
+   */
+  @Test
+  public void isNotPublic0()
+   {
+    final IPV6Address address = IPV6Address.of("00fc::"); //$NON-NLS-1$
+    assertFalse(address.isPublic(), "Address is not public"); //$NON-NLS-1$
+   }
+
+
+  /**
    * Test get address.
    */
   @Test

@@ -9,6 +9,8 @@ import java.util.Objects;
 
 /**
  * Business Identifier Code (BIC) ISO 9362.
+ *
+ * Not DSGVO relevant.
  */
 public final class BIC implements Comparable<BIC>
  {

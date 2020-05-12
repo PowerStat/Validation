@@ -10,7 +10,10 @@ import java.util.Objects;
 /**
  * Month.
  *
+ * Not DSGVO relevant.
+ *
  * TODO nextMonth, previousMonth
+ * TODO Translations
  */
 public class Month implements Comparable<Month>
  {

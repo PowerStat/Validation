@@ -9,6 +9,8 @@ import java.util.Objects;
 /**
  * Electronic mail.
  *
+ * Probably DSGVO relevant.
+ *
  * @todo email exists check
  */
 public final class EMail implements Comparable<EMail>

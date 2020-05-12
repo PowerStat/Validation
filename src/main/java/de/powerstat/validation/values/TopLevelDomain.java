@@ -11,6 +11,8 @@ import de.powerstat.validation.generated.GeneratedTlds;
 
 /**
  * Top level domain.
+ *
+ * Not DSGVO relevant.
  */
 public final class TopLevelDomain implements Comparable<TopLevelDomain>
  {

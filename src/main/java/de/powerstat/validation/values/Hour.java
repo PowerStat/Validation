@@ -10,6 +10,8 @@ import java.util.Objects;
 /**
  * Hour.
  *
+ * Not DSGVO relevant.
+ *
  * TODO nextHour, previousHour
  */
 public class Hour implements Comparable<Hour>

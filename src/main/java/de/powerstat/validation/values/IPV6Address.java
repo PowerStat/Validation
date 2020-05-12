@@ -13,6 +13,8 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * IP V6 address.
+ *
+ * DSGVO relevant.
  */
 public final class IPV6Address implements Comparable<IPV6Address>
  {

@@ -13,6 +13,8 @@ import de.powerstat.validation.generated.GeneratedTlds;
 
 /**
  * Hostname.
+ *
+ * Probably DSGVO relevant.
  */
 public final class Hostname implements Comparable<Hostname>
  {

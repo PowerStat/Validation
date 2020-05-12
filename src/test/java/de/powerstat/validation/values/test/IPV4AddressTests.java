@@ -318,6 +318,17 @@ public class IPV4AddressTests
 
 
   /**
+   * Test if ip v4 is not public.
+   */
+  @Test
+  public void isNotPublic0()
+   {
+    final IPV4Address address = IPV4Address.of("192.168.0.1"); //$NON-NLS-1$
+    assertFalse(address.isPublic(), "Address is not public"); //$NON-NLS-1$
+   }
+
+
+  /**
    * Test get address.
    */
   @Test

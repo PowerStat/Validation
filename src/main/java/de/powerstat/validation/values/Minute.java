@@ -10,6 +10,8 @@ import java.util.Objects;
 /**
  * Minute.
  *
+ * Not DSGVO relevant.
+ *
  * TODO nextMinute, previousMinute
  */
 public class Minute implements Comparable<Minute>

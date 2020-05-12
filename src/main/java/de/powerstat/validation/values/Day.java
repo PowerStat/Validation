@@ -10,6 +10,8 @@ import java.util.Objects;
 /**
  * Day.
  *
+ * Not DSGVO relevant.
+ *
  * TODO Constructor with day, month
  * TODO Constructor with day, month, year
  * TODO nextDay, previousDay

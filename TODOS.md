@@ -1,5 +1,18 @@
 # TODOS
 
+- [ ] PhoneNumber Area Codes   https://datahub.io/core/country-codes/r/country-codes.csv
+- [ ] PostCodes https://de.wikipedia.org/wiki/Liste_der_Postleitsysteme
+- [ ] Streets    openstreetmap , unicode
+- [ ] Floor, Apartementnumber
+- [ ] Cities        https://datahub.io/core/world-cities  
+- [ ] State
+- [ ] Address
+- [ ] Salutations   Frau, Herrn, Frau und Herrn, Firma, "empty", Berufsbezeichnung, Akademischer Titel
+- [ ] Sex
+- [ ] FistNames     
+- [ ] LastNames
+- [ ] Password   https://haveibeenpwned.com/    rainbow tables, hashtypes, min/max length, character sets, 
+
 - [ ] NationalityPlates
 - [ ] MimeTypes
 - [ ] UN/LOCODE
@@ -9,14 +22,6 @@
 - [ ] IATA Flughafen Codes
 - [ ] UN-Nummern
 - [ ] Genders/Sex (male, female, other)
-
-- [ ] PostCodes
-- [ ] Streets
-- [ ] StreetNumbers
-- [ ] Cities
-- [ ] CountryUnions
-- [ ] State
-- [ ] Address
 
 - [ ] Weekday
 - [ ] Calendar, Date, Time, DateTime, Timezone, Type, Format, Holidays, TimeRange, DateRange, DateTimeRange
@@ -34,15 +39,11 @@
 - [ ] EAN13
 - [ ] Geocoordinates
 
-- [ ] Password
-- [ ] PhoneNumber Area Codes
+- [ ] CountryUnions
 - [ ] URI (encoding, decoding, exists)
 - [ ] CommunicationTypes
-- [ ] Salutations
-- [ ] FistNames
-- [ ] LastNames
 - [ ] Locations
-- [ ] Continents
+- [ ] Continents   https://datahub.io/core/continent-codes/r/continent-codes.csv
 - [ ] Planets
 - [ ] Moons
 - [ ] SolarSystems

@@ -10,7 +10,10 @@ import java.util.Objects;
 /**
  * IP V4 address.
  *
+ * DSGVO relevant.
+ *
  * TODO convert to IP V6 format
+ * TODO https://datahub.io/core/geoip2-ipv4/r/geoip2-ipv4.csv
  */
 public final class IPV4Address implements Comparable<IPV4Address>
  {

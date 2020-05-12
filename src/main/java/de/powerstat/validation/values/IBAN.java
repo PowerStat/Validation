@@ -13,6 +13,8 @@ import de.powerstat.validation.values.impl.IBANVerifierAbstractFactory;
 /**
  * IBAN.
  *
+ * Probably DSGVO relevant.
+ *
  * TODO https://openiban.com/
  * TODO Human format in/out
  */

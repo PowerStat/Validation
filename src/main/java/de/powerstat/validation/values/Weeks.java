@@ -8,6 +8,8 @@ import java.util.Objects;
 /**
  * Weeks.
  *
+ * Not DSGVO relevant.
+ *
  * TODO add/subtract
  * TODO mult/div
  * TODO Listener

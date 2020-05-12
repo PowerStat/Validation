@@ -10,6 +10,8 @@ import java.util.Objects;
 /**
  * Second.
    *
+ * Not DSGVO relevant.
+ *
    * TODO Constructor with day, month, year, hour, minute
    * TODO nextSecond, previousSecond
  */

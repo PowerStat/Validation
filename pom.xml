@@ -66,7 +66,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-antrun-plugin</artifactId>
-            <version>1.8</version>
+            <version>3.0.0</version>
             <executions>
               <execution>
                 <phase>generate-sources</phase>
@@ -122,7 +122,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-antrun-plugin</artifactId>
-            <version>1.8</version>
+            <version>3.0.0</version>
             <executions>
               <execution>
                 <phase>generate-sources</phase>
@@ -247,7 +247,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.0</version>
         <configuration>
           <show>protected</show>
           <failOnError>false</failOnError>
@@ -305,19 +305,19 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.4</version>
+        <version>0.8.5</version>
       </plugin>
 
       <plugin>
         <groupId>org.sonarsource.scanner.maven</groupId>
         <artifactId>sonar-maven-plugin</artifactId>
-        <version>3.6.0.1398</version>
+        <version>3.7.0.1746</version>
       </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.1.2</version>
+        <version>3.2.0</version>
         <configuration>
           <archive>
             <manifestEntries>
@@ -356,7 +356,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.1</version>
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -425,7 +425,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>license-maven-plugin</artifactId>
-        <version>1.20</version>
+        <version>2.0.0</version>
         <configuration>
           <addSvnKeyWords>false</addSvnKeyWords>
           <licenseName>Apache License, Version 2.0</licenseName>
@@ -449,7 +449,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.0.0-M2</version>
+        <version>3.0.0-M3</version>
         <executions>
           <execution>
             <id>enforce</id>
@@ -466,7 +466,7 @@
         <configuration>
           <rules>
             <requireMavenVersion>
-              <version>3.3.9</version>
+              <version>3.5.4</version>
             </requireMavenVersion>
           </rules>
         </configuration>
@@ -519,12 +519,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
-        <version>3.7.1</version>
+        <version>3.9.0</version>
         <dependencies>
           <dependency>
             <groupId>org.apache.maven.wagon</groupId>
             <artifactId>wagon-ssh</artifactId>
-            <version>3.3.3</version>
+            <version>3.4.0</version>
           </dependency>
 
         </dependencies>
@@ -533,7 +533,7 @@
       <plugin>
         <groupId>org.pitest</groupId>
         <artifactId>pitest-maven</artifactId>
-        <version>1.4.9</version>
+        <version>1.5.2</version>
         <configuration>
           <timestampedReports>false</timestampedReports>
         </configuration>
@@ -541,7 +541,7 @@
           <dependency>
             <groupId>org.pitest</groupId>
             <artifactId>pitest-junit5-plugin</artifactId>
-            <version>0.9</version>
+            <version>0.12</version>
           </dependency>
 
         </dependencies>
@@ -584,7 +584,7 @@
           <dependency>
             <groupId>org.asciidoctor</groupId>
             <artifactId>asciidoctorj-pdf</artifactId>
-            <version>1.5.0-beta.2</version>
+            <version>1.5.3</version>
           </dependency>
         </dependencies>
 
@@ -593,7 +593,7 @@
       <plugin>
         <groupId>com.googlecode.maven-download-plugin</groupId>
         <artifactId>download-maven-plugin</artifactId>
-        <version>1.5.1</version>
+        <version>1.6.0</version>
         <executions>
           <execution>
             <id>get-tlds</id>
@@ -653,7 +653,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.1.0</version>
         <executions>
           <execution>
             <phase>generate-sources</phase>
@@ -694,7 +694,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.4</version>
+        <version>0.8.5</version>
         <reportSets>
           <reportSet>
             <reports>
@@ -708,7 +708,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.1</version>
         <configuration>
           <configLocation>checkstyle-config.xml</configLocation>
           <checkstyleXmlOutput>true</checkstyleXmlOutput>
@@ -723,7 +723,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.12.0</version>
+        <version>3.13.0</version>
         <configuration>
           <pmdXmlOutput>true</pmdXmlOutput>
           <pmdXmlOutputDirectory>target/site</pmdXmlOutputDirectory>
@@ -737,7 +737,7 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>3.1.12</version>
+        <version>4.0.0</version>
         <configuration>
           <xmlOutput>true</xmlOutput>
           <spotbugsXmlWithMessages>true</spotbugsXmlWithMessages>
@@ -773,7 +773,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.0</version>
         <configuration>
           <show>private</show>
           <failOnError>false</failOnError>
@@ -802,7 +802,7 @@
       <plugin>
         <groupId>org.pitest</groupId>
         <artifactId>pitest-maven</artifactId>
-        <version>1.4.9</version>
+        <version>1.5.2</version>
         <reportSets>
           <reportSet>
             <reports>
@@ -835,13 +835,13 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
-      <version>2.12.1</version>
+      <version>2.13.2</version>
     </dependency>
 
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>2.12.1</version>
+      <version>2.13.2</version>
     </dependency>
 
   </dependencies>

@@ -11,6 +11,10 @@ import de.powerstat.validation.generated.GeneratedISO4217;
 
 /**
  * Currency ISO 4217 codes.
+ *
+ * Not DSGVO relevant.
+ *
+ * TODO Translations
  */
 public class Currency implements Comparable<Currency>
  {

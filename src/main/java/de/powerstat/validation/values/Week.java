@@ -10,6 +10,8 @@ import java.util.Objects;
 /**
  * Week.
  *
+ * Not DSGVO relevant.
+ *
  * TODO Constructor with year
  */
 public class Week implements Comparable<Week>

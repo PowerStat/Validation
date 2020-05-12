@@ -10,6 +10,8 @@ import java.util.Objects;
 /**
  * IP V4 mask.
  *
+ * Not DSGVO relevant.
+ *
  * TODO IPV4Address filterMin(IPV4Address)      0
  * TODO IPV4Address filterMax(IPV4Address)      255
  */

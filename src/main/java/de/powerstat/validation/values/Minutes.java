@@ -10,6 +10,8 @@ import java.util.Objects;
 /**
  * Minutes.
  *
+ * Not DSGVO relevant.
+ *
  * TODO add/subtract
  * TODO mult/div (60 = hour)
  * TODO Listener (mod 60 = 0)

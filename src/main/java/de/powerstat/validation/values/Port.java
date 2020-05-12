@@ -9,6 +9,8 @@ import java.util.Objects;
 
 /**
  * Port.
+ *
+ * Not DSGVO relevant.
  */
 public final class Port implements Comparable<Port>
  {

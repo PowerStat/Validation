@@ -10,6 +10,8 @@ import java.util.Objects;
 /**
  * Year.
  *
+ * Not DSGVO relevant.
+ *
  * TODO isLeapYear
  */
 public class Year implements Comparable<Year>

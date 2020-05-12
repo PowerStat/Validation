@@ -9,6 +9,8 @@ import java.util.Objects;
 
 /**
  * Years.
+ *
+ * Not DSGVO relevant.
  */
 public class Years implements Comparable<Years>
  {

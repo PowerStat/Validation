@@ -8,7 +8,9 @@ import java.util.Objects;
 
 
 /**
+ * IP V6 mask.
  *
+ * Not DSGVO relevant.
  */
 public final class IPV6Mask implements Comparable<IPV6Mask>
  {

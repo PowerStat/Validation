@@ -36,7 +36,7 @@ public class TopLevelDomainTests
    * @param topLevelDomain TopLevelDomain
    */
   @ParameterizedTest
-  @ValueSource(strings = {"de", "XN--VERMGENSBERATUNG-PWB"})
+  @ValueSource(strings = {"de", "XN--VERMGENSBERATUNG-PWB"}) // , "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJK"
   public void topLevelDomainOk0(final String topLevelDomain)
    {
     final TopLevelDomain cleanTopLevelDomain = TopLevelDomain.of(topLevelDomain);

@@ -11,6 +11,10 @@ import de.powerstat.validation.generated.GeneratedISO3166A2;
 
 /**
  * Country - ISO 3166-1 codes.
+ *
+ * Not DSGVO relevant.
+ *
+ * TODO Translations
  */
 public class Country implements Comparable<Country>
  {
