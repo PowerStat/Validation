@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * Probably DSGVO relevant.
  *
- * @todo email exists check
+ * TODO email exists check
  */
 public final class EMail implements Comparable<EMail>
  {
@@ -47,7 +47,7 @@ public final class EMail implements Comparable<EMail>
      {
       throw new IllegalArgumentException("Local part greater than 64 characters"); //$NON-NLS-1$
      }
-    if (parts[1].startsWith("[")) //$NON-NLS-1$
+    if (parts[1].charAt(0) == '[')
      {
       parts[1] = (parts[1].toLowerCase(Locale.getDefault()).startsWith("[ipv6:")) ? parts[1].substring(6) : parts[1].substring(1); //$NON-NLS-1$
       if (!parts[1].endsWith("]")) //$NON-NLS-1$
@@ -59,23 +59,23 @@ public final class EMail implements Comparable<EMail>
     final Hostname hostname = Hostname.of(parts[1]);
     if ((parts[0].charAt(0) == '(') || (parts[0].charAt(parts[0].length() - 1) == ')'))
      {
-      throw new IllegalArgumentException("Comments in email addresses are not supported");
+      throw new IllegalArgumentException("Comments in email addresses are not supported"); //$NON-NLS-1$
      }
     if (parts[0].indexOf('"') > -1)
      {
-      throw new IllegalArgumentException("Double quotes in email addresses are not supported");
+      throw new IllegalArgumentException("Double quotes in email addresses are not supported"); //$NON-NLS-1$
      }
     if ((parts[0].charAt(0) == '.') || (parts[0].charAt(parts[0].length() - 1) == '.'))
      {
-      throw new IllegalArgumentException("A dot is not allowed at start or end of an emails local part");
+      throw new IllegalArgumentException("A dot is not allowed at start or end of an emails local part"); //$NON-NLS-1$
      }
     if (parts[0].contains("..")) //$NON-NLS-1$
      {
-      throw new IllegalArgumentException("Two or more dots behind each other are not allowed within an emails local part");
+      throw new IllegalArgumentException("Two or more dots behind each other are not allowed within an emails local part"); //$NON-NLS-1$
      }
     if (!parts[0].matches("^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+$")) //$NON-NLS-1$
      {
-      throw new IllegalArgumentException("Illegal character found in emails local part or unsupported UTF-8 character");
+      throw new IllegalArgumentException("Illegal character found in emails local part or unsupported UTF-8 character"); //$NON-NLS-1$
      }
     this.email = email;
    }

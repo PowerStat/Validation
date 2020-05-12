@@ -108,7 +108,7 @@ public class SecondTests
   public void testToString()
    {
     final Second second = new Second(1);
-    assertEquals("Second[second=1]", second.toString(), "toString not equal"); //$NON-NLS-2$
+    assertEquals("Second[second=1]", second.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

@@ -51,7 +51,7 @@ public class PortTests
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
-      final Port port = Port.of(65536);
+      /* final Port port = */ Port.of(65536);
      }
     );
    }
@@ -172,7 +172,7 @@ public class PortTests
   public void testToString()
    {
     final Port port = new Port(49152);
-    assertEquals("Port[port=49152]", port.toString(), "toString not equal"); //$NON-NLS-2$
+    assertEquals("Port[port=49152]", port.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

@@ -39,12 +39,12 @@ public final class Hostname implements Comparable<Hostname>
      {
       throw new IllegalArgumentException("To short or long for a hostname"); //$NON-NLS-1$
      }
-    String tempHostname = "";
+    String tempHostname = ""; //$NON-NLS-1$
     try
      {
       tempHostname = new IPV4Address(hostname).getAddress();
      }
-    catch (final IllegalArgumentException e)
+    catch (final IllegalArgumentException ignored)
      {
       // ignore
      }
@@ -55,7 +55,7 @@ public final class Hostname implements Comparable<Hostname>
         tempHostname = new IPV6Address(hostname).getAddress();
        }
      }
-    catch (final IllegalArgumentException e)
+    catch (final IllegalArgumentException ignored)
      {
       // ignore
      }
@@ -68,7 +68,7 @@ public final class Hostname implements Comparable<Hostname>
 
 
   /**
-   * Check hostname,
+   * Check hostname.
    *
    * @param hostname Hostname
    * @return Hostname
@@ -194,7 +194,7 @@ public final class Hostname implements Comparable<Hostname>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(19);
     builder.append("Hostname[hostname=").append(this.hostname).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

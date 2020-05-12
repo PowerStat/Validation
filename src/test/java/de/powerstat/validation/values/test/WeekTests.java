@@ -108,7 +108,7 @@ public class WeekTests
   public void testToString()
    {
     final Week week = new Week(1);
-    assertEquals("Week[week=1]", week.toString(), "toString not equal"); //$NON-NLS-2$
+    assertEquals("Week[week=1]", week.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

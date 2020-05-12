@@ -68,7 +68,7 @@ public class TopLevelDomainTests
    */
   @ParameterizedTest
   @ValueSource(strings = {".DE", "-DE", "DE-", "D~E", "ZZ"})
-  public void topLÖevelDomainIllegalParameters(final String topLevelDomain)
+  public void topLevelDomainIllegalParameters(final String topLevelDomain)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {

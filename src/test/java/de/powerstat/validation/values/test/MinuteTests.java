@@ -108,7 +108,7 @@ public class MinuteTests
   public void testToString()
    {
     final Minute minute = new Minute(1);
-    assertEquals("Minute[minute=1]", minute.toString(), "toString not equal"); //$NON-NLS-2$
+    assertEquals("Minute[minute=1]", minute.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

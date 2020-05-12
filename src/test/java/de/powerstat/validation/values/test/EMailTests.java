@@ -24,6 +24,12 @@ import de.powerstat.validation.values.EMail;
 public class EMailTests
  {
   /**
+   * EMail address for testing user1@example.com.
+   */
+  private static final String EMAIL_USER1_AT_EXAMPLE_COM = "user1@example.com"; //$NON-NLS-1$
+
+
+  /**
    * Default constructor.
    */
   public EMailTests()
@@ -72,7 +78,7 @@ public class EMailTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final EMail cleanEMail = */ EMail.of("example.com");
+      /* final EMail cleanEMail = */ EMail.of("example.com"); //$NON-NLS-1$
      }
     );
    }
@@ -86,7 +92,7 @@ public class EMailTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final EMail cleanEMail = */ EMail.of("user@[192.168.1.1");
+      /* final EMail cleanEMail = */ EMail.of("user@[192.168.1.1"); //$NON-NLS-1$
      }
     );
    }
@@ -100,7 +106,7 @@ public class EMailTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final EMail cleanEMail = */ EMail.of("(comment)user@example.com");
+      /* final EMail cleanEMail = */ EMail.of("(comment)user@example.com"); //$NON-NLS-1$
      }
     );
    }
@@ -114,7 +120,7 @@ public class EMailTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final EMail cleanEMail = */ EMail.of("user(comment)@example.com");
+      /* final EMail cleanEMail = */ EMail.of("user(comment)@example.com"); //$NON-NLS-1$
      }
     );
    }
@@ -128,7 +134,7 @@ public class EMailTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final EMail cleanEMail = */ EMail.of("\"user\"@example.com");
+      /* final EMail cleanEMail = */ EMail.of("\"user\"@example.com"); //$NON-NLS-1$
      }
     );
    }
@@ -142,7 +148,7 @@ public class EMailTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final EMail cleanEMail = */ EMail.of(".user@example.com");
+      /* final EMail cleanEMail = */ EMail.of(".user@example.com"); //$NON-NLS-1$
      }
     );
    }
@@ -156,7 +162,7 @@ public class EMailTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final EMail cleanEMail = */ EMail.of("user.@example.com");
+      /* final EMail cleanEMail = */ EMail.of("user.@example.com"); //$NON-NLS-1$
      }
     );
    }
@@ -170,7 +176,7 @@ public class EMailTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final EMail cleanEMail = */ EMail.of("user..name@example.com");
+      /* final EMail cleanEMail = */ EMail.of("user..name@example.com"); //$NON-NLS-1$
      }
     );
    }
@@ -184,7 +190,7 @@ public class EMailTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final EMail cleanEMail = */ EMail.of("üöäÖÄÜß§;,:@example.com");
+      /* final EMail cleanEMail = */ EMail.of("üöäÖÄÜß§;,:@example.com"); //$NON-NLS-1$
      }
     );
    }
@@ -207,8 +213,8 @@ public class EMailTests
   @Test
   public void testHashCode()
    {
-    final EMail email1 = new EMail("user1@example.com"); //$NON-NLS-1$
-    final EMail email2 = new EMail("user1@example.com"); //$NON-NLS-1$
+    final EMail email1 = new EMail(EMAIL_USER1_AT_EXAMPLE_COM);
+    final EMail email2 = new EMail(EMAIL_USER1_AT_EXAMPLE_COM);
     final EMail email3 = new EMail("user2@example.com"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(email1.hashCode(), email2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -223,10 +229,10 @@ public class EMailTests
   @Test
   public void testEquals()
    {
-    final EMail email1 = new EMail("user1@example.com"); //$NON-NLS-1$
-    final EMail email2 = new EMail("user1@example.com"); //$NON-NLS-1$
+    final EMail email1 = new EMail(EMAIL_USER1_AT_EXAMPLE_COM);
+    final EMail email2 = new EMail(EMAIL_USER1_AT_EXAMPLE_COM);
     final EMail email3 = new EMail("user2@example.com"); //$NON-NLS-1$
-    final EMail email4 = new EMail("user1@example.com"); //$NON-NLS-1$
+    final EMail email4 = new EMail(EMAIL_USER1_AT_EXAMPLE_COM);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(email1.equals(email1), "email11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(email1.equals(email2), "email12 are not equal"), //$NON-NLS-1$
@@ -246,7 +252,7 @@ public class EMailTests
   @Test
   public void testToString()
    {
-    final EMail email = new EMail("user1@example.com"); //$NON-NLS-1$
+    final EMail email = new EMail(EMAIL_USER1_AT_EXAMPLE_COM);
     assertEquals("EMail[email=user1@example.com]", email.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -257,11 +263,11 @@ public class EMailTests
   @Test
   public void testCompareTo()
    {
-    final EMail email1 = new EMail("user1@example.com"); //$NON-NLS-1$
-    final EMail email2 = new EMail("user1@example.com"); //$NON-NLS-1$
+    final EMail email1 = new EMail(EMAIL_USER1_AT_EXAMPLE_COM);
+    final EMail email2 = new EMail(EMAIL_USER1_AT_EXAMPLE_COM);
     final EMail email3 = new EMail("user2@example.com"); //$NON-NLS-1$
     final EMail email4 = new EMail("user3@example.com"); //$NON-NLS-1$
-    final EMail email5 = new EMail("user1@example.com"); //$NON-NLS-1$
+    final EMail email5 = new EMail(EMAIL_USER1_AT_EXAMPLE_COM);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(email1.compareTo(email2) == -email2.compareTo(email1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(email1.compareTo(email3) == -email3.compareTo(email1), "reflexive2"), //$NON-NLS-1$

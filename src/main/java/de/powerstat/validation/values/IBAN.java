@@ -53,11 +53,11 @@ public class IBAN implements Comparable<IBAN>
      }
     if (!verifyChecksum(iban))
      {
-      throw new IllegalArgumentException("IBAN with wrong checksum");
+      throw new IllegalArgumentException("IBAN with wrong checksum"); //$NON-NLS-1$
      }
     if (!IBANVerifierAbstractFactory.createIBANVerifier(country).verify(iban))
      {
-      throw new IllegalArgumentException("IBAN not correct in country context: " + iban);
+      throw new IllegalArgumentException("IBAN not correct in country context: " + iban); //$NON-NLS-1$
      }
     this.iban = iban;
    }
@@ -72,7 +72,7 @@ public class IBAN implements Comparable<IBAN>
   private static boolean verifyChecksum(final String iban)
    {
     final String reordered = iban.substring(4) + iban.substring(0, 2) + iban.substring(2, 4);
-    final String replacement = reordered.replaceAll("A", "10").replaceAll("B", "11").replaceAll("C", "12").replaceAll("D", "13").replaceAll("E", "14").replaceAll("F", "15").replaceAll("G", "16").replaceAll("H", "17").replaceAll("I", "18").replaceAll("J", "19").replaceAll("K", "20").replaceAll("L", "21").replaceAll("M", "22").replaceAll("N", "23").replaceAll("O", "24").replaceAll("P", "25").replaceAll("Q", "26").replaceAll("R", "27").replaceAll("S", "28").replaceAll("T", "29").replaceAll("U", "30").replaceAll("V", "31").replaceAll("W", "32").replaceAll("X", "33").replaceAll("Y", "34").replaceAll("Z", "35");
+    final String replacement = reordered.replaceAll("A", "10").replaceAll("B", "11").replaceAll("C", "12").replaceAll("D", "13").replaceAll("E", "14").replaceAll("F", "15").replaceAll("G", "16").replaceAll("H", "17").replaceAll("I", "18").replaceAll("J", "19").replaceAll("K", "20").replaceAll("L", "21").replaceAll("M", "22").replaceAll("N", "23").replaceAll("O", "24").replaceAll("P", "25").replaceAll("Q", "26").replaceAll("R", "27").replaceAll("S", "28").replaceAll("T", "29").replaceAll("U", "30").replaceAll("V", "31").replaceAll("W", "32").replaceAll("X", "33").replaceAll("Y", "34").replaceAll("Z", "35"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$ //$NON-NLS-17$ //$NON-NLS-18$ //$NON-NLS-19$ //$NON-NLS-20$ //$NON-NLS-21$ //$NON-NLS-22$ //$NON-NLS-23$ //$NON-NLS-24$ //$NON-NLS-25$ //$NON-NLS-26$ //$NON-NLS-27$ //$NON-NLS-28$ //$NON-NLS-29$ //$NON-NLS-30$ //$NON-NLS-31$ //$NON-NLS-32$ //$NON-NLS-33$ //$NON-NLS-34$ //$NON-NLS-35$ //$NON-NLS-36$ //$NON-NLS-37$ //$NON-NLS-38$ //$NON-NLS-39$ //$NON-NLS-40$ //$NON-NLS-41$ //$NON-NLS-42$ //$NON-NLS-43$ //$NON-NLS-44$ //$NON-NLS-45$ //$NON-NLS-46$ //$NON-NLS-47$ //$NON-NLS-48$ //$NON-NLS-49$ //$NON-NLS-50$ //$NON-NLS-51$ //$NON-NLS-52$
     final BigInteger num = new BigInteger(replacement);
     final BigInteger result = num.remainder(BigInteger.valueOf(97));
     return result.longValue() == 1;

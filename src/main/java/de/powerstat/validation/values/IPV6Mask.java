@@ -24,7 +24,7 @@ public final class IPV6Mask implements Comparable<IPV6Mask>
    * Constructor.
    *
    * @param length Prefix length (0-128)
-   * @throws IndexOutOfBoundsException if the prefix length is < 0 or > 128
+   * @throws IndexOutOfBoundsException if the prefix length is &lt; 0 or &gt; 128
    */
   public IPV6Mask(final int length)
    {
@@ -109,7 +109,7 @@ public final class IPV6Mask implements Comparable<IPV6Mask>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(17);
     builder.append("IPV6Mask[length=").append(this.length).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

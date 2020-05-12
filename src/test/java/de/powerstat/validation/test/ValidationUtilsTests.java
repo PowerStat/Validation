@@ -12,8 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -30,7 +28,7 @@ public final class ValidationUtilsTests
   /**
    * Logger.
    */
-  private static final Logger LOGGER = LogManager.getLogger(ValidationUtilsTests.class);
+  // private static final Logger LOGGER = LogManager.getLogger(ValidationUtilsTests.class);
 
   /**
    * Hostname not as expected constant.
@@ -51,7 +49,9 @@ public final class ValidationUtilsTests
    * Test checkHostname with valid hostnames.
    *
    * @param hostname Hostname
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(strings = {"www.powerstat.de", "a.de", "www.powerstat012345678901234567890123456789012345678901234567890123.de", "abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.ACCOUNTANT", "192.168.0.1", "fe:80::"})
   public void checkHostnameOk(final String hostname)
@@ -65,7 +65,9 @@ public final class ValidationUtilsTests
    * Test checkHostname with hostname to short or long, part to long.
    *
    * @param hostname Hostname
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(strings = {"p", "www..de", "www.powerstat0123456789012345678901234567890123456789012345678901234.de", "www.powerstat1234123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234.de"})
   public void checkHostnameLength(final String hostname)
@@ -82,7 +84,9 @@ public final class ValidationUtilsTests
    * Test checkHostname with illegal parameters.
    *
    * @param hostname Hostname
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(strings = {"www.power~stat.de", "www.powerstat.unknown", "ACCOUNTANT", "www.-powerstat.de", "www.powerstat-.de"})
   public void checkHostnameIllegalParameters(final String hostname)
@@ -99,7 +103,9 @@ public final class ValidationUtilsTests
    * Test checkPort with valid ports.
    *
    * @param port Port
+   * @deprecated  Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(ints = {1023, 0, 65535})
   public void checkPortOk(final int port)
@@ -113,7 +119,9 @@ public final class ValidationUtilsTests
    * Test checkPort with out of range port numbers.
    *
    * @param port Port
+   * @deprecated  Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(ints = {-1, 65536})
   public void checkPortOutOfRange(final int port)
@@ -128,7 +136,10 @@ public final class ValidationUtilsTests
 
   /**
    * Test sanitizeUrlPath with valid url.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void sanitizeUrlPathO()
    {
@@ -140,7 +151,10 @@ public final class ValidationUtilsTests
 
   /**
    * Test sanitizeUrlPath with valid url.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void sanitizeUrlPathEmpty()
    {
@@ -152,7 +166,10 @@ public final class ValidationUtilsTests
 
   /**
    * Test sanitizeUrlPath with invalid url.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void sanitizeUrlPathInvalid()
    {
@@ -163,7 +180,10 @@ public final class ValidationUtilsTests
 
   /**
    * Is IP V4 address with null.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void isIPV4Null()
    {
@@ -177,11 +197,14 @@ public final class ValidationUtilsTests
 
   /**
    * Check valid IP V4 address.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void checkIPV4()
    {
-    final String address = "192.168.0.1";
+    final String address = "192.168.0.1"; //$NON-NLS-1$
     final String validAddress = ValidationUtils.checkIPV4(address);
     assertEquals(address, validAddress, "IP V4 address not as expected!"); //$NON-NLS-1$
    }
@@ -189,13 +212,16 @@ public final class ValidationUtilsTests
 
   /**
    * Check valid IP V4 address.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void checkNoneIPV4()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      final String validAddress = ValidationUtils.checkIPV4("192.168.256.1"); //$NON-NLS-1$
+      /* final String validAddress = */ ValidationUtils.checkIPV4("192.168.256.1"); //$NON-NLS-1$
      }
     );
    }
@@ -205,7 +231,9 @@ public final class ValidationUtilsTests
    * Is IP V4 a private address.
    *
    * @param address IP V4 address
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(strings = {"192.168.0.1", "10.0.0.1", "169.254.0.1", "172.16.0.1", "172.31.0.1"})
   public void isIPV4private(final String address)
@@ -214,10 +242,16 @@ public final class ValidationUtilsTests
    }
 
 
+  /**
+   * Is ip v4 address not private.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
+   */
+  @Deprecated
   @Test
   public void isIPV4NonePrivate()
    {
-    assertFalse(ValidationUtils.isIPV4private("8.8.8.8"), "Should not be a private IP V4 address"); //$NON-NLS-1$
+    assertFalse(ValidationUtils.isIPV4private("8.8.8.8"), "Should not be a private IP V4 address"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -225,7 +259,9 @@ public final class ValidationUtilsTests
    * Is IP V4 a private address.
    *
    * @param address IP V4 address
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(strings = {"0.0.0.0", "127.0.0.1", "192.0.0.1", "192.0.2.1", "192.88.99.1", "198.51.100.1", "203.0.113.1", "100.64.0.1", "100.127.0.1", "198.18.0.1", "198.19.0.1", "224.0.0.1", "239.0.0.1", "240.0.0.1", "255.0.0.1"})
   public void isIPV4special(final String address)
@@ -236,7 +272,10 @@ public final class ValidationUtilsTests
 
   /**
    * Is IP V4 public address.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void isIPV4public()
    {
@@ -248,7 +287,9 @@ public final class ValidationUtilsTests
    * Is IP V4 prefix length.
    *
    * @param mask Prefix mask length 0-32
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(ints = {0, 32})
   public void isIPV4prefixLength(final int mask)
@@ -259,7 +300,10 @@ public final class ValidationUtilsTests
 
   /**
    * Check IP V4 prefix length.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void checkIPV4prefixLength()
    {
@@ -271,13 +315,16 @@ public final class ValidationUtilsTests
 
   /**
    * Check IP V4 prefix length.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void checkIPV4prefixLengthException()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
-      final int checkedPort = ValidationUtils.checkIPV4prefixLength(33);
+      /* final int checkedPort = */ ValidationUtils.checkIPV4prefixLength(33);
      }
     );
    }
@@ -287,7 +334,9 @@ public final class ValidationUtilsTests
    * Is IP V6 prefix length.
    *
    * @param mask Prefix mask length 0-128
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(ints = {0, 128})
   public void isIPV6prefixLength(final int mask)
@@ -298,7 +347,10 @@ public final class ValidationUtilsTests
 
   /**
    * Check IP V6 prefix length.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void checkIPV6prefixLength()
    {
@@ -310,13 +362,16 @@ public final class ValidationUtilsTests
 
   /**
    * Check IP V6 prefix length.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void checkIPV6prefixLengthException()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
-      final int checkedPort = ValidationUtils.checkIPV6prefixLength(129);
+      /* final int checkedPort = */ ValidationUtils.checkIPV6prefixLength(129);
      }
     );
    }
@@ -327,13 +382,14 @@ public final class ValidationUtilsTests
    *
    * @param address IP V6 address
    * @param expandedAddress Expanded IP V6 address
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @CsvSource({"'fe:80::', '00fe:0080:0000:0000:0000:0000:0000:0000'", "'fe:80::192.168.0.1', '00fe:0080:0000:0000:0000:0000:c0a8:0001'"})
   public void checkIPV6(final String address, final String expandedAddress)
    {
     final String checkedAddress = ValidationUtils.checkIPV6(address);
-    LOGGER.debug("checkedAddress: " + checkedAddress);
     assertEquals(expandedAddress, checkedAddress, "Different IP V6 address!"); //$NON-NLS-1$
    }
 
@@ -342,14 +398,16 @@ public final class ValidationUtilsTests
    * Check valid IP V6 addresses.
    *
    * @param address IP V6 address
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(strings = {"fe:80::11::"})
   public void checkIPV6Failure(final String address)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      final String checkedAddress = ValidationUtils.checkIPV6(address);
+      /* final String checkedAddress = */ ValidationUtils.checkIPV6(address);
      }
     );
    }
@@ -357,7 +415,10 @@ public final class ValidationUtilsTests
 
   /**
    * Is IP V6 address.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void isIPV6()
    {
@@ -369,7 +430,9 @@ public final class ValidationUtilsTests
    * Is IP V6 private address.
    *
    * @param address IP V6 private address
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(strings = {"fe:80:00:00:00:00:00:00", "fc::", "fd::"})
   public void isIPV6private(final String address)
@@ -380,7 +443,10 @@ public final class ValidationUtilsTests
 
   /**
    * Is not an IP V6 private address.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void isIPV6NonePrivate()
    {
@@ -392,7 +458,9 @@ public final class ValidationUtilsTests
    * Is IP V6 special address.
    *
    * @param address IP V6 special address
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(strings = {"0000:0000:0000:0000:0000:0000:0000:0000", "0000:0000:0000:0000:0000:0000:0000:0001", "00ff::"})
   public void isIPV6special(final String address)
@@ -403,7 +471,10 @@ public final class ValidationUtilsTests
 
   /**
    * Is not an IP V6 special address.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void isIPV6NoneSpecial()
    {
@@ -413,7 +484,10 @@ public final class ValidationUtilsTests
 
   /**
    * Is an IP V6 public address.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void isIPV6Public()
    {
@@ -425,7 +499,9 @@ public final class ValidationUtilsTests
    * Is not an IP V6 public address.
    *
    * @param address IP V6 none public address
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(strings = {"00ff::", "fd::"})
   public void isIPV6NonePublic(final String address)
@@ -436,7 +512,10 @@ public final class ValidationUtilsTests
 
   /**
    * Is hostname.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void isHostname()
    {
@@ -446,7 +525,10 @@ public final class ValidationUtilsTests
 
   /**
    * Is not a hostname.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void isHostnameFalse()
    {
@@ -456,7 +538,10 @@ public final class ValidationUtilsTests
 
   /**
    * Is port.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void isPort()
    {
@@ -466,7 +551,10 @@ public final class ValidationUtilsTests
 
   /**
    * Is not a port.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void isPortFalse()
    {
@@ -478,7 +566,9 @@ public final class ValidationUtilsTests
    * Is system port.
    *
    * @param port Port
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(ints = {0, 1023})
   public void isSystemPort(final int port)
@@ -491,7 +581,9 @@ public final class ValidationUtilsTests
    * Is not a system port.
    *
    * @param port Port
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(ints = {49152, 65536})
   public void isSystemPortFalse(final int port)
@@ -504,7 +596,9 @@ public final class ValidationUtilsTests
    * Is registered port.
    *
    * @param port Port
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(ints = {1024, 49151})
   public void isRegisteredPort(final int port)
@@ -517,7 +611,9 @@ public final class ValidationUtilsTests
    * Is not a registered port.
    *
    * @param port Port
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(ints = {1023, 65536})
   public void isRegisteredPortFalse(final int port)
@@ -530,7 +626,9 @@ public final class ValidationUtilsTests
    * Is dynamic port.
    *
    * @param port Port
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(ints = {49152, 65535})
   public void isDynamicPort(final int port)
@@ -543,7 +641,9 @@ public final class ValidationUtilsTests
    * Is not a dynamic port.
    *
    * @param port Port
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @ParameterizedTest
   @ValueSource(ints = {1023, 65536})
   public void isDynamicPortFalse(final int port)
@@ -554,7 +654,10 @@ public final class ValidationUtilsTests
 
   /**
    * Exists hostname in DNS.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void existHostname()
    {
@@ -564,7 +667,10 @@ public final class ValidationUtilsTests
 
   /**
    * Exists hostname in DNS.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void existHostnameFalse()
    {
@@ -574,7 +680,10 @@ public final class ValidationUtilsTests
 
   /**
    * Split hostname port.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void splitHostnamePortOk1()
    {
@@ -588,7 +697,10 @@ public final class ValidationUtilsTests
 
   /**
    * Split hostname port.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void splitHostnamePortOk2()
    {
@@ -602,13 +714,16 @@ public final class ValidationUtilsTests
 
   /**
    * Split hostname port with error.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
+  @Deprecated
   @Test
   public void splitHostnamePortWrong()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      final List<String> hostnamePort = ValidationUtils.splitHostnamePort("www.powerstat.de"); //$NON-NLS-1$
+      /* final List<String> hostnamePort = */ ValidationUtils.splitHostnamePort("www.powerstat.de"); //$NON-NLS-1$
      }
     );
    }

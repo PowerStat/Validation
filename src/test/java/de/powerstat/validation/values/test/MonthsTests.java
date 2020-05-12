@@ -35,7 +35,7 @@ public class MonthsTests
   /**
    * Is months.
    *
-   * @param month Months
+   * @param months Months
    */
   @ParameterizedTest
   @ValueSource(longs = {0, 1, 24})
@@ -108,7 +108,7 @@ public class MonthsTests
   public void testToString()
    {
     final Months months = new Months(1);
-    assertEquals("Months[months=1]", months.toString(), "toString not equal"); //$NON-NLS-2$
+    assertEquals("Months[months=1]", months.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

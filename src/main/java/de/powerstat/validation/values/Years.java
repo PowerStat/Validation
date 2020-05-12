@@ -23,7 +23,7 @@ public class Years implements Comparable<Years>
   /**
    * Constructor.
    *
-   * @param years Years >= 0
+   * @param years Years &gt;= 0
    * @throws IndexOutOfBoundsException When the year is smaller than 0
    */
   public Years(final long years)
@@ -40,7 +40,7 @@ public class Years implements Comparable<Years>
   /**
    * Years factory.
    *
-   * @param years Years >= 0
+   * @param years Years &gt;= 0
    * @return Years object
    */
   public static Years of(final long years)

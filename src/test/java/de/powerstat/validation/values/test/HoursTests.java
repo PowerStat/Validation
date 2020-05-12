@@ -46,7 +46,7 @@ public class HoursTests
   /**
    * Is not a hours.
    *
-   * @param hour Hours
+   * @param hours Hours
    */
   @ParameterizedTest
   @ValueSource(longs = {-1})
@@ -106,7 +106,7 @@ public class HoursTests
   public void testToString()
    {
     final Hours hours = new Hours(1);
-    assertEquals("Hours[hours=1]", hours.toString(), "toString not equal"); //$NON-NLS-2$
+    assertEquals("Hours[hours=1]", hours.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

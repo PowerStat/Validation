@@ -38,7 +38,7 @@ public class IPV6MaskTests
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
-      final IPV6Mask mask = IPV6Mask.of(-1);
+      /* final IPV6Mask mask = */ IPV6Mask.of(-1);
      }
     );
    }
@@ -52,7 +52,7 @@ public class IPV6MaskTests
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
-      final IPV6Mask mask = IPV6Mask.of(129);
+      /* final IPV6Mask mask = */ IPV6Mask.of(129);
      }
     );
    }

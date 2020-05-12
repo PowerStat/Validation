@@ -37,7 +37,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>
    * Constructor.
    *
    * @param length Prefix length (0-32)
-   * @throws IndexOutOfBoundsException if the prefix length is < 0 or > 32
+   * @throws IndexOutOfBoundsException if the prefix length is &lt; 0 or &gt; 32
    */
   public IPV4Mask(final int length)
    {
@@ -202,7 +202,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(24);
     builder.append("IPV4Mask[length=").append(this.length).append(", mask=").append(this.mask).append(']'); //$NON-NLS-1$ //$NON-NLS-2$
     return builder.toString();
    }

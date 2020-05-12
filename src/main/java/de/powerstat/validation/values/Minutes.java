@@ -113,7 +113,7 @@ public class Minutes implements Comparable<Minutes>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(17);
     builder.append("Minutes[minutes=").append(this.minutes).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

@@ -43,7 +43,7 @@ public final class IPV4Address implements Comparable<IPV4Address>
      {
       throw new IllegalArgumentException("To short or long for an IP V4 address"); //$NON-NLS-1$
      }
-    if (!address.matches("^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$"))
+    if (!address.matches("^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$")) //$NON-NLS-1$
      {
       throw new IllegalArgumentException("Not an IP V4 address"); //$NON-NLS-1$
      }
@@ -215,7 +215,7 @@ public final class IPV4Address implements Comparable<IPV4Address>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(21);
     builder.append("IPV4Address[address=").append(this.address).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

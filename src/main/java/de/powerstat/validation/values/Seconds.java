@@ -113,7 +113,7 @@ public class Seconds implements Comparable<Seconds>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(17);
     builder.append("Seconds[seconds=").append(this.seconds).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

@@ -33,7 +33,7 @@ public class MinutesTests
   /**
    * Is minutes.
    *
-   * @param minute Minutes
+   * @param minutes Minutes
    */
   @ParameterizedTest
   @ValueSource(longs = {0, 120})
@@ -46,7 +46,7 @@ public class MinutesTests
   /**
    * Is not a minutes.
    *
-   * @param minute Minutes
+   * @param minutes Minutes
    */
   @ParameterizedTest
   @ValueSource(longs = {-1})
@@ -106,7 +106,7 @@ public class MinutesTests
   public void testToString()
    {
     final Minutes minutes = new Minutes(1);
-    assertEquals("Minutes[minutes=1]", minutes.toString(), "toString not equal"); //$NON-NLS-2$
+    assertEquals("Minutes[minutes=1]", minutes.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

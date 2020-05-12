@@ -125,7 +125,7 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(31);
     builder.append("TopLevelDomain[topLevelDomain=").append(this.topLevelDomain).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

@@ -108,7 +108,7 @@ public class YearTests
   public void testToString()
    {
     final Year year = new Year(1);
-    assertEquals("Year[year=1]", year.toString(), "toString not equal"); //$NON-NLS-2$
+    assertEquals("Year[year=1]", year.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

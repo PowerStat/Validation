@@ -108,7 +108,7 @@ public class HourTests
   public void testToString()
    {
     final Hour hour = new Hour(1);
-    assertEquals("Hour[hour=1]", hour.toString(), "toString not equal"); //$NON-NLS-2$
+    assertEquals("Hour[hour=1]", hour.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

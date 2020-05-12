@@ -108,7 +108,7 @@ public class MonthTests
   public void testToString()
    {
     final Month month = new Month(1);
-    assertEquals("Month[month=1]", month.toString(), "toString not equal"); //$NON-NLS-2$
+    assertEquals("Month[month=1]", month.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

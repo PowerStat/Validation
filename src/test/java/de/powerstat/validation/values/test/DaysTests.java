@@ -108,7 +108,7 @@ public class DaysTests
   public void testToString()
    {
     final Days days = new Days(1);
-    assertEquals("Days[days=1]", days.toString(), "toString not equal"); //$NON-NLS-2$
+    assertEquals("Days[days=1]", days.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

@@ -52,7 +52,7 @@ public final class IPV6Address implements Comparable<IPV6Address>
     String expandedAddress = address.toLowerCase(Locale.getDefault());
     expandedAddress = expandIPV4Address(expandedAddress);
     expandedAddress = expandExpansionBlock(expandedAddress);
-    if (!expandedAddress.matches("^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$"))
+    if (!expandedAddress.matches("^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$")) //$NON-NLS-1$
      {
       throw new IllegalArgumentException("Not an IP V6 address"); //$NON-NLS-1$
      }
@@ -70,24 +70,25 @@ public final class IPV6Address implements Comparable<IPV6Address>
    * @throws NullPointerException if address is null
    * @throws IllegalArgumentException if address is not an ip v4 address
    */
-  private static String expandIPV4Address(String address)
+  private static String expandIPV4Address(final String address)
    {
     assert address != null;
     final int ipv4pos = address.indexOf('.');
-    if (ipv4pos > -1)
+    if (ipv4pos == -1)
      {
+      return address;
+     }
       final int blockStart = address.lastIndexOf(':', ipv4pos);
       final String ipv4 = address.substring(blockStart + 1);
       final IPV4Address ipv4address = new IPV4Address(ipv4); // TODO use IPV4Address to ip v6 conversion method
-      address = address.substring(0, blockStart + 1);
+    String newAddress = address.substring(0, blockStart + 1);
       final String[] parts = ipv4.split("\\."); //$NON-NLS-1$
       final int block1 = Integer.parseInt(parts[0]);
       final int block2 = Integer.parseInt(parts[1]);
       final int block3 = Integer.parseInt(parts[2]);
       final int block4 = Integer.parseInt(parts[3]);
-      address += Integer.toHexString(block1) + String.format("%02x", block2) + ':' + Integer.toHexString(block3) + String.format("%02x", block4); //$NON-NLS-1$ //$NON-NLS-2$
-     }
-    return address;
+    newAddress += Integer.toHexString(block1) + String.format("%02x", block2) + ':' + Integer.toHexString(block3) + String.format("%02x", block4); //$NON-NLS-1$ //$NON-NLS-2$
+    return newAddress;
    }
 
 
@@ -176,13 +177,16 @@ public final class IPV6Address implements Comparable<IPV6Address>
     assert address != null;
     final String[] parts = address.split(":"); //$NON-NLS-1$
     final StringBuilder normalizedAddress = new StringBuilder();
-    for (String part : parts)
+    for (final String part : parts)
      {
-      while (part.length() < 4)
+      String newPart = ""; //$NON-NLS-1$
+      for (int pos = 0; pos < (4 - part.length()); ++pos)
        {
-        part = "0" + part; //$NON-NLS-1$
+        newPart += "0";  //$NON-NLS-1$
+        // part = "0" + part; //$NON-NLS-1$
        }
-      normalizedAddress.append(part).append(':');
+      newPart += part;
+      normalizedAddress.append(newPart).append(':');
      }
     normalizedAddress.setLength(normalizedAddress.length() - 1);
     return normalizedAddress.toString();
@@ -212,15 +216,9 @@ public final class IPV6Address implements Comparable<IPV6Address>
    */
   public boolean isPrivate()
    {
-    if ("00fe:0080:0000:0000:0000:0000:0000:0000".equals(this.address)) // Link-Local //$NON-NLS-1$
-     {
-      return true;
-     }
-    if ("00fc".equals(this.blocks[0]) || "00fd".equals(this.blocks[0])) // Unique Local Unicast //$NON-NLS-1$ //$NON-NLS-2$
-     {
-      return true;
-     }
-    return false;
+    return ("00fe:0080:0000:0000:0000:0000:0000:0000".equals(this.address) || // Link-Local //$NON-NLS-1$
+            "00fc".equals(this.blocks[0]) || "00fd".equals(this.blocks[0]) // Unique Local Unicast //$NON-NLS-1$ //$NON-NLS-2$
+           );
    }
 
 
@@ -235,15 +233,9 @@ public final class IPV6Address implements Comparable<IPV6Address>
    */
   public boolean isSpecial()
    {
-    if ("0000:0000:0000:0000:0000:0000:0000:0000".equals(this.address) || "0000:0000:0000:0000:0000:0000:0000:0001".equals(this.address)) // default route, loopback //$NON-NLS-1$ //$NON-NLS-2$
-     {
-      return true;
-     }
-    if ("00ff".equals(this.blocks[0])) // Multicast //$NON-NLS-1$
-     {
-      return true;
-     }
-    return false;
+    return ("0000:0000:0000:0000:0000:0000:0000:0000".equals(this.address) || "0000:0000:0000:0000:0000:0000:0000:0001".equals(this.address) || // default route, loopback //$NON-NLS-1$ //$NON-NLS-2$
+            "00ff".equals(this.blocks[0]) // Multicast //$NON-NLS-1$
+           );
    }
 
 
@@ -327,7 +319,7 @@ public final class IPV6Address implements Comparable<IPV6Address>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(21);
     builder.append("IPV6Address[address=").append(this.address).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

@@ -27,7 +27,7 @@ public final class IBANVerifier
    * Constructor.
    *
    * @param length Country specific maximum IBAN length.
-   * @paran regexp Country specific regular expression
+   * @param regexp Country specific regular expression
    */
   public IBANVerifier(final int length, final String regexp)
    {

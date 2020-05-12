@@ -19,7 +19,7 @@ import de.powerstat.validation.values.Seconds;
 
 
 /**
- * Seconds tests,
+ * Seconds tests.
  */
 public class SecondsTests
  {
@@ -108,7 +108,7 @@ public class SecondsTests
   public void testToString()
    {
     final Seconds seconds = new Seconds(1);
-    assertEquals("Seconds[seconds=1]", seconds.toString(), "toString not equal"); //$NON-NLS-2$
+    assertEquals("Seconds[seconds=1]", seconds.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

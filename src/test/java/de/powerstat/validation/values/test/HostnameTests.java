@@ -19,10 +19,16 @@ import de.powerstat.validation.values.Hostname;
 
 
 /**
- *
+ * Hostname tests.
  */
 public class HostnameTests
  {
+  /**
+   * Private ip address 192.168.1.1.
+   */
+  private static final String PRIVATE_IP_192_168_1_1 = "192.168.1.1"; //$NON-NLS-1$
+
+
   /**
    * Default constructor.
    */
@@ -52,8 +58,8 @@ public class HostnameTests
   @Test
   public void hostnameOk1()
    {
-    final Hostname cleanHostname = Hostname.of("::");
-    assertEquals("0000:0000:0000:0000:0000:0000:0000:0000", cleanHostname.getHostname(), "Hostname not as expected"); //$NON-NLS-1$
+    final Hostname cleanHostname = Hostname.of("::"); //$NON-NLS-1$
+    assertEquals("0000:0000:0000:0000:0000:0000:0000:0000", cleanHostname.getHostname(), "Hostname not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -97,8 +103,8 @@ public class HostnameTests
   @Test
   public void getHostname()
    {
-    final Hostname hostname = Hostname.of("192.168.1.1"); //$NON-NLS-1$
-    assertEquals("192.168.1.1", hostname.getHostname(), "Hostname not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    final Hostname hostname = Hostname.of(PRIVATE_IP_192_168_1_1);
+    assertEquals(PRIVATE_IP_192_168_1_1, hostname.getHostname(), "Hostname not as expected"); //$NON-NLS-1$
    }
 
 
@@ -128,8 +134,8 @@ public class HostnameTests
   @Test
   public void testHashCode()
    {
-    final Hostname hostname1 = new Hostname("192.168.1.1"); //$NON-NLS-1$
-    final Hostname hostname2 = new Hostname("192.168.1.1"); //$NON-NLS-1$
+    final Hostname hostname1 = new Hostname(PRIVATE_IP_192_168_1_1);
+    final Hostname hostname2 = new Hostname(PRIVATE_IP_192_168_1_1);
     final Hostname hostname3 = new Hostname("192.168.1.2"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(hostname1.hashCode(), hostname2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -144,10 +150,10 @@ public class HostnameTests
   @Test
   public void testEquals()
    {
-    final Hostname hostname1 = new Hostname("192.168.1.1"); //$NON-NLS-1$
-    final Hostname hostname2 = new Hostname("192.168.1.1"); //$NON-NLS-1$
+    final Hostname hostname1 = new Hostname(PRIVATE_IP_192_168_1_1);
+    final Hostname hostname2 = new Hostname(PRIVATE_IP_192_168_1_1);
     final Hostname hostname3 = new Hostname("192.168.1.2"); //$NON-NLS-1$
-    final Hostname hostname4 = new Hostname("192.168.1.1"); //$NON-NLS-1$
+    final Hostname hostname4 = new Hostname(PRIVATE_IP_192_168_1_1);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(hostname1.equals(hostname1), "hostname11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(hostname1.equals(hostname2), "hostname12 are not equal"), //$NON-NLS-1$
@@ -167,7 +173,7 @@ public class HostnameTests
   @Test
   public void testToString()
    {
-    final Hostname hostname = new Hostname("192.168.1.1"); //$NON-NLS-1$
+    final Hostname hostname = new Hostname(PRIVATE_IP_192_168_1_1);
     assertEquals("Hostname[hostname=192.168.1.1]", hostname.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -178,11 +184,11 @@ public class HostnameTests
   @Test
   public void testCompareTo()
    {
-    final Hostname hostname1 = new Hostname("192.168.1.1"); //$NON-NLS-1$
-    final Hostname hostname2 = new Hostname("192.168.1.1"); //$NON-NLS-1$
+    final Hostname hostname1 = new Hostname(PRIVATE_IP_192_168_1_1);
+    final Hostname hostname2 = new Hostname(PRIVATE_IP_192_168_1_1);
     final Hostname hostname3 = new Hostname("192.168.1.2"); //$NON-NLS-1$
     final Hostname hostname4 = new Hostname("192.168.1.3"); //$NON-NLS-1$
-    final Hostname hostname5 = new Hostname("192.168.1.1"); //$NON-NLS-1$
+    final Hostname hostname5 = new Hostname(PRIVATE_IP_192_168_1_1);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(hostname1.compareTo(hostname2) == -hostname2.compareTo(hostname1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(hostname1.compareTo(hostname3) == -hostname3.compareTo(hostname1), "reflexive2"), //$NON-NLS-1$
