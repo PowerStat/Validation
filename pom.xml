@@ -4,7 +4,7 @@
 
   <groupId>de.powerstat.validation</groupId>
   <artifactId>validation</artifactId>
-  <version>2.2-SNAPSHOT</version>
+  <version>2.2</version>
   <packaging>jar</packaging>
 
   <name>PowerStatsValidationUtilities</name>
@@ -204,7 +204,7 @@
     <connection>scm:git:https://github.com/PowerStat/Validation.git</connection>
     <developerConnection>scm:git:https://github.com/PowerStat/Validation.git</developerConnection>
     <url>https://github.com/PowerStat/Validation</url>
-    <tag>HEAD</tag>
+    <tag>V2.2</tag>
   </scm>
 
   <repositories>
