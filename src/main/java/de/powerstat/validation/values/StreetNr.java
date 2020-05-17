@@ -166,6 +166,8 @@ public class StreetNr implements Comparable<StreetNr>
    * @param obj Object to compare with
    * @return 0: equal; 1: greater; -1: smaller
    * @see java.lang.Comparable#compareTo(java.lang.Object)
+   *
+   * TODO optimize (do regexp in constructor)
    */
   @Override
   public int compareTo(final StreetNr obj)

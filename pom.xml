@@ -24,6 +24,7 @@
     <license.licenseName>Apache License, Version 2.0</license.licenseName>
   </properties>
 
+
   <profiles>
     <!-- GPG Signature on release -->
     <profile>

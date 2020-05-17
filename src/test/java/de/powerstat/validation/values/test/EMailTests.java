@@ -58,8 +58,7 @@ public class EMailTests
    * @param email EMail
    */
   @ParameterizedTest
-  @ValueSource(strings = {"a@a.d", "12345678901234567890123456789012345678901234567890123456789012345@example.com", "a@abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdef.com"
-    })
+  @ValueSource(strings = {"a@a.d", "12345678901234567890123456789012345678901234567890123456789012345@example.com", "a@abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdef.com"})
   public void emailLength(final String email)
    {
     assertThrows(IllegalArgumentException.class, () ->

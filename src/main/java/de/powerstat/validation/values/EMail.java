@@ -56,7 +56,7 @@ public final class EMail implements Comparable<EMail>
        }
       parts[1] = parts[1].substring(0, parts[1].length() - 1);
      }
-    final Hostname hostname = Hostname.of(parts[1]);
+    /* final Hostname hostname = */ Hostname.of(parts[1]);
     if ((parts[0].charAt(0) == '(') || (parts[0].charAt(parts[0].length() - 1) == ')'))
      {
       throw new IllegalArgumentException("Comments in email addresses are not supported"); //$NON-NLS-1$
@@ -170,7 +170,7 @@ public final class EMail implements Comparable<EMail>
   public int compareTo(final EMail obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.email.compareTo(obj.email);
+    return this.email.compareTo(obj.email); // TODO hostname, username
    }
 
  }

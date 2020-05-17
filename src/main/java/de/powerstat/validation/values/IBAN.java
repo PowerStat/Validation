@@ -45,7 +45,6 @@ public class IBAN implements Comparable<IBAN>
      {
       throw new IllegalArgumentException("IBAN with wrong format"); //$NON-NLS-1$
      }
-    final Country country = Country.of(iban.substring(0, 2));
     final String checksum = iban.substring(2, 4);
     if ("00".equals(checksum) || "01".equals(checksum) || "99".equals(checksum)) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
      {
@@ -55,6 +54,7 @@ public class IBAN implements Comparable<IBAN>
      {
       throw new IllegalArgumentException("IBAN with wrong checksum"); //$NON-NLS-1$
      }
+    final Country country = Country.of(iban.substring(0, 2));
     if (!IBANVerifierAbstractFactory.createIBANVerifier(country).verify(iban))
      {
       throw new IllegalArgumentException("IBAN not correct in country context: " + iban); //$NON-NLS-1$

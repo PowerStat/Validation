@@ -284,6 +284,19 @@ public final class ValidationUtilsTests
 
 
   /**
+   * Is IP V4 not an public address.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
+   */
+  @Deprecated
+  @Test
+  public void isIPV4NotPublic()
+   {
+    assertFalse(ValidationUtils.isIPV4public("192.168.1.1"), "Should not be an IP V4 public address!"); //$NON-NLS-1$ //$NON-NLS-2$
+   }
+
+
+  /**
    * Is IP V4 prefix length.
    *
    * @param mask Prefix mask length 0-32
@@ -342,6 +355,21 @@ public final class ValidationUtilsTests
   public void isIPV6prefixLength(final int mask)
    {
     assertTrue(ValidationUtils.isIPV6prefixLength(mask), "Is not a mask between 0-128!"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Is IP V6 prefix length.
+   *
+   * @param mask Prefix mask length 0-128
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
+   */
+  @Deprecated
+  @ParameterizedTest
+  @ValueSource(ints = {-1, 129})
+  public void isNotIPV6prefixLength(final int mask)
+   {
+    assertFalse(ValidationUtils.isIPV6prefixLength(mask), "Is a mask between 0-128!"); //$NON-NLS-1$
    }
 
 

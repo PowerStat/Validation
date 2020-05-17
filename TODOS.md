@@ -1,5 +1,8 @@
 # TODOS
 
+- [ ] Password
+- [ ] Milliseconds?
+
 - [ ] PhoneNumber Area Codes   https://datahub.io/core/country-codes/r/country-codes.csv
 - [ ] PostCodes https://de.wikipedia.org/wiki/Liste_der_Postleitsysteme
 - [ ] Streets    openstreetmap , unicode
@@ -11,7 +14,6 @@
 - [ ] Sex
 - [ ] FistNames     
 - [ ] LastNames
-- [ ] Password   https://haveibeenpwned.com/    rainbow tables, hashtypes, min/max length, character sets, 
 
 - [ ] NationalityPlates
 - [ ] MimeTypes
