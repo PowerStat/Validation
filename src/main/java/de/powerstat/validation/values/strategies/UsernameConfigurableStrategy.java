@@ -95,7 +95,7 @@ public class UsernameConfigurableStrategy implements IUsernameStrategy
    * @param maxLength Maximum allowed username length, must be &gt;= minLength and <= INTEGER.MAX_VALUE
    * @param regexp Regular expression for matching characters. Must start with ^ and end with $. Example: ^[@./_0-9a-zA-Z-]+$
    * @param emailHandling How email addresses as username should be handled: EMAIL_DENIED, EMAIL_REQUIRED or EMAIL_POSSIBLE
-   * @throws IllegalArgumentException If arguments
+   * @throws IllegalArgumentException If arguments are not as required
    * @throws NullPointerException If regexp or emailHandling is null
    */
   public UsernameConfigurableStrategy(final int minLength, final int maxLength, final String regexp, final HandleEMail emailHandling)

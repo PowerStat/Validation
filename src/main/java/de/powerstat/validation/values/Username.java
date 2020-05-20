@@ -7,7 +7,7 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 
 import de.powerstat.validation.values.strategies.IUsernameStrategy;
-import de.powerstat.validation.values.strategies.UsernameMin2Max254CanBeEMailStrategy;
+import de.powerstat.validation.values.strategies.UsernameDefaultStrategy;
 
 
 /**
@@ -31,11 +31,6 @@ public final class Username implements Comparable<Username>
    */
   private final boolean conformsToEMailAddressFormat;
 
-  /**
-   * Username validation strategy.
-   */
-  private final IUsernameStrategy validationStrategy;
-
 
   /**
    * Constructor.
@@ -51,8 +46,7 @@ public final class Username implements Comparable<Username>
     super();
     Objects.requireNonNull(validationStrategy, "validationStrategy"); //$NON-NLS-1$
     Objects.requireNonNull(username, "username"); //$NON-NLS-1$
-    this.validationStrategy = validationStrategy;
-    this.conformsToEMailAddressFormat = this.validationStrategy.validationStrategy(username);
+    this.conformsToEMailAddressFormat = validationStrategy.validationStrategy(username);
     this.username = username;
    }
 
@@ -78,7 +72,7 @@ public final class Username implements Comparable<Username>
    */
   public static Username of(final String username)
    {
-    return new Username(UsernameMin2Max254CanBeEMailStrategy.of(), username);
+    return new Username(UsernameDefaultStrategy.of(), username);
    }
 
 

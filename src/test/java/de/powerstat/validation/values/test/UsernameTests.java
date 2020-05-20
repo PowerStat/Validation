@@ -16,7 +16,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import de.powerstat.validation.values.Username;
-import de.powerstat.validation.values.strategies.UsernameMin2Max254CanBeEMailStrategy;
+import de.powerstat.validation.values.strategies.UsernameDefaultStrategy;
 
 
 /**
@@ -72,7 +72,7 @@ public class UsernameTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final Username cleanUsername = */ Username.of(UsernameMin2Max254CanBeEMailStrategy.of(), "^!$%&(){}[]=?+*#´üöäÖÄÜß§;,:'\""); //$NON-NLS-1$
+      /* final Username cleanUsername = */ Username.of(UsernameDefaultStrategy.of(), "^!$%&(){}[]=?+*#´üöäÖÄÜß§;,:'\""); //$NON-NLS-1$
      }
     );
    }
@@ -95,7 +95,7 @@ public class UsernameTests
   @Test
   public void getisEmailTrue()
    {
-    final Username username = Username.of(UsernameMin2Max254CanBeEMailStrategy.of(), "username@example.com"); //$NON-NLS-1$
+    final Username username = Username.of(UsernameDefaultStrategy.of(), "username@example.com"); //$NON-NLS-1$
     assertTrue(username.isEMail(), "Username is not an email address"); //$NON-NLS-1$
    }
 
@@ -106,7 +106,7 @@ public class UsernameTests
   @Test
   public void getisEmailFalse()
    {
-    final Username username = Username.of(UsernameMin2Max254CanBeEMailStrategy.of(), "username"); //$NON-NLS-1$
+    final Username username = Username.of(UsernameDefaultStrategy.of(), "username"); //$NON-NLS-1$
     assertFalse(username.isEMail(), "Username is an email address"); //$NON-NLS-1$
    }
 

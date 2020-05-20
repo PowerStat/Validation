@@ -1,6 +1,5 @@
 # TODOS
 
-- [ ] Password
 - [ ] Milliseconds?
 
 - [ ] PhoneNumber Area Codes   https://datahub.io/core/country-codes/r/country-codes.csv
