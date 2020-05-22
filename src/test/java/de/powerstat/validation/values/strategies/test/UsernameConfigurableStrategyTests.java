@@ -37,9 +37,20 @@ public class UsernameConfigurableStrategyTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final IUsernameStrategy cleanStrategy = */ UsernameConfigurableStrategy.of(0, 254, "^[@./_0-9a-zA-Z-]+$", HandleEMail.EMAIL_POSSIBLE); //$NON-NLS-1$
+      /* final IUsernameStrategy cleanStrategy = */ UsernameConfigurableStrategy.of(-1, 254, "^[@./_0-9a-zA-Z-]*$", HandleEMail.EMAIL_POSSIBLE); //$NON-NLS-1$
      }
     );
+   }
+
+
+  /**
+   * Test strategy with minLength zero.
+   */
+  @Test
+  public void minLengthZero()
+   {
+    final IUsernameStrategy cleanStrategy = UsernameConfigurableStrategy.of(0, 254, "^[@./_0-9a-zA-Z-]*$", HandleEMail.EMAIL_POSSIBLE); //$NON-NLS-1$
+    assertNotNull(cleanStrategy, "cleanStrategy not as expected"); //$NON-NLS-1$
    }
 
 

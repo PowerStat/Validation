@@ -103,9 +103,9 @@ public class UsernameConfigurableStrategy implements IUsernameStrategy
     super();
     Objects.requireNonNull(regexp, "regexp"); //$NON-NLS-1$
     Objects.requireNonNull(emailHandling, "emailHandling"); //$NON-NLS-1$
-    if (minLength <= 0)
+    if (minLength < 0)
      {
-      throw new IllegalArgumentException("minLength must be >= 1"); //$NON-NLS-1$
+      throw new IllegalArgumentException("minLength must be >= 0"); //$NON-NLS-1$
      }
     if (maxLength < minLength)
      {

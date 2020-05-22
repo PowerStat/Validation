@@ -56,7 +56,7 @@ public final class IPV4Address implements Comparable<IPV4Address>
    * IPV4Address factory.
    *
    * @param address IP V4 address
-   * @return IPV4address object
+   * @return IPV4Address object
    */
   public static IPV4Address of(final String address)
    {

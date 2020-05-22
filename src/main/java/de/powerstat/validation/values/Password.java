@@ -30,7 +30,7 @@ import de.powerstat.validation.values.strategies.PasswordDefaultStrategy;
  *
  * TODO Password generator
  */
-public class Password implements Comparable<Password>
+public final class Password implements Comparable<Password>
  {
   /**
    * Password.
@@ -79,6 +79,17 @@ public class Password implements Comparable<Password>
   public static Password of(final String password)
    {
     return of(PasswordDefaultStrategy.of(), password);
+   }
+
+
+  /**
+   * Get password string.
+   *
+   * @return Password string
+   */
+  public String getPassword()
+   {
+    return this.password;
    }
 
 

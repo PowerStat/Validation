@@ -92,6 +92,17 @@ public class PasswordTests
 
 
   /**
+   * Test get password.
+   */
+  @Test
+  public void getPassword()
+   {
+    final Password password = Password.of("password"); //$NON-NLS-1$
+    assertEquals("password", password.getPassword(), "Password not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+   }
+
+
+  /**
    * Test hash code.
    */
   @Test
