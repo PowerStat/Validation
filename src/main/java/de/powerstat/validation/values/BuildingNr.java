@@ -3,6 +3,7 @@
  */
 package de.powerstat.validation.values;
 
+
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,98 +11,99 @@ import java.util.regex.Pattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
 /**
- * Street number.
+ * Address Building number.
  *
  * Possibly DSGVO relevant.
  *
  * TODO optimize constructor/compareTo
  */
-public class StreetNr implements Comparable<StreetNr>
+public final class BuildingNr implements Comparable<BuildingNr>
  {
   /**
    * Logger.
    */
-  private static final Logger LOGGER = LogManager.getLogger(StreetNr.class);
+  private static final Logger LOGGER = LogManager.getLogger(BuildingNr.class);
 
   /**
-   * Regexp for street number formats.
+   * Regexp for buidling number formats.
    */
-  private static final String STREET_NR_REGEXP = "^([0-9]{1,5})((-|/)([0-9]{1,5}))?( ([0-9]{1,3})/([0-9]{1,3}))?( ([a-z]))?$"; //$NON-NLS-1$
+  private static final String BUILDING_NR_REGEXP = "^([0-9]{1,5})((-|/)([0-9]{1,5}))?( ([0-9]{1,3})/([0-9]{1,3}))?( ([a-z]))?$"; //$NON-NLS-1$
 
   /**
-   * Maximum known street nr in the world.
+   * Maximum known building nr in the world.
    */
-  private static final int MAX_KNOWN_STREET_NR = 29999;
+  private static final int MAX_KNOWN_BUILDING_NR = 29999;
 
   /**
-   * Street number.
+   * Building number.
    */
-  private final String streetNr;
+  private final String buildingNr;
 
 
   /**
    * Constructor.
    *
-   * @param streetNr Street number
-   * @throws NullPointerException if streetNr is null
-   * @throws IllegalArgumentException if streetNr is not an correct streetNr
+   * @param buildingNr Building number
+   * @throws NullPointerException if buildingNr is null
+   * @throws IllegalArgumentException if buildingNr is not an correct buildingNr
    */
-  public StreetNr(final String streetNr)
+  public BuildingNr(final String buildingNr)
    {
     super();
-    Objects.requireNonNull(streetNr, "streetNr"); //$NON-NLS-1$
-    if ((streetNr.length() < 1) || (streetNr.length() > 21))
+    Objects.requireNonNull(buildingNr, "buildingNr"); //$NON-NLS-1$
+    if ((buildingNr.length() < 1) || (buildingNr.length() > 21))
      {
-      throw new IllegalArgumentException("StreetNr with wrong length"); //$NON-NLS-1$
+      throw new IllegalArgumentException("BuildingNr with wrong length"); //$NON-NLS-1$
      }
-    final Pattern pattern = Pattern.compile(STREET_NR_REGEXP);
-    final Matcher matcher = pattern.matcher(streetNr);
+    final Pattern pattern = Pattern.compile(BUILDING_NR_REGEXP);
+    final Matcher matcher = pattern.matcher(buildingNr);
     if (!matcher.matches())
      {
-      throw new IllegalArgumentException("StreetNr with wrong format"); //$NON-NLS-1$
+      throw new IllegalArgumentException("BuildingNr with wrong format"); //$NON-NLS-1$
      }
-    // group 1: house nr (from) 42:   42
-    // group 4: house nr (to) 42-43:  43
+    // group 1: building nr (from) 42:   42
+    // group 4: building nr (to) 42-43:  43
     // group 6: numerator 3/4:         3
     // group 7: denominator 3/4:       4
     // group 8: alphabetic character:  a
-    if (Integer.parseInt(matcher.group(1)) > MAX_KNOWN_STREET_NR)
+    if (Integer.parseInt(matcher.group(1)) > MAX_KNOWN_BUILDING_NR)
      {
-      throw new IllegalArgumentException("StreetNr > " + MAX_KNOWN_STREET_NR); //$NON-NLS-1$
+      throw new IllegalArgumentException("BuildingNr > " + MAX_KNOWN_BUILDING_NR); //$NON-NLS-1$
      }
     if ((matcher.group(4) != null) && (Integer.compare(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(4))) >= 0))
      {
-      throw new IllegalArgumentException("StreetNr from >= StreetNr to"); //$NON-NLS-1$
+      throw new IllegalArgumentException("BuildingNr from >= BuildingNr to"); //$NON-NLS-1$
      }
     if ((matcher.group(7) != null) && (Integer.compare(Integer.parseInt(matcher.group(6)), Integer.parseInt(matcher.group(7))) > 0))
      {
-      throw new IllegalArgumentException("StreetNr numerator > denominator"); //$NON-NLS-1$
+      throw new IllegalArgumentException("BuildingNr numerator > denominator"); //$NON-NLS-1$
      }
-    this.streetNr = streetNr;
+    this.buildingNr = buildingNr;
    }
 
 
   /**
-   * StreetNr factory.
+   * BuildingNr factory.
    *
-   * @param streetNr StreetNr
-   * @return StreetNr object
+   * @param buildingNr Building number
+   * @return BuildingNr object
    */
-  public static StreetNr of(final String streetNr)
+  public static BuildingNr of(final String buildingNr)
    {
-    return new StreetNr(streetNr);
+    return new BuildingNr(buildingNr);
    }
 
 
   /**
-   * Get streetNr string.
+   * Get buildingNr string.
    *
-   * @return StreetNr string
+   * @return BuildingNr string
    */
-  public String getStreetNr()
+  public String getBuildingNr()
    {
-    return this.streetNr;
+    return this.buildingNr;
    }
 
 
@@ -114,7 +116,7 @@ public class StreetNr implements Comparable<StreetNr>
   @Override
   public int hashCode()
    {
-    return this.streetNr.hashCode();
+    return this.buildingNr.hashCode();
    }
 
 
@@ -132,30 +134,30 @@ public class StreetNr implements Comparable<StreetNr>
      {
       return true;
      }
-    if (!(obj instanceof StreetNr))
+    if (!(obj instanceof BuildingNr))
      {
       return false;
      }
-    final StreetNr other = (StreetNr)obj;
-    return this.streetNr.equals(other.streetNr);
+    final BuildingNr other = (BuildingNr)obj;
+    return this.buildingNr.equals(other.buildingNr);
    }
 
 
   /**
-   * Returns the string representation of this StreetNr.
+   * Returns the string representation of this BuildingNr.
    *
    * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
    *
-   * "StreetNr[streetNr=42]"
+   * "BuildingNr[buildingNr=42]"
    *
-   * @return String representation of this StreetNr
+   * @return String representation of this BuildingNr
    * @see java.lang.Object#toString()
    */
   @Override
   public String toString()
    {
     final StringBuilder builder = new StringBuilder(19);
-    builder.append("StreetNr[streetNr=").append(this.streetNr).append(']'); //$NON-NLS-1$
+    builder.append("BuildingNr[buildingNr=").append(this.buildingNr).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -170,18 +172,18 @@ public class StreetNr implements Comparable<StreetNr>
    * TODO optimize (do regexp in constructor)
    */
   @Override
-  public int compareTo(final StreetNr obj)
+  public int compareTo(final BuildingNr obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    final Pattern pattern = Pattern.compile(STREET_NR_REGEXP);
-    final Matcher matcher1 = pattern.matcher(this.streetNr);
-    final Matcher matcher2 = pattern.matcher(obj.streetNr);
+    final Pattern pattern = Pattern.compile(BUILDING_NR_REGEXP);
+    final Matcher matcher1 = pattern.matcher(this.buildingNr);
+    final Matcher matcher2 = pattern.matcher(obj.buildingNr);
     if (!matcher1.matches() || !matcher2.matches())
      {
-      throw new IllegalStateException("One or both of the two streetNr objects does not match the streetNr pattern"); //$NON-NLS-1$
+      throw new IllegalStateException("One or both of the two buildingNr objects does not match the buildingNr pattern"); //$NON-NLS-1$
      }
-    // group 1: house nr (from) 42:   42
-    // group 4: house nr (to) 42-43:  43
+    // group 1: building nr (from) 42:   42
+    // group 4: building nr (to) 42-43:  43
     // group 6: numerator 3/4:         3
     // group 7: denominator 3/4:       4
     // group 8: alphabetic character:  a
@@ -202,7 +204,7 @@ public class StreetNr implements Comparable<StreetNr>
          {
           if (matcher1.group(7).compareTo(matcher2.group(7)) != 0)
            {
-            throw new IllegalStateException("StreetNrs do not have the same denominator"); //$NON-NLS-1$
+            throw new IllegalStateException("BuildingNrs do not have the same denominator"); //$NON-NLS-1$
            }
           result = Integer.compare(Integer.parseInt(matcher1.group(6)), Integer.parseInt(matcher2.group(6)));
           if (result != 0)
