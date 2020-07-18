@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * TODO Constructor with year
  */
-public class Week implements Comparable<Week>
+public final class Week implements Comparable<Week>
  {
   /**
    * Week.

@@ -12,10 +12,7 @@ import java.util.Objects;
 /**
  * Canonical Media-Access-Control-Adresse (MAC).
  *
- * TODO Wake on lan (WOL)  https://gist.github.com/jumar/9200840
  * TODO getManufacturer name
- *
- * https://de.wikipedia.org/wiki/MAC-Adresse
  * http://standards-oui.ieee.org/oui/oui.csv
  */
 public final class MACAddress implements Comparable<MACAddress>

@@ -14,9 +14,10 @@ import de.powerstat.validation.generated.GeneratedISO6391;
  *
  * Not DSGVO relevant.
  *
+ * TODO Languages names in english
  * TODO Translations
  */
-public class Language implements Comparable<Language>
+public final class Language implements Comparable<Language>
  {
   /**
    * ISO 639-1 language code.

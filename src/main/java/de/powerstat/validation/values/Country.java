@@ -16,7 +16,7 @@ import de.powerstat.validation.generated.GeneratedISO3166A2;
  *
  * TODO Translations
  */
-public class Country implements Comparable<Country>
+public final class Country implements Comparable<Country>
  {
   /**
    * Alpha-2 country code.

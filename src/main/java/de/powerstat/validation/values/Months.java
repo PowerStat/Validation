@@ -14,7 +14,7 @@ import java.util.Objects;
  * TODO mult/div (7 = week)
  * TODO Listener (mod 7 = 0)
  */
-public class Months implements Comparable<Months>
+public final class Months implements Comparable<Months>
  {
   /**
    * Month.

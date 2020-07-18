@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  */
-public class Years implements Comparable<Years>
+public final class Years implements Comparable<Years>
  {
   /**
    * Years.

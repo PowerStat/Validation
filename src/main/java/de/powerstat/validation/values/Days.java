@@ -16,7 +16,7 @@ import java.util.Objects;
  * TODO mult/div (7 = week)
  * TODO Listener (mod 7 = 0)
  */
-public class Days implements Comparable<Days>
+public final class Days implements Comparable<Days>
  {
   /**
    * Days.

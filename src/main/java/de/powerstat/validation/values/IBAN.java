@@ -18,7 +18,7 @@ import de.powerstat.validation.values.impl.IBANVerifierAbstractFactory;
  * TODO https://openiban.com/
  * TODO Human format in/out
  */
-public class IBAN implements Comparable<IBAN>
+public final class IBAN implements Comparable<IBAN>
  {
   /**
    * IBAN.

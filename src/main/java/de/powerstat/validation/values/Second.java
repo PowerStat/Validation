@@ -15,7 +15,7 @@ import java.util.Objects;
    * TODO Constructor with day, month, year, hour, minute
    * TODO nextSecond, previousSecond
  */
-public class Second implements Comparable<Second>
+public final class Second implements Comparable<Second>
  {
   /**
    * Second.

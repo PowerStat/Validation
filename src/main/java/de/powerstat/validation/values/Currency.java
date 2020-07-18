@@ -16,7 +16,7 @@ import de.powerstat.validation.generated.GeneratedISO4217;
  *
  * TODO Translations
  */
-public class Currency implements Comparable<Currency>
+public final class Currency implements Comparable<Currency>
  {
   /**
    * ISO 4217 currency code.

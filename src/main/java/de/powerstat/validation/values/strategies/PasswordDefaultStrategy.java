@@ -6,7 +6,7 @@ package de.powerstat.validation.values.strategies;
 /**
  * Password default validation strategy.
  */
-public class PasswordDefaultStrategy extends PasswordConfigurableStrategy
+public final class PasswordDefaultStrategy extends PasswordConfigurableStrategy
  {
   /**
    * Default Constructor.

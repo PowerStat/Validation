@@ -16,6 +16,6 @@ public interface IUsernameStrategy
    * @return true: if username is an email, false otherwise
    * @throws IllegalArgumentException If the username does not match the configured parameters
    */
-  boolean validationStrategy(final String username);
+  boolean validationStrategy(String username);
 
  }

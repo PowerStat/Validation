@@ -16,7 +16,7 @@ import java.util.Objects;
  * TODO mult/div (60 = minute)
  * TODO Listener (mod 60 = 0)
  */
-public class Seconds implements Comparable<Seconds>
+public final class Seconds implements Comparable<Seconds>
  {
   /**
    * Seconds.

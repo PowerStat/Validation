@@ -15,7 +15,7 @@ import java.util.Objects;
  * TODO nextMonth, previousMonth
  * TODO Translations
  */
-public class Month implements Comparable<Month>
+public final class Month implements Comparable<Month>
  {
   /**
    * Month.

@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * TODO nextHour, previousHour
  */
-public class Hour implements Comparable<Hour>
+public final class Hour implements Comparable<Hour>
  {
   /**
    * Hour.

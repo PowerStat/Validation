@@ -17,7 +17,7 @@ import de.powerstat.validation.values.strategies.UsernameDefaultStrategy;
  *
  * TODO Already existing user?
  * TODO case sensitive or insensitive?
- * TODO Comparable<EMail>
+ * TODO Comparable&lt;EMail&gt;
  */
 public final class Username implements Comparable<Username>
  {

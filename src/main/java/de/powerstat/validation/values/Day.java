@@ -16,7 +16,7 @@ import java.util.Objects;
  * TODO Constructor with day, month, year
  * TODO nextDay, previousDay
  */
-public class Day implements Comparable<Day>
+public final class Day implements Comparable<Day>
  {
   /**
    * Day.

@@ -10,7 +10,7 @@ package de.powerstat.validation.values.strategies;
  * Minimum 2 characters, maximum 254 characters, can be an email address.
  * Allowed characters: @./_0-9a-zA-Z-
  */
-public class UsernameDefaultStrategy extends UsernameConfigurableStrategy
+public final class UsernameDefaultStrategy extends UsernameConfigurableStrategy
  {
   /**
    * Default Constructor.

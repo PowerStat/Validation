@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * TODO nextMinute, previousMinute
  */
-public class Minute implements Comparable<Minute>
+public final class Minute implements Comparable<Minute>
  {
   /**
    * Minute.

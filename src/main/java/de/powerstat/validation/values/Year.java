@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * TODO isLeapYear
  */
-public class Year implements Comparable<Year>
+public final class Year implements Comparable<Year>
  {
   /**
    * Year.
