@@ -30,7 +30,7 @@ echo "   */"
 echo "  static"
 echo "   {"
 for i in `grep -E -v "^#" $1`; do
-  echo "    TOP_LEVEL_DOMAINS.add(\"$i\".toLowerCase(Locale.getDefault())); //$NON-NLS-1$"
+  echo "    TOP_LEVEL_DOMAINS.add(\"$i\".toLowerCase(Locale.getDefault())); //\$NON-NLS-1\$"
 done
 echo "   }"
 echo ""

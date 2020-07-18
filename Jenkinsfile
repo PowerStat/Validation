@@ -28,7 +28,7 @@ pipeline
 
   environment
    {
-    expectedRemoteUrl = "https://github.com/PowerStat/TemplateEngine.git"
+    expectedRemoteUrl = "https://github.com/PowerStat/Validation.git"
    }
 
 

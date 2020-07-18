@@ -1,17 +1,28 @@
 # TODOS
 
+https://datahub.io/collections/reference-data#currency-codes
+
+- [ ] Password
+      https://www.datendieter.de/item/Haeufige_Passwoerter
+      https://www.passwortfuchs.de/passwortliste.php
+      https://crackstation.net/crackstation-wordlist-password-cracking-dictionary.htm
+      https://github.com/danielmiessler/SecLists/tree/master/Passwords
+      https://weakpass.com/wordlist
+      https://wiki.skullsecurity.org/Passwords
+      https://thehacktoday.com/password-cracking-dictionarys-download-for-free/
+      
+- [ ] FistNames/Vornamen
+      https://de.wikipedia.org/wiki/Vorname_(Deutschland)
+
 - [ ] Milliseconds?
 
 - [ ] PhoneNumber Area Codes   https://datahub.io/core/country-codes/r/country-codes.csv
+      https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers
 - [ ] PostCodes https://de.wikipedia.org/wiki/Liste_der_Postleitsysteme
 - [ ] Streets    openstreetmap , unicode
-- [ ] Floor, Apartementnumber
-- [ ] Cities        https://datahub.io/core/world-cities  
-- [ ] State
 - [ ] Address
 - [ ] Salutations   Frau, Herrn, Frau und Herrn, Firma, "empty", Berufsbezeichnung, Akademischer Titel
 - [ ] Sex
-- [ ] FistNames     
 - [ ] LastNames
 
 - [ ] NationalityPlates
@@ -32,6 +43,7 @@
 - [ ] ImageType
 
 - [ ] ISBN-10, ISBN-13
+      https://de.wikipedia.org/wiki/Internationale_Standardbuchnummer
 - [ ] ISSN
 - [ ] ISAN, ISMN, ISRC, ISRN, ISWC
 - [ ] VD16, VD17

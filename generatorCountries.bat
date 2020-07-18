@@ -11,9 +11,9 @@ echo  */
 echo package de.powerstat.validation.generated;
 echo:
 echo:
-echo import java.util.ArrayList;
-echo import java.util.List;
+echo import java.util.Map;
 echo import java.util.Locale;
+echo import java.util.concurrent.ConcurrentHashMap;
 echo:
 echo:
 echo /**
@@ -22,9 +22,9 @@ echo  */
 echo public final class GeneratedISO3166A2
 echo  {
 echo   /**
-echo    * Alpha 2 codes list.
+echo    * Alpha 2 codes map.
 echo    */
-echo   private static final List^<String^> ALPHA2 = new ArrayList^<^>();
+echo   private static final Map^<String, String^> ALPHA2 = new ConcurrentHashMap^<^>();
 echo:
 echo:
 echo   /**
@@ -35,9 +35,9 @@ echo    {
 FOR /F "usebackq tokens=2,3 delims=," %%i IN (`findstr /R ",[A-Z][A-Z]$" %1`) DO (
   set t=%%i
   if "!t!"=="!t: =!" (
-    echo     ALPHA2.add("%%i".toLowerCase(Locale.getDefault(^)^)^); //$NON-NLS-1$
+    echo     ALPHA2.put("%%i".toUpperCase(Locale.getDefault(^)^), ""^); //$NON-NLS-1$
   ) else (
-    echo     ALPHA2.add("%%j".toLowerCase(Locale.getDefault(^)^)^); //$NON-NLS-1$
+    echo     ALPHA2.put("%%j".toUpperCase(Locale.getDefault(^)^), ""^); //$NON-NLS-1$
   )
 )
 echo    }
@@ -60,7 +60,19 @@ echo    * @return true if alpha2 code exists, false otherwise
 echo    */
 echo   public static boolean contains(final String alpha2)
 echo    {
-echo     return ALPHA2.contains(alpha2.toLowerCase(Locale.getDefault()));
+echo     return ALPHA2.containsKey(alpha2.toUpperCase(Locale.getDefault()));
+echo    }
+echo:
+echo:
+echo   /**
+echo    * Get english country name for Alpha 2 code.
+echo    *
+echo    * @param alpha2 Alpha 2 code
+echo    * @return Country name in english
+echo    */
+echo   public static String getName(final String alpha2)
+echo    {
+echo     return ALPHA2.get(alpha2.toUpperCase(Locale.getDefault()));
 echo    }
 echo:
 echo }

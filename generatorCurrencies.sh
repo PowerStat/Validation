@@ -30,7 +30,7 @@ echo "   */"
 echo "  static"
 echo "   {"
 for i in `grep -oE ",[A-Z]{3}," $1 | grep -oE "[A-Z]{3}"`; do
-  echo "    CODES.add(\"$i\".toUpperCase(Locale.getDefault())); //$NON-NLS-1$"
+  echo "    CODES.add(\"$i\".toUpperCase(Locale.getDefault())); //\$NON-NLS-1\$"
 done
 echo "   }"
 echo ""
