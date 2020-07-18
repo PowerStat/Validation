@@ -231,7 +231,7 @@ public class IPV6AddressTests
   @Test
   public void getAddress()
    {
-    final IPV6Address address = new IPV6Address(IPV6_FD00);
+    final IPV6Address address = IPV6Address.of(IPV6_FD00);
     assertEquals("fd00:0000:0000:0000:0000:0000:0000:0000", address.getAddress(), "Address not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -242,9 +242,9 @@ public class IPV6AddressTests
   @Test
   public void testHashCode()
    {
-    final IPV6Address address1 = new IPV6Address(IPV6_FD00);
-    final IPV6Address address2 = new IPV6Address(IPV6_FD00);
-    final IPV6Address address3 = new IPV6Address("fd00::1"); //$NON-NLS-1$
+    final IPV6Address address1 = IPV6Address.of(IPV6_FD00);
+    final IPV6Address address2 = IPV6Address.of(IPV6_FD00);
+    final IPV6Address address3 = IPV6Address.of("fd00::1"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(address1.hashCode(), address2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(address1.hashCode(), address3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -258,10 +258,10 @@ public class IPV6AddressTests
   @Test
   public void testEquals()
    {
-    final IPV6Address address1 = new IPV6Address(IPV6_FD00);
-    final IPV6Address address2 = new IPV6Address(IPV6_FD00);
-    final IPV6Address address3 = new IPV6Address("fd00::1"); //$NON-NLS-1$
-    final IPV6Address address4 = new IPV6Address(IPV6_FD00);
+    final IPV6Address address1 = IPV6Address.of(IPV6_FD00);
+    final IPV6Address address2 = IPV6Address.of(IPV6_FD00);
+    final IPV6Address address3 = IPV6Address.of("fd00::1"); //$NON-NLS-1$
+    final IPV6Address address4 = IPV6Address.of(IPV6_FD00);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(address1.equals(address1), "address11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(address1.equals(address2), "address12 are not equal"), //$NON-NLS-1$
@@ -281,7 +281,7 @@ public class IPV6AddressTests
   @Test
   public void testToString()
    {
-    final IPV6Address address = new IPV6Address(IPV6_FD00);
+    final IPV6Address address = IPV6Address.of(IPV6_FD00);
     assertEquals("IPV6Address[address=fd00:0000:0000:0000:0000:0000:0000:0000]", address.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -292,11 +292,11 @@ public class IPV6AddressTests
   @Test
   public void testCompareTo()
    {
-    final IPV6Address address1 = new IPV6Address(IPV6_FD00);
-    final IPV6Address address2 = new IPV6Address(IPV6_FD00);
-    final IPV6Address address3 = new IPV6Address("fd00::1"); //$NON-NLS-1$
-    final IPV6Address address4 = new IPV6Address("fd00::2"); //$NON-NLS-1$
-    final IPV6Address address5 = new IPV6Address(IPV6_FD00);
+    final IPV6Address address1 = IPV6Address.of(IPV6_FD00);
+    final IPV6Address address2 = IPV6Address.of(IPV6_FD00);
+    final IPV6Address address3 = IPV6Address.of("fd00::1"); //$NON-NLS-1$
+    final IPV6Address address4 = IPV6Address.of("fd00::2"); //$NON-NLS-1$
+    final IPV6Address address5 = IPV6Address.of(IPV6_FD00);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(address1.compareTo(address2) == -address2.compareTo(address1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(address1.compareTo(address3) == -address3.compareTo(address1), "reflexive2"), //$NON-NLS-1$

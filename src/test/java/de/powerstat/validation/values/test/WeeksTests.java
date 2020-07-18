@@ -66,9 +66,9 @@ public class WeeksTests
   @Test
   public void testHashCode()
    {
-    final Weeks weeks1 = new Weeks(1);
-    final Weeks weeks2 = new Weeks(1);
-    final Weeks weeks3 = new Weeks(2);
+    final Weeks weeks1 = Weeks.of(1);
+    final Weeks weeks2 = Weeks.of(1);
+    final Weeks weeks3 = Weeks.of(2);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(weeks1.hashCode(), weeks2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(weeks1.hashCode(), weeks3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -82,10 +82,10 @@ public class WeeksTests
   @Test
   public void testEquals()
    {
-    final Weeks weeks1 = new Weeks(1);
-    final Weeks weeks2 = new Weeks(1);
-    final Weeks weeks3 = new Weeks(2);
-    final Weeks weeks4 = new Weeks(1);
+    final Weeks weeks1 = Weeks.of(1);
+    final Weeks weeks2 = Weeks.of(1);
+    final Weeks weeks3 = Weeks.of(2);
+    final Weeks weeks4 = Weeks.of(1);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(weeks1.equals(weeks1), "weeks11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(weeks1.equals(weeks2), "weeks12 are not equal"), //$NON-NLS-1$
@@ -105,7 +105,7 @@ public class WeeksTests
   @Test
   public void testToString()
    {
-    final Weeks weeks = new Weeks(1);
+    final Weeks weeks = Weeks.of(1);
     assertEquals("Weeks[weeks=1]", weeks.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -116,11 +116,11 @@ public class WeeksTests
   @Test
   public void testCompareTo()
    {
-    final Weeks weeks1 = new Weeks(1);
-    final Weeks weeks2 = new Weeks(1);
-    final Weeks weeks3 = new Weeks(2);
-    final Weeks weeks4 = new Weeks(3);
-    final Weeks weeks5 = new Weeks(1);
+    final Weeks weeks1 = Weeks.of(1);
+    final Weeks weeks2 = Weeks.of(1);
+    final Weeks weeks3 = Weeks.of(2);
+    final Weeks weeks4 = Weeks.of(3);
+    final Weeks weeks5 = Weeks.of(1);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(weeks1.compareTo(weeks2) == -weeks2.compareTo(weeks1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(weeks1.compareTo(weeks3) == -weeks3.compareTo(weeks1), "reflexive2"), //$NON-NLS-1$

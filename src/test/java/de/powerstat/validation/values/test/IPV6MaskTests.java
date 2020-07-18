@@ -90,9 +90,9 @@ public class IPV6MaskTests
   @Test
   public void testHashCode()
    {
-    final IPV6Mask mask1 = new IPV6Mask(112);
-    final IPV6Mask mask2 = new IPV6Mask(112);
-    final IPV6Mask mask3 = new IPV6Mask(96);
+    final IPV6Mask mask1 = IPV6Mask.of(112);
+    final IPV6Mask mask2 = IPV6Mask.of(112);
+    final IPV6Mask mask3 = IPV6Mask.of(96);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(mask1.hashCode(), mask2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(mask1.hashCode(), mask3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -106,10 +106,10 @@ public class IPV6MaskTests
   @Test
   public void testEquals()
    {
-    final IPV6Mask mask1 = new IPV6Mask(112);
-    final IPV6Mask mask2 = new IPV6Mask(112);
-    final IPV6Mask mask3 = new IPV6Mask(96);
-    final IPV6Mask mask4 = new IPV6Mask(112);
+    final IPV6Mask mask1 = IPV6Mask.of(112);
+    final IPV6Mask mask2 = IPV6Mask.of(112);
+    final IPV6Mask mask3 = IPV6Mask.of(96);
+    final IPV6Mask mask4 = IPV6Mask.of(112);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(mask1.equals(mask1), "mask11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(mask1.equals(mask2), "mask12 are not equal"), //$NON-NLS-1$
@@ -129,7 +129,7 @@ public class IPV6MaskTests
   @Test
   public void testToString()
    {
-    final IPV6Mask mask = new IPV6Mask(112);
+    final IPV6Mask mask = IPV6Mask.of(112);
     assertEquals("IPV6Mask[length=112]", mask.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -140,11 +140,11 @@ public class IPV6MaskTests
   @Test
   public void testCompareTo()
    {
-    final IPV6Mask mask1 = new IPV6Mask(16);
-    final IPV6Mask mask2 = new IPV6Mask(16);
-    final IPV6Mask mask3 = new IPV6Mask(32);
-    final IPV6Mask mask4 = new IPV6Mask(48);
-    final IPV6Mask mask5 = new IPV6Mask(16);
+    final IPV6Mask mask1 = IPV6Mask.of(16);
+    final IPV6Mask mask2 = IPV6Mask.of(16);
+    final IPV6Mask mask3 = IPV6Mask.of(32);
+    final IPV6Mask mask4 = IPV6Mask.of(48);
+    final IPV6Mask mask5 = IPV6Mask.of(16);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(mask1.compareTo(mask2) == -mask2.compareTo(mask1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(mask1.compareTo(mask3) == -mask3.compareTo(mask1), "reflexive2"), //$NON-NLS-1$

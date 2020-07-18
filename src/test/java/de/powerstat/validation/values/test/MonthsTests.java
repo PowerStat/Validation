@@ -68,9 +68,9 @@ public class MonthsTests
   @Test
   public void testHashCode()
    {
-    final Months months1 = new Months(1);
-    final Months months2 = new Months(1);
-    final Months months3 = new Months(2);
+    final Months months1 = Months.of(1);
+    final Months months2 = Months.of(1);
+    final Months months3 = Months.of(2);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(months1.hashCode(), months2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(months1.hashCode(), months3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -84,10 +84,10 @@ public class MonthsTests
   @Test
   public void testEquals()
    {
-    final Months months1 = new Months(1);
-    final Months months2 = new Months(1);
-    final Months months3 = new Months(2);
-    final Months months4 = new Months(1);
+    final Months months1 = Months.of(1);
+    final Months months2 = Months.of(1);
+    final Months months3 = Months.of(2);
+    final Months months4 = Months.of(1);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(months1.equals(months1), "months11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(months1.equals(months2), "months12 are not equal"), //$NON-NLS-1$
@@ -107,7 +107,7 @@ public class MonthsTests
   @Test
   public void testToString()
    {
-    final Months months = new Months(1);
+    final Months months = Months.of(1);
     assertEquals("Months[months=1]", months.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -118,11 +118,11 @@ public class MonthsTests
   @Test
   public void testCompareTo()
    {
-    final Months months1 = new Months(1);
-    final Months months2 = new Months(1);
-    final Months months3 = new Months(2);
-    final Months months4 = new Months(3);
-    final Months months5 = new Months(1);
+    final Months months1 = Months.of(1);
+    final Months months2 = Months.of(1);
+    final Months months3 = Months.of(2);
+    final Months months4 = Months.of(3);
+    final Months months5 = Months.of(1);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(months1.compareTo(months2) == -months2.compareTo(months1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(months1.compareTo(months3) == -months3.compareTo(months1), "reflexive2"), //$NON-NLS-1$

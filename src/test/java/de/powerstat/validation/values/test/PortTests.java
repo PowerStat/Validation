@@ -132,9 +132,9 @@ public class PortTests
   @Test
   public void testHashCode()
    {
-    final Port port1 = new Port(1024);
-    final Port port2 = new Port(1024);
-    final Port port3 = new Port(1025);
+    final Port port1 = Port.of(1024);
+    final Port port2 = Port.of(1024);
+    final Port port3 = Port.of(1025);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(port1.hashCode(), port2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(port1.hashCode(), port3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -148,10 +148,10 @@ public class PortTests
   @Test
   public void testEquals()
    {
-    final Port port1 = new Port(1024);
-    final Port port2 = new Port(1024);
-    final Port port3 = new Port(1025);
-    final Port port4 = new Port(1024);
+    final Port port1 = Port.of(1024);
+    final Port port2 = Port.of(1024);
+    final Port port3 = Port.of(1025);
+    final Port port4 = Port.of(1024);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(port1.equals(port1), "port11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(port1.equals(port2), "port12 are not equal"), //$NON-NLS-1$
@@ -171,7 +171,7 @@ public class PortTests
   @Test
   public void testToString()
    {
-    final Port port = new Port(49152);
+    final Port port = Port.of(49152);
     assertEquals("Port[port=49152]", port.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -182,11 +182,11 @@ public class PortTests
   @Test
   public void testCompareTo()
    {
-    final Port port1 = new Port(1024);
-    final Port port2 = new Port(1024);
-    final Port port3 = new Port(1025);
-    final Port port4 = new Port(1026);
-    final Port port5 = new Port(1024);
+    final Port port1 = Port.of(1024);
+    final Port port2 = Port.of(1024);
+    final Port port3 = Port.of(1025);
+    final Port port4 = Port.of(1026);
+    final Port port5 = Port.of(1024);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(port1.compareTo(port2) == -port2.compareTo(port1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(port1.compareTo(port3) == -port3.compareTo(port1), "reflexive2"), //$NON-NLS-1$

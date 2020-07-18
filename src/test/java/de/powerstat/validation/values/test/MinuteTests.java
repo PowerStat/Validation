@@ -68,9 +68,9 @@ public class MinuteTests
   @Test
   public void testHashCode()
    {
-    final Minute minute1 = new Minute(1);
-    final Minute minute2 = new Minute(1);
-    final Minute minute3 = new Minute(2);
+    final Minute minute1 = Minute.of(1);
+    final Minute minute2 = Minute.of(1);
+    final Minute minute3 = Minute.of(2);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(minute1.hashCode(), minute2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(minute1.hashCode(), minute3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -84,10 +84,10 @@ public class MinuteTests
   @Test
   public void testEquals()
    {
-    final Minute minute1 = new Minute(1);
-    final Minute minute2 = new Minute(1);
-    final Minute minute3 = new Minute(2);
-    final Minute minute4 = new Minute(1);
+    final Minute minute1 = Minute.of(1);
+    final Minute minute2 = Minute.of(1);
+    final Minute minute3 = Minute.of(2);
+    final Minute minute4 = Minute.of(1);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(minute1.equals(minute1), "minute11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(minute1.equals(minute2), "minute12 are not equal"), //$NON-NLS-1$
@@ -107,7 +107,7 @@ public class MinuteTests
   @Test
   public void testToString()
    {
-    final Minute minute = new Minute(1);
+    final Minute minute = Minute.of(1);
     assertEquals("Minute[minute=1]", minute.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -118,11 +118,11 @@ public class MinuteTests
   @Test
   public void testCompareTo()
    {
-    final Minute minute1 = new Minute(1);
-    final Minute minute2 = new Minute(1);
-    final Minute minute3 = new Minute(2);
-    final Minute minute4 = new Minute(3);
-    final Minute minute5 = new Minute(1);
+    final Minute minute1 = Minute.of(1);
+    final Minute minute2 = Minute.of(1);
+    final Minute minute3 = Minute.of(2);
+    final Minute minute4 = Minute.of(3);
+    final Minute minute5 = Minute.of(1);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(minute1.compareTo(minute2) == -minute2.compareTo(minute1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(minute1.compareTo(minute3) == -minute3.compareTo(minute1), "reflexive2"), //$NON-NLS-1$

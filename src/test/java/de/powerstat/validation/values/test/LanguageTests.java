@@ -97,9 +97,9 @@ public class LanguageTests
   @Test
   public void testHashCode()
    {
-    final Language language1 = new Language("de"); //$NON-NLS-1$
-    final Language language2 = new Language("de"); //$NON-NLS-1$
-    final Language language3 = new Language("fr"); //$NON-NLS-1$
+    final Language language1 = Language.of("de"); //$NON-NLS-1$
+    final Language language2 = Language.of("de"); //$NON-NLS-1$
+    final Language language3 = Language.of("fr"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(language1.hashCode(), language2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(language1.hashCode(), language3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -113,10 +113,10 @@ public class LanguageTests
   @Test
   public void testEquals()
    {
-    final Language language1 = new Language("de"); //$NON-NLS-1$
-    final Language language2 = new Language("de"); //$NON-NLS-1$
-    final Language language3 = new Language("fr"); //$NON-NLS-1$
-    final Language language4 = new Language("de"); //$NON-NLS-1$
+    final Language language1 = Language.of("de"); //$NON-NLS-1$
+    final Language language2 = Language.of("de"); //$NON-NLS-1$
+    final Language language3 = Language.of("fr"); //$NON-NLS-1$
+    final Language language4 = Language.of("de"); //$NON-NLS-1$
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(language1.equals(language1), "language11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(language1.equals(language2), "language12 are not equal"), //$NON-NLS-1$
@@ -136,7 +136,7 @@ public class LanguageTests
   @Test
   public void testToString()
    {
-    final Language language = new Language("de"); //$NON-NLS-1$
+    final Language language = Language.of("de"); //$NON-NLS-1$
     assertEquals("Language[code=de]", language.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -147,11 +147,11 @@ public class LanguageTests
   @Test
   public void testCompareTo()
    {
-    final Language language1 = new Language("de"); //$NON-NLS-1$
-    final Language language2 = new Language("de"); //$NON-NLS-1$
-    final Language language3 = new Language("en"); //$NON-NLS-1$
-    final Language language4 = new Language("fr"); //$NON-NLS-1$
-    final Language language5 = new Language("de"); //$NON-NLS-1$
+    final Language language1 = Language.of("de"); //$NON-NLS-1$
+    final Language language2 = Language.of("de"); //$NON-NLS-1$
+    final Language language3 = Language.of("en"); //$NON-NLS-1$
+    final Language language4 = Language.of("fr"); //$NON-NLS-1$
+    final Language language5 = Language.of("de"); //$NON-NLS-1$
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(language1.compareTo(language2) == -language2.compareTo(language1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(language1.compareTo(language3) == -language3.compareTo(language1), "reflexive2"), //$NON-NLS-1$

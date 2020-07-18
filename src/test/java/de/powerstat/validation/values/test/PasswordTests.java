@@ -82,7 +82,7 @@ public class PasswordTests
   @Test
   public void passwordWithIllegalCharacters0()
    {
-    final IPasswordStrategy strategy = new PasswordConfigurableStrategy(2, 254, "^[!§$%&/()=?öäüÖÄÜ,.:;_@0-9a-zA-Z-]+$", 0 , 0, 0, 0, 0, 0); //$NON-NLS-1$
+    final IPasswordStrategy strategy = PasswordConfigurableStrategy.of(2, 254, "^[!§$%&/()=?öäüÖÄÜ,.:;_@0-9a-zA-Z-]+$", 0 , 0, 0, 0, 0, 0); //$NON-NLS-1$
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Password cleanPassword = */ Password.of(strategy, "\"€"); //$NON-NLS-1$

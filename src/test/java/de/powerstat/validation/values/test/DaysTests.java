@@ -68,9 +68,9 @@ public class DaysTests
   @Test
   public void testHashCode()
    {
-    final Days days1 = new Days(1);
-    final Days days2 = new Days(1);
-    final Days days3 = new Days(2);
+    final Days days1 = Days.of(1);
+    final Days days2 = Days.of(1);
+    final Days days3 = Days.of(2);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(days1.hashCode(), days2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(days1.hashCode(), days3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -84,10 +84,10 @@ public class DaysTests
   @Test
   public void testEquals()
    {
-    final Days days1 = new Days(1);
-    final Days days2 = new Days(1);
-    final Days days3 = new Days(2);
-    final Days days4 = new Days(1);
+    final Days days1 = Days.of(1);
+    final Days days2 = Days.of(1);
+    final Days days3 = Days.of(2);
+    final Days days4 = Days.of(1);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(days1.equals(days1), "days11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(days1.equals(days2), "days12 are not equal"), //$NON-NLS-1$
@@ -107,7 +107,7 @@ public class DaysTests
   @Test
   public void testToString()
    {
-    final Days days = new Days(1);
+    final Days days = Days.of(1);
     assertEquals("Days[days=1]", days.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -118,11 +118,11 @@ public class DaysTests
   @Test
   public void testCompareTo()
    {
-    final Days days1 = new Days(1);
-    final Days days2 = new Days(1);
-    final Days days3 = new Days(2);
-    final Days days4 = new Days(3);
-    final Days days5 = new Days(1);
+    final Days days1 = Days.of(1);
+    final Days days2 = Days.of(1);
+    final Days days3 = Days.of(2);
+    final Days days4 = Days.of(3);
+    final Days days5 = Days.of(1);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(days1.compareTo(days2) == -days2.compareTo(days1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(days1.compareTo(days3) == -days3.compareTo(days1), "reflexive2"), //$NON-NLS-1$

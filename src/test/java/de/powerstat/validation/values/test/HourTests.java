@@ -68,9 +68,9 @@ public class HourTests
   @Test
   public void testHashCode()
    {
-    final Hour hour1 = new Hour(1);
-    final Hour hour2 = new Hour(1);
-    final Hour hour3 = new Hour(2);
+    final Hour hour1 = Hour.of(1);
+    final Hour hour2 = Hour.of(1);
+    final Hour hour3 = Hour.of(2);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(hour1.hashCode(), hour2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(hour1.hashCode(), hour3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -84,10 +84,10 @@ public class HourTests
   @Test
   public void testEquals()
    {
-    final Hour hour1 = new Hour(1);
-    final Hour hour2 = new Hour(1);
-    final Hour hour3 = new Hour(2);
-    final Hour hour4 = new Hour(1);
+    final Hour hour1 = Hour.of(1);
+    final Hour hour2 = Hour.of(1);
+    final Hour hour3 = Hour.of(2);
+    final Hour hour4 = Hour.of(1);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(hour1.equals(hour1), "hour11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(hour1.equals(hour2), "hour12 are not equal"), //$NON-NLS-1$
@@ -107,7 +107,7 @@ public class HourTests
   @Test
   public void testToString()
    {
-    final Hour hour = new Hour(1);
+    final Hour hour = Hour.of(1);
     assertEquals("Hour[hour=1]", hour.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -118,11 +118,11 @@ public class HourTests
   @Test
   public void testCompareTo()
    {
-    final Hour hour1 = new Hour(1);
-    final Hour hour2 = new Hour(1);
-    final Hour hour3 = new Hour(2);
-    final Hour hour4 = new Hour(3);
-    final Hour hour5 = new Hour(1);
+    final Hour hour1 = Hour.of(1);
+    final Hour hour2 = Hour.of(1);
+    final Hour hour3 = Hour.of(2);
+    final Hour hour4 = Hour.of(3);
+    final Hour hour5 = Hour.of(1);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(hour1.compareTo(hour2) == -hour2.compareTo(hour1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(hour1.compareTo(hour3) == -hour3.compareTo(hour1), "reflexive2"), //$NON-NLS-1$

@@ -109,9 +109,9 @@ public class IBANTests
   @Test
   public void testHashCode()
    {
-    final IBAN iban1 = new IBAN(IBAN_DE07123412341234123412);
-    final IBAN iban2 = new IBAN(IBAN_DE07123412341234123412);
-    final IBAN iban3 = new IBAN("DE68210501700012345678"); //$NON-NLS-1$
+    final IBAN iban1 = IBAN.of(IBAN_DE07123412341234123412);
+    final IBAN iban2 = IBAN.of(IBAN_DE07123412341234123412);
+    final IBAN iban3 = IBAN.of("DE68210501700012345678"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(iban1.hashCode(), iban2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(iban1.hashCode(), iban3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -125,10 +125,10 @@ public class IBANTests
   @Test
   public void testEquals()
    {
-    final IBAN iban1 = new IBAN(IBAN_DE07123412341234123412);
-    final IBAN iban2 = new IBAN(IBAN_DE07123412341234123412);
-    final IBAN iban3 = new IBAN("DE68210501700012345678"); //$NON-NLS-1$
-    final IBAN iban4 = new IBAN(IBAN_DE07123412341234123412);
+    final IBAN iban1 = IBAN.of(IBAN_DE07123412341234123412);
+    final IBAN iban2 = IBAN.of(IBAN_DE07123412341234123412);
+    final IBAN iban3 = IBAN.of("DE68210501700012345678"); //$NON-NLS-1$
+    final IBAN iban4 = IBAN.of(IBAN_DE07123412341234123412);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(iban1.equals(iban1), "iban11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(iban1.equals(iban2), "iban12 are not equal"), //$NON-NLS-1$
@@ -148,7 +148,7 @@ public class IBANTests
   @Test
   public void testToString()
    {
-    final IBAN iban = new IBAN("DE68210501700012345678"); //$NON-NLS-1$
+    final IBAN iban = IBAN.of("DE68210501700012345678"); //$NON-NLS-1$
     assertEquals("IBAN[iban=DE68210501700012345678]", iban.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -159,11 +159,11 @@ public class IBANTests
   @Test
   public void testCompareTo()
    {
-    final IBAN iban1 = new IBAN(IBAN_DE07123412341234123412);
-    final IBAN iban2 = new IBAN(IBAN_DE07123412341234123412);
-    final IBAN iban3 = new IBAN("DE68210501700012345678"); //$NON-NLS-1$
-    final IBAN iban4 = new IBAN("SE3550000000054910000003"); //$NON-NLS-1$
-    final IBAN iban5 = new IBAN(IBAN_DE07123412341234123412);
+    final IBAN iban1 = IBAN.of(IBAN_DE07123412341234123412);
+    final IBAN iban2 = IBAN.of(IBAN_DE07123412341234123412);
+    final IBAN iban3 = IBAN.of("DE68210501700012345678"); //$NON-NLS-1$
+    final IBAN iban4 = IBAN.of("SE3550000000054910000003"); //$NON-NLS-1$
+    final IBAN iban5 = IBAN.of(IBAN_DE07123412341234123412);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(iban1.compareTo(iban2) == -iban2.compareTo(iban1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(iban1.compareTo(iban3) == -iban3.compareTo(iban1), "reflexive2"), //$NON-NLS-1$

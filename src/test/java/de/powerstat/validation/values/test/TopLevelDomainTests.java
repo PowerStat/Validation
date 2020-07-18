@@ -95,9 +95,9 @@ public class TopLevelDomainTests
   @Test
   public void testHashCode()
    {
-    final TopLevelDomain topLevelDomain1 = new TopLevelDomain("DE"); //$NON-NLS-1$
-    final TopLevelDomain topLevelDomain2 = new TopLevelDomain("DE"); //$NON-NLS-1$
-    final TopLevelDomain topLevelDomain3 = new TopLevelDomain("FR"); //$NON-NLS-1$
+    final TopLevelDomain topLevelDomain1 = TopLevelDomain.of("DE"); //$NON-NLS-1$
+    final TopLevelDomain topLevelDomain2 = TopLevelDomain.of("DE"); //$NON-NLS-1$
+    final TopLevelDomain topLevelDomain3 = TopLevelDomain.of("FR"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(topLevelDomain1.hashCode(), topLevelDomain2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(topLevelDomain1.hashCode(), topLevelDomain3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -111,10 +111,10 @@ public class TopLevelDomainTests
   @Test
   public void testEquals()
    {
-    final TopLevelDomain topLevelDomain1 = new TopLevelDomain("DE"); //$NON-NLS-1$
-    final TopLevelDomain topLevelDomain2 = new TopLevelDomain("DE"); //$NON-NLS-1$
-    final TopLevelDomain topLevelDomain3 = new TopLevelDomain("FR"); //$NON-NLS-1$
-    final TopLevelDomain topLevelDomain4 = new TopLevelDomain("DE"); //$NON-NLS-1$
+    final TopLevelDomain topLevelDomain1 = TopLevelDomain.of("DE"); //$NON-NLS-1$
+    final TopLevelDomain topLevelDomain2 = TopLevelDomain.of("DE"); //$NON-NLS-1$
+    final TopLevelDomain topLevelDomain3 = TopLevelDomain.of("FR"); //$NON-NLS-1$
+    final TopLevelDomain topLevelDomain4 = TopLevelDomain.of("DE"); //$NON-NLS-1$
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(topLevelDomain1.equals(topLevelDomain1), "topLevelDomain11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(topLevelDomain1.equals(topLevelDomain2), "topLevelDomain12 are not equal"), //$NON-NLS-1$
@@ -134,7 +134,7 @@ public class TopLevelDomainTests
   @Test
   public void testToString()
    {
-    final TopLevelDomain topLevelDomain = new TopLevelDomain("DE"); //$NON-NLS-1$
+    final TopLevelDomain topLevelDomain = TopLevelDomain.of("DE"); //$NON-NLS-1$
     assertEquals("TopLevelDomain[topLevelDomain=DE]", topLevelDomain.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -145,11 +145,11 @@ public class TopLevelDomainTests
   @Test
   public void testCompareTo()
    {
-    final TopLevelDomain topLevelDomain1 = new TopLevelDomain("DE"); //$NON-NLS-1$
-    final TopLevelDomain topLevelDomain2 = new TopLevelDomain("DE"); //$NON-NLS-1$
-    final TopLevelDomain topLevelDomain3 = new TopLevelDomain("FR"); //$NON-NLS-1$
-    final TopLevelDomain topLevelDomain4 = new TopLevelDomain("GB"); //$NON-NLS-1$
-    final TopLevelDomain topLevelDomain5 = new TopLevelDomain("DE"); //$NON-NLS-1$
+    final TopLevelDomain topLevelDomain1 = TopLevelDomain.of("DE"); //$NON-NLS-1$
+    final TopLevelDomain topLevelDomain2 = TopLevelDomain.of("DE"); //$NON-NLS-1$
+    final TopLevelDomain topLevelDomain3 = TopLevelDomain.of("FR"); //$NON-NLS-1$
+    final TopLevelDomain topLevelDomain4 = TopLevelDomain.of("GB"); //$NON-NLS-1$
+    final TopLevelDomain topLevelDomain5 = TopLevelDomain.of("DE"); //$NON-NLS-1$
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(topLevelDomain1.compareTo(topLevelDomain2) == -topLevelDomain2.compareTo(topLevelDomain1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(topLevelDomain1.compareTo(topLevelDomain3) == -topLevelDomain3.compareTo(topLevelDomain1), "reflexive2"), //$NON-NLS-1$

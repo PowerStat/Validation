@@ -68,9 +68,9 @@ public class MonthTests
   @Test
   public void testHashCode()
    {
-    final Month month1 = new Month(1);
-    final Month month2 = new Month(1);
-    final Month month3 = new Month(2);
+    final Month month1 = Month.of(1);
+    final Month month2 = Month.of(1);
+    final Month month3 = Month.of(2);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(month1.hashCode(), month2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(month1.hashCode(), month3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -84,10 +84,10 @@ public class MonthTests
   @Test
   public void testEquals()
    {
-    final Month month1 = new Month(1);
-    final Month month2 = new Month(1);
-    final Month month3 = new Month(2);
-    final Month month4 = new Month(1);
+    final Month month1 = Month.of(1);
+    final Month month2 = Month.of(1);
+    final Month month3 = Month.of(2);
+    final Month month4 = Month.of(1);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(month1.equals(month1), "month11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(month1.equals(month2), "month12 are not equal"), //$NON-NLS-1$
@@ -107,7 +107,7 @@ public class MonthTests
   @Test
   public void testToString()
    {
-    final Month month = new Month(1);
+    final Month month = Month.of(1);
     assertEquals("Month[month=1]", month.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -118,11 +118,11 @@ public class MonthTests
   @Test
   public void testCompareTo()
    {
-    final Month month1 = new Month(1);
-    final Month month2 = new Month(1);
-    final Month month3 = new Month(2);
-    final Month month4 = new Month(3);
-    final Month month5 = new Month(1);
+    final Month month1 = Month.of(1);
+    final Month month2 = Month.of(1);
+    final Month month3 = Month.of(2);
+    final Month month4 = Month.of(3);
+    final Month month5 = Month.of(1);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(month1.compareTo(month2) == -month2.compareTo(month1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(month1.compareTo(month3) == -month3.compareTo(month1), "reflexive2"), //$NON-NLS-1$

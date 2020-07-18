@@ -66,9 +66,9 @@ public class MinutesTests
   @Test
   public void testHashCode()
    {
-    final Minutes minutes1 = new Minutes(1);
-    final Minutes minutes2 = new Minutes(1);
-    final Minutes minutes3 = new Minutes(2);
+    final Minutes minutes1 = Minutes.of(1);
+    final Minutes minutes2 = Minutes.of(1);
+    final Minutes minutes3 = Minutes.of(2);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(minutes1.hashCode(), minutes2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(minutes1.hashCode(), minutes3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -82,10 +82,10 @@ public class MinutesTests
   @Test
   public void testEquals()
    {
-    final Minutes minutes1 = new Minutes(1);
-    final Minutes minutes2 = new Minutes(1);
-    final Minutes minutes3 = new Minutes(2);
-    final Minutes minutes4 = new Minutes(1);
+    final Minutes minutes1 = Minutes.of(1);
+    final Minutes minutes2 = Minutes.of(1);
+    final Minutes minutes3 = Minutes.of(2);
+    final Minutes minutes4 = Minutes.of(1);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(minutes1.equals(minutes1), "minutes11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(minutes1.equals(minutes2), "minutes12 are not equal"), //$NON-NLS-1$
@@ -105,7 +105,7 @@ public class MinutesTests
   @Test
   public void testToString()
    {
-    final Minutes minutes = new Minutes(1);
+    final Minutes minutes = Minutes.of(1);
     assertEquals("Minutes[minutes=1]", minutes.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -116,11 +116,11 @@ public class MinutesTests
   @Test
   public void testCompareTo()
    {
-    final Minutes minutes1 = new Minutes(1);
-    final Minutes minutes2 = new Minutes(1);
-    final Minutes minutes3 = new Minutes(2);
-    final Minutes minutes4 = new Minutes(3);
-    final Minutes minutes5 = new Minutes(1);
+    final Minutes minutes1 = Minutes.of(1);
+    final Minutes minutes2 = Minutes.of(1);
+    final Minutes minutes3 = Minutes.of(2);
+    final Minutes minutes4 = Minutes.of(3);
+    final Minutes minutes5 = Minutes.of(1);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(minutes1.compareTo(minutes2) == -minutes2.compareTo(minutes1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(minutes1.compareTo(minutes3) == -minutes3.compareTo(minutes1), "reflexive2"), //$NON-NLS-1$

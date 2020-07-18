@@ -212,9 +212,9 @@ public class EMailTests
   @Test
   public void testHashCode()
    {
-    final EMail email1 = new EMail(EMAIL_USER1_AT_EXAMPLE_COM);
-    final EMail email2 = new EMail(EMAIL_USER1_AT_EXAMPLE_COM);
-    final EMail email3 = new EMail("user2@example.com"); //$NON-NLS-1$
+    final EMail email1 = EMail.of(EMAIL_USER1_AT_EXAMPLE_COM);
+    final EMail email2 = EMail.of(EMAIL_USER1_AT_EXAMPLE_COM);
+    final EMail email3 = EMail.of("user2@example.com"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(email1.hashCode(), email2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(email1.hashCode(), email3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -228,10 +228,10 @@ public class EMailTests
   @Test
   public void testEquals()
    {
-    final EMail email1 = new EMail(EMAIL_USER1_AT_EXAMPLE_COM);
-    final EMail email2 = new EMail(EMAIL_USER1_AT_EXAMPLE_COM);
-    final EMail email3 = new EMail("user2@example.com"); //$NON-NLS-1$
-    final EMail email4 = new EMail(EMAIL_USER1_AT_EXAMPLE_COM);
+    final EMail email1 = EMail.of(EMAIL_USER1_AT_EXAMPLE_COM);
+    final EMail email2 = EMail.of(EMAIL_USER1_AT_EXAMPLE_COM);
+    final EMail email3 = EMail.of("user2@example.com"); //$NON-NLS-1$
+    final EMail email4 = EMail.of(EMAIL_USER1_AT_EXAMPLE_COM);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(email1.equals(email1), "email11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(email1.equals(email2), "email12 are not equal"), //$NON-NLS-1$
@@ -251,7 +251,7 @@ public class EMailTests
   @Test
   public void testToString()
    {
-    final EMail email = new EMail(EMAIL_USER1_AT_EXAMPLE_COM);
+    final EMail email = EMail.of(EMAIL_USER1_AT_EXAMPLE_COM);
     assertEquals("EMail[email=user1@example.com]", email.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -262,11 +262,11 @@ public class EMailTests
   @Test
   public void testCompareTo()
    {
-    final EMail email1 = new EMail(EMAIL_USER1_AT_EXAMPLE_COM);
-    final EMail email2 = new EMail(EMAIL_USER1_AT_EXAMPLE_COM);
-    final EMail email3 = new EMail("user2@example.com"); //$NON-NLS-1$
-    final EMail email4 = new EMail("user3@example.com"); //$NON-NLS-1$
-    final EMail email5 = new EMail(EMAIL_USER1_AT_EXAMPLE_COM);
+    final EMail email1 = EMail.of(EMAIL_USER1_AT_EXAMPLE_COM);
+    final EMail email2 = EMail.of(EMAIL_USER1_AT_EXAMPLE_COM);
+    final EMail email3 = EMail.of("user2@example.com"); //$NON-NLS-1$
+    final EMail email4 = EMail.of("user3@example.com"); //$NON-NLS-1$
+    final EMail email5 = EMail.of(EMAIL_USER1_AT_EXAMPLE_COM);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(email1.compareTo(email2) == -email2.compareTo(email1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(email1.compareTo(email3) == -email3.compareTo(email1), "reflexive2"), //$NON-NLS-1$

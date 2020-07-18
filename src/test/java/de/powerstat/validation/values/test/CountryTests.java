@@ -97,9 +97,9 @@ public class CountryTests
   @Test
   public void testHashCode()
    {
-    final Country country1 = new Country("DE"); //$NON-NLS-1$
-    final Country country2 = new Country("DE"); //$NON-NLS-1$
-    final Country country3 = new Country("FR"); //$NON-NLS-1$
+    final Country country1 = Country.of("DE"); //$NON-NLS-1$
+    final Country country2 = Country.of("DE"); //$NON-NLS-1$
+    final Country country3 = Country.of("FR"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(country1.hashCode(), country2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(country1.hashCode(), country3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -113,10 +113,10 @@ public class CountryTests
   @Test
   public void testEquals()
    {
-    final Country country1 = new Country("DE"); //$NON-NLS-1$
-    final Country country2 = new Country("DE"); //$NON-NLS-1$
-    final Country country3 = new Country("FR"); //$NON-NLS-1$
-    final Country country4 = new Country("DE"); //$NON-NLS-1$
+    final Country country1 = Country.of("DE"); //$NON-NLS-1$
+    final Country country2 = Country.of("DE"); //$NON-NLS-1$
+    final Country country3 = Country.of("FR"); //$NON-NLS-1$
+    final Country country4 = Country.of("DE"); //$NON-NLS-1$
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(country1.equals(country1), "country11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(country1.equals(country2), "country12 are not equal"), //$NON-NLS-1$
@@ -136,7 +136,7 @@ public class CountryTests
   @Test
   public void testToString()
    {
-    final Country country = new Country("DE"); //$NON-NLS-1$
+    final Country country = Country.of("DE"); //$NON-NLS-1$
     assertEquals("Country[alpha2=DE]", country.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -147,11 +147,11 @@ public class CountryTests
   @Test
   public void testCompareTo()
    {
-    final Country country1 = new Country("DE"); //$NON-NLS-1$
-    final Country country2 = new Country("DE"); //$NON-NLS-1$
-    final Country country3 = new Country("FR"); //$NON-NLS-1$
-    final Country country4 = new Country("GB"); //$NON-NLS-1$
-    final Country country5 = new Country("DE"); //$NON-NLS-1$
+    final Country country1 = Country.of("DE"); //$NON-NLS-1$
+    final Country country2 = Country.of("DE"); //$NON-NLS-1$
+    final Country country3 = Country.of("FR"); //$NON-NLS-1$
+    final Country country4 = Country.of("GB"); //$NON-NLS-1$
+    final Country country5 = Country.of("DE"); //$NON-NLS-1$
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(country1.compareTo(country2) == -country2.compareTo(country1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(country1.compareTo(country3) == -country3.compareTo(country1), "reflexive2"), //$NON-NLS-1$

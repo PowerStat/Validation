@@ -68,9 +68,9 @@ public class YearTests
   @Test
   public void testHashCode()
    {
-    final Year year1 = new Year(1);
-    final Year year2 = new Year(1);
-    final Year year3 = new Year(2);
+    final Year year1 = Year.of(1);
+    final Year year2 = Year.of(1);
+    final Year year3 = Year.of(2);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(year1.hashCode(), year2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(year1.hashCode(), year3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -84,10 +84,10 @@ public class YearTests
   @Test
   public void testEquals()
    {
-    final Year year1 = new Year(1);
-    final Year year2 = new Year(1);
-    final Year year3 = new Year(2);
-    final Year year4 = new Year(1);
+    final Year year1 = Year.of(1);
+    final Year year2 = Year.of(1);
+    final Year year3 = Year.of(2);
+    final Year year4 = Year.of(1);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(year1.equals(year1), "year11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(year1.equals(year2), "year12 are not equal"), //$NON-NLS-1$
@@ -107,7 +107,7 @@ public class YearTests
   @Test
   public void testToString()
    {
-    final Year year = new Year(1);
+    final Year year = Year.of(1);
     assertEquals("Year[year=1]", year.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -118,11 +118,11 @@ public class YearTests
   @Test
   public void testCompareTo()
    {
-    final Year year1 = new Year(1);
-    final Year year2 = new Year(1);
-    final Year year3 = new Year(2);
-    final Year year4 = new Year(3);
-    final Year year5 = new Year(1);
+    final Year year1 = Year.of(1);
+    final Year year2 = Year.of(1);
+    final Year year3 = Year.of(2);
+    final Year year4 = Year.of(3);
+    final Year year5 = Year.of(1);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(year1.compareTo(year2) == -year2.compareTo(year1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(year1.compareTo(year3) == -year3.compareTo(year1), "reflexive2"), //$NON-NLS-1$

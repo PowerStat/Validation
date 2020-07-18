@@ -68,9 +68,9 @@ public class SecondTests
   @Test
   public void testHashCode()
    {
-    final Second second1 = new Second(1);
-    final Second second2 = new Second(1);
-    final Second second3 = new Second(2);
+    final Second second1 = Second.of(1);
+    final Second second2 = Second.of(1);
+    final Second second3 = Second.of(2);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(second1.hashCode(), second2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(second1.hashCode(), second3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -84,10 +84,10 @@ public class SecondTests
   @Test
   public void testEquals()
    {
-    final Second second1 = new Second(1);
-    final Second second2 = new Second(1);
-    final Second second3 = new Second(2);
-    final Second second4 = new Second(1);
+    final Second second1 = Second.of(1);
+    final Second second2 = Second.of(1);
+    final Second second3 = Second.of(2);
+    final Second second4 = Second.of(1);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(second1.equals(second1), "second11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(second1.equals(second2), "second12 are not equal"), //$NON-NLS-1$
@@ -107,7 +107,7 @@ public class SecondTests
   @Test
   public void testToString()
    {
-    final Second second = new Second(1);
+    final Second second = Second.of(1);
     assertEquals("Second[second=1]", second.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -118,11 +118,11 @@ public class SecondTests
   @Test
   public void testCompareTo()
    {
-    final Second second1 = new Second(1);
-    final Second second2 = new Second(1);
-    final Second second3 = new Second(2);
-    final Second second4 = new Second(3);
-    final Second second5 = new Second(1);
+    final Second second1 = Second.of(1);
+    final Second second2 = Second.of(1);
+    final Second second3 = Second.of(2);
+    final Second second4 = Second.of(3);
+    final Second second5 = Second.of(1);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(second1.compareTo(second2) == -second2.compareTo(second1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(second1.compareTo(second3) == -second3.compareTo(second1), "reflexive2"), //$NON-NLS-1$

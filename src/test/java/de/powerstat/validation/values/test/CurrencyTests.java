@@ -97,9 +97,9 @@ public class CurrencyTests
   @Test
   public void testHashCode()
    {
-    final Currency currency1 = new Currency("EUR"); //$NON-NLS-1$
-    final Currency currency2 = new Currency("EUR"); //$NON-NLS-1$
-    final Currency currency3 = new Currency("USD"); //$NON-NLS-1$
+    final Currency currency1 = Currency.of("EUR"); //$NON-NLS-1$
+    final Currency currency2 = Currency.of("EUR"); //$NON-NLS-1$
+    final Currency currency3 = Currency.of("USD"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(currency1.hashCode(), currency2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(currency1.hashCode(), currency3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -113,10 +113,10 @@ public class CurrencyTests
   @Test
   public void testEquals()
    {
-    final Currency language1 = new Currency("EUR"); //$NON-NLS-1$
-    final Currency language2 = new Currency("EUR"); //$NON-NLS-1$
-    final Currency language3 = new Currency("USD"); //$NON-NLS-1$
-    final Currency language4 = new Currency("EUR"); //$NON-NLS-1$
+    final Currency language1 = Currency.of("EUR"); //$NON-NLS-1$
+    final Currency language2 = Currency.of("EUR"); //$NON-NLS-1$
+    final Currency language3 = Currency.of("USD"); //$NON-NLS-1$
+    final Currency language4 = Currency.of("EUR"); //$NON-NLS-1$
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(language1.equals(language1), "currency11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(language1.equals(language2), "currency12 are not equal"), //$NON-NLS-1$
@@ -136,7 +136,7 @@ public class CurrencyTests
   @Test
   public void testToString()
    {
-    final Currency currency = new Currency("EUR"); //$NON-NLS-1$
+    final Currency currency = Currency.of("EUR"); //$NON-NLS-1$
     assertEquals("Currency[code=EUR]", currency.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -147,11 +147,11 @@ public class CurrencyTests
   @Test
   public void testCompareTo()
    {
-    final Currency currency1 = new Currency("EUR"); //$NON-NLS-1$
-    final Currency currency2 = new Currency("EUR"); //$NON-NLS-1$
-    final Currency currency3 = new Currency("RUB"); //$NON-NLS-1$
-    final Currency currency4 = new Currency("USD"); //$NON-NLS-1$
-    final Currency currency5 = new Currency("EUR"); //$NON-NLS-1$
+    final Currency currency1 = Currency.of("EUR"); //$NON-NLS-1$
+    final Currency currency2 = Currency.of("EUR"); //$NON-NLS-1$
+    final Currency currency3 = Currency.of("RUB"); //$NON-NLS-1$
+    final Currency currency4 = Currency.of("USD"); //$NON-NLS-1$
+    final Currency currency5 = Currency.of("EUR"); //$NON-NLS-1$
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(currency1.compareTo(currency2) == -currency2.compareTo(currency1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(currency1.compareTo(currency3) == -currency3.compareTo(currency1), "reflexive2"), //$NON-NLS-1$

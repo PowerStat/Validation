@@ -350,7 +350,7 @@ public class IPV4AddressTests
   @Test
   public void getAddress()
    {
-    final IPV4Address address = new IPV4Address(PRIVATE_IP_192_168_1_1);
+    final IPV4Address address = IPV4Address.of(PRIVATE_IP_192_168_1_1);
     assertEquals(PRIVATE_IP_192_168_1_1, address.getAddress(), "Address not as expected"); //$NON-NLS-1$
    }
 
@@ -361,9 +361,9 @@ public class IPV4AddressTests
   @Test
   public void testHashCode()
    {
-    final IPV4Address address1 = new IPV4Address(PRIVATE_IP_192_168_1_1);
-    final IPV4Address address2 = new IPV4Address(PRIVATE_IP_192_168_1_1);
-    final IPV4Address address3 = new IPV4Address("192.168.1.2"); //$NON-NLS-1$
+    final IPV4Address address1 = IPV4Address.of(PRIVATE_IP_192_168_1_1);
+    final IPV4Address address2 = IPV4Address.of(PRIVATE_IP_192_168_1_1);
+    final IPV4Address address3 = IPV4Address.of("192.168.1.2"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(address1.hashCode(), address2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(address1.hashCode(), address3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -377,10 +377,10 @@ public class IPV4AddressTests
   @Test
   public void testEquals()
    {
-    final IPV4Address address1 = new IPV4Address(PRIVATE_IP_192_168_1_1);
-    final IPV4Address address2 = new IPV4Address(PRIVATE_IP_192_168_1_1);
-    final IPV4Address address3 = new IPV4Address("192.168.1.2"); //$NON-NLS-1$
-    final IPV4Address address4 = new IPV4Address(PRIVATE_IP_192_168_1_1);
+    final IPV4Address address1 = IPV4Address.of(PRIVATE_IP_192_168_1_1);
+    final IPV4Address address2 = IPV4Address.of(PRIVATE_IP_192_168_1_1);
+    final IPV4Address address3 = IPV4Address.of("192.168.1.2"); //$NON-NLS-1$
+    final IPV4Address address4 = IPV4Address.of(PRIVATE_IP_192_168_1_1);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(address1.equals(address1), "address11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(address1.equals(address2), "address12 are not equal"), //$NON-NLS-1$
@@ -400,7 +400,7 @@ public class IPV4AddressTests
   @Test
   public void testToString()
    {
-    final IPV4Address address = new IPV4Address(PRIVATE_IP_192_168_1_1);
+    final IPV4Address address = IPV4Address.of(PRIVATE_IP_192_168_1_1);
     assertEquals("IPV4Address[address=192.168.1.1]", address.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -411,11 +411,11 @@ public class IPV4AddressTests
   @Test
   public void testCompareTo()
    {
-    final IPV4Address address1 = new IPV4Address(PRIVATE_IP_192_168_1_1);
-    final IPV4Address address2 = new IPV4Address(PRIVATE_IP_192_168_1_1);
-    final IPV4Address address3 = new IPV4Address("192.168.1.2"); //$NON-NLS-1$
-    final IPV4Address address4 = new IPV4Address("192.168.1.3"); //$NON-NLS-1$
-    final IPV4Address address5 = new IPV4Address(PRIVATE_IP_192_168_1_1);
+    final IPV4Address address1 = IPV4Address.of(PRIVATE_IP_192_168_1_1);
+    final IPV4Address address2 = IPV4Address.of(PRIVATE_IP_192_168_1_1);
+    final IPV4Address address3 = IPV4Address.of("192.168.1.2"); //$NON-NLS-1$
+    final IPV4Address address4 = IPV4Address.of("192.168.1.3"); //$NON-NLS-1$
+    final IPV4Address address5 = IPV4Address.of(PRIVATE_IP_192_168_1_1);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(address1.compareTo(address2) == -address2.compareTo(address1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(address1.compareTo(address3) == -address3.compareTo(address1), "reflexive2"), //$NON-NLS-1$

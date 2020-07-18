@@ -68,9 +68,9 @@ public class DayTests
   @Test
   public void testHashCode()
    {
-    final Day day1 = new Day(1);
-    final Day day2 = new Day(1);
-    final Day day3 = new Day(2);
+    final Day day1 = Day.of(1);
+    final Day day2 = Day.of(1);
+    final Day day3 = Day.of(2);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(day1.hashCode(), day2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(day1.hashCode(), day3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -84,10 +84,10 @@ public class DayTests
   @Test
   public void testEquals()
    {
-    final Day day1 = new Day(1);
-    final Day day2 = new Day(1);
-    final Day day3 = new Day(2);
-    final Day day4 = new Day(1);
+    final Day day1 = Day.of(1);
+    final Day day2 = Day.of(1);
+    final Day day3 = Day.of(2);
+    final Day day4 = Day.of(1);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(day1.equals(day1), "day11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(day1.equals(day2), "day12 are not equal"), //$NON-NLS-1$
@@ -107,7 +107,7 @@ public class DayTests
   @Test
   public void testToString()
    {
-    final Day day = new Day(1);
+    final Day day = Day.of(1);
     assertEquals("Day[day=1]", day.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -118,11 +118,11 @@ public class DayTests
   @Test
   public void testCompareTo()
    {
-    final Day day1 = new Day(1);
-    final Day day2 = new Day(1);
-    final Day day3 = new Day(2);
-    final Day day4 = new Day(3);
-    final Day day5 = new Day(1);
+    final Day day1 = Day.of(1);
+    final Day day2 = Day.of(1);
+    final Day day3 = Day.of(2);
+    final Day day4 = Day.of(3);
+    final Day day5 = Day.of(1);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(day1.compareTo(day2) == -day2.compareTo(day1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(day1.compareTo(day3) == -day3.compareTo(day1), "reflexive2"), //$NON-NLS-1$
