@@ -75,6 +75,17 @@ public final class Country implements Comparable<Country>
 
 
   /**
+   * Get country name in english language.
+   *
+   * @return Country name in english language
+   */
+  public String getEnglishCountryName()
+   {
+    return GeneratedISO3166A2.getName(this.alpha2);
+   }
+
+
+  /**
    * Calculate hash code.
    *
    * @return Hash

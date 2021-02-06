@@ -16,13 +16,21 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import de.powerstat.validation.values.Lines;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
  * Lines tests.
  */
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"})
 public class LinesTests
  {
+  /**
+   * Example 1.
+   */
+  private static final String EXAMPLE1 = "Example1"; //$NON-NLS-1$
+
+
   /**
    * Default constructor.
    */
@@ -86,8 +94,8 @@ public class LinesTests
   @Test
   public void getLines()
    {
-    final Lines lines = Lines.of("Example1"); //$NON-NLS-1$
-    assertEquals("Example1", lines.getLines(), "Lines not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    final Lines lines = Lines.of(EXAMPLE1);
+    assertEquals(EXAMPLE1, lines.getLines(), "Lines not as expected"); //$NON-NLS-1$
    }
 
 
@@ -97,8 +105,8 @@ public class LinesTests
   @Test
   public void testHashCode()
    {
-    final Lines lines1 = Lines.of("Example1"); //$NON-NLS-1$
-    final Lines lines2 = Lines.of("Example1"); //$NON-NLS-1$
+    final Lines lines1 = Lines.of(EXAMPLE1);
+    final Lines lines2 = Lines.of(EXAMPLE1);
     final Lines lines3 = Lines.of("Example2"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(lines1.hashCode(), lines2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -113,10 +121,10 @@ public class LinesTests
   @Test
   public void testEquals()
    {
-    final Lines lines1 = Lines.of("Example1"); //$NON-NLS-1$
-    final Lines lines2 = Lines.of("Example1"); //$NON-NLS-1$
+    final Lines lines1 = Lines.of(EXAMPLE1);
+    final Lines lines2 = Lines.of(EXAMPLE1);
     final Lines lines3 = Lines.of("Example2"); //$NON-NLS-1$
-    final Lines lines4 = Lines.of("Example1"); //$NON-NLS-1$
+    final Lines lines4 = Lines.of(EXAMPLE1);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(lines1.equals(lines1), "lines11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(lines1.equals(lines2), "lines12 are not equal"), //$NON-NLS-1$
@@ -136,7 +144,7 @@ public class LinesTests
   @Test
   public void testToString()
    {
-    final Lines lines = Lines.of("Example1");
+    final Lines lines = Lines.of(EXAMPLE1);
     assertEquals("Lines[lines=Example1]", lines.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -147,11 +155,11 @@ public class LinesTests
   @Test
   public void testCompareTo()
    {
-    final Lines lines1 = Lines.of("Example1"); //$NON-NLS-1$
-    final Lines lines2 = Lines.of("Example1"); //$NON-NLS-1$
+    final Lines lines1 = Lines.of(EXAMPLE1);
+    final Lines lines2 = Lines.of(EXAMPLE1);
     final Lines lines3 = Lines.of("Example2"); //$NON-NLS-1$
     final Lines lines4 = Lines.of("Example3"); //$NON-NLS-1$
-    final Lines lines5 = Lines.of("Example1"); //$NON-NLS-1$
+    final Lines lines5 = Lines.of(EXAMPLE1);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(lines1.compareTo(lines2) == -lines2.compareTo(lines1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(lines1.compareTo(lines3) == -lines3.compareTo(lines1), "reflexive2"), //$NON-NLS-1$

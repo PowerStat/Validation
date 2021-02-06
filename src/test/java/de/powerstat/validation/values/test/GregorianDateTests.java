@@ -20,10 +20,13 @@ import de.powerstat.validation.values.GregorianCalendar;
 import de.powerstat.validation.values.GregorianDate;
 import de.powerstat.validation.values.Month;
 import de.powerstat.validation.values.Year;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Gregorian date tests.
  */
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"})
 public class GregorianDateTests
  {
   /**

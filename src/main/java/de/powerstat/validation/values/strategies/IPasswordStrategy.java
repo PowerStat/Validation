@@ -15,6 +15,6 @@ public interface IPasswordStrategy
    * @param password Password
    * @throws IllegalArgumentException If the password does not match the configured parameters
    */
-  void validationStrategy(final String password);
+  void validationStrategy(String password);
 
  }

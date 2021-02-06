@@ -18,6 +18,11 @@ import java.util.Objects;
 public final class IPV4Address implements Comparable<IPV4Address>
  {
   /**
+   * Class c 192.
+   */
+  private static final String CLASS_C_192 = "192";
+
+  /**
    * IP V4 address.
    */
   private final String address;
@@ -76,7 +81,7 @@ public final class IPV4Address implements Comparable<IPV4Address>
    */
   public boolean isPrivate()
    {
-    if ("10".equals(this.parts[0]) || ("192".equals(this.parts[0]) && "168".equals(this.parts[1])) || ("169".equals(this.parts[0]) && "254".equals(this.parts[1]))) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+    if ("10".equals(this.parts[0]) || (CLASS_C_192.equals(this.parts[0]) && "168".equals(this.parts[1])) || ("169".equals(this.parts[0]) && "254".equals(this.parts[1]))) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
      {
       return true;
      }
@@ -114,9 +119,9 @@ public final class IPV4Address implements Comparable<IPV4Address>
    {
     if ("0".equals(this.parts[0]) || //$NON-NLS-1$
         "127".equals(this.parts[0]) || //$NON-NLS-1$
-        ("192".equals(this.parts[0]) && "0".equals(this.parts[1]) && "0".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        ("192".equals(this.parts[0]) && "0".equals(this.parts[1]) && "2".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        ("192".equals(this.parts[0]) && "88".equals(this.parts[1]) && "99".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        (CLASS_C_192.equals(this.parts[0]) && "0".equals(this.parts[1]) && "0".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
+        (CLASS_C_192.equals(this.parts[0]) && "0".equals(this.parts[1]) && "2".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
+        (CLASS_C_192.equals(this.parts[0]) && "88".equals(this.parts[1]) && "99".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
         ("198".equals(this.parts[0]) && "51".equals(this.parts[1]) && "100".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         ("203".equals(this.parts[0]) && "0".equals(this.parts[1]) && "113".equals(this.parts[2])) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
        )

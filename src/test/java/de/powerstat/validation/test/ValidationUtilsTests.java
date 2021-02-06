@@ -35,6 +35,11 @@ public final class ValidationUtilsTests
    */
   private static final String HOSTNAME_NOT_AS_EXPECTED = "Hostname not as expected!"; //$NON-NLS-1$
 
+  /**
+   * Hostname.
+   */
+  private static final String WWW_POWERSTAT_DE = "www.powerstat.de";
+
 
   /**
    * Default constructor.
@@ -53,7 +58,7 @@ public final class ValidationUtilsTests
    */
   @Deprecated
   @ParameterizedTest
-  @ValueSource(strings = {"www.powerstat.de", "a.de", "www.powerstat012345678901234567890123456789012345678901234567890123.de", "abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.ACCOUNTANT", "192.168.0.1", "fe:80::"})
+  @ValueSource(strings = {WWW_POWERSTAT_DE, "a.de", "www.powerstat012345678901234567890123456789012345678901234567890123.de", "abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.ACCOUNTANT", "192.168.0.1", "fe:80::"})
   public void checkHostnameOk(final String hostname)
    {
     final String cleanHostname = ValidationUtils.checkHostname(hostname);
@@ -689,7 +694,7 @@ public final class ValidationUtilsTests
   @Test
   public void existHostname()
    {
-    assertTrue(ValidationUtils.existHostname("www.powerstat.de"), "Should be an existing hostname"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertTrue(ValidationUtils.existHostname(WWW_POWERSTAT_DE), "Should be an existing hostname"); //$NON-NLS-1$
    }
 
 
@@ -717,7 +722,7 @@ public final class ValidationUtilsTests
    {
     final List<String> hostnamePort = ValidationUtils.splitHostnamePort("www.powerstat.de:80"); //$NON-NLS-1$
     assertAll(
-      () -> assertEquals("www.powerstat.de", hostnamePort.get(0), "Wrong hostname!"), //$NON-NLS-1$ //$NON-NLS-2$
+      () -> assertEquals(WWW_POWERSTAT_DE, hostnamePort.get(0), "Wrong hostname!"), //$NON-NLS-1$
       () -> assertEquals("80", hostnamePort.get(1), "Wrong port!")  //$NON-NLS-1$ //$NON-NLS-2$
     );
    }
@@ -751,7 +756,7 @@ public final class ValidationUtilsTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final List<String> hostnamePort = */ ValidationUtils.splitHostnamePort("www.powerstat.de"); //$NON-NLS-1$
+      /* final List<String> hostnamePort = */ ValidationUtils.splitHostnamePort(WWW_POWERSTAT_DE);
      }
     );
    }

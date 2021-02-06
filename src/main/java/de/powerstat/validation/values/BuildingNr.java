@@ -8,9 +8,6 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 
 /**
  * Address Building number.
@@ -24,7 +21,7 @@ public final class BuildingNr implements Comparable<BuildingNr>
   /**
    * Logger.
    */
-  private static final Logger LOGGER = LogManager.getLogger(BuildingNr.class);
+  // private static final Logger LOGGER = LogManager.getLogger(BuildingNr.class);
 
   /**
    * Regexp for buidling number formats.

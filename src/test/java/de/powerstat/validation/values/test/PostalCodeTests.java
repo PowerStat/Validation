@@ -15,12 +15,19 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import de.powerstat.validation.values.PostalCode;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Postal codes tests.
  */
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"})
 public class PostalCodeTests
  {
+  /**
+   * Post code 28000.
+   */
+  private static final String POSTCODE_28000 = "28000"; //$NON-NLS-1$
 
 
   /**
@@ -38,7 +45,7 @@ public class PostalCodeTests
    * @param postalCode Postal code
    */
   @ParameterizedTest
-  @ValueSource(strings = {"28000", "123", "1234567-890", "AD123"})
+  @ValueSource(strings = {POSTCODE_28000, "123", "1234567-890", "AD123"})
   public void postalCodeCorrect(final String postalCode)
    {
     final PostalCode cleanBic = PostalCode.of(postalCode);
@@ -86,8 +93,8 @@ public class PostalCodeTests
   @Test
   public void getPostalCode()
    {
-    final PostalCode postalCode = PostalCode.of("28000");
-    assertEquals("28000", postalCode.getPostalCode(), "PostalCode not as expected"); //$NON-NLS-1$
+    final PostalCode postalCode = PostalCode.of(POSTCODE_28000);
+    assertEquals(POSTCODE_28000, postalCode.getPostalCode(), "PostalCode not as expected"); //$NON-NLS-1$
    }
 
 
@@ -97,8 +104,8 @@ public class PostalCodeTests
   @Test
   public void testHashCode()
    {
-    final PostalCode postalCode1 = PostalCode.of("28000"); //$NON-NLS-1$
-    final PostalCode postalCode2 = PostalCode.of("28000"); //$NON-NLS-1$
+    final PostalCode postalCode1 = PostalCode.of(POSTCODE_28000);
+    final PostalCode postalCode2 = PostalCode.of(POSTCODE_28000);
     final PostalCode postalCode3 = PostalCode.of("30000"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(postalCode1.hashCode(), postalCode2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -113,10 +120,10 @@ public class PostalCodeTests
   @Test
   public void testEquals()
    {
-    final PostalCode postalCode1 = PostalCode.of("28000");
-    final PostalCode postalCode2 = PostalCode.of("28000");
+    final PostalCode postalCode1 = PostalCode.of(POSTCODE_28000);
+    final PostalCode postalCode2 = PostalCode.of(POSTCODE_28000);
     final PostalCode postalCode3 = PostalCode.of("30000"); //$NON-NLS-1$
-    final PostalCode postalCode4 = PostalCode.of("28000");
+    final PostalCode postalCode4 = PostalCode.of(POSTCODE_28000);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(postalCode1.equals(postalCode1), "postalCode11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(postalCode1.equals(postalCode2), "postalCode12 are not equal"), //$NON-NLS-1$
@@ -136,7 +143,7 @@ public class PostalCodeTests
   @Test
   public void testToString()
    {
-    final PostalCode postalCode = PostalCode.of("28000");
+    final PostalCode postalCode = PostalCode.of(POSTCODE_28000);
     assertEquals("PostalCode[postalCode=28000]", postalCode.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -147,11 +154,11 @@ public class PostalCodeTests
   @Test
   public void testCompareTo()
    {
-    final PostalCode bic1 = PostalCode.of("28000");
-    final PostalCode bic2 = PostalCode.of("28000");
+    final PostalCode bic1 = PostalCode.of(POSTCODE_28000);
+    final PostalCode bic2 = PostalCode.of(POSTCODE_28000);
     final PostalCode bic3 = PostalCode.of("30000"); //$NON-NLS-1$
     final PostalCode bic4 = PostalCode.of("80000"); //$NON-NLS-1$
-    final PostalCode bic5 = PostalCode.of("28000");
+    final PostalCode bic5 = PostalCode.of(POSTCODE_28000);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(bic1.compareTo(bic2) == -bic2.compareTo(bic1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(bic1.compareTo(bic3) == -bic3.compareTo(bic1), "reflexive2"), //$NON-NLS-1$

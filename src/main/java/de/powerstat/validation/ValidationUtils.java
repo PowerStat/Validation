@@ -11,9 +11,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import de.powerstat.validation.generated.GeneratedTlds;
 
 
@@ -27,7 +24,7 @@ public final class ValidationUtils
   /**
    * Logger.
    */
-  private static final Logger LOGGER = LogManager.getLogger(ValidationUtils.class);
+  // private static final Logger LOGGER = LogManager.getLogger(ValidationUtils.class);
 
 
   /**
@@ -39,6 +36,17 @@ public final class ValidationUtils
    * Deprecated since version 2.0 constant.
    */
   private static final String DEPRECATED_SINCE_2_0 = "2.0"; //$NON-NLS-1$
+
+  /**
+   * Escaped dot.
+   */
+  private static final String ESC_DOT = "\\."; //$NON-NLS-1$
+
+  /**
+   * Class c network 192.
+   */
+  private static final String C192 = "192"; //$NON-NLS-1$
+
 
   /**
    * Private default constructor.
@@ -104,8 +112,8 @@ public final class ValidationUtils
   public static boolean isIPV4private(final String address)
    {
     /* String checkedAddress = */ checkIPV4(address);
-    final String[] parts = address.split("\\."); //$NON-NLS-1$
-    if ("10".equals(parts[0]) || ("192".equals(parts[0]) && "168".equals(parts[1])) || ("169".equals(parts[0]) && "254".equals(parts[1]))) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+    final String[] parts = address.split(ESC_DOT);
+    if ("10".equals(parts[0]) || (C192.equals(parts[0]) && "168".equals(parts[1])) || ("169".equals(parts[0]) && "254".equals(parts[1]))) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
      {
       return true;
      }
@@ -147,12 +155,12 @@ public final class ValidationUtils
   public static boolean isIPV4special(final String address)
    {
     /* String checkedAddress = */ checkIPV4(address);
-    final String[] parts = address.split("\\."); //$NON-NLS-1$
+    final String[] parts = address.split(ESC_DOT);
     if ("0".equals(parts[0]) || //$NON-NLS-1$
         "127".equals(parts[0]) || //$NON-NLS-1$
-        ("192".equals(parts[0]) && "0".equals(parts[1]) && "0".equals(parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        ("192".equals(parts[0]) && "0".equals(parts[1]) && "2".equals(parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        ("192".equals(parts[0]) && "88".equals(parts[1]) && "99".equals(parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        (C192.equals(parts[0]) && "0".equals(parts[1]) && "0".equals(parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
+        (C192.equals(parts[0]) && "0".equals(parts[1]) && "2".equals(parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
+        (C192.equals(parts[0]) && "88".equals(parts[1]) && "99".equals(parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
         ("198".equals(parts[0]) && "51".equals(parts[1]) && "100".equals(parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         ("203".equals(parts[0]) && "0".equals(parts[1]) && "113".equals(parts[2])) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
        )
@@ -314,7 +322,7 @@ public final class ValidationUtils
         throw new IllegalArgumentException("Not an IP V6 address (incorrect ip v4 address embedded)"); //$NON-NLS-1$
        }
     String newAddress = address.substring(0, blockStart + 1);
-      final String[] parts = ipv4.split("\\."); //$NON-NLS-1$
+    final String[] parts = ipv4.split(ESC_DOT);
       final int block1 = Integer.parseInt(parts[0]);
       final int block2 = Integer.parseInt(parts[1]);
       final int block3 = Integer.parseInt(parts[2]);
@@ -411,14 +419,7 @@ public final class ValidationUtils
     final StringBuilder normalizedAddress = new StringBuilder();
     for (final String part : parts)
      {
-      String newPart = ""; //$NON-NLS-1$
-      for (int pos = 0; pos < (4 - part.length()); ++pos)
-       {
-        newPart += "0"; //$NON-NLS-1$
-        // part = "0" + part; //$NON-NLS-1$
-       }
-      newPart += part;
-      normalizedAddress.append(newPart).append(':');
+      normalizedAddress.append("0000".substring(part.length())).append(part).append(':'); //$NON-NLS-1$
      }
     normalizedAddress.setLength(normalizedAddress.length() - 1);
     return normalizedAddress.toString();
@@ -469,11 +470,7 @@ public final class ValidationUtils
       return true;
      }
     final String[] blocks = expandedAddress.split(":"); //$NON-NLS-1$
-    if ("00fc".equals(blocks[0]) || "00fd".equals(blocks[0])) // Unique Local Unicast //$NON-NLS-1$ //$NON-NLS-2$
-     {
-      return true;
-     }
-    return false;
+    return ("00fc".equals(blocks[0]) || "00fd".equals(blocks[0])); // Unique Local Unicast //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -499,11 +496,7 @@ public final class ValidationUtils
       return true;
      }
     final String[] blocks = expandedAddress.split(":"); //$NON-NLS-1$
-    if ("00ff".equals(blocks[0])) // Multicast //$NON-NLS-1$
-     {
-      return true;
-     }
-    return false;
+    return ("00ff".equals(blocks[0])); // Multicast //$NON-NLS-1$
    }
 
 
@@ -558,7 +551,7 @@ public final class ValidationUtils
      {
       throw new IllegalArgumentException("Hostname contains illegal character"); //$NON-NLS-1$
      }
-    final String[] parts = hostname.split("\\."); //$NON-NLS-1$
+    final String[] parts = hostname.split(ESC_DOT);
     if (parts.length < 2)
      {
       throw new IllegalArgumentException("Hostname must be at a minimum consist of subdomain.topleveldomain"); //$NON-NLS-1$

@@ -15,10 +15,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import de.powerstat.validation.values.PoBoxNumber;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Post office  box number tests.
  */
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"})
 public class PoBoxNumberTests
  {
   /**
@@ -52,7 +55,7 @@ public class PoBoxNumberTests
   @ValueSource(strings = {"1", "99999"})
   public void isPoBoxNumberStr(final String poBoxNumber)
    {
-    assertEquals(poBoxNumber, PoBoxNumber.of(Long.valueOf(poBoxNumber)).getPoBoxNumberStr(), "Not a po box number!"); //$NON-NLS-1$
+    assertEquals(poBoxNumber, PoBoxNumber.of(Long.parseLong(poBoxNumber)).getPoBoxNumberStr(), "Not a po box number!"); //$NON-NLS-1$
    }
 
 

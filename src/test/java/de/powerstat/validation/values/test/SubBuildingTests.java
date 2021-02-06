@@ -15,12 +15,21 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import de.powerstat.validation.values.SubBuilding;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Sub building tests.
  */
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"})
 public class SubBuildingTests
  {
+  /**
+   * Floor 13 apartment 0815.
+   */
+  private static final String FLOOR_13_APART_0815 = "Floor 13, Apart. 0815"; //$NON-NLS-1$
+
+
   /**
    * Default constructor.
    */
@@ -36,7 +45,7 @@ public class SubBuildingTests
    * @param subBuilding Sub building
    */
   @ParameterizedTest
-  @ValueSource(strings = {"Floor 13, Apart. 0815", "A", "Abcdefghijklmnopqrstuvwxyzabcdef"})
+  @ValueSource(strings = {FLOOR_13_APART_0815, "A", "Abcdefghijklmnopqrstuvwxyzabcdef"})
   public void subBuildingCorrect(final String subBuilding)
    {
     final SubBuilding cleanSubBuilding = SubBuilding.of(subBuilding);
@@ -84,8 +93,8 @@ public class SubBuildingTests
   @Test
   public void getSubBuilding()
    {
-    final SubBuilding subBuilding = SubBuilding.of("Floor 13, Apart. 0815"); //$NON-NLS-1$
-    assertEquals("Floor 13, Apart. 0815", subBuilding.getSubBuilding(), "SubBuilding not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    final SubBuilding subBuilding = SubBuilding.of(FLOOR_13_APART_0815);
+    assertEquals(FLOOR_13_APART_0815, subBuilding.getSubBuilding(), "SubBuilding not as expected"); //$NON-NLS-1$
    }
 
 
@@ -95,8 +104,8 @@ public class SubBuildingTests
   @Test
   public void testHashCode()
    {
-    final SubBuilding subBuilding1 = SubBuilding.of("Floor 13, Apart. 0815"); //$NON-NLS-1$
-    final SubBuilding subBuilding2 = SubBuilding.of("Floor 13, Apart. 0815"); //$NON-NLS-1$
+    final SubBuilding subBuilding1 = SubBuilding.of(FLOOR_13_APART_0815);
+    final SubBuilding subBuilding2 = SubBuilding.of(FLOOR_13_APART_0815);
     final SubBuilding subBuilding3 = SubBuilding.of("Floor 99"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(subBuilding1.hashCode(), subBuilding2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -111,10 +120,10 @@ public class SubBuildingTests
   @Test
   public void testEquals()
    {
-    final SubBuilding subBuilding1 = SubBuilding.of("Floor 13, Apart. 0815"); //$NON-NLS-1$
-    final SubBuilding subBuilding2 = SubBuilding.of("Floor 13, Apart. 0815"); //$NON-NLS-1$
+    final SubBuilding subBuilding1 = SubBuilding.of(FLOOR_13_APART_0815);
+    final SubBuilding subBuilding2 = SubBuilding.of(FLOOR_13_APART_0815);
     final SubBuilding subBuilding3 = SubBuilding.of("Floor 99"); //$NON-NLS-1$
-    final SubBuilding subBuilding4 = SubBuilding.of("Floor 13, Apart. 0815"); //$NON-NLS-1$
+    final SubBuilding subBuilding4 = SubBuilding.of(FLOOR_13_APART_0815);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(subBuilding1.equals(subBuilding1), "subBulding11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(subBuilding1.equals(subBuilding2), "subBulding12 are not equal"), //$NON-NLS-1$
@@ -134,7 +143,7 @@ public class SubBuildingTests
   @Test
   public void testToString()
    {
-    final SubBuilding subBuilding = SubBuilding.of("Floor 13, Apart. 0815");
+    final SubBuilding subBuilding = SubBuilding.of(FLOOR_13_APART_0815);
     assertEquals("SubBuilding[subBuilding=Floor 13, Apart. 0815]", subBuilding.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -145,11 +154,11 @@ public class SubBuildingTests
   @Test
   public void testCompareTo()
    {
-    final SubBuilding subBuilding1 = SubBuilding.of("Floor 13, Apart. 0815"); //$NON-NLS-1$
-    final SubBuilding subBuilding2 = SubBuilding.of("Floor 13, Apart. 0815"); //$NON-NLS-1$
+    final SubBuilding subBuilding1 = SubBuilding.of(FLOOR_13_APART_0815);
+    final SubBuilding subBuilding2 = SubBuilding.of(FLOOR_13_APART_0815);
     final SubBuilding subBuilding3 = SubBuilding.of("Floor 99"); //$NON-NLS-1$
     final SubBuilding subBuilding4 = SubBuilding.of("Floor XIII"); //$NON-NLS-1$
-    final SubBuilding subBuilding5 = SubBuilding.of("Floor 13, Apart. 0815"); //$NON-NLS-1$
+    final SubBuilding subBuilding5 = SubBuilding.of(FLOOR_13_APART_0815);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(subBuilding1.compareTo(subBuilding2) == -subBuilding2.compareTo(subBuilding1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(subBuilding1.compareTo(subBuilding3) == -subBuilding3.compareTo(subBuilding1), "reflexive2"), //$NON-NLS-1$

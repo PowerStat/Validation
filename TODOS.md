@@ -22,7 +22,7 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] Streets    openstreetmap , unicode
 - [ ] Address
 - [ ] Salutations   Frau, Herrn, Frau und Herrn, Firma, "empty", Berufsbezeichnung, Akademischer Titel
-- [ ] Sex
+- [ ] Genders/Sex (male, female, other)
 - [ ] LastNames
 
 - [ ] NationalityPlates
@@ -33,7 +33,6 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] NUTS
 - [ ] IATA Flughafen Codes
 - [ ] UN-Nummern
-- [ ] Genders/Sex (male, female, other)
 
 - [ ] Weekday
 - [ ] Calendar, Date, Time, DateTime, Timezone, Type, Format, Holidays, TimeRange, DateRange, DateTimeRange

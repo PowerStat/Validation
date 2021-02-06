@@ -71,7 +71,7 @@ public class PasswordConfigurableStrategy implements IPasswordStrategy
    * Constructor.
    *
    * @param minLength Minimum allowed username length, must be &gt;= 1
-   * @param maxLength Maximum allowed username length, must be &gt;= minLength and <= INTEGER.MAX_VALUE
+   * @param maxLength Maximum allowed username length, must be &gt;= minLength and &lt;= INTEGER.MAX_VALUE
    * @param regexp Regular expression for matching characters. Must start with ^ and end with $. Example: ^[@./_0-9a-zA-Z-]+$
    * @param minNumeric Minimum required numeric characters
    * @param minLower Minimum required lower case characters
@@ -143,7 +143,7 @@ public class PasswordConfigurableStrategy implements IPasswordStrategy
    * Password validation strategy factory.
    *
    * @param minLength Minimum allowed username length, must be &gt;= 1
-   * @param maxLength Maximum allowed username length, must be &gt;= minLength and <= INTEGER.MAX_VALUE
+   * @param maxLength Maximum allowed username length, must be &gt;= minLength and &lt;= INTEGER.MAX_VALUE
    * @param regexp Regular expression for matching characters. Must start with ^ and end with $. Example: ^[@./_0-9a-zA-Z-]+$
    * @param minNumeric Minimum required numeric characters
    * @param minLower Minimum required lower case characters

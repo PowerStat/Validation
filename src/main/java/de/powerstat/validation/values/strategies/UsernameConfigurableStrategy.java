@@ -92,7 +92,7 @@ public class UsernameConfigurableStrategy implements IUsernameStrategy
    * Constructor.
    *
    * @param minLength Minimum allowed username length, must be &gt;= 1
-   * @param maxLength Maximum allowed username length, must be &gt;= minLength and <= INTEGER.MAX_VALUE
+   * @param maxLength Maximum allowed username length, must be &gt;= minLength and &lt;= INTEGER.MAX_VALUE
    * @param regexp Regular expression for matching characters. Must start with ^ and end with $. Example: ^[@./_0-9a-zA-Z-]+$
    * @param emailHandling How email addresses as username should be handled: EMAIL_DENIED, EMAIL_REQUIRED or EMAIL_POSSIBLE
    * @throws IllegalArgumentException If arguments are not as required
@@ -126,7 +126,7 @@ public class UsernameConfigurableStrategy implements IUsernameStrategy
    * Username validation strategy factory.
    *
    * @param minLength Minimum allowed username length, must be &gt;= 1
-   * @param maxLength Maximum allowed username length, must be &gt;= minLength and <= INTEGER.MAX_VALUE
+   * @param maxLength Maximum allowed username length, must be &gt;= minLength and &lt;= INTEGER.MAX_VALUE
    * @param regexp Regular expression for matching characters. Must start with ^ and end with $. Example: ^[@./_0-9a-zA-Z-]+$
    * @param emailHandling How email addresses as username should be handled: EMAIL_DENIED, EMAIL_REQUIRED or EMAIL_POSSIBLE
    * @return UsernameStrategy object

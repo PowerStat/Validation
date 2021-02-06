@@ -18,13 +18,21 @@ import org.junit.jupiter.params.provider.ValueSource;
 import de.powerstat.validation.values.Password;
 import de.powerstat.validation.values.strategies.IPasswordStrategy;
 import de.powerstat.validation.values.strategies.PasswordConfigurableStrategy;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
  * Password tests.
  */
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"})
 public class PasswordTests
  {
+  /**
+   * Password.
+   */
+  private static final String PASSWORD = "password"; //$NON-NLS-1$
+
+
   /**
    * Default constructor.
    */
@@ -54,7 +62,7 @@ public class PasswordTests
   @Test
   public void passwordWrongValidation()
    {
-    final Password cleanPassword = Password.of("password");
+    final Password cleanPassword = Password.of(PASSWORD);
     assertFalse(cleanPassword.verifyPassword("wrongPassword"), "Password verification not as expected"); //$NON-NLS-1$
    }
 
@@ -97,8 +105,8 @@ public class PasswordTests
   @Test
   public void getPassword()
    {
-    final Password password = Password.of("password"); //$NON-NLS-1$
-    assertEquals("password", password.getPassword(), "Password not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    final Password password = Password.of(PASSWORD);
+    assertEquals(PASSWORD, password.getPassword(), "Password not as expected"); //$NON-NLS-1$
    }
 
 
@@ -108,8 +116,8 @@ public class PasswordTests
   @Test
   public void testHashCode()
    {
-    final Password password1 = Password.of("password"); //$NON-NLS-1$
-    final Password password2 = Password.of("password"); //$NON-NLS-1$
+    final Password password1 = Password.of(PASSWORD);
+    final Password password2 = Password.of(PASSWORD);
     final Password password3 = Password.of("password2"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(password1.hashCode(), password2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -124,10 +132,10 @@ public class PasswordTests
   @Test
   public void testEquals()
    {
-    final Password password1 = Password.of("password"); //$NON-NLS-1$
-    final Password password2 = Password.of("password"); //$NON-NLS-1$
+    final Password password1 = Password.of(PASSWORD);
+    final Password password2 = Password.of(PASSWORD);
     final Password password3 = Password.of("password2"); //$NON-NLS-1$
-    final Password password4 = Password.of("password"); //$NON-NLS-1$
+    final Password password4 = Password.of(PASSWORD);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(password1.equals(password1), "password11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(password1.equals(password2), "password12 are not equal"), //$NON-NLS-1$
@@ -147,7 +155,7 @@ public class PasswordTests
   @Test
   public void testToString()
    {
-    final Password password = Password.of("password"); //$NON-NLS-1$
+    final Password password = Password.of(PASSWORD);
     assertEquals("Password[password=********]", password.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -158,11 +166,11 @@ public class PasswordTests
   @Test
   public void testCompareTo()
    {
-    final Password password1 = Password.of("password"); //$NON-NLS-1$
-    final Password password2 = Password.of("password"); //$NON-NLS-1$
+    final Password password1 = Password.of(PASSWORD);
+    final Password password2 = Password.of(PASSWORD);
     final Password password3 = Password.of("password2"); //$NON-NLS-1$
     final Password password4 = Password.of("password3"); //$NON-NLS-1$
-    final Password password5 = Password.of("password"); //$NON-NLS-1$
+    final Password password5 = Password.of(PASSWORD);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(password1.compareTo(password2) == -password2.compareTo(password1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(password1.compareTo(password3) == -password3.compareTo(password1), "reflexive2"), //$NON-NLS-1$

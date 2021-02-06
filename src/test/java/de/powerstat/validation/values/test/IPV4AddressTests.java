@@ -14,11 +14,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import de.powerstat.validation.values.IPV4Address;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
  * Tests for IP V4 address class.
  */
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"})
 public class IPV4AddressTests
  {
   /**

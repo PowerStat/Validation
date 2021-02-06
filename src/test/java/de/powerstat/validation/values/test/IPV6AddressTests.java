@@ -14,11 +14,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import de.powerstat.validation.values.IPV6Address;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
  * IP V6 tests.
  */
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"})
 public class IPV6AddressTests
  {
   /**

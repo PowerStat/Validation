@@ -16,11 +16,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import de.powerstat.validation.values.Language;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
  * Language tests.
  */
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"})
 public class LanguageTests
  {
   /**

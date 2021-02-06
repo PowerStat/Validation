@@ -15,12 +15,26 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import de.powerstat.validation.values.Street;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Street tests.
  */
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"})
 public class StreetTests
  {
+  /**
+   * Street name.
+   */
+  private static final String ARBERGER_HEERSTR = "Arberger Heerstr."; //$NON-NLS-1$
+
+  /**
+   * Street name.
+   */
+  private static final String HEMELINGER_HEERSTR = "Hemelinger Heerstr."; //$NON-NLS-1$
+
+
   /**
    * Default constructor.
    */
@@ -84,8 +98,8 @@ public class StreetTests
   @Test
   public void getStreet()
    {
-    final Street street = Street.of("Hemelinger Heerstr."); //$NON-NLS-1$
-    assertEquals("Hemelinger Heerstr.", street.getStreet(), "Street not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    final Street street = Street.of(HEMELINGER_HEERSTR);
+    assertEquals(HEMELINGER_HEERSTR, street.getStreet(), "Street not as expected"); //$NON-NLS-1$
    }
 
 
@@ -95,9 +109,9 @@ public class StreetTests
   @Test
   public void testHashCode()
    {
-    final Street street1 = Street.of("Arberger Heerstr."); //$NON-NLS-1$
-    final Street street2 = Street.of("Arberger Heerstr."); //$NON-NLS-1$
-    final Street street3 = Street.of("Hemelinger Heerstr."); //$NON-NLS-1$
+    final Street street1 = Street.of(ARBERGER_HEERSTR);
+    final Street street2 = Street.of(ARBERGER_HEERSTR);
+    final Street street3 = Street.of(HEMELINGER_HEERSTR);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(street1.hashCode(), street2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(street1.hashCode(), street3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -111,10 +125,10 @@ public class StreetTests
   @Test
   public void testEquals()
    {
-    final Street street1 = Street.of("Arberger Heerstr."); //$NON-NLS-1$
-    final Street street2 = Street.of("Arberger Heerstr."); //$NON-NLS-1$
-    final Street street3 = Street.of("Hemelinger Heerstr."); //$NON-NLS-1$
-    final Street street4 = Street.of("Arberger Heerstr."); //$NON-NLS-1$
+    final Street street1 = Street.of(ARBERGER_HEERSTR);
+    final Street street2 = Street.of(ARBERGER_HEERSTR);
+    final Street street3 = Street.of(HEMELINGER_HEERSTR);
+    final Street street4 = Street.of(ARBERGER_HEERSTR);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(street1.equals(street1), "street11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(street1.equals(street2), "street12 are not equal"), //$NON-NLS-1$
@@ -134,7 +148,7 @@ public class StreetTests
   @Test
   public void testToString()
    {
-    final Street street = Street.of("Hemelinger Heerstr.");
+    final Street street = Street.of(HEMELINGER_HEERSTR);
     assertEquals("Street[street=Hemelinger Heerstr.]", street.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -145,11 +159,11 @@ public class StreetTests
   @Test
   public void testCompareTo()
    {
-    final Street street1 = Street.of("Arberger Heerstr."); //$NON-NLS-1$
-    final Street street2 = Street.of("Arberger Heerstr."); //$NON-NLS-1$
-    final Street street3 = Street.of("Hemelinger Heerstr."); //$NON-NLS-1$
+    final Street street1 = Street.of(ARBERGER_HEERSTR);
+    final Street street2 = Street.of(ARBERGER_HEERSTR);
+    final Street street3 = Street.of(HEMELINGER_HEERSTR);
     final Street street4 = Street.of("Mahndorfer Heerstr."); //$NON-NLS-1$
-    final Street street5 = Street.of("Arberger Heerstr."); //$NON-NLS-1$
+    final Street street5 = Street.of(ARBERGER_HEERSTR);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(street1.compareTo(street2) == -street2.compareTo(street1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(street1.compareTo(street3) == -street3.compareTo(street1), "reflexive2"), //$NON-NLS-1$

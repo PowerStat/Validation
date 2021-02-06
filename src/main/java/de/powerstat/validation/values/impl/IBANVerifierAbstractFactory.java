@@ -24,7 +24,7 @@ public final class IBANVerifierAbstractFactory
 
 
   /**
-   * Create IBAN verifier for country,
+   * Create IBAN verifier for country.
    *
    * @param country Country
    * @return IBANVerifier object for country

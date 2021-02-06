@@ -3,6 +3,7 @@
  */
 package de.powerstat.validation.values.test;
 
+
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,12 +16,21 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import de.powerstat.validation.values.BuildingName;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Building name tests.
  */
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"})
 public class BuildingNameTests
  {
+  /**
+   * City hall.
+   */
+  private static final String RATHAUS = "Rathaus"; //$NON-NLS-1$
+
+
   /**
    * Default constructor.
    */
@@ -36,7 +46,7 @@ public class BuildingNameTests
    * @param buildingName Building name
    */
   @ParameterizedTest
-  @ValueSource(strings = {"Rathaus", "A", "Abcdefghijklmnopqrstuvwxyzabcdef"})
+  @ValueSource(strings = {RATHAUS, "A", "Abcdefghijklmnopqrstuvwxyzabcdef"})
   public void buildingNameCorrect(final String buildingName)
    {
     final BuildingName cleanBuildingName = BuildingName.of(buildingName);
@@ -84,8 +94,8 @@ public class BuildingNameTests
   @Test
   public void getBuildingName()
    {
-    final BuildingName buildingName = BuildingName.of("Rathaus"); //$NON-NLS-1$
-    assertEquals("Rathaus", buildingName.getBuildingName(), "BuildingName not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    final BuildingName buildingName = BuildingName.of(RATHAUS);
+    assertEquals(RATHAUS, buildingName.getBuildingName(), "BuildingName not as expected"); //$NON-NLS-1$
    }
 
 
@@ -95,8 +105,8 @@ public class BuildingNameTests
   @Test
   public void testHashCode()
    {
-    final BuildingName buildingName1 = BuildingName.of("Rathaus"); //$NON-NLS-1$
-    final BuildingName buildingName2 = BuildingName.of("Rathaus"); //$NON-NLS-1$
+    final BuildingName buildingName1 = BuildingName.of(RATHAUS);
+    final BuildingName buildingName2 = BuildingName.of(RATHAUS);
     final BuildingName buildingName3 = BuildingName.of("Stadtwaage"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(buildingName1.hashCode(), buildingName2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -111,10 +121,10 @@ public class BuildingNameTests
   @Test
   public void testEquals()
    {
-    final BuildingName name1 = BuildingName.of("Rathaus"); //$NON-NLS-1$
-    final BuildingName name2 = BuildingName.of("Rathaus"); //$NON-NLS-1$
+    final BuildingName name1 = BuildingName.of(RATHAUS);
+    final BuildingName name2 = BuildingName.of(RATHAUS);
     final BuildingName name3 = BuildingName.of("Stadtwaage"); //$NON-NLS-1$
-    final BuildingName name4 = BuildingName.of("Rathaus"); //$NON-NLS-1$
+    final BuildingName name4 = BuildingName.of(RATHAUS);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(name1.equals(name1), "name11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(name1.equals(name2), "name12 are not equal"), //$NON-NLS-1$
@@ -134,7 +144,7 @@ public class BuildingNameTests
   @Test
   public void testToString()
    {
-    final BuildingName buildingName = BuildingName.of("Rathaus");
+    final BuildingName buildingName = BuildingName.of(RATHAUS);
     assertEquals("BuildingName[buildingName=Rathaus]", buildingName.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -145,11 +155,11 @@ public class BuildingNameTests
   @Test
   public void testCompareTo()
    {
-    final BuildingName name1 = BuildingName.of("Rathaus"); //$NON-NLS-1$
-    final BuildingName name2 = BuildingName.of("Rathaus"); //$NON-NLS-1$
+    final BuildingName name1 = BuildingName.of(RATHAUS);
+    final BuildingName name2 = BuildingName.of(RATHAUS);
     final BuildingName name3 = BuildingName.of("Stadtwaage"); //$NON-NLS-1$
     final BuildingName name4 = BuildingName.of("Torhaus"); //$NON-NLS-1$
-    final BuildingName name5 = BuildingName.of("Rathaus"); //$NON-NLS-1$
+    final BuildingName name5 = BuildingName.of(RATHAUS);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(name1.compareTo(name2) == -name2.compareTo(name1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(name1.compareTo(name3) == -name3.compareTo(name1), "reflexive2"), //$NON-NLS-1$

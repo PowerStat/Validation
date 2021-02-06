@@ -7,9 +7,6 @@ package de.powerstat.validation.values;
 import java.util.Locale;
 import java.util.Objects;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 
 /**
  * IP V6 address.
@@ -21,7 +18,7 @@ public final class IPV6Address implements Comparable<IPV6Address>
   /**
    * Logger.
    */
-  private static final Logger LOGGER = LogManager.getLogger(IPV6Address.class);
+  // private static final Logger LOGGER = LogManager.getLogger(IPV6Address.class);
 
   /**
    * IP V6 address.
@@ -179,14 +176,7 @@ public final class IPV6Address implements Comparable<IPV6Address>
     final StringBuilder normalizedAddress = new StringBuilder();
     for (final String part : parts)
      {
-      String newPart = ""; //$NON-NLS-1$
-      for (int pos = 0; pos < (4 - part.length()); ++pos)
-       {
-        newPart += "0";  //$NON-NLS-1$
-        // part = "0" + part; //$NON-NLS-1$
-       }
-      newPart += part;
-      normalizedAddress.append(newPart).append(':');
+      normalizedAddress.append("0000".substring(part.length())).append(part).append(':'); //$NON-NLS-1$
      }
     normalizedAddress.setLength(normalizedAddress.length() - 1);
     return normalizedAddress.toString();

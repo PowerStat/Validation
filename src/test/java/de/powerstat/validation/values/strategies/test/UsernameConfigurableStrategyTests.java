@@ -21,6 +21,12 @@ import de.powerstat.validation.values.strategies.UsernameConfigurableStrategy.Ha
 public class UsernameConfigurableStrategyTests
  {
   /**
+   * Match pattern.
+   */
+  private static final String PATTERN = "^[@./_0-9a-zA-Z-]+$"; //$NON-NLS-1$
+
+
+  /**
    * Default constructor.
    */
   public UsernameConfigurableStrategyTests()
@@ -62,7 +68,7 @@ public class UsernameConfigurableStrategyTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final IUsernameStrategy cleanStrategy = */ UsernameConfigurableStrategy.of(10, 9, "^[@./_0-9a-zA-Z-]+$", HandleEMail.EMAIL_POSSIBLE); //$NON-NLS-1$
+      /* final IUsernameStrategy cleanStrategy = */ UsernameConfigurableStrategy.of(10, 9, PATTERN, HandleEMail.EMAIL_POSSIBLE);
      }
     );
    }
@@ -74,7 +80,7 @@ public class UsernameConfigurableStrategyTests
   @Test
   public void maxEqualMinLength()
    {
-    final IUsernameStrategy cleanStrategy =  UsernameConfigurableStrategy.of(10, 10, "^[@./_0-9a-zA-Z-]+$", HandleEMail.EMAIL_POSSIBLE); //$NON-NLS-1$
+    final IUsernameStrategy cleanStrategy =  UsernameConfigurableStrategy.of(10, 10, PATTERN, HandleEMail.EMAIL_POSSIBLE);
     assertNotNull(cleanStrategy, "cleanStrategy not as expected"); //$NON-NLS-1$
    }
 
@@ -85,7 +91,7 @@ public class UsernameConfigurableStrategyTests
   @Test
   public void usernameEMailDenied()
    {
-    final IUsernameStrategy cleanStrategy = UsernameConfigurableStrategy.of(1, 254, "^[@./_0-9a-zA-Z-]+$", HandleEMail.EMAIL_DENIED); //$NON-NLS-1$
+    final IUsernameStrategy cleanStrategy = UsernameConfigurableStrategy.of(1, 254, PATTERN, HandleEMail.EMAIL_DENIED);
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* boolean email = */ cleanStrategy.validationStrategy("username@example.com"); //$NON-NLS-1$
@@ -100,7 +106,7 @@ public class UsernameConfigurableStrategyTests
   @Test
   public void usernameEMailRequired()
    {
-    final IUsernameStrategy cleanStrategy = UsernameConfigurableStrategy.of(1, 254, "^[@./_0-9a-zA-Z-]+$", HandleEMail.EMAIL_REQUIRED); //$NON-NLS-1$
+    final IUsernameStrategy cleanStrategy = UsernameConfigurableStrategy.of(1, 254, PATTERN, HandleEMail.EMAIL_REQUIRED);
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* boolean email = */ cleanStrategy.validationStrategy("username"); //$NON-NLS-1$
@@ -117,7 +123,7 @@ public class UsernameConfigurableStrategyTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      final IUsernameStrategy cleanStrategy = UsernameConfigurableStrategy.of(1, 254, "[@./_0-9a-zA-Z-]+", HandleEMail.EMAIL_REQUIRED); //$NON-NLS-1$
+      /* final IUsernameStrategy cleanStrategy = */ UsernameConfigurableStrategy.of(1, 254, "[@./_0-9a-zA-Z-]+", HandleEMail.EMAIL_REQUIRED); //$NON-NLS-1$
      }
     );
    }

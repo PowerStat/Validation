@@ -35,7 +35,7 @@ public final class Password implements Comparable<Password>
   /**
    * Password.
    */
-  private final String password;
+  private final String passwd;
 
 
   /**
@@ -53,7 +53,7 @@ public final class Password implements Comparable<Password>
     Objects.requireNonNull(validationStrategy, "validationStrategy"); //$NON-NLS-1$
     Objects.requireNonNull(password, "password"); //$NON-NLS-1$
     validationStrategy.validationStrategy(password);
-    this.password = password;
+    this.passwd = password;
    }
 
 
@@ -89,7 +89,7 @@ public final class Password implements Comparable<Password>
    */
   public String getPassword()
    {
-    return this.password;
+    return this.passwd;
    }
 
 
@@ -103,7 +103,7 @@ public final class Password implements Comparable<Password>
    */
   public boolean verifyPassword(final String password)
    {
-    return this.password.equals(password);
+    return this.passwd.equals(password);
    }
 
 
@@ -116,7 +116,7 @@ public final class Password implements Comparable<Password>
   @Override
   public int hashCode()
    {
-    return this.password.hashCode();
+    return this.passwd.hashCode();
    }
 
 
@@ -139,7 +139,7 @@ public final class Password implements Comparable<Password>
       return false;
      }
     final Password other = (Password)obj;
-    return this.password.equals(other.password);
+    return this.passwd.equals(other.passwd);
    }
 
 
@@ -173,7 +173,7 @@ public final class Password implements Comparable<Password>
   public int compareTo(final Password obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.password.compareTo(obj.password);
+    return this.passwd.compareTo(obj.passwd);
    }
 
  }

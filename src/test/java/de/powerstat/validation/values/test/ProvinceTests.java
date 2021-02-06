@@ -15,12 +15,21 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import de.powerstat.validation.values.Province;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Province tests.
  */
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"})
 public class ProvinceTests
  {
+  /**
+   * abc.
+   */
+  private static final String ABC = "abc"; //$NON-NLS-1$
+
+
   /**
    * Default constructor.
    */
@@ -95,8 +104,8 @@ public class ProvinceTests
   @Test
   public void testHashCode()
    {
-    final Province province1 = Province.of("abc");
-    final Province province2 = Province.of("abc");
+    final Province province1 = Province.of(ABC);
+    final Province province2 = Province.of(ABC);
     final Province province3 = Province.of("def"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(province1.hashCode(), province2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -111,10 +120,10 @@ public class ProvinceTests
   @Test
   public void testEquals()
    {
-    final Province province1 = Province.of("abc");
-    final Province province2 = Province.of("abc");
+    final Province province1 = Province.of(ABC);
+    final Province province2 = Province.of(ABC);
     final Province province3 = Province.of("def"); //$NON-NLS-1$
-    final Province province4 = Province.of("abc");
+    final Province province4 = Province.of(ABC);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(province1.equals(province1), "province11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(province1.equals(province2), "province12 are not equal"), //$NON-NLS-1$
@@ -134,7 +143,7 @@ public class ProvinceTests
   @Test
   public void testToString()
    {
-    final Province province = Province.of("abc");
+    final Province province = Province.of(ABC);
     assertEquals("Province[province=abc]", province.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -145,11 +154,11 @@ public class ProvinceTests
   @Test
   public void testCompareTo()
    {
-    final Province province1 = Province.of("abc"); //$NON-NLS-1$
-    final Province province2 = Province.of("abc"); //$NON-NLS-1$
+    final Province province1 = Province.of(ABC);
+    final Province province2 = Province.of(ABC);
     final Province province3 = Province.of("def"); //$NON-NLS-1$
     final Province province4 = Province.of("ghi"); //$NON-NLS-1$
-    final Province province5 = Province.of("abc"); //$NON-NLS-1$
+    final Province province5 = Province.of(ABC);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(province1.compareTo(province2) == -province2.compareTo(province1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(province1.compareTo(province3) == -province3.compareTo(province1), "reflexive2"), //$NON-NLS-1$

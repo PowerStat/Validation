@@ -17,13 +17,26 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import de.powerstat.validation.values.MACAddress;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
  * MAC address tests.
  */
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"})
 public class MACAddressTests
  {
+  /**
+   * MAC address 00:00:00:00:00:00.
+   */
+  private static final String MAC_00_00_00_00_00_00 = "00:00:00:00:00:00";
+
+  /**
+   * Address not as expected.
+   */
+  private static final String ADDRESS_NOT_AS_EXPECTED = "Address not as expected"; //$NON-NLS-1$
+
+
   /**
    * Default constructor.
    */
@@ -70,11 +83,11 @@ public class MACAddressTests
    * @param mac MAC address
    */
   @ParameterizedTest
-  @ValueSource(strings = {"00:00:00:00:00:00", "00-00-00-00-00-00", "000000000000"})
+  @ValueSource(strings = {MAC_00_00_00_00_00_00, "00-00-00-00-00-00", "000000000000"})
   public void constructorSuccess(final String mac)
    {
     final MACAddress address = MACAddress.of(mac);
-    assertNotNull(address, "address not as expected"); //$NON-NLS-1$
+    assertNotNull(address, ADDRESS_NOT_AS_EXPECTED);
    }
 
 
@@ -84,8 +97,8 @@ public class MACAddressTests
   @Test
   public void getAddress1()
    {
-    final MACAddress address = MACAddress.of("00:00:00:00:00:00"); //$NON-NLS-1$
-    assertEquals("00:00:00:00:00:00", address.getAddress(":"), "Address not as expected"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    final MACAddress address = MACAddress.of(MAC_00_00_00_00_00_00);
+    assertEquals(MAC_00_00_00_00_00_00, address.getAddress(":"), ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 
@@ -95,8 +108,8 @@ public class MACAddressTests
   @Test
   public void getAddress2()
    {
-    final MACAddress address = MACAddress.of("00:00:00:00:00:00"); //$NON-NLS-1$
-    assertEquals("00-00-00-00-00-00", address.getAddress("-"), "Address not as expected"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    final MACAddress address = MACAddress.of(MAC_00_00_00_00_00_00);
+    assertEquals("00-00-00-00-00-00", address.getAddress("-"), ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -106,8 +119,8 @@ public class MACAddressTests
   @Test
   public void getAddress3()
    {
-    final MACAddress address = MACAddress.of("00:00:00:00:00:00"); //$NON-NLS-1$
-    assertEquals("000000000000", address.getAddress(""), "Address not as expected"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    final MACAddress address = MACAddress.of(MAC_00_00_00_00_00_00);
+    assertEquals("000000000000", address.getAddress(""), ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -120,10 +133,10 @@ public class MACAddressTests
   @ValueSource(strings = {"::", ","})
   public void getAddressFailure(final String delimiter)
    {
-    final MACAddress address = MACAddress.of("00:00:00:00:00:00"); //$NON-NLS-1$
+    final MACAddress address = MACAddress.of(MAC_00_00_00_00_00_00);
     assertThrows(IllegalArgumentException.class, () ->
      {
-      assertEquals("000000000000", address.getAddress(delimiter), "Address not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+      assertEquals("000000000000", address.getAddress(delimiter), ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
      }
     );
    }
@@ -168,7 +181,7 @@ public class MACAddressTests
   @Test
   public void isGroupFalse()
    {
-    final MACAddress address = MACAddress.of("00:00:00:00:00:00"); //$NON-NLS-1$
+    final MACAddress address = MACAddress.of(MAC_00_00_00_00_00_00);
     assertFalse(address.isGroup(), "Is a group address"); //$NON-NLS-1$
    }
 
@@ -190,7 +203,7 @@ public class MACAddressTests
   @Test
   public void isLocalFalse()
    {
-    final MACAddress address = MACAddress.of("00:00:00:00:00:00"); //$NON-NLS-1$
+    final MACAddress address = MACAddress.of(MAC_00_00_00_00_00_00);
     assertFalse(address.isLocal(), "Is a local address"); //$NON-NLS-1$
    }
 
@@ -256,7 +269,7 @@ public class MACAddressTests
   @Test
   public void isVRRPFalse()
    {
-    final MACAddress address = MACAddress.of("00:00:00:00:00:00"); //$NON-NLS-1$
+    final MACAddress address = MACAddress.of(MAC_00_00_00_00_00_00);
     assertFalse(address.isVRRP(), "Is a vrrp address"); //$NON-NLS-1$
    }
 
@@ -278,8 +291,8 @@ public class MACAddressTests
   @Test
   public void testHashCode()
    {
-    final MACAddress address1 = MACAddress.of("00:00:00:00:00:00"); //$NON-NLS-1$
-    final MACAddress address2 = MACAddress.of("00:00:00:00:00:00"); //$NON-NLS-1$
+    final MACAddress address1 = MACAddress.of(MAC_00_00_00_00_00_00);
+    final MACAddress address2 = MACAddress.of(MAC_00_00_00_00_00_00);
     final MACAddress address3 = MACAddress.of("00:00:00:00:00:01"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(address1.hashCode(), address2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -294,10 +307,10 @@ public class MACAddressTests
   @Test
   public void testEquals()
    {
-    final MACAddress address1 = MACAddress.of("00:00:00:00:00:00"); //$NON-NLS-1$
-    final MACAddress address2 = MACAddress.of("00:00:00:00:00:00"); //$NON-NLS-1$
+    final MACAddress address1 = MACAddress.of(MAC_00_00_00_00_00_00);
+    final MACAddress address2 = MACAddress.of(MAC_00_00_00_00_00_00);
     final MACAddress address3 = MACAddress.of("00:00:00:00:00:01"); //$NON-NLS-1$
-    final MACAddress address4 = MACAddress.of("00:00:00:00:00:00"); //$NON-NLS-1$
+    final MACAddress address4 = MACAddress.of(MAC_00_00_00_00_00_00);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(address1.equals(address1), "address11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(address1.equals(address2), "address12 are not equal"), //$NON-NLS-1$
@@ -317,7 +330,7 @@ public class MACAddressTests
   @Test
   public void testToString()
    {
-    final MACAddress address = MACAddress.of("00:00:00:00:00:00"); //$NON-NLS-1$
+    final MACAddress address = MACAddress.of(MAC_00_00_00_00_00_00);
     assertEquals("MACAddress[address=00:00:00:00:00:00]", address.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -328,11 +341,11 @@ public class MACAddressTests
   @Test
   public void testCompareTo()
    {
-    final MACAddress address1 = MACAddress.of("00:00:00:00:00:00"); //$NON-NLS-1$
-    final MACAddress address2 = MACAddress.of("00:00:00:00:00:00"); //$NON-NLS-1$
+    final MACAddress address1 = MACAddress.of(MAC_00_00_00_00_00_00);
+    final MACAddress address2 = MACAddress.of(MAC_00_00_00_00_00_00);
     final MACAddress address3 = MACAddress.of("00:00:00:00:00:01"); //$NON-NLS-1$
     final MACAddress address4 = MACAddress.of("00:00:00:00:00:02"); //$NON-NLS-1$
-    final MACAddress address5 = MACAddress.of("00:00:00:00:00:00"); //$NON-NLS-1$
+    final MACAddress address5 = MACAddress.of(MAC_00_00_00_00_00_00);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(address1.compareTo(address2) == -address2.compareTo(address1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(address1.compareTo(address3) == -address3.compareTo(address1), "reflexive2"), //$NON-NLS-1$
