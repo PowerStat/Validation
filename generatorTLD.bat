@@ -11,8 +11,8 @@ echo  */
 echo package de.powerstat.validation.generated;
 echo:
 echo:
-echo import java.util.ArrayList;
-echo import java.util.List;
+echo import java.util.HashSet;
+echo import java.util.Set;
 echo import java.util.Locale;
 echo:
 echo:
@@ -24,7 +24,7 @@ echo  {
 echo   /**
 echo    * Top level domain list.
 echo    */
-echo   private static final List^<String^> TOP_LEVEL_DOMAINS = new ArrayList^<^>();
+echo   private static final Set^<String^> TOP_LEVEL_DOMAINS = new HashSet^<^>();
 echo:
 echo:
 echo   /**

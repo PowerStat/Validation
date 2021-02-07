@@ -20,7 +20,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Tests for IP V4 address class.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"})
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
 public class IPV4AddressTests
  {
   /**

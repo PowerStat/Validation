@@ -26,7 +26,6 @@ public final class ValidationUtils
    */
   // private static final Logger LOGGER = LogManager.getLogger(ValidationUtils.class);
 
-
   /**
    * URI separator.
    */
@@ -315,20 +314,19 @@ public final class ValidationUtils
      {
       return address;
      }
-      final int blockStart = address.lastIndexOf(':', ipv4pos);
-      final String ipv4 = address.substring(blockStart + 1);
-      if (!isIPV4(ipv4))
-       {
-        throw new IllegalArgumentException("Not an IP V6 address (incorrect ip v4 address embedded)"); //$NON-NLS-1$
-       }
-    String newAddress = address.substring(0, blockStart + 1);
+    final int blockStart = address.lastIndexOf(':', ipv4pos);
+    final String ipv4 = address.substring(blockStart + 1);
+    if (!isIPV4(ipv4))
+     {
+      throw new IllegalArgumentException("Not an IP V6 address (incorrect ip v4 address embedded)"); //$NON-NLS-1$
+     }
+    final String newAddress = address.substring(0, blockStart + 1);
     final String[] parts = ipv4.split(ESC_DOT);
-      final int block1 = Integer.parseInt(parts[0]);
-      final int block2 = Integer.parseInt(parts[1]);
-      final int block3 = Integer.parseInt(parts[2]);
-      final int block4 = Integer.parseInt(parts[3]);
-    newAddress += Integer.toHexString(block1) + String.format("%02x", block2) + ':' + Integer.toHexString(block3) + String.format("%02x", block4); //$NON-NLS-1$ //$NON-NLS-2$
-    return newAddress;
+    final int block1 = Integer.parseInt(parts[0]);
+    final int block2 = Integer.parseInt(parts[1]);
+    final int block3 = Integer.parseInt(parts[2]);
+    final int block4 = Integer.parseInt(parts[3]);
+    return newAddress + Integer.toHexString(block1) + String.format("%02x", block2) + ':' + Integer.toHexString(block3) + String.format("%02x", block4); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

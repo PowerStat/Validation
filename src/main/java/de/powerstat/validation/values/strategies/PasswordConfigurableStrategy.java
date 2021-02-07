@@ -184,7 +184,7 @@ public class PasswordConfigurableStrategy implements IPasswordStrategy
     int special = 0;
     int same = 1;
     char lastChar = '\0';
-    final Set<Character> cset = new HashSet<>();
+    final Set<Character> cset = new HashSet<>(password.length());
     for (int i = 0; i < password.length(); ++i)
      {
       final char chr = password.charAt(i);

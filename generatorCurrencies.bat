@@ -6,13 +6,13 @@ rem $1 Path to downloaded file
 setlocal ENABLEDELAYEDEXPANSION
 pushd %~dp0
 echo /*
-echo  * Code generator Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+echo  * Code generator Copyright (C) 2020-2021 Dipl.-Inform. Kai Hofmann. All rights reserved!
 echo  */
 echo package de.powerstat.validation.generated;
 echo:
 echo:
-echo import java.util.ArrayList;
-echo import java.util.List;
+echo import java.util.HashSet;
+echo import java.util.Set;
 echo import java.util.Locale;
 echo:
 echo:
@@ -24,7 +24,7 @@ echo  {
 echo   /**
 echo    * ISO 4217 code list.
 echo    */
-echo   private static final List^<String^> CODES = new ArrayList^<^>();
+echo   private static final Set^<String^> CODES = new HashSet^<^>();
 echo:
 echo:
 echo   /**

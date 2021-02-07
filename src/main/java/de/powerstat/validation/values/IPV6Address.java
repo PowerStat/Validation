@@ -77,15 +77,14 @@ public final class IPV6Address implements Comparable<IPV6Address>
      }
       final int blockStart = address.lastIndexOf(':', ipv4pos);
       final String ipv4 = address.substring(blockStart + 1);
-    /* final IPV4Address ipv4address = */ new IPV4Address(ipv4); // TODO use IPV4Address to ip v6 conversion method
-    String newAddress = address.substring(0, blockStart + 1);
+      /* final IPV4Address ipv4address = */ new IPV4Address(ipv4); // TODO use IPV4Address to ip v6 conversion method
+      final String newAddress = address.substring(0, blockStart + 1);
       final String[] parts = ipv4.split("\\."); //$NON-NLS-1$
       final int block1 = Integer.parseInt(parts[0]);
       final int block2 = Integer.parseInt(parts[1]);
       final int block3 = Integer.parseInt(parts[2]);
       final int block4 = Integer.parseInt(parts[3]);
-    newAddress += Integer.toHexString(block1) + String.format("%02x", block2) + ':' + Integer.toHexString(block3) + String.format("%02x", block4); //$NON-NLS-1$ //$NON-NLS-2$
-    return newAddress;
+      return newAddress + Integer.toHexString(block1) + String.format("%02x", block2) + ':' + Integer.toHexString(block3) + String.format("%02x", block4); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
