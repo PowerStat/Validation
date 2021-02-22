@@ -14,8 +14,6 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] FistNames/Vornamen
       https://de.wikipedia.org/wiki/Vorname_(Deutschland)
 
-- [ ] Milliseconds?
-
 - [ ] PhoneNumber Area Codes   https://datahub.io/core/country-codes/r/country-codes.csv
       https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers
 - [ ] PostCodes https://de.wikipedia.org/wiki/Liste_der_Postleitsysteme

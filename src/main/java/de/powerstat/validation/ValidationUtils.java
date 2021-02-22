@@ -746,12 +746,13 @@ public final class ValidationUtils
         result.append(URI_SEPARATOR);
        }
       // TODO check illegal characters(?) and sanitize them.
+      // /urlpath + ? param=value & param=value
       // ? & = # % +
       // https://de.wikipedia.org/wiki/URL-Encoding
       // reserviert: : / ? # [ ] @ ! $ & ' ( ) * + , ; =
       // nicht reserviert: A–Z, a–z, 0-9, - . _ ~
+      result.append(urlPath);
      }
-    result.append(urlPath);
     return result.toString();
    }
 
