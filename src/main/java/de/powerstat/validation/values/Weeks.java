@@ -3,7 +3,9 @@
  */
 package de.powerstat.validation.values;
 
+
 import java.util.Objects;
+
 
 /**
  * Weeks.
