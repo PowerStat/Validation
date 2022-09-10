@@ -105,8 +105,41 @@ public class HostnameTests
   @Test
   public void getHostname()
    {
-    final Hostname hostname = Hostname.of(PRIVATE_IP_192_168_1_1);
-    assertEquals(PRIVATE_IP_192_168_1_1, hostname.getHostname(), "Hostname not as expected"); //$NON-NLS-1$
+    final Hostname hostname = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
+    assertEquals(HostnameTests.PRIVATE_IP_192_168_1_1, hostname.getHostname(), "Hostname not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test get reverse hostname.
+   */
+  @Test
+  public void getReverseHostname1()
+   {
+    final Hostname hostname = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
+    assertEquals(HostnameTests.PRIVATE_IP_192_168_1_1, hostname.getReverseHostname(), "Hostname not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test get reverse hostname.
+   */
+  @Test
+  public void getReverseHostname2()
+   {
+    final Hostname hostname = Hostname.of("fd00:0000:0000:0000:0000:0000:0000:0000");
+    assertEquals("fd00:0000:0000:0000:0000:0000:0000:0000", hostname.getReverseHostname(), "Hostname not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test get reverse hostname.
+   */
+  @Test
+  public void getReverseHostname3()
+   {
+    final Hostname hostname = Hostname.of("www.example.com");
+    assertEquals("com.example.www", hostname.getReverseHostname(), "Hostname not as expected"); //$NON-NLS-1$
    }
 
 
@@ -156,8 +189,8 @@ public class HostnameTests
   @Test
   public void testHashCode()
    {
-    final Hostname hostname1 = Hostname.of(PRIVATE_IP_192_168_1_1);
-    final Hostname hostname2 = Hostname.of(PRIVATE_IP_192_168_1_1);
+    final Hostname hostname1 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
+    final Hostname hostname2 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
     final Hostname hostname3 = Hostname.of("192.168.1.2"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(hostname1.hashCode(), hostname2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -172,10 +205,10 @@ public class HostnameTests
   @Test
   public void testEquals()
    {
-    final Hostname hostname1 = Hostname.of(PRIVATE_IP_192_168_1_1);
-    final Hostname hostname2 = Hostname.of(PRIVATE_IP_192_168_1_1);
+    final Hostname hostname1 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
+    final Hostname hostname2 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
     final Hostname hostname3 = Hostname.of("192.168.1.2"); //$NON-NLS-1$
-    final Hostname hostname4 = Hostname.of(PRIVATE_IP_192_168_1_1);
+    final Hostname hostname4 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(hostname1.equals(hostname1), "hostname11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(hostname1.equals(hostname2), "hostname12 are not equal"), //$NON-NLS-1$
@@ -195,7 +228,7 @@ public class HostnameTests
   @Test
   public void testToString()
    {
-    final Hostname hostname = Hostname.of(PRIVATE_IP_192_168_1_1);
+    final Hostname hostname = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
     assertEquals("Hostname[hostname=192.168.1.1]", hostname.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -206,11 +239,11 @@ public class HostnameTests
   @Test
   public void testCompareTo()
    {
-    final Hostname hostname1 = Hostname.of(PRIVATE_IP_192_168_1_1);
-    final Hostname hostname2 = Hostname.of(PRIVATE_IP_192_168_1_1);
+    final Hostname hostname1 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
+    final Hostname hostname2 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
     final Hostname hostname3 = Hostname.of("192.168.1.2"); //$NON-NLS-1$
     final Hostname hostname4 = Hostname.of("192.168.1.3"); //$NON-NLS-1$
-    final Hostname hostname5 = Hostname.of(PRIVATE_IP_192_168_1_1);
+    final Hostname hostname5 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(hostname1.compareTo(hostname2) == -hostname2.compareTo(hostname1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(hostname1.compareTo(hostname3) == -hostname3.compareTo(hostname1), "reflexive2"), //$NON-NLS-1$

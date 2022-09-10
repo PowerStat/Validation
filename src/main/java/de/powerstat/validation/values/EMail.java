@@ -23,6 +23,16 @@ public final class EMail implements Comparable<EMail>
    */
   private final String email;
 
+  /**
+   * EMails domain part.
+   */
+  private final Hostname domainPart;
+
+  /**
+   * EMails local part.
+   */
+  private final String localPart;
+
 
   /**
    * Constructor.
@@ -59,7 +69,7 @@ public final class EMail implements Comparable<EMail>
        }
       parts[1] = parts[1].substring(0, parts[1].length() - 1);
      }
-    /* final Hostname hostname = */ Hostname.of(parts[1]);
+    this.domainPart = Hostname.of(parts[1]);
     if ((parts[0].charAt(0) == '(') || (parts[0].charAt(parts[0].length() - 1) == ')'))
      {
       throw new IllegalArgumentException("Comments in email addresses are not supported"); //$NON-NLS-1$
@@ -80,6 +90,7 @@ public final class EMail implements Comparable<EMail>
      {
       throw new IllegalArgumentException("Illegal character found in emails local part or unsupported UTF-8 character"); //$NON-NLS-1$
      }
+    this.localPart = parts[0];
     this.email = email;
    }
 
@@ -104,6 +115,39 @@ public final class EMail implements Comparable<EMail>
   public String getEMail()
    {
     return this.email;
+   }
+
+
+  /**
+   * Get emails domain part string.
+   *
+   * @return Domain part string
+   */
+  public String getDomainPart()
+   {
+    return this.domainPart.getHostname();
+   }
+
+
+  /**
+   * Get emails reverse domain part string.
+   *
+   * @return Reverse domain part string
+   */
+  public String getReverseDomainPart()
+   {
+    return this.domainPart.getReverseHostname();
+   }
+
+
+  /**
+   * Get emails local part string.
+   *
+   * @return Local part string
+   */
+  public String getLocalPart()
+   {
+    return this.localPart;
    }
 
 

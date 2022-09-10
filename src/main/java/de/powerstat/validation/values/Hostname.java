@@ -24,6 +24,11 @@ public final class Hostname implements Comparable<Hostname>
    */
   private final String hostname;
 
+  /**
+   * Reverse hostname.
+   */
+  private final String reverseHostname;
+
 
   /**
    * Constructor.
@@ -63,6 +68,11 @@ public final class Hostname implements Comparable<Hostname>
     if (tempHostname.isEmpty())
      {
       tempHostname = checkHostname(hostname);
+      this.reverseHostname = reverseHostname(tempHostname);
+     }
+    else
+     {
+      this.reverseHostname = tempHostname;
      }
     this.hostname = tempHostname;
    }
@@ -105,6 +115,28 @@ public final class Hostname implements Comparable<Hostname>
 
 
   /**
+   * Reverse hostname.
+   *
+   * @param hostname Hostname
+   * @return Reversed hostname.
+   */
+  private static String reverseHostname(final String hostname)
+   {
+    final String[] parts = hostname.split("\\."); //$NON-NLS-1$
+    final StringBuilder buffer = new StringBuilder(hostname.length());
+    for (int i = parts.length - 1; i >= 0; --i)
+     {
+      if (buffer.length() != 0)
+       {
+        buffer.append('.');
+       }
+      buffer.append(parts[i]);
+     }
+    return buffer.toString();
+   }
+
+
+  /**
    * Hostname factory.
    *
    * @param hostname Hostname
@@ -124,6 +156,17 @@ public final class Hostname implements Comparable<Hostname>
   public String getHostname()
    {
     return this.hostname;
+   }
+
+
+  /**
+   * Get reverse hostname string.
+   *
+   * @return Reverse hostname string
+   */
+  public String getReverseHostname()
+   {
+    return this.reverseHostname;
    }
 
 
