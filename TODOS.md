@@ -1,27 +1,34 @@
 # TODOS
 
+VCARD:
+- Categories
+- KEY
+- KIND
+- Preference 1-..
+- Nickname
+- Note
+- Organisation
+- Related
+- Job Role
+- Job Title
+- Sound
+- Photo
+- LOGO
+- URL: IMPP, Sound, Photo, Logo, Phone, Web
+- Phone
+- Time zone
+- UUID
+
+
 https://datahub.io/collections/reference-data#currency-codes
 
-- [ ] Password
-      https://www.datendieter.de/item/Haeufige_Passwoerter
-      https://www.passwortfuchs.de/passwortliste.php
-      https://crackstation.net/crackstation-wordlist-password-cracking-dictionary.htm
-      https://github.com/danielmiessler/SecLists/tree/master/Passwords
-      https://weakpass.com/wordlist
-      https://wiki.skullsecurity.org/Passwords
-      https://thehacktoday.com/password-cracking-dictionarys-download-for-free/
-      
-- [ ] FistNames/Vornamen
-      https://de.wikipedia.org/wiki/Vorname_(Deutschland)
+- [ ] Country names, Language names
 
 - [ ] PhoneNumber Area Codes   https://datahub.io/core/country-codes/r/country-codes.csv
       https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers
 - [ ] PostCodes https://de.wikipedia.org/wiki/Liste_der_Postleitsysteme
-- [ ] Streets    openstreetmap , unicode
-- [ ] Address
 - [ ] Salutations   Frau, Herrn, Frau und Herrn, Firma, "empty", Berufsbezeichnung, Akademischer Titel
-- [ ] Genders/Sex (male, female, other)
-- [ ] LastNames
+- [ ] Organisations / Companies, types of (legal forms)
 
 - [ ] NationalityPlates
 - [ ] MimeTypes
@@ -32,7 +39,7 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] IATA Flughafen Codes
 - [ ] UN-Nummern
 
-- [ ] Weekday
+- [ ] Weekday (language dependend)
 - [ ] Calendar, Date, Time, DateTime, Timezone, Type, Format, Holidays, TimeRange, DateRange, DateTimeRange, UnixEpoche
 - [ ] TimeDuration, DateDuration, DateTimeDuration
 - [ ] Colors
@@ -47,7 +54,6 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] DOI
 - [ ] EAN8
 - [ ] EAN13
-- [ ] Geocoordinates
 
 - [ ] CountryUnions
 - [ ] URI (encoding, decoding, exists)
@@ -61,7 +67,7 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] Universes
 - [ ] TaxNumber
 - [ ] SocialSecurityNumber
-- [ ] TypeOfCompany
+- [ ] TypeOfCompany / Organisation
 - [ ] JobTitle
 - [ ] RelationshipTypes
 - [ ] CivilStatus
@@ -74,7 +80,7 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] QRCodes
 - [ ] GPCProductClassifications
 
-- [ ] Percent
+- [ ] Percent, Promille
 - [ ] NumberRange
 - [ ] Text
 - [ ] RegExp  
@@ -84,9 +90,18 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] FaceId
 - [ ] FingerId
 - [ ] EyeId
+- [ ] Eye colors
+- [ ] Body height
+- [ ] Blood group
+- [ ] Characteristics
+- [ ] identification card(s)
+- [ ] passport
+- [ ] vaccination card
+- [ ] drivers license
+- [ ] payment types
 
 - [ ] Words
-- [ ] Grammars
+- [ ] Grammars    https://mein-deutschbuch.de/grammatik.html
 
 - [ ] Knowledges
 - [ ] Interests
@@ -95,6 +110,9 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] Roles
 - [ ] Functions
 - [ ] Requirements
+
+
+- [ ] unit conversions
 
 # Sources
 

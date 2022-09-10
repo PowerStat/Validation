@@ -131,6 +131,26 @@ public class HostnameTests
 
 
   /**
+   * Reachable hostname..
+   */
+  @Test
+  public void isReachable()
+   {
+    assertTrue(Hostname.of("www.powerstat.de").isReachable(10000), "Should be a reachable hostname"); //$NON-NLS-1$ //$NON-NLS-2$
+   }
+
+
+  /**
+   * Non reachable hostname.
+   */
+  @Test
+  public void isReachableFalse()
+   {
+    assertFalse(Hostname.of("nonexistant.example.com").isReachable(1000), "Should not be a reachable hostname"); //$NON-NLS-1$ //$NON-NLS-2$
+   }
+
+
+  /**
    * Test hash code.
    */
   @Test

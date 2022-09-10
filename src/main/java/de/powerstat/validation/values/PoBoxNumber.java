@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * DSGVO relevant.
  */
-public class PoBoxNumber implements Comparable<PoBoxNumber>
+public final class PoBoxNumber implements Comparable<PoBoxNumber>
  {
   /**
    * Post office box number.

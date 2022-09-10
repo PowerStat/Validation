@@ -138,7 +138,7 @@
   </rule>
   <rule ref="category/java/codestyle.xml/TooManyStaticImports">
     <properties>
-      <property name="maximumStaticImports" value="7" />
+      <property name="maximumStaticImports" value="8" />
     </properties>
   </rule>
   <rule ref="category/java/codestyle.xml/UnnecessaryAnnotationValueElement" />
@@ -176,7 +176,11 @@
   <rule ref="category/java/design.xml/DataClass" />
   <rule ref="category/java/design.xml/DoNotExtendJavaLangError" />
   <rule ref="category/java/design.xml/ExceptionAsFlowControl" />
-  <rule ref="category/java/design.xml/ExcessiveClassLength" />
+  <rule ref="category/java/design.xml/ExcessiveClassLength">
+    <properties>
+      <property name="minimum" value="1200.0" />
+    </properties>
+  </rule>
   <rule ref="category/java/design.xml/ExcessiveImports">
     <properties>
       <property name="minimum" value="50"/>
@@ -189,7 +193,7 @@
   </rule>
   <rule ref="category/java/design.xml/ExcessiveParameterList">
     <properties>
-      <property name="minimum" value="16.0" />
+      <property name="minimum" value="17.0" />
     </properties></rule>
   <rule ref="category/java/design.xml/ExcessivePublicCount">
     <properties>

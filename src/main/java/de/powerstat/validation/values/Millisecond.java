@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  */
-public class Millisecond implements Comparable<Millisecond>
+public final class Millisecond implements Comparable<Millisecond>
  {
   /**
    * Milliseond.

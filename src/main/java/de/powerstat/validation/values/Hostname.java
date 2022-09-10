@@ -4,6 +4,7 @@
 package de.powerstat.validation.values;
 
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Objects;
@@ -142,6 +143,26 @@ public final class Hostname implements Comparable<Hostname>
       return false;
      }
     return true;
+   }
+
+
+  /**
+   * Is hostname reachable.
+   *
+   * @param timeout Timeout in milliseconds.
+   * @return true: Hostname is reachable; false otherwise
+   */
+  public boolean isReachable(final int timeout)
+   {
+    try
+     {
+      final InetAddress address = InetAddress.getByName(this.hostname);
+      return address.isReachable(timeout);
+     }
+    catch (final IOException ignored)
+     {
+      return false;
+     }
    }
 
 

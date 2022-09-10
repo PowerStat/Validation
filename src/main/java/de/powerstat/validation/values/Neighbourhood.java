@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  */
-public class Neighbourhood implements Comparable<Neighbourhood>
+public final class Neighbourhood implements Comparable<Neighbourhood>
  {
   /**
    * Neighbourhood.

@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * Possibly DSGVO relevant.
  */
-public class SubBuilding implements Comparable<SubBuilding>
+public final class SubBuilding implements Comparable<SubBuilding>
  {
   /**
    * Sub building.

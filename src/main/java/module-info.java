@@ -1,6 +1,10 @@
 /*
  * Copyright (C) 2019-2021 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
+
+/**
+ * Validation module.
+ */
 module de.powerstat.validation
  {
   exports de.powerstat.validation;

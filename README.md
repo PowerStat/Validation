@@ -1,6 +1,6 @@
 # PowerStat's validation utilities
 
-These validation utilities should be useful value classes.
+These validation utilities should be useful value/entity classes.
 
 ## Installation
 
@@ -81,3 +81,7 @@ If you would like to contribute to this project please read [How to contribute](
 ## License
 
 This code is licensed under the [Apache License Version 2.0](LICENSE.md).
+
+## UML Diagram
+
+![image Class diagram](uml.svg)

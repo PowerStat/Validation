@@ -3,14 +3,17 @@
  */
 package de.powerstat.validation.values;
 
+
 import java.util.Locale;
 import java.util.Objects;
+
 
 /**
  * Electronic mail.
  *
  * Probably DSGVO relevant.
  *
+ * TODO Hostname exists?
  * TODO email exists check
  */
 public final class EMail implements Comparable<EMail>

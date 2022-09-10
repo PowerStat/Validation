@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  */
-public class Department implements Comparable<Department>
+public final class Department implements Comparable<Department>
  {
   /**
    * Department.

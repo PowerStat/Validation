@@ -288,16 +288,8 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>
    {
     Objects.requireNonNull(year, YEAR);
 
-    long reformYear;
-    if (REFORM_DATES.get(this.country).get(BEFORE).get(DAYS) == null)
-     {
-      reformYear = REFORM_DATES.get(this.country).get(AFTER).get(YEAR).longValue();
-     }
-    else
-     {
-      reformYear = REFORM_DATES.get(this.country).get(BEFORE).get(YEAR).longValue();
-     }
-
+    final String beforeAfter = REFORM_DATES.get(this.country).get(BEFORE).get(DAYS) == null ? AFTER : BEFORE;
+    final long reformYear = REFORM_DATES.get(this.country).get(beforeAfter).get(YEAR).longValue();
     if (year.getYear() > reformYear)
      {
       return ((year.getYear() % 4) == 0) && (((year.getYear() % 100) != 0) || ((year.getYear() % 400) == 0));
@@ -318,26 +310,14 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>
     Objects.requireNonNull(year, YEAR);
     Objects.requireNonNull(month, MONTH);
 
-    long reformYear;
-    int reformMonth;
-    int restDaysInMonth;
-    if (REFORM_DATES.get(this.country).get(BEFORE).get(DAYS) == null)
-     {
-      reformYear = REFORM_DATES.get(this.country).get(AFTER).get(YEAR).longValue();
-      reformMonth = REFORM_DATES.get(this.country).get(AFTER).get(MONTH).intValue();
-      restDaysInMonth = REFORM_DATES.get(this.country).get(AFTER).get(DAYS).intValue();
-     }
-    else
-     {
-      reformYear = REFORM_DATES.get(this.country).get(BEFORE).get(YEAR).longValue();
-      reformMonth = REFORM_DATES.get(this.country).get(BEFORE).get(MONTH).intValue();
-      restDaysInMonth = REFORM_DATES.get(this.country).get(BEFORE).get(DAYS).intValue();
-     }
+    final String beforeAfter = REFORM_DATES.get(this.country).get(BEFORE).get(DAYS) == null ? AFTER : BEFORE;
+    final long reformYear = REFORM_DATES.get(this.country).get(beforeAfter).get(YEAR).longValue();
+    final int reformMonth = REFORM_DATES.get(this.country).get(beforeAfter).get(MONTH).intValue();
+    final int restDaysInMonth = REFORM_DATES.get(this.country).get(beforeAfter).get(DAYS).intValue();
     if ((year.getYear() == reformYear) && (month.getMonth() == reformMonth)) // Depend on country
      {
       return restDaysInMonth;
      }
-
     return this.DAYS_IN_MONTH[month.getMonth()] + (((month.getMonth() == 2) && isLeapYear(year)) ? 1 : 0);
    }
 
