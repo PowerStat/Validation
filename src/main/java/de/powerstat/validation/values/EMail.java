@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -69,7 +69,7 @@ public final class EMail implements Comparable<EMail>
        }
       parts[1] = parts[1].substring(0, parts[1].length() - 1);
      }
-    this.domainPart = Hostname.of(parts[1]);
+    this.domainPart = Hostname.of(parts[1]); // Check hostname and store for isReachable
     if ((parts[0].charAt(0) == '(') || (parts[0].charAt(parts[0].length() - 1) == ')'))
      {
       throw new IllegalArgumentException("Comments in email addresses are not supported"); //$NON-NLS-1$
@@ -90,7 +90,7 @@ public final class EMail implements Comparable<EMail>
      {
       throw new IllegalArgumentException("Illegal character found in emails local part or unsupported UTF-8 character"); //$NON-NLS-1$
      }
-    this.localPart = parts[0];
+    this.localPart = parts[0]; // Store for check receiver
     this.email = email;
    }
 

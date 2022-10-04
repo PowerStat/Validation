@@ -31,12 +31,14 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] Organisations / Companies, types of (legal forms)
 
 - [ ] NationalityPlates
+      https://en.wikipedia.org/wiki/International_vehicle_registration_code
 - [ ] MimeTypes
 - [ ] UN/LOCODE
 - [ ] Amtlicher Gemeindeschlüssel
 - [ ] World Port Index
 - [ ] NUTS
 - [ ] IATA Flughafen Codes
+      https://datahub.io/core/airport-codes/r/airport-codes.csv
 - [ ] UN-Nummern
 
 - [ ] Weekday (language dependend)
@@ -49,11 +51,12 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] ISBN-10, ISBN-13
       https://de.wikipedia.org/wiki/Internationale_Standardbuchnummer
 - [ ] ISSN
+      https://de.wikipedia.org/wiki/Internationale_Standardnummer_f%C3%BCr_fortlaufende_Sammelwerke
 - [ ] ISAN, ISMN, ISRC, ISRN, ISWC
 - [ ] VD16, VD17
 - [ ] DOI
-- [ ] EAN8
-- [ ] EAN13
+- [ ] EAN8, EAN13 
+      https://de.wikipedia.org/wiki/European_Article_Number
 
 - [ ] CountryUnions
 - [ ] URI (encoding, decoding, exists)

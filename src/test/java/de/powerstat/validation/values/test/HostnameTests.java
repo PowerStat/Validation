@@ -164,12 +164,12 @@ public class HostnameTests
 
 
   /**
-   * Reachable hostname..
+   * Reachable hostname.
    */
   @Test
   public void isReachable()
    {
-    assertTrue(Hostname.of("www.powerstat.de").isReachable(10000), "Should be a reachable hostname"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertTrue(Hostname.of("www.powerstat.de").isReachable(1000), "Should be a reachable hostname"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

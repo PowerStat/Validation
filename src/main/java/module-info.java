@@ -12,5 +12,6 @@ module de.powerstat.validation
   exports de.powerstat.validation.values.strategies;
 
   requires org.apache.logging.log4j;
+  requires org.apache.commons.net;
 
  }
