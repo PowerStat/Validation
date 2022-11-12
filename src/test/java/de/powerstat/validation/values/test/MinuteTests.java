@@ -59,7 +59,7 @@ public class MinuteTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final Minute minute = */ Minute.of(minute);
-     }
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
 

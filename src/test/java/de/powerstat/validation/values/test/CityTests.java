@@ -46,7 +46,7 @@ public class CityTests
    * @param city City
    */
   @ParameterizedTest
-  @ValueSource(strings = {BREMEN, "A", "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefg"})
+  @ValueSource(strings = {CityTests.BREMEN, "A", "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefg"})
   public void cityCorrect(final String city)
    {
     final City cleanCity = City.of(city);
@@ -66,7 +66,7 @@ public class CityTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final City cleanCity = */ City.of(city);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -83,7 +83,7 @@ public class CityTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final City cleanCity = */ City.of(city);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -94,8 +94,8 @@ public class CityTests
   @Test
   public void getCity()
    {
-    final City city = City.of(BREMEN);
-    assertEquals(BREMEN, city.getCity(), "City not as expected"); //$NON-NLS-1$
+    final City city = City.of(CityTests.BREMEN);
+    assertEquals(CityTests.BREMEN, city.getCity(), "City not as expected"); //$NON-NLS-1$
    }
 
 
@@ -105,8 +105,8 @@ public class CityTests
   @Test
   public void testHashCode()
    {
-    final City city1 = City.of(BREMEN);
-    final City city2 = City.of(BREMEN);
+    final City city1 = City.of(CityTests.BREMEN);
+    final City city2 = City.of(CityTests.BREMEN);
     final City city3 = City.of("Hannover"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(city1.hashCode(), city2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -121,10 +121,10 @@ public class CityTests
   @Test
   public void testEquals()
    {
-    final City city1 = City.of(BREMEN);
-    final City city2 = City.of(BREMEN);
+    final City city1 = City.of(CityTests.BREMEN);
+    final City city2 = City.of(CityTests.BREMEN);
     final City city3 = City.of("Hannover"); //$NON-NLS-1$
-    final City city4 = City.of(BREMEN);
+    final City city4 = City.of(CityTests.BREMEN);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(city1.equals(city1), "city11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(city1.equals(city2), "city12 are not equal"), //$NON-NLS-1$
@@ -144,7 +144,7 @@ public class CityTests
   @Test
   public void testToString()
    {
-    final City city = City.of(BREMEN);
+    final City city = City.of(CityTests.BREMEN);
     assertEquals("City[city=Bremen]", city.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -155,11 +155,11 @@ public class CityTests
   @Test
   public void testCompareTo()
    {
-    final City city1 = City.of(BREMEN);
-    final City city2 = City.of(BREMEN);
+    final City city1 = City.of(CityTests.BREMEN);
+    final City city2 = City.of(CityTests.BREMEN);
     final City city3 = City.of("Hamburg"); //$NON-NLS-1$
     final City city4 = City.of("Hannover"); //$NON-NLS-1$
-    final City city5 = City.of(BREMEN);
+    final City city5 = City.of(CityTests.BREMEN);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(city1.compareTo(city2) == -city2.compareTo(city1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(city1.compareTo(city3) == -city3.compareTo(city1), "reflexive2"), //$NON-NLS-1$

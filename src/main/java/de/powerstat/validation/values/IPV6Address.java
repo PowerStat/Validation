@@ -6,12 +6,15 @@ package de.powerstat.validation.values;
 
 import java.util.Locale;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 /**
  * IP V6 address.
  *
  * DSGVO relevant.
+ *
+ * TODO ping ok?
  */
 public final class IPV6Address implements Comparable<IPV6Address>
  {
@@ -19,6 +22,11 @@ public final class IPV6Address implements Comparable<IPV6Address>
    * Logger.
    */
   // private static final Logger LOGGER = LogManager.getLogger(IPV6Address.class);
+
+  /**
+   * IP V6 regexp.
+   */
+  private static final Pattern IPV6_REGEXP = Pattern.compile("^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$"); //$NON-NLS-1$
 
   /**
    * IP V6 address.
@@ -49,7 +57,7 @@ public final class IPV6Address implements Comparable<IPV6Address>
     String expandedAddress = address.toLowerCase(Locale.getDefault());
     expandedAddress = expandIPV4Address(expandedAddress);
     expandedAddress = expandExpansionBlock(expandedAddress);
-    if (!expandedAddress.matches("^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$")) //$NON-NLS-1$
+    if (!IPV6Address.IPV6_REGEXP.matcher(expandedAddress).matches())
      {
       throw new IllegalArgumentException("Not an IP V6 address"); //$NON-NLS-1$
      }
@@ -203,6 +211,7 @@ public final class IPV6Address implements Comparable<IPV6Address>
    *
    * @return true if private, false otherwise
    */
+  @SuppressWarnings("java:S1313")
   public boolean isPrivate()
    {
     return ("00fe:0080:0000:0000:0000:0000:0000:0000".equals(this.address) || // Link-Local //$NON-NLS-1$

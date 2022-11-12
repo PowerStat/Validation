@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedTlds;
 
@@ -16,9 +17,18 @@ import de.powerstat.validation.generated.GeneratedTlds;
  * Hostname.
  *
  * Probably DSGVO relevant.
+ *
+ * TODO Verify TopLevelDomain
+ * TODO ping ok?
  */
+// @SuppressFBWarnings("EXS_EXCEPTION_SOFTENING_RETURN_FALSE")
 public final class Hostname implements Comparable<Hostname>
  {
+  /**
+   * Hostname regexp.
+   */
+  private static final Pattern HOSTNAME_REGEXP = Pattern.compile("^[.0-9a-zA-Z-]+$"); //$NON-NLS-1$
+
   /**
    * Hostname.
    */
@@ -27,6 +37,7 @@ public final class Hostname implements Comparable<Hostname>
   /**
    * Reverse hostname.
    */
+  @SuppressWarnings("PMD.AvoidFieldNameMatchingMethodName")
   private final String reverseHostname;
 
 
@@ -86,7 +97,7 @@ public final class Hostname implements Comparable<Hostname>
    */
   private static String checkHostname(final String hostname)
    {
-    if (!hostname.matches("^[.0-9a-zA-Z-]+$")) //$NON-NLS-1$
+    if (!Hostname.HOSTNAME_REGEXP.matcher(hostname).matches())
      {
       throw new IllegalArgumentException("Hostname contains illegal character"); //$NON-NLS-1$
      }

@@ -60,7 +60,7 @@ public class LanguageTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Language cleanLanguage = */ Language.of(code);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -77,7 +77,7 @@ public class LanguageTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Language cleanLanguage = */ Language.of(code);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 

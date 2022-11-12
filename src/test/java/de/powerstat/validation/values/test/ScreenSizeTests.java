@@ -41,14 +41,15 @@ public class ScreenSizeTests
   /**
    * Is screen size.
    */
+  @Test
   public void isScreenSize()
    {
-    final ScreenSize size = ScreenSize.of(320, 240, QVGA);
+    final ScreenSize size = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
     assertAll("testScreenSize", //$NON-NLS-1$
       () -> assertEquals(320, size.getWidth(), "width is not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(240, size.getHeight(), "height is not equal"), //$NON-NLS-1$
-      () -> assertNotEquals("320x240", size.getSize(), "size is not equal"), //$NON-NLS-1$ //$NON-NLS-2$
-      () -> assertNotEquals(QVGA, size.getName(), "size name is not equal") //$NON-NLS-1$
+      () -> assertEquals(240, size.getHeight(), "height is not equal"), //$NON-NLS-1$
+      () -> assertEquals("320x240", size.getSize(), "size is not equal"), //$NON-NLS-1$ //$NON-NLS-2$
+      () -> assertEquals(ScreenSizeTests.QVGA, size.getName(), "size name is not equal") //$NON-NLS-1$
     );
    }
 
@@ -56,12 +57,13 @@ public class ScreenSizeTests
   /**
    * Is not a screen size.
    */
+  @Test
   public void isNotAScreenSize()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final ScreenSize size = */ ScreenSize.of(0, 0, null);
-     }
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
 
@@ -72,8 +74,8 @@ public class ScreenSizeTests
   @Test
   public void testHashCode()
    {
-    final ScreenSize size1 = ScreenSize.of(320, 240, QVGA);
-    final ScreenSize size2 = ScreenSize.of(320, 240, QVGA);
+    final ScreenSize size1 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
+    final ScreenSize size2 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
     final ScreenSize size3 = ScreenSize.of(640, 480, "VGA"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(size1.hashCode(), size2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -88,10 +90,10 @@ public class ScreenSizeTests
   @Test
   public void testEquals()
    {
-    final ScreenSize size1 = ScreenSize.of(320, 240, QVGA);
-    final ScreenSize size2 = ScreenSize.of(320, 240, QVGA);
+    final ScreenSize size1 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
+    final ScreenSize size2 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
     final ScreenSize size3 = ScreenSize.of(640, 480, "VGA"); //$NON-NLS-1$
-    final ScreenSize size4 = ScreenSize.of(320, 240, QVGA);
+    final ScreenSize size4 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(size1.equals(size1), "size11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(size1.equals(size2), "size12 are not equal"), //$NON-NLS-1$
@@ -111,7 +113,7 @@ public class ScreenSizeTests
   @Test
   public void testToString()
    {
-    final ScreenSize size = ScreenSize.of(320, 240, QVGA);
+    final ScreenSize size = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
     assertEquals("ScreenSize[width=320, height=240, name=QVGA]", size.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -122,11 +124,11 @@ public class ScreenSizeTests
   @Test
   public void testCompareTo()
    {
-    final ScreenSize size1 = ScreenSize.of(320, 240, QVGA);
-    final ScreenSize size2 = ScreenSize.of(320, 240, QVGA);
+    final ScreenSize size1 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
+    final ScreenSize size2 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
     final ScreenSize size3 = ScreenSize.of(640, 480, "VGA"); //$NON-NLS-1$
     final ScreenSize size4 = ScreenSize.of(1280, 800, "WXGA"); //$NON-NLS-1$
-    final ScreenSize size5 = ScreenSize.of(320, 240, QVGA);
+    final ScreenSize size5 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(size1.compareTo(size2) == -size2.compareTo(size1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(size1.compareTo(size3) == -size3.compareTo(size1), "reflexive2"), //$NON-NLS-1$

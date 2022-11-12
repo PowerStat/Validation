@@ -14,7 +14,7 @@ package de.powerstat.validation.values;
  * During the transformation BOTH or VARIABLE might be used.
  * This will be handled in the Person class by a history of the gender.
  *
- * @see https://at.wikimannia.org/60_Geschlechtsidentit%C3%A4ten
+ * @see <a href="https://at.wikimannia.org/60_Geschlechtsidentitäten">Geschlechtsidentitäten</a>
  */
 public enum Gender
  {

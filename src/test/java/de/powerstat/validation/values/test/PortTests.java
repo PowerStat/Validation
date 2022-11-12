@@ -54,7 +54,7 @@ public class PortTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final Port port = */ Port.of(65536);
-     }
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
 

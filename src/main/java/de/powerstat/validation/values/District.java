@@ -5,6 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 /**
@@ -14,6 +15,11 @@ import java.util.Objects;
  */
 public final class District implements Comparable<District>
  {
+  /**
+   * District egexp.
+   */
+  private static final Pattern DISTRICT_REGEXP = Pattern.compile("^[\\p{L}\\p{Digit}][\\p{L}\\p{Digit} -]*$"); //$NON-NLS-1$
+
   /**
    * District.
    */
@@ -35,7 +41,7 @@ public final class District implements Comparable<District>
      {
       throw new IllegalArgumentException("District with wrong length"); //$NON-NLS-1$
      }
-    if (!district.matches("^[\\p{L}\\p{Digit}][\\p{L}\\p{Digit} -]*$")) //$NON-NLS-1$
+    if (!District.DISTRICT_REGEXP.matcher(district).matches())
      {
       throw new IllegalArgumentException("District with wrong format"); //$NON-NLS-1$
      }
@@ -115,7 +121,7 @@ public final class District implements Comparable<District>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(19);
     builder.append("District[district=").append(this.district).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

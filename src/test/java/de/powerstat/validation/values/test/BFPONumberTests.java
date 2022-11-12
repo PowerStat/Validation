@@ -72,7 +72,7 @@ public class BFPONumberTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final BFPONumber bFPONumber = */ BFPONumber.of(bFPONumber);
-     }
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
 

@@ -58,7 +58,7 @@ public class YearsTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final Years years = */ Years.of(years);
-     }
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
 

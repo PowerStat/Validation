@@ -30,6 +30,11 @@ public class HostnameTests
    */
   private static final String PRIVATE_IP_192_168_1_1 = "192.168.1.1"; //$NON-NLS-1$
 
+  /**
+   * Hostname not as expected constant.
+   */
+  private static final String HOSTNAME_NOT_AS_EXPECTED = "Hostname not as expected"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -50,7 +55,7 @@ public class HostnameTests
   public void hostnameOk0(final String hostname)
    {
     final Hostname cleanHostname = Hostname.of(hostname);
-    assertEquals(hostname, cleanHostname.getHostname(), "Hostname not as expected"); //$NON-NLS-1$
+    assertEquals(hostname, cleanHostname.getHostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -61,7 +66,7 @@ public class HostnameTests
   public void hostnameOk1()
    {
     final Hostname cleanHostname = Hostname.of("::"); //$NON-NLS-1$
-    assertEquals("0000:0000:0000:0000:0000:0000:0000:0000", cleanHostname.getHostname(), "Hostname not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertEquals("0000:0000:0000:0000:0000:0000:0000:0000", cleanHostname.getHostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 
@@ -77,7 +82,7 @@ public class HostnameTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Hostname cleanHostname = */ Hostname.of(hostname);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -94,7 +99,7 @@ public class HostnameTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Hostname cleanHostname = */ Hostname.of(hostname);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -106,7 +111,7 @@ public class HostnameTests
   public void getHostname()
    {
     final Hostname hostname = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
-    assertEquals(HostnameTests.PRIVATE_IP_192_168_1_1, hostname.getHostname(), "Hostname not as expected"); //$NON-NLS-1$
+    assertEquals(HostnameTests.PRIVATE_IP_192_168_1_1, hostname.getHostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -117,7 +122,7 @@ public class HostnameTests
   public void getReverseHostname1()
    {
     final Hostname hostname = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
-    assertEquals(HostnameTests.PRIVATE_IP_192_168_1_1, hostname.getReverseHostname(), "Hostname not as expected"); //$NON-NLS-1$
+    assertEquals(HostnameTests.PRIVATE_IP_192_168_1_1, hostname.getReverseHostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -128,7 +133,7 @@ public class HostnameTests
   public void getReverseHostname2()
    {
     final Hostname hostname = Hostname.of("fd00:0000:0000:0000:0000:0000:0000:0000");
-    assertEquals("fd00:0000:0000:0000:0000:0000:0000:0000", hostname.getReverseHostname(), "Hostname not as expected"); //$NON-NLS-1$
+    assertEquals("fd00:0000:0000:0000:0000:0000:0000:0000", hostname.getReverseHostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 
@@ -139,7 +144,7 @@ public class HostnameTests
   public void getReverseHostname3()
    {
     final Hostname hostname = Hostname.of("www.example.com");
-    assertEquals("com.example.www", hostname.getReverseHostname(), "Hostname not as expected"); //$NON-NLS-1$
+    assertEquals("com.example.www", hostname.getReverseHostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 

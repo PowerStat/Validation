@@ -65,7 +65,7 @@ public class ProvinceTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Province cleanProvince = */ Province.of(province);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -82,7 +82,7 @@ public class ProvinceTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Province cleanProvince = */ Province.of(province);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -104,8 +104,8 @@ public class ProvinceTests
   @Test
   public void testHashCode()
    {
-    final Province province1 = Province.of(ABC);
-    final Province province2 = Province.of(ABC);
+    final Province province1 = Province.of(ProvinceTests.ABC);
+    final Province province2 = Province.of(ProvinceTests.ABC);
     final Province province3 = Province.of("def"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(province1.hashCode(), province2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -120,10 +120,10 @@ public class ProvinceTests
   @Test
   public void testEquals()
    {
-    final Province province1 = Province.of(ABC);
-    final Province province2 = Province.of(ABC);
+    final Province province1 = Province.of(ProvinceTests.ABC);
+    final Province province2 = Province.of(ProvinceTests.ABC);
     final Province province3 = Province.of("def"); //$NON-NLS-1$
-    final Province province4 = Province.of(ABC);
+    final Province province4 = Province.of(ProvinceTests.ABC);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(province1.equals(province1), "province11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(province1.equals(province2), "province12 are not equal"), //$NON-NLS-1$
@@ -143,7 +143,7 @@ public class ProvinceTests
   @Test
   public void testToString()
    {
-    final Province province = Province.of(ABC);
+    final Province province = Province.of(ProvinceTests.ABC);
     assertEquals("Province[province=abc]", province.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -154,11 +154,11 @@ public class ProvinceTests
   @Test
   public void testCompareTo()
    {
-    final Province province1 = Province.of(ABC);
-    final Province province2 = Province.of(ABC);
+    final Province province1 = Province.of(ProvinceTests.ABC);
+    final Province province2 = Province.of(ProvinceTests.ABC);
     final Province province3 = Province.of("def"); //$NON-NLS-1$
     final Province province4 = Province.of("ghi"); //$NON-NLS-1$
-    final Province province5 = Province.of(ABC);
+    final Province province5 = Province.of(ProvinceTests.ABC);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(province1.compareTo(province2) == -province2.compareTo(province1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(province1.compareTo(province3) == -province3.compareTo(province1), "reflexive2"), //$NON-NLS-1$

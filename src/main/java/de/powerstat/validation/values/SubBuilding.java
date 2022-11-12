@@ -5,6 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 /**
@@ -14,6 +15,11 @@ import java.util.Objects;
  */
 public final class SubBuilding implements Comparable<SubBuilding>
  {
+  /**
+   * Subbuilding regexp.
+   */
+  private static final Pattern SUBBUILDING_REGEXP = Pattern.compile("^[\\p{L}][\\p{L}\\p{Digit}., -]*$"); //$NON-NLS-1$
+
   /**
    * Sub building.
    */
@@ -35,7 +41,7 @@ public final class SubBuilding implements Comparable<SubBuilding>
      {
       throw new IllegalArgumentException("SubBuilding with wrong length"); //$NON-NLS-1$
      }
-    if (!subBuilding.matches("^[\\p{L}][\\p{L}\\p{Digit}., -]*$")) //$NON-NLS-1$
+    if (!SubBuilding.SUBBUILDING_REGEXP.matcher(subBuilding).matches())
      {
       throw new IllegalArgumentException("SubBuilding with wrong format"); //$NON-NLS-1$
      }
@@ -115,7 +121,7 @@ public final class SubBuilding implements Comparable<SubBuilding>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(25);
     builder.append("SubBuilding[subBuilding=").append(this.subBuilding).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

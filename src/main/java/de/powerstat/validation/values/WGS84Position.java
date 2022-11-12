@@ -19,6 +19,11 @@ import java.util.Objects;
 public final class WGS84Position implements Comparable<WGS84Position>
  {
   /**
+   * Epsilon for double compare.
+   */
+  private static final double EPSILON = 0.000001D;
+
+  /**
    * Positions latitude specifies the north–south position of a point on the Earth's surface.
    *
    * Ranges from 0° at the Equator to 90° (North or South) at the poles.
@@ -143,9 +148,11 @@ public final class WGS84Position implements Comparable<WGS84Position>
       return false;
      }
     final WGS84Position other = (WGS84Position)obj;
-    if ((this.latitude == other.latitude) && (this.longitude == other.longitude))
+    if ((Math.abs(this.latitude - other.latitude) < WGS84Position.EPSILON) && (Math.abs(this.longitude - other.longitude) < WGS84Position.EPSILON))
+    // if ((this.latitude == other.latitude) && (this.longitude == other.longitude))
      {
-      return this.altitude == other.altitude;
+      return Math.abs(this.altitude - other.altitude) < WGS84Position.EPSILON;
+      // return this.altitude == other.altitude;
      }
     return false;
    }

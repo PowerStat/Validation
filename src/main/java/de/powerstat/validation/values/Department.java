@@ -5,6 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 /**
@@ -12,8 +13,14 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  */
+@SuppressWarnings("java:S5869")
 public final class Department implements Comparable<Department>
  {
+  /**
+   * Department regexp.
+   */
+  private static final Pattern DEPARTMENT_REGEXP = Pattern.compile("^[\\p{L}][\\p{L}\\\\p{Digi}.& -]*$"); //$NON-NLS-1$
+
   /**
    * Department.
    */
@@ -35,7 +42,7 @@ public final class Department implements Comparable<Department>
      {
       throw new IllegalArgumentException("Department with wrong length"); //$NON-NLS-1$
      }
-    if (!department.matches("^[\\p{L}][\\p{L}\\\\p{Digi}.& -]*$")) //$NON-NLS-1$
+    if (!Department.DEPARTMENT_REGEXP.matcher(department).matches())
      {
       throw new IllegalArgumentException("Department with wrong format"); //$NON-NLS-1$
      }
@@ -115,7 +122,7 @@ public final class Department implements Comparable<Department>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(23);
     builder.append("Department[department=").append(this.department).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

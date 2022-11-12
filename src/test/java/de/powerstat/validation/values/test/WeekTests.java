@@ -59,7 +59,7 @@ public class WeekTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final Week week = */ Week.of(week);
-     }
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
 

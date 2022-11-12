@@ -120,7 +120,7 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(25);
     builder.append("PoBoxNumber[poBoxNumber=").append(this.poBoxNumber).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

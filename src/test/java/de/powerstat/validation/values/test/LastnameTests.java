@@ -46,7 +46,7 @@ public class LastnameTests
    * @param lastname Lastname
    */
   @ParameterizedTest
-  @ValueSource(strings = {"H", "Hofmann", LASTNAME, "AbcdefghijklmnopqrstuvwxyzäöüßABCDEFGHIJ"})
+  @ValueSource(strings = {"H", "Hofmann", LastnameTests.LASTNAME, "AbcdefghijklmnopqrstuvwxyzäöüßABCDEFGHIJ"})
   public void lastnameOk0(final String lastname)
    {
     final Lastname cleanLastname = Lastname.of(lastname);
@@ -66,7 +66,7 @@ public class LastnameTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Lastname cleanLastname = */ Lastname.of(lastname);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -80,7 +80,7 @@ public class LastnameTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Lastname cleanLastname = */ Lastname.of("^!$%&(){}[]=?+*#´§;,:'\""); //$NON-NLS-1$
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -91,8 +91,8 @@ public class LastnameTests
   @Test
   public void getLastname()
    {
-    final Lastname lastname = Lastname.of(LASTNAME);
-    assertEquals(LASTNAME, lastname.getLastname(), "Lastname not as expected"); //$NON-NLS-1$
+    final Lastname lastname = Lastname.of(LastnameTests.LASTNAME);
+    assertEquals(LastnameTests.LASTNAME, lastname.getLastname(), "Lastname not as expected"); //$NON-NLS-1$
    }
 
 
@@ -102,8 +102,8 @@ public class LastnameTests
   @Test
   public void testHashCode()
    {
-    final Lastname lastname1 = Lastname.of(LASTNAME);
-    final Lastname lastname2 = Lastname.of(LASTNAME);
+    final Lastname lastname1 = Lastname.of(LastnameTests.LASTNAME);
+    final Lastname lastname2 = Lastname.of(LastnameTests.LASTNAME);
     final Lastname lastname3 = Lastname.of("lastnamez"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(lastname1.hashCode(), lastname2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -118,10 +118,10 @@ public class LastnameTests
   @Test
   public void testEquals()
    {
-    final Lastname lastname1 = Lastname.of(LASTNAME);
-    final Lastname lastname2 = Lastname.of(LASTNAME);
+    final Lastname lastname1 = Lastname.of(LastnameTests.LASTNAME);
+    final Lastname lastname2 = Lastname.of(LastnameTests.LASTNAME);
     final Lastname lastname3 = Lastname.of("lastnamez"); //$NON-NLS-1$
-    final Lastname lastname4 = Lastname.of(LASTNAME);
+    final Lastname lastname4 = Lastname.of(LastnameTests.LASTNAME);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(lastname1.equals(lastname1), "lastname11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(lastname1.equals(lastname2), "lastname12 are not equal"), //$NON-NLS-1$
@@ -141,7 +141,7 @@ public class LastnameTests
   @Test
   public void testToString()
    {
-    final Lastname lastname = Lastname.of(LASTNAME);
+    final Lastname lastname = Lastname.of(LastnameTests.LASTNAME);
     assertEquals("Lastname[lastname=lastname]", lastname.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -152,11 +152,11 @@ public class LastnameTests
   @Test
   public void testCompareTo()
    {
-    final Lastname lastname1 = Lastname.of(LASTNAME);
-    final Lastname lastname2 = Lastname.of(LASTNAME);
+    final Lastname lastname1 = Lastname.of(LastnameTests.LASTNAME);
+    final Lastname lastname2 = Lastname.of(LastnameTests.LASTNAME);
     final Lastname lastname3 = Lastname.of("lastnamey"); //$NON-NLS-1$
     final Lastname lastname4 = Lastname.of("lastnamez"); //$NON-NLS-1$
-    final Lastname lastname5 = Lastname.of(LASTNAME);
+    final Lastname lastname5 = Lastname.of(LastnameTests.LASTNAME);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(lastname1.compareTo(lastname2) == -lastname2.compareTo(lastname1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(lastname1.compareTo(lastname3) == -lastname3.compareTo(lastname1), "reflexive2"), //$NON-NLS-1$

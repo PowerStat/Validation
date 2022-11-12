@@ -5,6 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 /**
@@ -14,6 +15,11 @@ import java.util.Objects;
  */
 public final class Province implements Comparable<Province>
  {
+  /**
+   * Province regexp.
+   */
+  private static final Pattern PROVINCE_REGEXP = Pattern.compile("^[\\p{L}][\\p{L} -]*$"); //$NON-NLS-1$
+
   /**
    * Province.
    */
@@ -35,7 +41,7 @@ public final class Province implements Comparable<Province>
      {
       throw new IllegalArgumentException("Province with wrong length"); //$NON-NLS-1$
      }
-    if (!province.matches("^[\\p{L}][\\p{L} -]*$")) //$NON-NLS-1$
+    if (!Province.PROVINCE_REGEXP.matcher(province).matches())
      {
       throw new IllegalArgumentException("Province with wrong format"); //$NON-NLS-1$
      }
@@ -115,7 +121,7 @@ public final class Province implements Comparable<Province>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(19);
     builder.append("Province[province=").append(this.province).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

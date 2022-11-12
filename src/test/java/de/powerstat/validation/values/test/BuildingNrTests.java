@@ -22,7 +22,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Building number tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "CE_CLASS_ENVY"})
 public class BuildingNrTests
  {
   /**
@@ -60,7 +60,7 @@ public class BuildingNrTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final BuildingNr cleanBuildingNr = */ BuildingNr.of(buildingNr);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -77,7 +77,7 @@ public class BuildingNrTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final BuildingNr cleanBuildingNr = */ BuildingNr.of(buildingNr);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -204,7 +204,7 @@ public class BuildingNrTests
     assertThrows(IllegalStateException.class, () ->
      {
       /* final int result = */ buildingNr1.compareTo(buildingNr2);
-     }
+     }, "Illegal state exception expected" //$NON-NLS-1$
     );
    }
 

@@ -29,6 +29,15 @@ import de.powerstat.validation.values.strategies.PasswordDefaultStrategy;
  * TODO validation chain
  *
  * TODO Password generator
+ *
+ * TODO Verify that password is not in:
+ *      https://www.datendieter.de/item/Haeufige_Passwoerter
+ *      https://www.passwortfuchs.de/passwortliste.php
+ *      https://crackstation.net/crackstation-wordlist-password-cracking-dictionary.htm
+ *      https://github.com/danielmiessler/SecLists/tree/master/Passwords
+ *      https://weakpass.com/wordlist
+ *      https://wiki.skullsecurity.org/Passwords
+ *      https://thehacktoday.com/password-cracking-dictionarys-download-for-free/
  */
 public final class Password implements Comparable<Password>
  {
@@ -153,10 +162,11 @@ public final class Password implements Comparable<Password>
    * @return String representation of this Password
    * @see java.lang.Object#toString()
    */
+  @SuppressWarnings("java:S2068")
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(27);
     builder.append("Password[password=********]"); //$NON-NLS-1$
     return builder.toString();
    }

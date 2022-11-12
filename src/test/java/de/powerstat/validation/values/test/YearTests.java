@@ -59,7 +59,7 @@ public class YearTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final Year year = */ Year.of(year);
-     }
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
 

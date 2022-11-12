@@ -60,7 +60,7 @@ public class BlockTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Block cleanBlock = */ Block.of(block);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -77,7 +77,7 @@ public class BlockTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Block cleanBlock = */ Block.of(block);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 

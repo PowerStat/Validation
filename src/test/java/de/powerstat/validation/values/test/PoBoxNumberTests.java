@@ -71,7 +71,7 @@ public class PoBoxNumberTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final PoBoxNumber poBoxNumber = */ PoBoxNumber.of(poBoxNumber);
-     }
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
 

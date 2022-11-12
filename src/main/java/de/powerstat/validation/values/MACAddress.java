@@ -7,16 +7,29 @@ package de.powerstat.validation.values;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 /**
  * Canonical Media-Access-Control-Adresse (MAC).
  *
  * TODO getManufacturer name
+ * TODO Exists in network
  * http://standards-oui.ieee.org/oui/oui.csv
  */
+// @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
 public final class MACAddress implements Comparable<MACAddress>
  {
+  /**
+   * IP V6 regexp.
+   */
+  private static final Pattern IPV6_REGEXP = Pattern.compile("^[0-9a-f]{2}([:-]?[0-9a-f]{2}){5}$"); //$NON-NLS-1$
+
+  /**
+   * IP V6 separator regexp.
+   */
+  private static final Pattern IPV6_SEPARATOR_REGEXP = Pattern.compile("[:-]"); //$NON-NLS-1$
+
   /**
    * MAC address parts.
    */
@@ -38,11 +51,11 @@ public final class MACAddress implements Comparable<MACAddress>
      {
       throw new IllegalArgumentException("To short or long for a mac address"); //$NON-NLS-1$
      }
-    if (!address.toLowerCase(Locale.getDefault()).matches("^[0-9a-f]{2}((:|-)?[0-9a-f]{2}){5}$")) //$NON-NLS-1$
+    if (!MACAddress.IPV6_REGEXP.matcher(address.toLowerCase(Locale.getDefault())).matches())
      {
       throw new IllegalArgumentException("Not a mac address"); //$NON-NLS-1$
      }
-    this.parts = address.toLowerCase(Locale.getDefault()).split(":|-"); //$NON-NLS-1$
+    this.parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
    }
 
 
@@ -97,7 +110,7 @@ public final class MACAddress implements Comparable<MACAddress>
    */
   public boolean isGroup()
    {
-    return (Integer.parseInt(this.parts[0], 16) & 0x01) > 0;
+    return (Integer.parseInt(this.parts[0], 16) & 0x01) != 0;
    }
 
 
@@ -108,7 +121,7 @@ public final class MACAddress implements Comparable<MACAddress>
    */
   public boolean isLocal()
    {
-    return (Integer.parseInt(this.parts[0], 16) & 0x02) > 0;
+    return (Integer.parseInt(this.parts[0], 16) & 0x02) != 0;
    }
 
 

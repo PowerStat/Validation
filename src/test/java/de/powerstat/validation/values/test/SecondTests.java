@@ -59,7 +59,7 @@ public class SecondTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final Second second = */ Second.of(second);
-     }
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
 

@@ -22,6 +22,8 @@ VCARD:
 
 https://datahub.io/collections/reference-data#currency-codes
 
+- [ ] SSID
+
 - [ ] Country names, Language names
 
 - [ ] PhoneNumber Area Codes   https://datahub.io/core/country-codes/r/country-codes.csv

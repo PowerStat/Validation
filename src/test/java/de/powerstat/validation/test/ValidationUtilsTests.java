@@ -36,6 +36,11 @@ public final class ValidationUtilsTests
   private static final String HOSTNAME_NOT_AS_EXPECTED = "Hostname not as expected!"; //$NON-NLS-1$
 
   /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT_EXCEPTION = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
    * Hostname.
    */
   private static final String WWW_POWERSTAT_DE = "www.powerstat.de";
@@ -58,11 +63,11 @@ public final class ValidationUtilsTests
    */
   @Deprecated
   @ParameterizedTest
-  @ValueSource(strings = {WWW_POWERSTAT_DE, "a.de", "www.powerstat012345678901234567890123456789012345678901234567890123.de", "abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.ACCOUNTANT", "192.168.0.1", "fe:80::"})
+  @ValueSource(strings = {ValidationUtilsTests.WWW_POWERSTAT_DE, "a.de", "www.powerstat012345678901234567890123456789012345678901234567890123.de", "abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.ACCOUNTANT", "192.168.0.1", "fe:80::"})
   public void checkHostnameOk(final String hostname)
    {
     final String cleanHostname = ValidationUtils.checkHostname(hostname);
-    assertEquals(hostname, cleanHostname, HOSTNAME_NOT_AS_EXPECTED);
+    assertEquals(hostname, cleanHostname, ValidationUtilsTests.HOSTNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -80,7 +85,7 @@ public final class ValidationUtilsTests
     assertThrows(StringIndexOutOfBoundsException.class, () ->
      {
       /* final String cleanHostname = */ ValidationUtils.checkHostname(hostname);
-     }
+     }, "String index out of bounds exception expected"
     );
    }
 
@@ -99,7 +104,7 @@ public final class ValidationUtilsTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final String cleanHostname = */ ValidationUtils.checkHostname(hostname);
-     }
+     }, ValidationUtilsTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -134,7 +139,7 @@ public final class ValidationUtilsTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final int resultPort = */ ValidationUtils.checkPort(port);
-     }
+     }, "Index out of bounds exception expected"
     );
    }
 
@@ -195,7 +200,7 @@ public final class ValidationUtilsTests
     assertThrows(NullPointerException.class, () ->
      {
       ValidationUtils.isIPV4(null);
-     }
+     }, "Null pointer exception expected"
     );
    }
 
@@ -227,7 +232,7 @@ public final class ValidationUtilsTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final String validAddress = */ ValidationUtils.checkIPV4("192.168.256.1"); //$NON-NLS-1$
-     }
+     }, ValidationUtilsTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -343,7 +348,7 @@ public final class ValidationUtilsTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final int checkedPort = */ ValidationUtils.checkIPV4prefixLength(33);
-     }
+     }, "Index out of bounds exception expected"
     );
    }
 
@@ -405,7 +410,7 @@ public final class ValidationUtilsTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final int checkedPort = */ ValidationUtils.checkIPV6prefixLength(129);
-     }
+     }, "Index out of bounds exception expected"
     );
    }
 
@@ -441,7 +446,7 @@ public final class ValidationUtilsTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final String checkedAddress = */ ValidationUtils.checkIPV6(address);
-     }
+     }, ValidationUtilsTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -694,7 +699,7 @@ public final class ValidationUtilsTests
   @Test
   public void existHostname()
    {
-    assertTrue(ValidationUtils.existHostname(WWW_POWERSTAT_DE), "Should be an existing hostname"); //$NON-NLS-1$
+    assertTrue(ValidationUtils.existHostname(ValidationUtilsTests.WWW_POWERSTAT_DE), "Should be an existing hostname"); //$NON-NLS-1$
    }
 
 
@@ -722,7 +727,7 @@ public final class ValidationUtilsTests
    {
     final List<String> hostnamePort = ValidationUtils.splitHostnamePort("www.powerstat.de:80"); //$NON-NLS-1$
     assertAll(
-      () -> assertEquals(WWW_POWERSTAT_DE, hostnamePort.get(0), "Wrong hostname!"), //$NON-NLS-1$
+      () -> assertEquals(ValidationUtilsTests.WWW_POWERSTAT_DE, hostnamePort.get(0), "Wrong hostname!"), //$NON-NLS-1$
       () -> assertEquals("80", hostnamePort.get(1), "Wrong port!")  //$NON-NLS-1$ //$NON-NLS-2$
     );
    }
@@ -756,8 +761,8 @@ public final class ValidationUtilsTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final List<String> hostnamePort = */ ValidationUtils.splitHostnamePort(WWW_POWERSTAT_DE);
-     }
+      /* final List<String> hostnamePort = */ ValidationUtils.splitHostnamePort(ValidationUtilsTests.WWW_POWERSTAT_DE);
+     }, ValidationUtilsTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 

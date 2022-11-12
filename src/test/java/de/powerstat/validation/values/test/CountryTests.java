@@ -60,7 +60,7 @@ public class CountryTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Country cleanCountry = */ Country.of(alpha2);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -77,7 +77,7 @@ public class CountryTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Country cleanCountry = */ Country.of(alpha2);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 

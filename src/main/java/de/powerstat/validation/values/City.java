@@ -5,6 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 /**
@@ -14,6 +15,11 @@ import java.util.Objects;
  */
 public final class City implements Comparable<City>
  {
+  /**
+   * City name regexp.
+   */
+  private static final Pattern CITY_REGEXP = Pattern.compile("^[\\p{L}][\\p{L} -]*$"); //$NON-NLS-1$
+
   /**
    * City.
    */
@@ -35,7 +41,7 @@ public final class City implements Comparable<City>
      {
       throw new IllegalArgumentException("City with wrong length"); //$NON-NLS-1$
      }
-    if (!city.matches("^[\\p{L}][\\p{L} -]*$")) //$NON-NLS-1$
+    if (!City.CITY_REGEXP.matcher(city).matches())
      {
       throw new IllegalArgumentException("City with wrong format"); //$NON-NLS-1$
      }

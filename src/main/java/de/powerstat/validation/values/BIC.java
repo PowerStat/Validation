@@ -5,6 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 /**
@@ -14,6 +15,11 @@ import java.util.Objects;
  */
 public final class BIC implements Comparable<BIC>
  {
+  /**
+   * BIC regexp.
+   */
+  private static final Pattern BIC_REGEXP = Pattern.compile("^[A-Z0-9]{4}[A-Z]{2}[A-Z2-9][0-9A-NP-Z](XXX|[0-9A-WY-Z][0-9A-Z]{2})?$"); //$NON-NLS-1$
+
   /**
    * BIC.
    */
@@ -35,7 +41,7 @@ public final class BIC implements Comparable<BIC>
      {
       throw new IllegalArgumentException("BIC with wrong length"); //$NON-NLS-1$
      }
-    if (!bic.matches("^[A-Z0-9]{4}[A-Z]{2}[A-Z2-9][0-9A-NP-Z](XXX|[0-9A-WY-Z][0-9A-Z]{2})?$")) //$NON-NLS-1$
+    if (!BIC.BIC_REGEXP.matcher(bic).matches())
      {
       throw new IllegalArgumentException("BIC with wrong format"); //$NON-NLS-1$
      }

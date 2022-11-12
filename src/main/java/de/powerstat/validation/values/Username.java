@@ -147,7 +147,7 @@ public final class Username implements Comparable<Username>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(19);
     builder.append("Username[username=").append(this.username).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

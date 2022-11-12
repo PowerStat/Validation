@@ -5,6 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 /**
@@ -12,10 +13,15 @@ import java.util.Objects;
  *
  * DSGVO relevant.
  *
- * @see https://de.wikipedia.org/wiki/Vorname_(Deutschland)
+ * @see <a href="https://de.wikipedia.org/wiki/Vorname_(Deutschland)">Vorname</a>
  */
-public class Firstname implements Comparable<Firstname>
+public final class Firstname implements Comparable<Firstname>
  {
+  /**
+   * Firstname regexp.
+   */
+  private static final Pattern FIRSTNAME_REGEXP = Pattern.compile("^[\\p{L}][\\p{L}-]*$"); //$NON-NLS-1$
+
   /**
    * Firstname.
    */
@@ -38,7 +44,7 @@ public class Firstname implements Comparable<Firstname>
      {
       throw new IllegalArgumentException("Firstname with wrong length"); //$NON-NLS-1$
      }
-    if (!firstname.matches("^[\\p{L}][\\p{L}-]*$")) //$NON-NLS-1$
+    if (!Firstname.FIRSTNAME_REGEXP.matcher(firstname).matches())
      {
       throw new IllegalArgumentException("Firstname with wrong format"); //$NON-NLS-1$
      }
@@ -118,7 +124,7 @@ public class Firstname implements Comparable<Firstname>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(21);
     builder.append("Firstname[firstname=").append(this.firstname).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

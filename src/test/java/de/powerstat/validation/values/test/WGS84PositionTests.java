@@ -35,6 +35,7 @@ public class WGS84PositionTests
   /**
    * Is WGS84 position.
    */
+  @Test
   public void isWGS84Position()
    {
     final WGS84Position pos = WGS84Position.of(0.0, 0.0, 0.0);
@@ -49,12 +50,13 @@ public class WGS84PositionTests
   /**
    * Is not a WGS84 position.
    */
+  @Test
   public void isNotWGS84Position()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final WGS84Position pos = */ WGS84Position.of(-90.1, 90.1, 0.0);
-     }
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
 

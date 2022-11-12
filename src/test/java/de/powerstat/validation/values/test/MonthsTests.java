@@ -59,7 +59,7 @@ public class MonthsTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final Months months = */ Months.of(months);
-     }
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
 

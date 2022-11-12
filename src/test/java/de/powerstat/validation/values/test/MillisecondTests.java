@@ -58,7 +58,7 @@ public class MillisecondTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final Millisecond millisecond = */ Millisecond.of(millisecond);
-     }
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
 

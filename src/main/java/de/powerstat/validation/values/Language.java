@@ -5,6 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedISO6391;
 
@@ -19,6 +20,11 @@ import de.powerstat.validation.generated.GeneratedISO6391;
  */
 public final class Language implements Comparable<Language>
  {
+  /**
+   * Language regexp.
+   */
+  private static final Pattern LANGUAGE_REGEXP = Pattern.compile("^[a-z]{2}$"); //$NON-NLS-1$
+
   /**
    * ISO 639-1 language code.
    */
@@ -40,7 +46,7 @@ public final class Language implements Comparable<Language>
      {
       throw new IllegalArgumentException("Length is not 2"); //$NON-NLS-1$
      }
-    if (!code.matches("^[a-z]{2}$")) //$NON-NLS-1$
+    if (!Language.LANGUAGE_REGEXP.matcher(code).matches())
      {
       throw new IllegalArgumentException("code contains illegal character"); //$NON-NLS-1$
      }

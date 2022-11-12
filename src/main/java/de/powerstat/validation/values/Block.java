@@ -5,6 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 /**
@@ -14,6 +15,11 @@ import java.util.Objects;
  */
 public final class Block implements Comparable<Block>
  {
+  /**
+   * Block regexp.
+   */
+  private static final Pattern BLOCK_REGEXP = Pattern.compile("^[\\p{L}\\p{Digit}]*$"); //$NON-NLS-1$
+
   /**
    * Block.
    */
@@ -35,7 +41,7 @@ public final class Block implements Comparable<Block>
      {
       throw new IllegalArgumentException("Block with wrong length"); //$NON-NLS-1$
      }
-    if (!block.matches("^[\\p{L}\\p{Digit}]*$")) //$NON-NLS-1$
+    if (!Block.BLOCK_REGEXP.matcher(block).matches())
      {
       throw new IllegalArgumentException("Block with wrong format"); //$NON-NLS-1$
      }

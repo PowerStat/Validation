@@ -5,6 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 /**
@@ -14,6 +15,11 @@ import java.util.Objects;
  */
 public final class BuildingName implements Comparable<BuildingName>
  {
+  /**
+   * Building name regexp.
+   */
+  private static final Pattern BUILDNINGNAME_REGEXP = Pattern.compile("^[\\p{L}][\\p{L} -]*$");
+
   /**
    * Building name.
    */
@@ -35,7 +41,7 @@ public final class BuildingName implements Comparable<BuildingName>
      {
       throw new IllegalArgumentException("Building name with wrong length"); //$NON-NLS-1$
      }
-    if (!buildingName.matches("^[\\p{L}][\\p{L} -]*$")) //$NON-NLS-1$
+    if (!BuildingName.BUILDNINGNAME_REGEXP.matcher(buildingName).matches())
      {
       throw new IllegalArgumentException("Building name with wrong format"); //$NON-NLS-1$
      }
@@ -115,7 +121,7 @@ public final class BuildingName implements Comparable<BuildingName>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(27);
     builder.append("BuildingName[buildingName=").append(this.buildingName).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

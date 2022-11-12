@@ -66,7 +66,7 @@ public class BICTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final BIC cleanBic = */ BIC.of(bic);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -83,7 +83,7 @@ public class BICTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final BIC cleanBic = */ BIC.of(bic);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -94,8 +94,8 @@ public class BICTests
   @Test
   public void getBic()
    {
-    final BIC bic = BIC.of(BIC_BELADEBEXXX);
-    assertEquals(BIC_BELADEBEXXX, bic.getBIC(), "BIC not as expected"); //$NON-NLS-1$
+    final BIC bic = BIC.of(BICTests.BIC_BELADEBEXXX);
+    assertEquals(BICTests.BIC_BELADEBEXXX, bic.getBIC(), "BIC not as expected"); //$NON-NLS-1$
    }
 
 
@@ -105,8 +105,8 @@ public class BICTests
   @Test
   public void testHashCode()
    {
-    final BIC bic1 = BIC.of(BIC_BELADEBEXXX);
-    final BIC bic2 = BIC.of(BIC_BELADEBEXXX);
+    final BIC bic1 = BIC.of(BICTests.BIC_BELADEBEXXX);
+    final BIC bic2 = BIC.of(BICTests.BIC_BELADEBEXXX);
     final BIC bic3 = BIC.of("RZTIAT22263"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(bic1.hashCode(), bic2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -121,10 +121,10 @@ public class BICTests
   @Test
   public void testEquals()
    {
-    final BIC bic1 = BIC.of(BIC_BELADEBEXXX);
-    final BIC bic2 = BIC.of(BIC_BELADEBEXXX);
+    final BIC bic1 = BIC.of(BICTests.BIC_BELADEBEXXX);
+    final BIC bic2 = BIC.of(BICTests.BIC_BELADEBEXXX);
     final BIC bic3 = BIC.of("RZTIAT22263"); //$NON-NLS-1$
-    final BIC bic4 = BIC.of(BIC_BELADEBEXXX);
+    final BIC bic4 = BIC.of(BICTests.BIC_BELADEBEXXX);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(bic1.equals(bic1), "bic11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(bic1.equals(bic2), "bic12 are not equal"), //$NON-NLS-1$
@@ -144,7 +144,7 @@ public class BICTests
   @Test
   public void testToString()
    {
-    final BIC bic = BIC.of(BIC_BELADEBEXXX);
+    final BIC bic = BIC.of(BICTests.BIC_BELADEBEXXX);
     assertEquals("BIC[bic=BELADEBEXXX]", bic.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -155,11 +155,11 @@ public class BICTests
   @Test
   public void testCompareTo()
    {
-    final BIC bic1 = BIC.of(BIC_BELADEBEXXX);
-    final BIC bic2 = BIC.of(BIC_BELADEBEXXX);
+    final BIC bic1 = BIC.of(BICTests.BIC_BELADEBEXXX);
+    final BIC bic2 = BIC.of(BICTests.BIC_BELADEBEXXX);
     final BIC bic3 = BIC.of("RZTIAT22263"); //$NON-NLS-1$
     final BIC bic4 = BIC.of("UBSWCHZH80A"); //$NON-NLS-1$
-    final BIC bic5 = BIC.of(BIC_BELADEBEXXX);
+    final BIC bic5 = BIC.of(BICTests.BIC_BELADEBEXXX);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(bic1.compareTo(bic2) == -bic2.compareTo(bic1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(bic1.compareTo(bic3) == -bic3.compareTo(bic1), "reflexive2"), //$NON-NLS-1$

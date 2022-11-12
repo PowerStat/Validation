@@ -6,6 +6,7 @@ package de.powerstat.validation.values;
 
 import java.math.BigInteger;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import de.powerstat.validation.values.impl.IBANVerifierAbstractFactory;
 
@@ -20,6 +21,11 @@ import de.powerstat.validation.values.impl.IBANVerifierAbstractFactory;
  */
 public final class IBAN implements Comparable<IBAN>
  {
+  /**
+   * IBAN regexp.
+   */
+  private static final Pattern IBAN_REGEXP = Pattern.compile("^[A-Z]{2}[0-9]{2}[0-9A-Z]{11,30}$"); //$NON-NLS-1$
+
   /**
    * IBAN.
    */
@@ -41,7 +47,7 @@ public final class IBAN implements Comparable<IBAN>
      {
       throw new IllegalArgumentException("IBAN with wrong length"); //$NON-NLS-1$
      }
-    if (!iban.matches("^[A-Z]{2}[0-9]{2}[0-9A-Z]{11,30}$")) //$NON-NLS-1$
+    if (!IBAN.IBAN_REGEXP.matcher(iban).matches())
      {
       throw new IllegalArgumentException("IBAN with wrong format"); //$NON-NLS-1$
      }
@@ -72,7 +78,7 @@ public final class IBAN implements Comparable<IBAN>
   private static boolean verifyChecksum(final String iban)
    {
     final String reordered = iban.substring(4) + iban.substring(0, 2) + iban.substring(2, 4);
-    final String replacement = reordered.replaceAll("A", "10").replaceAll("B", "11").replaceAll("C", "12").replaceAll("D", "13").replaceAll("E", "14").replaceAll("F", "15").replaceAll("G", "16").replaceAll("H", "17").replaceAll("I", "18").replaceAll("J", "19").replaceAll("K", "20").replaceAll("L", "21").replaceAll("M", "22").replaceAll("N", "23").replaceAll("O", "24").replaceAll("P", "25").replaceAll("Q", "26").replaceAll("R", "27").replaceAll("S", "28").replaceAll("T", "29").replaceAll("U", "30").replaceAll("V", "31").replaceAll("W", "32").replaceAll("X", "33").replaceAll("Y", "34").replaceAll("Z", "35"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$ //$NON-NLS-17$ //$NON-NLS-18$ //$NON-NLS-19$ //$NON-NLS-20$ //$NON-NLS-21$ //$NON-NLS-22$ //$NON-NLS-23$ //$NON-NLS-24$ //$NON-NLS-25$ //$NON-NLS-26$ //$NON-NLS-27$ //$NON-NLS-28$ //$NON-NLS-29$ //$NON-NLS-30$ //$NON-NLS-31$ //$NON-NLS-32$ //$NON-NLS-33$ //$NON-NLS-34$ //$NON-NLS-35$ //$NON-NLS-36$ //$NON-NLS-37$ //$NON-NLS-38$ //$NON-NLS-39$ //$NON-NLS-40$ //$NON-NLS-41$ //$NON-NLS-42$ //$NON-NLS-43$ //$NON-NLS-44$ //$NON-NLS-45$ //$NON-NLS-46$ //$NON-NLS-47$ //$NON-NLS-48$ //$NON-NLS-49$ //$NON-NLS-50$ //$NON-NLS-51$ //$NON-NLS-52$
+    final String replacement = reordered.replace("A", "10").replace("B", "11").replace("C", "12").replace("D", "13").replace("E", "14").replace("F", "15").replace("G", "16").replace("H", "17").replace("I", "18").replace("J", "19").replace("K", "20").replace("L", "21").replace("M", "22").replace("N", "23").replace("O", "24").replace("P", "25").replace("Q", "26").replace("R", "27").replace("S", "28").replace("T", "29").replace("U", "30").replace("V", "31").replace("W", "32").replace("X", "33").replace("Y", "34").replace("Z", "35"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$ //$NON-NLS-17$ //$NON-NLS-18$ //$NON-NLS-19$ //$NON-NLS-20$ //$NON-NLS-21$ //$NON-NLS-22$ //$NON-NLS-23$ //$NON-NLS-24$ //$NON-NLS-25$ //$NON-NLS-26$ //$NON-NLS-27$ //$NON-NLS-28$ //$NON-NLS-29$ //$NON-NLS-30$ //$NON-NLS-31$ //$NON-NLS-32$ //$NON-NLS-33$ //$NON-NLS-34$ //$NON-NLS-35$ //$NON-NLS-36$ //$NON-NLS-37$ //$NON-NLS-38$ //$NON-NLS-39$ //$NON-NLS-40$ //$NON-NLS-41$ //$NON-NLS-42$ //$NON-NLS-43$ //$NON-NLS-44$ //$NON-NLS-45$ //$NON-NLS-46$ //$NON-NLS-47$ //$NON-NLS-48$ //$NON-NLS-49$ //$NON-NLS-50$ //$NON-NLS-51$ //$NON-NLS-52$
     final BigInteger num = new BigInteger(replacement);
     final BigInteger result = num.remainder(BigInteger.valueOf(97));
     return result.longValue() == 1;

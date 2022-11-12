@@ -33,6 +33,11 @@ public class PasswordConfigurableStrategyTests
    */
   private static final String CLEAN_STRATEGY_NOT_AS_EXPECTED = "cleanStrategy not as expected";
 
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT_EXCEPTION = "Illegal argument exception expected"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -51,8 +56,8 @@ public class PasswordConfigurableStrategyTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(0, 254, PWD_PATTERN, 0, 0, 0, 0, 0, 0);
-     }
+      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(0, 254, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 0, 0);
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -65,8 +70,8 @@ public class PasswordConfigurableStrategyTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(10, 9, PWD_PATTERN, 0, 0, 0, 0, 0, 0);
-     }
+      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(10, 9, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 0, 0);
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -77,8 +82,8 @@ public class PasswordConfigurableStrategyTests
   @Test
   public void maxEqualMinLength()
    {
-    final IPasswordStrategy cleanStrategy =  PasswordConfigurableStrategy.of(10, 10, PWD_PATTERN, 0, 0, 0, 0, 0, 0);
-    assertNotNull(cleanStrategy, CLEAN_STRATEGY_NOT_AS_EXPECTED);
+    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(10, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 0, 0);
+    assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
    }
 
 
@@ -91,7 +96,7 @@ public class PasswordConfigurableStrategyTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(1, 254, "[@./_0-9a-zA-Z-]+", 0, 0, 0, 0, 0, 0); //$NON-NLS-1$
-     }
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -104,8 +109,8 @@ public class PasswordConfigurableStrategyTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(1, 254, PWD_PATTERN, -1, 0, 0, 0, 0, 0);
-     }
+      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(1, 254, PasswordConfigurableStrategyTests.PWD_PATTERN, -1, 0, 0, 0, 0, 0);
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -116,9 +121,9 @@ public class PasswordConfigurableStrategyTests
   @Test
   public void minNumericMaximum()
    {
-    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PWD_PATTERN, 10, 0, 0, 0, 0, 0);
-    cleanStrategy.validationStrategy(PWD_1234567890);
-    assertNotNull(cleanStrategy, CLEAN_STRATEGY_NOT_AS_EXPECTED);
+    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 10, 0, 0, 0, 0, 0);
+    cleanStrategy.validationStrategy(PasswordConfigurableStrategyTests.PWD_1234567890);
+    assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
    }
 
 
@@ -128,11 +133,11 @@ public class PasswordConfigurableStrategyTests
   @Test
   public void numericFailure()
    {
-    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PWD_PATTERN, 1, 0, 0, 0, 0, 0);
+    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 1, 0, 0, 0, 0, 0);
     assertThrows(IllegalArgumentException.class, () ->
      {
       cleanStrategy.validationStrategy("abcdefghij"); //$NON-NLS-1$
-     }
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -145,8 +150,8 @@ public class PasswordConfigurableStrategyTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(1, 254, PWD_PATTERN, 0, -1, 0, 0, 0, 0);
-     }
+      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(1, 254, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, -1, 0, 0, 0, 0);
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -157,8 +162,8 @@ public class PasswordConfigurableStrategyTests
   @Test
   public void minLowerMaximum()
    {
-    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 10, PWD_PATTERN, 0, 10, 0, 0, 0, 0);
-    assertNotNull(cleanStrategy, CLEAN_STRATEGY_NOT_AS_EXPECTED);
+    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 10, 0, 0, 0, 0);
+    assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
    }
 
 
@@ -168,11 +173,11 @@ public class PasswordConfigurableStrategyTests
   @Test
   public void lowerFailure()
    {
-    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PWD_PATTERN, 0, 1, 0, 0, 0, 0);
+    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 1, 0, 0, 0, 0);
     assertThrows(IllegalArgumentException.class, () ->
      {
-      cleanStrategy.validationStrategy(PWD_1234567890);
-     }
+      cleanStrategy.validationStrategy(PasswordConfigurableStrategyTests.PWD_1234567890);
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -185,8 +190,8 @@ public class PasswordConfigurableStrategyTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(1, 254, PWD_PATTERN, 0, 0, -1, 0, 0, 0);
-     }
+      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(1, 254, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, -1, 0, 0, 0);
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -197,8 +202,8 @@ public class PasswordConfigurableStrategyTests
   @Test
   public void minUpperMaximum()
    {
-    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 10, PWD_PATTERN, 0, 0, 10, 0, 0, 0);
-    assertNotNull(cleanStrategy, CLEAN_STRATEGY_NOT_AS_EXPECTED);
+    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 10, 0, 0, 0);
+    assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
    }
 
 
@@ -208,11 +213,11 @@ public class PasswordConfigurableStrategyTests
   @Test
   public void upperFailure()
    {
-    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PWD_PATTERN, 0, 0, 1, 0, 0, 0);
+    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 1, 0, 0, 0);
     assertThrows(IllegalArgumentException.class, () ->
      {
-      cleanStrategy.validationStrategy(PWD_1234567890);
-     }
+      cleanStrategy.validationStrategy(PasswordConfigurableStrategyTests.PWD_1234567890);
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -225,8 +230,8 @@ public class PasswordConfigurableStrategyTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(1, 254, PWD_PATTERN, 0, 0, 0, -1, 0, 0);
-     }
+      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(1, 254, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, -1, 0, 0);
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -237,8 +242,8 @@ public class PasswordConfigurableStrategyTests
   @Test
   public void minSpecialMaximum()
    {
-    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 10, PWD_PATTERN, 0, 0, 0, 10, 0, 0);
-    assertNotNull(cleanStrategy, CLEAN_STRATEGY_NOT_AS_EXPECTED);
+    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 10, 0, 0);
+    assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
    }
 
 
@@ -248,11 +253,11 @@ public class PasswordConfigurableStrategyTests
   @Test
   public void specialFailure()
    {
-    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PWD_PATTERN, 0, 0, 0, 1, 0, 0);
+    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 1, 0, 0);
     assertThrows(IllegalArgumentException.class, () ->
      {
-      cleanStrategy.validationStrategy(PWD_1234567890);
-     }
+      cleanStrategy.validationStrategy(PasswordConfigurableStrategyTests.PWD_1234567890);
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -265,8 +270,8 @@ public class PasswordConfigurableStrategyTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(1, 254, PWD_PATTERN, 0, 0, 0, 0, -1, 0);
-     }
+      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(1, 254, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, -1, 0);
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -277,8 +282,8 @@ public class PasswordConfigurableStrategyTests
   @Test
   public void minUnqiueMaximum()
    {
-    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 10, PWD_PATTERN, 0, 0, 0, 0, 10, 0);
-    assertNotNull(cleanStrategy, CLEAN_STRATEGY_NOT_AS_EXPECTED);
+    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 10, 0);
+    assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
    }
 
 
@@ -288,11 +293,11 @@ public class PasswordConfigurableStrategyTests
   @Test
   public void uniqueFailure()
    {
-    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PWD_PATTERN, 0, 0, 0, 0, 2, 0);
+    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 2, 0);
     assertThrows(IllegalArgumentException.class, () ->
      {
       cleanStrategy.validationStrategy("1111111111"); //$NON-NLS-1$
-     }
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -305,8 +310,8 @@ public class PasswordConfigurableStrategyTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(1, 254, PWD_PATTERN, 0, 0, 0, 0, 0, -1);
-     }
+      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(1, 254, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 0, -1);
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -317,9 +322,9 @@ public class PasswordConfigurableStrategyTests
   @Test
   public void maxRepeatedMaximum()
    {
-    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 10, PWD_PATTERN, 0, 0, 0, 0, 0, 10);
+    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 0, 10);
     cleanStrategy.validationStrategy("1111111111"); //$NON-NLS-1$
-    assertNotNull(cleanStrategy, CLEAN_STRATEGY_NOT_AS_EXPECTED);
+    assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
    }
 
 
@@ -331,8 +336,8 @@ public class PasswordConfigurableStrategyTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(1, 10, PWD_PATTERN, 3, 3, 3, 3, 0, 0);
-     }
+      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(1, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 3, 3, 3, 3, 0, 0);
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -343,8 +348,8 @@ public class PasswordConfigurableStrategyTests
   @Test
   public void sumMaximum()
    {
-    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 12, PWD_PATTERN, 3, 3, 3, 3, 0, 0);
-    assertNotNull(cleanStrategy, CLEAN_STRATEGY_NOT_AS_EXPECTED);
+    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 12, PasswordConfigurableStrategyTests.PWD_PATTERN, 3, 3, 3, 3, 0, 0);
+    assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
    }
 
 
@@ -354,9 +359,9 @@ public class PasswordConfigurableStrategyTests
   @Test
   public void success()
    {
-    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 12, PWD_PATTERN, 1, 1, 1, 1, 4, 1);
+    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 12, PasswordConfigurableStrategyTests.PWD_PATTERN, 1, 1, 1, 1, 4, 1);
     cleanStrategy.validationStrategy("1aA@1aA@"); //$NON-NLS-1$
-    assertNotNull(cleanStrategy, CLEAN_STRATEGY_NOT_AS_EXPECTED);
+    assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
    }
 
 
@@ -366,11 +371,11 @@ public class PasswordConfigurableStrategyTests
   @Test
   public void repeatedCharacters()
    {
-    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PWD_PATTERN, 0, 0, 0, 0, 0, 2);
+    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 0, 2);
     assertThrows(IllegalArgumentException.class, () ->
      {
       cleanStrategy.validationStrategy("aaaaaaaa"); //$NON-NLS-1$
-     }
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 

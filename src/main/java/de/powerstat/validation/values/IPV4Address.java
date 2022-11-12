@@ -5,6 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 /**
@@ -14,13 +15,20 @@ import java.util.Objects;
  *
  * TODO convert to IP V6 format
  * TODO https://datahub.io/core/geoip2-ipv4/r/geoip2-ipv4.csv
+ * TODO ping ok?
  */
+// @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
 public final class IPV4Address implements Comparable<IPV4Address>
  {
   /**
    * Class c 192.
    */
   private static final String CLASS_C_192 = "192";
+
+  /**
+   * IP V4 regexp.
+   */
+  private static final Pattern IPV4_REGEXP = Pattern.compile("^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$"); //$NON-NLS-1$
 
   /**
    * IP V4 address.
@@ -48,7 +56,7 @@ public final class IPV4Address implements Comparable<IPV4Address>
      {
       throw new IllegalArgumentException("To short or long for an IP V4 address"); //$NON-NLS-1$
      }
-    if (!address.matches("^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$")) //$NON-NLS-1$
+    if (!IPV4Address.IPV4_REGEXP.matcher(address).matches())
      {
       throw new IllegalArgumentException("Not an IP V4 address"); //$NON-NLS-1$
      }
@@ -81,7 +89,7 @@ public final class IPV4Address implements Comparable<IPV4Address>
    */
   public boolean isPrivate()
    {
-    if ("10".equals(this.parts[0]) || (CLASS_C_192.equals(this.parts[0]) && "168".equals(this.parts[1])) || ("169".equals(this.parts[0]) && "254".equals(this.parts[1]))) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    if ("10".equals(this.parts[0]) || (IPV4Address.CLASS_C_192.equals(this.parts[0]) && "168".equals(this.parts[1])) || ("169".equals(this.parts[0]) && "254".equals(this.parts[1]))) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
      {
       return true;
      }
@@ -119,9 +127,9 @@ public final class IPV4Address implements Comparable<IPV4Address>
    {
     if ("0".equals(this.parts[0]) || //$NON-NLS-1$
         "127".equals(this.parts[0]) || //$NON-NLS-1$
-        (CLASS_C_192.equals(this.parts[0]) && "0".equals(this.parts[1]) && "0".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
-        (CLASS_C_192.equals(this.parts[0]) && "0".equals(this.parts[1]) && "2".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
-        (CLASS_C_192.equals(this.parts[0]) && "88".equals(this.parts[1]) && "99".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
+        (IPV4Address.CLASS_C_192.equals(this.parts[0]) && "0".equals(this.parts[1]) && "0".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
+        (IPV4Address.CLASS_C_192.equals(this.parts[0]) && "0".equals(this.parts[1]) && "2".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
+        (IPV4Address.CLASS_C_192.equals(this.parts[0]) && "88".equals(this.parts[1]) && "99".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
         ("198".equals(this.parts[0]) && "51".equals(this.parts[1]) && "100".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         ("203".equals(this.parts[0]) && "0".equals(this.parts[1]) && "113".equals(this.parts[2])) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
        )

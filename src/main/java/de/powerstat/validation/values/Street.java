@@ -5,15 +5,23 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 /**
  * Address Street.
  *
  * Not DSGVO relevant.
+ *
+ * TODO Verify with openstreetmap
  */
 public final class Street implements Comparable<Street>
  {
+  /**
+   * Street regexp.
+   */
+  private static final Pattern STREET_REGEXP = Pattern.compile("^[\\p{L}][\\p{L}. -]*$"); //$NON-NLS-1$
+
   /**
    * Street.
    */
@@ -35,7 +43,7 @@ public final class Street implements Comparable<Street>
      {
       throw new IllegalArgumentException("Street with wrong length"); //$NON-NLS-1$
      }
-    if (!street.matches("^[\\p{L}][\\p{L}. -]*$")) //$NON-NLS-1$
+    if (!Street.STREET_REGEXP.matcher(street).matches())
      {
       throw new IllegalArgumentException("Street with wrong format"); //$NON-NLS-1$
      }

@@ -5,6 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedTlds;
 
@@ -16,6 +17,11 @@ import de.powerstat.validation.generated.GeneratedTlds;
  */
 public final class TopLevelDomain implements Comparable<TopLevelDomain>
  {
+  /**
+   * Top level domain regexp.
+   */
+  private static final Pattern TOPLEVELDOMAIN_REGEXP = Pattern.compile("^[0-9a-zA-Z-]+$"); //$NON-NLS-1$
+
   /**
    * Top level domain.
    */
@@ -41,7 +47,7 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>
      {
       throw new IllegalArgumentException("Illegal character '-' at name start or end"); //$NON-NLS-1$
      }
-    if (!topLevelDomain.matches("^[0-9a-zA-Z-]+$")) //$NON-NLS-1$
+    if (!TopLevelDomain.TOPLEVELDOMAIN_REGEXP.matcher(topLevelDomain).matches())
      {
       throw new IllegalArgumentException("Top level domain contains illegal character"); //$NON-NLS-1$
      }

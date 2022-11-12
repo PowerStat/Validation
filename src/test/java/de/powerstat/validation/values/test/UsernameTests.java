@@ -47,7 +47,7 @@ public class UsernameTests
    * @param username Username
    */
   @ParameterizedTest
-  @ValueSource(strings = {"kh", USERNAME, "username@example.com", "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234"})
+  @ValueSource(strings = {"kh", UsernameTests.USERNAME, "username@example.com", "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234"})
   public void usernameOk0(final String username)
    {
     final Username cleanUsername = Username.of(username);
@@ -67,7 +67,7 @@ public class UsernameTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Username cleanUsername = */ Username.of(username);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -81,7 +81,7 @@ public class UsernameTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Username cleanUsername = */ Username.of(UsernameDefaultStrategy.of(), "^!$%&(){}[]=?+*#´üöäÖÄÜß§;,:'\""); //$NON-NLS-1$
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -92,8 +92,8 @@ public class UsernameTests
   @Test
   public void getUsername()
    {
-    final Username username = Username.of(USERNAME);
-    assertEquals(USERNAME, username.getUsername(), "Username not as expected"); //$NON-NLS-1$
+    final Username username = Username.of(UsernameTests.USERNAME);
+    assertEquals(UsernameTests.USERNAME, username.getUsername(), "Username not as expected"); //$NON-NLS-1$
    }
 
 
@@ -114,7 +114,7 @@ public class UsernameTests
   @Test
   public void getisEmailFalse()
    {
-    final Username username = Username.of(UsernameDefaultStrategy.of(), USERNAME);
+    final Username username = Username.of(UsernameDefaultStrategy.of(), UsernameTests.USERNAME);
     assertFalse(username.isEMail(), "Username is an email address"); //$NON-NLS-1$
    }
 
@@ -125,8 +125,8 @@ public class UsernameTests
   @Test
   public void testHashCode()
    {
-    final Username username1 = Username.of(USERNAME);
-    final Username username2 = Username.of(USERNAME);
+    final Username username1 = Username.of(UsernameTests.USERNAME);
+    final Username username2 = Username.of(UsernameTests.USERNAME);
     final Username username3 = Username.of("username2"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(username1.hashCode(), username2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -141,10 +141,10 @@ public class UsernameTests
   @Test
   public void testEquals()
    {
-    final Username username1 = Username.of(USERNAME);
-    final Username username2 = Username.of(USERNAME);
+    final Username username1 = Username.of(UsernameTests.USERNAME);
+    final Username username2 = Username.of(UsernameTests.USERNAME);
     final Username username3 = Username.of("username2"); //$NON-NLS-1$
-    final Username username4 = Username.of(USERNAME);
+    final Username username4 = Username.of(UsernameTests.USERNAME);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(username1.equals(username1), "username11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(username1.equals(username2), "username12 are not equal"), //$NON-NLS-1$
@@ -164,7 +164,7 @@ public class UsernameTests
   @Test
   public void testToString()
    {
-    final Username username = Username.of(USERNAME);
+    final Username username = Username.of(UsernameTests.USERNAME);
     assertEquals("Username[username=username]", username.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -175,11 +175,11 @@ public class UsernameTests
   @Test
   public void testCompareTo()
    {
-    final Username username1 = Username.of(USERNAME);
-    final Username username2 = Username.of(USERNAME);
+    final Username username1 = Username.of(UsernameTests.USERNAME);
+    final Username username2 = Username.of(UsernameTests.USERNAME);
     final Username username3 = Username.of("username2"); //$NON-NLS-1$
     final Username username4 = Username.of("username3"); //$NON-NLS-1$
-    final Username username5 = Username.of(USERNAME);
+    final Username username5 = Username.of(UsernameTests.USERNAME);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(username1.compareTo(username2) == -username2.compareTo(username1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(username1.compareTo(username3) == -username3.compareTo(username1), "reflexive2"), //$NON-NLS-1$

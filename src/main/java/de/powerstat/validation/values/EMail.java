@@ -6,6 +6,7 @@ package de.powerstat.validation.values;
 
 import java.util.Locale;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 /**
@@ -18,6 +19,11 @@ import java.util.Objects;
  */
 public final class EMail implements Comparable<EMail>
  {
+  /**
+   * Local part regexp.
+   */
+  private static final Pattern LOCAL_REGEXP = Pattern.compile("^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+$"); //$NON-NLS-1$
+
   /**
    * EMail.
    */
@@ -86,7 +92,7 @@ public final class EMail implements Comparable<EMail>
      {
       throw new IllegalArgumentException("Two or more dots behind each other are not allowed within an emails local part"); //$NON-NLS-1$
      }
-    if (!parts[0].matches("^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+$")) //$NON-NLS-1$
+    if (!EMail.LOCAL_REGEXP.matcher(parts[0]).matches())
      {
       throw new IllegalArgumentException("Illegal character found in emails local part or unsupported UTF-8 character"); //$NON-NLS-1$
      }

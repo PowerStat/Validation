@@ -5,15 +5,15 @@ package de.powerstat.validation.values;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
  * Blood group AB0 rhesus system.
  *
- * @see https://de.wikipedia.org/wiki/Blutgruppe
+ * @see <a href="https://de.wikipedia.org/wiki/Blutgruppe">Blutgruppe</a>
  */
 public enum BloodGroup
  {
@@ -61,12 +61,12 @@ public enum BloodGroup
   /**
    * Donate to other blood group.
    */
-  private static final Map<BloodGroup, List<BloodGroup>> DONATE_TO = new HashMap<>();
+  private static final Map<BloodGroup, List<BloodGroup>> DONATE_TO = new ConcurrentHashMap<>();
 
   /**
    * Receive from other blood group.
    */
-  private static final Map<BloodGroup, List<BloodGroup>> RECEIVE_FROM = new HashMap<>();
+  private static final Map<BloodGroup, List<BloodGroup>> RECEIVE_FROM = new ConcurrentHashMap<>();
 
   /**
    * Action number.
@@ -85,47 +85,47 @@ public enum BloodGroup
     onTo.add(BN);
     onTo.add(OP);
     onTo.add(ON);
-    DONATE_TO.put(ON, onTo);
+    BloodGroup.DONATE_TO.put(ON, onTo);
 
     final List<BloodGroup> opTo = new ArrayList<>();
     opTo.add(ABP);
     opTo.add(AP);
     opTo.add(BP);
     opTo.add(OP);
-    DONATE_TO.put(OP, opTo);
+    BloodGroup.DONATE_TO.put(OP, opTo);
 
     final List<BloodGroup> bnTo = new ArrayList<>();
     bnTo.add(ABP);
     bnTo.add(ABN);
     bnTo.add(BP);
     bnTo.add(BN);
-    DONATE_TO.put(BN, bnTo);
+    BloodGroup.DONATE_TO.put(BN, bnTo);
 
     final List<BloodGroup> bpTo = new ArrayList<>();
     bpTo.add(ABP);
     bpTo.add(BP);
-    DONATE_TO.put(BP, bpTo);
+    BloodGroup.DONATE_TO.put(BP, bpTo);
 
     final List<BloodGroup> anTo = new ArrayList<>();
     anTo.add(ABP);
     anTo.add(ABN);
     anTo.add(AP);
     anTo.add(AN);
-    DONATE_TO.put(AN, anTo);
+    BloodGroup.DONATE_TO.put(AN, anTo);
 
     final List<BloodGroup> apTo = new ArrayList<>();
     apTo.add(ABP);
     apTo.add(AP);
-    DONATE_TO.put(AP, apTo);
+    BloodGroup.DONATE_TO.put(AP, apTo);
 
     final List<BloodGroup> abnTo = new ArrayList<>();
     abnTo.add(ABP);
     abnTo.add(ABN);
-    DONATE_TO.put(ABN, abnTo);
+    BloodGroup.DONATE_TO.put(ABN, abnTo);
 
     final List<BloodGroup> abpTo = new ArrayList<>();
     abpTo.add(ABP);
-    DONATE_TO.put(ABP, abpTo);
+    BloodGroup.DONATE_TO.put(ABP, abpTo);
 
     final List<BloodGroup> abpFrom = new ArrayList<>();
     abpFrom.add(ON);
@@ -136,47 +136,47 @@ public enum BloodGroup
     abpFrom.add(AP);
     abpFrom.add(ABN);
     abpFrom.add(ABP);
-    RECEIVE_FROM.put(ABP, abpFrom);
+    BloodGroup.RECEIVE_FROM.put(ABP, abpFrom);
 
     final List<BloodGroup> abnFrom = new ArrayList<>();
     abnFrom.add(ON);
     abnFrom.add(BN);
     abnFrom.add(AN);
     abnFrom.add(ABN);
-    RECEIVE_FROM.put(ABN, abnFrom);
+    BloodGroup.RECEIVE_FROM.put(ABN, abnFrom);
 
     final List<BloodGroup> apFrom = new ArrayList<>();
     apFrom.add(ON);
     apFrom.add(OP);
     apFrom.add(AN);
     apFrom.add(AP);
-    RECEIVE_FROM.put(AP, apFrom);
+    BloodGroup.RECEIVE_FROM.put(AP, apFrom);
 
     final List<BloodGroup> anFrom = new ArrayList<>();
     anFrom.add(ON);
     anFrom.add(AN);
-    RECEIVE_FROM.put(AN, anFrom);
+    BloodGroup.RECEIVE_FROM.put(AN, anFrom);
 
     final List<BloodGroup> bpFrom = new ArrayList<>();
     bpFrom.add(ON);
     bpFrom.add(OP);
     bpFrom.add(BN);
     bpFrom.add(BP);
-    RECEIVE_FROM.put(BP, bpFrom);
+    BloodGroup.RECEIVE_FROM.put(BP, bpFrom);
 
     final List<BloodGroup> bnFrom = new ArrayList<>();
     bnFrom.add(ON);
     bnFrom.add(BN);
-    RECEIVE_FROM.put(BN, bnFrom);
+    BloodGroup.RECEIVE_FROM.put(BN, bnFrom);
 
     final List<BloodGroup> opFrom = new ArrayList<>();
     opFrom.add(ON);
     opFrom.add(OP);
-    RECEIVE_FROM.put(OP, opFrom);
+    BloodGroup.RECEIVE_FROM.put(OP, opFrom);
 
     final List<BloodGroup> onFrom = new ArrayList<>();
     onFrom.add(ON);
-    RECEIVE_FROM.put(ON, onFrom);
+    BloodGroup.RECEIVE_FROM.put(ON, onFrom);
    }
 
 
@@ -210,7 +210,7 @@ public enum BloodGroup
    */
   public boolean couldDonateTo(final BloodGroup other)
    {
-    return DONATE_TO.get(this).contains(other);
+    return BloodGroup.DONATE_TO.get(this).contains(other);
    }
 
 
@@ -222,7 +222,7 @@ public enum BloodGroup
    */
   public boolean couldReceiveFrom(final BloodGroup other)
    {
-    return RECEIVE_FROM.get(this).contains(other);
+    return BloodGroup.RECEIVE_FROM.get(this).contains(other);
    }
 
  }

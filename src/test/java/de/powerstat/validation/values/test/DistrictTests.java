@@ -60,7 +60,7 @@ public class DistrictTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final District cleanDistrict = */ District.of(district);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -77,7 +77,7 @@ public class DistrictTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final District cleanDistrict = */ District.of(district);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 

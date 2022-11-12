@@ -5,6 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 /**
@@ -14,6 +15,11 @@ import java.util.Objects;
  */
 public final class Neighbourhood implements Comparable<Neighbourhood>
  {
+  /**
+   * Neighbourhood fregexp.
+   */
+  private static final Pattern NEIGHBOURHOOD_REGEXP = Pattern.compile("^[\\p{L}][\\p{L}\\p{Digit}. -]*$"); //$NON-NLS-1$
+
   /**
    * Neighbourhood.
    */
@@ -35,7 +41,7 @@ public final class Neighbourhood implements Comparable<Neighbourhood>
      {
       throw new IllegalArgumentException("Neighbourhood with wrong length"); //$NON-NLS-1$
      }
-    if (!neighbourhood.matches("^[\\p{L}][\\p{L}\\p{Digit}. -]*$")) //$NON-NLS-1$
+    if (!Neighbourhood.NEIGHBOURHOOD_REGEXP.matcher(neighbourhood).matches())
      {
       throw new IllegalArgumentException("Neighbourhood with wrong format"); //$NON-NLS-1$
      }
@@ -115,7 +121,7 @@ public final class Neighbourhood implements Comparable<Neighbourhood>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(29);
     builder.append("Neighbourhood[neighbourhood=").append(this.neighbourhood).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

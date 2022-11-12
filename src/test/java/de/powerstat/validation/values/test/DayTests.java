@@ -59,7 +59,7 @@ public class DayTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final Day day = */ Day.of(day);
-     }
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
 

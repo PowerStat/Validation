@@ -45,7 +45,7 @@ public class DepartmentTests
    * @param department Department
    */
   @ParameterizedTest
-  @ValueSource(strings = {RESEARCH, "A", "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl"})
+  @ValueSource(strings = {DepartmentTests.RESEARCH, "A", "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl"})
   public void departmentCorrect(final String department)
    {
     final Department cleanDepartment = Department.of(department);
@@ -65,7 +65,7 @@ public class DepartmentTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Department cleanDepartment = */ Department.of(department);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -82,7 +82,7 @@ public class DepartmentTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Department cleanDepartment = */ Department.of(department);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -93,8 +93,8 @@ public class DepartmentTests
   @Test
   public void getDepartment()
    {
-    final Department department = Department.of(RESEARCH);
-    assertEquals(RESEARCH, department.getDepartment(), "Department not as expected"); //$NON-NLS-1$
+    final Department department = Department.of(DepartmentTests.RESEARCH);
+    assertEquals(DepartmentTests.RESEARCH, department.getDepartment(), "Department not as expected"); //$NON-NLS-1$
    }
 
 
@@ -104,8 +104,8 @@ public class DepartmentTests
   @Test
   public void testHashCode()
    {
-    final Department department1 = Department.of(RESEARCH);
-    final Department department2 = Department.of(RESEARCH);
+    final Department department1 = Department.of(DepartmentTests.RESEARCH);
+    final Department department2 = Department.of(DepartmentTests.RESEARCH);
     final Department department3 = Department.of("Telecomunication"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(department1.hashCode(), department2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -120,10 +120,10 @@ public class DepartmentTests
   @Test
   public void testEquals()
    {
-    final Department department1 = Department.of(RESEARCH);
-    final Department department2 = Department.of(RESEARCH);
+    final Department department1 = Department.of(DepartmentTests.RESEARCH);
+    final Department department2 = Department.of(DepartmentTests.RESEARCH);
     final Department department3 = Department.of("Telecomunication"); //$NON-NLS-1$
-    final Department department4 = Department.of(RESEARCH);
+    final Department department4 = Department.of(DepartmentTests.RESEARCH);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(department1.equals(department1), "department11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(department1.equals(department2), "department12 are not equal"), //$NON-NLS-1$
@@ -143,7 +143,7 @@ public class DepartmentTests
   @Test
   public void testToString()
    {
-    final Department department = Department.of(RESEARCH);
+    final Department department = Department.of(DepartmentTests.RESEARCH);
     assertEquals("Department[department=Research]", department.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -154,11 +154,11 @@ public class DepartmentTests
   @Test
   public void testCompareTo()
    {
-    final Department department1 = Department.of(RESEARCH);
-    final Department department2 = Department.of(RESEARCH);
+    final Department department1 = Department.of(DepartmentTests.RESEARCH);
+    final Department department2 = Department.of(DepartmentTests.RESEARCH);
     final Department department3 = Department.of("Telecomunication"); //$NON-NLS-1$
     final Department department4 = Department.of("World wide sells"); //$NON-NLS-1$
-    final Department department5 = Department.of(RESEARCH);
+    final Department department5 = Department.of(DepartmentTests.RESEARCH);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(department1.compareTo(department2) == -department2.compareTo(department1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(department1.compareTo(department3) == -department3.compareTo(department1), "reflexive2"), //$NON-NLS-1$

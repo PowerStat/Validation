@@ -176,7 +176,7 @@ public final class GregorianDate implements Comparable<GregorianDate>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(30);
     builder.append("GregorianDate[country=").append(this.calendar.getCountry().getCountry()).append(", date=").append(getDate()).append(']'); //$NON-NLS-1$ //$NON-NLS-2$
     return builder.toString();
    }

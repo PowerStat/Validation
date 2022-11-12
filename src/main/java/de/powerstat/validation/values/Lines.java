@@ -5,6 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 /**
@@ -14,6 +15,12 @@ import java.util.Objects;
  */
 public final class Lines implements Comparable<Lines>
  {
+  /**
+   * Lines fregexp.
+   */
+  @SuppressWarnings("java:S6035")
+  private static final Pattern LINES_REGEXP = Pattern.compile("^([\\p{L}\\p{Digit},.& -]|\\R)*+$"); //$NON-NLS-1$
+
   /**
    * Lines.
    */
@@ -35,7 +42,7 @@ public final class Lines implements Comparable<Lines>
      {
       throw new IllegalArgumentException("Lines with wrong length"); //$NON-NLS-1$
      }
-    if (!lines.matches("^([\\p{L}\\p{Digit},.& -]|\\R)*$")) //$NON-NLS-1$
+    if (!Lines.LINES_REGEXP.matcher(lines).matches())
      {
       throw new IllegalArgumentException("Lines with wrong format"); //$NON-NLS-1$
      }
@@ -120,7 +127,7 @@ public final class Lines implements Comparable<Lines>
   public String toString()
    {
     final StringBuilder builder = new StringBuilder();
-    builder.append("Lines[lines=").append(this.lines.replaceAll("\n", "\\\\n").replaceAll("\r", "\\\\r")).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+    builder.append("Lines[lines=").append(this.lines.replace("\n", "\\n").replace("\r", "\\r")).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
     return builder.toString();
    }
 

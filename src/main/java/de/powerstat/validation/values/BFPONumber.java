@@ -120,7 +120,7 @@ public final class BFPONumber implements Comparable<BFPONumber>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(23);
     builder.append("BFPONumber[bFPONumber=").append(this.bFPONumber).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

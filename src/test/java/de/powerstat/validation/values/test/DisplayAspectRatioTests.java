@@ -35,6 +35,7 @@ public class DisplayAspectRatioTests
   /**
    * Is display aspect ratio.
    */
+  @Test
   public void isDisplayspectRatio()
    {
     final DisplayAspectRatio ratio = DisplayAspectRatio.of(1, 1);
@@ -49,12 +50,13 @@ public class DisplayAspectRatioTests
   /**
    * Is not display aspect ratio.
    */
+  @Test
   public void isNotADisplayAspectRatio()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(0, 0);
-     }
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
 

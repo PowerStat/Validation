@@ -21,6 +21,12 @@ import de.powerstat.validation.values.EMail;
 public class ComparatorEMailByDomainTests
  {
   /**
+   * User1@example.com constant.
+   */
+  private static final String USER1_EXAMPLE_COM = "user1@example.com"; //$NON-NLS-1$
+
+
+  /**
    * Default constructor.
    */
   public ComparatorEMailByDomainTests()
@@ -47,11 +53,11 @@ public class ComparatorEMailByDomainTests
   public void compare1()
    {
     final ComparatorEMailByDomain comp = new ComparatorEMailByDomain();
-    final EMail email = EMail.of("user1@example.com"); //$NON-NLS-1$
+    final EMail email = EMail.of(ComparatorEMailByDomainTests.USER1_EXAMPLE_COM);
     assertThrows(NullPointerException.class, () ->
      {
       /* final int result = */ comp.compare(null, email);
-     }
+     }, "Null pointer exception expected"
     );
    }
 
@@ -63,11 +69,11 @@ public class ComparatorEMailByDomainTests
   public void compare2()
    {
     final ComparatorEMailByDomain comp = new ComparatorEMailByDomain();
-    final EMail email = EMail.of("user1@example.com"); //$NON-NLS-1$
+    final EMail email = EMail.of(ComparatorEMailByDomainTests.USER1_EXAMPLE_COM);
     assertThrows(NullPointerException.class, () ->
      {
       /* final int result = */ comp.compare(email, null);
-     }
+     }, "Null pointer exception expected"
     );
    }
 
@@ -79,7 +85,7 @@ public class ComparatorEMailByDomainTests
   public void compare3()
    {
     final ComparatorEMailByDomain comp = new ComparatorEMailByDomain();
-    final EMail email = EMail.of("user1@example.com"); //$NON-NLS-1$
+    final EMail email = EMail.of(ComparatorEMailByDomainTests.USER1_EXAMPLE_COM);
     final int result = comp.compare(email, email);
     assertEquals(0, result, "Compare not equal!"); //$NON-NLS-1$
    }
@@ -92,7 +98,7 @@ public class ComparatorEMailByDomainTests
   public void compare4()
    {
     final ComparatorEMailByDomain comp = new ComparatorEMailByDomain();
-    final EMail email1 = EMail.of("user1@example.com"); //$NON-NLS-1$
+    final EMail email1 = EMail.of(ComparatorEMailByDomainTests.USER1_EXAMPLE_COM);
     final EMail email2 = EMail.of("user2@example.com"); //$NON-NLS-1$
     final int result = comp.compare(email1, email2);
     assertTrue(result < 0, "Compare not smaller!"); //$NON-NLS-1$
@@ -106,7 +112,7 @@ public class ComparatorEMailByDomainTests
   public void compare5()
    {
     final ComparatorEMailByDomain comp = new ComparatorEMailByDomain();
-    final EMail email1 = EMail.of("user1@example.com"); //$NON-NLS-1$
+    final EMail email1 = EMail.of(ComparatorEMailByDomainTests.USER1_EXAMPLE_COM);
     final EMail email2 = EMail.of("user2@example.com"); //$NON-NLS-1$
     final int result = comp.compare(email2, email1);
     assertTrue(result > 0, "Compare not greater!"); //$NON-NLS-1$
@@ -120,7 +126,7 @@ public class ComparatorEMailByDomainTests
   public void compare6()
    {
     final ComparatorEMailByDomain comp = new ComparatorEMailByDomain();
-    final EMail email1 = EMail.of("user1@example.com"); //$NON-NLS-1$
+    final EMail email1 = EMail.of(ComparatorEMailByDomainTests.USER1_EXAMPLE_COM);
     final EMail email2 = EMail.of("user1@powerstat.de"); //$NON-NLS-1$
     final int result = comp.compare(email1, email2);
     assertTrue(result < 0, "Compare not smaller!"); //$NON-NLS-1$
@@ -134,7 +140,7 @@ public class ComparatorEMailByDomainTests
   public void compare7()
    {
     final ComparatorEMailByDomain comp = new ComparatorEMailByDomain();
-    final EMail email1 = EMail.of("user1@example.com"); //$NON-NLS-1$
+    final EMail email1 = EMail.of(ComparatorEMailByDomainTests.USER1_EXAMPLE_COM);
     final EMail email2 = EMail.of("user1@powerstat.de"); //$NON-NLS-1$
     final int result = comp.compare(email2, email1);
     assertTrue(result > 0, "Compare not greater!"); //$NON-NLS-1$

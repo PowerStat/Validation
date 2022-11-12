@@ -70,91 +70,91 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>
   static
    {
     final Map<String, Long> itBefore = new ConcurrentHashMap<>();
-    itBefore.put(YEAR, Long.valueOf(1582));
-    itBefore.put(MONTH, Long.valueOf(10));
-    itBefore.put(DAY, Long.valueOf(4));
-    itBefore.put(DAYS, Long.valueOf(21));
+    itBefore.put(GregorianCalendar.YEAR, Long.valueOf(1582));
+    itBefore.put(GregorianCalendar.MONTH, Long.valueOf(10));
+    itBefore.put(GregorianCalendar.DAY, Long.valueOf(4));
+    itBefore.put(GregorianCalendar.DAYS, Long.valueOf(21));
     final Map<String, Long> itAfter = new ConcurrentHashMap<>();
-    itAfter.put(YEAR, Long.valueOf(1582));
-    itAfter.put(MONTH, Long.valueOf(10));
-    itAfter.put(DAY, Long.valueOf(15));
+    itAfter.put(GregorianCalendar.YEAR, Long.valueOf(1582));
+    itAfter.put(GregorianCalendar.MONTH, Long.valueOf(10));
+    itAfter.put(GregorianCalendar.DAY, Long.valueOf(15));
     final Map<String, Map<String, Long>> it = new ConcurrentHashMap<>();
-    it.put(BEFORE, itBefore);
-    it.put(AFTER, itAfter);
-    REFORM_DATES.put(Country.of("IT"), it); //$NON-NLS-1$
+    it.put(GregorianCalendar.BEFORE, itBefore);
+    it.put(GregorianCalendar.AFTER, itAfter);
+    GregorianCalendar.REFORM_DATES.put(Country.of("IT"), it); //$NON-NLS-1$
 
     final Map<String, Long> beBefore = new ConcurrentHashMap<>();
-    beBefore.put(YEAR, Long.valueOf(1582));
-    beBefore.put(MONTH, Long.valueOf(12));
-    beBefore.put(DAY, Long.valueOf(21));
-    beBefore.put(DAYS, Long.valueOf(21));
+    beBefore.put(GregorianCalendar.YEAR, Long.valueOf(1582));
+    beBefore.put(GregorianCalendar.MONTH, Long.valueOf(12));
+    beBefore.put(GregorianCalendar.DAY, Long.valueOf(21));
+    beBefore.put(GregorianCalendar.DAYS, Long.valueOf(21));
     final Map<String, Long> beAfter = new ConcurrentHashMap<>();
-    beAfter.put(YEAR, Long.valueOf(1583));
-    beAfter.put(MONTH, Long.valueOf(1));
-    beAfter.put(DAY, Long.valueOf(1));
+    beAfter.put(GregorianCalendar.YEAR, Long.valueOf(1583));
+    beAfter.put(GregorianCalendar.MONTH, Long.valueOf(1));
+    beAfter.put(GregorianCalendar.DAY, Long.valueOf(1));
     final Map<String, Map<String, Long>> be = new ConcurrentHashMap<>();
-    be.put(BEFORE, beBefore);
-    be.put(AFTER, beAfter);
-    REFORM_DATES.put(Country.of("BE"), be); //$NON-NLS-1$
+    be.put(GregorianCalendar.BEFORE, beBefore);
+    be.put(GregorianCalendar.AFTER, beAfter);
+    GregorianCalendar.REFORM_DATES.put(Country.of("BE"), be); //$NON-NLS-1$
 
     final Map<String, Long> deBefore = new ConcurrentHashMap<>();
-    deBefore.put(YEAR, Long.valueOf(1700));
-    deBefore.put(MONTH, Long.valueOf(2));
-    deBefore.put(DAY, Long.valueOf(18));
-    deBefore.put(DAYS, Long.valueOf(18));
+    deBefore.put(GregorianCalendar.YEAR, Long.valueOf(1700));
+    deBefore.put(GregorianCalendar.MONTH, Long.valueOf(2));
+    deBefore.put(GregorianCalendar.DAY, Long.valueOf(18));
+    deBefore.put(GregorianCalendar.DAYS, Long.valueOf(18));
     final Map<String, Long> deAfter = new ConcurrentHashMap<>();
-    deAfter.put(YEAR, Long.valueOf(1700));
-    deAfter.put(MONTH, Long.valueOf(3));
-    deAfter.put(DAY, Long.valueOf(1));
+    deAfter.put(GregorianCalendar.YEAR, Long.valueOf(1700));
+    deAfter.put(GregorianCalendar.MONTH, Long.valueOf(3));
+    deAfter.put(GregorianCalendar.DAY, Long.valueOf(1));
     final Map<String, Map<String, Long>> de = new ConcurrentHashMap<>();
-    de.put(BEFORE, deBefore);
-    de.put(AFTER, deAfter);
-    REFORM_DATES.put(Country.of("DE"), de); //$NON-NLS-1$
-    REFORM_DATES.put(Country.of("CH"), de); //$NON-NLS-1$
-    REFORM_DATES.put(Country.of("DK"), de); //$NON-NLS-1$
+    de.put(GregorianCalendar.BEFORE, deBefore);
+    de.put(GregorianCalendar.AFTER, deAfter);
+    GregorianCalendar.REFORM_DATES.put(Country.of("DE"), de); //$NON-NLS-1$
+    GregorianCalendar.REFORM_DATES.put(Country.of("CH"), de); //$NON-NLS-1$
+    GregorianCalendar.REFORM_DATES.put(Country.of("DK"), de); //$NON-NLS-1$
 
     final Map<String, Long> usBefore = new ConcurrentHashMap<>();
-    usBefore.put(YEAR, Long.valueOf(1752));
-    usBefore.put(MONTH, Long.valueOf(9));
-    usBefore.put(DAY, Long.valueOf(2));
-    usBefore.put(DAYS, Long.valueOf(19));
+    usBefore.put(GregorianCalendar.YEAR, Long.valueOf(1752));
+    usBefore.put(GregorianCalendar.MONTH, Long.valueOf(9));
+    usBefore.put(GregorianCalendar.DAY, Long.valueOf(2));
+    usBefore.put(GregorianCalendar.DAYS, Long.valueOf(19));
     final Map<String, Long> usAfter = new ConcurrentHashMap<>();
-    usAfter.put(YEAR, Long.valueOf(1752));
-    usAfter.put(MONTH, Long.valueOf(9));
-    usAfter.put(DAY, Long.valueOf(14));
+    usAfter.put(GregorianCalendar.YEAR, Long.valueOf(1752));
+    usAfter.put(GregorianCalendar.MONTH, Long.valueOf(9));
+    usAfter.put(GregorianCalendar.DAY, Long.valueOf(14));
     final Map<String, Map<String, Long>> us = new ConcurrentHashMap<>();
-    us.put(BEFORE, usBefore);
-    us.put(AFTER, usAfter);
-    REFORM_DATES.put(Country.of("US"), us); //$NON-NLS-1$
-    REFORM_DATES.put(Country.of("GB"), us); //$NON-NLS-1$
+    us.put(GregorianCalendar.BEFORE, usBefore);
+    us.put(GregorianCalendar.AFTER, usAfter);
+    GregorianCalendar.REFORM_DATES.put(Country.of("US"), us); //$NON-NLS-1$
+    GregorianCalendar.REFORM_DATES.put(Country.of("GB"), us); //$NON-NLS-1$
 
     final Map<String, Long> seBefore = new ConcurrentHashMap<>();
-    seBefore.put(YEAR, Long.valueOf(1753));
-    seBefore.put(MONTH, Long.valueOf(2));
-    seBefore.put(DAY, Long.valueOf(17));
-    seBefore.put(DAYS, Long.valueOf(17));
+    seBefore.put(GregorianCalendar.YEAR, Long.valueOf(1753));
+    seBefore.put(GregorianCalendar.MONTH, Long.valueOf(2));
+    seBefore.put(GregorianCalendar.DAY, Long.valueOf(17));
+    seBefore.put(GregorianCalendar.DAYS, Long.valueOf(17));
     final Map<String, Long> seAfter = new ConcurrentHashMap<>();
-    seAfter.put(YEAR, Long.valueOf(1753));
-    seAfter.put(MONTH, Long.valueOf(3));
-    seAfter.put(DAY, Long.valueOf(1));
+    seAfter.put(GregorianCalendar.YEAR, Long.valueOf(1753));
+    seAfter.put(GregorianCalendar.MONTH, Long.valueOf(3));
+    seAfter.put(GregorianCalendar.DAY, Long.valueOf(1));
     final Map<String, Map<String, Long>> se = new ConcurrentHashMap<>();
-    se.put(BEFORE, seBefore);
-    se.put(AFTER, seAfter);
-    REFORM_DATES.put(Country.of("SE"), se); //$NON-NLS-1$
+    se.put(GregorianCalendar.BEFORE, seBefore);
+    se.put(GregorianCalendar.AFTER, seAfter);
+    GregorianCalendar.REFORM_DATES.put(Country.of("SE"), se); //$NON-NLS-1$
 
     final Map<String, Long> ruBefore = new ConcurrentHashMap<>();
-    ruBefore.put(YEAR, Long.valueOf(1918));
-    ruBefore.put(MONTH, Long.valueOf(1));
-    ruBefore.put(DAY, Long.valueOf(31));
+    ruBefore.put(GregorianCalendar.YEAR, Long.valueOf(1918));
+    ruBefore.put(GregorianCalendar.MONTH, Long.valueOf(1));
+    ruBefore.put(GregorianCalendar.DAY, Long.valueOf(31));
     final Map<String, Long> ruAfter = new ConcurrentHashMap<>();
-    ruAfter.put(YEAR, Long.valueOf(1918));
-    ruAfter.put(MONTH, Long.valueOf(2));
-    ruAfter.put(DAY, Long.valueOf(14));
-    ruAfter.put(DAYS, Long.valueOf(15));
+    ruAfter.put(GregorianCalendar.YEAR, Long.valueOf(1918));
+    ruAfter.put(GregorianCalendar.MONTH, Long.valueOf(2));
+    ruAfter.put(GregorianCalendar.DAY, Long.valueOf(14));
+    ruAfter.put(GregorianCalendar.DAYS, Long.valueOf(15));
     final Map<String, Map<String, Long>> ru = new ConcurrentHashMap<>();
-    ru.put(BEFORE, ruBefore);
-    ru.put(AFTER, ruAfter);
-    REFORM_DATES.put(Country.of("RU"), ru); //$NON-NLS-1$
+    ru.put(GregorianCalendar.BEFORE, ruBefore);
+    ru.put(GregorianCalendar.AFTER, ruAfter);
+    GregorianCalendar.REFORM_DATES.put(Country.of("RU"), ru); //$NON-NLS-1$
   }
 
   /*
@@ -252,7 +252,7 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(27);
     builder.append("GregorianCalendar[country=").append(this.country.getCountry()).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
@@ -269,10 +269,10 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>
   public int compareTo(final GregorianCalendar obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    int result = REFORM_DATES.get(this.country).get(BEFORE).get(YEAR).compareTo(REFORM_DATES.get(obj.country).get(BEFORE).get(YEAR));
+    int result = GregorianCalendar.REFORM_DATES.get(this.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.YEAR).compareTo(GregorianCalendar.REFORM_DATES.get(obj.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.YEAR));
     if (result == 0)
      {
-      result = REFORM_DATES.get(this.country).get(BEFORE).get(MONTH).compareTo(REFORM_DATES.get(obj.country).get(BEFORE).get(MONTH));
+      result = GregorianCalendar.REFORM_DATES.get(this.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.MONTH).compareTo(GregorianCalendar.REFORM_DATES.get(obj.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.MONTH));
      }
     return result;
    }
@@ -286,10 +286,10 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>
    */
   public boolean isLeapYear(final Year year)
    {
-    Objects.requireNonNull(year, YEAR);
+    Objects.requireNonNull(year, GregorianCalendar.YEAR);
 
-    final String beforeAfter = REFORM_DATES.get(this.country).get(BEFORE).get(DAYS) == null ? AFTER : BEFORE;
-    final long reformYear = REFORM_DATES.get(this.country).get(beforeAfter).get(YEAR).longValue();
+    final String beforeAfter = GregorianCalendar.REFORM_DATES.get(this.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.DAYS) == null ? GregorianCalendar.AFTER : GregorianCalendar.BEFORE;
+    final long reformYear = GregorianCalendar.REFORM_DATES.get(this.country).get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
     if (year.getYear() > reformYear)
      {
       return ((year.getYear() % 4) == 0) && (((year.getYear() % 100) != 0) || ((year.getYear() % 400) == 0));
@@ -307,18 +307,18 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>
    */
   public int daysInMonth(final Year year, final Month month)
    {
-    Objects.requireNonNull(year, YEAR);
-    Objects.requireNonNull(month, MONTH);
+    Objects.requireNonNull(year, GregorianCalendar.YEAR);
+    Objects.requireNonNull(month, GregorianCalendar.MONTH);
 
-    final String beforeAfter = REFORM_DATES.get(this.country).get(BEFORE).get(DAYS) == null ? AFTER : BEFORE;
-    final long reformYear = REFORM_DATES.get(this.country).get(beforeAfter).get(YEAR).longValue();
-    final int reformMonth = REFORM_DATES.get(this.country).get(beforeAfter).get(MONTH).intValue();
-    final int restDaysInMonth = REFORM_DATES.get(this.country).get(beforeAfter).get(DAYS).intValue();
+    final String beforeAfter = GregorianCalendar.REFORM_DATES.get(this.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.DAYS) == null ? GregorianCalendar.AFTER : GregorianCalendar.BEFORE;
+    final long reformYear = GregorianCalendar.REFORM_DATES.get(this.country).get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
+    final int reformMonth = GregorianCalendar.REFORM_DATES.get(this.country).get(beforeAfter).get(GregorianCalendar.MONTH).intValue();
+    final int restDaysInMonth = GregorianCalendar.REFORM_DATES.get(this.country).get(beforeAfter).get(GregorianCalendar.DAYS).intValue();
     if ((year.getYear() == reformYear) && (month.getMonth() == reformMonth)) // Depend on country
      {
       return restDaysInMonth;
      }
-    return this.DAYS_IN_MONTH[month.getMonth()] + (((month.getMonth() == 2) && isLeapYear(year)) ? 1 : 0);
+    return GregorianCalendar.DAYS_IN_MONTH[month.getMonth()] + (((month.getMonth() == 2) && isLeapYear(year)) ? 1 : 0);
    }
 
  }

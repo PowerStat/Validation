@@ -5,6 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 /**
@@ -19,6 +20,11 @@ import java.util.Objects;
  */
 public final class PostalCode implements Comparable<PostalCode>
  {
+  /**
+   * Postal code regexp.
+   */
+  private static final Pattern POSTALCODE_REGEXP = Pattern.compile("^[0-9A-Z -]{3,11}$"); //$NON-NLS-1$
+
   /**
    * Postal code.
    */
@@ -40,7 +46,7 @@ public final class PostalCode implements Comparable<PostalCode>
      {
       throw new IllegalArgumentException("postalCode with wrong length"); //$NON-NLS-1$
      }
-    if (!postalCode.matches("^[0-9A-Z -]{3,11}$")) //$NON-NLS-1$
+    if (!PostalCode.POSTALCODE_REGEXP.matcher(postalCode).matches())
      {
       throw new IllegalArgumentException("postalCode with wrong format"); //$NON-NLS-1$
      }
@@ -120,7 +126,7 @@ public final class PostalCode implements Comparable<PostalCode>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(23);
     builder.append("PostalCode[postalCode=").append(this.postalCode).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

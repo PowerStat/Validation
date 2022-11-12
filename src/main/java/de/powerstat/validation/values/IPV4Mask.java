@@ -5,6 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 /**
@@ -21,6 +22,11 @@ public final class IPV4Mask implements Comparable<IPV4Mask>
    * Bitmask array.
    */
   private static final String[] BITMASKS = {"0", "128", "192", "224", "240", "248", "252", "254", "255"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$
+
+  /**
+   * IP V4 mask regexp.
+   */
+  private static final Pattern IPV4_MASK_REGEXP = Pattern.compile("^(((255\\.){3}(255|254|252|248|240|224|192|128|0))|((255\\.){2}(254|252|248|240|224|192|128|0)\\.0)|((255\\.)(254|252|248|240|224|192|128|0)(\\.0){2})|((254|252|248|240|224|192|128|0)(\\.0){3}))$"); //$NON-NLS-1$
 
   /**
    * Prefix length.
@@ -49,19 +55,19 @@ public final class IPV4Mask implements Comparable<IPV4Mask>
     this.length = length;
     if (length < 9)
      {
-      this.mask = BITMASKS[length] + ".0.0.0"; //$NON-NLS-1$
+      this.mask = IPV4Mask.BITMASKS[length] + ".0.0.0"; //$NON-NLS-1$
      }
     else if (length < 17)
      {
-      this.mask = "255." + BITMASKS[length - 8] + ".0.0"; //$NON-NLS-1$ //$NON-NLS-2$
+      this.mask = "255." + IPV4Mask.BITMASKS[length - 8] + ".0.0"; //$NON-NLS-1$ //$NON-NLS-2$
      }
     else if (length < 25)
      {
-      this.mask = "255.255." + BITMASKS[length - 16] +  ".0"; //$NON-NLS-1$ //$NON-NLS-2$
+      this.mask = "255.255." + IPV4Mask.BITMASKS[length - 16] + ".0"; //$NON-NLS-1$ //$NON-NLS-2$
      }
     else
      {
-      this.mask = "255.255.255." + BITMASKS[length - 24]; //$NON-NLS-1$
+      this.mask = "255.255.255." + IPV4Mask.BITMASKS[length - 24]; //$NON-NLS-1$
      }
    }
 
@@ -81,7 +87,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>
      {
       throw new IllegalArgumentException("To long for an IP V4 network mask"); //$NON-NLS-1$
      }
-    if (!mask.matches("^(((255\\.){3}(255|254|252|248|240|224|192|128|0))|((255\\.){2}(254|252|248|240|224|192|128|0)\\.0)|((255\\.)(254|252|248|240|224|192|128|0)(\\.0){2})|((254|252|248|240|224|192|128|0)(\\.0){3}))$")) //$NON-NLS-1$
+    if (!IPV4Mask.IPV4_MASK_REGEXP.matcher(mask).matches())
      {
       throw new IllegalArgumentException("Not an IP V4 network mask"); //$NON-NLS-1$
      }
@@ -94,9 +100,9 @@ public final class IPV4Mask implements Comparable<IPV4Mask>
        {
         continue;
        }
-      for (int pos = 1; pos < BITMASKS.length; ++pos)
+      for (int pos = 1; pos < IPV4Mask.BITMASKS.length; ++pos)
        {
-        if (parts[part].equals(BITMASKS[pos]))
+        if (parts[part].equals(IPV4Mask.BITMASKS[pos]))
          {
           this.length = (8 * part) + pos;
           return;

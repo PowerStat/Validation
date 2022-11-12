@@ -59,7 +59,7 @@ public class DaysTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final Days days = */ Days.of(days);
-     }
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
 

@@ -59,7 +59,7 @@ public class TopLevelDomainTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final TopLevelDomain cleanTopLevelDomain = */ TopLevelDomain.of(topLevelDomain);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -76,7 +76,7 @@ public class TopLevelDomainTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final TopLevelDomain cleanTopLevelDomain = */ TopLevelDomain.of(topLevelDomain);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 

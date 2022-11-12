@@ -5,6 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedISO4217;
 
@@ -18,6 +19,11 @@ import de.powerstat.validation.generated.GeneratedISO4217;
  */
 public final class Currency implements Comparable<Currency>
  {
+  /**
+   * Currency regexp.
+   */
+  private static final Pattern CURRENCY_REGEXP = Pattern.compile("^[A-Z]{3}$"); //$NON-NLS-1$
+
   /**
    * ISO 4217 currency code.
    */
@@ -39,7 +45,7 @@ public final class Currency implements Comparable<Currency>
      {
       throw new IllegalArgumentException("Length is not 3"); //$NON-NLS-1$
      }
-    if (!code.matches("^[A-Z]{3}$")) //$NON-NLS-1$
+    if (!Currency.CURRENCY_REGEXP.matcher(code).matches())
      {
       throw new IllegalArgumentException("Code contains illegal character"); //$NON-NLS-1$
      }

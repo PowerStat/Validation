@@ -5,6 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedISO3166A2;
 
@@ -18,6 +19,11 @@ import de.powerstat.validation.generated.GeneratedISO3166A2;
  */
 public final class Country implements Comparable<Country>
  {
+  /**
+   * Country regexp.
+   */
+  private static final Pattern COUNTRY_REGEXP = Pattern.compile("^[A-Z]{2}$"); //$NON-NLS-1$
+
   /**
    * Alpha-2 country code.
    */
@@ -39,7 +45,7 @@ public final class Country implements Comparable<Country>
      {
       throw new IllegalArgumentException("Length is not 2"); //$NON-NLS-1$
      }
-    if (!alpha2.matches("^[A-Z]{2}$")) //$NON-NLS-1$
+    if (!Country.COUNTRY_REGEXP.matcher(alpha2).matches())
      {
       throw new IllegalArgumentException("alpha2 contains illegal character"); //$NON-NLS-1$
      }

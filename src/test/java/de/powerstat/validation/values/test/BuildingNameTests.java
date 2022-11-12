@@ -46,7 +46,7 @@ public class BuildingNameTests
    * @param buildingName Building name
    */
   @ParameterizedTest
-  @ValueSource(strings = {RATHAUS, "A", "Abcdefghijklmnopqrstuvwxyzabcdef"})
+  @ValueSource(strings = {BuildingNameTests.RATHAUS, "A", "Abcdefghijklmnopqrstuvwxyzabcdef"})
   public void buildingNameCorrect(final String buildingName)
    {
     final BuildingName cleanBuildingName = BuildingName.of(buildingName);
@@ -66,7 +66,7 @@ public class BuildingNameTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final BuildingName cleanBuildingName = */ BuildingName.of(buildingName);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -83,7 +83,7 @@ public class BuildingNameTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final BuildingName cleanBuildingName = */ BuildingName.of(buildingName);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -94,8 +94,8 @@ public class BuildingNameTests
   @Test
   public void getBuildingName()
    {
-    final BuildingName buildingName = BuildingName.of(RATHAUS);
-    assertEquals(RATHAUS, buildingName.getBuildingName(), "BuildingName not as expected"); //$NON-NLS-1$
+    final BuildingName buildingName = BuildingName.of(BuildingNameTests.RATHAUS);
+    assertEquals(BuildingNameTests.RATHAUS, buildingName.getBuildingName(), "BuildingName not as expected"); //$NON-NLS-1$
    }
 
 
@@ -105,8 +105,8 @@ public class BuildingNameTests
   @Test
   public void testHashCode()
    {
-    final BuildingName buildingName1 = BuildingName.of(RATHAUS);
-    final BuildingName buildingName2 = BuildingName.of(RATHAUS);
+    final BuildingName buildingName1 = BuildingName.of(BuildingNameTests.RATHAUS);
+    final BuildingName buildingName2 = BuildingName.of(BuildingNameTests.RATHAUS);
     final BuildingName buildingName3 = BuildingName.of("Stadtwaage"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(buildingName1.hashCode(), buildingName2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -121,10 +121,10 @@ public class BuildingNameTests
   @Test
   public void testEquals()
    {
-    final BuildingName name1 = BuildingName.of(RATHAUS);
-    final BuildingName name2 = BuildingName.of(RATHAUS);
+    final BuildingName name1 = BuildingName.of(BuildingNameTests.RATHAUS);
+    final BuildingName name2 = BuildingName.of(BuildingNameTests.RATHAUS);
     final BuildingName name3 = BuildingName.of("Stadtwaage"); //$NON-NLS-1$
-    final BuildingName name4 = BuildingName.of(RATHAUS);
+    final BuildingName name4 = BuildingName.of(BuildingNameTests.RATHAUS);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(name1.equals(name1), "name11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(name1.equals(name2), "name12 are not equal"), //$NON-NLS-1$
@@ -144,7 +144,7 @@ public class BuildingNameTests
   @Test
   public void testToString()
    {
-    final BuildingName buildingName = BuildingName.of(RATHAUS);
+    final BuildingName buildingName = BuildingName.of(BuildingNameTests.RATHAUS);
     assertEquals("BuildingName[buildingName=Rathaus]", buildingName.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -155,11 +155,11 @@ public class BuildingNameTests
   @Test
   public void testCompareTo()
    {
-    final BuildingName name1 = BuildingName.of(RATHAUS);
-    final BuildingName name2 = BuildingName.of(RATHAUS);
+    final BuildingName name1 = BuildingName.of(BuildingNameTests.RATHAUS);
+    final BuildingName name2 = BuildingName.of(BuildingNameTests.RATHAUS);
     final BuildingName name3 = BuildingName.of("Stadtwaage"); //$NON-NLS-1$
     final BuildingName name4 = BuildingName.of("Torhaus"); //$NON-NLS-1$
-    final BuildingName name5 = BuildingName.of(RATHAUS);
+    final BuildingName name5 = BuildingName.of(BuildingNameTests.RATHAUS);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(name1.compareTo(name2) == -name2.compareTo(name1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(name1.compareTo(name3) == -name3.compareTo(name1), "reflexive2"), //$NON-NLS-1$

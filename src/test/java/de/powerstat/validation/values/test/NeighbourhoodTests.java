@@ -65,7 +65,7 @@ public class NeighbourhoodTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Neighbourhood cleanNeighbourhood = */ Neighbourhood.of(neighbourhood);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -82,7 +82,7 @@ public class NeighbourhoodTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Neighbourhood cleanNeighbourhood = */ Neighbourhood.of(neighbourhood);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -93,8 +93,8 @@ public class NeighbourhoodTests
   @Test
   public void getNeighbourhood()
    {
-    final Neighbourhood neighbourhood = Neighbourhood.of(UNKNOWN);
-    assertEquals(UNKNOWN, neighbourhood.getNeighbourhood(), "Neighbourhood not as expected"); //$NON-NLS-1$
+    final Neighbourhood neighbourhood = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
+    assertEquals(NeighbourhoodTests.UNKNOWN, neighbourhood.getNeighbourhood(), "Neighbourhood not as expected"); //$NON-NLS-1$
    }
 
 
@@ -104,8 +104,8 @@ public class NeighbourhoodTests
   @Test
   public void testHashCode()
    {
-    final Neighbourhood neighbourhood1 = Neighbourhood.of(UNKNOWN);
-    final Neighbourhood neighbourhood2 = Neighbourhood.of(UNKNOWN);
+    final Neighbourhood neighbourhood1 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
+    final Neighbourhood neighbourhood2 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
     final Neighbourhood neighbourhood3 = Neighbourhood.of("Unknown2"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(neighbourhood1.hashCode(), neighbourhood2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -120,10 +120,10 @@ public class NeighbourhoodTests
   @Test
   public void testEquals()
    {
-    final Neighbourhood neighbourhood1 = Neighbourhood.of(UNKNOWN);
-    final Neighbourhood neighbourhood2 = Neighbourhood.of(UNKNOWN);
+    final Neighbourhood neighbourhood1 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
+    final Neighbourhood neighbourhood2 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
     final Neighbourhood neighbourhood3 = Neighbourhood.of("Unknown2"); //$NON-NLS-1$
-    final Neighbourhood neighbourhood4 = Neighbourhood.of(UNKNOWN);
+    final Neighbourhood neighbourhood4 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(neighbourhood1.equals(neighbourhood1), "neighbourhood11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(neighbourhood1.equals(neighbourhood2), "neighbourhood12 are not equal"), //$NON-NLS-1$
@@ -143,7 +143,7 @@ public class NeighbourhoodTests
   @Test
   public void testToString()
    {
-    final Neighbourhood neighbourhood = Neighbourhood.of(UNKNOWN);
+    final Neighbourhood neighbourhood = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
     assertEquals("Neighbourhood[neighbourhood=Unknown]", neighbourhood.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -154,11 +154,11 @@ public class NeighbourhoodTests
   @Test
   public void testCompareTo()
    {
-    final Neighbourhood neighbourhood1 = Neighbourhood.of(UNKNOWN);
-    final Neighbourhood neighbourhood2 = Neighbourhood.of(UNKNOWN);
+    final Neighbourhood neighbourhood1 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
+    final Neighbourhood neighbourhood2 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
     final Neighbourhood neighbourhood3 = Neighbourhood.of("Unknown2"); //$NON-NLS-1$
     final Neighbourhood neighbourhood4 = Neighbourhood.of("Unknown3r"); //$NON-NLS-1$
-    final Neighbourhood neighbourhood5 = Neighbourhood.of(UNKNOWN);
+    final Neighbourhood neighbourhood5 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(neighbourhood1.compareTo(neighbourhood2) == -neighbourhood2.compareTo(neighbourhood1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(neighbourhood1.compareTo(neighbourhood3) == -neighbourhood3.compareTo(neighbourhood1), "reflexive2"), //$NON-NLS-1$

@@ -34,7 +34,7 @@ public class IBANVerifierTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       IBANVerifier.of(14, "^DE[0-9]{2}[0-9]{18}$"); //$NON-NLS-1$
-     }
+     }, "Illegal argument exception expected"
     );
    }
 
@@ -48,7 +48,7 @@ public class IBANVerifierTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       IBANVerifier.of(15, "DE[0-9]{2}[0-9]{18}"); //$NON-NLS-1$
-     }
+     }, "Illegal argument exception expected"
     );
    }
 

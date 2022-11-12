@@ -46,7 +46,7 @@ public class FirstnameTests
    * @param firstname Firstname
    */
   @ParameterizedTest
-  @ValueSource(strings = {"K", "Kai", FIRSTNAME, "AbcdefghijklmnopqrstuvwxyzäöüßAB"})
+  @ValueSource(strings = {"K", "Kai", FirstnameTests.FIRSTNAME, "AbcdefghijklmnopqrstuvwxyzäöüßAB"})
   public void firstnameOk0(final String firstname)
    {
     final Firstname cleanFirstname = Firstname.of(firstname);
@@ -66,7 +66,7 @@ public class FirstnameTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Firstname cleanFirstname = */ Firstname.of(firstname);
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -80,7 +80,7 @@ public class FirstnameTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Firstname cleanFirstname = */ Firstname.of("^!$%&(){}[]=?+*#´§;,:'\""); //$NON-NLS-1$
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
@@ -91,8 +91,8 @@ public class FirstnameTests
   @Test
   public void getFirstname()
    {
-    final Firstname firstname = Firstname.of(FIRSTNAME);
-    assertEquals(FIRSTNAME, firstname.getFirstname(), "Firstname not as expected"); //$NON-NLS-1$
+    final Firstname firstname = Firstname.of(FirstnameTests.FIRSTNAME);
+    assertEquals(FirstnameTests.FIRSTNAME, firstname.getFirstname(), "Firstname not as expected"); //$NON-NLS-1$
    }
 
 
@@ -102,8 +102,8 @@ public class FirstnameTests
   @Test
   public void testHashCode()
    {
-    final Firstname firstname1 = Firstname.of(FIRSTNAME);
-    final Firstname firstname2 = Firstname.of(FIRSTNAME);
+    final Firstname firstname1 = Firstname.of(FirstnameTests.FIRSTNAME);
+    final Firstname firstname2 = Firstname.of(FirstnameTests.FIRSTNAME);
     final Firstname firstname3 = Firstname.of("firstnamez"); //$NON-NLS-1$
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(firstname1.hashCode(), firstname2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
@@ -118,10 +118,10 @@ public class FirstnameTests
   @Test
   public void testEquals()
    {
-    final Firstname firstname1 = Firstname.of(FIRSTNAME);
-    final Firstname firstname2 = Firstname.of(FIRSTNAME);
+    final Firstname firstname1 = Firstname.of(FirstnameTests.FIRSTNAME);
+    final Firstname firstname2 = Firstname.of(FirstnameTests.FIRSTNAME);
     final Firstname firstname3 = Firstname.of("firstnamez"); //$NON-NLS-1$
-    final Firstname firstname4 = Firstname.of(FIRSTNAME);
+    final Firstname firstname4 = Firstname.of(FirstnameTests.FIRSTNAME);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(firstname1.equals(firstname1), "firstname11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(firstname1.equals(firstname2), "firstname12 are not equal"), //$NON-NLS-1$
@@ -141,7 +141,7 @@ public class FirstnameTests
   @Test
   public void testToString()
    {
-    final Firstname firstname = Firstname.of(FIRSTNAME);
+    final Firstname firstname = Firstname.of(FirstnameTests.FIRSTNAME);
     assertEquals("Firstname[firstname=firstname]", firstname.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -152,11 +152,11 @@ public class FirstnameTests
   @Test
   public void testCompareTo()
    {
-    final Firstname firstname1 = Firstname.of(FIRSTNAME);
-    final Firstname firstname2 = Firstname.of(FIRSTNAME);
+    final Firstname firstname1 = Firstname.of(FirstnameTests.FIRSTNAME);
+    final Firstname firstname2 = Firstname.of(FirstnameTests.FIRSTNAME);
     final Firstname firstname3 = Firstname.of("firstnamey"); //$NON-NLS-1$
     final Firstname firstname4 = Firstname.of("firstnamez"); //$NON-NLS-1$
-    final Firstname firstname5 = Firstname.of(FIRSTNAME);
+    final Firstname firstname5 = Firstname.of(FirstnameTests.FIRSTNAME);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(firstname1.compareTo(firstname2) == -firstname2.compareTo(firstname1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(firstname1.compareTo(firstname3) == -firstname3.compareTo(firstname1), "reflexive2"), //$NON-NLS-1$

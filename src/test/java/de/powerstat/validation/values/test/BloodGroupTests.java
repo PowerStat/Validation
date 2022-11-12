@@ -50,6 +50,7 @@ public class BloodGroupTests
   /**
    * Test could donate to.
    */
+  @SuppressWarnings("PMD.JUnitTestContainsTooManyAsserts")
   @Test
   public void couldDonateTo()
    {
@@ -132,6 +133,7 @@ public class BloodGroupTests
   /**
    * Test could receive from.
    */
+  @SuppressWarnings("PMD.JUnitTestContainsTooManyAsserts")
   @Test
   public void couldReceiveFrom()
    {

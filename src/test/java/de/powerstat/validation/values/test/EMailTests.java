@@ -30,6 +30,21 @@ public class EMailTests
    */
   private static final String EMAIL_USER1_AT_EXAMPLE_COM = "user1@example.com"; //$NON-NLS-1$
 
+  /**
+   * user@example.com email constant.
+   */
+  private static final String USER_EXAMPLE_COM = "user@example.com"; //$NON-NLS-1$
+
+  /**
+   * EMail not as expected constant.
+   */
+  private static final String EMAIL_NOT_AS_EXPECTED = "EMail not as expected"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT_EXCEPTION = "Illegal argument exception expected"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -50,7 +65,7 @@ public class EMailTests
   public void emailOk0(final String email)
    {
     final EMail cleanEMail = EMail.of(email);
-    assertEquals(email, cleanEMail.getEMail(), "EMail not as expected"); //$NON-NLS-1$
+    assertEquals(email, cleanEMail.getEMail(), EMailTests.EMAIL_NOT_AS_EXPECTED);
    }
 
 
@@ -66,7 +81,7 @@ public class EMailTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final EMail cleanEMail = */ EMail.of(email);
-     }
+     }, EMailTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -80,7 +95,7 @@ public class EMailTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final EMail cleanEMail = */ EMail.of("example.com"); //$NON-NLS-1$
-     }
+     }, EMailTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -94,7 +109,7 @@ public class EMailTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final EMail cleanEMail = */ EMail.of("user@[192.168.1.1"); //$NON-NLS-1$
-     }
+     }, EMailTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -108,7 +123,7 @@ public class EMailTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final EMail cleanEMail = */ EMail.of("(comment)user@example.com"); //$NON-NLS-1$
-     }
+     }, EMailTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -122,7 +137,7 @@ public class EMailTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final EMail cleanEMail = */ EMail.of("user(comment)@example.com"); //$NON-NLS-1$
-     }
+     }, EMailTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -136,7 +151,7 @@ public class EMailTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final EMail cleanEMail = */ EMail.of("\"user\"@example.com"); //$NON-NLS-1$
-     }
+     }, EMailTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -150,7 +165,7 @@ public class EMailTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final EMail cleanEMail = */ EMail.of(".user@example.com"); //$NON-NLS-1$
-     }
+     }, EMailTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -164,7 +179,7 @@ public class EMailTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final EMail cleanEMail = */ EMail.of("user.@example.com"); //$NON-NLS-1$
-     }
+     }, EMailTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -178,7 +193,7 @@ public class EMailTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final EMail cleanEMail = */ EMail.of("user..name@example.com"); //$NON-NLS-1$
-     }
+     }, EMailTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -192,7 +207,7 @@ public class EMailTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final EMail cleanEMail = */ EMail.of("üöäÖÄÜß§;,:@example.com"); //$NON-NLS-1$
-     }
+     }, EMailTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -203,8 +218,8 @@ public class EMailTests
   @Test
   public void getEMail()
    {
-    final EMail email = EMail.of("user@example.com"); //$NON-NLS-1$
-    assertEquals("user@example.com", email.getEMail(), "EMail not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    final EMail email = EMail.of(EMailTests.USER_EXAMPLE_COM);
+    assertEquals(EMailTests.USER_EXAMPLE_COM, email.getEMail(), EMailTests.EMAIL_NOT_AS_EXPECTED);
    }
 
 
@@ -214,8 +229,8 @@ public class EMailTests
   @Test
   public void getDomainPart()
    {
-    final EMail email = EMail.of("user@example.com"); //$NON-NLS-1$
-    assertEquals("example.com", email.getDomainPart(), "EMail not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    final EMail email = EMail.of(EMailTests.USER_EXAMPLE_COM);
+    assertEquals("example.com", email.getDomainPart(), EMailTests.EMAIL_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 
@@ -225,8 +240,8 @@ public class EMailTests
   @Test
   public void getReverseDomainPart()
    {
-    final EMail email = EMail.of("user@example.com"); //$NON-NLS-1$
-    assertEquals("com.example", email.getReverseDomainPart(), "EMail not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    final EMail email = EMail.of(EMailTests.USER_EXAMPLE_COM);
+    assertEquals("com.example", email.getReverseDomainPart(), EMailTests.EMAIL_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 
@@ -236,8 +251,8 @@ public class EMailTests
   @Test
   public void getLocalPart()
    {
-    final EMail email = EMail.of("user@example.com"); //$NON-NLS-1$
-    assertEquals("user", email.getLocalPart(), "EMail not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    final EMail email = EMail.of(EMailTests.USER_EXAMPLE_COM);
+    assertEquals("user", email.getLocalPart(), EMailTests.EMAIL_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 

@@ -26,7 +26,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Gregorian date tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "CLI_CONSTANT_LIST_INDEX"})
 public class GregorianDateTests
  {
   /**
@@ -66,7 +66,7 @@ public class GregorianDateTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final GregorianDate cleanDate = */ GregorianDate.of(Year.of(Long.parseLong(dateParts[0])), Month.of(Integer.parseInt(dateParts[1])), Day.of(Integer.parseInt(dateParts[2])));
-     }
+     }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
 
