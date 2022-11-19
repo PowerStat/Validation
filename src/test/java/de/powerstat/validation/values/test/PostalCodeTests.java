@@ -29,6 +29,21 @@ public class PostalCodeTests
    */
   private static final String POSTCODE_28000 = "28000"; //$NON-NLS-1$
 
+  /**
+   * Post code 30000.
+   */
+  private static final String POSTCODE_30000 = "30000"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * PostalCode not as expected constant.
+   */
+  private static final String POSTAL_CODE_NOT_AS_EXPECTED = "PostalCode not as expected"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -49,7 +64,7 @@ public class PostalCodeTests
   public void postalCodeCorrect(final String postalCode)
    {
     final PostalCode cleanBic = PostalCode.of(postalCode);
-    assertEquals(postalCode, cleanBic.getPostalCode(), "PostalCode not as expected"); //$NON-NLS-1$
+    assertEquals(postalCode, cleanBic.getPostalCode(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -65,7 +80,7 @@ public class PostalCodeTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final PostalCode cleanPostalCode = */ PostalCode.of(postalCode);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, PostalCodeTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -82,7 +97,7 @@ public class PostalCodeTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final PostalCode cleanPostalCode = */ PostalCode.of(postalCode);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, PostalCodeTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -94,7 +109,7 @@ public class PostalCodeTests
   public void getPostalCode()
    {
     final PostalCode postalCode = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    assertEquals(PostalCodeTests.POSTCODE_28000, postalCode.getPostalCode(), "PostalCode not as expected"); //$NON-NLS-1$
+    assertEquals(PostalCodeTests.POSTCODE_28000, postalCode.getPostalCode(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -106,7 +121,7 @@ public class PostalCodeTests
    {
     final PostalCode postalCode1 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
     final PostalCode postalCode2 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    final PostalCode postalCode3 = PostalCode.of("30000"); //$NON-NLS-1$
+    final PostalCode postalCode3 = PostalCode.of(PostalCodeTests.POSTCODE_30000);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(postalCode1.hashCode(), postalCode2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(postalCode1.hashCode(), postalCode3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -122,7 +137,7 @@ public class PostalCodeTests
    {
     final PostalCode postalCode1 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
     final PostalCode postalCode2 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    final PostalCode postalCode3 = PostalCode.of("30000"); //$NON-NLS-1$
+    final PostalCode postalCode3 = PostalCode.of(PostalCodeTests.POSTCODE_30000);
     final PostalCode postalCode4 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(postalCode1.equals(postalCode1), "postalCode11 is not equal"), //$NON-NLS-1$
@@ -156,7 +171,7 @@ public class PostalCodeTests
    {
     final PostalCode bic1 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
     final PostalCode bic2 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    final PostalCode bic3 = PostalCode.of("30000"); //$NON-NLS-1$
+    final PostalCode bic3 = PostalCode.of(PostalCodeTests.POSTCODE_30000);
     final PostalCode bic4 = PostalCode.of("80000"); //$NON-NLS-1$
     final PostalCode bic5 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
     assertAll("testCompareTo", //$NON-NLS-1$

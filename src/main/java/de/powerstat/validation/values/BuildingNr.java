@@ -173,10 +173,8 @@ public final class BuildingNr implements Comparable<BuildingNr>
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
     final Matcher matcher1 = BuildingNr.BUILDINGNR_REGEXP.matcher(this.buildingNr);
     final Matcher matcher2 = BuildingNr.BUILDINGNR_REGEXP.matcher(obj.buildingNr);
-    if (!matcher1.matches() || !matcher2.matches())
-     {
-      throw new IllegalStateException("One or both of the two buildingNr objects does not match the buildingNr pattern"); //$NON-NLS-1$
-     }
+    /* boolean result1 = */ matcher1.matches();
+    /* boolean result2 = */ matcher2.matches();
     // group 1: building nr (from) 42:   42
     // group 4: building nr (to) 42-43:  43
     // group 6: numerator 3/4:         3

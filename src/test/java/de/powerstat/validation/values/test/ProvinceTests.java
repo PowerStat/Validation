@@ -29,6 +29,26 @@ public class ProvinceTests
    */
   private static final String ABC = "abc"; //$NON-NLS-1$
 
+  /**
+   * abcd.
+   */
+  private static final String ABCD = "abcd"; //$NON-NLS-1$
+
+  /**
+   * def.
+   */
+  private static final String DEF = "def"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * Province not as expected constant.
+   */
+  private static final String PROVINCE_NOT_AS_EXPECTED = "Province not as expected"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -49,7 +69,7 @@ public class ProvinceTests
   public void provinceCorrect(final String province)
    {
     final Province cleanProvince = Province.of(province);
-    assertEquals(province, cleanProvince.getProvince(), "Province not as expected"); //$NON-NLS-1$
+    assertEquals(province, cleanProvince.getProvince(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
    }
 
 
@@ -65,7 +85,7 @@ public class ProvinceTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Province cleanProvince = */ Province.of(province);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, ProvinceTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -82,7 +102,7 @@ public class ProvinceTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Province cleanProvince = */ Province.of(province);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, ProvinceTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -93,8 +113,8 @@ public class ProvinceTests
   @Test
   public void getProvince()
    {
-    final Province province = Province.of("abcd"); //$NON-NLS-1$
-    assertEquals("abcd", province.getProvince(), "Province not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    final Province province = Province.of(ProvinceTests.ABCD);
+    assertEquals(ProvinceTests.ABCD, province.getProvince(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
    }
 
 
@@ -106,7 +126,7 @@ public class ProvinceTests
    {
     final Province province1 = Province.of(ProvinceTests.ABC);
     final Province province2 = Province.of(ProvinceTests.ABC);
-    final Province province3 = Province.of("def"); //$NON-NLS-1$
+    final Province province3 = Province.of(ProvinceTests.DEF);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(province1.hashCode(), province2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(province1.hashCode(), province3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -122,7 +142,7 @@ public class ProvinceTests
    {
     final Province province1 = Province.of(ProvinceTests.ABC);
     final Province province2 = Province.of(ProvinceTests.ABC);
-    final Province province3 = Province.of("def"); //$NON-NLS-1$
+    final Province province3 = Province.of(ProvinceTests.DEF);
     final Province province4 = Province.of(ProvinceTests.ABC);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(province1.equals(province1), "province11 is not equal"), //$NON-NLS-1$
@@ -156,7 +176,7 @@ public class ProvinceTests
    {
     final Province province1 = Province.of(ProvinceTests.ABC);
     final Province province2 = Province.of(ProvinceTests.ABC);
-    final Province province3 = Province.of("def"); //$NON-NLS-1$
+    final Province province3 = Province.of(ProvinceTests.DEF);
     final Province province4 = Province.of("ghi"); //$NON-NLS-1$
     final Province province5 = Province.of(ProvinceTests.ABC);
     assertAll("testCompareTo", //$NON-NLS-1$

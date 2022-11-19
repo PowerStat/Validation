@@ -26,6 +26,37 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class BuildingNrTests
  {
   /**
+   * Test compare to.
+   */
+  private static final String TEST_COMPARE_TO = "testCompareTo";
+
+  /**
+   * Building nr 23.
+   */
+  private static final String BUILDINGNR23 = "23";
+
+  /**
+   * Building nr 23 1/4.
+   */
+  private static final String BUILDINGNR23_1_4 = "23 1/4"; //$NON-NLS-1$
+
+  /**
+   * Building nr 42.
+   */
+  private static final String BUILDINGNR42 = "42";
+
+  /**
+   * Illegal argument exception expected.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * BuildingNr not as expected.
+   */
+  private static final String BUILDING_NR_NOT_AS_EXPECTED = "BuildingNr not as expected";
+
+
+  /**
    * Default constructor.
    */
   public BuildingNrTests()
@@ -40,11 +71,11 @@ public class BuildingNrTests
    * @param buildingNr BuildingNr
    */
   @ParameterizedTest
-  @ValueSource(strings = {"9", "42", "42-44", "42/44", "42 a", "42 1/3", "42 1/3 a", "29998-29999 998/999 a", "29999", "42 4/4"})
+  @ValueSource(strings = {"9", BuildingNrTests.BUILDINGNR42, "42-44", "42/44", "42 a", "42 1/3", "42 1/3 a", "29998-29999 998/999 a", "29999", "42 4/4"})
   public void buildingNrCorrect(final String buildingNr)
    {
     final BuildingNr cleanBuildingNr = BuildingNr.of(buildingNr);
-    assertEquals(buildingNr, cleanBuildingNr.getBuildingNr(), "BuildingNr not as expected"); //$NON-NLS-1$
+    assertEquals(buildingNr, cleanBuildingNr.getBuildingNr(), BuildingNrTests.BUILDING_NR_NOT_AS_EXPECTED);
    }
 
 
@@ -60,7 +91,7 @@ public class BuildingNrTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final BuildingNr cleanBuildingNr = */ BuildingNr.of(buildingNr);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, BuildingNrTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -77,7 +108,7 @@ public class BuildingNrTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final BuildingNr cleanBuildingNr = */ BuildingNr.of(buildingNr);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, BuildingNrTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -88,8 +119,8 @@ public class BuildingNrTests
   @Test
   public void getBuildingNr()
    {
-    final BuildingNr buildingNr = BuildingNr.of("42"); //$NON-NLS-1$
-    assertEquals("42", buildingNr.getBuildingNr(), "BuildingNr not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    final BuildingNr buildingNr = BuildingNr.of(BuildingNrTests.BUILDINGNR42);
+    assertEquals(BuildingNrTests.BUILDINGNR42, buildingNr.getBuildingNr(), BuildingNrTests.BUILDING_NR_NOT_AS_EXPECTED);
    }
 
 
@@ -99,9 +130,9 @@ public class BuildingNrTests
   @Test
   public void testHashCode()
    {
-    final BuildingNr buildingNr1 = BuildingNr.of("23"); //$NON-NLS-1$
-    final BuildingNr buildingNr2 = BuildingNr.of("23"); //$NON-NLS-1$
-    final BuildingNr buildingNr3 = BuildingNr.of("42"); //$NON-NLS-1$
+    final BuildingNr buildingNr1 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
+    final BuildingNr buildingNr2 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
+    final BuildingNr buildingNr3 = BuildingNr.of(BuildingNrTests.BUILDINGNR42);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(buildingNr1.hashCode(), buildingNr2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(buildingNr1.hashCode(), buildingNr3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -115,10 +146,10 @@ public class BuildingNrTests
   @Test
   public void testEquals()
    {
-    final BuildingNr buildingNr1 = BuildingNr.of("23"); //$NON-NLS-1$
-    final BuildingNr buildingNr2 = BuildingNr.of("23"); //$NON-NLS-1$
-    final BuildingNr buildingNr3 = BuildingNr.of("42"); //$NON-NLS-1$
-    final BuildingNr buildingNr4 = BuildingNr.of("23"); //$NON-NLS-1$
+    final BuildingNr buildingNr1 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
+    final BuildingNr buildingNr2 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
+    final BuildingNr buildingNr3 = BuildingNr.of(BuildingNrTests.BUILDINGNR42);
+    final BuildingNr buildingNr4 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(buildingNr1.equals(buildingNr1), "BuildingNr11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(buildingNr1.equals(buildingNr2), "BuildingNr12 are not equal"), //$NON-NLS-1$
@@ -138,7 +169,7 @@ public class BuildingNrTests
   @Test
   public void testToString()
    {
-    final BuildingNr buildingNr = BuildingNr.of("42"); //$NON-NLS-1$
+    final BuildingNr buildingNr = BuildingNr.of(BuildingNrTests.BUILDINGNR42);
     assertEquals("BuildingNr[buildingNr=42]", buildingNr.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -149,12 +180,12 @@ public class BuildingNrTests
   @Test
   public void testCompareTo()
    {
-    final BuildingNr buildingNr1 = BuildingNr.of("23"); //$NON-NLS-1$
-    final BuildingNr buildingNr2 = BuildingNr.of("23"); //$NON-NLS-1$
-    final BuildingNr buildingNr3 = BuildingNr.of("42"); //$NON-NLS-1$
+    final BuildingNr buildingNr1 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
+    final BuildingNr buildingNr2 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
+    final BuildingNr buildingNr3 = BuildingNr.of(BuildingNrTests.BUILDINGNR42);
     final BuildingNr buildingNr4 = BuildingNr.of("99"); //$NON-NLS-1$
-    final BuildingNr buildingNr5 = BuildingNr.of("23"); //$NON-NLS-1$
-    assertAll("testCompareTo", //$NON-NLS-1$
+    final BuildingNr buildingNr5 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
+    assertAll(BuildingNrTests.TEST_COMPARE_TO,
       () -> assertTrue(buildingNr1.compareTo(buildingNr2) == -buildingNr2.compareTo(buildingNr1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(buildingNr1.compareTo(buildingNr3) == -buildingNr3.compareTo(buildingNr1), "reflexive2"), //$NON-NLS-1$
       () -> assertTrue((buildingNr4.compareTo(buildingNr3) > 0) && (buildingNr3.compareTo(buildingNr1) > 0) && (buildingNr4.compareTo(buildingNr1) > 0), "transitive1"), //$NON-NLS-1$
@@ -170,16 +201,16 @@ public class BuildingNrTests
   @Test
   public void testCompareToOk()
    {
-    final BuildingNr buildingNr1 = BuildingNr.of("23"); //$NON-NLS-1$
-    final BuildingNr buildingNr2 = BuildingNr.of("23"); //$NON-NLS-1$
-    final BuildingNr buildingNr3 = BuildingNr.of("23 1/4"); //$NON-NLS-1$
-    final BuildingNr buildingNr4 = BuildingNr.of("23 1/4"); //$NON-NLS-1$
+    final BuildingNr buildingNr1 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
+    final BuildingNr buildingNr2 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
+    final BuildingNr buildingNr3 = BuildingNr.of(BuildingNrTests.BUILDINGNR23_1_4);
+    final BuildingNr buildingNr4 = BuildingNr.of(BuildingNrTests.BUILDINGNR23_1_4);
     final BuildingNr buildingNr5 = BuildingNr.of("23 2/4"); //$NON-NLS-1$
     final BuildingNr buildingNr6 = BuildingNr.of("23 a"); //$NON-NLS-1$
     final BuildingNr buildingNr7 = BuildingNr.of("23 b"); //$NON-NLS-1$
     final BuildingNr buildingNr8 = BuildingNr.of("23 1/4 a"); //$NON-NLS-1$
     final BuildingNr buildingNr9 = BuildingNr.of("23 1/4 b"); //$NON-NLS-1$
-    assertAll("testCompareTo", //$NON-NLS-1$
+    assertAll(BuildingNrTests.TEST_COMPARE_TO,
       () -> assertTrue(buildingNr1.compareTo(buildingNr2) == 0, "equal1"), //$NON-NLS-1$
       () -> assertTrue(buildingNr1.compareTo(buildingNr3) < 0, "23 < 23 1/4"), //$NON-NLS-1$
       () -> assertTrue(buildingNr3.compareTo(buildingNr1) > 0, "23 1/4 > 23"), //$NON-NLS-1$
@@ -197,10 +228,10 @@ public class BuildingNrTests
    * Test compareTo wrong.
    */
   @Test
-  public void testCompareTowrong()
+  public void testCompareToWrong1()
    {
     final BuildingNr buildingNr1 = BuildingNr.of("23 1/3"); //$NON-NLS-1$
-    final BuildingNr buildingNr2 = BuildingNr.of("23 1/4"); //$NON-NLS-1$
+    final BuildingNr buildingNr2 = BuildingNr.of(BuildingNrTests.BUILDINGNR23_1_4);
     assertThrows(IllegalStateException.class, () ->
      {
       /* final int result = */ buildingNr1.compareTo(buildingNr2);

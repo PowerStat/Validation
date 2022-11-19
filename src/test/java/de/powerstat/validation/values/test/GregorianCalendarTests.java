@@ -28,6 +28,27 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class GregorianCalendarTests
  {
   /**
+   * Test is leap year constant.
+   */
+  private static final String TEST_IS_LEAP_YEAR = "testIsLeapYear"; //$NON-NLS-1$
+
+  /**
+   * DE germany.
+   */
+  private static final String DE = "DE"; //$NON-NLS-1$
+
+  /**
+   * IT italy.
+   */
+  private static final String IT = "IT"; //$NON-NLS-1$
+
+  /**
+   * RU russia.
+   */
+  private static final String RU = "RU"; //$NON-NLS-1$
+
+
+  /**
    * Default constructor.
    */
   public GregorianCalendarTests()
@@ -42,7 +63,7 @@ public class GregorianCalendarTests
    * @param country Country name
    */
   @ParameterizedTest
-  @ValueSource(strings = {"IT"})
+  @ValueSource(strings = {GregorianCalendarTests.IT})
   public void calendarCorrect(final String country)
    {
     final GregorianCalendar cleanCalendar = GregorianCalendar.of(Country.of(country));
@@ -56,9 +77,9 @@ public class GregorianCalendarTests
   @Test
   public void testHashCode()
    {
-    final GregorianCalendar calendar1 = GregorianCalendar.of(Country.of("IT")); //$NON-NLS-1$
-    final GregorianCalendar calendar2 = GregorianCalendar.of(Country.of("IT")); //$NON-NLS-1$
-    final GregorianCalendar calendar3 = GregorianCalendar.of(Country.of("DE")); //$NON-NLS-1$
+    final GregorianCalendar calendar1 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
+    final GregorianCalendar calendar2 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
+    final GregorianCalendar calendar3 = GregorianCalendar.of(Country.of(GregorianCalendarTests.DE));
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(calendar1.hashCode(), calendar2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(calendar1.hashCode(), calendar3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -72,10 +93,10 @@ public class GregorianCalendarTests
   @Test
   public void testEquals()
    {
-    final GregorianCalendar calendar1 = GregorianCalendar.of(Country.of("IT")); //$NON-NLS-1$
-    final GregorianCalendar calendar2 = GregorianCalendar.of(Country.of("IT")); //$NON-NLS-1$
-    final GregorianCalendar calendar3 = GregorianCalendar.of(Country.of("DE")); //$NON-NLS-1$
-    final GregorianCalendar calendar4 = GregorianCalendar.of(Country.of("IT")); //$NON-NLS-1$
+    final GregorianCalendar calendar1 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
+    final GregorianCalendar calendar2 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
+    final GregorianCalendar calendar3 = GregorianCalendar.of(Country.of(GregorianCalendarTests.DE));
+    final GregorianCalendar calendar4 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(calendar1.equals(calendar1), "calendar11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(calendar1.equals(calendar2), "calendar12 are not equal"), //$NON-NLS-1$
@@ -95,7 +116,7 @@ public class GregorianCalendarTests
   @Test
   public void testToString()
    {
-    final GregorianCalendar calendar = GregorianCalendar.of(Country.of("IT")); //$NON-NLS-1$
+    final GregorianCalendar calendar = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
     assertEquals("GregorianCalendar[country=IT]", calendar.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -106,11 +127,11 @@ public class GregorianCalendarTests
   @Test
   public void testCompareTo()
    {
-    final GregorianCalendar calendar1 = GregorianCalendar.of(Country.of("IT")); //$NON-NLS-1$
-    final GregorianCalendar calendar2 = GregorianCalendar.of(Country.of("IT")); //$NON-NLS-1$
-    final GregorianCalendar calendar3 = GregorianCalendar.of(Country.of("DE")); //$NON-NLS-1$
+    final GregorianCalendar calendar1 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
+    final GregorianCalendar calendar2 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
+    final GregorianCalendar calendar3 = GregorianCalendar.of(Country.of(GregorianCalendarTests.DE));
     final GregorianCalendar calendar4 = GregorianCalendar.of(Country.of("US")); //$NON-NLS-1$
-    final GregorianCalendar calendar5 = GregorianCalendar.of(Country.of("IT")); //$NON-NLS-1$
+    final GregorianCalendar calendar5 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(calendar1.compareTo(calendar2) == -calendar2.compareTo(calendar1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(calendar1.compareTo(calendar3) == -calendar3.compareTo(calendar1), "reflexive2"), //$NON-NLS-1$
@@ -127,10 +148,10 @@ public class GregorianCalendarTests
   @Test
   public void testIsLeapYear()
    {
-    final GregorianCalendar calendarIT = GregorianCalendar.of(Country.of("IT")); //$NON-NLS-1$
-    final GregorianCalendar calendarDE = GregorianCalendar.of(Country.of("DE")); //$NON-NLS-1$
-    final GregorianCalendar calendarRU = GregorianCalendar.of(Country.of("RU")); //$NON-NLS-1$
-    assertAll("testIsLeapYear", //$NON-NLS-1$
+    final GregorianCalendar calendarIT = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
+    final GregorianCalendar calendarDE = GregorianCalendar.of(Country.of(GregorianCalendarTests.DE));
+    final GregorianCalendar calendarRU = GregorianCalendar.of(Country.of(GregorianCalendarTests.RU));
+    assertAll(GregorianCalendarTests.TEST_IS_LEAP_YEAR,
       () -> assertFalse(calendarIT.isLeapYear(Year.of(1900)), "1900 is not a leap year"), //$NON-NLS-1$
       () -> assertTrue(calendarIT.isLeapYear(Year.of(2000)), "2000 is a leap year"), //$NON-NLS-1$
       () -> assertTrue(calendarIT.isLeapYear(Year.of(2020)), "2020 is a leap year"), //$NON-NLS-1$
@@ -150,9 +171,9 @@ public class GregorianCalendarTests
   @Test
   public void testDaysInMonth()
    {
-    final GregorianCalendar calendarIT = GregorianCalendar.of(Country.of("IT")); //$NON-NLS-1$
-    final GregorianCalendar calendarRU = GregorianCalendar.of(Country.of("RU")); //$NON-NLS-1$
-    assertAll("testIsLeapYear", //$NON-NLS-1$
+    final GregorianCalendar calendarIT = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
+    final GregorianCalendar calendarRU = GregorianCalendar.of(Country.of(GregorianCalendarTests.RU));
+    assertAll(GregorianCalendarTests.TEST_IS_LEAP_YEAR,
       () -> assertEquals(31, calendarIT.daysInMonth(Year.of(2020), Month.of(1)), "January should have 31 days"), //$NON-NLS-1$
       () -> assertEquals(29, calendarIT.daysInMonth(Year.of(2020), Month.of(2)), "February should have 29 days"), //$NON-NLS-1$
       () -> assertEquals(31, calendarIT.daysInMonth(Year.of(2020), Month.of(3)), "March should have 31 days"), //$NON-NLS-1$
@@ -167,7 +188,8 @@ public class GregorianCalendarTests
       () -> assertEquals(31, calendarIT.daysInMonth(Year.of(2020), Month.of(12)), "December should have 31 days"), //$NON-NLS-1$
       () -> assertEquals(28, calendarIT.daysInMonth(Year.of(2019), Month.of(2)), "February should have 28 days"), //$NON-NLS-1$
       () -> assertEquals(21, calendarIT.daysInMonth(Year.of(1582), Month.of(10)), "October 1582 should have 21 days"), //$NON-NLS-1$
-      () -> assertEquals(15, calendarRU.daysInMonth(Year.of(1918), Month.of(2)), "February 1918 should have 15 days") //$NON-NLS-1$
+      () -> assertEquals(15, calendarRU.daysInMonth(Year.of(1918), Month.of(2)), "February 1918 should have 15 days"), //$NON-NLS-1$
+      () -> assertEquals(30, calendarIT.daysInMonth(Year.of(1582), Month.of(9)), "September 1582 should have 30 days") //$NON-NLS-1$
      );
    }
 

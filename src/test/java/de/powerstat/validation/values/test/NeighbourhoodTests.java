@@ -29,6 +29,21 @@ public class NeighbourhoodTests
    */
   private static final String UNKNOWN = "Unknown"; //$NON-NLS-1$
 
+  /**
+   * Unknown 2.
+   */
+  private static final String UNKNOWN2 = "Unknown2"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * Neighbourhood not as expected constant.
+   */
+  private static final String NEIGHBOURHOOD_NOT_AS_EXPECTED = "Neighbourhood not as expected"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -49,7 +64,7 @@ public class NeighbourhoodTests
   public void neighbourhoodCorrect(final String neighbourhood)
    {
     final Neighbourhood cleanNeighbourhood = Neighbourhood.of(neighbourhood);
-    assertEquals(neighbourhood, cleanNeighbourhood.getNeighbourhood(), "Neighbourhood not as expected"); //$NON-NLS-1$
+    assertEquals(neighbourhood, cleanNeighbourhood.getNeighbourhood(), NeighbourhoodTests.NEIGHBOURHOOD_NOT_AS_EXPECTED);
    }
 
 
@@ -65,7 +80,7 @@ public class NeighbourhoodTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Neighbourhood cleanNeighbourhood = */ Neighbourhood.of(neighbourhood);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, NeighbourhoodTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -82,7 +97,7 @@ public class NeighbourhoodTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Neighbourhood cleanNeighbourhood = */ Neighbourhood.of(neighbourhood);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, NeighbourhoodTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -94,7 +109,7 @@ public class NeighbourhoodTests
   public void getNeighbourhood()
    {
     final Neighbourhood neighbourhood = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    assertEquals(NeighbourhoodTests.UNKNOWN, neighbourhood.getNeighbourhood(), "Neighbourhood not as expected"); //$NON-NLS-1$
+    assertEquals(NeighbourhoodTests.UNKNOWN, neighbourhood.getNeighbourhood(), NeighbourhoodTests.NEIGHBOURHOOD_NOT_AS_EXPECTED);
    }
 
 
@@ -106,7 +121,7 @@ public class NeighbourhoodTests
    {
     final Neighbourhood neighbourhood1 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
     final Neighbourhood neighbourhood2 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    final Neighbourhood neighbourhood3 = Neighbourhood.of("Unknown2"); //$NON-NLS-1$
+    final Neighbourhood neighbourhood3 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN2);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(neighbourhood1.hashCode(), neighbourhood2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(neighbourhood1.hashCode(), neighbourhood3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -122,7 +137,7 @@ public class NeighbourhoodTests
    {
     final Neighbourhood neighbourhood1 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
     final Neighbourhood neighbourhood2 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    final Neighbourhood neighbourhood3 = Neighbourhood.of("Unknown2"); //$NON-NLS-1$
+    final Neighbourhood neighbourhood3 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN2);
     final Neighbourhood neighbourhood4 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(neighbourhood1.equals(neighbourhood1), "neighbourhood11 is not equal"), //$NON-NLS-1$
@@ -156,7 +171,7 @@ public class NeighbourhoodTests
    {
     final Neighbourhood neighbourhood1 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
     final Neighbourhood neighbourhood2 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    final Neighbourhood neighbourhood3 = Neighbourhood.of("Unknown2"); //$NON-NLS-1$
+    final Neighbourhood neighbourhood3 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN2);
     final Neighbourhood neighbourhood4 = Neighbourhood.of("Unknown3r"); //$NON-NLS-1$
     final Neighbourhood neighbourhood5 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
     assertAll("testCompareTo", //$NON-NLS-1$

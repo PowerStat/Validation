@@ -31,9 +31,34 @@ public class HostnameTests
   private static final String PRIVATE_IP_192_168_1_1 = "192.168.1.1"; //$NON-NLS-1$
 
   /**
+   * Private ip address 192.168.1.2.
+   */
+  private static final String PRIVATE_IP_192_168_1_2 = "192.168.1.2"; //$NON-NLS-1$
+
+  /**
+   * IPV6 FD.
+   */
+  private static final String FD00 = "fd00:0000:0000:0000:0000:0000:0000:0000"; //$NON-NLS-1$
+
+  /**
+   * www.powerstat.de constant.
+   */
+  private static final String WWW_POWERSTAT_DE = "www.powerstat.de"; //$NON-NLS-1$
+
+  /**
+   * nonexistant.example.com.
+   */
+  private static final String NONEXISTANT_EXAMPLE_COM = "nonexistant.example.com"; //$NON-NLS-1$
+
+  /**
    * Hostname not as expected constant.
    */
   private static final String HOSTNAME_NOT_AS_EXPECTED = "Hostname not as expected"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
 
 
   /**
@@ -51,7 +76,7 @@ public class HostnameTests
    * @param hostname Hostname
    */
   @ParameterizedTest
-  @ValueSource(strings = {"www.powerstat.de", "a.de", "www.powerstat012345678901234567890123456789012345678901234567890123.de", "abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdef.com", "192.168.0.1", "00fe:0080:0000:0000:0000:0000:0000:0000"})
+  @ValueSource(strings = {HostnameTests.WWW_POWERSTAT_DE, "a.de", "www.powerstat012345678901234567890123456789012345678901234567890123.de", "abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdef.com", "192.168.0.1", "00fe:0080:0000:0000:0000:0000:0000:0000"})
   public void hostnameOk0(final String hostname)
    {
     final Hostname cleanHostname = Hostname.of(hostname);
@@ -82,7 +107,7 @@ public class HostnameTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Hostname cleanHostname = */ Hostname.of(hostname);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, HostnameTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -99,7 +124,7 @@ public class HostnameTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Hostname cleanHostname = */ Hostname.of(hostname);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, HostnameTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -132,8 +157,8 @@ public class HostnameTests
   @Test
   public void getReverseHostname2()
    {
-    final Hostname hostname = Hostname.of("fd00:0000:0000:0000:0000:0000:0000:0000");
-    assertEquals("fd00:0000:0000:0000:0000:0000:0000:0000", hostname.getReverseHostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED); //$NON-NLS-1$
+    final Hostname hostname = Hostname.of(HostnameTests.FD00);
+    assertEquals(HostnameTests.FD00, hostname.getReverseHostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -154,7 +179,7 @@ public class HostnameTests
   @Test
   public void exist()
    {
-    assertTrue(Hostname.of("www.powerstat.de").exist(), "Should be an existing hostname"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertTrue(Hostname.of(HostnameTests.WWW_POWERSTAT_DE).exist(), "Should be an existing hostname"); //$NON-NLS-1$
    }
 
 
@@ -164,7 +189,7 @@ public class HostnameTests
   @Test
   public void existFalse()
    {
-    assertFalse(Hostname.of("nonexistant.example.com").exist(), "Should not be an existing hostname"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertFalse(Hostname.of(HostnameTests.NONEXISTANT_EXAMPLE_COM).exist(), "Should not be an existing hostname"); //$NON-NLS-1$
    }
 
 
@@ -174,7 +199,7 @@ public class HostnameTests
   @Test
   public void isReachable()
    {
-    assertTrue(Hostname.of("www.powerstat.de").isReachable(1000), "Should be a reachable hostname"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertTrue(Hostname.of(HostnameTests.WWW_POWERSTAT_DE).isReachable(1000), "Should be a reachable hostname"); //$NON-NLS-1$
    }
 
 
@@ -184,7 +209,7 @@ public class HostnameTests
   @Test
   public void isReachableFalse()
    {
-    assertFalse(Hostname.of("nonexistant.example.com").isReachable(1000), "Should not be a reachable hostname"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertFalse(Hostname.of(HostnameTests.NONEXISTANT_EXAMPLE_COM).isReachable(1000), "Should not be a reachable hostname"); //$NON-NLS-1$
    }
 
 
@@ -196,7 +221,7 @@ public class HostnameTests
    {
     final Hostname hostname1 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
     final Hostname hostname2 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
-    final Hostname hostname3 = Hostname.of("192.168.1.2"); //$NON-NLS-1$
+    final Hostname hostname3 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_2);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(hostname1.hashCode(), hostname2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(hostname1.hashCode(), hostname3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -212,7 +237,7 @@ public class HostnameTests
    {
     final Hostname hostname1 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
     final Hostname hostname2 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
-    final Hostname hostname3 = Hostname.of("192.168.1.2"); //$NON-NLS-1$
+    final Hostname hostname3 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_2);
     final Hostname hostname4 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(hostname1.equals(hostname1), "hostname11 is not equal"), //$NON-NLS-1$
@@ -246,7 +271,7 @@ public class HostnameTests
    {
     final Hostname hostname1 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
     final Hostname hostname2 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
-    final Hostname hostname3 = Hostname.of("192.168.1.2"); //$NON-NLS-1$
+    final Hostname hostname3 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_2);
     final Hostname hostname4 = Hostname.of("192.168.1.3"); //$NON-NLS-1$
     final Hostname hostname5 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
     assertAll("testCompareTo", //$NON-NLS-1$

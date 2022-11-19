@@ -28,6 +28,11 @@ public class ScreenSizeTests
    */
   private static final String QVGA = "QVGA"; //$NON-NLS-1$
 
+  /**
+   * VGA.
+   */
+  private static final String VGA = "VGA"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -58,11 +63,53 @@ public class ScreenSizeTests
    * Is not a screen size.
    */
   @Test
-  public void isNotAScreenSize()
+  public void isNotAScreenSize1()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final ScreenSize size = */ ScreenSize.of(0, 0, null);
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Is not a screen size.
+   */
+  @Test
+  public void isNotAScreenSize2()
+   {
+    assertThrows(IndexOutOfBoundsException.class, () ->
+     {
+      /* final ScreenSize size = */ ScreenSize.of(8193, 0, null);
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Is not a screen size.
+   */
+  @Test
+  public void isNotAScreenSize3()
+   {
+    assertThrows(IndexOutOfBoundsException.class, () ->
+     {
+      /* final ScreenSize size = */ ScreenSize.of(1, 8193, null);
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Is not a screen size.
+   */
+  @Test
+  public void isNotAScreenSize4()
+   {
+    assertThrows(IndexOutOfBoundsException.class, () ->
+     {
+      /* final ScreenSize size = */ ScreenSize.of(1, 0, null);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
@@ -76,7 +123,7 @@ public class ScreenSizeTests
    {
     final ScreenSize size1 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
     final ScreenSize size2 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
-    final ScreenSize size3 = ScreenSize.of(640, 480, "VGA"); //$NON-NLS-1$
+    final ScreenSize size3 = ScreenSize.of(640, 480, ScreenSizeTests.VGA);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(size1.hashCode(), size2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(size1.hashCode(), size3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -92,7 +139,7 @@ public class ScreenSizeTests
    {
     final ScreenSize size1 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
     final ScreenSize size2 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
-    final ScreenSize size3 = ScreenSize.of(640, 480, "VGA"); //$NON-NLS-1$
+    final ScreenSize size3 = ScreenSize.of(640, 480, ScreenSizeTests.VGA);
     final ScreenSize size4 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(size1.equals(size1), "size11 is not equal"), //$NON-NLS-1$
@@ -103,6 +150,20 @@ public class ScreenSizeTests
       () -> assertFalse(size1.equals(size3), "size13 are equal"), //$NON-NLS-1$
       () -> assertFalse(size3.equals(size1), "size31 are equal"), //$NON-NLS-1$
       () -> assertFalse(size1.equals(null), "size10 is equal") //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test not equals.
+   */
+  @Test
+  public void testNotEquals()
+   {
+    final ScreenSize size1 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
+    final ScreenSize size2 = ScreenSize.of(320, 241, ScreenSizeTests.QVGA);
+    assertAll("testNotEquals", //$NON-NLS-1$
+      () -> assertFalse(size1.equals(size2), "size12 is equal") //$NON-NLS-1$
     );
    }
 
@@ -126,7 +187,7 @@ public class ScreenSizeTests
    {
     final ScreenSize size1 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
     final ScreenSize size2 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
-    final ScreenSize size3 = ScreenSize.of(640, 480, "VGA"); //$NON-NLS-1$
+    final ScreenSize size3 = ScreenSize.of(640, 480, ScreenSizeTests.VGA);
     final ScreenSize size4 = ScreenSize.of(1280, 800, "WXGA"); //$NON-NLS-1$
     final ScreenSize size5 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
     assertAll("testCompareTo", //$NON-NLS-1$
@@ -135,6 +196,20 @@ public class ScreenSizeTests
       () -> assertTrue((size4.compareTo(size3) > 0) && (size3.compareTo(size1) > 0) && (size4.compareTo(size1) > 0), "transitive1"), //$NON-NLS-1$
       () -> assertTrue((size1.compareTo(size2) == 0) && (Math.abs(size1.compareTo(size5)) == Math.abs(size2.compareTo(size5))), "sgn1"), //$NON-NLS-1$
       () -> assertTrue((size1.compareTo(size2) == 0) && size1.equals(size2), "equals") //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test compareTo2.
+   */
+  @Test
+  public void testCompareTo2()
+   {
+    final ScreenSize size1 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
+    final ScreenSize size2 = ScreenSize.of(320, 241, ScreenSizeTests.QVGA);
+    assertAll("testCompareTo2", //$NON-NLS-1$
+      () -> assertTrue(size1.compareTo(size2) != 0, "equal") //$NON-NLS-1$
     );
    }
 

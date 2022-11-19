@@ -51,11 +51,53 @@ public class DisplayAspectRatioTests
    * Is not display aspect ratio.
    */
   @Test
-  public void isNotADisplayAspectRatio()
+  public void isNotADisplayAspectRatio1()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(0, 0);
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Is not display aspect ratio.
+   */
+  @Test
+  public void isNotADisplayAspectRatio2()
+   {
+    assertThrows(IndexOutOfBoundsException.class, () ->
+     {
+      /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(73, 0);
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Is not display aspect ratio.
+   */
+  @Test
+  public void isNotADisplayAspectRatio3()
+   {
+    assertThrows(IndexOutOfBoundsException.class, () ->
+     {
+      /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(1, 36);
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Is not display aspect ratio.
+   */
+  @Test
+  public void isNotADisplayAspectRatio4()
+   {
+    assertThrows(IndexOutOfBoundsException.class, () ->
+     {
+      /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(1, 0);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
@@ -96,6 +138,20 @@ public class DisplayAspectRatioTests
       () -> assertFalse(ratio1.equals(ratio3), "ratio13 are equal"), //$NON-NLS-1$
       () -> assertFalse(ratio3.equals(ratio1), "ratio31 are equal"), //$NON-NLS-1$
       () -> assertFalse(ratio1.equals(null), "ratio10 is equal") //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test notEquals.
+   */
+  @Test
+  public void testNotEquals()
+   {
+    final DisplayAspectRatio ratio1 = DisplayAspectRatio.of(1, 1);
+    final DisplayAspectRatio ratio2 = DisplayAspectRatio.of(1, 2);
+    assertAll("testNotEquals", //$NON-NLS-1$
+      () -> assertFalse(ratio1.equals(ratio2), "ratio12 is equal") //$NON-NLS-1$
     );
    }
 

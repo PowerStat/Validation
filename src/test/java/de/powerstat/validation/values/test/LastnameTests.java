@@ -30,6 +30,21 @@ public class LastnameTests
    */
   private static final String LASTNAME = "lastname"; //$NON-NLS-1$
 
+  /**
+   * Lastname z.
+   */
+  private static final String LASTNAMEZ = "lastnamez"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * Lastname not as expected constant.
+   */
+  private static final String LASTNAME_NOT_AS_EXPECTED = "Lastname not as expected"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -50,7 +65,7 @@ public class LastnameTests
   public void lastnameOk0(final String lastname)
    {
     final Lastname cleanLastname = Lastname.of(lastname);
-    assertEquals(lastname, cleanLastname.getLastname(), "Lastname not as expected"); //$NON-NLS-1$
+    assertEquals(lastname, cleanLastname.getLastname(), LastnameTests.LASTNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -66,7 +81,7 @@ public class LastnameTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Lastname cleanLastname = */ Lastname.of(lastname);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, LastnameTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -80,7 +95,7 @@ public class LastnameTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Lastname cleanLastname = */ Lastname.of("^!$%&(){}[]=?+*#´§;,:'\""); //$NON-NLS-1$
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, LastnameTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -92,7 +107,7 @@ public class LastnameTests
   public void getLastname()
    {
     final Lastname lastname = Lastname.of(LastnameTests.LASTNAME);
-    assertEquals(LastnameTests.LASTNAME, lastname.getLastname(), "Lastname not as expected"); //$NON-NLS-1$
+    assertEquals(LastnameTests.LASTNAME, lastname.getLastname(), LastnameTests.LASTNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -104,7 +119,7 @@ public class LastnameTests
    {
     final Lastname lastname1 = Lastname.of(LastnameTests.LASTNAME);
     final Lastname lastname2 = Lastname.of(LastnameTests.LASTNAME);
-    final Lastname lastname3 = Lastname.of("lastnamez"); //$NON-NLS-1$
+    final Lastname lastname3 = Lastname.of(LastnameTests.LASTNAMEZ);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(lastname1.hashCode(), lastname2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(lastname1.hashCode(), lastname3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -120,7 +135,7 @@ public class LastnameTests
    {
     final Lastname lastname1 = Lastname.of(LastnameTests.LASTNAME);
     final Lastname lastname2 = Lastname.of(LastnameTests.LASTNAME);
-    final Lastname lastname3 = Lastname.of("lastnamez"); //$NON-NLS-1$
+    final Lastname lastname3 = Lastname.of(LastnameTests.LASTNAMEZ);
     final Lastname lastname4 = Lastname.of(LastnameTests.LASTNAME);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(lastname1.equals(lastname1), "lastname11 is not equal"), //$NON-NLS-1$
@@ -155,7 +170,7 @@ public class LastnameTests
     final Lastname lastname1 = Lastname.of(LastnameTests.LASTNAME);
     final Lastname lastname2 = Lastname.of(LastnameTests.LASTNAME);
     final Lastname lastname3 = Lastname.of("lastnamey"); //$NON-NLS-1$
-    final Lastname lastname4 = Lastname.of("lastnamez"); //$NON-NLS-1$
+    final Lastname lastname4 = Lastname.of(LastnameTests.LASTNAMEZ);
     final Lastname lastname5 = Lastname.of(LastnameTests.LASTNAME);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(lastname1.compareTo(lastname2) == -lastname2.compareTo(lastname1), "reflexive1"), //$NON-NLS-1$

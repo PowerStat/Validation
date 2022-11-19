@@ -30,6 +30,11 @@ public final class Hostname implements Comparable<Hostname>
   private static final Pattern HOSTNAME_REGEXP = Pattern.compile("^[.0-9a-zA-Z-]+$"); //$NON-NLS-1$
 
   /**
+   * Escaped dot.
+   */
+  private static final String ESC_DOT = "\\."; //$NON-NLS-1$
+
+  /**
    * Hostname.
    */
   private final String hostname;
@@ -101,7 +106,7 @@ public final class Hostname implements Comparable<Hostname>
      {
       throw new IllegalArgumentException("Hostname contains illegal character"); //$NON-NLS-1$
      }
-    final String[] parts = hostname.split("\\."); //$NON-NLS-1$
+    final String[] parts = hostname.split(Hostname.ESC_DOT);
     if (parts.length < 2)
      {
       throw new IllegalArgumentException("Hostname must be at a minimum consist of subdomain.topleveldomain"); //$NON-NLS-1$
@@ -133,7 +138,7 @@ public final class Hostname implements Comparable<Hostname>
    */
   private static String reverseHostname(final String hostname)
    {
-    final String[] parts = hostname.split("\\."); //$NON-NLS-1$
+    final String[] parts = hostname.split(Hostname.ESC_DOT);
     final StringBuilder buffer = new StringBuilder(hostname.length());
     for (int i = parts.length - 1; i >= 0; --i)
      {

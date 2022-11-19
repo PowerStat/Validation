@@ -26,6 +26,27 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class BlockTests
  {
   /**
+   * Block a.
+   */
+  private static final String BLOCKA = "A"; //$NON-NLS-1$
+
+  /**
+   * Block b.
+   */
+  private static final String BLOCKB = "B"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * Block not as expected.
+   */
+  private static final String BLOCK_NOT_AS_EXPECTED = "Block not as expected"; //$NON-NLS-1$
+
+
+  /**
    * Default constructor.
    */
   public BlockTests()
@@ -40,11 +61,11 @@ public class BlockTests
    * @param block Block
    */
   @ParameterizedTest
-  @ValueSource(strings = {"1", "A", "Abcdefghijklmnop"})
+  @ValueSource(strings = {"1", BlockTests.BLOCKA, "Abcdefghijklmnop"})
   public void blockCorrect(final String block)
    {
     final Block cleanBlock = Block.of(block);
-    assertEquals(block, cleanBlock.getBlock(), "Block not as expected"); //$NON-NLS-1$
+    assertEquals(block, cleanBlock.getBlock(), BlockTests.BLOCK_NOT_AS_EXPECTED);
    }
 
 
@@ -60,7 +81,7 @@ public class BlockTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Block cleanBlock = */ Block.of(block);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, BlockTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -77,7 +98,7 @@ public class BlockTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Block cleanBlock = */ Block.of(block);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, BlockTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -88,8 +109,8 @@ public class BlockTests
   @Test
   public void getBlock()
    {
-    final Block block = Block.of("A"); //$NON-NLS-1$
-    assertEquals("A", block.getBlock(), "Block not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    final Block block = Block.of(BlockTests.BLOCKA);
+    assertEquals(BlockTests.BLOCKA, block.getBlock(), BlockTests.BLOCK_NOT_AS_EXPECTED);
    }
 
 
@@ -99,9 +120,9 @@ public class BlockTests
   @Test
   public void testHashCode()
    {
-    final Block block1 = Block.of("A"); //$NON-NLS-1$
-    final Block block2 = Block.of("A"); //$NON-NLS-1$
-    final Block block3 = Block.of("B"); //$NON-NLS-1$
+    final Block block1 = Block.of(BlockTests.BLOCKA);
+    final Block block2 = Block.of(BlockTests.BLOCKA);
+    final Block block3 = Block.of(BlockTests.BLOCKB);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(block1.hashCode(), block2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(block1.hashCode(), block3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -115,10 +136,10 @@ public class BlockTests
   @Test
   public void testEquals()
    {
-    final Block block1 = Block.of("A"); //$NON-NLS-1$
-    final Block block2 = Block.of("A"); //$NON-NLS-1$
-    final Block block3 = Block.of("B"); //$NON-NLS-1$
-    final Block block4 = Block.of("A"); //$NON-NLS-1$
+    final Block block1 = Block.of(BlockTests.BLOCKA);
+    final Block block2 = Block.of(BlockTests.BLOCKA);
+    final Block block3 = Block.of(BlockTests.BLOCKB);
+    final Block block4 = Block.of(BlockTests.BLOCKA);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(block1.equals(block1), "block11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(block1.equals(block2), "block12 are not equal"), //$NON-NLS-1$
@@ -138,7 +159,7 @@ public class BlockTests
   @Test
   public void testToString()
    {
-    final Block block = Block.of("A");
+    final Block block = Block.of(BlockTests.BLOCKA);
     assertEquals("Block[block=A]", block.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -149,11 +170,11 @@ public class BlockTests
   @Test
   public void testCompareTo()
    {
-    final Block block1 = Block.of("A"); //$NON-NLS-1$
-    final Block block2 = Block.of("A"); //$NON-NLS-1$
-    final Block block3 = Block.of("B"); //$NON-NLS-1$
+    final Block block1 = Block.of(BlockTests.BLOCKA);
+    final Block block2 = Block.of(BlockTests.BLOCKA);
+    final Block block3 = Block.of(BlockTests.BLOCKB);
     final Block block4 = Block.of("C"); //$NON-NLS-1$
-    final Block block5 = Block.of("A"); //$NON-NLS-1$
+    final Block block5 = Block.of(BlockTests.BLOCKA);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(block1.compareTo(block2) == -block2.compareTo(block1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(block1.compareTo(block3) == -block3.compareTo(block1), "reflexive2"), //$NON-NLS-1$

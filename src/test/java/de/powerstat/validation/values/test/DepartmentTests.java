@@ -29,6 +29,21 @@ public class DepartmentTests
    */
   private static final String RESEARCH = "Research"; //$NON-NLS-1$
 
+  /**
+   * Telecomunication.
+   */
+  private static final String TELECOMUNICATION = "Telecomunication"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * Department not as expected.
+   */
+  private static final String DEPARTMENT_NOT_AS_EXPECTED = "Department not as expected"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -49,7 +64,7 @@ public class DepartmentTests
   public void departmentCorrect(final String department)
    {
     final Department cleanDepartment = Department.of(department);
-    assertEquals(department, cleanDepartment.getDepartment(), "Department not as expected"); //$NON-NLS-1$
+    assertEquals(department, cleanDepartment.getDepartment(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
    }
 
 
@@ -65,7 +80,7 @@ public class DepartmentTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Department cleanDepartment = */ Department.of(department);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, DepartmentTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -82,7 +97,7 @@ public class DepartmentTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Department cleanDepartment = */ Department.of(department);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, DepartmentTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -94,7 +109,7 @@ public class DepartmentTests
   public void getDepartment()
    {
     final Department department = Department.of(DepartmentTests.RESEARCH);
-    assertEquals(DepartmentTests.RESEARCH, department.getDepartment(), "Department not as expected"); //$NON-NLS-1$
+    assertEquals(DepartmentTests.RESEARCH, department.getDepartment(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
    }
 
 
@@ -106,7 +121,7 @@ public class DepartmentTests
    {
     final Department department1 = Department.of(DepartmentTests.RESEARCH);
     final Department department2 = Department.of(DepartmentTests.RESEARCH);
-    final Department department3 = Department.of("Telecomunication"); //$NON-NLS-1$
+    final Department department3 = Department.of(DepartmentTests.TELECOMUNICATION);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(department1.hashCode(), department2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(department1.hashCode(), department3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -122,7 +137,7 @@ public class DepartmentTests
    {
     final Department department1 = Department.of(DepartmentTests.RESEARCH);
     final Department department2 = Department.of(DepartmentTests.RESEARCH);
-    final Department department3 = Department.of("Telecomunication"); //$NON-NLS-1$
+    final Department department3 = Department.of(DepartmentTests.TELECOMUNICATION);
     final Department department4 = Department.of(DepartmentTests.RESEARCH);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(department1.equals(department1), "department11 is not equal"), //$NON-NLS-1$
@@ -156,7 +171,7 @@ public class DepartmentTests
    {
     final Department department1 = Department.of(DepartmentTests.RESEARCH);
     final Department department2 = Department.of(DepartmentTests.RESEARCH);
-    final Department department3 = Department.of("Telecomunication"); //$NON-NLS-1$
+    final Department department3 = Department.of(DepartmentTests.TELECOMUNICATION);
     final Department department4 = Department.of("World wide sells"); //$NON-NLS-1$
     final Department department5 = Department.of(DepartmentTests.RESEARCH);
     assertAll("testCompareTo", //$NON-NLS-1$

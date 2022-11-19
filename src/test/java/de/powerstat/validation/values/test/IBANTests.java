@@ -37,6 +37,16 @@ public class IBANTests
    */
   private static final String IBAN_DE68210501700012345678 = "DE68210501700012345678"; //$NON-NLS-1$
 
+  /**
+   * IBAN not as expected constant.
+   */
+  private static final String IBAN_NOT_AS_EXPECTED = "IBAN not as expected"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -61,7 +71,7 @@ public class IBANTests
   public void ibanCorrect(final String iban)
    {
     final IBAN cleanIban = IBAN.of(iban);
-    assertEquals(iban, cleanIban.getIBAN(), "IBAN not as expected"); //$NON-NLS-1$
+    assertEquals(iban, cleanIban.getIBAN(), IBANTests.IBAN_NOT_AS_EXPECTED);
    }
 
 
@@ -77,7 +87,7 @@ public class IBANTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final IBAN cleanIban = */ IBAN.of(iban);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, IBANTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -94,7 +104,7 @@ public class IBANTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final IBAN cleanIban = */ IBAN.of(iban);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, IBANTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -106,7 +116,7 @@ public class IBANTests
   public void getIban()
    {
     final IBAN iban = IBAN.of(IBANTests.IBAN_DE68210501700012345678);
-    assertEquals(IBANTests.IBAN_DE68210501700012345678, iban.getIBAN(), "IBAN not as expected"); //$NON-NLS-1$
+    assertEquals(IBANTests.IBAN_DE68210501700012345678, iban.getIBAN(), IBANTests.IBAN_NOT_AS_EXPECTED);
    }
 
 

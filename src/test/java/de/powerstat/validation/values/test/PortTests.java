@@ -47,13 +47,16 @@ public class PortTests
 
   /**
    * Is not a port.
+   *
+   * @param port Port
    */
-  @Test
-  public void isPortFalse()
+  @ParameterizedTest
+  @ValueSource(ints = {65536, -1})
+  public void isPortFalse(final int port)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
-      /* final Port port = */ Port.of(65536);
+      /* final Port port = */ Port.of(port);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
@@ -97,11 +100,14 @@ public class PortTests
 
   /**
    * Is not a registered port.
+   *
+   * @param port Port
    */
-  @Test
-  public void isRegisteredFalse()
+  @ParameterizedTest
+  @ValueSource(ints = {1023, 49152})
+  public void isRegisteredFalse(final int port)
    {
-    assertFalse(Port.of(1023).isRegistered(), "Should not be a registered port!"); //$NON-NLS-1$
+    assertFalse(Port.of(port).isRegistered(), "Should not be a registered port!"); //$NON-NLS-1$
    }
 
 

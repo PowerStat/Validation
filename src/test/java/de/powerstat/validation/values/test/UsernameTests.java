@@ -31,6 +31,21 @@ public class UsernameTests
    */
   private static final String USERNAME = "username"; //$NON-NLS-1$
 
+  /**
+   * Username 2.
+   */
+  private static final String USERNAME22 = "username2"; //$NON-NLS-1$
+
+  /**
+   * Username not as expected constant.
+   */
+  private static final String USERNAME_NOT_AS_EXPECTED = "Username not as expected"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -51,7 +66,7 @@ public class UsernameTests
   public void usernameOk0(final String username)
    {
     final Username cleanUsername = Username.of(username);
-    assertEquals(username, cleanUsername.getUsername(), "Username not as expected"); //$NON-NLS-1$
+    assertEquals(username, cleanUsername.getUsername(), UsernameTests.USERNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -67,7 +82,7 @@ public class UsernameTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Username cleanUsername = */ Username.of(username);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, UsernameTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -81,7 +96,7 @@ public class UsernameTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Username cleanUsername = */ Username.of(UsernameDefaultStrategy.of(), "^!$%&(){}[]=?+*#´üöäÖÄÜß§;,:'\""); //$NON-NLS-1$
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, UsernameTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -93,7 +108,7 @@ public class UsernameTests
   public void getUsername()
    {
     final Username username = Username.of(UsernameTests.USERNAME);
-    assertEquals(UsernameTests.USERNAME, username.getUsername(), "Username not as expected"); //$NON-NLS-1$
+    assertEquals(UsernameTests.USERNAME, username.getUsername(), UsernameTests.USERNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -127,7 +142,7 @@ public class UsernameTests
    {
     final Username username1 = Username.of(UsernameTests.USERNAME);
     final Username username2 = Username.of(UsernameTests.USERNAME);
-    final Username username3 = Username.of("username2"); //$NON-NLS-1$
+    final Username username3 = Username.of(UsernameTests.USERNAME22);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(username1.hashCode(), username2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(username1.hashCode(), username3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -143,7 +158,7 @@ public class UsernameTests
    {
     final Username username1 = Username.of(UsernameTests.USERNAME);
     final Username username2 = Username.of(UsernameTests.USERNAME);
-    final Username username3 = Username.of("username2"); //$NON-NLS-1$
+    final Username username3 = Username.of(UsernameTests.USERNAME22);
     final Username username4 = Username.of(UsernameTests.USERNAME);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(username1.equals(username1), "username11 is not equal"), //$NON-NLS-1$
@@ -177,7 +192,7 @@ public class UsernameTests
    {
     final Username username1 = Username.of(UsernameTests.USERNAME);
     final Username username2 = Username.of(UsernameTests.USERNAME);
-    final Username username3 = Username.of("username2"); //$NON-NLS-1$
+    final Username username3 = Username.of(UsernameTests.USERNAME22);
     final Username username4 = Username.of("username3"); //$NON-NLS-1$
     final Username username5 = Username.of(UsernameTests.USERNAME);
     assertAll("testCompareTo", //$NON-NLS-1$

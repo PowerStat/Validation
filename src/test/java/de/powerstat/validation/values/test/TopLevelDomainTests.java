@@ -25,6 +25,27 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class TopLevelDomainTests
  {
   /**
+   * FR - france.
+   */
+  private static final String FR = "FR"; //$NON-NLS-1$
+
+  /**
+   * DE germany.
+   */
+  private static final String DE = "DE"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * TopLevelDomain not as expected constant.
+   */
+  private static final String TLD_NOT_AS_EXPECTED = "TopLevelDomain not as expected"; //$NON-NLS-1$
+
+
+  /**
    * Default constructor.
    */
   public TopLevelDomainTests()
@@ -43,7 +64,7 @@ public class TopLevelDomainTests
   public void topLevelDomainOk0(final String topLevelDomain)
    {
     final TopLevelDomain cleanTopLevelDomain = TopLevelDomain.of(topLevelDomain);
-    assertEquals(topLevelDomain, cleanTopLevelDomain.getTopLevelDomain(), "TopLevelDomain not as expected"); //$NON-NLS-1$
+    assertEquals(topLevelDomain, cleanTopLevelDomain.getTopLevelDomain(), TopLevelDomainTests.TLD_NOT_AS_EXPECTED);
    }
 
 
@@ -59,7 +80,7 @@ public class TopLevelDomainTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final TopLevelDomain cleanTopLevelDomain = */ TopLevelDomain.of(topLevelDomain);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, TopLevelDomainTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -76,7 +97,7 @@ public class TopLevelDomainTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final TopLevelDomain cleanTopLevelDomain = */ TopLevelDomain.of(topLevelDomain);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, TopLevelDomainTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -87,8 +108,8 @@ public class TopLevelDomainTests
   @Test
   public void getTopLevelDomain()
    {
-    final TopLevelDomain topLevelDomain = TopLevelDomain.of("DE"); //$NON-NLS-1$
-    assertEquals("DE", topLevelDomain.getTopLevelDomain(), "TopLevelDomain not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    final TopLevelDomain topLevelDomain = TopLevelDomain.of(TopLevelDomainTests.DE);
+    assertEquals(TopLevelDomainTests.DE, topLevelDomain.getTopLevelDomain(), TopLevelDomainTests.TLD_NOT_AS_EXPECTED);
    }
 
 
@@ -98,9 +119,9 @@ public class TopLevelDomainTests
   @Test
   public void testHashCode()
    {
-    final TopLevelDomain topLevelDomain1 = TopLevelDomain.of("DE"); //$NON-NLS-1$
-    final TopLevelDomain topLevelDomain2 = TopLevelDomain.of("DE"); //$NON-NLS-1$
-    final TopLevelDomain topLevelDomain3 = TopLevelDomain.of("FR"); //$NON-NLS-1$
+    final TopLevelDomain topLevelDomain1 = TopLevelDomain.of(TopLevelDomainTests.DE);
+    final TopLevelDomain topLevelDomain2 = TopLevelDomain.of(TopLevelDomainTests.DE);
+    final TopLevelDomain topLevelDomain3 = TopLevelDomain.of(TopLevelDomainTests.FR);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(topLevelDomain1.hashCode(), topLevelDomain2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(topLevelDomain1.hashCode(), topLevelDomain3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -114,10 +135,10 @@ public class TopLevelDomainTests
   @Test
   public void testEquals()
    {
-    final TopLevelDomain topLevelDomain1 = TopLevelDomain.of("DE"); //$NON-NLS-1$
-    final TopLevelDomain topLevelDomain2 = TopLevelDomain.of("DE"); //$NON-NLS-1$
-    final TopLevelDomain topLevelDomain3 = TopLevelDomain.of("FR"); //$NON-NLS-1$
-    final TopLevelDomain topLevelDomain4 = TopLevelDomain.of("DE"); //$NON-NLS-1$
+    final TopLevelDomain topLevelDomain1 = TopLevelDomain.of(TopLevelDomainTests.DE);
+    final TopLevelDomain topLevelDomain2 = TopLevelDomain.of(TopLevelDomainTests.DE);
+    final TopLevelDomain topLevelDomain3 = TopLevelDomain.of(TopLevelDomainTests.FR);
+    final TopLevelDomain topLevelDomain4 = TopLevelDomain.of(TopLevelDomainTests.DE);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(topLevelDomain1.equals(topLevelDomain1), "topLevelDomain11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(topLevelDomain1.equals(topLevelDomain2), "topLevelDomain12 are not equal"), //$NON-NLS-1$
@@ -137,7 +158,7 @@ public class TopLevelDomainTests
   @Test
   public void testToString()
    {
-    final TopLevelDomain topLevelDomain = TopLevelDomain.of("DE"); //$NON-NLS-1$
+    final TopLevelDomain topLevelDomain = TopLevelDomain.of(TopLevelDomainTests.DE);
     assertEquals("TopLevelDomain[topLevelDomain=DE]", topLevelDomain.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -148,11 +169,11 @@ public class TopLevelDomainTests
   @Test
   public void testCompareTo()
    {
-    final TopLevelDomain topLevelDomain1 = TopLevelDomain.of("DE"); //$NON-NLS-1$
-    final TopLevelDomain topLevelDomain2 = TopLevelDomain.of("DE"); //$NON-NLS-1$
-    final TopLevelDomain topLevelDomain3 = TopLevelDomain.of("FR"); //$NON-NLS-1$
+    final TopLevelDomain topLevelDomain1 = TopLevelDomain.of(TopLevelDomainTests.DE);
+    final TopLevelDomain topLevelDomain2 = TopLevelDomain.of(TopLevelDomainTests.DE);
+    final TopLevelDomain topLevelDomain3 = TopLevelDomain.of(TopLevelDomainTests.FR);
     final TopLevelDomain topLevelDomain4 = TopLevelDomain.of("GB"); //$NON-NLS-1$
-    final TopLevelDomain topLevelDomain5 = TopLevelDomain.of("DE"); //$NON-NLS-1$
+    final TopLevelDomain topLevelDomain5 = TopLevelDomain.of(TopLevelDomainTests.DE);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(topLevelDomain1.compareTo(topLevelDomain2) == -topLevelDomain2.compareTo(topLevelDomain1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(topLevelDomain1.compareTo(topLevelDomain3) == -topLevelDomain3.compareTo(topLevelDomain1), "reflexive2"), //$NON-NLS-1$

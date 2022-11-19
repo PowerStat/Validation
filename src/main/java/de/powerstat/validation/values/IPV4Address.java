@@ -23,7 +23,22 @@ public final class IPV4Address implements Comparable<IPV4Address>
   /**
    * Class c 192.
    */
-  private static final String CLASS_C_192 = "192";
+  private static final String CLASS_C_192 = "192"; //$NON-NLS-1$
+
+  /**
+   * 100.
+   */
+  private static final String C100 = "100"; //$NON-NLS-1$
+
+  /**
+   * 198.
+   */
+  private static final String C198 = "198"; //$NON-NLS-1$
+
+  /**
+   * 0.
+   */
+  private static final String ZERO = "0"; //$NON-NLS-1$
 
   /**
    * IP V4 regexp.
@@ -125,18 +140,18 @@ public final class IPV4Address implements Comparable<IPV4Address>
    */
   public boolean isSpecial()
    {
-    if ("0".equals(this.parts[0]) || //$NON-NLS-1$
+    if (IPV4Address.ZERO.equals(this.parts[0]) ||
         "127".equals(this.parts[0]) || //$NON-NLS-1$
-        (IPV4Address.CLASS_C_192.equals(this.parts[0]) && "0".equals(this.parts[1]) && "0".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
-        (IPV4Address.CLASS_C_192.equals(this.parts[0]) && "0".equals(this.parts[1]) && "2".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
+        (IPV4Address.CLASS_C_192.equals(this.parts[0]) && IPV4Address.ZERO.equals(this.parts[1]) && IPV4Address.ZERO.equals(this.parts[2])) ||
+        (IPV4Address.CLASS_C_192.equals(this.parts[0]) && IPV4Address.ZERO.equals(this.parts[1]) && "2".equals(this.parts[2])) || //$NON-NLS-1$
         (IPV4Address.CLASS_C_192.equals(this.parts[0]) && "88".equals(this.parts[1]) && "99".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
-        ("198".equals(this.parts[0]) && "51".equals(this.parts[1]) && "100".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        ("203".equals(this.parts[0]) && "0".equals(this.parts[1]) && "113".equals(this.parts[2])) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        (IPV4Address.C198.equals(this.parts[0]) && "51".equals(this.parts[1]) && IPV4Address.C100.equals(this.parts[2])) || //$NON-NLS-1$
+        ("203".equals(this.parts[0]) && IPV4Address.ZERO.equals(this.parts[1]) && "113".equals(this.parts[2])) //$NON-NLS-1$ //$NON-NLS-2$
        )
      {
       return true;
      }
-    if ("100".equals(this.parts[0])) //$NON-NLS-1$
+    if (IPV4Address.C100.equals(this.parts[0]))
      {
       final int block2 = Integer.parseInt(this.parts[1]);
       if ((block2 >= 64) && (block2 <= 127))
@@ -144,7 +159,7 @@ public final class IPV4Address implements Comparable<IPV4Address>
         return true;
        }
      }
-    if ("198".equals(this.parts[0])) //$NON-NLS-1$
+    if (IPV4Address.C198.equals(this.parts[0]))
      {
       final int block2 = Integer.parseInt(this.parts[1]);
       if ((block2 >= 18) && (block2 <= 19))
@@ -153,7 +168,7 @@ public final class IPV4Address implements Comparable<IPV4Address>
        }
      }
     final int block1 = Integer.parseInt(this.parts[0]);
-    return (((block1 >= 224) && (block1 <= 239)) || ((block1 >= 240) && (block1 <= 255)));
+    return (block1 >= 224);
    }
 
 

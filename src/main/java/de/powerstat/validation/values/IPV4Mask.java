@@ -19,9 +19,14 @@ import java.util.regex.Pattern;
 public final class IPV4Mask implements Comparable<IPV4Mask>
  {
   /**
+   * 0.
+   */
+  private static final String ZERO = "0"; //$NON-NLS-1$
+
+  /**
    * Bitmask array.
    */
-  private static final String[] BITMASKS = {"0", "128", "192", "224", "240", "248", "252", "254", "255"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$
+  private static final String[] BITMASKS = {IPV4Mask.ZERO, "128", "192", "224", "240", "248", "252", "254", "255"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
 
   /**
    * IP V4 mask regexp.
@@ -96,7 +101,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>
     final String[] parts = mask.split("\\."); //$NON-NLS-1$
     for (int part = 3; part >= 0; --part)
      {
-      if ("0".equals(parts[part])) //$NON-NLS-1$
+      if (IPV4Mask.ZERO.equals(parts[part]))
        {
         continue;
        }

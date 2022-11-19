@@ -24,6 +24,17 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class IPV6MaskTests
  {
   /**
+   * Length is not equal constant.
+   */
+  private static final String LENGTH_IS_NOT_EQUAL = "length is not equal"; //$NON-NLS-1$
+
+  /**
+   * Index out of bounds exception expected constant.
+   */
+  private static final String INDEX_OUT_OF_BOUNDS = "Index out of bounds exception expected"; //$NON-NLS-1$
+
+
+  /**
    * Default constructor.
    */
   public IPV6MaskTests()
@@ -41,7 +52,7 @@ public class IPV6MaskTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final IPV6Mask mask = */ IPV6Mask.of(-1);
-     }, "Index out of bounds exception expected" //$NON-NLS-1$
+     }, IPV6MaskTests.INDEX_OUT_OF_BOUNDS
     );
    }
 
@@ -55,7 +66,7 @@ public class IPV6MaskTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final IPV6Mask mask = */ IPV6Mask.of(129);
-     }, "Index out of bounds exception expected" //$NON-NLS-1$
+     }, IPV6MaskTests.INDEX_OUT_OF_BOUNDS
     );
    }
 
@@ -68,7 +79,7 @@ public class IPV6MaskTests
    {
     final IPV6Mask mask = IPV6Mask.of(0);
     assertAll("constructorSuccess0", //$NON-NLS-1$
-      () -> assertEquals(0, mask.getLength(), "length is not equal") //$NON-NLS-1$
+      () -> assertEquals(0, mask.getLength(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL)
     );
    }
 
@@ -81,7 +92,7 @@ public class IPV6MaskTests
    {
     final IPV6Mask mask = IPV6Mask.of(128);
     assertAll("constructorSuccess1", //$NON-NLS-1$
-      () -> assertEquals(128, mask.getLength(), "length is not equal") //$NON-NLS-1$
+      () -> assertEquals(128, mask.getLength(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL)
     );
    }
 

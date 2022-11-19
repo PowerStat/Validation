@@ -26,6 +26,27 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class DistrictTests
  {
   /**
+   * District abc.
+   */
+  private static final String DISTRICTABC = "abc"; //$NON-NLS-1$
+
+  /**
+   * District 9.
+   */
+  private static final String DISTRICT9 = "9"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * District not as expected.
+   */
+  private static final String DISTRICT_NOT_AS_EXPECTED = "District not as expected"; //$NON-NLS-1$
+
+
+  /**
    * Default constructor.
    */
   public DistrictTests()
@@ -40,11 +61,11 @@ public class DistrictTests
    * @param district District
    */
   @ParameterizedTest
-  @ValueSource(strings = {"9", "Abcdefghijklmnopqr"})
+  @ValueSource(strings = {DistrictTests.DISTRICT9, "Abcdefghijklmnopqr"})
   public void districtCorrect(final String district)
    {
     final District cleanDistrict = District.of(district);
-    assertEquals(district, cleanDistrict.getDistrict(), "District not as expected"); //$NON-NLS-1$
+    assertEquals(district, cleanDistrict.getDistrict(), DistrictTests.DISTRICT_NOT_AS_EXPECTED);
    }
 
 
@@ -60,7 +81,7 @@ public class DistrictTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final District cleanDistrict = */ District.of(district);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, DistrictTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -77,7 +98,7 @@ public class DistrictTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final District cleanDistrict = */ District.of(district);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, DistrictTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -88,8 +109,8 @@ public class DistrictTests
   @Test
   public void getDistrict()
    {
-    final District district = District.of("9"); //$NON-NLS-1$
-    assertEquals("9", district.getDistrict(), "District not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    final District district = District.of(DistrictTests.DISTRICT9);
+    assertEquals(DistrictTests.DISTRICT9, district.getDistrict(), DistrictTests.DISTRICT_NOT_AS_EXPECTED);
    }
 
 
@@ -99,9 +120,9 @@ public class DistrictTests
   @Test
   public void testHashCode()
    {
-    final District district1 = District.of("9"); //$NON-NLS-1$
-    final District district2 = District.of("9"); //$NON-NLS-1$
-    final District district3 = District.of("abc"); //$NON-NLS-1$
+    final District district1 = District.of(DistrictTests.DISTRICT9);
+    final District district2 = District.of(DistrictTests.DISTRICT9);
+    final District district3 = District.of(DistrictTests.DISTRICTABC);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(district1.hashCode(), district2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(district1.hashCode(), district3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -115,10 +136,10 @@ public class DistrictTests
   @Test
   public void testEquals()
    {
-    final District district1 = District.of("9"); //$NON-NLS-1$
-    final District district2 = District.of("9"); //$NON-NLS-1$
-    final District district3 = District.of("abc"); //$NON-NLS-1$
-    final District district4 = District.of("9"); //$NON-NLS-1$
+    final District district1 = District.of(DistrictTests.DISTRICT9);
+    final District district2 = District.of(DistrictTests.DISTRICT9);
+    final District district3 = District.of(DistrictTests.DISTRICTABC);
+    final District district4 = District.of(DistrictTests.DISTRICT9);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(district1.equals(district1), "district11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(district1.equals(district2), "district12 are not equal"), //$NON-NLS-1$
@@ -138,7 +159,7 @@ public class DistrictTests
   @Test
   public void testToString()
    {
-    final District district = District.of("9");
+    final District district = District.of(DistrictTests.DISTRICT9);
     assertEquals("District[district=9]", district.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -149,11 +170,11 @@ public class DistrictTests
   @Test
   public void testCompareTo()
    {
-    final District district1 = District.of("9"); //$NON-NLS-1$
-    final District district2 = District.of("9"); //$NON-NLS-1$
-    final District district3 = District.of("abc"); //$NON-NLS-1$
+    final District district1 = District.of(DistrictTests.DISTRICT9);
+    final District district2 = District.of(DistrictTests.DISTRICT9);
+    final District district3 = District.of(DistrictTests.DISTRICTABC);
     final District district4 = District.of("def"); //$NON-NLS-1$
-    final District district5 = District.of("9"); //$NON-NLS-1$
+    final District district5 = District.of(DistrictTests.DISTRICT9);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(district1.compareTo(district2) == -district2.compareTo(district1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(district1.compareTo(district3) == -district3.compareTo(district1), "reflexive2"), //$NON-NLS-1$

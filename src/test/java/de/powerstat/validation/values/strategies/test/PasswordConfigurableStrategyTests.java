@@ -38,6 +38,11 @@ public class PasswordConfigurableStrategyTests
    */
   private static final String ILLEGAL_ARGUMENT_EXCEPTION = "Illegal argument exception expected"; //$NON-NLS-1$
 
+  /**
+   * Dummy value 1.
+   */
+  private static final String DUMMY1 = "1111111111"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -91,11 +96,25 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with wrong regexp.
    */
   @Test
-  public void regexpWrong()
+  public void regexpWrong1()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(1, 254, "[@./_0-9a-zA-Z-]+", 0, 0, 0, 0, 0, 0); //$NON-NLS-1$
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
+    );
+   }
+
+
+  /**
+   * Test strategy with wrong regexp.
+   */
+  @Test
+  public void regexpWrong2()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(1, 254, "^[@./_0-9a-zA-Z-]+", 0, 0, 0, 0, 0, 0); //$NON-NLS-1$
      }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
@@ -124,6 +143,90 @@ public class PasswordConfigurableStrategyTests
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 10, 0, 0, 0, 0, 0);
     cleanStrategy.validationStrategy(PasswordConfigurableStrategyTests.PWD_1234567890);
     assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test strategy with minNumeric greater than maxLength.
+   */
+  @Test
+  public void minNumericGreaterMaxLength()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 11, 0, 0, 0, 0, 0);
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
+    );
+   }
+
+
+  /**
+   * Test strategy with minLower greater than maxLength.
+   */
+  @Test
+  public void minLowerGreaterMaxLength()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 11, 0, 0, 0, 0);
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
+    );
+   }
+
+
+  /**
+   * Test strategy with minUpper greater than maxLength.
+   */
+  @Test
+  public void minUpperGreaterMaxLength()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 11, 0, 0, 0);
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
+    );
+   }
+
+
+  /**
+   * Test strategy with minSpecial greater than maxLength.
+   */
+  @Test
+  public void minSpecialGreaterMaxLength()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 11, 0, 0);
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
+    );
+   }
+
+
+  /**
+   * Test strategy with minUniue greater than maxLength.
+   */
+  @Test
+  public void minUnqiueGreaterMaxLength()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 11, 0);
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
+    );
+   }
+
+
+  /**
+   * Test strategy with maxRepeated greater than maxLength.
+   */
+  @Test
+  public void maxRepeatedGreaterMaxLength()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final IPasswordStrategy cleanStrategy = */ PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 0, 11);
+     }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
+    );
    }
 
 
@@ -296,7 +399,7 @@ public class PasswordConfigurableStrategyTests
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 2, 0);
     assertThrows(IllegalArgumentException.class, () ->
      {
-      cleanStrategy.validationStrategy("1111111111"); //$NON-NLS-1$
+      cleanStrategy.validationStrategy(PasswordConfigurableStrategyTests.DUMMY1);
      }, PasswordConfigurableStrategyTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
@@ -323,7 +426,7 @@ public class PasswordConfigurableStrategyTests
   public void maxRepeatedMaximum()
    {
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 0, 10);
-    cleanStrategy.validationStrategy("1111111111"); //$NON-NLS-1$
+    cleanStrategy.validationStrategy(PasswordConfigurableStrategyTests.DUMMY1);
     assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
    }
 

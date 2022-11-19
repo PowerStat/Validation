@@ -30,6 +30,21 @@ public class CurrencyTests
    */
   private static final String EUR = "EUR"; //$NON-NLS-1$
 
+  /**
+   * USD.
+   */
+  private static final String USD = "USD"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * Currency code not as expected.
+   */
+  private static final String CURRENCY_CODE_NOT_AS_EXPECTED = "Currency code not as expected"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -50,7 +65,7 @@ public class CurrencyTests
   public void currencyOk0(final String code)
    {
     final Currency cleanCurrency = Currency.of(code);
-    assertEquals(code, cleanCurrency.getCurrency(), "Currency code not as expected"); //$NON-NLS-1$
+    assertEquals(code, cleanCurrency.getCurrency(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -66,7 +81,7 @@ public class CurrencyTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Currency cleanCurrency = */ Currency.of(code);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, CurrencyTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -83,7 +98,7 @@ public class CurrencyTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Currency cleanCurrency = */ Currency.of(code);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, CurrencyTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -95,7 +110,7 @@ public class CurrencyTests
   public void getCurrency()
    {
     final Currency currency = Currency.of(CurrencyTests.EUR);
-    assertEquals(CurrencyTests.EUR, currency.getCurrency(), "Currency code not as expected"); //$NON-NLS-1$
+    assertEquals(CurrencyTests.EUR, currency.getCurrency(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -107,7 +122,7 @@ public class CurrencyTests
    {
     final Currency currency1 = Currency.of(CurrencyTests.EUR);
     final Currency currency2 = Currency.of(CurrencyTests.EUR);
-    final Currency currency3 = Currency.of("USD"); //$NON-NLS-1$
+    final Currency currency3 = Currency.of(CurrencyTests.USD);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(currency1.hashCode(), currency2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(currency1.hashCode(), currency3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -123,7 +138,7 @@ public class CurrencyTests
    {
     final Currency language1 = Currency.of(CurrencyTests.EUR);
     final Currency language2 = Currency.of(CurrencyTests.EUR);
-    final Currency language3 = Currency.of("USD"); //$NON-NLS-1$
+    final Currency language3 = Currency.of(CurrencyTests.USD);
     final Currency language4 = Currency.of(CurrencyTests.EUR);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(language1.equals(language1), "currency11 is not equal"), //$NON-NLS-1$
@@ -158,7 +173,7 @@ public class CurrencyTests
     final Currency currency1 = Currency.of(CurrencyTests.EUR);
     final Currency currency2 = Currency.of(CurrencyTests.EUR);
     final Currency currency3 = Currency.of("RUB"); //$NON-NLS-1$
-    final Currency currency4 = Currency.of("USD"); //$NON-NLS-1$
+    final Currency currency4 = Currency.of(CurrencyTests.USD);
     final Currency currency5 = Currency.of(CurrencyTests.EUR);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(currency1.compareTo(currency2) == -currency2.compareTo(currency1), "reflexive1"), //$NON-NLS-1$

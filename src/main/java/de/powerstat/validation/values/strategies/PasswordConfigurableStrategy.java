@@ -125,7 +125,7 @@ public class PasswordConfigurableStrategy implements IPasswordStrategy
      }
     if ((maxRepeated < 0) || (maxRepeated > maxLength))
      {
-      throw new IllegalArgumentException("minUnique must be >= 0 && <= maxLength"); //$NON-NLS-1$
+      throw new IllegalArgumentException("maxRepeated must be >= 0 && <= maxLength"); //$NON-NLS-1$
      }
     this.minLength = minLength;
     this.maxLength = maxLength;

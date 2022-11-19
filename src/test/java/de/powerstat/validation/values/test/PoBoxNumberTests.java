@@ -25,6 +25,12 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class PoBoxNumberTests
  {
   /**
+   * Not a po box number constant.
+   */
+  private static final String NOT_A_PO_BOX_NUMBER = "Not a po box number!"; //$NON-NLS-1$
+
+
+  /**
    * Default constructor.
    */
   public PoBoxNumberTests()
@@ -42,7 +48,7 @@ public class PoBoxNumberTests
   @ValueSource(longs = {1, 99999})
   public void isPoBoxNumber(final long poBoxNumber)
    {
-    assertEquals(poBoxNumber, PoBoxNumber.of(poBoxNumber).getPoBoxNumber(), "Not a po box number!"); //$NON-NLS-1$
+    assertEquals(poBoxNumber, PoBoxNumber.of(poBoxNumber).getPoBoxNumber(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
    }
 
 
@@ -55,7 +61,7 @@ public class PoBoxNumberTests
   @ValueSource(strings = {"1", "99999"})
   public void isPoBoxNumberStr(final String poBoxNumber)
    {
-    assertEquals(poBoxNumber, PoBoxNumber.of(Long.parseLong(poBoxNumber)).getPoBoxNumberStr(), "Not a po box number!"); //$NON-NLS-1$
+    assertEquals(poBoxNumber, PoBoxNumber.of(Long.parseLong(poBoxNumber)).getPoBoxNumberStr(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
    }
 
 

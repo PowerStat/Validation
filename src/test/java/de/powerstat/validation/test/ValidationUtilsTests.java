@@ -41,9 +41,69 @@ public final class ValidationUtilsTests
   private static final String ILLEGAL_ARGUMENT_EXCEPTION = "Illegal argument exception expected"; //$NON-NLS-1$
 
   /**
+   * Index out of bounds exception expected constant.
+   */
+  private static final String INDEX_OUT_OF_BOUNDS = "Index out of bounds exception expected"; //$NON-NLS-1$
+
+  /**
+   * Url path not as expected constant.
+   */
+  private static final String URL_PATH_NOT_AS_EXPECTED = "Url path not as expected!"; //$NON-NLS-1$
+
+  /**
+   * Mask is not equal constant.
+   */
+  private static final String MASK_IS_NOT_EQUAL = "Mask is not equal!"; //$NON-NLS-1$
+
+  /**
+   * Should not be an IP V6 special address constant.
+   */
+  private static final String NOT_BE_AN_IP_V6_SPECIAL_ADDRESS = "Should not be an IP V6 special address!"; //$NON-NLS-1$
+
+  /**
+   * Should be a hostname constant.
+   */
+  private static final String SHOULD_BE_A_HOSTNAME = "Should be a hostname!"; //$NON-NLS-1$
+
+  /**
+   * Wrong hostname constant.
+   */
+  private static final String WRONG_HOSTNAME = "Wrong hostname!"; //$NON-NLS-1$
+
+  /**
+   * Wrong port constant.
+   */
+  private static final String WRONG_PORT = "Wrong port!"; //$NON-NLS-1$
+
+  /**
+   * ValidationUtils path constant.
+   */
+  private static final String VALIDATION_UTILS = "/ValidationUtils"; //$NON-NLS-1$
+
+  /**
+   * HTTP port.
+   */
+  private static final String HTTP = "80"; //$NON-NLS-1$
+
+  /**
    * Hostname.
    */
   private static final String WWW_POWERSTAT_DE = "www.powerstat.de";
+
+  /**
+   * Google dns.
+   */
+  private static final String GOOGLE_DNS = "8.8.8.8"; //$NON-NLS-1$
+
+  /**
+   * FE80.
+   */
+  private static final String FE80 = "fe:80::"; //$NON-NLS-1$
+
+  /**
+   * 2000.
+   */
+  private static final String TWOTHOUSAND = "2000::"; //$NON-NLS-1$
 
 
   /**
@@ -63,7 +123,7 @@ public final class ValidationUtilsTests
    */
   @Deprecated
   @ParameterizedTest
-  @ValueSource(strings = {ValidationUtilsTests.WWW_POWERSTAT_DE, "a.de", "www.powerstat012345678901234567890123456789012345678901234567890123.de", "abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.ACCOUNTANT", "192.168.0.1", "fe:80::"})
+  @ValueSource(strings = {ValidationUtilsTests.WWW_POWERSTAT_DE, "a.de", "www.powerstat012345678901234567890123456789012345678901234567890123.de", "abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.ACCOUNTANT", "192.168.0.1", ValidationUtilsTests.FE80})
   public void checkHostnameOk(final String hostname)
    {
     final String cleanHostname = ValidationUtils.checkHostname(hostname);
@@ -139,7 +199,7 @@ public final class ValidationUtilsTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final int resultPort = */ ValidationUtils.checkPort(port);
-     }, "Index out of bounds exception expected"
+     }, ValidationUtilsTests.INDEX_OUT_OF_BOUNDS
     );
    }
 
@@ -153,9 +213,9 @@ public final class ValidationUtilsTests
   @Test
   public void sanitizeUrlPathO()
    {
-    final String url = "/ValidationUtils"; //$NON-NLS-1$
+    final String url = ValidationUtilsTests.VALIDATION_UTILS;
     final String resultUrl = ValidationUtils.sanitizeUrlPath(url);
-    assertEquals(url, resultUrl, "Url path not as expected!"); //$NON-NLS-1$
+    assertEquals(url, resultUrl, ValidationUtilsTests.URL_PATH_NOT_AS_EXPECTED);
    }
 
 
@@ -170,7 +230,7 @@ public final class ValidationUtilsTests
    {
     final String url = ""; //$NON-NLS-1$
     final String resultUrl = ValidationUtils.sanitizeUrlPath(url);
-    assertEquals("/", resultUrl, "Url path not as expected!"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertEquals("/", resultUrl, ValidationUtilsTests.URL_PATH_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 
@@ -184,7 +244,7 @@ public final class ValidationUtilsTests
   public void sanitizeUrlPathInvalid()
    {
     final String resultUrl = ValidationUtils.sanitizeUrlPath("ValidationUtils"); //$NON-NLS-1$
-    assertEquals("/ValidationUtils", resultUrl, "Url path not as expected!"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertEquals(ValidationUtilsTests.VALIDATION_UTILS, resultUrl, ValidationUtilsTests.URL_PATH_NOT_AS_EXPECTED);
    }
 
 
@@ -255,28 +315,45 @@ public final class ValidationUtilsTests
   /**
    * Is ip v4 address not private.
    *
+   * @param address IP V4 address
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
   @Deprecated
-  @Test
-  public void isIPV4NonePrivate()
+  @ParameterizedTest
+  @ValueSource(strings = {ValidationUtilsTests.GOOGLE_DNS, "172.15.0.0", "172.32.0.0", "192.169.0.0", "169.255.0.0"})
+  public void isIPV4NonePrivate(final String address)
    {
-    assertFalse(ValidationUtils.isIPV4private("8.8.8.8"), "Should not be a private IP V4 address"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertFalse(ValidationUtils.isIPV4private(address), "Should not be a private IP V4 address"); //$NON-NLS-1$
    }
 
 
   /**
-   * Is IP V4 a private address.
+   * Is IP V4 a special address.
    *
    * @param address IP V4 address
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
   @Deprecated
   @ParameterizedTest
-  @ValueSource(strings = {"0.0.0.0", "127.0.0.1", "192.0.0.1", "192.0.2.1", "192.88.99.1", "198.51.100.1", "203.0.113.1", "100.64.0.1", "100.127.0.1", "198.18.0.1", "198.19.0.1", "224.0.0.1", "239.0.0.1", "240.0.0.1", "255.0.0.1"})
+  @ValueSource(strings = {"0.0.0.0", "127.0.0.1", "127.0.2.1", "192.0.0.1", "192.0.2.1", "192.88.99.1", "198.51.100.1", "203.0.113.1", "100.64.0.1", "100.127.0.1", "198.18.0.1", "198.19.0.1", "224.0.0.1", "239.0.0.1", "240.0.0.1", "255.0.0.1"})
   public void isIPV4special(final String address)
    {
     assertTrue(ValidationUtils.isIPV4special(address), "Should be an special IP V4 address!"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Is IP V4 not a special address.
+   *
+   * @param address IP V4 address
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
+   */
+  @Deprecated
+  @ParameterizedTest
+  @ValueSource(strings = {"192.1.2.1", "100.63.0.0", "100.128.0.0", "198.17.0.0", "198.20.0.0", "198.50.100.1", "203.1.113.0", "203.0.114.0", "198.51.99.0", "192.0.1.0", "192.88.100.0"})
+  public void isIPV4noneSpecial(final String address)
+   {
+    assertFalse(ValidationUtils.isIPV4special(address), "Should be an special IP V4 address!"); //$NON-NLS-1$
    }
 
 
@@ -289,7 +366,7 @@ public final class ValidationUtilsTests
   @Test
   public void isIPV4public()
    {
-    assertTrue(ValidationUtils.isIPV4public("8.8.8.8"), "Should be an IP V4 public address!"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertTrue(ValidationUtils.isIPV4public(ValidationUtilsTests.GOOGLE_DNS), "Should be an IP V4 public address!"); //$NON-NLS-1$
    }
 
 
@@ -300,9 +377,22 @@ public final class ValidationUtilsTests
    */
   @Deprecated
   @Test
-  public void isIPV4NotPublic()
+  public void isIPV4NotPublic1()
    {
     assertFalse(ValidationUtils.isIPV4public("192.168.1.1"), "Should not be an IP V4 public address!"); //$NON-NLS-1$ //$NON-NLS-2$
+   }
+
+
+  /**
+   * Is IP V4 not an public address.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
+   */
+  @Deprecated
+  @Test
+  public void isIPV4NotPublic2()
+   {
+    assertFalse(ValidationUtils.isIPV4public("127.0.0.0"), "Should not be an IP V4 public address!"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -315,9 +405,22 @@ public final class ValidationUtilsTests
   @Deprecated
   @ParameterizedTest
   @ValueSource(ints = {0, 32})
-  public void isIPV4prefixLength(final int mask)
+  public void isIPV4prefixLength1(final int mask)
    {
     assertTrue(ValidationUtils.isIPV4prefixLength(mask), "Is not a mask between 0-32!"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Is IP V4 prefix length.
+   *
+   * @deprecated Use de.powerstat.validation.values.test.* instead.
+   */
+  @Deprecated
+  @Test
+  public void isIPV4prefixLength2()
+   {
+    assertFalse(ValidationUtils.isIPV4prefixLength(-1), "Is a mask between 0-32!"); //$NON-NLS-1$
    }
 
 
@@ -332,7 +435,7 @@ public final class ValidationUtilsTests
    {
     final int mask = 24;
     final int checkedPort = ValidationUtils.checkIPV4prefixLength(mask);
-    assertEquals(mask, checkedPort, "Mask is not equal!"); //$NON-NLS-1$
+    assertEquals(mask, checkedPort, ValidationUtilsTests.MASK_IS_NOT_EQUAL);
    }
 
 
@@ -348,7 +451,7 @@ public final class ValidationUtilsTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final int checkedPort = */ ValidationUtils.checkIPV4prefixLength(33);
-     }, "Index out of bounds exception expected"
+     }, ValidationUtilsTests.INDEX_OUT_OF_BOUNDS
     );
    }
 
@@ -394,7 +497,7 @@ public final class ValidationUtilsTests
    {
     final int mask = 24;
     final int checkedPort = ValidationUtils.checkIPV6prefixLength(mask);
-    assertEquals(mask, checkedPort, "Mask is not equal!"); //$NON-NLS-1$
+    assertEquals(mask, checkedPort, ValidationUtilsTests.MASK_IS_NOT_EQUAL);
    }
 
 
@@ -410,7 +513,7 @@ public final class ValidationUtilsTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final int checkedPort = */ ValidationUtils.checkIPV6prefixLength(129);
-     }, "Index out of bounds exception expected"
+     }, ValidationUtilsTests.INDEX_OUT_OF_BOUNDS
     );
    }
 
@@ -424,7 +527,7 @@ public final class ValidationUtilsTests
    */
   @Deprecated
   @ParameterizedTest
-  @CsvSource({"'fe:80::', '00fe:0080:0000:0000:0000:0000:0000:0000'", "'fe:80::192.168.0.1', '00fe:0080:0000:0000:0000:0000:c0a8:0001'"})
+  @CsvSource({"'fe:80::', '00fe:0080:0000:0000:0000:0000:0000:0000'", "'fe:80::192.168.0.1', '00fe:0080:0000:0000:0000:0000:c0a8:0001'", "'::0', '0000:0000:0000:0000:0000:0000:0000:0000'"})
   public void checkIPV6(final String address, final String expandedAddress)
    {
     final String checkedAddress = ValidationUtils.checkIPV6(address);
@@ -460,7 +563,7 @@ public final class ValidationUtilsTests
   @Test
   public void isIPV6()
    {
-    assertTrue(ValidationUtils.isIPV6("fe:80::"), "Should be an IP V6 address!"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertTrue(ValidationUtils.isIPV6(ValidationUtilsTests.FE80), "Should be an IP V6 address!"); //$NON-NLS-1$
    }
 
 
@@ -488,7 +591,7 @@ public final class ValidationUtilsTests
   @Test
   public void isIPV6NonePrivate()
    {
-    assertFalse(ValidationUtils.isIPV6private("2000::"), "Should not be an IP V6 private address!"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertFalse(ValidationUtils.isIPV6private(ValidationUtilsTests.TWOTHOUSAND), "Should not be an IP V6 private address!"); //$NON-NLS-1$
    }
 
 
@@ -516,7 +619,7 @@ public final class ValidationUtilsTests
   @Test
   public void isIPV6NoneSpecial()
    {
-    assertFalse(ValidationUtils.isIPV6special("2000::"), "Should not be an IP V6 special address!"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertFalse(ValidationUtils.isIPV6special(ValidationUtilsTests.TWOTHOUSAND), ValidationUtilsTests.NOT_BE_AN_IP_V6_SPECIAL_ADDRESS);
    }
 
 
@@ -529,7 +632,7 @@ public final class ValidationUtilsTests
   @Test
   public void isIPV6Public()
    {
-    assertTrue(ValidationUtils.isIPV6public("2000::"), "Should be an IP V6 public address!"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertTrue(ValidationUtils.isIPV6public(ValidationUtilsTests.TWOTHOUSAND), "Should be an IP V6 public address!"); //$NON-NLS-1$
    }
 
 
@@ -544,7 +647,7 @@ public final class ValidationUtilsTests
   @ValueSource(strings = {"00ff::", "fd::"})
   public void isIPV6NonePublic(final String address)
    {
-    assertFalse(ValidationUtils.isIPV6public(address), "Should not be an IP V6 special address!"); //$NON-NLS-1$
+    assertFalse(ValidationUtils.isIPV6public(address), ValidationUtilsTests.NOT_BE_AN_IP_V6_SPECIAL_ADDRESS);
    }
 
 
@@ -557,7 +660,7 @@ public final class ValidationUtilsTests
   @Test
   public void isHostname()
    {
-    assertTrue(ValidationUtils.isHostname("www.example.com"), "Should be a hostname!"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertTrue(ValidationUtils.isHostname("www.example.com"), ValidationUtilsTests.SHOULD_BE_A_HOSTNAME); //$NON-NLS-1$
    }
 
 
@@ -570,7 +673,7 @@ public final class ValidationUtilsTests
   @Test
   public void isHostnameFalse()
    {
-    assertFalse(ValidationUtils.isHostname(".example.com"), "Should be a hostname!"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertFalse(ValidationUtils.isHostname(".example.com"), ValidationUtilsTests.SHOULD_BE_A_HOSTNAME); //$NON-NLS-1$
    }
 
 
@@ -653,7 +756,7 @@ public final class ValidationUtilsTests
    */
   @Deprecated
   @ParameterizedTest
-  @ValueSource(ints = {1023, 65536})
+  @ValueSource(ints = {1023, 49152, 65536})
   public void isRegisteredPortFalse(final int port)
    {
     assertFalse(ValidationUtils.isRegisteredPort(port), "Should not be a registered port!"); //$NON-NLS-1$
@@ -727,8 +830,8 @@ public final class ValidationUtilsTests
    {
     final List<String> hostnamePort = ValidationUtils.splitHostnamePort("www.powerstat.de:80"); //$NON-NLS-1$
     assertAll(
-      () -> assertEquals(ValidationUtilsTests.WWW_POWERSTAT_DE, hostnamePort.get(0), "Wrong hostname!"), //$NON-NLS-1$
-      () -> assertEquals("80", hostnamePort.get(1), "Wrong port!")  //$NON-NLS-1$ //$NON-NLS-2$
+      () -> assertEquals(ValidationUtilsTests.WWW_POWERSTAT_DE, hostnamePort.get(0), ValidationUtilsTests.WRONG_HOSTNAME),
+      () -> assertEquals(ValidationUtilsTests.HTTP, hostnamePort.get(1), ValidationUtilsTests.WRONG_PORT)
     );
    }
 
@@ -744,8 +847,8 @@ public final class ValidationUtilsTests
    {
     final List<String> hostnamePort = ValidationUtils.splitHostnamePort("[fe:80::]:80"); //$NON-NLS-1$
     assertAll(
-      () -> assertEquals("fe:80::", hostnamePort.get(0), "Wrong hostname!"), //$NON-NLS-1$ //$NON-NLS-2$
-      () -> assertEquals("80", hostnamePort.get(1), "Wrong port!")  //$NON-NLS-1$ //$NON-NLS-2$
+      () -> assertEquals(ValidationUtilsTests.FE80, hostnamePort.get(0), ValidationUtilsTests.WRONG_HOSTNAME),
+      () -> assertEquals(ValidationUtilsTests.HTTP, hostnamePort.get(1), ValidationUtilsTests.WRONG_PORT)
     );
    }
 

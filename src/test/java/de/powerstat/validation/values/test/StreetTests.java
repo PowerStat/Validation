@@ -34,6 +34,16 @@ public class StreetTests
    */
   private static final String HEMELINGER_HEERSTR = "Hemelinger Heerstr."; //$NON-NLS-1$
 
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * Street not as expected constant.
+   */
+  private static final String STREET_NOT_AS_EXPECTED = "Street not as expected"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -54,7 +64,7 @@ public class StreetTests
   public void streetCorrect(final String street)
    {
     final Street cleanStreet = Street.of(street);
-    assertEquals(street, cleanStreet.getStreet(), "Street not as expected"); //$NON-NLS-1$
+    assertEquals(street, cleanStreet.getStreet(), StreetTests.STREET_NOT_AS_EXPECTED);
    }
 
 
@@ -70,7 +80,7 @@ public class StreetTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Street cleanStreet = */ Street.of(street);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, StreetTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -87,7 +97,7 @@ public class StreetTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Street cleanStreet = */ Street.of(street);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, StreetTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -99,7 +109,7 @@ public class StreetTests
   public void getStreet()
    {
     final Street street = Street.of(StreetTests.HEMELINGER_HEERSTR);
-    assertEquals(StreetTests.HEMELINGER_HEERSTR, street.getStreet(), "Street not as expected"); //$NON-NLS-1$
+    assertEquals(StreetTests.HEMELINGER_HEERSTR, street.getStreet(), StreetTests.STREET_NOT_AS_EXPECTED);
    }
 
 

@@ -30,6 +30,16 @@ import java.util.Objects;
 public final class GregorianDate implements Comparable<GregorianDate>
  {
   /**
+   * Output format.
+   */
+  private static final String OUTPUT_FORMAT = "%02d"; //$NON-NLS-1$
+
+  /**
+   * ISO8601 separator.
+   */
+  private static final String DATE_SEP = "-"; //$NON-NLS-1$
+
+  /**
    * Gregorian calendar.
    */
   private final GregorianCalendar calendar;
@@ -112,7 +122,7 @@ public final class GregorianDate implements Comparable<GregorianDate>
    */
   public String getDate()
    {
-    return String.format("%04d", this.year.getYear()) + "-" + String.format("%02d", this.month.getMonth()) + "-" + String.format("%02d", this.day.getDay()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+    return String.format("%04d", this.year.getYear()) + GregorianDate.DATE_SEP + String.format(GregorianDate.OUTPUT_FORMAT, this.month.getMonth()) + GregorianDate.DATE_SEP + String.format(GregorianDate.OUTPUT_FORMAT, this.day.getDay()); //$NON-NLS-1$
    }
 
 

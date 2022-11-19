@@ -30,6 +30,21 @@ public class LinesTests
    */
   private static final String EXAMPLE1 = "Example1"; //$NON-NLS-1$
 
+  /**
+   * Example 2.
+   */
+  private static final String EXAMPLE2 = "Example2"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * Lines not as expected constant.
+   */
+  private static final String LINES_NOT_AS_EXPECTED = "Lines not as expected"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -50,7 +65,7 @@ public class LinesTests
   public void linesCorrect(final String lines)
    {
     final Lines cleanLines = Lines.of(lines);
-    assertEquals(lines, cleanLines.getLines(), "Lines not as expected"); //$NON-NLS-1$
+    assertEquals(lines, cleanLines.getLines(), LinesTests.LINES_NOT_AS_EXPECTED);
    }
 
 
@@ -66,7 +81,7 @@ public class LinesTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Lines cleanLines = */ Lines.of(lines);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, LinesTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -83,7 +98,7 @@ public class LinesTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Lines cleanLines = */ Lines.of(lines);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, LinesTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -95,7 +110,7 @@ public class LinesTests
   public void getLines()
    {
     final Lines lines = Lines.of(LinesTests.EXAMPLE1);
-    assertEquals(LinesTests.EXAMPLE1, lines.getLines(), "Lines not as expected"); //$NON-NLS-1$
+    assertEquals(LinesTests.EXAMPLE1, lines.getLines(), LinesTests.LINES_NOT_AS_EXPECTED);
    }
 
 
@@ -107,7 +122,7 @@ public class LinesTests
    {
     final Lines lines1 = Lines.of(LinesTests.EXAMPLE1);
     final Lines lines2 = Lines.of(LinesTests.EXAMPLE1);
-    final Lines lines3 = Lines.of("Example2"); //$NON-NLS-1$
+    final Lines lines3 = Lines.of(LinesTests.EXAMPLE2);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(lines1.hashCode(), lines2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(lines1.hashCode(), lines3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -123,7 +138,7 @@ public class LinesTests
    {
     final Lines lines1 = Lines.of(LinesTests.EXAMPLE1);
     final Lines lines2 = Lines.of(LinesTests.EXAMPLE1);
-    final Lines lines3 = Lines.of("Example2"); //$NON-NLS-1$
+    final Lines lines3 = Lines.of(LinesTests.EXAMPLE2);
     final Lines lines4 = Lines.of(LinesTests.EXAMPLE1);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(lines1.equals(lines1), "lines11 is not equal"), //$NON-NLS-1$
@@ -157,7 +172,7 @@ public class LinesTests
    {
     final Lines lines1 = Lines.of(LinesTests.EXAMPLE1);
     final Lines lines2 = Lines.of(LinesTests.EXAMPLE1);
-    final Lines lines3 = Lines.of("Example2"); //$NON-NLS-1$
+    final Lines lines3 = Lines.of(LinesTests.EXAMPLE2);
     final Lines lines4 = Lines.of("Example3"); //$NON-NLS-1$
     final Lines lines5 = Lines.of(LinesTests.EXAMPLE1);
     assertAll("testCompareTo", //$NON-NLS-1$

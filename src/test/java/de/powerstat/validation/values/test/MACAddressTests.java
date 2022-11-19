@@ -29,7 +29,22 @@ public class MACAddressTests
   /**
    * MAC address 00:00:00:00:00:00.
    */
-  private static final String MAC_00_00_00_00_00_00 = "00:00:00:00:00:00";
+  private static final String MAC_00_00_00_00_00_00 = "00:00:00:00:00:00"; //$NON-NLS-1$
+
+  /**
+   * Mac address.
+   */
+  private static final String MAC_ZERO = "000000000000"; //$NON-NLS-1$
+
+  /**
+   * Mac address.
+   */
+  private static final String MAC_ONE = "00:00:00:00:00:01"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
 
   /**
    * Address not as expected.
@@ -72,7 +87,7 @@ public class MACAddressTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final MACAddress address = */ MACAddress.of(mac);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, MACAddressTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -83,7 +98,7 @@ public class MACAddressTests
    * @param mac MAC address
    */
   @ParameterizedTest
-  @ValueSource(strings = {MACAddressTests.MAC_00_00_00_00_00_00, "00-00-00-00-00-00", "000000000000"})
+  @ValueSource(strings = {MACAddressTests.MAC_00_00_00_00_00_00, "00-00-00-00-00-00", MACAddressTests.MAC_ZERO})
   public void constructorSuccess(final String mac)
    {
     final MACAddress address = MACAddress.of(mac);
@@ -120,7 +135,7 @@ public class MACAddressTests
   public void getAddress3()
    {
     final MACAddress address = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
-    assertEquals("000000000000", address.getAddress(""), MACAddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$ //$NON-NLS-2$
+    assertEquals(MACAddressTests.MAC_ZERO, address.getAddress(""), MACAddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 
@@ -136,8 +151,8 @@ public class MACAddressTests
     final MACAddress address = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
     assertThrows(IllegalArgumentException.class, () ->
      {
-      assertEquals("000000000000", address.getAddress(delimiter), MACAddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+      assertEquals(MACAddressTests.MAC_ZERO, address.getAddress(delimiter), MACAddressTests.ADDRESS_NOT_AS_EXPECTED);
+     }, MACAddressTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -155,11 +170,14 @@ public class MACAddressTests
 
   /**
    * Test if mac is not a broadcast address.
+   *
+   * @param mac MAC
    */
-  @Test
-  public void isBroadcastFalse()
+  @ParameterizedTest
+  @ValueSource(strings = {"ff:ff:ff:ff:ff:fe", "ff:ff:ff:ff:fe:ff", "ff:ff:ff:fe:ff:ff", "ff:ff:fe:ff:ff:ff", "ff:fe:ff:ff:ff:ff", "fe:ff:ff:ff:ff:ff"})
+  public void isBroadcastFalse(final String mac)
    {
-    final MACAddress address = MACAddress.of("ff:ff:ff:ff:ff:fe"); //$NON-NLS-1$
+    final MACAddress address = MACAddress.of(mac);
     assertFalse(address.isBroadcast(), "Is a broadcast address"); //$NON-NLS-1$
    }
 
@@ -221,11 +239,14 @@ public class MACAddressTests
 
   /**
    * Test if mac is not an ip v4 multicast address.
+   *
+   * @param mac MAC
    */
-  @Test
-  public void isIPV4MulticastFalse()
+  @ParameterizedTest
+  @ValueSource(strings = {"01:00:5e:80:00:00", "01:00:00:00:00:00", "01:01:00:00:00:00", "00:00:00:00:00:00"})
+  public void isIPV4MulticastFalse(final String mac)
    {
-    final MACAddress address = MACAddress.of("01:00:5e:80:00:00"); //$NON-NLS-1$
+    final MACAddress address = MACAddress.of(mac);
     assertFalse(address.isIPV4Multicast(), "Is a ip v4 multicast address"); //$NON-NLS-1$
    }
 
@@ -243,11 +264,14 @@ public class MACAddressTests
 
   /**
    * Test if mac is not an ip v6 multicast address.
+   *
+   * @param mac MAC
    */
-  @Test
-  public void isIPV6MulticastFalse()
+  @ParameterizedTest
+  @ValueSource(strings = {"33:00:00:00:00:00", "00:33:00:00:00:00"})
+  public void isIPV6MulticastFalse(final String mac)
    {
-    final MACAddress address = MACAddress.of("33:00:00:00:00:00"); //$NON-NLS-1$
+    final MACAddress address = MACAddress.of(mac);
     assertFalse(address.isIPV6Multicast(), "Is a ip v6 multicast address"); //$NON-NLS-1$
    }
 
@@ -265,11 +289,14 @@ public class MACAddressTests
 
   /**
    * Test if mac is not a vrrp address.
+   *
+   * @param mac MAC
    */
-  @Test
-  public void isVRRPFalse()
+  @ParameterizedTest
+  @ValueSource(strings = {MACAddressTests.MAC_00_00_00_00_00_00, "00:00:5e:00:00:00", "00:00:5e:01:00:00", "00:01:00:00:00:00", "01:00:00:00:00:00"})
+  public void isVRRPFalse(final String mac)
    {
-    final MACAddress address = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
+    final MACAddress address = MACAddress.of(mac);
     assertFalse(address.isVRRP(), "Is a vrrp address"); //$NON-NLS-1$
    }
 
@@ -293,7 +320,7 @@ public class MACAddressTests
    {
     final MACAddress address1 = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
     final MACAddress address2 = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
-    final MACAddress address3 = MACAddress.of("00:00:00:00:00:01"); //$NON-NLS-1$
+    final MACAddress address3 = MACAddress.of(MACAddressTests.MAC_ONE);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(address1.hashCode(), address2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(address1.hashCode(), address3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -309,7 +336,7 @@ public class MACAddressTests
    {
     final MACAddress address1 = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
     final MACAddress address2 = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
-    final MACAddress address3 = MACAddress.of("00:00:00:00:00:01"); //$NON-NLS-1$
+    final MACAddress address3 = MACAddress.of(MACAddressTests.MAC_ONE);
     final MACAddress address4 = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(address1.equals(address1), "address11 is not equal"), //$NON-NLS-1$
@@ -343,7 +370,7 @@ public class MACAddressTests
    {
     final MACAddress address1 = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
     final MACAddress address2 = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
-    final MACAddress address3 = MACAddress.of("00:00:00:00:00:01"); //$NON-NLS-1$
+    final MACAddress address3 = MACAddress.of(MACAddressTests.MAC_ONE);
     final MACAddress address4 = MACAddress.of("00:00:00:00:00:02"); //$NON-NLS-1$
     final MACAddress address5 = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
     assertAll("testCompareTo", //$NON-NLS-1$

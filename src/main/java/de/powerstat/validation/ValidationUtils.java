@@ -55,6 +55,41 @@ public final class ValidationUtils
   private static final String C192 = "192"; //$NON-NLS-1$
 
   /**
+   * 100.
+   */
+  private static final String C100 = "100"; //$NON-NLS-1$
+
+  /**
+   * 198.
+   */
+  private static final String C198 = "198"; //$NON-NLS-1$
+
+  /**
+   * 0.
+   */
+  private static final String ZERO = "0"; //$NON-NLS-1$
+
+  /**
+   * IPV6 block separator.
+   */
+  private static final String IPV6_SEP = ":"; //$NON-NLS-1$
+
+  /**
+   * IPV6 zero block.
+   */
+  private static final String IPV6_ZERO_BLOCK = "0000"; //$NON-NLS-1$
+
+  /**
+   * IPV6 expansion.
+   */
+  private static final String IPV6_EXP = "::"; //$NON-NLS-1$
+
+  /**
+   * Hex output format.
+   */
+  private static final String HEX_OUTPUT = "%02x"; //$NON-NLS-1$
+
+  /**
    * IP V4 regexp.
    */
   private static final Pattern IPV4_REGEXP = Pattern.compile("^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$"); //$NON-NLS-1$
@@ -183,18 +218,18 @@ public final class ValidationUtils
    {
     /* String checkedAddress = */ checkIPV4(address);
     final String[] parts = ValidationUtils.ESCDOTREGEXP.split(address);
-    if ("0".equals(parts[0]) || //$NON-NLS-1$
+    if (ValidationUtils.ZERO.equals(parts[0]) ||
         "127".equals(parts[0]) || //$NON-NLS-1$
-        (ValidationUtils.C192.equals(parts[0]) && "0".equals(parts[1]) && "0".equals(parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
-        (ValidationUtils.C192.equals(parts[0]) && "0".equals(parts[1]) && "2".equals(parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
+        (ValidationUtils.C192.equals(parts[0]) && ValidationUtils.ZERO.equals(parts[1]) && ValidationUtils.ZERO.equals(parts[2])) ||
+        (ValidationUtils.C192.equals(parts[0]) && ValidationUtils.ZERO.equals(parts[1]) && "2".equals(parts[2])) || //$NON-NLS-1$
         (ValidationUtils.C192.equals(parts[0]) && "88".equals(parts[1]) && "99".equals(parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
-        ("198".equals(parts[0]) && "51".equals(parts[1]) && "100".equals(parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        ("203".equals(parts[0]) && "0".equals(parts[1]) && "113".equals(parts[2])) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        (ValidationUtils.C198.equals(parts[0]) && "51".equals(parts[1]) && ValidationUtils.C100.equals(parts[2])) || //$NON-NLS-1$
+        ("203".equals(parts[0]) && ValidationUtils.ZERO.equals(parts[1]) && "113".equals(parts[2])) //$NON-NLS-1$ //$NON-NLS-2$
        )
      {
       return true;
      }
-    if ("100".equals(parts[0])) //$NON-NLS-1$
+    if (ValidationUtils.C100.equals(parts[0]))
      {
       final int block2 = Integer.parseInt(parts[1]);
       if ((block2 >= 64) && (block2 <= 127))
@@ -202,7 +237,7 @@ public final class ValidationUtils
         return true;
        }
      }
-    if ("198".equals(parts[0])) //$NON-NLS-1$
+    if (ValidationUtils.C198.equals(parts[0]))
      {
       final int block2 = Integer.parseInt(parts[1]);
       if ((block2 >= 18) && (block2 <= 19))
@@ -211,7 +246,7 @@ public final class ValidationUtils
        }
      }
     final int block1 = Integer.parseInt(parts[0]);
-    return (((block1 >= 224) && (block1 <= 239)) || ((block1 >= 240) && (block1 <= 255)));
+    return (block1 >= 224);
    }
 
 
@@ -336,7 +371,6 @@ public final class ValidationUtils
   @Deprecated(since = ValidationUtils.DEPRECATED_SINCE_2_0, forRemoval = false)
   private static String expandIPV4Address(final String address)
    {
-    assert address != null;
     final int ipv4pos = address.indexOf('.');
     if (ipv4pos == -1)
      {
@@ -354,7 +388,7 @@ public final class ValidationUtils
     final int block2 = Integer.parseInt(parts[1]);
     final int block3 = Integer.parseInt(parts[2]);
     final int block4 = Integer.parseInt(parts[3]);
-    return newAddress + Integer.toHexString(block1) + String.format("%02x", block2) + ':' + Integer.toHexString(block3) + String.format("%02x", block4); //$NON-NLS-1$ //$NON-NLS-2$
+    return newAddress + Integer.toHexString(block1) + String.format(ValidationUtils.HEX_OUTPUT, block2) + ':' + Integer.toHexString(block3) + String.format(ValidationUtils.HEX_OUTPUT, block4);
    }
 
 
@@ -389,13 +423,12 @@ public final class ValidationUtils
    */
   private static String expandExpansionBlock(final String address)
    {
-    assert address != null;
-    final int expPos = address.indexOf("::"); //$NON-NLS-1$
+    final int expPos = address.indexOf(ValidationUtils.IPV6_EXP);
     if ((expPos == -1))
      {
       return address;
      }
-    if (address.indexOf("::", expPos + 1) != -1) //$NON-NLS-1$
+    if (address.indexOf(ValidationUtils.IPV6_EXP, expPos + 1) != -1)
      {
       throw new IllegalArgumentException("Not an IP V6 address (more than one expansion block)"); //$NON-NLS-1$
      }
@@ -417,7 +450,7 @@ public final class ValidationUtils
        }
     while (blocks > 0)
        {
-      replace.append("0000"); //$NON-NLS-1$
+      replace.append(ValidationUtils.IPV6_ZERO_BLOCK);
         --blocks;
       if (blocks > 0)
        {
@@ -440,12 +473,11 @@ public final class ValidationUtils
    */
   private static String normalizeIPV6Address(final String address)
      {
-    assert address != null;
-    final String[] parts = address.split(":"); //$NON-NLS-1$
+    final String[] parts = address.split(ValidationUtils.IPV6_SEP);
     final StringBuilder normalizedAddress = new StringBuilder();
     for (final String part : parts)
      {
-      normalizedAddress.append("0000".substring(part.length())).append(part).append(':'); //$NON-NLS-1$
+      normalizedAddress.append(ValidationUtils.IPV6_ZERO_BLOCK.substring(part.length())).append(part).append(':');
      }
     normalizedAddress.setLength(normalizedAddress.length() - 1);
     return normalizedAddress.toString();
@@ -496,7 +528,7 @@ public final class ValidationUtils
      {
       return true;
      }
-    final String[] blocks = expandedAddress.split(":"); //$NON-NLS-1$
+    final String[] blocks = expandedAddress.split(ValidationUtils.IPV6_SEP);
     return ("00fc".equals(blocks[0]) || "00fd".equals(blocks[0])); // Unique Local Unicast //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -522,7 +554,7 @@ public final class ValidationUtils
      {
       return true;
      }
-    final String[] blocks = expandedAddress.split(":"); //$NON-NLS-1$
+    final String[] blocks = expandedAddress.split(ValidationUtils.IPV6_SEP);
     return ("00ff".equals(blocks[0])); // Multicast //$NON-NLS-1$
    }
 

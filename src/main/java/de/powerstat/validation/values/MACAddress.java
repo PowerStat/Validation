@@ -21,6 +21,36 @@ import java.util.regex.Pattern;
 public final class MACAddress implements Comparable<MACAddress>
  {
   /**
+   * Hex 00.
+   */
+  private static final String H00 = "00"; //$NON-NLS-1$
+
+  /**
+   * Hex 01.
+   */
+  private static final String H01 = "01"; //$NON-NLS-1$
+
+  /**
+   * Hex 33.
+   */
+  private static final String H33 = "33"; //$NON-NLS-1$
+
+  /**
+   * Hex 5e.
+   */
+  private static final String H5E = "5e"; //$NON-NLS-1$
+
+  /**
+   * Hex ff.
+   */
+  private static final String HFF = "ff"; //$NON-NLS-1$
+
+  /**
+   * Byte separator.
+   */
+  private static final String SEPARATOR = ":"; //$NON-NLS-1$
+
+  /**
    * IP V6 regexp.
    */
   private static final Pattern IPV6_REGEXP = Pattern.compile("^[0-9a-f]{2}([:-]?[0-9a-f]{2}){5}$"); //$NON-NLS-1$
@@ -84,7 +114,7 @@ public final class MACAddress implements Comparable<MACAddress>
      {
       throw new IllegalArgumentException("Illegal delimiter length"); //$NON-NLS-1$
      }
-    if (!delimiter.isEmpty() && !":".equals(delimiter) && !"-".equals(delimiter)) //$NON-NLS-1$ //$NON-NLS-2$
+    if (!delimiter.isEmpty() && !MACAddress.SEPARATOR.equals(delimiter) && !"-".equals(delimiter)) //$NON-NLS-1$
      {
       throw new IllegalArgumentException("Illegal delimiter character"); //$NON-NLS-1$
      }
@@ -99,7 +129,7 @@ public final class MACAddress implements Comparable<MACAddress>
    */
   public boolean isBroadcast()
    {
-    return "ff".equals(this.parts[0]) && "ff".equals(this.parts[1]) && "ff".equals(this.parts[2]) && "ff".equals(this.parts[3]) && "ff".equals(this.parts[4]) && "ff".equals(this.parts[5]); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+    return MACAddress.HFF.equals(this.parts[0]) && MACAddress.HFF.equals(this.parts[1]) && MACAddress.HFF.equals(this.parts[2]) && MACAddress.HFF.equals(this.parts[3]) && MACAddress.HFF.equals(this.parts[4]) && MACAddress.HFF.equals(this.parts[5]);
    }
 
 
@@ -132,7 +162,7 @@ public final class MACAddress implements Comparable<MACAddress>
    */
   public boolean isIPV4Multicast()
    {
-    return "01".equals(this.parts[0]) && "00".equals(this.parts[1]) &&  "5e".equals(this.parts[2]) && ((Integer.parseInt(this.parts[3], 16) & 0x80) == 0); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    return MACAddress.H01.equals(this.parts[0]) && MACAddress.H00.equals(this.parts[1]) && MACAddress.H5E.equals(this.parts[2]) && ((Integer.parseInt(this.parts[3], 16) & 0x80) == 0);
    }
 
 
@@ -143,7 +173,7 @@ public final class MACAddress implements Comparable<MACAddress>
    */
   public boolean isIPV6Multicast()
    {
-    return "33".equals(this.parts[0]) && "33".equals(this.parts[1]); //$NON-NLS-1$ //$NON-NLS-2$
+    return MACAddress.H33.equals(this.parts[0]) && MACAddress.H33.equals(this.parts[1]);
    }
 
 
@@ -154,7 +184,7 @@ public final class MACAddress implements Comparable<MACAddress>
    */
   public boolean isVRRP()
    {
-    return "00".equals(this.parts[0]) && "00".equals(this.parts[1]) && "5e".equals(this.parts[2]) && "00".equals(this.parts[3]) && "01".equals(this.parts[4]); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+    return MACAddress.H00.equals(this.parts[0]) && MACAddress.H00.equals(this.parts[1]) && MACAddress.H5E.equals(this.parts[2]) && MACAddress.H00.equals(this.parts[3]) && MACAddress.H01.equals(this.parts[4]);
    }
 
 
@@ -221,7 +251,7 @@ public final class MACAddress implements Comparable<MACAddress>
   public String toString()
    {
     final StringBuilder builder = new StringBuilder(21);
-    builder.append("MACAddress[address=").append(String.join(":", this.parts)).append(']'); //$NON-NLS-1$ //$NON-NLS-2$
+    builder.append("MACAddress[address=").append(String.join(MACAddress.SEPARATOR, this.parts)).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 

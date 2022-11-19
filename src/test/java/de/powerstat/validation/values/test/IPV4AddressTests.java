@@ -31,6 +31,11 @@ public class IPV4AddressTests
   private static final String PRIVATE_IP_192_168_1_1 = "192.168.1.1"; //$NON-NLS-1$
 
   /**
+   * Private ip address 192.168.1.2.
+   */
+  private static final String PRIVATE_IP_192_168_1_2 = "192.168.1.2"; //$NON-NLS-1$
+
+  /**
    * Error message: address is not private.
    */
   private static final String ADDRESS_IS_NOT_PRIVATE = "Address is not private"; //$NON-NLS-1$
@@ -39,6 +44,16 @@ public class IPV4AddressTests
    * Error message: address is not special.
    */
   private static final String ADDRESS_IS_NOT_SPECIAL = "Address is not special"; //$NON-NLS-1$
+
+  /**
+   * Address is not public.
+   */
+  private static final String ADDRESS_IS_NOT_PUBLIC = "Address is not public"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
 
 
   /**
@@ -59,7 +74,7 @@ public class IPV4AddressTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final IPV4Address address = */ IPV4Address.of("256.0.0.0"); //$NON-NLS-1$
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, IPV4AddressTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -87,7 +102,7 @@ public class IPV4AddressTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final IPV4Address address = */ IPV4Address.of("255.255.255.255."); //$NON-NLS-1$
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, IPV4AddressTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -101,7 +116,7 @@ public class IPV4AddressTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final IPV4Address address = */ IPV4Address.of("0.0.0."); //$NON-NLS-1$
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, IPV4AddressTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -121,6 +136,20 @@ public class IPV4AddressTests
 
 
   /**
+   * Test if ip v4 is not private.
+   *
+   * @param ipv4 IP V4 address string
+   */
+  @ParameterizedTest
+  @ValueSource(strings = {"172.15.0.0", "172.32.0.0", "192.167.0.0", "169.253.0.0"})
+  public void isNotPrivate(final String ipv4)
+   {
+    final IPV4Address address = IPV4Address.of(ipv4);
+    assertFalse(address.isPrivate(), "Address is private"); //$NON-NLS-1$
+   }
+
+
+  /**
    * Test if ip v4 is special.
    *
    * @param ipv4 IP V4 address
@@ -135,24 +164,41 @@ public class IPV4AddressTests
 
 
   /**
+   * Test if ip v4 is not special.
+   *
+   * @param ipv4 IP V4 address
+   */
+  @ParameterizedTest
+  @ValueSource(strings = {"223.0.0.0", "198.17.0.0", "198.20.0.0", "100.63.0.0", "100.128.0.0", "192.0.1.0", "192.88.98.0", "198.51.99.0", "203.0.112.0", "203.1.113.0"})
+  public void isNotSpecial(final String ipv4)
+   {
+    final IPV4Address address = IPV4Address.of(ipv4);
+    assertFalse(address.isSpecial(), "Address is special"); //$NON-NLS-1$
+   }
+
+
+  /**
    * Test if ip v4 is public.
    */
   @Test
   public void isPublic0()
    {
     final IPV4Address address = IPV4Address.of("8.8.8.8"); //$NON-NLS-1$
-    assertTrue(address.isPublic(), "Address is not public"); //$NON-NLS-1$
+    assertTrue(address.isPublic(), IPV4AddressTests.ADDRESS_IS_NOT_PUBLIC);
    }
 
 
   /**
    * Test if ip v4 is not public.
+   *
+   * @param adr IP V4 address
    */
-  @Test
-  public void isNotPublic0()
+  @ParameterizedTest
+  @ValueSource(strings = {"192.168.0.1", "127.0.0.0"})
+  public void isNotPublic0(final String adr)
    {
-    final IPV4Address address = IPV4Address.of("192.168.0.1"); //$NON-NLS-1$
-    assertFalse(address.isPublic(), "Address is not public"); //$NON-NLS-1$
+    final IPV4Address address = IPV4Address.of(adr);
+    assertFalse(address.isPublic(), IPV4AddressTests.ADDRESS_IS_NOT_PUBLIC);
    }
 
 
@@ -175,7 +221,7 @@ public class IPV4AddressTests
    {
     final IPV4Address address1 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
     final IPV4Address address2 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    final IPV4Address address3 = IPV4Address.of("192.168.1.2"); //$NON-NLS-1$
+    final IPV4Address address3 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_2);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(address1.hashCode(), address2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(address1.hashCode(), address3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -191,7 +237,7 @@ public class IPV4AddressTests
    {
     final IPV4Address address1 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
     final IPV4Address address2 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    final IPV4Address address3 = IPV4Address.of("192.168.1.2"); //$NON-NLS-1$
+    final IPV4Address address3 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_2);
     final IPV4Address address4 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(address1.equals(address1), "address11 is not equal"), //$NON-NLS-1$
@@ -225,7 +271,7 @@ public class IPV4AddressTests
    {
     final IPV4Address address1 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
     final IPV4Address address2 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    final IPV4Address address3 = IPV4Address.of("192.168.1.2"); //$NON-NLS-1$
+    final IPV4Address address3 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_2);
     final IPV4Address address4 = IPV4Address.of("192.168.1.3"); //$NON-NLS-1$
     final IPV4Address address5 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
     assertAll("testCompareTo", //$NON-NLS-1$

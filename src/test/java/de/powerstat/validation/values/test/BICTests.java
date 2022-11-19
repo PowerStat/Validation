@@ -26,9 +26,24 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class BICTests
  {
   /**
+   * Illegal argument exception expected.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * BIC not as expected.
+   */
+  private static final String BIC_NOT_AS_EXPECTED = "BIC not as expected"; //$NON-NLS-1$
+
+  /**
    * BIC for tests.
    */
   private static final String BIC_BELADEBEXXX = "BELADEBEXXX"; //$NON-NLS-1$
+
+  /**
+   * BIC for tests.
+   */
+  private static final String BIC_RZTIAT22263 = "RZTIAT22263"; //$NON-NLS-1$
 
 
   /**
@@ -50,7 +65,7 @@ public class BICTests
   public void bicCorrect(final String bic)
    {
     final BIC cleanBic = BIC.of(bic);
-    assertEquals(bic, cleanBic.getBIC(), "BIC not as expected"); //$NON-NLS-1$
+    assertEquals(bic, cleanBic.getBIC(), BICTests.BIC_NOT_AS_EXPECTED);
    }
 
 
@@ -66,7 +81,7 @@ public class BICTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final BIC cleanBic = */ BIC.of(bic);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, BICTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -83,7 +98,7 @@ public class BICTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final BIC cleanBic = */ BIC.of(bic);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, BICTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -95,7 +110,7 @@ public class BICTests
   public void getBic()
    {
     final BIC bic = BIC.of(BICTests.BIC_BELADEBEXXX);
-    assertEquals(BICTests.BIC_BELADEBEXXX, bic.getBIC(), "BIC not as expected"); //$NON-NLS-1$
+    assertEquals(BICTests.BIC_BELADEBEXXX, bic.getBIC(), BICTests.BIC_NOT_AS_EXPECTED);
    }
 
 
@@ -107,7 +122,7 @@ public class BICTests
    {
     final BIC bic1 = BIC.of(BICTests.BIC_BELADEBEXXX);
     final BIC bic2 = BIC.of(BICTests.BIC_BELADEBEXXX);
-    final BIC bic3 = BIC.of("RZTIAT22263"); //$NON-NLS-1$
+    final BIC bic3 = BIC.of(BICTests.BIC_RZTIAT22263);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(bic1.hashCode(), bic2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(bic1.hashCode(), bic3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -123,7 +138,7 @@ public class BICTests
    {
     final BIC bic1 = BIC.of(BICTests.BIC_BELADEBEXXX);
     final BIC bic2 = BIC.of(BICTests.BIC_BELADEBEXXX);
-    final BIC bic3 = BIC.of("RZTIAT22263"); //$NON-NLS-1$
+    final BIC bic3 = BIC.of(BICTests.BIC_RZTIAT22263);
     final BIC bic4 = BIC.of(BICTests.BIC_BELADEBEXXX);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(bic1.equals(bic1), "bic11 is not equal"), //$NON-NLS-1$
@@ -157,7 +172,7 @@ public class BICTests
    {
     final BIC bic1 = BIC.of(BICTests.BIC_BELADEBEXXX);
     final BIC bic2 = BIC.of(BICTests.BIC_BELADEBEXXX);
-    final BIC bic3 = BIC.of("RZTIAT22263"); //$NON-NLS-1$
+    final BIC bic3 = BIC.of(BICTests.BIC_RZTIAT22263);
     final BIC bic4 = BIC.of("UBSWCHZH80A"); //$NON-NLS-1$
     final BIC bic5 = BIC.of(BICTests.BIC_BELADEBEXXX);
     assertAll("testCompareTo", //$NON-NLS-1$

@@ -30,6 +30,21 @@ public class CityTests
    */
   private static final String BREMEN = "Bremen"; //$NON-NLS-1$
 
+  /**
+   * Hannover.
+   */
+  private static final String HANNOVER = "Hannover"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * City not as expected.
+   */
+  private static final String CITY_NOT_AS_EXPECTED = "City not as expected"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -50,7 +65,7 @@ public class CityTests
   public void cityCorrect(final String city)
    {
     final City cleanCity = City.of(city);
-    assertEquals(city, cleanCity.getCity(), "City not as expected"); //$NON-NLS-1$
+    assertEquals(city, cleanCity.getCity(), CityTests.CITY_NOT_AS_EXPECTED);
    }
 
 
@@ -66,7 +81,7 @@ public class CityTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final City cleanCity = */ City.of(city);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, CityTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -83,7 +98,7 @@ public class CityTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final City cleanCity = */ City.of(city);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, CityTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -95,7 +110,7 @@ public class CityTests
   public void getCity()
    {
     final City city = City.of(CityTests.BREMEN);
-    assertEquals(CityTests.BREMEN, city.getCity(), "City not as expected"); //$NON-NLS-1$
+    assertEquals(CityTests.BREMEN, city.getCity(), CityTests.CITY_NOT_AS_EXPECTED);
    }
 
 
@@ -107,7 +122,7 @@ public class CityTests
    {
     final City city1 = City.of(CityTests.BREMEN);
     final City city2 = City.of(CityTests.BREMEN);
-    final City city3 = City.of("Hannover"); //$NON-NLS-1$
+    final City city3 = City.of(CityTests.HANNOVER);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(city1.hashCode(), city2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(city1.hashCode(), city3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -123,7 +138,7 @@ public class CityTests
    {
     final City city1 = City.of(CityTests.BREMEN);
     final City city2 = City.of(CityTests.BREMEN);
-    final City city3 = City.of("Hannover"); //$NON-NLS-1$
+    final City city3 = City.of(CityTests.HANNOVER);
     final City city4 = City.of(CityTests.BREMEN);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(city1.equals(city1), "city11 is not equal"), //$NON-NLS-1$
@@ -158,7 +173,7 @@ public class CityTests
     final City city1 = City.of(CityTests.BREMEN);
     final City city2 = City.of(CityTests.BREMEN);
     final City city3 = City.of("Hamburg"); //$NON-NLS-1$
-    final City city4 = City.of("Hannover"); //$NON-NLS-1$
+    final City city4 = City.of(CityTests.HANNOVER);
     final City city5 = City.of(CityTests.BREMEN);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(city1.compareTo(city2) == -city2.compareTo(city1), "reflexive1"), //$NON-NLS-1$

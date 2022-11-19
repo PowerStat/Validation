@@ -29,6 +29,21 @@ public class SubBuildingTests
    */
   private static final String FLOOR_13_APART_0815 = "Floor 13, Apart. 0815"; //$NON-NLS-1$
 
+  /**
+   * Floor 99.
+   */
+  private static final String FLOOR_99 = "Floor 99"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * SubBuilding not as expected constant.
+   */
+  private static final String SUB_BUILDING_NOT_AS_EXPECTED = "SubBuilding not as expected"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -49,7 +64,7 @@ public class SubBuildingTests
   public void subBuildingCorrect(final String subBuilding)
    {
     final SubBuilding cleanSubBuilding = SubBuilding.of(subBuilding);
-    assertEquals(subBuilding, cleanSubBuilding.getSubBuilding(), "SubBuilding not as expected"); //$NON-NLS-1$
+    assertEquals(subBuilding, cleanSubBuilding.getSubBuilding(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
    }
 
 
@@ -65,7 +80,7 @@ public class SubBuildingTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final SubBuilding cleanSubBuilding = */ SubBuilding.of(subBuilding);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, SubBuildingTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -82,7 +97,7 @@ public class SubBuildingTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final SubBuilding cleanSubBuilding = */ SubBuilding.of(subBuilding);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, SubBuildingTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -94,7 +109,7 @@ public class SubBuildingTests
   public void getSubBuilding()
    {
     final SubBuilding subBuilding = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    assertEquals(SubBuildingTests.FLOOR_13_APART_0815, subBuilding.getSubBuilding(), "SubBuilding not as expected"); //$NON-NLS-1$
+    assertEquals(SubBuildingTests.FLOOR_13_APART_0815, subBuilding.getSubBuilding(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
    }
 
 
@@ -106,7 +121,7 @@ public class SubBuildingTests
    {
     final SubBuilding subBuilding1 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
     final SubBuilding subBuilding2 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    final SubBuilding subBuilding3 = SubBuilding.of("Floor 99"); //$NON-NLS-1$
+    final SubBuilding subBuilding3 = SubBuilding.of(SubBuildingTests.FLOOR_99);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(subBuilding1.hashCode(), subBuilding2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(subBuilding1.hashCode(), subBuilding3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -122,7 +137,7 @@ public class SubBuildingTests
    {
     final SubBuilding subBuilding1 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
     final SubBuilding subBuilding2 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    final SubBuilding subBuilding3 = SubBuilding.of("Floor 99"); //$NON-NLS-1$
+    final SubBuilding subBuilding3 = SubBuilding.of(SubBuildingTests.FLOOR_99);
     final SubBuilding subBuilding4 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(subBuilding1.equals(subBuilding1), "subBulding11 is not equal"), //$NON-NLS-1$
@@ -156,7 +171,7 @@ public class SubBuildingTests
    {
     final SubBuilding subBuilding1 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
     final SubBuilding subBuilding2 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    final SubBuilding subBuilding3 = SubBuilding.of("Floor 99"); //$NON-NLS-1$
+    final SubBuilding subBuilding3 = SubBuilding.of(SubBuildingTests.FLOOR_99);
     final SubBuilding subBuilding4 = SubBuilding.of("Floor XIII"); //$NON-NLS-1$
     final SubBuilding subBuilding5 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
     assertAll("testCompareTo", //$NON-NLS-1$

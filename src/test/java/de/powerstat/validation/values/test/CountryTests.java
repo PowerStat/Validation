@@ -26,6 +26,27 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class CountryTests
  {
   /**
+   * FR france.
+   */
+  private static final String FR = "FR"; //$NON-NLS-1$
+
+  /**
+   * DE germany.
+   */
+  private static final String DE = "DE"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * Country code not as expected.
+   */
+  private static final String COUNTRY_CODE_NOT_AS_EXPECTED = "Country code not as expected"; //$NON-NLS-1$
+
+
+  /**
    * Default constructor.
    */
   public CountryTests()
@@ -40,11 +61,11 @@ public class CountryTests
    * @param alpha2 Alpha-2 code
    */
   @ParameterizedTest
-  @ValueSource(strings = {"DE"})
+  @ValueSource(strings = {CountryTests.DE})
   public void countryOk0(final String alpha2)
    {
     final Country cleanCountry = Country.of(alpha2);
-    assertEquals(alpha2, cleanCountry.getCountry(), "Country code not as expected"); //$NON-NLS-1$
+    assertEquals(alpha2, cleanCountry.getCountry(), CountryTests.COUNTRY_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -60,7 +81,7 @@ public class CountryTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Country cleanCountry = */ Country.of(alpha2);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, CountryTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -77,7 +98,7 @@ public class CountryTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Country cleanCountry = */ Country.of(alpha2);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, CountryTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -88,8 +109,8 @@ public class CountryTests
   @Test
   public void getCountry()
    {
-    final Country country = Country.of("DE"); //$NON-NLS-1$
-    assertEquals("DE", country.getCountry(), "Country code not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    final Country country = Country.of(CountryTests.DE);
+    assertEquals(CountryTests.DE, country.getCountry(), CountryTests.COUNTRY_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -99,9 +120,9 @@ public class CountryTests
   @Test
   public void testHashCode()
    {
-    final Country country1 = Country.of("DE"); //$NON-NLS-1$
-    final Country country2 = Country.of("DE"); //$NON-NLS-1$
-    final Country country3 = Country.of("FR"); //$NON-NLS-1$
+    final Country country1 = Country.of(CountryTests.DE);
+    final Country country2 = Country.of(CountryTests.DE);
+    final Country country3 = Country.of(CountryTests.FR);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(country1.hashCode(), country2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(country1.hashCode(), country3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -115,10 +136,10 @@ public class CountryTests
   @Test
   public void testEquals()
    {
-    final Country country1 = Country.of("DE"); //$NON-NLS-1$
-    final Country country2 = Country.of("DE"); //$NON-NLS-1$
-    final Country country3 = Country.of("FR"); //$NON-NLS-1$
-    final Country country4 = Country.of("DE"); //$NON-NLS-1$
+    final Country country1 = Country.of(CountryTests.DE);
+    final Country country2 = Country.of(CountryTests.DE);
+    final Country country3 = Country.of(CountryTests.FR);
+    final Country country4 = Country.of(CountryTests.DE);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(country1.equals(country1), "country11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(country1.equals(country2), "country12 are not equal"), //$NON-NLS-1$
@@ -138,7 +159,7 @@ public class CountryTests
   @Test
   public void testToString()
    {
-    final Country country = Country.of("DE"); //$NON-NLS-1$
+    final Country country = Country.of(CountryTests.DE);
     assertEquals("Country[alpha2=DE]", country.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -149,11 +170,11 @@ public class CountryTests
   @Test
   public void testCompareTo()
    {
-    final Country country1 = Country.of("DE"); //$NON-NLS-1$
-    final Country country2 = Country.of("DE"); //$NON-NLS-1$
-    final Country country3 = Country.of("FR"); //$NON-NLS-1$
+    final Country country1 = Country.of(CountryTests.DE);
+    final Country country2 = Country.of(CountryTests.DE);
+    final Country country3 = Country.of(CountryTests.FR);
     final Country country4 = Country.of("GB"); //$NON-NLS-1$
-    final Country country5 = Country.of("DE"); //$NON-NLS-1$
+    final Country country5 = Country.of(CountryTests.DE);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(country1.compareTo(country2) == -country2.compareTo(country1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(country1.compareTo(country3) == -country3.compareTo(country1), "reflexive2"), //$NON-NLS-1$

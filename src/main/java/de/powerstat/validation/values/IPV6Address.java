@@ -29,6 +29,26 @@ public final class IPV6Address implements Comparable<IPV6Address>
   private static final Pattern IPV6_REGEXP = Pattern.compile("^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$"); //$NON-NLS-1$
 
   /**
+   * IPV6 zero block.
+   */
+  private static final String BLOCK_ZERO = "0000"; //$NON-NLS-1$
+
+  /**
+   * Hex output format.
+   */
+  private static final String HEX_OUTPUT = "%02x"; //$NON-NLS-1$
+
+  /**
+   * IPV6 block expansion.
+   */
+  private static final String IPV6_EXP = "::"; //$NON-NLS-1$
+
+  /**
+   * IPV6 block separator.
+   */
+  private static final String IV6_SEP = ":"; //$NON-NLS-1$
+
+  /**
    * IP V6 address.
    */
   private final String address;
@@ -63,7 +83,7 @@ public final class IPV6Address implements Comparable<IPV6Address>
      }
     expandedAddress = normalizeIPV6Address(expandedAddress);
     this.address = expandedAddress;
-    this.blocks = expandedAddress.split(":"); //$NON-NLS-1$
+    this.blocks = expandedAddress.split(IPV6Address.IV6_SEP);
    }
 
 
@@ -77,7 +97,6 @@ public final class IPV6Address implements Comparable<IPV6Address>
    */
   private static String expandIPV4Address(final String address)
    {
-    assert address != null;
     final int ipv4pos = address.indexOf('.');
     if (ipv4pos == -1)
      {
@@ -92,7 +111,7 @@ public final class IPV6Address implements Comparable<IPV6Address>
       final int block2 = Integer.parseInt(parts[1]);
       final int block3 = Integer.parseInt(parts[2]);
       final int block4 = Integer.parseInt(parts[3]);
-      return newAddress + Integer.toHexString(block1) + String.format("%02x", block2) + ':' + Integer.toHexString(block3) + String.format("%02x", block4); //$NON-NLS-1$ //$NON-NLS-2$
+    return newAddress + Integer.toHexString(block1) + String.format(IPV6Address.HEX_OUTPUT, block2) + ':' + Integer.toHexString(block3) + String.format(IPV6Address.HEX_OUTPUT, block4);
    }
 
 
@@ -127,13 +146,12 @@ public final class IPV6Address implements Comparable<IPV6Address>
    */
   private static String expandExpansionBlock(final String address)
    {
-    assert address != null;
-    final int expPos = address.indexOf("::"); //$NON-NLS-1$
+    final int expPos = address.indexOf(IPV6Address.IPV6_EXP);
     if ((expPos == -1))
      {
       return address;
      }
-    if (address.indexOf("::", expPos + 1) != -1) //$NON-NLS-1$
+    if (address.indexOf(IPV6Address.IPV6_EXP, expPos + 1) != -1)
      {
       throw new IllegalArgumentException("Not an IP V6 address (more than one expansion block)"); //$NON-NLS-1$
      }
@@ -155,7 +173,7 @@ public final class IPV6Address implements Comparable<IPV6Address>
      }
     while (blocks > 0)
      {
-      replace.append("0000"); //$NON-NLS-1$
+      replace.append(IPV6Address.BLOCK_ZERO);
       --blocks;
       if (blocks > 0)
        {
@@ -178,12 +196,11 @@ public final class IPV6Address implements Comparable<IPV6Address>
    */
   private static String normalizeIPV6Address(final String address)
    {
-    assert address != null;
-    final String[] parts = address.split(":"); //$NON-NLS-1$
+    final String[] parts = address.split(IPV6Address.IV6_SEP);
     final StringBuilder normalizedAddress = new StringBuilder();
     for (final String part : parts)
      {
-      normalizedAddress.append("0000".substring(part.length())).append(part).append(':'); //$NON-NLS-1$
+      normalizedAddress.append(IPV6Address.BLOCK_ZERO.substring(part.length())).append(part).append(':');
      }
     normalizedAddress.setLength(normalizedAddress.length() - 1);
     return normalizedAddress.toString();

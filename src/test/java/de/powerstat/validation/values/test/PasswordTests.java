@@ -32,6 +32,21 @@ public class PasswordTests
    */
   private static final String PASSWORD = "password"; //$NON-NLS-1$
 
+  /**
+   * Password 2.
+   */
+  private static final String PASSWORD22 = "password2"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * Password not as expected constant.
+   */
+  private static final String PASSWORD_NOT_AS_EXPECTED = "Password not as expected"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -52,7 +67,7 @@ public class PasswordTests
   public void passwordOk0(final String password)
    {
     final Password cleanPassword = Password.of(password);
-    assertTrue(cleanPassword.verifyPassword(password), "Password not as expected"); //$NON-NLS-1$
+    assertTrue(cleanPassword.verifyPassword(password), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
    }
 
 
@@ -79,7 +94,7 @@ public class PasswordTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Password cleanPassword = */ Password.of(password);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, PasswordTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -94,7 +109,7 @@ public class PasswordTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Password cleanPassword = */ Password.of(strategy, "\"€"); //$NON-NLS-1$
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, PasswordTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -106,7 +121,7 @@ public class PasswordTests
   public void getPassword()
    {
     final Password password = Password.of(PasswordTests.PASSWORD);
-    assertEquals(PasswordTests.PASSWORD, password.getPassword(), "Password not as expected"); //$NON-NLS-1$
+    assertEquals(PasswordTests.PASSWORD, password.getPassword(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
    }
 
 
@@ -118,7 +133,7 @@ public class PasswordTests
    {
     final Password password1 = Password.of(PasswordTests.PASSWORD);
     final Password password2 = Password.of(PasswordTests.PASSWORD);
-    final Password password3 = Password.of("password2"); //$NON-NLS-1$
+    final Password password3 = Password.of(PasswordTests.PASSWORD22);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(password1.hashCode(), password2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(password1.hashCode(), password3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -134,7 +149,7 @@ public class PasswordTests
    {
     final Password password1 = Password.of(PasswordTests.PASSWORD);
     final Password password2 = Password.of(PasswordTests.PASSWORD);
-    final Password password3 = Password.of("password2"); //$NON-NLS-1$
+    final Password password3 = Password.of(PasswordTests.PASSWORD22);
     final Password password4 = Password.of(PasswordTests.PASSWORD);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(password1.equals(password1), "password11 is not equal"), //$NON-NLS-1$
@@ -168,7 +183,7 @@ public class PasswordTests
    {
     final Password password1 = Password.of(PasswordTests.PASSWORD);
     final Password password2 = Password.of(PasswordTests.PASSWORD);
-    final Password password3 = Password.of("password2"); //$NON-NLS-1$
+    final Password password3 = Password.of(PasswordTests.PASSWORD22);
     final Password password4 = Password.of("password3"); //$NON-NLS-1$
     final Password password5 = Password.of(PasswordTests.PASSWORD);
     assertAll("testCompareTo", //$NON-NLS-1$

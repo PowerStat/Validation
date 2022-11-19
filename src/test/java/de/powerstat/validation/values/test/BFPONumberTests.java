@@ -26,6 +26,12 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class BFPONumberTests
  {
   /**
+   * Not a BFPONumber constant.
+   */
+  private static final String NOT_A_BFPO_NUMBER = "Not a BFPONumber!"; //$NON-NLS-1$
+
+
+  /**
    * Default constructor.
    */
   public BFPONumberTests()
@@ -43,7 +49,7 @@ public class BFPONumberTests
   @ValueSource(ints = {1, 2035})
   public void isBFPONumber(final int bFPONumber)
    {
-    assertEquals(bFPONumber, BFPONumber.of(bFPONumber).getBFPONumber(), "Not a BFPONumber!"); //$NON-NLS-1$
+    assertEquals(bFPONumber, BFPONumber.of(bFPONumber).getBFPONumber(), BFPONumberTests.NOT_A_BFPO_NUMBER);
    }
 
 
@@ -56,7 +62,7 @@ public class BFPONumberTests
   @ValueSource(ints = {1, 2035})
   public void isBFPONumberStr(final int bFPONumber)
    {
-    assertEquals(Integer.toString(bFPONumber), BFPONumber.of(bFPONumber).getBFPONumberStr(), "Not a BFPONumber!"); //$NON-NLS-1$
+    assertEquals(Integer.toString(bFPONumber), BFPONumber.of(bFPONumber).getBFPONumberStr(), BFPONumberTests.NOT_A_BFPO_NUMBER);
    }
 
 

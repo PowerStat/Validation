@@ -51,11 +51,53 @@ public class WGS84PositionTests
    * Is not a WGS84 position.
    */
   @Test
-  public void isNotWGS84Position()
+  public void isNotWGS84Position1()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
-      /* final WGS84Position pos = */ WGS84Position.of(-90.1, 90.1, 0.0);
+      /* final WGS84Position pos = */ WGS84Position.of(-90.1, 0.0, 0.0);
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Is not a WGS84 position.
+   */
+  @Test
+  public void isNotWGS84Position2()
+   {
+    assertThrows(IndexOutOfBoundsException.class, () ->
+     {
+      /* final WGS84Position pos = */ WGS84Position.of(90.1, 0.0, 0.0);
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Is not a WGS84 position.
+   */
+  @Test
+  public void isNotWGS84Position3()
+   {
+    assertThrows(IndexOutOfBoundsException.class, () ->
+     {
+      /* final WGS84Position pos = */ WGS84Position.of(0.0, -180.1, 0.0);
+     }, "Index out of bounds exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Is not a WGS84 position.
+   */
+  @Test
+  public void isNotWGS84Position4()
+   {
+    assertThrows(IndexOutOfBoundsException.class, () ->
+     {
+      /* final WGS84Position pos = */ WGS84Position.of(0.0, 180.1, 0.0);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
@@ -101,6 +143,22 @@ public class WGS84PositionTests
 
 
   /**
+   * Test not equals.
+   */
+  @Test
+  public void testNotEquals()
+   {
+    final WGS84Position pos1 = WGS84Position.of(0.0, 0.0, 0.0);
+    final WGS84Position pos2 = WGS84Position.of(0.0, 0.0, 0.1);
+    final WGS84Position pos3 = WGS84Position.of(0.0, 0.1, 0.0);
+    assertAll("testNotEquals", //$NON-NLS-1$
+      () -> assertFalse(pos1.equals(pos2), "pos12 is equal"), //$NON-NLS-1$
+      () -> assertFalse(pos1.equals(pos3), "pos13 is equal") //$NON-NLS-1$
+    );
+   }
+
+
+  /**
    * Test toString.
    */
   @Test
@@ -128,6 +186,20 @@ public class WGS84PositionTests
       () -> assertTrue((pos4.compareTo(pos3) > 0) && (pos3.compareTo(pos1) > 0) && (pos4.compareTo(pos1) > 0), "transitive1"), //$NON-NLS-1$
       () -> assertTrue((pos1.compareTo(pos2) == 0) && (Math.abs(pos1.compareTo(pos5)) == Math.abs(pos2.compareTo(pos5))), "sgn1"), //$NON-NLS-1$
       () -> assertTrue((pos1.compareTo(pos2) == 0) && pos1.equals(pos2), "equals") //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test not compareTo.
+   */
+  @Test
+  public void testNotCompareTo()
+   {
+    final WGS84Position pos1 = WGS84Position.of(0.0, 0.0, 0.0);
+    final WGS84Position pos2 = WGS84Position.of(0.0, 150.0, 0.0);
+    assertAll("testNotCompareTo", //$NON-NLS-1$
+      () -> assertTrue(pos1.compareTo(pos2) != 0, "equal") //$NON-NLS-1$
     );
    }
 

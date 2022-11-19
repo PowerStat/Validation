@@ -26,6 +26,27 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class LanguageTests
  {
   /**
+   * FR france.
+   */
+  private static final String FR = "fr"; //$NON-NLS-1$
+
+  /**
+   * DE germany.
+   */
+  private static final String DE = "de"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * Language code not as expected constant.
+   */
+  private static final String LANGUAGE_CODE_NOT_AS_EXPECTED = "Language code not as expected"; //$NON-NLS-1$
+
+
+  /**
    * Default constructor.
    */
   public LanguageTests()
@@ -40,11 +61,11 @@ public class LanguageTests
    * @param code 639-1 code
    */
   @ParameterizedTest
-  @ValueSource(strings = {"de"})
+  @ValueSource(strings = {LanguageTests.DE})
   public void languageOk0(final String code)
    {
     final Language cleanLanguage = Language.of(code);
-    assertEquals(code, cleanLanguage.getLanguage(), "Language code not as expected"); //$NON-NLS-1$
+    assertEquals(code, cleanLanguage.getLanguage(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -60,7 +81,7 @@ public class LanguageTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Language cleanLanguage = */ Language.of(code);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, LanguageTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -77,7 +98,7 @@ public class LanguageTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Language cleanLanguage = */ Language.of(code);
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, LanguageTests.ILLEGAL_ARGUMENT
     );
    }
 
@@ -88,8 +109,8 @@ public class LanguageTests
   @Test
   public void getLanguage()
    {
-    final Language language = Language.of("de"); //$NON-NLS-1$
-    assertEquals("de", language.getLanguage(), "Language code not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    final Language language = Language.of(LanguageTests.DE);
+    assertEquals(LanguageTests.DE, language.getLanguage(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -99,9 +120,9 @@ public class LanguageTests
   @Test
   public void testHashCode()
    {
-    final Language language1 = Language.of("de"); //$NON-NLS-1$
-    final Language language2 = Language.of("de"); //$NON-NLS-1$
-    final Language language3 = Language.of("fr"); //$NON-NLS-1$
+    final Language language1 = Language.of(LanguageTests.DE);
+    final Language language2 = Language.of(LanguageTests.DE);
+    final Language language3 = Language.of(LanguageTests.FR);
     assertAll("testHashCode", //$NON-NLS-1$
       () -> assertEquals(language1.hashCode(), language2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
       () -> assertNotEquals(language1.hashCode(), language3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
@@ -115,10 +136,10 @@ public class LanguageTests
   @Test
   public void testEquals()
    {
-    final Language language1 = Language.of("de"); //$NON-NLS-1$
-    final Language language2 = Language.of("de"); //$NON-NLS-1$
-    final Language language3 = Language.of("fr"); //$NON-NLS-1$
-    final Language language4 = Language.of("de"); //$NON-NLS-1$
+    final Language language1 = Language.of(LanguageTests.DE);
+    final Language language2 = Language.of(LanguageTests.DE);
+    final Language language3 = Language.of(LanguageTests.FR);
+    final Language language4 = Language.of(LanguageTests.DE);
     assertAll("testEquals", //$NON-NLS-1$
       () -> assertTrue(language1.equals(language1), "language11 is not equal"), //$NON-NLS-1$
       () -> assertTrue(language1.equals(language2), "language12 are not equal"), //$NON-NLS-1$
@@ -138,7 +159,7 @@ public class LanguageTests
   @Test
   public void testToString()
    {
-    final Language language = Language.of("de"); //$NON-NLS-1$
+    final Language language = Language.of(LanguageTests.DE);
     assertEquals("Language[code=de]", language.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -149,11 +170,11 @@ public class LanguageTests
   @Test
   public void testCompareTo()
    {
-    final Language language1 = Language.of("de"); //$NON-NLS-1$
-    final Language language2 = Language.of("de"); //$NON-NLS-1$
+    final Language language1 = Language.of(LanguageTests.DE);
+    final Language language2 = Language.of(LanguageTests.DE);
     final Language language3 = Language.of("en"); //$NON-NLS-1$
-    final Language language4 = Language.of("fr"); //$NON-NLS-1$
-    final Language language5 = Language.of("de"); //$NON-NLS-1$
+    final Language language4 = Language.of(LanguageTests.FR);
+    final Language language5 = Language.of(LanguageTests.DE);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(language1.compareTo(language2) == -language2.compareTo(language1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(language1.compareTo(language3) == -language3.compareTo(language1), "reflexive2"), //$NON-NLS-1$
