@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -53,8 +53,21 @@ public final class IPV6Mask implements Comparable<IPV6Mask>
    * Get prefix length.
    *
    * @return Prefix length (0-128)
+   * @deprecated Use intValue() instead
    */
+  @Deprecated
   public int getLength()
+   {
+    return this.length;
+   }
+
+
+  /**
+   * Returns the value of this IPV6Mask as an int.
+   *
+   * @return The numeric value represented by this object after conversion to type int (0-128).
+   */
+  public int intValue()
    {
     return this.length;
    }

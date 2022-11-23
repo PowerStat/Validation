@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -13,6 +13,9 @@ import java.util.Objects;
  * Not DSGVO relevant.
  *
  * TODO Constructor with year
+ * TODO nextWeek, previousWeek
+ * TODO week + weeks
+ * TODO Listener
  */
 public final class Week implements Comparable<Week>
  {
@@ -55,8 +58,21 @@ public final class Week implements Comparable<Week>
    * Get week.
    *
    * @return Week
+   * @deprecated Use intValue() instead
    */
+  @Deprecated
   public int getWeek()
+   {
+    return this.week;
+   }
+
+
+  /**
+   * Returns the value of this Week as an int.
+   *
+   * @return The numeric value represented by this object after conversion to type int.
+   */
+  public int intValue()
    {
     return this.week;
    }

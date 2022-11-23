@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -65,8 +65,21 @@ public final class City implements Comparable<City>
    * Get city string.
    *
    * @return City string
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getCity()
+   {
+    return this.city;
+   }
+
+
+  /**
+   * Returns the value of this City as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
    {
     return this.city;
    }

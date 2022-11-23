@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -70,8 +70,21 @@ public final class Lines implements Comparable<Lines>
    * Get lines string.
    *
    * @return Lines string
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getLines()
+   {
+    return this.lines;
+   }
+
+
+  /**
+   *Returns the value of this Lines as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
    {
     return this.lines;
    }

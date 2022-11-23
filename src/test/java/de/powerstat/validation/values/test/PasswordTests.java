@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -78,7 +78,7 @@ public class PasswordTests
   public void passwordWrongValidation()
    {
     final Password cleanPassword = Password.of(PasswordTests.PASSWORD);
-    assertFalse(cleanPassword.verifyPassword("wrongPassword"), "Password verification not as expected"); //$NON-NLS-1$
+    assertFalse(cleanPassword.verifyPassword("wrongPassword"), "Password verification not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -121,7 +121,7 @@ public class PasswordTests
   public void getPassword()
    {
     final Password password = Password.of(PasswordTests.PASSWORD);
-    assertEquals(PasswordTests.PASSWORD, password.getPassword(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
+    assertEquals(PasswordTests.PASSWORD, password.stringValue(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
    }
 
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -65,7 +65,7 @@ public class BICTests
   public void bicCorrect(final String bic)
    {
     final BIC cleanBic = BIC.of(bic);
-    assertEquals(bic, cleanBic.getBIC(), BICTests.BIC_NOT_AS_EXPECTED);
+    assertEquals(bic, cleanBic.stringValue(), BICTests.BIC_NOT_AS_EXPECTED);
    }
 
 
@@ -110,7 +110,7 @@ public class BICTests
   public void getBic()
    {
     final BIC bic = BIC.of(BICTests.BIC_BELADEBEXXX);
-    assertEquals(BICTests.BIC_BELADEBEXXX, bic.getBIC(), BICTests.BIC_NOT_AS_EXPECTED);
+    assertEquals(BICTests.BIC_BELADEBEXXX, bic.stringValue(), BICTests.BIC_NOT_AS_EXPECTED);
    }
 
 

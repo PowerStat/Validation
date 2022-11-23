@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
+
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -64,7 +65,7 @@ public class PostalCodeTests
   public void postalCodeCorrect(final String postalCode)
    {
     final PostalCode cleanBic = PostalCode.of(postalCode);
-    assertEquals(postalCode, cleanBic.getPostalCode(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);
+    assertEquals(postalCode, cleanBic.stringValue(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -109,7 +110,7 @@ public class PostalCodeTests
   public void getPostalCode()
    {
     final PostalCode postalCode = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    assertEquals(PostalCodeTests.POSTCODE_28000, postalCode.getPostalCode(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);
+    assertEquals(PostalCodeTests.POSTCODE_28000, postalCode.stringValue(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);
    }
 
 

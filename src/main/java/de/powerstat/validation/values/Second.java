@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -14,6 +14,8 @@ import java.util.Objects;
  *
    * TODO Constructor with day, month, year, hour, minute
    * TODO nextSecond, previousSecond
+ * TODO second + seconds
+ * TODO Listener  (mod 60 = 0)
  */
 public final class Second implements Comparable<Second>
  {
@@ -56,8 +58,21 @@ public final class Second implements Comparable<Second>
    * Get second.
    *
    * @return Second
+   * @deprecated Use intValue() instead
    */
+  @Deprecated
   public int getSecond()
+   {
+    return this.second;
+   }
+
+
+  /**
+   * Returns the value of this Second as an int.
+   *
+   * @return The numeric value represented by this object after conversion to type int.
+   */
+  public int intValue()
    {
     return this.second;
    }

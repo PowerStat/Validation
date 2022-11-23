@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
+
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -70,7 +71,7 @@ public class GregorianDateTests
    {
     final String[] dateParts = date.split(GregorianDateTests.SEPARATOR);
     final GregorianDate cleanDate = GregorianDate.of(Year.of(Long.parseLong(dateParts[0])), Month.of(Integer.parseInt(dateParts[1])), Day.of(Integer.parseInt(dateParts[2])));
-    assertEquals(date, cleanDate.getDate(), GregorianDateTests.DATE_NOT_AS_EXPECTED);
+    assertEquals(date, cleanDate.stringValue(), GregorianDateTests.DATE_NOT_AS_EXPECTED);
    }
 
 
@@ -99,7 +100,7 @@ public class GregorianDateTests
   public void getDate()
    {
     final GregorianDate date = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
-    assertEquals("2020-07-14", date.getDate(), GregorianDateTests.DATE_NOT_AS_EXPECTED); //$NON-NLS-1$
+    assertEquals("2020-07-14", date.stringValue(), GregorianDateTests.DATE_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 

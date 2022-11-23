@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -43,7 +43,7 @@ public class SecondTests
   @ValueSource(ints = {0, 59, 60})
   public void isSecond(final int second)
    {
-    assertEquals(second, Second.of(second).getSecond(), "Not a second!"); //$NON-NLS-1$
+    assertEquals(second, Second.of(second).intValue(), "Not a second!"); //$NON-NLS-1$
    }
 
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -53,8 +53,21 @@ public final class BFPONumber implements Comparable<BFPONumber>
    * Get bFPONumber.
    *
    * @return BFPONumber
+   * @deprecated Use intValue() instead.
    */
+  @Deprecated
   public int getBFPONumber()
+   {
+    return this.bFPONumber;
+   }
+
+
+  /**
+   * Returns the value of this BFPONumber as an int.
+   *
+   * @return The numeric value represented by this object after conversion to type int.
+   */
+  public int intValue()
    {
     return this.bFPONumber;
    }
@@ -64,8 +77,21 @@ public final class BFPONumber implements Comparable<BFPONumber>
    * Get bFPONumber as string.
    *
    * @return BFPONumber as string
+   * @deprecated Use stringValue() instead.
    */
+  @Deprecated
   public String getBFPONumberStr()
+   {
+    return Integer.toString(this.bFPONumber);
+   }
+
+
+  /**
+   * Returns the value of this BFPONumber as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
    {
     return Integer.toString(this.bFPONumber);
    }

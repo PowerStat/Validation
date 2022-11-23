@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -65,7 +65,7 @@ public class BlockTests
   public void blockCorrect(final String block)
    {
     final Block cleanBlock = Block.of(block);
-    assertEquals(block, cleanBlock.getBlock(), BlockTests.BLOCK_NOT_AS_EXPECTED);
+    assertEquals(block, cleanBlock.stringValue(), BlockTests.BLOCK_NOT_AS_EXPECTED);
    }
 
 
@@ -110,7 +110,7 @@ public class BlockTests
   public void getBlock()
    {
     final Block block = Block.of(BlockTests.BLOCKA);
-    assertEquals(BlockTests.BLOCKA, block.getBlock(), BlockTests.BLOCK_NOT_AS_EXPECTED);
+    assertEquals(BlockTests.BLOCKA, block.stringValue(), BlockTests.BLOCK_NOT_AS_EXPECTED);
    }
 
 

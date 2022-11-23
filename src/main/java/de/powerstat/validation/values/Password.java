@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -95,8 +95,21 @@ public final class Password implements Comparable<Password>
    * Get password string.
    *
    * @return Password string
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getPassword()
+   {
+    return this.passwd;
+   }
+
+
+  /**
+   * Returns the value of this Password as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
    {
     return this.passwd;
    }

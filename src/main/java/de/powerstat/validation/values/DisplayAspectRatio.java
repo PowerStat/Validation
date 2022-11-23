@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -87,8 +87,21 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>
    * Get aspect ratio string (x:y).
    *
    * @return Aspect ration string (x:y)
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getAspectRatio()
+   {
+    return String.valueOf(this.x) + ':' + this.y;
+   }
+
+
+  /**
+   * Returns the value of this DisplayAspectRatio as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
    {
     return String.valueOf(this.x) + ':' + this.y;
    }

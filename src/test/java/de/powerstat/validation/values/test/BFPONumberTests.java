@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -49,7 +49,7 @@ public class BFPONumberTests
   @ValueSource(ints = {1, 2035})
   public void isBFPONumber(final int bFPONumber)
    {
-    assertEquals(bFPONumber, BFPONumber.of(bFPONumber).getBFPONumber(), BFPONumberTests.NOT_A_BFPO_NUMBER);
+    assertEquals(bFPONumber, BFPONumber.of(bFPONumber).intValue(), BFPONumberTests.NOT_A_BFPO_NUMBER);
    }
 
 
@@ -62,7 +62,7 @@ public class BFPONumberTests
   @ValueSource(ints = {1, 2035})
   public void isBFPONumberStr(final int bFPONumber)
    {
-    assertEquals(Integer.toString(bFPONumber), BFPONumber.of(bFPONumber).getBFPONumberStr(), BFPONumberTests.NOT_A_BFPO_NUMBER);
+    assertEquals(Integer.toString(bFPONumber), BFPONumber.of(bFPONumber).stringValue(), BFPONumberTests.NOT_A_BFPO_NUMBER);
    }
 
 

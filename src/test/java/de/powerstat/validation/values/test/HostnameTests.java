@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -80,7 +80,7 @@ public class HostnameTests
   public void hostnameOk0(final String hostname)
    {
     final Hostname cleanHostname = Hostname.of(hostname);
-    assertEquals(hostname, cleanHostname.getHostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
+    assertEquals(hostname, cleanHostname.stringValue(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -91,7 +91,7 @@ public class HostnameTests
   public void hostnameOk1()
    {
     final Hostname cleanHostname = Hostname.of("::"); //$NON-NLS-1$
-    assertEquals("0000:0000:0000:0000:0000:0000:0000:0000", cleanHostname.getHostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED); //$NON-NLS-1$
+    assertEquals("0000:0000:0000:0000:0000:0000:0000:0000", cleanHostname.stringValue(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 
@@ -136,7 +136,7 @@ public class HostnameTests
   public void getHostname()
    {
     final Hostname hostname = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
-    assertEquals(HostnameTests.PRIVATE_IP_192_168_1_1, hostname.getHostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
+    assertEquals(HostnameTests.PRIVATE_IP_192_168_1_1, hostname.stringValue(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -168,7 +168,7 @@ public class HostnameTests
   @Test
   public void getReverseHostname3()
    {
-    final Hostname hostname = Hostname.of("www.example.com");
+    final Hostname hostname = Hostname.of("www.example.com"); //$NON-NLS-1$
     assertEquals("com.example.www", hostname.getReverseHostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 

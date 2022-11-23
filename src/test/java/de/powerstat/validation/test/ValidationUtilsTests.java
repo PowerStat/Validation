@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2019-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.test;
 
@@ -88,7 +88,7 @@ public final class ValidationUtilsTests
   /**
    * Hostname.
    */
-  private static final String WWW_POWERSTAT_DE = "www.powerstat.de";
+  private static final String WWW_POWERSTAT_DE = "www.powerstat.de"; //$NON-NLS-1$
 
   /**
    * Google dns.
@@ -145,7 +145,7 @@ public final class ValidationUtilsTests
     assertThrows(StringIndexOutOfBoundsException.class, () ->
      {
       /* final String cleanHostname = */ ValidationUtils.checkHostname(hostname);
-     }, "String index out of bounds exception expected"
+     }, "String index out of bounds exception expected" //$NON-NLS-1$
     );
    }
 
@@ -260,7 +260,7 @@ public final class ValidationUtilsTests
     assertThrows(NullPointerException.class, () ->
      {
       ValidationUtils.isIPV4(null);
-     }, "Null pointer exception expected"
+     }, "Null pointer exception expected" //$NON-NLS-1$
     );
    }
 

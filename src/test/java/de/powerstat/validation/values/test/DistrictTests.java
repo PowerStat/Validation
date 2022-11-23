@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -65,7 +65,7 @@ public class DistrictTests
   public void districtCorrect(final String district)
    {
     final District cleanDistrict = District.of(district);
-    assertEquals(district, cleanDistrict.getDistrict(), DistrictTests.DISTRICT_NOT_AS_EXPECTED);
+    assertEquals(district, cleanDistrict.stringValue(), DistrictTests.DISTRICT_NOT_AS_EXPECTED);
    }
 
 
@@ -110,7 +110,7 @@ public class DistrictTests
   public void getDistrict()
    {
     final District district = District.of(DistrictTests.DISTRICT9);
-    assertEquals(DistrictTests.DISTRICT9, district.getDistrict(), DistrictTests.DISTRICT_NOT_AS_EXPECTED);
+    assertEquals(DistrictTests.DISTRICT9, district.stringValue(), DistrictTests.DISTRICT_NOT_AS_EXPECTED);
    }
 
 

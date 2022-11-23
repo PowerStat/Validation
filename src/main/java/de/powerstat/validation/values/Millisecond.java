@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -11,6 +11,9 @@ import java.util.Objects;
  * Millisecond.
  *
  * Not DSGVO relevant.
+ *
+ * TODO millisecond + milliseconds
+ * TODO Listener
  */
 public final class Millisecond implements Comparable<Millisecond>
  {
@@ -53,8 +56,21 @@ public final class Millisecond implements Comparable<Millisecond>
    * Get millisecond.
    *
    * @return Millisecond (0-999)
+   * @deprecated Ise intValue instead
    */
+  @Deprecated
   public int getMillisecond()
+   {
+    return this.millisecond;
+   }
+
+
+  /**
+   * Returns the value of this Millisecond as an int.
+   *
+   * @return The numeric value represented by this object after conversion to type int (0-999).
+   */
+  public int intValue()
    {
     return this.millisecond;
    }

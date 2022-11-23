@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -93,8 +93,21 @@ public final class ScreenSize implements Comparable<ScreenSize>
    * Get size string.
    *
    * @return Size string format 1x1
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getSize()
+   {
+    return String.valueOf(this.width) + 'x' + this.height;
+   }
+
+
+  /**
+   * Returns the value of this ScreenSize as a string.
+   *
+   * @return The text value represented by this object after conversion to type string format 320x200.
+   */
+  public String stringValue()
    {
     return String.valueOf(this.width) + 'x' + this.height;
    }

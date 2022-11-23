@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
+
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -64,7 +65,7 @@ public class StreetTests
   public void streetCorrect(final String street)
    {
     final Street cleanStreet = Street.of(street);
-    assertEquals(street, cleanStreet.getStreet(), StreetTests.STREET_NOT_AS_EXPECTED);
+    assertEquals(street, cleanStreet.stringValue(), StreetTests.STREET_NOT_AS_EXPECTED);
    }
 
 
@@ -109,7 +110,7 @@ public class StreetTests
   public void getStreet()
    {
     final Street street = Street.of(StreetTests.HEMELINGER_HEERSTR);
-    assertEquals(StreetTests.HEMELINGER_HEERSTR, street.getStreet(), StreetTests.STREET_NOT_AS_EXPECTED);
+    assertEquals(StreetTests.HEMELINGER_HEERSTR, street.stringValue(), StreetTests.STREET_NOT_AS_EXPECTED);
    }
 
 

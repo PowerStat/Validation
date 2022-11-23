@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -43,7 +43,7 @@ public class SecondsTests
   @ValueSource(longs = {0, 120})
   public void isSeconds(final long seconds)
    {
-    assertEquals(seconds, Seconds.of(seconds).getSeconds(), "Not a seconds!"); //$NON-NLS-1$
+    assertEquals(seconds, Seconds.of(seconds).longValue(), "Not a seconds!"); //$NON-NLS-1$
    }
 
 
@@ -131,6 +131,166 @@ public class SecondsTests
       () -> assertTrue((seconds4.compareTo(seconds3) > 0) && (seconds3.compareTo(seconds1) > 0) && (seconds4.compareTo(seconds1) > 0), "transitive1"), //$NON-NLS-1$
       () -> assertTrue((seconds1.compareTo(seconds2) == 0) && (Math.abs(seconds1.compareTo(seconds5)) == Math.abs(seconds2.compareTo(seconds5))), "sgn1"), //$NON-NLS-1$
       () -> assertTrue((seconds1.compareTo(seconds2) == 0) && seconds1.equals(seconds2), "equals") //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test add.
+   */
+  @Test
+  public void testAdd1()
+   {
+    final Seconds seconds1 = Seconds.of(1);
+    final Seconds seconds2 = Seconds.of(1);
+    final Seconds secondsResult = seconds1.add(seconds2);
+    assertEquals(2, secondsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test add.
+   */
+  @Test
+  public void testAdd2()
+   {
+    final Seconds seconds1 = Seconds.of(Long.MAX_VALUE);
+    final Seconds seconds2 = Seconds.of(1);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Seconds secondsResult = */ seconds1.add(seconds2);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test substract.
+   */
+  @Test
+  public void testSubstract1()
+   {
+    final Seconds seconds1 = Seconds.of(6);
+    final Seconds seconds2 = Seconds.of(3);
+    final Seconds secondsResult = seconds1.subtract(seconds2);
+    assertEquals(3, secondsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test substract.
+   */
+  @Test
+  public void testSubstract2()
+   {
+    final Seconds seconds1 = Seconds.of(3);
+    final Seconds seconds2 = Seconds.of(6);
+    final Seconds secondsResult = seconds1.subtract(seconds2);
+    assertEquals(3, secondsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test multiply.
+   */
+  @Test
+  public void testMultiply1()
+   {
+    final Seconds seconds1 = Seconds.of(7);
+    final Seconds secondsResult = seconds1.multiply(3);
+    assertEquals(21, secondsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test multiply.
+   */
+  @Test
+  public void testMultiply2()
+   {
+    final Seconds seconds1 = Seconds.of(Long.MAX_VALUE / 2);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Seconds yearsResult = */ seconds1.multiply(3);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testDivide1()
+   {
+    final Seconds seconds1 = Seconds.of(10);
+    final Seconds secondsResult = seconds1.divide(2);
+    assertEquals(5, secondsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testDivide2()
+   {
+    final Seconds seconds1 = Seconds.of(10);
+    final Seconds secondsResult = seconds1.divide(3);
+    assertEquals(3, secondsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testDivide3()
+   {
+    final Seconds seconds1 = Seconds.of(10);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Seconds yearsResult = */ seconds1.divide(0);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testModulo1()
+   {
+    final Seconds seconds1 = Seconds.of(10);
+    final Seconds secondsResult = seconds1.modulo(2);
+    assertEquals(0, secondsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testModulo2()
+   {
+    final Seconds seconds1 = Seconds.of(10);
+    final Seconds secondsResult = seconds1.modulo(3);
+    assertEquals(1, secondsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testModulo3()
+   {
+    final Seconds seconds1 = Seconds.of(10);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Seconds secondsResult = */ seconds1.modulo(0);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
     );
    }
 

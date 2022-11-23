@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -41,7 +41,7 @@ public class PortTests
   public void isPort()
    {
     final Port port = Port.of(49152);
-    assertEquals(49152, port.getPort(), "Port shoukd be 49152!"); //$NON-NLS-1$
+    assertEquals(49152, port.intValue(), "Port shoukd be 49152!"); //$NON-NLS-1$
    }
 
 

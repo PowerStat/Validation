@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -15,9 +15,9 @@ import java.util.Objects;
  * TODO next day
  * TODO previous day
  * TODO add x days
- * TODO sub x days
+ * TODO subtract x days
  * TODO add days, months, years
- * TODO sub days, months, years
+ * TODO subtract days, months, years
  * TODO getJD
  * TODO getMJD
  * TODO getWeekday
@@ -75,7 +75,7 @@ public final class GregorianDate implements Comparable<GregorianDate>
     Objects.requireNonNull(year, "year"); //$NON-NLS-1$
     Objects.requireNonNull(month, "month"); //$NON-NLS-1$
     Objects.requireNonNull(day, "day"); //$NON-NLS-1$
-    if (day.getDay() > calendar.daysInMonth(year, month)) // TODO Does not work for gregorian reform month
+    if (day.intValue() > calendar.daysInMonth(year, month)) // TODO Does not work for gregorian reform month
      {
       throw new IllegalArgumentException("Day does not exists in month"); //$NON-NLS-1$
      }
@@ -119,10 +119,23 @@ public final class GregorianDate implements Comparable<GregorianDate>
    * Get date string ISO8601 format.
    *
    * @return GregorianDate string in ISO8601 format with - as separator
+   * @deprecated Us stringValue() instead
    */
+  @Deprecated
   public String getDate()
    {
     return String.format("%04d", this.year.getYear()) + GregorianDate.DATE_SEP + String.format(GregorianDate.OUTPUT_FORMAT, this.month.getMonth()) + GregorianDate.DATE_SEP + String.format(GregorianDate.OUTPUT_FORMAT, this.day.getDay()); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Returns the value of this GregorianDate as a string.
+   *
+   * @return The text value represented by this object after conversion to type string in ISO8601 format with - as separator.
+   */
+  public String stringValue()
+   {
+    return String.format("%04d", this.year.longValue()) + GregorianDate.DATE_SEP + String.format(GregorianDate.OUTPUT_FORMAT, this.month.intValue()) + GregorianDate.DATE_SEP + String.format(GregorianDate.OUTPUT_FORMAT, this.day.intValue()); //$NON-NLS-1$
    }
 
 
@@ -187,7 +200,7 @@ public final class GregorianDate implements Comparable<GregorianDate>
   public String toString()
    {
     final StringBuilder builder = new StringBuilder(30);
-    builder.append("GregorianDate[country=").append(this.calendar.getCountry().getCountry()).append(", date=").append(getDate()).append(']'); //$NON-NLS-1$ //$NON-NLS-2$
+    builder.append("GregorianDate[country=").append(this.calendar.getCountry().stringValue()).append(", date=").append(getDate()).append(']'); //$NON-NLS-1$ //$NON-NLS-2$
     return builder.toString();
    }
 
@@ -226,9 +239,9 @@ public final class GregorianDate implements Comparable<GregorianDate>
    */
   public static GregorianDate easter(final GregorianCalendar calendar, final Year year)
    {
-    final long a = year.getYear() % 19;
-    final long b = year.getYear() / 100;
-    final long c = year.getYear() % 100;
+    final long a = year.longValue() % 19;
+    final long b = year.longValue() / 100;
+    final long c = year.longValue() % 100;
     final long d = ((((19 * a) + b) - (b / 4) - (((b - ((b + 8) / 25)) + 1) / 3)) + 15) % 30;
     final long e  = ((32 + (2 * (b % 4)) + (2 * (c / 4))) - d - (c % 4)) % 7;
     final long f = ((d + e) - (7 * ((a + (11 * d) + (22 * e)) / 451))) + 114;

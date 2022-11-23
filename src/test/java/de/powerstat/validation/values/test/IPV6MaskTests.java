@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -79,7 +79,7 @@ public class IPV6MaskTests
    {
     final IPV6Mask mask = IPV6Mask.of(0);
     assertAll("constructorSuccess0", //$NON-NLS-1$
-      () -> assertEquals(0, mask.getLength(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL)
+      () -> assertEquals(0, mask.intValue(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL)
     );
    }
 
@@ -92,7 +92,7 @@ public class IPV6MaskTests
    {
     final IPV6Mask mask = IPV6Mask.of(128);
     assertAll("constructorSuccess1", //$NON-NLS-1$
-      () -> assertEquals(128, mask.getLength(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL)
+      () -> assertEquals(128, mask.intValue(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL)
     );
    }
 

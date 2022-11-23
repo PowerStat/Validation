@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -67,8 +67,21 @@ public final class Street implements Comparable<Street>
    * Get street string.
    *
    * @return Street string
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getStreet()
+   {
+    return this.street;
+   }
+
+
+  /**
+   * Returns the value of this Street as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
    {
     return this.street;
    }

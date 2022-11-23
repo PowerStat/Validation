@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -209,7 +209,7 @@ public class IPV4AddressTests
   public void getAddress()
    {
     final IPV4Address address = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    assertEquals(IPV4AddressTests.PRIVATE_IP_192_168_1_1, address.getAddress(), "Address not as expected"); //$NON-NLS-1$
+    assertEquals(IPV4AddressTests.PRIVATE_IP_192_168_1_1, address.stringValue(), "Address not as expected"); //$NON-NLS-1$
    }
 
 

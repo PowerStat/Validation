@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -42,7 +42,7 @@ public class DisplayAspectRatioTests
     assertAll("testAspectRatio", //$NON-NLS-1$
       () -> assertEquals(1, ratio.getX(), "x ratio not as expected"), //$NON-NLS-1$
       () -> assertEquals(1, ratio.getY(), "y ratio not as expected"), //$NON-NLS-1$
-      () -> assertEquals("1:1", ratio.getAspectRatio(), "aspect ratio not as expected") //$NON-NLS-1$ //$NON-NLS-2$
+      () -> assertEquals("1:1", ratio.stringValue(), "aspect ratio not as expected") //$NON-NLS-1$ //$NON-NLS-2$
     );
    }
 

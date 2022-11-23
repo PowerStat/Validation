@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -15,6 +15,8 @@ import java.util.Objects;
  * TODO Constructor with day, month
  * TODO Constructor with day, month, year
  * TODO nextDay, previousDay
+ * TODO day + days, day - days?
+ * TODO Listener
  */
 public final class Day implements Comparable<Day>
  {
@@ -57,8 +59,21 @@ public final class Day implements Comparable<Day>
    * Get day.
    *
    * @return Day
+   * @deprecated Use intValue() instead
    */
+  @Deprecated
   public int getDay()
+   {
+    return this.day;
+   }
+
+
+  /**
+   * Returns the value of this Day as an int.
+   *
+   * @return The numeric value represented by this object after conversion to type int.
+   */
+  public int intValue()
    {
     return this.day;
    }

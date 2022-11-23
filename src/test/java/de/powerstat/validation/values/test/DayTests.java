@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -43,7 +43,7 @@ public class DayTests
   @ValueSource(ints = {1, 31})
   public void isDay(final int day)
    {
-    assertEquals(day, Day.of(day).getDay(), "Not a day!"); //$NON-NLS-1$
+    assertEquals(day, Day.of(day).intValue(), "Not a day!"); //$NON-NLS-1$
    }
 
 

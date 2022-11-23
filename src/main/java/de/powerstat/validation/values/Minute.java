@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -13,6 +13,8 @@ import java.util.Objects;
  * Not DSGVO relevant.
  *
  * TODO nextMinute, previousMinute
+ * TODO minute + minutes
+ * TODO Listener
  */
 public final class Minute implements Comparable<Minute>
  {
@@ -55,8 +57,21 @@ public final class Minute implements Comparable<Minute>
    * Get minute.
    *
    * @return Minute
+   * @deprecated Use intValue() instead
    */
+  @Deprecated
   public int getMinute()
+   {
+    return this.minute;
+   }
+
+
+  /**
+   * Returns the value of this Minute as an int.
+   *
+   * @return The numeric value represented by this object after conversion to type int.
+   */
+  public int intValue()
    {
     return this.minute;
    }

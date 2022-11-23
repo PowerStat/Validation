@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
+
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -69,7 +70,7 @@ public class ProvinceTests
   public void provinceCorrect(final String province)
    {
     final Province cleanProvince = Province.of(province);
-    assertEquals(province, cleanProvince.getProvince(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
+    assertEquals(province, cleanProvince.stringValue(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
    }
 
 
@@ -114,7 +115,7 @@ public class ProvinceTests
   public void getProvince()
    {
     final Province province = Province.of(ProvinceTests.ABCD);
-    assertEquals(ProvinceTests.ABCD, province.getProvince(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
+    assertEquals(ProvinceTests.ABCD, province.stringValue(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
    }
 
 

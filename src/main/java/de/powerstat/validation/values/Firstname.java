@@ -68,8 +68,21 @@ public final class Firstname implements Comparable<Firstname>
    * Get firstname string.
    *
    * @return Firstname string
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getFirstname()
+   {
+    return this.firstname;
+   }
+
+
+  /**
+   * Returns the value of this Firstname as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
    {
     return this.firstname;
    }

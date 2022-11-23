@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -113,7 +113,7 @@ public class MACAddressTests
   public void getAddress1()
    {
     final MACAddress address = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
-    assertEquals(MACAddressTests.MAC_00_00_00_00_00_00, address.getAddress(":"), MACAddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
+    assertEquals(MACAddressTests.MAC_00_00_00_00_00_00, address.stringValue(":"), MACAddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 
@@ -124,7 +124,7 @@ public class MACAddressTests
   public void getAddress2()
    {
     final MACAddress address = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
-    assertEquals("00-00-00-00-00-00", address.getAddress("-"), MACAddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$ //$NON-NLS-2$
+    assertEquals("00-00-00-00-00-00", address.stringValue("-"), MACAddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -135,7 +135,7 @@ public class MACAddressTests
   public void getAddress3()
    {
     final MACAddress address = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
-    assertEquals(MACAddressTests.MAC_ZERO, address.getAddress(""), MACAddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
+    assertEquals(MACAddressTests.MAC_ZERO, address.stringValue(""), MACAddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 
@@ -151,7 +151,7 @@ public class MACAddressTests
     final MACAddress address = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
     assertThrows(IllegalArgumentException.class, () ->
      {
-      assertEquals(MACAddressTests.MAC_ZERO, address.getAddress(delimiter), MACAddressTests.ADDRESS_NOT_AS_EXPECTED);
+      assertEquals(MACAddressTests.MAC_ZERO, address.stringValue(delimiter), MACAddressTests.ADDRESS_NOT_AS_EXPECTED);
      }, MACAddressTests.ILLEGAL_ARGUMENT
     );
    }
@@ -308,7 +308,7 @@ public class MACAddressTests
   public void getOUI()
    {
     final MACAddress address = MACAddress.of("00:07:e9:00:00:00"); //$NON-NLS-1$
-    assertEquals("0007E9", address.getOUI(), "OUI is not as expected"); //$NON-NLS-1$
+    assertEquals("0007E9", address.getOUI(), "OUI is not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

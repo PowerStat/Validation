@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -75,8 +75,21 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>
    * Get top level domain string.
    *
    * @return Top level domain string
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getTopLevelDomain()
+   {
+    return this.topLevelDomain;
+   }
+
+
+  /**
+   * Returns the value of this TopLevelDomain as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
    {
     return this.topLevelDomain;
    }

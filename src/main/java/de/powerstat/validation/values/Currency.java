@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -73,8 +73,21 @@ public final class Currency implements Comparable<Currency>
    * Get currency code string.
    *
    * @return Currency code string
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getCurrency()
+   {
+    return this.code;
+   }
+
+
+  /**
+   * Returns the value of this Currency as a ISO 4217 string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
    {
     return this.code;
    }

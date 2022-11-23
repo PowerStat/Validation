@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
+
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,7 +43,7 @@ public class HoursTests
   @ValueSource(longs = {0, 48})
   public void isHours(final long hours)
    {
-    assertEquals(hours, Hours.of(hours).getHours(), "Not a hours!"); //$NON-NLS-1$
+    assertEquals(hours, Hours.of(hours).longValue(), "Not a hours!"); //$NON-NLS-1$
    }
 
 
@@ -130,6 +131,166 @@ public class HoursTests
       () -> assertTrue((hours4.compareTo(hours3) > 0) && (hours3.compareTo(hours1) > 0) && (hours4.compareTo(hours1) > 0), "transitive1"), //$NON-NLS-1$
       () -> assertTrue((hours1.compareTo(hours2) == 0) && (Math.abs(hours1.compareTo(hours5)) == Math.abs(hours2.compareTo(hours5))), "sgn1"), //$NON-NLS-1$
       () -> assertTrue((hours1.compareTo(hours2) == 0) && hours1.equals(hours2), "equals") //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test add.
+   */
+  @Test
+  public void testAdd1()
+   {
+    final Hours hours1 = Hours.of(1);
+    final Hours hours2 = Hours.of(1);
+    final Hours hoursResult = hours1.add(hours2);
+    assertEquals(2, hoursResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test add.
+   */
+  @Test
+  public void testAdd2()
+   {
+    final Hours hours1 = Hours.of(Long.MAX_VALUE);
+    final Hours hours2 = Hours.of(1);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Hours hoursResult = */ hours1.add(hours2);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test substract.
+   */
+  @Test
+  public void testSubstract1()
+   {
+    final Hours hours1 = Hours.of(6);
+    final Hours hours2 = Hours.of(3);
+    final Hours hoursResult = hours1.subtract(hours2);
+    assertEquals(3, hoursResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test substract.
+   */
+  @Test
+  public void testSubstract2()
+   {
+    final Hours hours1 = Hours.of(3);
+    final Hours hours2 = Hours.of(6);
+    final Hours hoursResult = hours1.subtract(hours2);
+    assertEquals(3, hoursResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test multiply.
+   */
+  @Test
+  public void testMultiply1()
+   {
+    final Hours hours1 = Hours.of(7);
+    final Hours hoursResult = hours1.multiply(3);
+    assertEquals(21, hoursResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test multiply.
+   */
+  @Test
+  public void testMultiply2()
+   {
+    final Hours hours1 = Hours.of(Long.MAX_VALUE / 2);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Hours hoursResult = */ hours1.multiply(3);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testDivide1()
+   {
+    final Hours hours1 = Hours.of(10);
+    final Hours hoursResult = hours1.divide(2);
+    assertEquals(5, hoursResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testDivide2()
+   {
+    final Hours hours1 = Hours.of(10);
+    final Hours hoursResult = hours1.divide(3);
+    assertEquals(3, hoursResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testDivide3()
+   {
+    final Hours hours1 = Hours.of(10);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Hours hoursResult = */ hours1.divide(0);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testModulo1()
+   {
+    final Hours hours1 = Hours.of(10);
+    final Hours hoursResult = hours1.modulo(2);
+    assertEquals(0, hoursResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testModulo2()
+   {
+    final Hours hours1 = Hours.of(10);
+    final Hours hoursResult = hours1.modulo(3);
+    assertEquals(1, hoursResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testModulo3()
+   {
+    final Hours hours1 = Hours.of(10);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Hours hoursResult = */ hours1.modulo(0);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
     );
    }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -106,7 +106,9 @@ public final class MACAddress implements Comparable<MACAddress>
    *
    * @param delimiter Delimiter could be empty, : or -
    * @return MACAddress string
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getAddress(final String delimiter)
    {
     Objects.requireNonNull(delimiter, "delimiter"); //$NON-NLS-1$
@@ -119,6 +121,38 @@ public final class MACAddress implements Comparable<MACAddress>
       throw new IllegalArgumentException("Illegal delimiter character"); //$NON-NLS-1$
      }
     return String.join(delimiter, this.parts);
+   }
+
+
+  /**
+   * Returns the value of this MACAddress as a string.
+   *
+   * @param delimiter Delimiter could be empty, : or -
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue(final String delimiter)
+   {
+    Objects.requireNonNull(delimiter, "delimiter"); //$NON-NLS-1$
+    if (delimiter.length() > 1)
+     {
+      throw new IllegalArgumentException("Illegal delimiter length"); //$NON-NLS-1$
+     }
+    if (!delimiter.isEmpty() && !MACAddress.SEPARATOR.equals(delimiter) && !"-".equals(delimiter)) //$NON-NLS-1$
+     {
+      throw new IllegalArgumentException("Illegal delimiter character"); //$NON-NLS-1$
+     }
+    return String.join(delimiter, this.parts);
+   }
+
+
+  /**
+   * Returns the value of this MACADdress as a string with delimiter ':'.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
+   {
+    return stringValue(":"); //$NON-NLS-1$
    }
 
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -13,6 +13,8 @@ import java.util.Objects;
  * Not DSGVO relevant.
  *
  * TODO nextHour, previousHour
+ * TODO hour + hours
+ * TODO Listener
  */
 public final class Hour implements Comparable<Hour>
  {
@@ -55,8 +57,21 @@ public final class Hour implements Comparable<Hour>
    * Get hour.
    *
    * @return Hour
+   * @deprecated Use intValue() instead
    */
+  @Deprecated
   public int getHour()
+   {
+    return this.hour;
+   }
+
+
+  /**
+   * Returns the value of this Hour as an int.
+   *
+   * @return The numeric value represented by this object after conversion to type int.
+   */
+  public int intValue()
    {
     return this.hour;
    }

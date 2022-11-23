@@ -117,8 +117,21 @@ public final class EMail implements Comparable<EMail>
    * Get email string.
    *
    * @return EMail string
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getEMail()
+   {
+    return this.email;
+   }
+
+
+  /**
+   * Returns the value of this EMail as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
    {
     return this.email;
    }
@@ -131,7 +144,7 @@ public final class EMail implements Comparable<EMail>
    */
   public String getDomainPart()
    {
-    return this.domainPart.getHostname();
+    return this.domainPart.stringValue();
    }
 
 

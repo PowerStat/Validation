@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -43,7 +43,7 @@ public class MonthsTests
   @ValueSource(longs = {0, 1, 24})
   public void isMonths(final long months)
    {
-    assertEquals(months, Months.of(months).getMonths(), "Not a months!"); //$NON-NLS-1$
+    assertEquals(months, Months.of(months).longValue(), "Not a months!"); //$NON-NLS-1$
    }
 
 
@@ -131,6 +131,166 @@ public class MonthsTests
       () -> assertTrue((months4.compareTo(months3) > 0) && (months3.compareTo(months1) > 0) && (months4.compareTo(months1) > 0), "transitive1"), //$NON-NLS-1$
       () -> assertTrue((months1.compareTo(months2) == 0) && (Math.abs(months1.compareTo(months5)) == Math.abs(months2.compareTo(months5))), "sgn1"), //$NON-NLS-1$
       () -> assertTrue((months1.compareTo(months2) == 0) && months1.equals(months2), "equals") //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test add.
+   */
+  @Test
+  public void testAdd1()
+   {
+    final Months months1 = Months.of(1);
+    final Months months2 = Months.of(1);
+    final Months monthsResult = months1.add(months2);
+    assertEquals(2, monthsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test add.
+   */
+  @Test
+  public void testAdd2()
+   {
+    final Months months1 = Months.of(Long.MAX_VALUE);
+    final Months months2 = Months.of(1);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Months monthsResult = */ months1.add(months2);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test substract.
+   */
+  @Test
+  public void testSubstract1()
+   {
+    final Months months1 = Months.of(6);
+    final Months months2 = Months.of(3);
+    final Months monthsResult = months1.subtract(months2);
+    assertEquals(3, monthsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test substract.
+   */
+  @Test
+  public void testSubstract2()
+   {
+    final Months months1 = Months.of(3);
+    final Months months2 = Months.of(6);
+    final Months monthsResult = months1.subtract(months2);
+    assertEquals(3, monthsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test multiply.
+   */
+  @Test
+  public void testMultiply1()
+   {
+    final Months months1 = Months.of(7);
+    final Months monthsResult = months1.multiply(3);
+    assertEquals(21, monthsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test multiply.
+   */
+  @Test
+  public void testMultiply2()
+   {
+    final Months months1 = Months.of(Long.MAX_VALUE / 2);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Months monthsResult = */ months1.multiply(3);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testDivide1()
+   {
+    final Months months1 = Months.of(10);
+    final Months monthsResult = months1.divide(2);
+    assertEquals(5, monthsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testDivide2()
+   {
+    final Months months1 = Months.of(10);
+    final Months monthsResult = months1.divide(3);
+    assertEquals(3,monthsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testDivide3()
+   {
+    final Months months1 = Months.of(10);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Months yearsResult = */ months1.divide(0);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testModulo1()
+   {
+    final Months months1 = Months.of(10);
+    final Months monthsResult = months1.modulo(2);
+    assertEquals(0, monthsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testModulo2()
+   {
+    final Months months1 = Months.of(10);
+    final Months monthsResult = months1.modulo(3);
+    assertEquals(1, monthsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testModulo3()
+   {
+    final Months months1 = Months.of(10);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Months monthsResult = */ months1.modulo(0);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
     );
    }
 

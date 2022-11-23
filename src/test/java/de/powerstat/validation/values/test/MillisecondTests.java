@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -43,7 +43,7 @@ public class MillisecondTests
   @ValueSource(ints = {0, 999})
   public void isMilliseconds(final int millisecond)
    {
-    assertEquals(millisecond, Millisecond.of(millisecond).getMillisecond(), "Not millisecond!"); //$NON-NLS-1$
+    assertEquals(millisecond, Millisecond.of(millisecond).intValue(), "Not millisecond!"); //$NON-NLS-1$
    }
 
   /**

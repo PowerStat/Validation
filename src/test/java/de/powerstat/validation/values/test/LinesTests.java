@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -65,7 +65,7 @@ public class LinesTests
   public void linesCorrect(final String lines)
    {
     final Lines cleanLines = Lines.of(lines);
-    assertEquals(lines, cleanLines.getLines(), LinesTests.LINES_NOT_AS_EXPECTED);
+    assertEquals(lines, cleanLines.stringValue(), LinesTests.LINES_NOT_AS_EXPECTED);
    }
 
 
@@ -110,7 +110,7 @@ public class LinesTests
   public void getLines()
    {
     final Lines lines = Lines.of(LinesTests.EXAMPLE1);
-    assertEquals(LinesTests.EXAMPLE1, lines.getLines(), LinesTests.LINES_NOT_AS_EXPECTED);
+    assertEquals(LinesTests.EXAMPLE1, lines.stringValue(), LinesTests.LINES_NOT_AS_EXPECTED);
    }
 
 

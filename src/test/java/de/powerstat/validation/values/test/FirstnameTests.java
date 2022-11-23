@@ -65,7 +65,7 @@ public class FirstnameTests
   public void firstnameOk0(final String firstname)
    {
     final Firstname cleanFirstname = Firstname.of(firstname);
-    assertEquals(firstname, cleanFirstname.getFirstname(), FirstnameTests.FIRSTNAME_NOT_AS_EXPECTED);
+    assertEquals(firstname, cleanFirstname.stringValue(), FirstnameTests.FIRSTNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -107,7 +107,7 @@ public class FirstnameTests
   public void getFirstname()
    {
     final Firstname firstname = Firstname.of(FirstnameTests.FIRSTNAME);
-    assertEquals(FirstnameTests.FIRSTNAME, firstname.getFirstname(), FirstnameTests.FIRSTNAME_NOT_AS_EXPECTED);
+    assertEquals(FirstnameTests.FIRSTNAME, firstname.stringValue(), FirstnameTests.FIRSTNAME_NOT_AS_EXPECTED);
    }
 
 

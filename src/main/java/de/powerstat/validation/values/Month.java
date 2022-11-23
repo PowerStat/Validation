@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -13,6 +13,8 @@ import java.util.Objects;
  * Not DSGVO relevant.
  *
  * TODO nextMonth, previousMonth
+ * TODO month + months
+ * TODO Listener
  * TODO Translations
  */
 public final class Month implements Comparable<Month>
@@ -56,8 +58,21 @@ public final class Month implements Comparable<Month>
    * Get month.
    *
    * @return Month
+   * @deprecated Use intValue() instead
    */
+  @Deprecated
   public int getMonth()
+   {
+    return this.month;
+   }
+
+
+  /**
+   * Returns the value of this Month as an int.
+   *
+   * @return The numeric value represented by this object after conversion to type int.
+   */
+  public int intValue()
    {
     return this.month;
    }

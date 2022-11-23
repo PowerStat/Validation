@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -67,7 +67,7 @@ public class GregorianCalendarTests
   public void calendarCorrect(final String country)
    {
     final GregorianCalendar cleanCalendar = GregorianCalendar.of(Country.of(country));
-    assertEquals(country, cleanCalendar.getCountry().getCountry(), "Calendar not as expected"); //$NON-NLS-1$
+    assertEquals(country, cleanCalendar.getCountry().stringValue(), "Calendar not as expected"); //$NON-NLS-1$
    }
 
 

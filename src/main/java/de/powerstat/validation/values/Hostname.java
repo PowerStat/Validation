@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -64,7 +64,7 @@ public final class Hostname implements Comparable<Hostname>
     String tempHostname = ""; //$NON-NLS-1$
     try
      {
-      tempHostname = new IPV4Address(hostname).getAddress();
+      tempHostname = new IPV4Address(hostname).stringValue();
      }
     catch (final IllegalArgumentException ignored)
      {
@@ -74,7 +74,7 @@ public final class Hostname implements Comparable<Hostname>
      {
       if (tempHostname.isEmpty())
        {
-        tempHostname = new IPV6Address(hostname).getAddress();
+        tempHostname = new IPV6Address(hostname).stringValue();
        }
      }
     catch (final IllegalArgumentException ignored)
@@ -168,8 +168,21 @@ public final class Hostname implements Comparable<Hostname>
    * Get hostname string.
    *
    * @return Hostname string
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getHostname()
+   {
+    return this.hostname;
+   }
+
+
+  /**
+   * Returns the value of this Hostname as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
    {
     return this.hostname;
    }

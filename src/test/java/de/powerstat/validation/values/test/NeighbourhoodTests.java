@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
+
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -64,7 +65,7 @@ public class NeighbourhoodTests
   public void neighbourhoodCorrect(final String neighbourhood)
    {
     final Neighbourhood cleanNeighbourhood = Neighbourhood.of(neighbourhood);
-    assertEquals(neighbourhood, cleanNeighbourhood.getNeighbourhood(), NeighbourhoodTests.NEIGHBOURHOOD_NOT_AS_EXPECTED);
+    assertEquals(neighbourhood, cleanNeighbourhood.stringValue(), NeighbourhoodTests.NEIGHBOURHOOD_NOT_AS_EXPECTED);
    }
 
 
@@ -109,7 +110,7 @@ public class NeighbourhoodTests
   public void getNeighbourhood()
    {
     final Neighbourhood neighbourhood = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    assertEquals(NeighbourhoodTests.UNKNOWN, neighbourhood.getNeighbourhood(), NeighbourhoodTests.NEIGHBOURHOOD_NOT_AS_EXPECTED);
+    assertEquals(NeighbourhoodTests.UNKNOWN, neighbourhood.stringValue(), NeighbourhoodTests.NEIGHBOURHOOD_NOT_AS_EXPECTED);
    }
 
 

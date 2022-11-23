@@ -75,7 +75,7 @@ public class EMailTests
   public void emailOk0(final String email)
    {
     final EMail cleanEMail = EMail.of(email);
-    assertEquals(email, cleanEMail.getEMail(), EMailTests.EMAIL_NOT_AS_EXPECTED);
+    assertEquals(email, cleanEMail.stringValue(), EMailTests.EMAIL_NOT_AS_EXPECTED);
    }
 
 
@@ -229,7 +229,7 @@ public class EMailTests
   public void getEMail()
    {
     final EMail email = EMail.of(EMailTests.USER_EXAMPLE_COM);
-    assertEquals(EMailTests.USER_EXAMPLE_COM, email.getEMail(), EMailTests.EMAIL_NOT_AS_EXPECTED);
+    assertEquals(EMailTests.USER_EXAMPLE_COM, email.stringValue(), EMailTests.EMAIL_NOT_AS_EXPECTED);
    }
 
 

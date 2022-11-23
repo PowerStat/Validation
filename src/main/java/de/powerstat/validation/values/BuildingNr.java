@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -96,8 +96,21 @@ public final class BuildingNr implements Comparable<BuildingNr>
    * Get buildingNr string.
    *
    * @return BuildingNr string
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getBuildingNr()
+   {
+    return this.buildingNr;
+   }
+
+
+  /**
+   * Returns the value of this BuildingNr as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
    {
     return this.buildingNr;
    }

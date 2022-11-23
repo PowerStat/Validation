@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -65,7 +65,7 @@ public class CountryTests
   public void countryOk0(final String alpha2)
    {
     final Country cleanCountry = Country.of(alpha2);
-    assertEquals(alpha2, cleanCountry.getCountry(), CountryTests.COUNTRY_CODE_NOT_AS_EXPECTED);
+    assertEquals(alpha2, cleanCountry.stringValue(), CountryTests.COUNTRY_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -110,7 +110,7 @@ public class CountryTests
   public void getCountry()
    {
     final Country country = Country.of(CountryTests.DE);
-    assertEquals(CountryTests.DE, country.getCountry(), CountryTests.COUNTRY_CODE_NOT_AS_EXPECTED);
+    assertEquals(CountryTests.DE, country.stringValue(), CountryTests.COUNTRY_CODE_NOT_AS_EXPECTED);
    }
 
 

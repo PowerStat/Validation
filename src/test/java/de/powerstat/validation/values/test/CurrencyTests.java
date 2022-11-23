@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -65,7 +65,7 @@ public class CurrencyTests
   public void currencyOk0(final String code)
    {
     final Currency cleanCurrency = Currency.of(code);
-    assertEquals(code, cleanCurrency.getCurrency(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
+    assertEquals(code, cleanCurrency.stringValue(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -110,7 +110,7 @@ public class CurrencyTests
   public void getCurrency()
    {
     final Currency currency = Currency.of(CurrencyTests.EUR);
-    assertEquals(CurrencyTests.EUR, currency.getCurrency(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
+    assertEquals(CurrencyTests.EUR, currency.stringValue(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
    }
 
 

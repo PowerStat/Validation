@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -128,7 +128,7 @@ public class IPV6AddressTests
   public void constructorSuccess0()
    {
     final IPV6Address address = IPV6Address.of("::"); //$NON-NLS-1$
-    assertEquals("0000:0000:0000:0000:0000:0000:0000:0000", address.getAddress(), IPV6AddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
+    assertEquals("0000:0000:0000:0000:0000:0000:0000:0000", address.stringValue(), IPV6AddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 
@@ -139,7 +139,7 @@ public class IPV6AddressTests
   public void constructorSuccess1()
    {
     final IPV6Address address = IPV6Address.of("fd00:0000:0000:0000:0000:0000:255.255.255.255"); //$NON-NLS-1$
-    assertEquals("fd00:0000:0000:0000:0000:0000:ffff:ffff", address.getAddress(), IPV6AddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
+    assertEquals("fd00:0000:0000:0000:0000:0000:ffff:ffff", address.stringValue(), IPV6AddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 
@@ -225,7 +225,7 @@ public class IPV6AddressTests
   public void getAddress()
    {
     final IPV6Address address = IPV6Address.of(IPV6AddressTests.IPV6_FD00);
-    assertEquals("fd00:0000:0000:0000:0000:0000:0000:0000", address.getAddress(), IPV6AddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
+    assertEquals("fd00:0000:0000:0000:0000:0000:0000:0000", address.stringValue(), IPV6AddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 

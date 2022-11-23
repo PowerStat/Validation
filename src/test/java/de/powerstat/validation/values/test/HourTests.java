@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -43,7 +43,7 @@ public class HourTests
   @ValueSource(ints = {0, 23})
   public void isHour(final int hour)
    {
-    assertEquals(hour, Hour.of(hour).getHour(), "Not a hour!"); //$NON-NLS-1$
+    assertEquals(hour, Hour.of(hour).intValue(), "Not a hour!"); //$NON-NLS-1$
    }
 
 

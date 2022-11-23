@@ -66,8 +66,21 @@ public final class Lastname implements Comparable<Lastname>
    * Get lastname string.
    *
    * @return Lastname string
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getLastname()
+   {
+    return this.lastname;
+   }
+
+
+  /**
+   * Returns the value of this Lastname as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
    {
     return this.lastname;
    }

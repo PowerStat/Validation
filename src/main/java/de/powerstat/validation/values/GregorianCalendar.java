@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -253,7 +253,7 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>
   public String toString()
    {
     final StringBuilder builder = new StringBuilder(27);
-    builder.append("GregorianCalendar[country=").append(this.country.getCountry()).append(']'); //$NON-NLS-1$
+    builder.append("GregorianCalendar[country=").append(this.country.stringValue()).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -290,11 +290,11 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>
 
     final String beforeAfter = GregorianCalendar.REFORM_DATES.get(this.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.DAYS) == null ? GregorianCalendar.AFTER : GregorianCalendar.BEFORE;
     final long reformYear = GregorianCalendar.REFORM_DATES.get(this.country).get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
-    if (year.getYear() > reformYear)
+    if (year.longValue() > reformYear)
      {
-      return ((year.getYear() % 4) == 0) && (((year.getYear() % 100) != 0) || ((year.getYear() % 400) == 0));
+      return ((year.longValue() % 4) == 0) && (((year.longValue() % 100) != 0) || ((year.longValue() % 400) == 0));
      }
-    return ((year.getYear() % 4) == 0); // TODO JulianCalendar.isLeapYear(year);
+    return ((year.longValue() % 4) == 0); // TODO JulianCalendar.isLeapYear(year);
    }
 
 
@@ -314,11 +314,11 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>
     final long reformYear = GregorianCalendar.REFORM_DATES.get(this.country).get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
     final int reformMonth = GregorianCalendar.REFORM_DATES.get(this.country).get(beforeAfter).get(GregorianCalendar.MONTH).intValue();
     final int restDaysInMonth = GregorianCalendar.REFORM_DATES.get(this.country).get(beforeAfter).get(GregorianCalendar.DAYS).intValue();
-    if ((year.getYear() == reformYear) && (month.getMonth() == reformMonth)) // Depend on country
+    if ((year.longValue() == reformYear) && (month.intValue() == reformMonth)) // Depend on country
      {
       return restDaysInMonth;
      }
-    return GregorianCalendar.DAYS_IN_MONTH[month.getMonth()] + (((month.getMonth() == 2) && isLeapYear(year)) ? 1 : 0);
+    return GregorianCalendar.DAYS_IN_MONTH[month.intValue()] + (((month.intValue() == 2) && isLeapYear(year)) ? 1 : 0);
    }
 
  }

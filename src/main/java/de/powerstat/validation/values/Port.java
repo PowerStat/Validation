@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -86,8 +86,21 @@ public final class Port implements Comparable<Port>
    * Get port.
    *
    * @return Port
+   * @deprecated Use intValue() instead
    */
+  @Deprecated
   public int getPort()
+   {
+    return this.port;
+   }
+
+
+  /**
+   * Returns the value of this Port as an int.
+   *
+   * @return The numeric value represented by this object after conversion to type int.
+   */
+  public int intValue()
    {
     return this.port;
    }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -11,10 +11,6 @@ import java.util.Objects;
  * Minutes.
  *
  * Not DSGVO relevant.
- *
- * TODO add/subtract
- * TODO mult/div (60 = hour)
- * TODO Listener (mod 60 = 0)
  */
 public final class Minutes implements Comparable<Minutes>
  {
@@ -57,8 +53,21 @@ public final class Minutes implements Comparable<Minutes>
    * Get minutes.
    *
    * @return Minutes
+   * @deprecated Use longValue() instead
    */
+  @Deprecated
   public long getMinutes()
+   {
+    return this.minutes;
+   }
+
+
+  /**
+   * Returns the value of this Minutes as a long.
+   *
+   * @return The numeric value represented by this object after conversion to type long.
+   */
+  public long longValue()
    {
     return this.minutes;
    }
@@ -131,6 +140,74 @@ public final class Minutes implements Comparable<Minutes>
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
     return Long.compare(this.minutes, obj.minutes);
+   }
+
+
+  /**
+   * Add other minutes to this minutes.
+   *
+   * @param other Other minutes to add to this minutes
+   * @return New minutes after adding other minutes to this minutes
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Minutes add(final Minutes other)
+   {
+    return Minutes.of(Math.addExact(this.minutes, other.minutes));
+   }
+
+
+  /**
+   * Subtract other minutes from this minutes.
+   *
+   * @param other Other minutes to subtract from this one
+   * @return Absolute new minutes after subtracting other minutes from this minutes
+   */
+  public Minutes subtract(final Minutes other)
+   {
+    if (other.minutes > this.minutes)
+     {
+      return Minutes.of(other.minutes - this.minutes);
+     }
+    return Minutes.of(this.minutes - other.minutes);
+   }
+
+
+  /**
+   * Multiply minutes with a multiplier.
+   *
+   * @param multiplier Multiplier to multiply with
+   * @return New minutes that is a multiplication of this minutes with the multiplier
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Minutes multiply(final long multiplier)
+   {
+    return Minutes.of(Math.multiplyExact(this.minutes, multiplier));
+   }
+
+
+  /**
+   * Divide minutes by a divisor.
+   *
+   * @param divisor Divisor to divide by
+   * @return The largest (closest to positive infinity) long value that is less than or equal to the algebraic quotient.
+   * @throws ArithmeticException In case the divisor is 0.
+   */
+  public Minutes divide(final long divisor)
+   {
+    return Minutes.of(Math.floorDiv(this.minutes, divisor));
+   }
+
+
+  /**
+   * Floor modulo minutes by a divisor.
+   *
+   * @param divisor Divisor to divide by
+   * @return The floor modulus Minutes - (floorDiv(Minutes, divisor) * divisor)
+   * @throws ArithmeticException In case the divisor is 0.
+   */
+  public Minutes modulo(final long divisor)
+   {
+    return Minutes.of(Math.floorMod(this.minutes, divisor));
    }
 
  }

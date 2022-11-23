@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -146,8 +146,21 @@ public final class IPV4Mask implements Comparable<IPV4Mask>
    * Get prefix length.
    *
    * @return Prefix length (0-32)
+   * @deprecated Use intValue() instead
    */
+  @Deprecated
   public int getLength()
+   {
+    return this.length;
+   }
+
+
+  /**
+   * Returns the value of this IPV4Mask as an int.
+   *
+   * @return The numeric value represented by this object after conversion to type int (0-32).
+   */
+  public int intValue()
    {
     return this.length;
    }
@@ -157,8 +170,21 @@ public final class IPV4Mask implements Comparable<IPV4Mask>
    * Get network mask.
    *
    * @return Network mask of format 255.255.255.0
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getMask()
+   {
+    return this.mask;
+   }
+
+
+  /**
+   * Returns the value of this IPV4Mask as a string.
+   *
+   * @return The text value represented by this object after conversion to type string of format 255.255.255.0.
+   */
+  public String stringValue()
    {
     return this.mask;
    }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -11,10 +11,6 @@ import java.util.Objects;
  * Weeks.
  *
  * Not DSGVO relevant.
- *
- * TODO add/subtract
- * TODO mult/div
- * TODO Listener
  */
 public final class Weeks implements Comparable<Weeks>
  {
@@ -57,8 +53,21 @@ public final class Weeks implements Comparable<Weeks>
    * Get weeks.
    *
    * @return Weeks
+   * @deprecated Use longValue() instead
    */
+  @Deprecated
   public long getWeeks()
+   {
+    return this.weeks;
+   }
+
+
+  /**
+   * Returns the value of this Weeks as an long.
+   *
+   * @return The numeric value represented by this object after conversion to type long.
+   */
+  public long longValue()
    {
     return this.weeks;
    }
@@ -131,6 +140,74 @@ public final class Weeks implements Comparable<Weeks>
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
     return Long.compare(this.weeks, obj.weeks);
+   }
+
+
+  /**
+   * Add other weeks to this years.
+   *
+   * @param other Other weeks to add to this weeks
+   * @return New weeks after adding other weeks to this weeks
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Weeks add(final Weeks other)
+   {
+    return Weeks.of(Math.addExact(this.weeks, other.weeks));
+   }
+
+
+  /**
+   * Subtract other weeks from this weeks.
+   *
+   * @param other Other weeks to subtract from this one
+   * @return Absolute new weeks after subtracting other weeks from this weeks
+   */
+  public Weeks subtract(final Weeks other)
+   {
+    if (other.weeks > this.weeks)
+     {
+      return Weeks.of(other.weeks - this.weeks);
+     }
+    return Weeks.of(this.weeks - other.weeks);
+   }
+
+
+  /**
+   * Multiply weeks with a multiplier.
+   *
+   * @param multiplier Multiplier to multiply with
+   * @return New weeks that is a multiplication of this weeks with the multiplier
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Weeks multiply(final long multiplier)
+   {
+    return Weeks.of(Math.multiplyExact(this.weeks, multiplier));
+   }
+
+
+  /**
+   * Divide weeks by a divisor.
+   *
+   * @param divisor Divisor to divide by
+   * @return The largest (closest to positive infinity) long value that is less than or equal to the algebraic quotient.
+   * @throws ArithmeticException In case the divisor is 0.
+   */
+  public Weeks divide(final long divisor)
+   {
+    return Weeks.of(Math.floorDiv(this.weeks, divisor));
+   }
+
+
+  /**
+   * Floor modulo weeks by a divisor.
+   *
+   * @param divisor Divisor to divide by
+   * @return The floor modulus Weeks - (floorDiv(Weeks, divisor) * divisor)
+   * @throws ArithmeticException In case the divisor is 0.
+   */
+  public Weeks modulo(final long divisor)
+   {
+    return Weeks.of(Math.floorMod(this.weeks, divisor));
    }
 
  }

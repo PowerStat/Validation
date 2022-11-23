@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
+
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,7 +43,7 @@ public class WeeksTests
   @ValueSource(longs = {0, 1, 104})
   public void isWeeks(final long weeks)
    {
-    assertEquals(weeks, Weeks.of(weeks).getWeeks(), "Not a weeks!"); //$NON-NLS-1$
+    assertEquals(weeks, Weeks.of(weeks).longValue(), "Not a weeks!"); //$NON-NLS-1$
    }
 
 
@@ -130,6 +131,166 @@ public class WeeksTests
       () -> assertTrue((weeks4.compareTo(weeks3) > 0) && (weeks3.compareTo(weeks1) > 0) && (weeks4.compareTo(weeks1) > 0), "transitive1"), //$NON-NLS-1$
       () -> assertTrue((weeks1.compareTo(weeks2) == 0) && (Math.abs(weeks1.compareTo(weeks5)) == Math.abs(weeks2.compareTo(weeks5))), "sgn1"), //$NON-NLS-1$
       () -> assertTrue((weeks1.compareTo(weeks2) == 0) && weeks1.equals(weeks2), "equals") //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test add.
+   */
+  @Test
+  public void testAdd1()
+   {
+    final Weeks weeks1 = Weeks.of(1);
+    final Weeks weeks2 = Weeks.of(1);
+    final Weeks weeksResult = weeks1.add(weeks2);
+    assertEquals(2, weeksResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test add.
+   */
+  @Test
+  public void testAdd2()
+   {
+    final Weeks weeks1 = Weeks.of(Long.MAX_VALUE);
+    final Weeks weeks2 = Weeks.of(1);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Weeks yearsResult = */ weeks1.add(weeks2);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test substract.
+   */
+  @Test
+  public void testSubstract1()
+   {
+    final Weeks weeks1 = Weeks.of(6);
+    final Weeks weeks2 = Weeks.of(3);
+    final Weeks weeksResult = weeks1.subtract(weeks2);
+    assertEquals(3, weeksResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test substract.
+   */
+  @Test
+  public void testSubstract2()
+   {
+    final Weeks weeks1 = Weeks.of(3);
+    final Weeks weeks2 = Weeks.of(6);
+    final Weeks weeksResult = weeks1.subtract(weeks2);
+    assertEquals(3, weeksResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test multiply.
+   */
+  @Test
+  public void testMultiply1()
+   {
+    final Weeks weeks1 = Weeks.of(7);
+    final Weeks weeksResult = weeks1.multiply(3);
+    assertEquals(21, weeksResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test multiply.
+   */
+  @Test
+  public void testMultiply2()
+   {
+    final Weeks weeks1 = Weeks.of(Long.MAX_VALUE / 2);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Weeks weeksResult = */ weeks1.multiply(3);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testDivide1()
+   {
+    final Weeks weeks1 = Weeks.of(10);
+    final Weeks weeksResult = weeks1.divide(2);
+    assertEquals(5, weeksResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testDivide2()
+   {
+    final Weeks weeks1 = Weeks.of(10);
+    final Weeks weeksResult = weeks1.divide(3);
+    assertEquals(3, weeksResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testDivide3()
+   {
+    final Weeks weeks1 = Weeks.of(10);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Weeks weeksResult = */ weeks1.divide(0);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testModulo1()
+   {
+    final Weeks weeks1 = Weeks.of(10);
+    final Weeks weeksResult = weeks1.modulo(2);
+    assertEquals(0, weeksResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testModulo2()
+   {
+    final Weeks weeks1 = Weeks.of(10);
+    final Weeks weeksResult = weeks1.modulo(3);
+    assertEquals(1, weeksResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testModulo3()
+   {
+    final Weeks weeks1 = Weeks.of(10);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Weeks weeksResult = */ weeks1.modulo(0);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
     );
    }
 

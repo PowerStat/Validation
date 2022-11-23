@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -11,10 +11,6 @@ import java.util.Objects;
  * Hours.
  *
  * Not DSGVO relevant.
- *
- * TODO add/subtract
- * TODO mult/div (24 = day)
- * TODO Listener (mod 24 = 0)
  */
 public final class Hours implements Comparable<Hours>
  {
@@ -57,8 +53,21 @@ public final class Hours implements Comparable<Hours>
    * Get hours.
    *
    * @return Hours
+   * @deprecated Use longValue() instead
    */
+  @Deprecated
   public long getHours()
+   {
+    return this.hours;
+   }
+
+
+  /**
+   * Returns the value of this BFPONumber as a long.
+   *
+   * @return The numeric value represented by this object after conversion to type long.
+   */
+  public long longValue()
    {
     return this.hours;
    }
@@ -131,6 +140,74 @@ public final class Hours implements Comparable<Hours>
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
     return Long.compare(this.hours, obj.hours);
+   }
+
+
+  /**
+   * Add other hours to this hours.
+   *
+   * @param other Other hours to add to this hours
+   * @return New hours after adding other hours to this hours
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Hours add(final Hours other)
+   {
+    return Hours.of(Math.addExact(this.hours, other.hours));
+   }
+
+
+  /**
+   * Subtract other hours from this hours.
+   *
+   * @param other Other hours to subtract from this one
+   * @return Absolute new hours after subtracting other hours from this hours
+   */
+  public Hours subtract(final Hours other)
+   {
+    if (other.hours > this.hours)
+     {
+      return Hours.of(other.hours - this.hours);
+     }
+    return Hours.of(this.hours - other.hours);
+   }
+
+
+  /**
+   * Multiply hours with a multiplier.
+   *
+   * @param multiplier Multiplier to multiply with
+   * @return New hours that is a multiplication of this hours with the multiplier
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Hours multiply(final long multiplier)
+   {
+    return Hours.of(Math.multiplyExact(this.hours, multiplier));
+   }
+
+
+  /**
+   * Divide hours by a divisor.
+   *
+   * @param divisor Divisor to divide by
+   * @return The largest (closest to positive infinity) long value that is less than or equal to the algebraic quotient.
+   * @throws ArithmeticException In case the divisor is 0.
+   */
+  public Hours divide(final long divisor)
+   {
+    return Hours.of(Math.floorDiv(this.hours, divisor));
+   }
+
+
+  /**
+   * Floor modulo hours by a divisor.
+   *
+   * @param divisor Divisor to divide by
+   * @return The floor modulus Hours - (floorDiv(Hours, divisor) * divisor)
+   * @throws ArithmeticException In case the divisor is 0.
+   */
+  public Hours modulo(final long divisor)
+   {
+    return Hours.of(Math.floorMod(this.hours, divisor));
    }
 
  }

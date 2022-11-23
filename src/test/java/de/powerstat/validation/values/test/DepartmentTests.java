@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
+
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -64,7 +65,7 @@ public class DepartmentTests
   public void departmentCorrect(final String department)
    {
     final Department cleanDepartment = Department.of(department);
-    assertEquals(department, cleanDepartment.getDepartment(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
+    assertEquals(department, cleanDepartment.stringValue(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
    }
 
 
@@ -109,7 +110,7 @@ public class DepartmentTests
   public void getDepartment()
    {
     final Department department = Department.of(DepartmentTests.RESEARCH);
-    assertEquals(DepartmentTests.RESEARCH, department.getDepartment(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
+    assertEquals(DepartmentTests.RESEARCH, department.stringValue(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
    }
 
 

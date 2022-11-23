@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -278,8 +278,21 @@ public final class IPV6Address implements Comparable<IPV6Address>
    * Get normalized ip V6 address string.
    *
    * @return IPV6Address string
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getAddress()
+   {
+    return this.address;
+   }
+
+
+  /**
+   * Returns the value of this IPV6Address as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
    {
     return this.address;
    }

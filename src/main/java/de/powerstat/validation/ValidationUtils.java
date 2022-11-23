@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2018-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation;
 

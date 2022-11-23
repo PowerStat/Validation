@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -66,8 +66,21 @@ public final class BIC implements Comparable<BIC>
    * Get bic string.
    *
    * @return BIC string
+   * @deprecated Use stringValue() instead.
    */
+  @Deprecated
   public String getBIC()
+   {
+    return this.bic;
+   }
+
+
+  /**
+   * Returns the value of this BIC as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
    {
     return this.bic;
    }

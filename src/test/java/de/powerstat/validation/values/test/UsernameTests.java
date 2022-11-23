@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -66,7 +66,7 @@ public class UsernameTests
   public void usernameOk0(final String username)
    {
     final Username cleanUsername = Username.of(username);
-    assertEquals(username, cleanUsername.getUsername(), UsernameTests.USERNAME_NOT_AS_EXPECTED);
+    assertEquals(username, cleanUsername.stringValue(), UsernameTests.USERNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -108,7 +108,7 @@ public class UsernameTests
   public void getUsername()
    {
     final Username username = Username.of(UsernameTests.USERNAME);
-    assertEquals(UsernameTests.USERNAME, username.getUsername(), UsernameTests.USERNAME_NOT_AS_EXPECTED);
+    assertEquals(UsernameTests.USERNAME, username.stringValue(), UsernameTests.USERNAME_NOT_AS_EXPECTED);
    }
 
 

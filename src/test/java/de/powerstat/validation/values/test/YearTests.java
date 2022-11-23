@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -43,7 +43,7 @@ public class YearTests
   @ValueSource(longs = {-1, 1, 2020})
   public void isYear(final long year)
    {
-    assertEquals(year, Year.of(year).getYear(), "Not a year!"); //$NON-NLS-1$
+    assertEquals(year, Year.of(year).longValue(), "Not a year!"); //$NON-NLS-1$
    }
 
 

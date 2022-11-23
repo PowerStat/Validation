@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -53,8 +53,21 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>
    * Get PO box number.
    *
    * @return PO box number
+   * @deprecated Use longValue() instead
    */
+  @Deprecated
   public long getPoBoxNumber()
+   {
+    return this.poBoxNumber;
+   }
+
+
+  /**
+   * Returns the value of this BFPONumber as a long.
+   *
+   * @return The numeric value represented by this object after conversion to type long.
+   */
+  public long longValue()
    {
     return this.poBoxNumber;
    }
@@ -64,8 +77,21 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>
    * Get PO box number string.
    *
    * @return PO box number as string
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getPoBoxNumberStr()
+   {
+    return Long.toString(this.poBoxNumber);
+   }
+
+
+  /**
+   * Returns the value of this PoBoNumber as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
    {
     return Long.toString(this.poBoxNumber);
    }

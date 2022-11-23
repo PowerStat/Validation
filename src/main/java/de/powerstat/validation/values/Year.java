@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -13,6 +13,8 @@ import java.util.Objects;
  * Not DSGVO relevant.
  *
  * TODO isLeapYear
+ * TODO nextYear, previousYear
+ * TODO year + years
  */
 public final class Year implements Comparable<Year>
  {
@@ -55,8 +57,21 @@ public final class Year implements Comparable<Year>
    * Get year.
    *
    * @return Year
+   * @deprecated Use longValue() instead
    */
+  @Deprecated
   public long getYear()
+   {
+    return this.year;
+   }
+
+
+  /**
+   * Returns the value of this Year as an long.
+   *
+   * @return The numeric value represented by this object after conversion to type long.
+   */
+  public long longValue()
    {
     return this.year;
    }

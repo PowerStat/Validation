@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -71,7 +71,7 @@ public class IBANTests
   public void ibanCorrect(final String iban)
    {
     final IBAN cleanIban = IBAN.of(iban);
-    assertEquals(iban, cleanIban.getIBAN(), IBANTests.IBAN_NOT_AS_EXPECTED);
+    assertEquals(iban, cleanIban.stringValue(), IBANTests.IBAN_NOT_AS_EXPECTED);
    }
 
 
@@ -116,7 +116,7 @@ public class IBANTests
   public void getIban()
    {
     final IBAN iban = IBAN.of(IBANTests.IBAN_DE68210501700012345678);
-    assertEquals(IBANTests.IBAN_DE68210501700012345678, iban.getIBAN(), IBANTests.IBAN_NOT_AS_EXPECTED);
+    assertEquals(IBANTests.IBAN_DE68210501700012345678, iban.stringValue(), IBANTests.IBAN_NOT_AS_EXPECTED);
    }
 
 

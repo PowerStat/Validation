@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
+
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -64,7 +65,7 @@ public class SubBuildingTests
   public void subBuildingCorrect(final String subBuilding)
    {
     final SubBuilding cleanSubBuilding = SubBuilding.of(subBuilding);
-    assertEquals(subBuilding, cleanSubBuilding.getSubBuilding(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
+    assertEquals(subBuilding, cleanSubBuilding.stringValue(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
    }
 
 
@@ -109,7 +110,7 @@ public class SubBuildingTests
   public void getSubBuilding()
    {
     final SubBuilding subBuilding = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    assertEquals(SubBuildingTests.FLOOR_13_APART_0815, subBuilding.getSubBuilding(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
+    assertEquals(SubBuildingTests.FLOOR_13_APART_0815, subBuilding.stringValue(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
    }
 
 

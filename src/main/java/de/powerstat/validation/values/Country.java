@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -73,8 +73,21 @@ public final class Country implements Comparable<Country>
    * Get country code string.
    *
    * @return Country code string
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getCountry()
+   {
+    return this.alpha2;
+   }
+
+
+  /**
+   * Returns the value of this Country as a ISO 3166-1 string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
    {
     return this.alpha2;
    }

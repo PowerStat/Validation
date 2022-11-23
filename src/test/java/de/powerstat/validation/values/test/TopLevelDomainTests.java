@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
+
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -64,7 +65,7 @@ public class TopLevelDomainTests
   public void topLevelDomainOk0(final String topLevelDomain)
    {
     final TopLevelDomain cleanTopLevelDomain = TopLevelDomain.of(topLevelDomain);
-    assertEquals(topLevelDomain, cleanTopLevelDomain.getTopLevelDomain(), TopLevelDomainTests.TLD_NOT_AS_EXPECTED);
+    assertEquals(topLevelDomain, cleanTopLevelDomain.stringValue(), TopLevelDomainTests.TLD_NOT_AS_EXPECTED);
    }
 
 
@@ -109,7 +110,7 @@ public class TopLevelDomainTests
   public void getTopLevelDomain()
    {
     final TopLevelDomain topLevelDomain = TopLevelDomain.of(TopLevelDomainTests.DE);
-    assertEquals(TopLevelDomainTests.DE, topLevelDomain.getTopLevelDomain(), TopLevelDomainTests.TLD_NOT_AS_EXPECTED);
+    assertEquals(TopLevelDomainTests.DE, topLevelDomain.stringValue(), TopLevelDomainTests.TLD_NOT_AS_EXPECTED);
    }
 
 

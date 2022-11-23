@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -28,12 +28,12 @@ public class BuildingNrTests
   /**
    * Test compare to.
    */
-  private static final String TEST_COMPARE_TO = "testCompareTo";
+  private static final String TEST_COMPARE_TO = "testCompareTo"; //$NON-NLS-1$
 
   /**
    * Building nr 23.
    */
-  private static final String BUILDINGNR23 = "23";
+  private static final String BUILDINGNR23 = "23"; //$NON-NLS-1$
 
   /**
    * Building nr 23 1/4.
@@ -43,7 +43,7 @@ public class BuildingNrTests
   /**
    * Building nr 42.
    */
-  private static final String BUILDINGNR42 = "42";
+  private static final String BUILDINGNR42 = "42"; //$NON-NLS-1$
 
   /**
    * Illegal argument exception expected.
@@ -53,7 +53,7 @@ public class BuildingNrTests
   /**
    * BuildingNr not as expected.
    */
-  private static final String BUILDING_NR_NOT_AS_EXPECTED = "BuildingNr not as expected";
+  private static final String BUILDING_NR_NOT_AS_EXPECTED = "BuildingNr not as expected"; //$NON-NLS-1$
 
 
   /**
@@ -75,7 +75,7 @@ public class BuildingNrTests
   public void buildingNrCorrect(final String buildingNr)
    {
     final BuildingNr cleanBuildingNr = BuildingNr.of(buildingNr);
-    assertEquals(buildingNr, cleanBuildingNr.getBuildingNr(), BuildingNrTests.BUILDING_NR_NOT_AS_EXPECTED);
+    assertEquals(buildingNr, cleanBuildingNr.stringValue(), BuildingNrTests.BUILDING_NR_NOT_AS_EXPECTED);
    }
 
 
@@ -120,7 +120,7 @@ public class BuildingNrTests
   public void getBuildingNr()
    {
     final BuildingNr buildingNr = BuildingNr.of(BuildingNrTests.BUILDINGNR42);
-    assertEquals(BuildingNrTests.BUILDINGNR42, buildingNr.getBuildingNr(), BuildingNrTests.BUILDING_NR_NOT_AS_EXPECTED);
+    assertEquals(BuildingNrTests.BUILDINGNR42, buildingNr.stringValue(), BuildingNrTests.BUILDING_NR_NOT_AS_EXPECTED);
    }
 
 

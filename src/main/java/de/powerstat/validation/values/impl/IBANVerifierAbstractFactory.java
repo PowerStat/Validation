@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.impl;
 
@@ -35,7 +35,7 @@ public final class IBANVerifierAbstractFactory
   @SuppressWarnings("java:S1479")
   public static IBANVerifier createIBANVerifier(final Country country)
    {
-    switch (country.getCountry())
+    switch (country.stringValue())
      {
       case "EG": //$NON-NLS-1$
         return IBANVerifier.of(27, "^EG[0-9]{2}[0-9]{23}$"); //$NON-NLS-1$

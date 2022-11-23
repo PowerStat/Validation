@@ -1,18 +1,16 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
+
 import java.util.Objects;
+
 
 /**
  * Months.
  *
  * Not DSGVO relevant.
- *
- * TODO add/subtract
- * TODO mult/div (7 = week)
- * TODO Listener (mod 7 = 0)
  */
 public final class Months implements Comparable<Months>
  {
@@ -55,8 +53,21 @@ public final class Months implements Comparable<Months>
    * Get months.
    *
    * @return Months
+   * @deprecated Use longValue() instead
    */
+  @Deprecated
   public long getMonths()
+   {
+    return this.months;
+   }
+
+
+  /**
+   * Returns the value of this Months as a long.
+   *
+   * @return The numeric value represented by this object after conversion to type long.
+   */
+  public long longValue()
    {
     return this.months;
    }
@@ -129,6 +140,74 @@ public final class Months implements Comparable<Months>
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
     return Long.compare(this.months, obj.months);
+   }
+
+
+  /**
+   * Add other months to this months.
+   *
+   * @param other Other months to add to this months
+   * @return New months after adding other months to this months
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Months add(final Months other)
+   {
+    return Months.of(Math.addExact(this.months, other.months));
+   }
+
+
+  /**
+   * Subtract other months from this months.
+   *
+   * @param other Other months to subtract from this one
+   * @return Absolute new months after subtracting other months from this months
+   */
+  public Months subtract(final Months other)
+   {
+    if (other.months > this.months)
+     {
+      return Months.of(other.months - this.months);
+     }
+    return Months.of(this.months - other.months);
+   }
+
+
+  /**
+   * Multiply months with a multiplier.
+   *
+   * @param multiplier Multiplier to multiply with
+   * @return New months that is a multiplication of this months with the multiplier
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Months multiply(final long multiplier)
+   {
+    return Months.of(Math.multiplyExact(this.months, multiplier));
+   }
+
+
+  /**
+   * Divide months by a divisor.
+   *
+   * @param divisor Divisor to divide by
+   * @return The largest (closest to positive infinity) long value that is less than or equal to the algebraic quotient.
+   * @throws ArithmeticException In case the divisor is 0.
+   */
+  public Months divide(final long divisor)
+   {
+    return Months.of(Math.floorDiv(this.months, divisor));
+   }
+
+
+  /**
+   * Floor modulo months by a divisor.
+   *
+   * @param divisor Divisor to divide by
+   * @return The floor modulus Months - (floorDiv(Months, divisor) * divisor)
+   * @throws ArithmeticException In case the divisor is 0.
+   */
+  public Months modulo(final long divisor)
+   {
+    return Months.of(Math.floorMod(this.months, divisor));
    }
 
  }

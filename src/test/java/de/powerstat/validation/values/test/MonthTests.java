@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -43,7 +43,7 @@ public class MonthTests
   @ValueSource(ints = {1, 12})
   public void isMonth(final int month)
    {
-    assertEquals(month, Month.of(month).getMonth(), "Not a month!"); //$NON-NLS-1$
+    assertEquals(month, Month.of(month).intValue(), "Not a month!"); //$NON-NLS-1$
    }
 
 

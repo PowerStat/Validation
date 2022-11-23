@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -43,7 +43,7 @@ public class DaysTests
   @ValueSource(longs = {0, 1, 7, 30, 365})
   public void isDays(final long days)
    {
-    assertEquals(days, Days.of(days).getDays(), "Not a days!"); //$NON-NLS-1$
+    assertEquals(days, Days.of(days).longValue(), "Not a days!"); //$NON-NLS-1$
    }
 
 
@@ -131,6 +131,166 @@ public class DaysTests
       () -> assertTrue((days4.compareTo(days3) > 0) && (days3.compareTo(days1) > 0) && (days4.compareTo(days1) > 0), "transitive1"), //$NON-NLS-1$
       () -> assertTrue((days1.compareTo(days2) == 0) && (Math.abs(days1.compareTo(days5)) == Math.abs(days2.compareTo(days5))), "sgn1"), //$NON-NLS-1$
       () -> assertTrue((days1.compareTo(days2) == 0) && days1.equals(days2), "equals") //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test add.
+   */
+  @Test
+  public void testAdd1()
+   {
+    final Days days1 = Days.of(1);
+    final Days days2 = Days.of(1);
+    final Days daysResult = days1.add(days2);
+    assertEquals(2, daysResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test add.
+   */
+  @Test
+  public void testAdd2()
+   {
+    final Days days1 = Days.of(Long.MAX_VALUE);
+    final Days days2 = Days.of(1);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Days daysResult = */ days1.add(days2);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test substract.
+   */
+  @Test
+  public void testSubstract1()
+   {
+    final Days days1 = Days.of(6);
+    final Days days2 = Days.of(3);
+    final Days daysResult = days1.subtract(days2);
+    assertEquals(3, daysResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test substract.
+   */
+  @Test
+  public void testSubstract2()
+   {
+    final Days days1 = Days.of(3);
+    final Days days2 = Days.of(6);
+    final Days daysResult = days1.subtract(days2);
+    assertEquals(3, daysResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test multiply.
+   */
+  @Test
+  public void testMultiply1()
+   {
+    final Days days1 = Days.of(7);
+    final Days daysResult = days1.multiply(3);
+    assertEquals(21, daysResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test multiply.
+   */
+  @Test
+  public void testMultiply2()
+   {
+    final Days days1 = Days.of(Long.MAX_VALUE / 2);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Days daysResult = */ days1.multiply(3);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testDivide1()
+   {
+    final Days days1 = Days.of(10);
+    final Days daysResult = days1.divide(2);
+    assertEquals(5, daysResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testDivide2()
+   {
+    final Days days1 = Days.of(10);
+    final Days daysResult = days1.divide(3);
+    assertEquals(3, daysResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testDivide3()
+   {
+    final Days days1 = Days.of(10);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Days daysResult = */ days1.divide(0);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testModulo1()
+   {
+    final Days days1 = Days.of(10);
+    final Days daysResult = days1.modulo(2);
+    assertEquals(0, daysResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testModulo2()
+   {
+    final Days days1 = Days.of(10);
+    final Days daysResult = days1.modulo(3);
+    assertEquals(1, daysResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testModulo3()
+   {
+    final Days days1 = Days.of(10);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Days daysResult = */ days1.modulo(0);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
     );
    }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -65,7 +65,7 @@ public class BuildingNameTests
   public void buildingNameCorrect(final String buildingName)
    {
     final BuildingName cleanBuildingName = BuildingName.of(buildingName);
-    assertEquals(buildingName, cleanBuildingName.getBuildingName(), BuildingNameTests.BUILDING_NAME_NOT_AS_EXPECTED);
+    assertEquals(buildingName, cleanBuildingName.stringValue(), BuildingNameTests.BUILDING_NAME_NOT_AS_EXPECTED);
    }
 
 
@@ -110,7 +110,7 @@ public class BuildingNameTests
   public void getBuildingName()
    {
     final BuildingName buildingName = BuildingName.of(BuildingNameTests.RATHAUS);
-    assertEquals(BuildingNameTests.RATHAUS, buildingName.getBuildingName(), BuildingNameTests.BUILDING_NAME_NOT_AS_EXPECTED);
+    assertEquals(BuildingNameTests.RATHAUS, buildingName.stringValue(), BuildingNameTests.BUILDING_NAME_NOT_AS_EXPECTED);
    }
 
 

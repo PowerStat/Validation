@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -53,8 +53,21 @@ public final class Milliseconds implements Comparable<Milliseconds>
    * Get milliseconds.
    *
    * @return Milliseconds (0-Long.MAX_VALUE)
+   * @deprecated Use longValue() instead
    */
+  @Deprecated
   public long getMilliseconds()
+   {
+    return this.milliseconds;
+   }
+
+
+  /**
+   * Returns the value of this Milliseconds as a long.
+   *
+   * @return The numeric value represented by this object after conversion to type long (0-Long.MAX_VALUE).
+   */
+  public long longValue()
    {
     return this.milliseconds;
    }
@@ -127,6 +140,74 @@ public final class Milliseconds implements Comparable<Milliseconds>
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
     return Long.compare(this.milliseconds, obj.milliseconds);
+   }
+
+
+  /**
+   * Add other milliseconds to this milliseconds.
+   *
+   * @param other Other milliseconds to add to this milliseconds
+   * @return New milliseconds after adding other milliseconds to this milliseconds
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Milliseconds add(final Milliseconds other)
+   {
+    return Milliseconds.of(Math.addExact(this.milliseconds, other.milliseconds));
+   }
+
+
+  /**
+   * Subtract other milliseconds from this milliseconds.
+   *
+   * @param other Other milliseconds to subtract from this one
+   * @return Absolute new milliseconds after subtracting other milliseconds from this Milliseconds
+   */
+  public Milliseconds subtract(final Milliseconds other)
+   {
+    if (other.milliseconds > this.milliseconds)
+     {
+      return Milliseconds.of(other.milliseconds - this.milliseconds);
+     }
+    return Milliseconds.of(this.milliseconds - other.milliseconds);
+   }
+
+
+  /**
+   * Multiply milliseconds with a multiplier.
+   *
+   * @param multiplier Multiplier to multiply with
+   * @return New milliseconds that is a multiplication of this milliseconds with the multiplier
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Milliseconds multiply(final long multiplier)
+   {
+    return Milliseconds.of(Math.multiplyExact(this.milliseconds, multiplier));
+   }
+
+
+  /**
+   * Divide milliseconds by a divisor.
+   *
+   * @param divisor Divisor to divide by
+   * @return The largest (closest to positive infinity) long value that is less than or equal to the algebraic quotient.
+   * @throws ArithmeticException In case the divisor is 0.
+   */
+  public Milliseconds divide(final long divisor)
+   {
+    return Milliseconds.of(Math.floorDiv(this.milliseconds, divisor));
+   }
+
+
+  /**
+   * Floor modulo milliseconds by a divisor.
+   *
+   * @param divisor Divisor to divide by
+   * @return The floor modulus Milliseconds - (floorDiv(Milliseconds, divisor) * divisor)
+   * @throws ArithmeticException In case the divisor is 0.
+   */
+  public Milliseconds modulo(final long divisor)
+   {
+    return Milliseconds.of(Math.floorMod(this.milliseconds, divisor));
    }
 
  }

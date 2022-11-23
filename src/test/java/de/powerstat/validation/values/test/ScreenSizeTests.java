@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -53,7 +53,7 @@ public class ScreenSizeTests
     assertAll("testScreenSize", //$NON-NLS-1$
       () -> assertEquals(320, size.getWidth(), "width is not equal"), //$NON-NLS-1$
       () -> assertEquals(240, size.getHeight(), "height is not equal"), //$NON-NLS-1$
-      () -> assertEquals("320x240", size.getSize(), "size is not equal"), //$NON-NLS-1$ //$NON-NLS-2$
+      () -> assertEquals("320x240", size.stringValue(), "size is not equal"), //$NON-NLS-1$ //$NON-NLS-2$
       () -> assertEquals(ScreenSizeTests.QVGA, size.getName(), "size name is not equal") //$NON-NLS-1$
     );
    }

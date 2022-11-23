@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -65,7 +65,7 @@ public class CityTests
   public void cityCorrect(final String city)
    {
     final City cleanCity = City.of(city);
-    assertEquals(city, cleanCity.getCity(), CityTests.CITY_NOT_AS_EXPECTED);
+    assertEquals(city, cleanCity.stringValue(), CityTests.CITY_NOT_AS_EXPECTED);
    }
 
 
@@ -110,7 +110,7 @@ public class CityTests
   public void getCity()
    {
     final City city = City.of(CityTests.BREMEN);
-    assertEquals(CityTests.BREMEN, city.getCity(), CityTests.CITY_NOT_AS_EXPECTED);
+    assertEquals(CityTests.BREMEN, city.stringValue(), CityTests.CITY_NOT_AS_EXPECTED);
    }
 
 

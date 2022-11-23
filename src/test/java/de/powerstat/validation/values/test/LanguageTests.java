@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -65,7 +65,7 @@ public class LanguageTests
   public void languageOk0(final String code)
    {
     final Language cleanLanguage = Language.of(code);
-    assertEquals(code, cleanLanguage.getLanguage(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
+    assertEquals(code, cleanLanguage.stringValue(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -110,7 +110,7 @@ public class LanguageTests
   public void getLanguage()
    {
     final Language language = Language.of(LanguageTests.DE);
-    assertEquals(LanguageTests.DE, language.getLanguage(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
+    assertEquals(LanguageTests.DE, language.stringValue(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
    }
 
 

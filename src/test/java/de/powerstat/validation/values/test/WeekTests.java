@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -43,7 +43,7 @@ public class WeekTests
   @ValueSource(ints = {1, 53})
   public void isWeek(final int week)
    {
-    assertEquals(week, Week.of(week).getWeek(), "Not a week!"); //$NON-NLS-1$
+    assertEquals(week, Week.of(week).intValue(), "Not a week!"); //$NON-NLS-1$
    }
 
 

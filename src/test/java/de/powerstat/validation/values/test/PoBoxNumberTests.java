@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
+
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -48,7 +49,7 @@ public class PoBoxNumberTests
   @ValueSource(longs = {1, 99999})
   public void isPoBoxNumber(final long poBoxNumber)
    {
-    assertEquals(poBoxNumber, PoBoxNumber.of(poBoxNumber).getPoBoxNumber(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
+    assertEquals(poBoxNumber, PoBoxNumber.of(poBoxNumber).longValue(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
    }
 
 
@@ -61,7 +62,7 @@ public class PoBoxNumberTests
   @ValueSource(strings = {"1", "99999"})
   public void isPoBoxNumberStr(final String poBoxNumber)
    {
-    assertEquals(poBoxNumber, PoBoxNumber.of(Long.parseLong(poBoxNumber)).getPoBoxNumberStr(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
+    assertEquals(poBoxNumber, PoBoxNumber.of(Long.parseLong(poBoxNumber)).stringValue(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
    }
 
 

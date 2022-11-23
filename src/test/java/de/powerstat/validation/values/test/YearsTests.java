@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
+
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,7 +43,7 @@ public class YearsTests
   @ValueSource(longs = {0, 20})
   public void isYears(final long years)
    {
-    assertEquals(years, Years.of(years).getYears(), "Not a years!"); //$NON-NLS-1$
+    assertEquals(years, Years.of(years).longValue(), "Not a years!"); //$NON-NLS-1$
    }
 
 
@@ -130,6 +131,166 @@ public class YearsTests
       () -> assertTrue((years4.compareTo(years3) > 0) && (years3.compareTo(years1) > 0) && (years4.compareTo(years1) > 0), "transitive1"), //$NON-NLS-1$
       () -> assertTrue((years1.compareTo(years2) == 0) && (Math.abs(years1.compareTo(years5)) == Math.abs(years2.compareTo(years5))), "sgn1"), //$NON-NLS-1$
       () -> assertTrue((years1.compareTo(years2) == 0) && years1.equals(years2), "equals") //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test add.
+   */
+  @Test
+  public void testAdd1()
+   {
+    final Years years1 = Years.of(1);
+    final Years years2 = Years.of(1);
+    final Years yearsResult = years1.add(years2);
+    assertEquals(2, yearsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test add.
+   */
+  @Test
+  public void testAdd2()
+   {
+    final Years years1 = Years.of(Long.MAX_VALUE);
+    final Years years2 = Years.of(1);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Years yearsResult = */ years1.add(years2);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test substract.
+   */
+  @Test
+  public void testSubstract1()
+   {
+    final Years years1 = Years.of(6);
+    final Years years2 = Years.of(3);
+    final Years yearsResult = years1.subtract(years2);
+    assertEquals(3, yearsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test substract.
+   */
+  @Test
+  public void testSubstract2()
+   {
+    final Years years1 = Years.of(3);
+    final Years years2 = Years.of(6);
+    final Years yearsResult = years1.subtract(years2);
+    assertEquals(3, yearsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test multiply.
+   */
+  @Test
+  public void testMultiply1()
+   {
+    final Years years1 = Years.of(7);
+    final Years yearsResult = years1.multiply(3);
+    assertEquals(21, yearsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test multiply.
+   */
+  @Test
+  public void testMultiply2()
+   {
+    final Years years1 = Years.of(Long.MAX_VALUE / 2);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Years yearsResult = */ years1.multiply(3);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testDivide1()
+   {
+    final Years years1 = Years.of(10);
+    final Years yearsResult = years1.divide(2);
+    assertEquals(5, yearsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testDivide2()
+   {
+    final Years years1 = Years.of(10);
+    final Years yearsResult = years1.divide(3);
+    assertEquals(3, yearsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testDivide3()
+   {
+    final Years years1 = Years.of(10);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Years yearsResult = */ years1.divide(0);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testModulo1()
+   {
+    final Years years1 = Years.of(10);
+    final Years yearsResult = years1.modulo(2);
+    assertEquals(0, yearsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testModulo2()
+   {
+    final Years years1 = Years.of(10);
+    final Years yearsResult = years1.modulo(3);
+    assertEquals(1, yearsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test divide.
+   */
+  @Test
+  public void testModulo3()
+   {
+    final Years years1 = Years.of(10);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Years yearsResult = */ years1.modulo(0);
+     }, "Arithmetic exception expected" //$NON-NLS-1$
     );
    }
 

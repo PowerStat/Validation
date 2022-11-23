@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -65,8 +65,21 @@ public final class SubBuilding implements Comparable<SubBuilding>
    * Get subBuilding string.
    *
    * @return SubBuilding string
+   * @deprecated Use stringValue() instead
    */
+  @Deprecated
   public String getSubBuilding()
+   {
+    return this.subBuilding;
+   }
+
+
+  /**
+   * Returns the value of this SubBuilding as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  public String stringValue()
    {
     return this.subBuilding;
    }

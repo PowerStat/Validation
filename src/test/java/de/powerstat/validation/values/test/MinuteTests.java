@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -43,7 +43,7 @@ public class MinuteTests
   @ValueSource(ints = {0, 59})
   public void isMinute(final int minute)
    {
-    assertEquals(minute, Minute.of(minute).getMinute(), "Not a minute!"); //$NON-NLS-1$
+    assertEquals(minute, Minute.of(minute).intValue(), "Not a minute!"); //$NON-NLS-1$
    }
 
 
