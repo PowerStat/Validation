@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 
 /**
@@ -13,12 +15,33 @@ import java.util.Objects;
  * Not DSGVO relevant.
  *
    * TODO Constructor with day, month, year, hour, minute
-   * TODO nextSecond, previousSecond
- * TODO second + seconds
  * TODO Listener  (mod 60 = 0)
+ * TODO millisecondsWithin = 1000
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Second implements Comparable<Second>
  {
+  /**
+   * Overflow constant.
+   */
+  private static final String OVERFLOW = "Overflow"; //$NON-NLS-1$
+
+  /**
+   * Underflow constant.
+   */
+  private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
+
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Integer, Second> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Second.
    */
@@ -31,7 +54,7 @@ public final class Second implements Comparable<Second>
    * @param second Second 0-59/60
    * @throws IndexOutOfBoundsException When the second is less than 0 or greater than 59/60
    */
-  public Second(final int second)
+  private Second(final int second)
    {
     super();
     if ((second < 0) || (second > 60))
@@ -50,7 +73,17 @@ public final class Second implements Comparable<Second>
    */
   public static Second of(final int second)
    {
-    return new Second(second);
+    synchronized (Second.class)
+     {
+      Second obj = Second.CACHE.get(second);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Second(second);
+      Second.CACHE.put(Integer.valueOf(second), obj);
+      return obj;
+     }
    }
 
 
@@ -60,7 +93,7 @@ public final class Second implements Comparable<Second>
    * @return Second
    * @deprecated Use intValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Second.DEPRECATED_SINCE_3_0, forRemoval = false)
   public int getSecond()
    {
     return this.second;
@@ -101,6 +134,8 @@ public final class Second implements Comparable<Second>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -110,7 +145,8 @@ public final class Second implements Comparable<Second>
       return false;
      }
     final Second other = (Second)obj;
-    return this.second == other.second;
+    return false; // this.second == other.second;
+    */
    }
 
 
@@ -145,6 +181,80 @@ public final class Second implements Comparable<Second>
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
     return Integer.compare(this.second, obj.second);
+   }
+
+
+  /**
+   * Add seconds to this second.
+   *
+   * @param seconds Secondss to add to this second
+   * @return New second after adding the seconds to this second
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Second add(final Seconds seconds)
+   {
+    final int newSecond = Math.toIntExact(Math.addExact(this.second, seconds.longValue()));
+    if (newSecond > 59)
+     {
+      // TODO Listener
+      throw new ArithmeticException(Second.OVERFLOW);
+     }
+    return Second.of(newSecond);
+   }
+
+
+  /**
+   * Subtract seconds from this second.
+   *
+   * @param seconds Seconds to subtract from this second
+   * @return New second after subtracting seconds from this second
+   * @throws ArithmeticException In case of an underflow
+   */
+  public Second subtract(final Seconds seconds)
+   {
+    final int newSecond = Math.toIntExact(Math.subtractExact(this.second, seconds.longValue()));
+    if (newSecond < 0)
+     {
+      // TODO Listener
+      throw new ArithmeticException(Second.UNDERFLOW);
+     }
+    return Second.of(newSecond);
+   }
+
+
+  /**
+   * Increment this second.
+   *
+   * @return New second after incrementing this second
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Second increment()
+   {
+    final int newSecond = Math.incrementExact(this.second);
+    if (newSecond == 60)
+     {
+      // TODO Listener
+      throw new ArithmeticException(Second.OVERFLOW);
+     }
+    return Second.of(newSecond);
+   }
+
+
+  /**
+   * Decrement this second.
+   *
+   * @return New second after decrement this second
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Second decrement()
+   {
+    final int newSecond = Math.decrementExact(this.second);
+    if (newSecond == -1)
+     {
+      // TODO Listener
+      throw new ArithmeticException(Second.UNDERFLOW);
+     }
+    return Second.of(newSecond);
    }
 
  }

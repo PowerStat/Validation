@@ -47,6 +47,11 @@ public class IBANTests
    */
   private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -111,9 +116,23 @@ public class IBANTests
 
   /**
    * Test get iban.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = IBANTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getIban()
+   {
+    final IBAN iban = IBAN.of(IBANTests.IBAN_DE68210501700012345678);
+    assertEquals(IBANTests.IBAN_DE68210501700012345678, iban.getIBAN(), IBANTests.IBAN_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get iban.
+   */
+  @Test
+  public void stringValue()
    {
     final IBAN iban = IBAN.of(IBANTests.IBAN_DE68210501700012345678);
     assertEquals(IBANTests.IBAN_DE68210501700012345678, iban.stringValue(), IBANTests.IBAN_NOT_AS_EXPECTED);

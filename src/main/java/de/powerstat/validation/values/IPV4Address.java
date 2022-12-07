@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -17,9 +19,15 @@ import java.util.regex.Pattern;
  * TODO https://datahub.io/core/geoip2-ipv4/r/geoip2-ipv4.csv
  * TODO ping ok?
  */
-// @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
+// @SuppressFBWarnings({"CLI_CONSTANT_LIST_INDEX", "PMB_POSSIBLE_MEMORY_BLOAT"})
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class IPV4Address implements Comparable<IPV4Address>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, IPV4Address> CACHE = new WeakHashMap<>();
+
   /**
    * Class c 192.
    */
@@ -46,6 +54,11 @@ public final class IPV4Address implements Comparable<IPV4Address>
   private static final Pattern IPV4_REGEXP = Pattern.compile("^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$"); //$NON-NLS-1$
 
   /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
+  /**
    * IP V4 address.
    */
   private final String address;
@@ -63,7 +76,7 @@ public final class IPV4Address implements Comparable<IPV4Address>
    * @throws NullPointerException if address is null
    * @throws IllegalArgumentException if address is not an ip v4 address
    */
-  public IPV4Address(final String address)
+  private IPV4Address(final String address)
    {
     super();
     Objects.requireNonNull(address, "address"); //$NON-NLS-1$
@@ -88,7 +101,17 @@ public final class IPV4Address implements Comparable<IPV4Address>
    */
   public static IPV4Address of(final String address)
    {
-    return new IPV4Address(address);
+    synchronized (IPV4Address.class)
+     {
+      IPV4Address obj = IPV4Address.CACHE.get(address);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new IPV4Address(address);
+      IPV4Address.CACHE.put(address, obj);
+      return obj;
+     }
    }
 
 
@@ -189,7 +212,7 @@ public final class IPV4Address implements Comparable<IPV4Address>
    * @return IPV4Address string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = IPV4Address.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getAddress()
    {
     return this.address;

@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 
 /**
@@ -12,8 +14,20 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Hours implements Comparable<Hours>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Long, Hours> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Hours.
    */
@@ -26,7 +40,7 @@ public final class Hours implements Comparable<Hours>
    * @param hours Hours 0-..
    * @throws IndexOutOfBoundsException When the hours is less than 0
    */
-  public Hours(final long hours)
+  private Hours(final long hours)
    {
     super();
     if (hours < 0)
@@ -45,7 +59,17 @@ public final class Hours implements Comparable<Hours>
    */
   public static Hours of(final long hours)
    {
-    return new Hours(hours);
+    synchronized (Hours.class)
+    {
+     Hours obj = Hours.CACHE.get(hours);
+     if (obj != null)
+      {
+       return obj;
+      }
+     obj = new Hours(hours);
+     Hours.CACHE.put(Long.valueOf(hours), obj);
+     return obj;
+    }
    }
 
 
@@ -55,7 +79,7 @@ public final class Hours implements Comparable<Hours>
    * @return Hours
    * @deprecated Use longValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Hours.DEPRECATED_SINCE_3_0, forRemoval = false)
   public long getHours()
    {
     return this.hours;
@@ -96,6 +120,8 @@ public final class Hours implements Comparable<Hours>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -105,7 +131,8 @@ public final class Hours implements Comparable<Hours>
       return false;
      }
     final Hours other = (Hours)obj;
-    return this.hours == other.hours;
+    return false; // this.hours == other.hours;
+    */
    }
 
 

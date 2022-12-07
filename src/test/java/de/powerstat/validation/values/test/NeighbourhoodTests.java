@@ -45,6 +45,11 @@ public class NeighbourhoodTests
    */
   private static final String NEIGHBOURHOOD_NOT_AS_EXPECTED = "Neighbourhood not as expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -105,9 +110,23 @@ public class NeighbourhoodTests
 
   /**
    * Test get Neighbourhood.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = NeighbourhoodTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getNeighbourhood()
+   {
+    final Neighbourhood neighbourhood = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
+    assertEquals(NeighbourhoodTests.UNKNOWN, neighbourhood.getNeighbourhood(), NeighbourhoodTests.NEIGHBOURHOOD_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get Neighbourhood.
+   */
+  @Test
+  public void stringValue()
    {
     final Neighbourhood neighbourhood = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
     assertEquals(NeighbourhoodTests.UNKNOWN, neighbourhood.stringValue(), NeighbourhoodTests.NEIGHBOURHOOD_NOT_AS_EXPECTED);

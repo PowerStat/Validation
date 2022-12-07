@@ -45,6 +45,11 @@ public class LanguageTests
    */
   private static final String LANGUAGE_CODE_NOT_AS_EXPECTED = "Language code not as expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -105,9 +110,23 @@ public class LanguageTests
 
   /**
    * Test get language code.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = LanguageTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getLanguage()
+   {
+    final Language language = Language.of(LanguageTests.DE);
+    assertEquals(LanguageTests.DE, language.getLanguage(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get language code.
+   */
+  @Test
+  public void stringValue()
    {
     final Language language = Language.of(LanguageTests.DE);
     assertEquals(LanguageTests.DE, language.stringValue(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);

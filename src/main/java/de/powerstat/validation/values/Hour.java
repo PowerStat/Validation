@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 
 /**
@@ -12,12 +14,33 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  *
- * TODO nextHour, previousHour
- * TODO hour + hours
  * TODO Listener
+ * TODO minutesWithin = 60
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Hour implements Comparable<Hour>
  {
+  /**
+   * Overflow constant.
+   */
+  private static final String OVERFLOW = "Overflow"; //$NON-NLS-1$
+
+  /**
+   * Underflow contant.
+   */
+  private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Integer, Hour> CACHE = new WeakHashMap<>();
+
   /**
    * Hour.
    */
@@ -30,7 +53,7 @@ public final class Hour implements Comparable<Hour>
    * @param hour Hour 0-23
    * @throws IndexOutOfBoundsException When the hour is less than 0 or greater than 23
    */
-  public Hour(final int hour)
+  private Hour(final int hour)
    {
     super();
     if ((hour < 0) || (hour > 23))
@@ -49,7 +72,17 @@ public final class Hour implements Comparable<Hour>
    */
   public static Hour of(final int hour)
    {
-    return new Hour(hour);
+    synchronized (Hour.class)
+    {
+     Hour obj = Hour.CACHE.get(hour);
+     if (obj != null)
+      {
+       return obj;
+      }
+     obj = new Hour(hour);
+     Hour.CACHE.put(Integer.valueOf(hour), obj);
+     return obj;
+    }
    }
 
 
@@ -59,7 +92,7 @@ public final class Hour implements Comparable<Hour>
    * @return Hour
    * @deprecated Use intValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Hour.DEPRECATED_SINCE_3_0, forRemoval = false)
   public int getHour()
    {
     return this.hour;
@@ -100,6 +133,8 @@ public final class Hour implements Comparable<Hour>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -109,7 +144,8 @@ public final class Hour implements Comparable<Hour>
       return false;
      }
     final Hour other = (Hour)obj;
-    return this.hour == other.hour;
+    return false; // this.hour == other.hour;
+    */
    }
 
 
@@ -144,6 +180,80 @@ public final class Hour implements Comparable<Hour>
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
     return Integer.compare(this.hour, obj.hour);
+   }
+
+
+  /**
+   * Add hours to this hour.
+   *
+   * @param hours Hours to add to this hour
+   * @return New hour after adding the hours to this hour
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Hour add(final Hours hours)
+   {
+    final int newHour = Math.toIntExact(Math.addExact(this.hour, hours.longValue()));
+    if (newHour > 23)
+     {
+      // TODO Listener
+      throw new ArithmeticException(Hour.OVERFLOW);
+     }
+    return Hour.of(newHour);
+   }
+
+
+  /**
+   * Subtract hours from this hour.
+   *
+   * @param hours Hours to subtract from this hour
+   * @return New hour after subtracting hours from this hour
+   * @throws ArithmeticException In case of an underflow
+   */
+  public Hour subtract(final Hours hours)
+   {
+    final int newHour = Math.toIntExact(Math.subtractExact(this.hour, hours.longValue()));
+    if (newHour < 0)
+     {
+      // TODO Listener
+      throw new ArithmeticException(Hour.UNDERFLOW);
+     }
+    return Hour.of(newHour);
+   }
+
+
+  /**
+   * Increment this hour.
+   *
+   * @return New hour after incrementing this hour
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Hour increment()
+   {
+    final int newHour = Math.incrementExact(this.hour);
+    if (newHour == 24)
+     {
+      // TODO Listener
+      throw new ArithmeticException(Hour.OVERFLOW);
+     }
+    return Hour.of(newHour);
+   }
+
+
+  /**
+   * Decrement this hour.
+   *
+   * @return New hour after decrement this hour
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Hour decrement()
+   {
+    final int newHour = Math.decrementExact(this.hour);
+    if (newHour == -1)
+     {
+      // TODO Listener
+      throw new ArithmeticException(Hour.UNDERFLOW);
+     }
+    return Hour.of(newHour);
    }
 
  }

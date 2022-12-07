@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedISO6391;
@@ -18,12 +20,24 @@ import de.powerstat.validation.generated.GeneratedISO6391;
  * TODO Languages names in english
  * TODO Translations
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Language implements Comparable<Language>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, Language> CACHE = new WeakHashMap<>();
+
   /**
    * Language regexp.
    */
   private static final Pattern LANGUAGE_REGEXP = Pattern.compile("^[a-z]{2}$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * ISO 639-1 language code.
@@ -38,7 +52,7 @@ public final class Language implements Comparable<Language>
    * @throws NullPointerException if code is null
    * @throws IllegalArgumentException if code is not a known 639-1 code
    */
-  public Language(final String code)
+  private Language(final String code)
    {
     super();
     Objects.requireNonNull(code, "code"); //$NON-NLS-1$
@@ -66,7 +80,17 @@ public final class Language implements Comparable<Language>
    */
   public static Language of(final String code)
    {
-    return new Language(code);
+    synchronized (Language.class)
+     {
+      Language obj = Language.CACHE.get(code);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Language(code);
+      Language.CACHE.put(code, obj);
+      return obj;
+     }
    }
 
 
@@ -76,7 +100,7 @@ public final class Language implements Comparable<Language>
    * @return Language code string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Language.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getLanguage()
    {
     return this.code;

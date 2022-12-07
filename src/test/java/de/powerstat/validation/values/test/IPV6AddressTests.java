@@ -33,6 +33,11 @@ public class IPV6AddressTests
   /**
    * IP V6 test address.
    */
+  private static final String FD00_0000 = "fd00:0000:0000:0000:0000:0000:0000:0000"; //$NON-NLS-1$
+
+  /**
+   * IP V6 test address.
+   */
   private static final String FD00_1 = "fd00::1"; //$NON-NLS-1$
 
   /**
@@ -54,6 +59,11 @@ public class IPV6AddressTests
    * Address not as expected constant.
    */
   private static final String ADDRESS_NOT_AS_EXPECTED = "Address not as expected"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
 
   /**
@@ -220,12 +230,26 @@ public class IPV6AddressTests
 
   /**
    * Test get address.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = IPV6AddressTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getAddress()
    {
     final IPV6Address address = IPV6Address.of(IPV6AddressTests.IPV6_FD00);
-    assertEquals("fd00:0000:0000:0000:0000:0000:0000:0000", address.stringValue(), IPV6AddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
+    assertEquals(IPV6AddressTests.FD00_0000, address.getAddress(), IPV6AddressTests.ADDRESS_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get address.
+   */
+  @Test
+  public void stringValue()
+   {
+    final IPV6Address address = IPV6Address.of(IPV6AddressTests.IPV6_FD00);
+    assertEquals(IPV6AddressTests.FD00_0000, address.stringValue(), IPV6AddressTests.ADDRESS_NOT_AS_EXPECTED);
    }
 
 

@@ -6,6 +6,7 @@ package de.powerstat.validation.values;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -16,8 +17,15 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * TODO More country reform dates
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class GregorianCalendar implements Comparable<GregorianCalendar>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Country, GregorianCalendar> CACHE = new WeakHashMap<>();
+
   /**
    * Days per month.
    */
@@ -172,7 +180,7 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>
    *
    * @param country Country of gregorian calendar reform
    */
-  public GregorianCalendar(final Country country)
+  private GregorianCalendar(final Country country)
    {
     super();
     Objects.requireNonNull(country, "country"); //$NON-NLS-1$
@@ -188,7 +196,17 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>
    */
   public static GregorianCalendar of(final Country country)
    {
-    return new GregorianCalendar(country);
+    synchronized (GregorianCalendar.class)
+     {
+      GregorianCalendar obj = GregorianCalendar.CACHE.get(country);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new GregorianCalendar(country);
+      GregorianCalendar.CACHE.put(country, obj);
+      return obj;
+     }
    }
 
 

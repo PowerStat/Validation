@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedTlds;
@@ -15,12 +17,24 @@ import de.powerstat.validation.generated.GeneratedTlds;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class TopLevelDomain implements Comparable<TopLevelDomain>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, TopLevelDomain> CACHE = new WeakHashMap<>();
+
   /**
    * Top level domain regexp.
    */
   private static final Pattern TOPLEVELDOMAIN_REGEXP = Pattern.compile("^[0-9a-zA-Z-]+$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Top level domain.
@@ -35,7 +49,7 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>
    * @throws NullPointerException if top level domain is null
    * @throws IllegalArgumentException if top level domain is not a known top level domain
    */
-  public TopLevelDomain(final String topLevelDomain)
+  private TopLevelDomain(final String topLevelDomain)
    {
     super();
     Objects.requireNonNull(topLevelDomain, "topLevelDomain"); //$NON-NLS-1$
@@ -67,7 +81,17 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>
    */
   public static TopLevelDomain of(final String topLevelDomain)
    {
-    return new TopLevelDomain(topLevelDomain);
+    synchronized (TopLevelDomain.class)
+     {
+      TopLevelDomain obj = TopLevelDomain.CACHE.get(topLevelDomain);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new TopLevelDomain(topLevelDomain);
+      TopLevelDomain.CACHE.put(topLevelDomain, obj);
+      return obj;
+     }
    }
 
 
@@ -77,7 +101,7 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>
    * @return Top level domain string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = TopLevelDomain.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getTopLevelDomain()
    {
     return this.topLevelDomain;

@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -13,12 +15,24 @@ import java.util.regex.Pattern;
  *
  * DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Lastname implements Comparable<Lastname>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, Lastname> CACHE = new WeakHashMap<>();
+
   /**
    * Lastname regexp.
    */
   private static final Pattern LASTNAME_REGEXP = Pattern.compile("^[\\p{L}][\\p{L} -]*$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Lastname.
@@ -34,7 +48,7 @@ public final class Lastname implements Comparable<Lastname>
    * @throws NullPointerException if lastname is null
    * @throws IllegalArgumentException if lastname contains unsupported characters or is to long or short
    */
-  public Lastname(final String lastname)
+  private Lastname(final String lastname)
    {
     super();
     Objects.requireNonNull(lastname, "lastname"); //$NON-NLS-1$
@@ -58,7 +72,17 @@ public final class Lastname implements Comparable<Lastname>
    */
   public static Lastname of(final String lastname)
    {
-    return new Lastname(lastname);
+    synchronized (Lastname.class)
+     {
+      Lastname obj = Lastname.CACHE.get(lastname);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Lastname(lastname);
+      Lastname.CACHE.put(lastname, obj);
+      return obj;
+     }
    }
 
 
@@ -68,7 +92,7 @@ public final class Lastname implements Comparable<Lastname>
    * @return Lastname string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Lastname.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getLastname()
    {
     return this.lastname;

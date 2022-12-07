@@ -5,7 +5,9 @@ package de.powerstat.validation.values;
 
 
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -16,12 +18,19 @@ import java.util.regex.Pattern;
  *
  * TODO ping ok?
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class IPV6Address implements Comparable<IPV6Address>
  {
   /**
    * Logger.
    */
   // private static final Logger LOGGER = LogManager.getLogger(IPV6Address.class);
+
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, IPV6Address> CACHE = new WeakHashMap<>();
 
   /**
    * IP V6 regexp.
@@ -49,6 +58,11 @@ public final class IPV6Address implements Comparable<IPV6Address>
   private static final String IV6_SEP = ":"; //$NON-NLS-1$
 
   /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
+  /**
    * IP V6 address.
    */
   private final String address;
@@ -66,7 +80,7 @@ public final class IPV6Address implements Comparable<IPV6Address>
    * @throws NullPointerException if address is null
    * @throws IllegalArgumentException if address is not an ip v6 address
    */
-  public IPV6Address(final String address)
+  private IPV6Address(final String address)
    {
     super();
     Objects.requireNonNull(address, "address"); //$NON-NLS-1$
@@ -104,7 +118,7 @@ public final class IPV6Address implements Comparable<IPV6Address>
      }
       final int blockStart = address.lastIndexOf(':', ipv4pos);
       final String ipv4 = address.substring(blockStart + 1);
-      /* final IPV4Address ipv4address = */ new IPV4Address(ipv4); // TODO use IPV4Address to ip v6 conversion method
+    /* final IPV4Address ipv4address = */ IPV4Address.of(ipv4); // TODO use IPV4Address to ip v6 conversion method
       final String newAddress = address.substring(0, blockStart + 1);
       final String[] parts = ipv4.split("\\."); //$NON-NLS-1$
       final int block1 = Integer.parseInt(parts[0]);
@@ -184,7 +198,9 @@ public final class IPV6Address implements Comparable<IPV6Address>
      {
       replace.append(':');
      }
-    return start + replace.toString() + end;
+    replace.append(end);
+    replace.insert(0, start);
+    return replace.toString();
    }
 
 
@@ -215,7 +231,17 @@ public final class IPV6Address implements Comparable<IPV6Address>
    */
   public static IPV6Address of(final String address)
    {
-    return new IPV6Address(address);
+    synchronized (IPV6Address.class)
+     {
+      IPV6Address obj = IPV6Address.CACHE.get(address);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new IPV6Address(address);
+      IPV6Address.CACHE.put(address, obj);
+      return obj;
+     }
    }
 
 
@@ -280,7 +306,7 @@ public final class IPV6Address implements Comparable<IPV6Address>
    * @return IPV6Address string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = IPV6Address.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getAddress()
    {
     return this.address;

@@ -4,16 +4,32 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 
 /**
  * Seconds.
  *
  * Not DSGVO relevant.
+ *
+ * TODO inMinutes()
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Seconds implements Comparable<Seconds>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Long, Seconds> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Seconds.
    */
@@ -26,7 +42,7 @@ public final class Seconds implements Comparable<Seconds>
    * @param seconds Seconds 0-..
    * @throws IndexOutOfBoundsException When the seconds is less than 0
    */
-  public Seconds(final long seconds)
+  private Seconds(final long seconds)
    {
     super();
     if (seconds < 0)
@@ -45,7 +61,17 @@ public final class Seconds implements Comparable<Seconds>
    */
   public static Seconds of(final long seconds)
    {
-    return new Seconds(seconds);
+    synchronized (Seconds.class)
+     {
+      Seconds obj = Seconds.CACHE.get(seconds);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Seconds(seconds);
+      Seconds.CACHE.put(Long.valueOf(seconds), obj);
+      return obj;
+     }
    }
 
 
@@ -55,7 +81,7 @@ public final class Seconds implements Comparable<Seconds>
    * @return Seconds
    * @deprecated Use longValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Seconds.DEPRECATED_SINCE_3_0, forRemoval = false)
   public long getSeconds()
    {
     return this.seconds;
@@ -96,6 +122,8 @@ public final class Seconds implements Comparable<Seconds>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -105,7 +133,8 @@ public final class Seconds implements Comparable<Seconds>
       return false;
      }
     final Seconds other = (Seconds)obj;
-    return this.seconds == other.seconds;
+    return false; // this.seconds == other.seconds;
+    */
    }
 
 

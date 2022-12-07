@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedISO4217;
@@ -17,12 +19,24 @@ import de.powerstat.validation.generated.GeneratedISO4217;
  *
  * TODO Translations
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Currency implements Comparable<Currency>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, Currency> CACHE = new WeakHashMap<>();
+
   /**
    * Currency regexp.
    */
   private static final Pattern CURRENCY_REGEXP = Pattern.compile("^[A-Z]{3}$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * ISO 4217 currency code.
@@ -37,7 +51,7 @@ public final class Currency implements Comparable<Currency>
    * @throws NullPointerException if code is null
    * @throws IllegalArgumentException if code is not a known 4217 code
    */
-  public Currency(final String code)
+  private Currency(final String code)
    {
     super();
     Objects.requireNonNull(code, "code"); //$NON-NLS-1$
@@ -65,7 +79,17 @@ public final class Currency implements Comparable<Currency>
    */
   public static Currency of(final String code)
    {
-    return new Currency(code);
+    synchronized (Currency.class)
+     {
+      Currency obj = Currency.CACHE.get(code);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Currency(code);
+      Currency.CACHE.put(code, obj);
+      return obj;
+     }
    }
 
 
@@ -75,7 +99,7 @@ public final class Currency implements Comparable<Currency>
    * @return Currency code string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Currency.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getCurrency()
    {
     return this.code;

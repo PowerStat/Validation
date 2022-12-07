@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -13,13 +15,25 @@ import java.util.regex.Pattern;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Lines implements Comparable<Lines>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, Lines> CACHE = new WeakHashMap<>();
+
   /**
    * Lines fregexp.
    */
   @SuppressWarnings("java:S6035")
   private static final Pattern LINES_REGEXP = Pattern.compile("^([\\p{L}\\p{Digit},.& -]|\\R)*+$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Lines.
@@ -34,7 +48,7 @@ public final class Lines implements Comparable<Lines>
    * @throws NullPointerException if lines is null
    * @throws IllegalArgumentException if lines is not a correct Lines
    */
-  public Lines(final String lines)
+  private Lines(final String lines)
    {
     super();
     Objects.requireNonNull(lines, "lines"); //$NON-NLS-1$
@@ -62,7 +76,17 @@ public final class Lines implements Comparable<Lines>
    */
   public static Lines of(final String lines)
    {
-    return new Lines(lines);
+    synchronized (Lines.class)
+     {
+      Lines obj = Lines.CACHE.get(lines);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Lines(lines);
+      Lines.CACHE.put(lines, obj);
+      return obj;
+     }
    }
 
 
@@ -72,7 +96,7 @@ public final class Lines implements Comparable<Lines>
    * @return Lines string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Lines.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getLines()
    {
     return this.lines;

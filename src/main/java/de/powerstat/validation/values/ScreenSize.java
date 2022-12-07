@@ -4,14 +4,30 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
+
+import de.powerstat.validation.values.containers.NTuple3;
 
 
 /**
  * Screen size.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class ScreenSize implements Comparable<ScreenSize>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<NTuple3<Integer, Integer, String>, ScreenSize> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Screen width (1-8192).
    */
@@ -35,9 +51,10 @@ public final class ScreenSize implements Comparable<ScreenSize>
    * @param height Screen height in pixel (1-8192)
    * @param name Screen size name
    */
-  public ScreenSize(final int width, final int height, final String name)
+  private ScreenSize(final int width, final int height, final String name)
    {
     super();
+    /*
     if ((width < 1) || (width > 8192.0))
      {
       throw new IndexOutOfBoundsException("Width out of range (1-8192)"); //$NON-NLS-1$
@@ -46,6 +63,7 @@ public final class ScreenSize implements Comparable<ScreenSize>
      {
       throw new IndexOutOfBoundsException("Height out of range (1-8192)"); //$NON-NLS-1$
      }
+    */
     Objects.requireNonNull(name);
     this.width = width;
     this.height = height;
@@ -63,7 +81,26 @@ public final class ScreenSize implements Comparable<ScreenSize>
    */
   public static ScreenSize of(final int width, final int height, final String name)
    {
-    return new ScreenSize(width, height, name);
+    if ((width < 1) || (width > 8192.0))
+     {
+      throw new IndexOutOfBoundsException("Width out of range (1-8192)"); //$NON-NLS-1$
+     }
+    if ((height < 1) || (height > 8192.0))
+     {
+      throw new IndexOutOfBoundsException("Height out of range (1-8192)"); //$NON-NLS-1$
+     }
+    final NTuple3<Integer, Integer, String> tuple = NTuple3.of(width, height, name);
+    synchronized (ScreenSize.class)
+     {
+      ScreenSize obj = ScreenSize.CACHE.get(tuple);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new ScreenSize(width, height, name);
+      ScreenSize.CACHE.put(tuple, obj);
+      return obj;
+     }
    }
 
 
@@ -95,7 +132,7 @@ public final class ScreenSize implements Comparable<ScreenSize>
    * @return Size string format 1x1
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = ScreenSize.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getSize()
    {
     return String.valueOf(this.width) + 'x' + this.height;
@@ -149,6 +186,8 @@ public final class ScreenSize implements Comparable<ScreenSize>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -163,6 +202,7 @@ public final class ScreenSize implements Comparable<ScreenSize>
       return this.name.equals(other.name);
      }
     return false;
+    */
    }
 
 

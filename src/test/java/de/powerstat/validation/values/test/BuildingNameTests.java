@@ -45,6 +45,11 @@ public class BuildingNameTests
    */
   private static final String BUILDING_NAME_NOT_AS_EXPECTED = "BuildingName not as expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -105,9 +110,23 @@ public class BuildingNameTests
 
   /**
    * Test get building name.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = BuildingNameTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getBuildingName()
+   {
+    final BuildingName buildingName = BuildingName.of(BuildingNameTests.RATHAUS);
+    assertEquals(BuildingNameTests.RATHAUS, buildingName.getBuildingName(), BuildingNameTests.BUILDING_NAME_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get building name.
+   */
+  @Test
+  public void stringValue()
    {
     final BuildingName buildingName = BuildingName.of(BuildingNameTests.RATHAUS);
     assertEquals(BuildingNameTests.RATHAUS, buildingName.stringValue(), BuildingNameTests.BUILDING_NAME_NOT_AS_EXPECTED);

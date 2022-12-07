@@ -45,6 +45,11 @@ public class PostalCodeTests
    */
   private static final String POSTAL_CODE_NOT_AS_EXPECTED = "PostalCode not as expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -105,9 +110,23 @@ public class PostalCodeTests
 
   /**
    * Test get postalCode.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = PostalCodeTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getPostalCode()
+   {
+    final PostalCode postalCode = PostalCode.of(PostalCodeTests.POSTCODE_28000);
+    assertEquals(PostalCodeTests.POSTCODE_28000, postalCode.getPostalCode(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get postalCode.
+   */
+  @Test
+  public void stringValue()
    {
     final PostalCode postalCode = PostalCode.of(PostalCodeTests.POSTCODE_28000);
     assertEquals(PostalCodeTests.POSTCODE_28000, postalCode.stringValue(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);

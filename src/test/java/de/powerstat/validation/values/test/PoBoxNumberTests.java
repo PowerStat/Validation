@@ -22,13 +22,23 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Post office  box number tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 public class PoBoxNumberTests
  {
   /**
    * Not a po box number constant.
    */
   private static final String NOT_A_PO_BOX_NUMBER = "Not a po box number!"; //$NON-NLS-1$
+
+  /**
+   * Result 10 constant.
+   */
+  private static final String RESULT10 = "10"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
 
   /**
@@ -80,6 +90,52 @@ public class PoBoxNumberTests
       /* final PoBoxNumber poBoxNumber = */ PoBoxNumber.of(poBoxNumber);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
+   }
+
+
+  /**
+   * getPoBoxNumber.
+   *
+   * @deprecated Old version of longValue()
+   */
+  @Deprecated(since = PoBoxNumberTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getPoBoxNumber()
+   {
+    assertEquals(10, PoBoxNumber.of(10).getPoBoxNumber(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
+   }
+
+
+  /**
+   * longValue.
+   */
+  @Test
+  public void longValue()
+   {
+    assertEquals(10, PoBoxNumber.of(10).longValue(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
+   }
+
+
+  /**
+   * getPoBoxNumberStr.
+   *
+   * @deprecated Old version of stringValue()
+   */
+  @Deprecated(since = PoBoxNumberTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getPoBoxNumberStr()
+   {
+    assertEquals(PoBoxNumberTests.RESULT10, PoBoxNumber.of(10).getPoBoxNumberStr(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    assertEquals(PoBoxNumberTests.RESULT10, PoBoxNumber.of(10).stringValue(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
    }
 
 

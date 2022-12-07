@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 import de.powerstat.validation.values.strategies.IUsernameStrategy;
 import de.powerstat.validation.values.strategies.UsernameDefaultStrategy;
@@ -19,8 +21,20 @@ import de.powerstat.validation.values.strategies.UsernameDefaultStrategy;
  * TODO case sensitive or insensitive?
  * TODO Comparable&lt;EMail&gt;
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Username implements Comparable<Username>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, Username> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Username.
    */
@@ -41,7 +55,7 @@ public final class Username implements Comparable<Username>
    * @throws NullPointerException if username or validationStrategy is null
    * @throws IllegalArgumentException if username contains unsupported characters or is to long or short
    */
-  public Username(final IUsernameStrategy validationStrategy, final String username)
+  private Username(final IUsernameStrategy validationStrategy, final String username)
    {
     super();
     Objects.requireNonNull(validationStrategy, "validationStrategy"); //$NON-NLS-1$
@@ -60,7 +74,18 @@ public final class Username implements Comparable<Username>
    */
   public static Username of(final IUsernameStrategy validationStrategy, final String username)
    {
-    return new Username(validationStrategy, username);
+    synchronized (Username.class)
+     {
+      Username obj = Username.CACHE.get(username);
+      if (obj != null)
+       {
+        validationStrategy.validationStrategy(username);
+        return obj;
+       }
+      obj = new Username(validationStrategy, username);
+      Username.CACHE.put(username, obj);
+      return obj;
+     }
    }
 
 
@@ -82,7 +107,7 @@ public final class Username implements Comparable<Username>
    * @return Username string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Username.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getUsername()
    {
     return this.username;

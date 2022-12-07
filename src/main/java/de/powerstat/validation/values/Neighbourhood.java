@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -13,12 +15,24 @@ import java.util.regex.Pattern;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Neighbourhood implements Comparable<Neighbourhood>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, Neighbourhood> CACHE = new WeakHashMap<>();
+
   /**
    * Neighbourhood fregexp.
    */
   private static final Pattern NEIGHBOURHOOD_REGEXP = Pattern.compile("^[\\p{L}][\\p{L}\\p{Digit}. -]*$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Neighbourhood.
@@ -33,7 +47,7 @@ public final class Neighbourhood implements Comparable<Neighbourhood>
    * @throws NullPointerException if neighbourhood is null
    * @throws IllegalArgumentException if neighbourhood is not a correct neighbourhood
    */
-  public Neighbourhood(final String neighbourhood)
+  private Neighbourhood(final String neighbourhood)
    {
     super();
     Objects.requireNonNull(neighbourhood, "neighbourhood"); //$NON-NLS-1$
@@ -57,7 +71,17 @@ public final class Neighbourhood implements Comparable<Neighbourhood>
    */
   public static Neighbourhood of(final String neighbourhood)
    {
-    return new Neighbourhood(neighbourhood);
+    synchronized (Neighbourhood.class)
+     {
+      Neighbourhood obj = Neighbourhood.CACHE.get(neighbourhood);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Neighbourhood(neighbourhood);
+      Neighbourhood.CACHE.put(neighbourhood, obj);
+      return obj;
+     }
    }
 
 
@@ -67,7 +91,7 @@ public final class Neighbourhood implements Comparable<Neighbourhood>
    * @return Neighbourhood string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Neighbourhood.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getNeighbourhood()
    {
     return this.neighbourhood;

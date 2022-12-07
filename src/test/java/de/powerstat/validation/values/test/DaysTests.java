@@ -22,9 +22,30 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Days tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 public class DaysTests
  {
+  /**
+   * Not a days constant.
+   */
+  private static final String NOT_A_DAYS = "Not a days!"; //$NON-NLS-1$
+
+  /**
+   * Result not as expected constant.
+   */
+  private static final String RESULT_NOT_AS_EXPECTED = "Result not as expected"; //$NON-NLS-1$
+
+  /**
+   * Arithmetic exception expected constant.
+   */
+  private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
+
   /**
    * Default constructor.
    */
@@ -43,7 +64,7 @@ public class DaysTests
   @ValueSource(longs = {0, 1, 7, 30, 365})
   public void isDays(final long days)
    {
-    assertEquals(days, Days.of(days).longValue(), "Not a days!"); //$NON-NLS-1$
+    assertEquals(days, Days.of(days).longValue(), DaysTests.NOT_A_DAYS);
    }
 
 
@@ -61,6 +82,29 @@ public class DaysTests
       /* final Days days = */ Days.of(days);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
+   }
+
+
+  /**
+   * getDays.
+   *
+   * @deprecated Old Version of longValue()
+   */
+  @Deprecated(since = DaysTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getDays()
+   {
+    assertEquals(10, Days.of(10).getDays(), DaysTests.NOT_A_DAYS);
+   }
+
+
+  /**
+   * longValue.
+   */
+  @Test
+  public void longValue()
+   {
+    assertEquals(10, Days.of(10).longValue(), DaysTests.NOT_A_DAYS);
    }
 
 
@@ -144,7 +188,7 @@ public class DaysTests
     final Days days1 = Days.of(1);
     final Days days2 = Days.of(1);
     final Days daysResult = days1.add(days2);
-    assertEquals(2, daysResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(2, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -159,7 +203,7 @@ public class DaysTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Days daysResult = */ days1.add(days2);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, DaysTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 
@@ -173,7 +217,7 @@ public class DaysTests
     final Days days1 = Days.of(6);
     final Days days2 = Days.of(3);
     final Days daysResult = days1.subtract(days2);
-    assertEquals(3, daysResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(3, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -186,7 +230,7 @@ public class DaysTests
     final Days days1 = Days.of(3);
     final Days days2 = Days.of(6);
     final Days daysResult = days1.subtract(days2);
-    assertEquals(3, daysResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(3, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -198,7 +242,7 @@ public class DaysTests
    {
     final Days days1 = Days.of(7);
     final Days daysResult = days1.multiply(3);
-    assertEquals(21, daysResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(21, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -212,7 +256,7 @@ public class DaysTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Days daysResult = */ days1.multiply(3);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, DaysTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 
@@ -225,7 +269,7 @@ public class DaysTests
    {
     final Days days1 = Days.of(10);
     final Days daysResult = days1.divide(2);
-    assertEquals(5, daysResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(5, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -237,7 +281,7 @@ public class DaysTests
    {
     final Days days1 = Days.of(10);
     final Days daysResult = days1.divide(3);
-    assertEquals(3, daysResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(3, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -251,7 +295,7 @@ public class DaysTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Days daysResult = */ days1.divide(0);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, DaysTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 
@@ -264,7 +308,7 @@ public class DaysTests
    {
     final Days days1 = Days.of(10);
     final Days daysResult = days1.modulo(2);
-    assertEquals(0, daysResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(0, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -276,7 +320,7 @@ public class DaysTests
    {
     final Days days1 = Days.of(10);
     final Days daysResult = days1.modulo(3);
-    assertEquals(1, daysResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(1, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -290,7 +334,7 @@ public class DaysTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Days daysResult = */ days1.modulo(0);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, DaysTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 

@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -15,12 +17,24 @@ import java.util.regex.Pattern;
  *
  * @see <a href="https://de.wikipedia.org/wiki/Vorname_(Deutschland)">Vorname</a>
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Firstname implements Comparable<Firstname>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, Firstname> CACHE = new WeakHashMap<>();
+
   /**
    * Firstname regexp.
    */
   private static final Pattern FIRSTNAME_REGEXP = Pattern.compile("^[\\p{L}][\\p{L}-]*$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Firstname.
@@ -36,7 +50,7 @@ public final class Firstname implements Comparable<Firstname>
    * @throws NullPointerException if firstname is null
    * @throws IllegalArgumentException if firstname contains unsupported characters or is to long or short
    */
-  public Firstname(final String firstname)
+  private Firstname(final String firstname)
    {
     super();
     Objects.requireNonNull(firstname, "firstname"); //$NON-NLS-1$
@@ -60,7 +74,17 @@ public final class Firstname implements Comparable<Firstname>
    */
   public static Firstname of(final String firstname)
    {
-    return new Firstname(firstname);
+    synchronized (Firstname.class)
+     {
+      Firstname obj = Firstname.CACHE.get(firstname);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Firstname(firstname);
+      Firstname.CACHE.put(firstname, obj);
+      return obj;
+     }
    }
 
 
@@ -70,7 +94,7 @@ public final class Firstname implements Comparable<Firstname>
    * @return Firstname string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Firstname.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getFirstname()
    {
     return this.firstname;

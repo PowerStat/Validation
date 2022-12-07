@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -13,12 +15,24 @@ import java.util.regex.Pattern;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Block implements Comparable<Block>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, Block> CACHE = new WeakHashMap<>();
+
   /**
    * Block regexp.
    */
   private static final Pattern BLOCK_REGEXP = Pattern.compile("^[\\p{L}\\p{Digit}]*$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Block.
@@ -33,7 +47,7 @@ public final class Block implements Comparable<Block>
    * @throws NullPointerException if block is null
    * @throws IllegalArgumentException if block is not a correct Block
    */
-  public Block(final String block)
+  private Block(final String block)
    {
     super();
     Objects.requireNonNull(block, "block"); //$NON-NLS-1$
@@ -57,7 +71,17 @@ public final class Block implements Comparable<Block>
    */
   public static Block of(final String block)
    {
-    return new Block(block);
+    synchronized (Block.class)
+     {
+      Block obj = Block.CACHE.get(block);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Block(block);
+      Block.CACHE.put(block, obj);
+      return obj;
+     }
    }
 
 
@@ -67,7 +91,7 @@ public final class Block implements Comparable<Block>
    * @return Block string
    * @deprecated Use stringValue() instead.
    */
-  @Deprecated
+  @Deprecated(since = Block.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getBlock()
    {
     return this.block;

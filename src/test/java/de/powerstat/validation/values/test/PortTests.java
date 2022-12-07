@@ -22,9 +22,20 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Tests for Port value class.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 public class PortTests
  {
+  /**
+   * Port should be 49152 constant.
+   */
+  private static final String PORT_SHOULD_BE_49152 = "Port should be 49152!"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
+
   /**
    * Default constructor.
    */
@@ -41,7 +52,7 @@ public class PortTests
   public void isPort()
    {
     final Port port = Port.of(49152);
-    assertEquals(49152, port.intValue(), "Port shoukd be 49152!"); //$NON-NLS-1$
+    assertEquals(49152, port.intValue(), PortTests.PORT_SHOULD_BE_49152);
    }
 
 
@@ -59,6 +70,31 @@ public class PortTests
       /* final Port port = */ Port.of(port);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
+   }
+
+
+  /**
+   * Test getPort.
+   *
+   * @deprecated Old version of intValue()
+   */
+  @Deprecated(since = PortTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getPort()
+   {
+    final Port port = Port.of(49152);
+    assertEquals(49152, port.getPort(), PortTests.PORT_SHOULD_BE_49152);
+   }
+
+
+  /**
+   * Test intValue.
+   */
+  @Test
+  public void intValue()
+   {
+    final Port port = Port.of(49152);
+    assertEquals(49152, port.intValue(), PortTests.PORT_SHOULD_BE_49152);
    }
 
 

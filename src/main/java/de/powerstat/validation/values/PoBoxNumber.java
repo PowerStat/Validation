@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 
 /**
@@ -12,8 +14,20 @@ import java.util.Objects;
  *
  * DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class PoBoxNumber implements Comparable<PoBoxNumber>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Long, PoBoxNumber> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Post office box number.
    */
@@ -26,7 +40,7 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>
    * @param poBoxNumber PO box number 1-..
    * @throws IndexOutOfBoundsException When the poBoxNumber is less than 1
    */
-  public PoBoxNumber(final long poBoxNumber)
+  private PoBoxNumber(final long poBoxNumber)
    {
     super();
     if (poBoxNumber < 1)
@@ -45,7 +59,17 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>
    */
   public static PoBoxNumber of(final long poBoxNumber)
    {
-    return new PoBoxNumber(poBoxNumber);
+    synchronized (PoBoxNumber.class)
+     {
+      PoBoxNumber obj = PoBoxNumber.CACHE.get(poBoxNumber);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new PoBoxNumber(poBoxNumber);
+      PoBoxNumber.CACHE.put(Long.valueOf(poBoxNumber), obj);
+      return obj;
+     }
    }
 
 
@@ -55,7 +79,7 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>
    * @return PO box number
    * @deprecated Use longValue() instead
    */
-  @Deprecated
+  @Deprecated(since = PoBoxNumber.DEPRECATED_SINCE_3_0, forRemoval = false)
   public long getPoBoxNumber()
    {
     return this.poBoxNumber;
@@ -79,7 +103,7 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>
    * @return PO box number as string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = PoBoxNumber.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getPoBoxNumberStr()
    {
     return Long.toString(this.poBoxNumber);
@@ -120,6 +144,8 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -129,7 +155,8 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>
       return false;
      }
     final PoBoxNumber other = (PoBoxNumber)obj;
-    return this.poBoxNumber == other.poBoxNumber;
+    return false; // this.poBoxNumber == other.poBoxNumber;
+    */
    }
 
 

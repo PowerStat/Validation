@@ -22,9 +22,30 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Weeks tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 public class WeeksTests
  {
+  /**
+   * Not a weeks constant.
+   */
+  private static final String NOT_A_WEEKS = "Not a weeks!"; //$NON-NLS-1$
+
+  /**
+   * Result not as expected constant.
+   */
+  private static final String RESULT_NOT_AS_EXPECTED = "Result not as expected"; //$NON-NLS-1$
+
+  /**
+   * Arithmetic exception expected constant.
+   */
+  private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
+
   /**
    * Default constructor.
    */
@@ -43,7 +64,7 @@ public class WeeksTests
   @ValueSource(longs = {0, 1, 104})
   public void isWeeks(final long weeks)
    {
-    assertEquals(weeks, Weeks.of(weeks).longValue(), "Not a weeks!"); //$NON-NLS-1$
+    assertEquals(weeks, Weeks.of(weeks).longValue(), WeeksTests.NOT_A_WEEKS);
    }
 
 
@@ -61,6 +82,29 @@ public class WeeksTests
       /* final Weeks weeks = */ Weeks.of(weeks);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
+   }
+
+
+  /**
+   * Test getWeeks.
+   *
+   * @deprecated Old version of longValue()
+   */
+  @Deprecated(since = WeeksTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getWeeks()
+   {
+    assertEquals(1, Weeks.of(1).getWeeks(), WeeksTests.NOT_A_WEEKS);
+   }
+
+
+  /**
+   * Test longValue.
+   */
+  @Test
+  public void longValue()
+   {
+    assertEquals(1, Weeks.of(1).longValue(), WeeksTests.NOT_A_WEEKS);
    }
 
 
@@ -144,7 +188,7 @@ public class WeeksTests
     final Weeks weeks1 = Weeks.of(1);
     final Weeks weeks2 = Weeks.of(1);
     final Weeks weeksResult = weeks1.add(weeks2);
-    assertEquals(2, weeksResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(2, weeksResult.longValue(), WeeksTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -159,7 +203,7 @@ public class WeeksTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Weeks yearsResult = */ weeks1.add(weeks2);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, WeeksTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 
@@ -173,7 +217,7 @@ public class WeeksTests
     final Weeks weeks1 = Weeks.of(6);
     final Weeks weeks2 = Weeks.of(3);
     final Weeks weeksResult = weeks1.subtract(weeks2);
-    assertEquals(3, weeksResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(3, weeksResult.longValue(), WeeksTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -186,7 +230,7 @@ public class WeeksTests
     final Weeks weeks1 = Weeks.of(3);
     final Weeks weeks2 = Weeks.of(6);
     final Weeks weeksResult = weeks1.subtract(weeks2);
-    assertEquals(3, weeksResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(3, weeksResult.longValue(), WeeksTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -198,7 +242,7 @@ public class WeeksTests
    {
     final Weeks weeks1 = Weeks.of(7);
     final Weeks weeksResult = weeks1.multiply(3);
-    assertEquals(21, weeksResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(21, weeksResult.longValue(), WeeksTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -212,7 +256,7 @@ public class WeeksTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Weeks weeksResult = */ weeks1.multiply(3);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, WeeksTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 
@@ -225,7 +269,7 @@ public class WeeksTests
    {
     final Weeks weeks1 = Weeks.of(10);
     final Weeks weeksResult = weeks1.divide(2);
-    assertEquals(5, weeksResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(5, weeksResult.longValue(), WeeksTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -237,7 +281,7 @@ public class WeeksTests
    {
     final Weeks weeks1 = Weeks.of(10);
     final Weeks weeksResult = weeks1.divide(3);
-    assertEquals(3, weeksResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(3, weeksResult.longValue(), WeeksTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -251,7 +295,7 @@ public class WeeksTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Weeks weeksResult = */ weeks1.divide(0);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, WeeksTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 
@@ -264,7 +308,7 @@ public class WeeksTests
    {
     final Weeks weeks1 = Weeks.of(10);
     final Weeks weeksResult = weeks1.modulo(2);
-    assertEquals(0, weeksResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(0, weeksResult.longValue(), WeeksTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -276,7 +320,7 @@ public class WeeksTests
    {
     final Weeks weeks1 = Weeks.of(10);
     final Weeks weeksResult = weeks1.modulo(3);
-    assertEquals(1, weeksResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(1, weeksResult.longValue(), WeeksTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -290,7 +334,7 @@ public class WeeksTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Weeks weeksResult = */ weeks1.modulo(0);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, WeeksTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 

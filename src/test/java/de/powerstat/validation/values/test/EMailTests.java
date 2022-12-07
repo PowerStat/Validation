@@ -55,6 +55,11 @@ public class EMailTests
    */
   private static final String ILLEGAL_ARGUMENT_EXCEPTION = "Illegal argument exception expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -224,9 +229,23 @@ public class EMailTests
 
   /**
    * Test get email.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = EMailTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getEMail()
+   {
+    final EMail email = EMail.of(EMailTests.USER_EXAMPLE_COM);
+    assertEquals(EMailTests.USER_EXAMPLE_COM, email.getEMail(), EMailTests.EMAIL_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get email.
+   */
+  @Test
+  public void stringValue()
    {
     final EMail email = EMail.of(EMailTests.USER_EXAMPLE_COM);
     assertEquals(EMailTests.USER_EXAMPLE_COM, email.stringValue(), EMailTests.EMAIL_NOT_AS_EXPECTED);

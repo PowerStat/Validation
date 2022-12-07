@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 
 /**
@@ -12,12 +14,33 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  *
- * TODO nextMinute, previousMinute
- * TODO minute + minutes
  * TODO Listener
+ * TODO secondsWithin = 60
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Minute implements Comparable<Minute>
  {
+  /**
+   * Overlfow constant.
+   */
+  private static final String OVERFLOW = "Overflow"; //$NON-NLS-1$
+
+  /**
+   * Underflow constant.
+   */
+  private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
+
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Integer, Minute> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Minute.
    */
@@ -30,7 +53,7 @@ public final class Minute implements Comparable<Minute>
    * @param minute Minute 0-59
    * @throws IndexOutOfBoundsException When the minute is less than 0 or greater than 59
    */
-  public Minute(final int minute)
+  private Minute(final int minute)
    {
     super();
     if ((minute < 0) || (minute > 59))
@@ -49,7 +72,17 @@ public final class Minute implements Comparable<Minute>
    */
   public static Minute of(final int minute)
    {
-    return new Minute(minute);
+    synchronized (Minute.class)
+     {
+      Minute obj = Minute.CACHE.get(minute);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Minute(minute);
+      Minute.CACHE.put(Integer.valueOf(minute), obj);
+      return obj;
+     }
    }
 
 
@@ -59,7 +92,7 @@ public final class Minute implements Comparable<Minute>
    * @return Minute
    * @deprecated Use intValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Minute.DEPRECATED_SINCE_3_0, forRemoval = false)
   public int getMinute()
    {
     return this.minute;
@@ -100,6 +133,8 @@ public final class Minute implements Comparable<Minute>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -109,7 +144,8 @@ public final class Minute implements Comparable<Minute>
       return false;
      }
     final Minute other = (Minute)obj;
-    return this.minute == other.minute;
+    return false; // this.minute == other.minute;
+    */
    }
 
 
@@ -144,6 +180,80 @@ public final class Minute implements Comparable<Minute>
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
     return Integer.compare(this.minute, obj.minute);
+   }
+
+
+  /**
+   * Add minutes to this minute.
+   *
+   * @param minutes Minutes to add to this minute
+   * @return New minute after adding the minutes to this minute
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Minute add(final Minutes minutes)
+   {
+    final int newMinute = Math.toIntExact(Math.addExact(this.minute, minutes.longValue()));
+    if (newMinute > 59)
+     {
+      // TODO Listener
+      throw new ArithmeticException(Minute.OVERFLOW);
+     }
+    return Minute.of(newMinute);
+   }
+
+
+  /**
+   * Subtract minutes from this minute.
+   *
+   * @param minutes Minutes to subtract from this minute
+   * @return New minute after subtracting minutes from this minute
+   * @throws ArithmeticException In case of an underflow
+   */
+  public Minute subtract(final Minutes minutes)
+   {
+    final int newMinute = Math.toIntExact(Math.subtractExact(this.minute, minutes.longValue()));
+    if (newMinute < 0)
+     {
+      // TODO Listener
+      throw new ArithmeticException(Minute.UNDERFLOW);
+     }
+    return Minute.of(newMinute);
+   }
+
+
+  /**
+   * Increment this minute.
+   *
+   * @return New minute after incrementing this minute
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Minute increment()
+   {
+    final int newMinute = Math.incrementExact(this.minute);
+    if (newMinute == 60)
+     {
+      // TODO Listener
+      throw new ArithmeticException(Minute.OVERFLOW);
+     }
+    return Minute.of(newMinute);
+   }
+
+
+  /**
+   * Decrement this minute.
+   *
+   * @return New minute after decrement this minute
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Minute decrement()
+   {
+    final int newMinute = Math.decrementExact(this.minute);
+    if (newMinute == -1)
+     {
+      // TODO Listener
+      throw new ArithmeticException(Minute.UNDERFLOW);
+     }
+    return Minute.of(newMinute);
    }
 
  }

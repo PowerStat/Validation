@@ -45,6 +45,11 @@ public class BICTests
    */
   private static final String BIC_RZTIAT22263 = "RZTIAT22263"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -105,9 +110,23 @@ public class BICTests
 
   /**
    * Test get bic.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = BICTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getBic()
+   {
+    final BIC bic = BIC.of(BICTests.BIC_BELADEBEXXX);
+    assertEquals(BICTests.BIC_BELADEBEXXX, bic.getBIC(), BICTests.BIC_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get bic.
+   */
+  @Test
+  public void stringValue()
    {
     final BIC bic = BIC.of(BICTests.BIC_BELADEBEXXX);
     assertEquals(BICTests.BIC_BELADEBEXXX, bic.stringValue(), BICTests.BIC_NOT_AS_EXPECTED);

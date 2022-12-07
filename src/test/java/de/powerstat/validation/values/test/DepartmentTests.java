@@ -45,6 +45,11 @@ public class DepartmentTests
    */
   private static final String DEPARTMENT_NOT_AS_EXPECTED = "Department not as expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -105,9 +110,23 @@ public class DepartmentTests
 
   /**
    * Test get department.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = DepartmentTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getDepartment()
+   {
+    final Department department = Department.of(DepartmentTests.RESEARCH);
+    assertEquals(DepartmentTests.RESEARCH, department.getDepartment(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get department.
+   */
+  @Test
+  public void stringValue()
    {
     final Department department = Department.of(DepartmentTests.RESEARCH);
     assertEquals(DepartmentTests.RESEARCH, department.stringValue(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);

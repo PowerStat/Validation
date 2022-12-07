@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -13,12 +15,24 @@ import java.util.regex.Pattern;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class City implements Comparable<City>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, City> CACHE = new WeakHashMap<>();
+
   /**
    * City name regexp.
    */
   private static final Pattern CITY_REGEXP = Pattern.compile("^[\\p{L}][\\p{L} -]*$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * City.
@@ -33,7 +47,7 @@ public final class City implements Comparable<City>
    * @throws NullPointerException if city is null
    * @throws IllegalArgumentException if city is not a correct City name
    */
-  public City(final String city)
+  private City(final String city)
    {
     super();
     Objects.requireNonNull(city, "city"); //$NON-NLS-1$
@@ -57,7 +71,17 @@ public final class City implements Comparable<City>
    */
   public static City of(final String city)
    {
-    return new City(city);
+    synchronized (City.class)
+     {
+      City obj = City.CACHE.get(city);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new City(city);
+      City.CACHE.put(city, obj);
+      return obj;
+     }
    }
 
 
@@ -67,7 +91,7 @@ public final class City implements Comparable<City>
    * @return City string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = City.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getCity()
    {
     return this.city;

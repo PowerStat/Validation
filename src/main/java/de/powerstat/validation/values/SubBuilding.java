@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -13,12 +15,24 @@ import java.util.regex.Pattern;
  *
  * Possibly DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class SubBuilding implements Comparable<SubBuilding>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, SubBuilding> CACHE = new WeakHashMap<>();
+
   /**
    * Subbuilding regexp.
    */
   private static final Pattern SUBBUILDING_REGEXP = Pattern.compile("^[\\p{L}][\\p{L}\\p{Digit}., -]*$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Sub building.
@@ -33,7 +47,7 @@ public final class SubBuilding implements Comparable<SubBuilding>
    * @throws NullPointerException if subBuilding is null
    * @throws IllegalArgumentException if subBuilding is not correct
    */
-  public SubBuilding(final String subBuilding)
+  private SubBuilding(final String subBuilding)
    {
     super();
     Objects.requireNonNull(subBuilding, "subBuilding"); //$NON-NLS-1$
@@ -57,7 +71,17 @@ public final class SubBuilding implements Comparable<SubBuilding>
    */
   public static SubBuilding of(final String subBuilding)
    {
-    return new SubBuilding(subBuilding);
+    synchronized (SubBuilding.class)
+     {
+      SubBuilding obj = SubBuilding.CACHE.get(subBuilding);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new SubBuilding(subBuilding);
+      SubBuilding.CACHE.put(subBuilding, obj);
+      return obj;
+     }
    }
 
 
@@ -67,7 +91,7 @@ public final class SubBuilding implements Comparable<SubBuilding>
    * @return SubBuilding string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = SubBuilding.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getSubBuilding()
    {
     return this.subBuilding;

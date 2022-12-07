@@ -16,15 +16,37 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import de.powerstat.validation.values.Hour;
+import de.powerstat.validation.values.Hours;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
  * Hour tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 public class HourTests
  {
+  /**
+   * Not a hour constant.
+   */
+  private static final String NOT_A_HOUR = "Not a hour!"; //$NON-NLS-1$
+
+  /**
+   * Result nor as expected constant.
+   */
+  private static final String RESULT_NOT_AS_EXPECTED = "Result not as expected"; //$NON-NLS-1$
+
+  /**
+   * Arithmetic exception expected constant.
+   */
+  private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
+
   /**
    * Default constructor.
    */
@@ -43,7 +65,7 @@ public class HourTests
   @ValueSource(ints = {0, 23})
   public void isHour(final int hour)
    {
-    assertEquals(hour, Hour.of(hour).intValue(), "Not a hour!"); //$NON-NLS-1$
+    assertEquals(hour, Hour.of(hour).intValue(), HourTests.NOT_A_HOUR);
    }
 
 
@@ -61,6 +83,29 @@ public class HourTests
       /* final Hour hour = */ Hour.of(hour);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
+   }
+
+
+  /**
+   * getHour.
+   *
+   * @deprecated Old version of intValue()
+   */
+  @Deprecated(since = HourTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getHour()
+   {
+    assertEquals(10, Hour.of(10).getHour(), HourTests.NOT_A_HOUR);
+   }
+
+
+  /**
+   * intValue.
+   */
+  @Test
+  public void intValue()
+   {
+    assertEquals(10, Hour.of(10).intValue(), HourTests.NOT_A_HOUR);
    }
 
 
@@ -131,6 +176,118 @@ public class HourTests
       () -> assertTrue((hour4.compareTo(hour3) > 0) && (hour3.compareTo(hour1) > 0) && (hour4.compareTo(hour1) > 0), "transitive1"), //$NON-NLS-1$
       () -> assertTrue((hour1.compareTo(hour2) == 0) && (Math.abs(hour1.compareTo(hour5)) == Math.abs(hour2.compareTo(hour5))), "sgn1"), //$NON-NLS-1$
       () -> assertTrue((hour1.compareTo(hour2) == 0) && hour1.equals(hour2), "equals") //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test add.
+   */
+  @Test
+  public void testAdd1()
+   {
+    final Hour hour = Hour.of(0);
+    final Hours hours = Hours.of(1);
+    final Hour hourResult = hour.add(hours);
+    assertEquals(1, hourResult.intValue(), HourTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test add.
+   */
+  @Test
+  public void testAdd2()
+   {
+    final Hour hour = Hour.of(23);
+    final Hours hours = Hours.of(1);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Hour hourResult = */ hour.add(hours);
+     }, HourTests.ARITHMETIC_EXCEPTION_EXPECTED
+    );
+   }
+
+
+  /**
+   * Test subtract.
+   */
+  @Test
+  public void testSubtract1()
+   {
+    final Hour hour = Hour.of(1);
+    final Hours hours = Hours.of(1);
+    final Hour hourResult = hour.subtract(hours);
+    assertEquals(0, hourResult.intValue(), HourTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test subtract.
+   */
+  @Test
+  public void testSubtract2()
+   {
+    final Hour hour = Hour.of(0);
+    final Hours hours = Hours.of(1);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Hour hourResult = */ hour.subtract(hours);
+     }, HourTests.ARITHMETIC_EXCEPTION_EXPECTED
+    );
+   }
+
+
+  /**
+   * Test incement.
+   */
+  @Test
+  public void testIncrement1()
+   {
+    final Hour hour = Hour.of(0);
+    final Hour hourResult = hour.increment();
+    assertEquals(1, hourResult.intValue(), HourTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test increment.
+   */
+  @Test
+  public void testIncrement2()
+   {
+    final Hour hour = Hour.of(23);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Hour hourResult = */ hour.increment();
+     }, HourTests.ARITHMETIC_EXCEPTION_EXPECTED
+    );
+   }
+
+
+  /**
+   * Test decrement.
+   */
+  @Test
+  public void testDecrement1()
+   {
+    final Hour hour = Hour.of(1);
+    final Hour hourResult = hour.decrement();
+    assertEquals(0, hourResult.intValue(), HourTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test decrement.
+   */
+  @Test
+  public void testDecrement2()
+   {
+    final Hour hour = Hour.of(0);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Hour hourResult = */ hour.decrement();
+     }, HourTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 

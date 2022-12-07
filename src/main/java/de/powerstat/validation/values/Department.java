@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -13,13 +15,24 @@ import java.util.regex.Pattern;
  *
  * Not DSGVO relevant.
  */
-@SuppressWarnings("java:S5869")
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings({"java:S5869", "PMD.UseConcurrentHashMap"})
 public final class Department implements Comparable<Department>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, Department> CACHE = new WeakHashMap<>();
+
   /**
    * Department regexp.
    */
   private static final Pattern DEPARTMENT_REGEXP = Pattern.compile("^[\\p{L}][\\p{L}\\\\p{Digi}.& -]*$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Department.
@@ -34,7 +47,7 @@ public final class Department implements Comparable<Department>
    * @throws NullPointerException if department is null
    * @throws IllegalArgumentException if department is not a correct department name
    */
-  public Department(final String department)
+  private Department(final String department)
    {
     super();
     Objects.requireNonNull(department, "department"); //$NON-NLS-1$
@@ -58,7 +71,17 @@ public final class Department implements Comparable<Department>
    */
   public static Department of(final String department)
    {
-    return new Department(department);
+    synchronized (Department.class)
+     {
+      Department obj = Department.CACHE.get(department);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Department(department);
+      Department.CACHE.put(department, obj);
+      return obj;
+     }
    }
 
 
@@ -68,7 +91,7 @@ public final class Department implements Comparable<Department>
    * @return Department string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Department.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getDepartment()
    {
     return this.department;

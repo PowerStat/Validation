@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 
 /**
@@ -12,8 +14,20 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Days implements Comparable<Days>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Long, Days> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Days.
    */
@@ -26,7 +40,7 @@ public final class Days implements Comparable<Days>
    * @param days Days 0-..
    * @throws IndexOutOfBoundsException When the day is less than 0
    */
-  public Days(final long days)
+  private Days(final long days)
    {
     super();
     if (days < 0)
@@ -45,7 +59,17 @@ public final class Days implements Comparable<Days>
    */
   public static Days of(final long days)
    {
-    return new Days(days);
+    synchronized (Days.class)
+     {
+      Days obj = Days.CACHE.get(days);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Days(days);
+      Days.CACHE.put(Long.valueOf(days), obj);
+      return obj;
+     }
    }
 
 
@@ -55,7 +79,7 @@ public final class Days implements Comparable<Days>
    * @return Days
    * @deprecated Use longValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Days.DEPRECATED_SINCE_3_0, forRemoval = false)
   public long getDays()
    {
     return this.days;
@@ -96,6 +120,8 @@ public final class Days implements Comparable<Days>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -105,7 +131,8 @@ public final class Days implements Comparable<Days>
       return false;
      }
     final Days other = (Days)obj;
-    return this.days == other.days;
+    return false; // this.days == other.days;
+    */
    }
 
 

@@ -55,6 +55,11 @@ public class BuildingNrTests
    */
   private static final String BUILDING_NR_NOT_AS_EXPECTED = "BuildingNr not as expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -115,9 +120,23 @@ public class BuildingNrTests
 
   /**
    * Test get buildingNr.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = BuildingNrTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getBuildingNr()
+   {
+    final BuildingNr buildingNr = BuildingNr.of(BuildingNrTests.BUILDINGNR42);
+    assertEquals(BuildingNrTests.BUILDINGNR42, buildingNr.getBuildingNr(), BuildingNrTests.BUILDING_NR_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get buildingNr.
+   */
+  @Test
+  public void stringValue()
    {
     final BuildingNr buildingNr = BuildingNr.of(BuildingNrTests.BUILDINGNR42);
     assertEquals(BuildingNrTests.BUILDINGNR42, buildingNr.stringValue(), BuildingNrTests.BUILDING_NR_NOT_AS_EXPECTED);

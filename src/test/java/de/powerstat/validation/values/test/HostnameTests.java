@@ -60,6 +60,11 @@ public class HostnameTests
    */
   private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -131,9 +136,23 @@ public class HostnameTests
 
   /**
    * Test get hostname.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = HostnameTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getHostname()
+   {
+    final Hostname hostname = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
+    assertEquals(HostnameTests.PRIVATE_IP_192_168_1_1, hostname.getHostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get hostname.
+   */
+  @Test
+  public void stringValue()
    {
     final Hostname hostname = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
     assertEquals(HostnameTests.PRIVATE_IP_192_168_1_1, hostname.stringValue(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);

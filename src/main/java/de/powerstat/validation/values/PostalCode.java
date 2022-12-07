@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -18,12 +20,24 @@ import java.util.regex.Pattern;
  *
  * TODO Country specific
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class PostalCode implements Comparable<PostalCode>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, PostalCode> CACHE = new WeakHashMap<>();
+
   /**
    * Postal code regexp.
    */
   private static final Pattern POSTALCODE_REGEXP = Pattern.compile("^[0-9A-Z -]{3,11}$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Postal code.
@@ -38,7 +52,7 @@ public final class PostalCode implements Comparable<PostalCode>
    * @throws NullPointerException if postalCode is null
    * @throws IllegalArgumentException if postalCode is not a correct postalCode
    */
-  public PostalCode(final String postalCode)
+  private PostalCode(final String postalCode)
    {
     super();
     Objects.requireNonNull(postalCode, "postalCode"); //$NON-NLS-1$
@@ -62,7 +76,17 @@ public final class PostalCode implements Comparable<PostalCode>
    */
   public static PostalCode of(final String postalCode)
    {
-    return new PostalCode(postalCode);
+    synchronized (PostalCode.class)
+     {
+      PostalCode obj = PostalCode.CACHE.get(postalCode);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new PostalCode(postalCode);
+      PostalCode.CACHE.put(postalCode, obj);
+      return obj;
+     }
    }
 
 
@@ -72,7 +96,7 @@ public final class PostalCode implements Comparable<PostalCode>
    * @return PostalCode string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = PostalCode.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getPostalCode()
    {
     return this.postalCode;

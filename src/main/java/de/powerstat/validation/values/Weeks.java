@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 
 /**
@@ -12,8 +14,20 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Weeks implements Comparable<Weeks>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Long, Weeks> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Weeks.
    */
@@ -26,7 +40,7 @@ public final class Weeks implements Comparable<Weeks>
    * @param weeks Weeks 0-..
    * @throws IndexOutOfBoundsException When the week is less than 0
    */
-  public Weeks(final long weeks)
+  private Weeks(final long weeks)
    {
     super();
     if (weeks < 0)
@@ -45,7 +59,17 @@ public final class Weeks implements Comparable<Weeks>
    */
   public static Weeks of(final long weeks)
    {
-    return new Weeks(weeks);
+    synchronized (Weeks.class)
+     {
+      Weeks obj = Weeks.CACHE.get(weeks);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Weeks(weeks);
+      Weeks.CACHE.put(Long.valueOf(weeks), obj);
+      return obj;
+     }
    }
 
 
@@ -55,7 +79,7 @@ public final class Weeks implements Comparable<Weeks>
    * @return Weeks
    * @deprecated Use longValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Weeks.DEPRECATED_SINCE_3_0, forRemoval = false)
   public long getWeeks()
    {
     return this.weeks;
@@ -96,6 +120,8 @@ public final class Weeks implements Comparable<Weeks>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -105,7 +131,8 @@ public final class Weeks implements Comparable<Weeks>
       return false;
      }
     final Weeks other = (Weeks)obj;
-    return this.weeks == other.weeks;
+    return false; // this.weeks == other.weeks;
+    */
    }
 
 

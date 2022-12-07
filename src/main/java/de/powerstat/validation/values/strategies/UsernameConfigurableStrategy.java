@@ -4,9 +4,12 @@
 package de.powerstat.validation.values.strategies;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 import de.powerstat.validation.values.EMail;
+import de.powerstat.validation.values.containers.NTuple4;
 
 
 /**
@@ -14,6 +17,11 @@ import de.powerstat.validation.values.EMail;
  */
 public class UsernameConfigurableStrategy implements IUsernameStrategy
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<NTuple4<Integer, Integer, String, HandleEMail>, UsernameConfigurableStrategy> CACHE = new ConcurrentHashMap<>();
+
   /**
    * Minimum allowed username length.
    */
@@ -98,7 +106,7 @@ public class UsernameConfigurableStrategy implements IUsernameStrategy
    * @throws IllegalArgumentException If arguments are not as required
    * @throws NullPointerException If regexp or emailHandling is null
    */
-  public UsernameConfigurableStrategy(final int minLength, final int maxLength, final String regexp, final HandleEMail emailHandling)
+  protected UsernameConfigurableStrategy(final int minLength, final int maxLength, final String regexp, final HandleEMail emailHandling)
    {
     super();
     Objects.requireNonNull(regexp, "regexp"); //$NON-NLS-1$
@@ -135,7 +143,18 @@ public class UsernameConfigurableStrategy implements IUsernameStrategy
    */
   public static IUsernameStrategy of(final int minLength, final int maxLength, final String regexp, final HandleEMail emailHandling)
    {
-    return new UsernameConfigurableStrategy(minLength, maxLength, regexp, emailHandling);
+    final NTuple4<Integer, Integer, String, HandleEMail> tuple = NTuple4.of(minLength, maxLength, regexp, emailHandling);
+    synchronized (UsernameConfigurableStrategy.class)
+     {
+      UsernameConfigurableStrategy obj = UsernameConfigurableStrategy.CACHE.get(tuple);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new UsernameConfigurableStrategy(minLength, maxLength, regexp, emailHandling);
+      UsernameConfigurableStrategy.CACHE.put(tuple, obj);
+      return obj;
+     }
    }
 
 

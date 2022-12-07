@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -16,8 +18,15 @@ import java.util.regex.Pattern;
  * TODO IPV4Address filterMin(IPV4Address)      0
  * TODO IPV4Address filterMax(IPV4Address)      255
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class IPV4Mask implements Comparable<IPV4Mask>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Integer, IPV4Mask> CACHE = new WeakHashMap<>();
+
   /**
    * 0.
    */
@@ -32,6 +41,11 @@ public final class IPV4Mask implements Comparable<IPV4Mask>
    * IP V4 mask regexp.
    */
   private static final Pattern IPV4_MASK_REGEXP = Pattern.compile("^(((255\\.){3}(255|254|252|248|240|224|192|128|0))|((255\\.){2}(254|252|248|240|224|192|128|0)\\.0)|((255\\.)(254|252|248|240|224|192|128|0)(\\.0){2})|((254|252|248|240|224|192|128|0)(\\.0){3}))$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Prefix length.
@@ -50,7 +64,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>
    * @param length Prefix length (0-32)
    * @throws IndexOutOfBoundsException if the prefix length is &lt; 0 or &gt; 32
    */
-  public IPV4Mask(final int length)
+  private IPV4Mask(final int length)
    {
     super();
     if ((length < 0) || (length > 32))
@@ -84,20 +98,33 @@ public final class IPV4Mask implements Comparable<IPV4Mask>
    * @throws NullPointerException if mask is null
    * @throws IllegalArgumentException If mask is not an IP V4 network mask
    */
-  public IPV4Mask(final String mask)
+  /*
+  private IPV4Mask(final String mask)
    {
     super();
     Objects.requireNonNull(mask, "mask"); //$NON-NLS-1$
     if ((mask.length() < 7) || (mask.length() > 15))
      {
-      throw new IllegalArgumentException("To long for an IP V4 network mask"); //$NON-NLS-1$
+      throw new IllegalArgumentException("To short or long for an IP V4 network mask"); //$NON-NLS-1$
      }
     if (!IPV4Mask.IPV4_MASK_REGEXP.matcher(mask).matches())
      {
       throw new IllegalArgumentException("Not an IP V4 network mask"); //$NON-NLS-1$
      }
     this.mask = mask;
+    this.length = maskToLength(mask);
+   }
+  */
 
+
+  /**
+   * Calculate length from mask.
+   *
+   * @param mask Mask in the form like 255.255.255.0
+   * @return Prefix length (0-32)
+   */
+  private static int maskToLength(final String mask)
+   {
     final String[] parts = mask.split("\\."); //$NON-NLS-1$
     for (int part = 3; part >= 0; --part)
      {
@@ -109,12 +136,11 @@ public final class IPV4Mask implements Comparable<IPV4Mask>
        {
         if (parts[part].equals(IPV4Mask.BITMASKS[pos]))
          {
-          this.length = (8 * part) + pos;
-          return;
+          return (8 * part) + pos;
          }
        }
      }
-    this.length = 0;
+    return 0;
    }
 
 
@@ -126,7 +152,17 @@ public final class IPV4Mask implements Comparable<IPV4Mask>
    */
   public static IPV4Mask of(final int length)
    {
-    return new IPV4Mask(length);
+    synchronized (IPV4Mask.class)
+     {
+      IPV4Mask obj = IPV4Mask.CACHE.get(length);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new IPV4Mask(length);
+      IPV4Mask.CACHE.put(Integer.valueOf(length), obj);
+      return obj;
+     }
    }
 
 
@@ -138,7 +174,16 @@ public final class IPV4Mask implements Comparable<IPV4Mask>
    */
   public static IPV4Mask of(final String mask)
    {
-    return new IPV4Mask(mask);
+    Objects.requireNonNull(mask, "mask"); //$NON-NLS-1$
+    if ((mask.length() < 7) || (mask.length() > 15))
+     {
+      throw new IllegalArgumentException("To short or long for an IP V4 network mask"); //$NON-NLS-1$
+     }
+    if (!IPV4Mask.IPV4_MASK_REGEXP.matcher(mask).matches())
+     {
+      throw new IllegalArgumentException("Not an IP V4 network mask"); //$NON-NLS-1$
+     }
+    return new IPV4Mask(maskToLength(mask));
    }
 
 
@@ -148,7 +193,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>
    * @return Prefix length (0-32)
    * @deprecated Use intValue() instead
    */
-  @Deprecated
+  @Deprecated(since = IPV4Mask.DEPRECATED_SINCE_3_0, forRemoval = false)
   public int getLength()
    {
     return this.length;
@@ -172,7 +217,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>
    * @return Network mask of format 255.255.255.0
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = IPV4Mask.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getMask()
    {
     return this.mask;

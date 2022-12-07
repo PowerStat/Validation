@@ -32,6 +32,11 @@ public class MACAddressTests
   private static final String MAC_00_00_00_00_00_00 = "00:00:00:00:00:00"; //$NON-NLS-1$
 
   /**
+   * MAC address 00-00-00-00-00-00.
+   */
+  private static final String MACM_00_00_00_00_00_00 = "00-00-00-00-00-00"; //$NON-NLS-1$
+
+  /**
    * Mac address.
    */
   private static final String MAC_ZERO = "000000000000"; //$NON-NLS-1$
@@ -42,6 +47,11 @@ public class MACAddressTests
   private static final String MAC_ONE = "00:00:00:00:00:01"; //$NON-NLS-1$
 
   /**
+   * Separator.
+   */
+  private static final String SEPARATOR = "-"; //$NON-NLS-1$
+
+  /**
    * Illegal argument exception expected constant.
    */
   private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
@@ -50,6 +60,11 @@ public class MACAddressTests
    * Address not as expected.
    */
   private static final String ADDRESS_NOT_AS_EXPECTED = "Address not as expected"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
 
   /**
@@ -98,7 +113,7 @@ public class MACAddressTests
    * @param mac MAC address
    */
   @ParameterizedTest
-  @ValueSource(strings = {MACAddressTests.MAC_00_00_00_00_00_00, "00-00-00-00-00-00", MACAddressTests.MAC_ZERO})
+  @ValueSource(strings = {MACAddressTests.MAC_00_00_00_00_00_00, MACAddressTests.MACM_00_00_00_00_00_00, MACAddressTests.MAC_ZERO})
   public void constructorSuccess(final String mac)
    {
     final MACAddress address = MACAddress.of(mac);
@@ -108,23 +123,79 @@ public class MACAddressTests
 
   /**
    * Test get address.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = MACAddressTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getAddress1()
    {
     final MACAddress address = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
-    assertEquals(MACAddressTests.MAC_00_00_00_00_00_00, address.stringValue(":"), MACAddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
+    assertEquals(MACAddressTests.MAC_00_00_00_00_00_00, address.getAddress(":"), MACAddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 
   /**
    * Test get address.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = MACAddressTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getAddress2()
    {
     final MACAddress address = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
-    assertEquals("00-00-00-00-00-00", address.stringValue("-"), MACAddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$ //$NON-NLS-2$
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      assertEquals(MACAddressTests.MAC_00_00_00_00_00_00, address.getAddress("::"), MACAddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
+     }, MACAddressTests.ILLEGAL_ARGUMENT
+    );
+   }
+
+
+  /**
+   * Test get address.
+   *
+   * @deprecated Old version of stringValue()
+   */
+  @Deprecated(since = MACAddressTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getAddress4()
+   {
+    final MACAddress address = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      assertEquals(MACAddressTests.MAC_00_00_00_00_00_00, address.getAddress("/"), MACAddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
+     }, MACAddressTests.ILLEGAL_ARGUMENT
+    );
+   }
+
+
+  /**
+   * Test get address.
+   *
+   * @deprecated Old version of stringValue()
+   */
+  @Deprecated(since = MACAddressTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getAddress5()
+   {
+    final MACAddress address = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
+    assertEquals(MACAddressTests.MAC_ZERO, address.getAddress(""), MACAddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test get address.
+   *
+   * @deprecated Old version of stringValue()
+   */
+  @Deprecated(since = MACAddressTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getAddress6()
+   {
+    final MACAddress address = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
+    assertEquals(MACAddressTests.MACM_00_00_00_00_00_00, address.getAddress(MACAddressTests.SEPARATOR), MACAddressTests.ADDRESS_NOT_AS_EXPECTED);
    }
 
 
@@ -132,7 +203,29 @@ public class MACAddressTests
    * Test get address.
    */
   @Test
-  public void getAddress3()
+  public void stringValue1()
+   {
+    final MACAddress address = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
+    assertEquals(MACAddressTests.MAC_00_00_00_00_00_00, address.stringValue(), MACAddressTests.ADDRESS_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get address.
+   */
+  @Test
+  public void stringValue2()
+   {
+    final MACAddress address = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
+    assertEquals(MACAddressTests.MACM_00_00_00_00_00_00, address.stringValue(MACAddressTests.SEPARATOR), MACAddressTests.ADDRESS_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get address.
+   */
+  @Test
+  public void stringValue3()
    {
     final MACAddress address = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
     assertEquals(MACAddressTests.MAC_ZERO, address.stringValue(""), MACAddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$

@@ -37,6 +37,11 @@ public class UsernameTests
   private static final String USERNAME22 = "username2"; //$NON-NLS-1$
 
   /**
+   * Username kh.
+   */
+  private static final String USERNAME_KH = "kh"; //$NON-NLS-1$
+
+  /**
    * Username not as expected constant.
    */
   private static final String USERNAME_NOT_AS_EXPECTED = "Username not as expected"; //$NON-NLS-1$
@@ -45,6 +50,11 @@ public class UsernameTests
    * Illegal argument exception expected constant.
    */
   private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
 
   /**
@@ -62,11 +72,23 @@ public class UsernameTests
    * @param username Username
    */
   @ParameterizedTest
-  @ValueSource(strings = {"kh", UsernameTests.USERNAME, "username@example.com", "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234"})
+  @ValueSource(strings = {UsernameTests.USERNAME_KH, UsernameTests.USERNAME, "username@example.com", "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234"})
   public void usernameOk0(final String username)
    {
     final Username cleanUsername = Username.of(username);
     assertEquals(username, cleanUsername.stringValue(), UsernameTests.USERNAME_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test Username chaching.
+   */
+  @Test
+  public void usernameCache()
+   {
+    final Username username1 = Username.of(UsernameDefaultStrategy.of(), UsernameTests.USERNAME_KH);
+    final Username username2 = Username.of(UsernameDefaultStrategy.of(), UsernameTests.USERNAME_KH);
+    assertEquals(username1, username2, UsernameTests.USERNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -103,9 +125,23 @@ public class UsernameTests
 
   /**
    * Test get username.
+   *
+   * @deprecated Old verison of stringValue()
    */
+  @Deprecated(since = UsernameTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getUsername()
+   {
+    final Username username = Username.of(UsernameTests.USERNAME);
+    assertEquals(UsernameTests.USERNAME, username.getUsername(), UsernameTests.USERNAME_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test stringValue.
+   */
+  @Test
+  public void stringValue()
    {
     final Username username = Username.of(UsernameTests.USERNAME);
     assertEquals(UsernameTests.USERNAME, username.stringValue(), UsernameTests.USERNAME_NOT_AS_EXPECTED);

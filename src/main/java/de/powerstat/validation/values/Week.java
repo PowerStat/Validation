@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 
 /**
@@ -13,12 +15,33 @@ import java.util.Objects;
  * Not DSGVO relevant.
  *
  * TODO Constructor with year
- * TODO nextWeek, previousWeek
- * TODO week + weeks
  * TODO Listener
+ * TODO daysWithin = 7
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Week implements Comparable<Week>
  {
+  /**
+   * Overflow constant.
+   */
+  private static final String OVERFLOW = "Overflow"; //$NON-NLS-1$
+
+  /**
+   * Underflow constant.
+   */
+  private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
+
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Integer, Week> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Week.
    */
@@ -31,7 +54,7 @@ public final class Week implements Comparable<Week>
    * @param week Week 1-53
    * @throws IndexOutOfBoundsException When the week is less than 1 or greater than 53
    */
-  public Week(final int week)
+  private Week(final int week)
    {
     super();
     if ((week < 1) || (week > 53))
@@ -50,7 +73,17 @@ public final class Week implements Comparable<Week>
    */
   public static Week of(final int week)
    {
-    return new Week(week);
+    synchronized (Week.class)
+     {
+      Week obj = Week.CACHE.get(week);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Week(week);
+      Week.CACHE.put(Integer.valueOf(week), obj);
+      return obj;
+     }
    }
 
 
@@ -60,7 +93,7 @@ public final class Week implements Comparable<Week>
    * @return Week
    * @deprecated Use intValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Week.DEPRECATED_SINCE_3_0, forRemoval = false)
   public int getWeek()
    {
     return this.week;
@@ -101,6 +134,8 @@ public final class Week implements Comparable<Week>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -110,7 +145,8 @@ public final class Week implements Comparable<Week>
       return false;
      }
     final Week other = (Week)obj;
-    return this.week == other.week;
+    return false; // this.week == other.week;
+    */
    }
 
 
@@ -145,6 +181,80 @@ public final class Week implements Comparable<Week>
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
     return Integer.compare(this.week, obj.week);
+   }
+
+
+  /**
+   * Add weeks to this week.
+   *
+   * @param weeks Weeks to add to this week
+   * @return New week after adding the weeks to this week
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Week add(final Weeks weeks)
+   {
+    final int newWeek = Math.toIntExact(Math.addExact(this.week, weeks.longValue()));
+    if (newWeek > 53) // TODO 52 depends on year
+     {
+      // TODO Listener
+      throw new ArithmeticException(Week.OVERFLOW);
+     }
+    return Week.of(newWeek);
+   }
+
+
+  /**
+   * Subtract weeks from this week.
+   *
+   * @param weeks Weeks to subtract from this week
+   * @return New week after subtracting weeks from this week
+   * @throws ArithmeticException In case of an underflow
+   */
+  public Week subtract(final Weeks weeks)
+   {
+    final int newWeek = Math.toIntExact(Math.subtractExact(this.week, weeks.longValue()));
+    if (newWeek <= 0)
+     {
+      // TODO Listener
+      throw new ArithmeticException(Week.UNDERFLOW);
+     }
+    return Week.of(newWeek);
+   }
+
+
+  /**
+   * Increment this week.
+   *
+   * @return New week after incrementing this week
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Week increment()
+   {
+    final int newWeek = Math.incrementExact(this.week);
+    if (newWeek == 54) // TODO 53 depending on year
+     {
+      // TODO Listener
+      throw new ArithmeticException(Week.OVERFLOW);
+     }
+    return Week.of(newWeek);
+   }
+
+
+  /**
+   * Decrement this week.
+   *
+   * @return New week after decrement this week
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Week decrement()
+   {
+    final int newWeek = Math.decrementExact(this.week);
+    if (newWeek == 0)
+     {
+      // TODO Listener
+      throw new ArithmeticException(Week.UNDERFLOW);
+     }
+    return Week.of(newWeek);
    }
 
  }

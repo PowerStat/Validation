@@ -16,15 +16,37 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import de.powerstat.validation.values.Week;
+import de.powerstat.validation.values.Weeks;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
  * Week tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 public class WeekTests
  {
+  /**
+   * Not a week constant.
+   */
+  private static final String NOT_A_WEEK = "Not a week!"; //$NON-NLS-1$
+
+  /**
+   * Result not as expected constant.
+   */
+  private static final String RESULT_NOT_AS_EXPECTED = "Result not as expected"; //$NON-NLS-1$
+
+  /**
+   * Arithmetic exception expected constant.
+   */
+  private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
+
   /**
    * Default constructor.
    */
@@ -43,7 +65,7 @@ public class WeekTests
   @ValueSource(ints = {1, 53})
   public void isWeek(final int week)
    {
-    assertEquals(week, Week.of(week).intValue(), "Not a week!"); //$NON-NLS-1$
+    assertEquals(week, Week.of(week).intValue(), WeekTests.NOT_A_WEEK);
    }
 
 
@@ -61,6 +83,29 @@ public class WeekTests
       /* final Week week = */ Week.of(week);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
+   }
+
+
+  /**
+   * getWeek.
+   *
+   * @deprecated Old version of intValue()
+   */
+  @Deprecated(since = WeekTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getWeek()
+   {
+    assertEquals(10, Week.of(10).getWeek(), WeekTests.NOT_A_WEEK);
+   }
+
+
+  /**
+   * intValue.
+   */
+  @Test
+  public void intValue()
+   {
+    assertEquals(10, Week.of(10).intValue(), WeekTests.NOT_A_WEEK);
    }
 
 
@@ -131,6 +176,118 @@ public class WeekTests
       () -> assertTrue((week4.compareTo(week3) > 0) && (week3.compareTo(week1) > 0) && (week4.compareTo(week1) > 0), "transitive1"), //$NON-NLS-1$
       () -> assertTrue((week1.compareTo(week2) == 0) && (Math.abs(week1.compareTo(week5)) == Math.abs(week2.compareTo(week5))), "sgn1"), //$NON-NLS-1$
       () -> assertTrue((week1.compareTo(week2) == 0) && week1.equals(week2), "equals") //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test add.
+   */
+  @Test
+  public void testAdd1()
+   {
+    final Week week = Week.of(1);
+    final Weeks weeks = Weeks.of(1);
+    final Week weekResult = week.add(weeks);
+    assertEquals(2, weekResult.intValue(), WeekTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test add.
+   */
+  @Test
+  public void testAdd2()
+   {
+    final Week week = Week.of(53);
+    final Weeks weeks = Weeks.of(1);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Week weekResult = */ week.add(weeks);
+     }, WeekTests.ARITHMETIC_EXCEPTION_EXPECTED
+    );
+   }
+
+
+  /**
+   * Test subtract.
+   */
+  @Test
+  public void testSubtract1()
+   {
+    final Week week = Week.of(2);
+    final Weeks weeks = Weeks.of(1);
+    final Week weekResult = week.subtract(weeks);
+    assertEquals(1, weekResult.intValue(), WeekTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test subtract.
+   */
+  @Test
+  public void testSubtract2()
+   {
+    final Week week = Week.of(1);
+    final Weeks weeks = Weeks.of(1);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Week weekResult = */ week.subtract(weeks);
+     }, WeekTests.ARITHMETIC_EXCEPTION_EXPECTED
+    );
+   }
+
+
+  /**
+   * Test increment.
+   */
+  @Test
+  public void testIncrement1()
+   {
+    final Week week = Week.of(1);
+    final Week weekResult = week.increment();
+    assertEquals(2, weekResult.intValue(), WeekTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test increment.
+   */
+  @Test
+  public void testIncrement2()
+   {
+    final Week week = Week.of(53);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Week weekResult = */ week.increment();
+     }, WeekTests.ARITHMETIC_EXCEPTION_EXPECTED
+    );
+   }
+
+
+  /**
+   * Test decrement.
+   */
+  @Test
+  public void testDecrement1()
+   {
+    final Week week = Week.of(2);
+    final Week weekResult = week.decrement();
+    assertEquals(1, weekResult.intValue(), WeekTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test decrement.
+   */
+  @Test
+  public void testDecrement2()
+   {
+    final Week week = Week.of(1);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Week weekResult = */ week.decrement();
+     }, WeekTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 

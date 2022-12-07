@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -15,12 +17,24 @@ import java.util.regex.Pattern;
  *
  * TODO Verify with openstreetmap
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Street implements Comparable<Street>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, Street> CACHE = new WeakHashMap<>();
+
   /**
    * Street regexp.
    */
   private static final Pattern STREET_REGEXP = Pattern.compile("^[\\p{L}][\\p{L}. -]*$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Street.
@@ -35,7 +49,7 @@ public final class Street implements Comparable<Street>
    * @throws NullPointerException if street is null
    * @throws IllegalArgumentException if street is not a correct Street name
    */
-  public Street(final String street)
+  private Street(final String street)
    {
     super();
     Objects.requireNonNull(street, "street"); //$NON-NLS-1$
@@ -59,7 +73,17 @@ public final class Street implements Comparable<Street>
    */
   public static Street of(final String street)
    {
-    return new Street(street);
+    synchronized (Street.class)
+     {
+      Street obj = Street.CACHE.get(street);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Street(street);
+      Street.CACHE.put(street, obj);
+      return obj;
+     }
    }
 
 
@@ -69,7 +93,7 @@ public final class Street implements Comparable<Street>
    * @return Street string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Street.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getStreet()
    {
     return this.street;

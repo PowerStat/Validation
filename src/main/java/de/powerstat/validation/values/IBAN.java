@@ -5,7 +5,9 @@ package de.powerstat.validation.values;
 
 
 import java.math.BigInteger;
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.values.impl.IBANVerifierAbstractFactory;
@@ -19,12 +21,24 @@ import de.powerstat.validation.values.impl.IBANVerifierAbstractFactory;
  * TODO https://openiban.com/
  * TODO Human format in/out
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class IBAN implements Comparable<IBAN>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, IBAN> CACHE = new WeakHashMap<>();
+
   /**
    * IBAN regexp.
    */
   private static final Pattern IBAN_REGEXP = Pattern.compile("^[A-Z]{2}[0-9]{2}[0-9A-Z]{11,30}$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * IBAN.
@@ -39,7 +53,7 @@ public final class IBAN implements Comparable<IBAN>
    * @throws NullPointerException if iban is null
    * @throws IllegalArgumentException if iban is not an correct iban
    */
-  public IBAN(final String iban)
+  private IBAN(final String iban)
    {
     super();
     Objects.requireNonNull(iban, "iban"); //$NON-NLS-1$
@@ -93,7 +107,17 @@ public final class IBAN implements Comparable<IBAN>
    */
   public static IBAN of(final String iban)
    {
-    return new IBAN(iban);
+    synchronized (IBAN.class)
+     {
+      IBAN obj = IBAN.CACHE.get(iban);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new IBAN(iban);
+      IBAN.CACHE.put(iban, obj);
+      return obj;
+     }
    }
 
 
@@ -103,7 +127,7 @@ public final class IBAN implements Comparable<IBAN>
    * @return IBAN string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = IBAN.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getIBAN()
    {
     return this.iban;

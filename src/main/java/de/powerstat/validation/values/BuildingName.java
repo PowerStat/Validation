@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -13,12 +15,24 @@ import java.util.regex.Pattern;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class BuildingName implements Comparable<BuildingName>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, BuildingName> CACHE = new WeakHashMap<>();
+
   /**
    * Building name regexp.
    */
   private static final Pattern BUILDNINGNAME_REGEXP = Pattern.compile("^[\\p{L}][\\p{L} -]*$");
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Building name.
@@ -33,7 +47,7 @@ public final class BuildingName implements Comparable<BuildingName>
    * @throws NullPointerException if buildingName is null
    * @throws IllegalArgumentException if buildingName is not a correct building name
    */
-  public BuildingName(final String buildingName)
+  private BuildingName(final String buildingName)
    {
     super();
     Objects.requireNonNull(buildingName, "buildingName"); //$NON-NLS-1$
@@ -57,7 +71,17 @@ public final class BuildingName implements Comparable<BuildingName>
    */
   public static BuildingName of(final String buildingName)
    {
-    return new BuildingName(buildingName);
+    synchronized (BuildingName.class)
+     {
+      BuildingName obj = BuildingName.CACHE.get(buildingName);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new BuildingName(buildingName);
+      BuildingName.CACHE.put(buildingName, obj);
+      return obj;
+     }
    }
 
 
@@ -67,7 +91,7 @@ public final class BuildingName implements Comparable<BuildingName>
    * @return BuildingName string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = BuildingName.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getBuildingName()
    {
     return this.buildingName;

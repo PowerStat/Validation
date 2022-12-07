@@ -22,6 +22,11 @@ public class IBANVerifierTests
    */
   private static final String ILLEGAL_ARGUMENT_EXCEPTION = "Illegal argument exception expected"; //$NON-NLS-1$
 
+  /**
+   * German IBAN regexp.
+   */
+  private static final String IBAN_DE_REGEXP = "^DE[0-9]{2}[0-9]{18}$"; //$NON-NLS-1$
+
 
   /**
    * Default Constructor.
@@ -40,7 +45,7 @@ public class IBANVerifierTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      IBANVerifier.of(14, "^DE[0-9]{2}[0-9]{18}$"); //$NON-NLS-1$
+      IBANVerifier.of(14, IBANVerifierTests.IBAN_DE_REGEXP);
      }, IBANVerifierTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
@@ -68,7 +73,7 @@ public class IBANVerifierTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      IBANVerifier.of(35, "^DE[0-9]{2}[0-9]{18}$"); //$NON-NLS-1$
+      IBANVerifier.of(35, IBANVerifierTests.IBAN_DE_REGEXP);
      }, IBANVerifierTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
@@ -94,7 +99,7 @@ public class IBANVerifierTests
   @Test
   public void verify1()
    {
-    final IBANVerifier iv = IBANVerifier.of(21, "^DE[0-9]{2}[0-9]{18}$"); //$NON-NLS-1$
+    final IBANVerifier iv = IBANVerifier.of(21, IBANVerifierTests.IBAN_DE_REGEXP);
     final boolean result = iv.verify("DE68210501700012345678"); //$NON-NLS-1$
     assertFalse(result, "result not as expected"); //$NON-NLS-1$
    }

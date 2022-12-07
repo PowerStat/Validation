@@ -45,6 +45,11 @@ public class LinesTests
    */
   private static final String LINES_NOT_AS_EXPECTED = "Lines not as expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -105,9 +110,23 @@ public class LinesTests
 
   /**
    * Test get lines.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = LinesTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getLines()
+   {
+    final Lines lines = Lines.of(LinesTests.EXAMPLE1);
+    assertEquals(LinesTests.EXAMPLE1, lines.getLines(), LinesTests.LINES_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get lines.
+   */
+  @Test
+  public void stringValue()
    {
     final Lines lines = Lines.of(LinesTests.EXAMPLE1);
     assertEquals(LinesTests.EXAMPLE1, lines.stringValue(), LinesTests.LINES_NOT_AS_EXPECTED);

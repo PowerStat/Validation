@@ -22,9 +22,30 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Minutes tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 public class MinutesTests
  {
+  /**
+   * Not a minutes constant.
+   */
+  private static final String NOT_A_MINUTES = "Not a minutes!"; //$NON-NLS-1$
+
+  /**
+   * Result not as expected constant.
+   */
+  private static final String RESULT_NOT_AS_EXPECTED = "Result not as expected"; //$NON-NLS-1$
+
+  /**
+   * Arithmetic exception expected constant.
+   */
+  private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
+
   /**
    * Default constructor.
    */
@@ -43,7 +64,7 @@ public class MinutesTests
   @ValueSource(longs = {0, 120})
   public void isMinutes(final long minutes)
    {
-    assertEquals(minutes, Minutes.of(minutes).longValue(), "Not a minutes!"); //$NON-NLS-1$
+    assertEquals(minutes, Minutes.of(minutes).longValue(), MinutesTests.NOT_A_MINUTES);
    }
 
 
@@ -61,6 +82,29 @@ public class MinutesTests
       /* final Minutes minutes = */ Minutes.of(minutes);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
+   }
+
+
+  /**
+   * getMinutes.
+   *
+   * @deprecated Old version of longValue()
+   */
+  @Deprecated(since = MinutesTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getMinutes()
+   {
+    assertEquals(10, Minutes.of(10).getMinutes(), MinutesTests.NOT_A_MINUTES);
+   }
+
+
+  /**
+   * longValue.
+   */
+  @Test
+  public void longValue()
+   {
+    assertEquals(10, Minutes.of(10).longValue(), MinutesTests.NOT_A_MINUTES);
    }
 
 
@@ -144,7 +188,7 @@ public class MinutesTests
     final Minutes minutes1 = Minutes.of(1);
     final Minutes minutes2 = Minutes.of(1);
     final Minutes minutesResult = minutes1.add(minutes2);
-    assertEquals(2, minutesResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(2, minutesResult.longValue(), MinutesTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -159,7 +203,7 @@ public class MinutesTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Minutes yearsResult = */ minutes1.add(minutes2);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, MinutesTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 
@@ -173,7 +217,7 @@ public class MinutesTests
     final Minutes minutes1 = Minutes.of(6);
     final Minutes minutes2 = Minutes.of(3);
     final Minutes minutesResult = minutes1.subtract(minutes2);
-    assertEquals(3, minutesResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(3, minutesResult.longValue(), MinutesTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -186,7 +230,7 @@ public class MinutesTests
     final Minutes minutes1 = Minutes.of(3);
     final Minutes minutes2 = Minutes.of(6);
     final Minutes minutesResult = minutes1.subtract(minutes2);
-    assertEquals(3, minutesResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(3, minutesResult.longValue(), MinutesTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -198,7 +242,7 @@ public class MinutesTests
    {
     final Minutes minutes1 = Minutes.of(7);
     final Minutes minutesResult = minutes1.multiply(3);
-    assertEquals(21, minutesResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(21, minutesResult.longValue(), MinutesTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -212,7 +256,7 @@ public class MinutesTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Minutes minutesResult = */ minutes1.multiply(3);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, MinutesTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 
@@ -225,7 +269,7 @@ public class MinutesTests
    {
     final Minutes minutes1 = Minutes.of(10);
     final Minutes minutesResult = minutes1.divide(2);
-    assertEquals(5, minutesResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(5, minutesResult.longValue(), MinutesTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -237,7 +281,7 @@ public class MinutesTests
    {
     final Minutes minutes1 = Minutes.of(10);
     final Minutes minutesResult = minutes1.divide(3);
-    assertEquals(3, minutesResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(3, minutesResult.longValue(), MinutesTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -251,7 +295,7 @@ public class MinutesTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Minutes minutesResult = */ minutes1.divide(0);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, MinutesTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 
@@ -264,7 +308,7 @@ public class MinutesTests
    {
     final Minutes minutes1 = Minutes.of(10);
     final Minutes minutesResult = minutes1.modulo(2);
-    assertEquals(0, minutesResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(0, minutesResult.longValue(), MinutesTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -276,7 +320,7 @@ public class MinutesTests
    {
     final Minutes minutes1 = Minutes.of(10);
     final Minutes minutesResult = minutes1.modulo(3);
-    assertEquals(1, minutesResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(1, minutesResult.longValue(), MinutesTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -290,7 +334,7 @@ public class MinutesTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Minutes minutesResult = */ minutes1.modulo(0);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, MinutesTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 

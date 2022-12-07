@@ -20,7 +20,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Screen size tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 public class ScreenSizeTests
  {
   /**
@@ -29,9 +29,29 @@ public class ScreenSizeTests
   private static final String QVGA = "QVGA"; //$NON-NLS-1$
 
   /**
+   * 320x240.
+   */
+  private static final String QVGA320X240 = "320x240"; //$NON-NLS-1$
+
+  /**
    * VGA.
    */
   private static final String VGA = "VGA"; //$NON-NLS-1$
+
+  /**
+   * Size is not equal constant.
+   */
+  private static final String SIZE_IS_NOT_EQUAL = "Size is not equal"; //$NON-NLS-1$
+
+  /**
+   * Index out of bounds exception expected constant.
+   */
+  private static final String INDEX_OUT_OF_BOUNDS_EXPECTED = "Index out of bounds exception expected"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
 
   /**
@@ -53,9 +73,23 @@ public class ScreenSizeTests
     assertAll("testScreenSize", //$NON-NLS-1$
       () -> assertEquals(320, size.getWidth(), "width is not equal"), //$NON-NLS-1$
       () -> assertEquals(240, size.getHeight(), "height is not equal"), //$NON-NLS-1$
-      () -> assertEquals("320x240", size.stringValue(), "size is not equal"), //$NON-NLS-1$ //$NON-NLS-2$
+      () -> assertEquals(ScreenSizeTests.QVGA320X240, size.stringValue(), ScreenSizeTests.SIZE_IS_NOT_EQUAL),
       () -> assertEquals(ScreenSizeTests.QVGA, size.getName(), "size name is not equal") //$NON-NLS-1$
     );
+   }
+
+
+  /**
+   * Get size.
+   *
+   * @deprecated Old version of stringValue()
+   */
+  @Deprecated(since = ScreenSizeTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getSize()
+   {
+    final ScreenSize size = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
+    assertEquals(ScreenSizeTests.QVGA320X240, size.getSize(), ScreenSizeTests.SIZE_IS_NOT_EQUAL);
    }
 
 
@@ -68,7 +102,7 @@ public class ScreenSizeTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final ScreenSize size = */ ScreenSize.of(0, 0, null);
-     }, "Index out of bounds exception expected" //$NON-NLS-1$
+     }, ScreenSizeTests.INDEX_OUT_OF_BOUNDS_EXPECTED
     );
    }
 
@@ -82,7 +116,7 @@ public class ScreenSizeTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final ScreenSize size = */ ScreenSize.of(8193, 0, null);
-     }, "Index out of bounds exception expected" //$NON-NLS-1$
+     }, ScreenSizeTests.INDEX_OUT_OF_BOUNDS_EXPECTED
     );
    }
 
@@ -96,7 +130,7 @@ public class ScreenSizeTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final ScreenSize size = */ ScreenSize.of(1, 8193, null);
-     }, "Index out of bounds exception expected" //$NON-NLS-1$
+     }, ScreenSizeTests.INDEX_OUT_OF_BOUNDS_EXPECTED
     );
    }
 
@@ -110,7 +144,7 @@ public class ScreenSizeTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final ScreenSize size = */ ScreenSize.of(1, 0, null);
-     }, "Index out of bounds exception expected" //$NON-NLS-1$
+     }, ScreenSizeTests.INDEX_OUT_OF_BOUNDS_EXPECTED
     );
    }
 

@@ -22,9 +22,30 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Years tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 public class YearsTests
  {
+  /**
+   * Not a years constant.
+   */
+  private static final String NOT_A_YEARS = "Not a years!"; //$NON-NLS-1$
+
+  /**
+   * Result not as expected constant.
+   */
+  private static final String RESULT_NOT_AS_EXPECTED = "Result not as expected"; //$NON-NLS-1$
+
+  /**
+   * Arithmetic exception expected constant.
+   */
+  private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
+
   /**
    * Default constructor.
    */
@@ -43,7 +64,7 @@ public class YearsTests
   @ValueSource(longs = {0, 20})
   public void isYears(final long years)
    {
-    assertEquals(years, Years.of(years).longValue(), "Not a years!"); //$NON-NLS-1$
+    assertEquals(years, Years.of(years).longValue(), YearsTests.NOT_A_YEARS);
    }
 
 
@@ -61,6 +82,29 @@ public class YearsTests
       /* final Years years = */ Years.of(years);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
+   }
+
+
+  /**
+   * getYears.
+   *
+   * @deprecated Old version of longValue()
+   */
+  @Deprecated(since = YearsTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getYears()
+   {
+    assertEquals(10, Years.of(10).getYears(), YearsTests.NOT_A_YEARS);
+   }
+
+
+  /**
+   * longValue.
+   */
+  @Test
+  public void longValue()
+   {
+    assertEquals(10, Years.of(10).longValue(), YearsTests.NOT_A_YEARS);
    }
 
 
@@ -144,7 +188,7 @@ public class YearsTests
     final Years years1 = Years.of(1);
     final Years years2 = Years.of(1);
     final Years yearsResult = years1.add(years2);
-    assertEquals(2, yearsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(2, yearsResult.longValue(), YearsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -159,7 +203,7 @@ public class YearsTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Years yearsResult = */ years1.add(years2);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, YearsTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 
@@ -173,7 +217,7 @@ public class YearsTests
     final Years years1 = Years.of(6);
     final Years years2 = Years.of(3);
     final Years yearsResult = years1.subtract(years2);
-    assertEquals(3, yearsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(3, yearsResult.longValue(), YearsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -186,7 +230,7 @@ public class YearsTests
     final Years years1 = Years.of(3);
     final Years years2 = Years.of(6);
     final Years yearsResult = years1.subtract(years2);
-    assertEquals(3, yearsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(3, yearsResult.longValue(), YearsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -198,7 +242,7 @@ public class YearsTests
    {
     final Years years1 = Years.of(7);
     final Years yearsResult = years1.multiply(3);
-    assertEquals(21, yearsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(21, yearsResult.longValue(), YearsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -212,7 +256,7 @@ public class YearsTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Years yearsResult = */ years1.multiply(3);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, YearsTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 
@@ -225,7 +269,7 @@ public class YearsTests
    {
     final Years years1 = Years.of(10);
     final Years yearsResult = years1.divide(2);
-    assertEquals(5, yearsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(5, yearsResult.longValue(), YearsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -237,7 +281,7 @@ public class YearsTests
    {
     final Years years1 = Years.of(10);
     final Years yearsResult = years1.divide(3);
-    assertEquals(3, yearsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(3, yearsResult.longValue(), YearsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -251,7 +295,7 @@ public class YearsTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Years yearsResult = */ years1.divide(0);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, YearsTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 
@@ -264,7 +308,7 @@ public class YearsTests
    {
     final Years years1 = Years.of(10);
     final Years yearsResult = years1.modulo(2);
-    assertEquals(0, yearsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(0, yearsResult.longValue(), YearsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -276,7 +320,7 @@ public class YearsTests
    {
     final Years years1 = Years.of(10);
     final Years yearsResult = years1.modulo(3);
-    assertEquals(1, yearsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(1, yearsResult.longValue(), YearsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -290,7 +334,7 @@ public class YearsTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Years yearsResult = */ years1.modulo(0);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, YearsTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 

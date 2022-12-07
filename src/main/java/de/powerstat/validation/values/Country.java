@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedISO3166A2;
@@ -17,12 +19,24 @@ import de.powerstat.validation.generated.GeneratedISO3166A2;
  *
  * TODO Translations
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Country implements Comparable<Country>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, Country> CACHE = new WeakHashMap<>();
+
   /**
    * Country regexp.
    */
   private static final Pattern COUNTRY_REGEXP = Pattern.compile("^[A-Z]{2}$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Alpha-2 country code.
@@ -37,7 +51,7 @@ public final class Country implements Comparable<Country>
    * @throws NullPointerException if code is null
    * @throws IllegalArgumentException if code is not a known alpha-2 code
    */
-  public Country(final String alpha2)
+  private Country(final String alpha2)
    {
     super();
     Objects.requireNonNull(alpha2, "alpha2"); //$NON-NLS-1$
@@ -65,7 +79,17 @@ public final class Country implements Comparable<Country>
    */
   public static Country of(final String alpha2)
    {
-    return new Country(alpha2);
+    synchronized (Country.class)
+     {
+      Country obj = Country.CACHE.get(alpha2);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Country(alpha2);
+      Country.CACHE.put(alpha2, obj);
+      return obj;
+     }
    }
 
 
@@ -75,7 +99,7 @@ public final class Country implements Comparable<Country>
    * @return Country code string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Country.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getCountry()
    {
     return this.alpha2;

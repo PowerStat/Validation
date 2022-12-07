@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -13,12 +15,24 @@ import java.util.regex.Pattern;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings({"checkstyle:NoWhitespaceBefore", "PMD.UseConcurrentHashMap"})
 public final class District implements Comparable<District>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, District> CACHE = new WeakHashMap<>();
+
   /**
    * District egexp.
    */
   private static final Pattern DISTRICT_REGEXP = Pattern.compile("^[\\p{L}\\p{Digit}][\\p{L}\\p{Digit} -]*$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * District.
@@ -33,7 +47,7 @@ public final class District implements Comparable<District>
    * @throws NullPointerException if district is null
    * @throws IllegalArgumentException if district is not a correct district name
    */
-  public District(final String district)
+  private District(final String district)
    {
     super();
     Objects.requireNonNull(district, "district"); //$NON-NLS-1$
@@ -57,7 +71,17 @@ public final class District implements Comparable<District>
    */
   public static District of(final String district)
    {
-    return new District(district);
+    synchronized (District .class)
+     {
+      District obj = District.CACHE.get(district);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new District(district);
+      District .CACHE.put(district, obj);
+      return obj;
+     }
    }
 
 
@@ -67,7 +91,7 @@ public final class District implements Comparable<District>
    * @return District string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = District.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getDistrict()
    {
     return this.district;

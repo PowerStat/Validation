@@ -20,9 +20,35 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Display aspect ratio tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 public class DisplayAspectRatioTests
  {
+  /**
+   * Test aspect ration constant.
+   */
+  private static final String TEST_ASPECT_RATIO = "testAspectRatio"; //$NON-NLS-1$
+
+  /**
+   * 1:1 constant.
+   */
+  private static final String ONE_TWO_ONE = "1:1"; //$NON-NLS-1$
+
+  /**
+   * Aspect ratio not as expected constant.
+   */
+  private static final String ASPECT_RATIO_NOT_AS_EXPECTED = "aspect ratio not as expected"; //$NON-NLS-1$
+
+  /**
+   * Index out of bounds exception comnstant.
+   */
+  private static final String INDEX_OUT_OF_BOUNDS_EXPECTED = "Index out of bounds exception expected"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
+
   /**
    * Default constructor.
    */
@@ -33,16 +59,32 @@ public class DisplayAspectRatioTests
 
 
   /**
+   * Get aspect ratio.
+   *
+   * @deprecated Old version of stringValue()
+   */
+  @Deprecated(since = DisplayAspectRatioTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getAspectRatio()
+   {
+    final DisplayAspectRatio ratio = DisplayAspectRatio.of(1, 1);
+    assertAll(DisplayAspectRatioTests.TEST_ASPECT_RATIO,
+      () -> assertEquals(DisplayAspectRatioTests.ONE_TWO_ONE, ratio.getAspectRatio(), DisplayAspectRatioTests.ASPECT_RATIO_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
    * Is display aspect ratio.
    */
   @Test
-  public void isDisplayspectRatio()
+  public void isDisplayAspectRatio()
    {
     final DisplayAspectRatio ratio = DisplayAspectRatio.of(1, 1);
-    assertAll("testAspectRatio", //$NON-NLS-1$
+    assertAll(DisplayAspectRatioTests.TEST_ASPECT_RATIO,
       () -> assertEquals(1, ratio.getX(), "x ratio not as expected"), //$NON-NLS-1$
       () -> assertEquals(1, ratio.getY(), "y ratio not as expected"), //$NON-NLS-1$
-      () -> assertEquals("1:1", ratio.stringValue(), "aspect ratio not as expected") //$NON-NLS-1$ //$NON-NLS-2$
+      () -> assertEquals(DisplayAspectRatioTests.ONE_TWO_ONE, ratio.stringValue(), DisplayAspectRatioTests.ASPECT_RATIO_NOT_AS_EXPECTED)
     );
    }
 
@@ -56,7 +98,7 @@ public class DisplayAspectRatioTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(0, 0);
-     }, "Index out of bounds exception expected" //$NON-NLS-1$
+     }, DisplayAspectRatioTests.INDEX_OUT_OF_BOUNDS_EXPECTED
     );
    }
 
@@ -70,7 +112,7 @@ public class DisplayAspectRatioTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(73, 0);
-     }, "Index out of bounds exception expected" //$NON-NLS-1$
+     }, DisplayAspectRatioTests.INDEX_OUT_OF_BOUNDS_EXPECTED
     );
    }
 
@@ -84,7 +126,7 @@ public class DisplayAspectRatioTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(1, 36);
-     }, "Index out of bounds exception expected" //$NON-NLS-1$
+     }, DisplayAspectRatioTests.INDEX_OUT_OF_BOUNDS_EXPECTED
     );
    }
 
@@ -98,7 +140,7 @@ public class DisplayAspectRatioTests
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
       /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(1, 0);
-     }, "Index out of bounds exception expected" //$NON-NLS-1$
+     }, DisplayAspectRatioTests.INDEX_OUT_OF_BOUNDS_EXPECTED
     );
    }
 

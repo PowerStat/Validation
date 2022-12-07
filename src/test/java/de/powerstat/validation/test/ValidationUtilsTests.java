@@ -23,6 +23,7 @@ import de.powerstat.validation.ValidationUtils;
 /**
  * Validation utility tests.
  */
+@SuppressWarnings("PMD.ExcessivePublicCount")
 public final class ValidationUtilsTests
  {
   /**
@@ -58,7 +59,7 @@ public final class ValidationUtilsTests
   /**
    * Should not be an IP V6 special address constant.
    */
-  private static final String NOT_BE_AN_IP_V6_SPECIAL_ADDRESS = "Should not be an IP V6 special address!"; //$NON-NLS-1$
+  private static final String NOT_BE_AN_IP_V6_SPECIAL = "Should not be an IP V6 special address!"; //$NON-NLS-1$
 
   /**
    * Should be a hostname constant.
@@ -74,6 +75,16 @@ public final class ValidationUtilsTests
    * Wrong port constant.
    */
   private static final String WRONG_PORT = "Wrong port!"; //$NON-NLS-1$
+
+  /**
+   * Should be an special IP V4 address constant.
+   */
+  private static final String SHOULD_BE_AN_SPECIAL_IP_V4 = "Should be an special IP V4 address!"; //$NON-NLS-1$
+
+  /**
+   * Should not be an IP V4 public address constant.
+   */
+  private static final String SHOULD_NOT_BE_AN_IP_V4_PUBLIC = "Should not be an IP V4 public address!"; //$NON-NLS-1$
 
   /**
    * ValidationUtils path constant.
@@ -105,6 +116,11 @@ public final class ValidationUtilsTests
    */
   private static final String TWOTHOUSAND = "2000::"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -121,7 +137,7 @@ public final class ValidationUtilsTests
    * @param hostname Hostname
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @ParameterizedTest
   @ValueSource(strings = {ValidationUtilsTests.WWW_POWERSTAT_DE, "a.de", "www.powerstat012345678901234567890123456789012345678901234567890123.de", "abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.ACCOUNTANT", "192.168.0.1", ValidationUtilsTests.FE80})
   public void checkHostnameOk(final String hostname)
@@ -338,7 +354,7 @@ public final class ValidationUtilsTests
   @ValueSource(strings = {"0.0.0.0", "127.0.0.1", "127.0.2.1", "192.0.0.1", "192.0.2.1", "192.88.99.1", "198.51.100.1", "203.0.113.1", "100.64.0.1", "100.127.0.1", "198.18.0.1", "198.19.0.1", "224.0.0.1", "239.0.0.1", "240.0.0.1", "255.0.0.1"})
   public void isIPV4special(final String address)
    {
-    assertTrue(ValidationUtils.isIPV4special(address), "Should be an special IP V4 address!"); //$NON-NLS-1$
+    assertTrue(ValidationUtils.isIPV4special(address), ValidationUtilsTests.SHOULD_BE_AN_SPECIAL_IP_V4);
    }
 
 
@@ -353,7 +369,7 @@ public final class ValidationUtilsTests
   @ValueSource(strings = {"192.1.2.1", "100.63.0.0", "100.128.0.0", "198.17.0.0", "198.20.0.0", "198.50.100.1", "203.1.113.0", "203.0.114.0", "198.51.99.0", "192.0.1.0", "192.88.100.0"})
   public void isIPV4noneSpecial(final String address)
    {
-    assertFalse(ValidationUtils.isIPV4special(address), "Should be an special IP V4 address!"); //$NON-NLS-1$
+    assertFalse(ValidationUtils.isIPV4special(address), ValidationUtilsTests.SHOULD_BE_AN_SPECIAL_IP_V4);
    }
 
 
@@ -379,7 +395,7 @@ public final class ValidationUtilsTests
   @Test
   public void isIPV4NotPublic1()
    {
-    assertFalse(ValidationUtils.isIPV4public("192.168.1.1"), "Should not be an IP V4 public address!"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertFalse(ValidationUtils.isIPV4public("192.168.1.1"), ValidationUtilsTests.SHOULD_NOT_BE_AN_IP_V4_PUBLIC); //$NON-NLS-1$
    }
 
 
@@ -392,7 +408,7 @@ public final class ValidationUtilsTests
   @Test
   public void isIPV4NotPublic2()
    {
-    assertFalse(ValidationUtils.isIPV4public("127.0.0.0"), "Should not be an IP V4 public address!"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertFalse(ValidationUtils.isIPV4public("127.0.0.0"), ValidationUtilsTests.SHOULD_NOT_BE_AN_IP_V4_PUBLIC); //$NON-NLS-1$
    }
 
 
@@ -619,7 +635,7 @@ public final class ValidationUtilsTests
   @Test
   public void isIPV6NoneSpecial()
    {
-    assertFalse(ValidationUtils.isIPV6special(ValidationUtilsTests.TWOTHOUSAND), ValidationUtilsTests.NOT_BE_AN_IP_V6_SPECIAL_ADDRESS);
+    assertFalse(ValidationUtils.isIPV6special(ValidationUtilsTests.TWOTHOUSAND), ValidationUtilsTests.NOT_BE_AN_IP_V6_SPECIAL);
    }
 
 
@@ -647,7 +663,7 @@ public final class ValidationUtilsTests
   @ValueSource(strings = {"00ff::", "fd::"})
   public void isIPV6NonePublic(final String address)
    {
-    assertFalse(ValidationUtils.isIPV6public(address), ValidationUtilsTests.NOT_BE_AN_IP_V6_SPECIAL_ADDRESS);
+    assertFalse(ValidationUtils.isIPV6public(address), ValidationUtilsTests.NOT_BE_AN_IP_V6_SPECIAL);
    }
 
 

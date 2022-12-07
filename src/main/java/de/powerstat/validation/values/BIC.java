@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -13,12 +15,24 @@ import java.util.regex.Pattern;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class BIC implements Comparable<BIC>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, BIC> CACHE = new WeakHashMap<>();
+
   /**
    * BIC regexp.
    */
   private static final Pattern BIC_REGEXP = Pattern.compile("^[A-Z0-9]{4}[A-Z]{2}[A-Z2-9][0-9A-NP-Z](XXX|[0-9A-WY-Z][0-9A-Z]{2})?$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * BIC.
@@ -33,7 +47,7 @@ public final class BIC implements Comparable<BIC>
    * @throws NullPointerException if bic is null
    * @throws IllegalArgumentException if bic is not a correct bic
    */
-  public BIC(final String bic)
+  private BIC(final String bic)
    {
     super();
     Objects.requireNonNull(bic, "bic"); //$NON-NLS-1$
@@ -58,7 +72,17 @@ public final class BIC implements Comparable<BIC>
    */
   public static BIC of(final String bic)
    {
-    return new BIC(bic);
+    synchronized (BIC.class)
+     {
+      BIC obj = BIC.CACHE.get(bic);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new BIC(bic);
+      BIC.CACHE.put(bic, obj);
+      return obj;
+     }
    }
 
 
@@ -68,7 +92,7 @@ public final class BIC implements Comparable<BIC>
    * @return BIC string
    * @deprecated Use stringValue() instead.
    */
-  @Deprecated
+  @Deprecated(since = BIC.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getBIC()
    {
     return this.bic;

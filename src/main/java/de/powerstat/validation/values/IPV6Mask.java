@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 
 /**
@@ -12,8 +14,20 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class IPV6Mask implements Comparable<IPV6Mask>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Integer, IPV6Mask> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Prefix length.
    */
@@ -26,7 +40,7 @@ public final class IPV6Mask implements Comparable<IPV6Mask>
    * @param length Prefix length (0-128)
    * @throws IndexOutOfBoundsException if the prefix length is &lt; 0 or &gt; 128
    */
-  public IPV6Mask(final int length)
+  private IPV6Mask(final int length)
    {
     super();
     if ((length < 0) || (length > 128))
@@ -45,7 +59,17 @@ public final class IPV6Mask implements Comparable<IPV6Mask>
    */
   public static IPV6Mask of(final int length)
    {
-    return new IPV6Mask(length);
+    synchronized (IPV6Mask.class)
+     {
+      IPV6Mask obj = IPV6Mask.CACHE.get(length);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new IPV6Mask(length);
+      IPV6Mask.CACHE.put(Integer.valueOf(length), obj);
+      return obj;
+     }
    }
 
 
@@ -55,7 +79,7 @@ public final class IPV6Mask implements Comparable<IPV6Mask>
    * @return Prefix length (0-128)
    * @deprecated Use intValue() instead
    */
-  @Deprecated
+  @Deprecated(since = IPV6Mask.DEPRECATED_SINCE_3_0, forRemoval = false)
   public int getLength()
    {
     return this.length;
@@ -96,6 +120,8 @@ public final class IPV6Mask implements Comparable<IPV6Mask>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -105,7 +131,8 @@ public final class IPV6Mask implements Comparable<IPV6Mask>
       return false;
      }
     final IPV6Mask other = (IPV6Mask)obj;
-    return this.length == other.length;
+    return false; // this.length == other.length;
+    */
    }
 
 

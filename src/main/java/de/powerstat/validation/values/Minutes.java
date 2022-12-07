@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 
 /**
@@ -12,8 +14,20 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Minutes implements Comparable<Minutes>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Long, Minutes> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Minutes.
    */
@@ -26,7 +40,7 @@ public final class Minutes implements Comparable<Minutes>
    * @param minutes Minutes 0-..
    * @throws IndexOutOfBoundsException When the minutes is less than 0
    */
-  public Minutes(final long minutes)
+  private Minutes(final long minutes)
    {
     super();
     if (minutes < 0)
@@ -45,7 +59,17 @@ public final class Minutes implements Comparable<Minutes>
    */
   public static Minutes of(final long minutes)
    {
-    return new Minutes(minutes);
+    synchronized (Minutes.class)
+     {
+      Minutes obj = Minutes.CACHE.get(minutes);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Minutes(minutes);
+      Minutes.CACHE.put(Long.valueOf(minutes), obj);
+      return obj;
+     }
    }
 
 
@@ -55,7 +79,7 @@ public final class Minutes implements Comparable<Minutes>
    * @return Minutes
    * @deprecated Use longValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Minutes.DEPRECATED_SINCE_3_0, forRemoval = false)
   public long getMinutes()
    {
     return this.minutes;
@@ -96,6 +120,8 @@ public final class Minutes implements Comparable<Minutes>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -105,7 +131,8 @@ public final class Minutes implements Comparable<Minutes>
       return false;
      }
     final Minutes other = (Minutes)obj;
-    return this.minutes == other.minutes;
+    return false; // this.minutes == other.minutes;
+    */
    }
 
 

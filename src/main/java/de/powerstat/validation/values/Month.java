@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 
 /**
@@ -12,13 +14,35 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  *
- * TODO nextMonth, previousMonth
- * TODO month + months
+ * TODO constructor with year
+ * TODO daysWithin() = 31, 30, 29, 28, n (Year specific for february, or october 1582)
  * TODO Listener
- * TODO Translations
+ * TODO Translations short/long
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Month implements Comparable<Month>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Integer, Month> CACHE = new WeakHashMap<>();
+
+  /**
+   * Overflow constant.
+   */
+  private static final String OVERFLOW = "Overflow"; //$NON-NLS-1$
+
+  /**
+   * Underflow constant.
+   */
+  private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Month.
    */
@@ -31,7 +55,7 @@ public final class Month implements Comparable<Month>
    * @param month Month 1-12
    * @throws IndexOutOfBoundsException When the month is less than 1 or greater than 12
    */
-  public Month(final int month)
+  private Month(final int month)
    {
     super();
     if ((month < 1) || (month > 12))
@@ -50,7 +74,17 @@ public final class Month implements Comparable<Month>
    */
   public static Month of(final int month)
    {
-    return new Month(month);
+    synchronized (Month.class)
+     {
+      Month obj = Month.CACHE.get(month);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Month(month);
+      Month.CACHE.put(Integer.valueOf(month), obj);
+      return obj;
+     }
    }
 
 
@@ -60,7 +94,7 @@ public final class Month implements Comparable<Month>
    * @return Month
    * @deprecated Use intValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Month.DEPRECATED_SINCE_3_0, forRemoval = false)
   public int getMonth()
    {
     return this.month;
@@ -101,6 +135,8 @@ public final class Month implements Comparable<Month>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -110,7 +146,8 @@ public final class Month implements Comparable<Month>
       return false;
      }
     final Month other = (Month)obj;
-    return this.month == other.month;
+    return false; // this.month == other.month;
+    */
    }
 
 
@@ -145,6 +182,88 @@ public final class Month implements Comparable<Month>
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
     return Integer.compare(this.month, obj.month);
+   }
+
+
+  /**
+   * Add months to this month.
+   *
+   * @param months Months to add to this month
+   * @return New month after adding the months to this month
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Month add(final Months months)
+   {
+    final long newMonth = Math.toIntExact(Math.addExact(this.month, months.longValue()));
+    if (newMonth > 12) // while (newMonth > 12)
+     {
+      // TODO Listener
+      // newMonth -= 12;
+      // incrementYear();
+      throw new ArithmeticException(Month.OVERFLOW);
+     }
+    return Month.of(Math.toIntExact(newMonth));
+   }
+
+
+  /**
+   * Subtract months from this month.
+   *
+   * @param months Months to subtract from this month
+   * @return New month after subtracting months from this month
+   * @throws ArithmeticException In case of an underflow
+   */
+  public Month subtract(final Months months)
+   {
+    final long newMonth = Math.toIntExact(Math.subtractExact(this.month, months.longValue()));
+    if (newMonth <= 0) // while (newMonth <= 0)
+     {
+      // TODO Listener
+      // newMonth += 12;
+      // decrementYear();
+      throw new ArithmeticException(Month.UNDERFLOW);
+     }
+    return Month.of(Math.toIntExact(newMonth));
+   }
+
+
+  /**
+   * Increment this week.
+   *
+   * @return New month after incrementing this month
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Month increment()
+   {
+    final int newMonth = Math.incrementExact(this.month);
+    if (newMonth == 13)
+     {
+      // TODO Listener
+      // newMonth = 1;
+      // incrementYear();
+      throw new ArithmeticException(Month.OVERFLOW);
+     }
+    return Month.of(newMonth);
+   }
+
+
+  /**
+   * Decrement this month.
+   *
+   * @return New month after decrement this month
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Month decrement()
+   {
+    final int newMonth = Math.decrementExact(this.month);
+    if (newMonth == 0)
+     {
+      // TODO Listener
+      // newMonth = 12;
+      // decrementYear();
+      throw new ArithmeticException(Month.UNDERFLOW);
+     }
+    return Month.of(newMonth);
    }
 
  }

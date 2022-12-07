@@ -45,6 +45,11 @@ public class SubBuildingTests
    */
   private static final String SUB_BUILDING_NOT_AS_EXPECTED = "SubBuilding not as expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -105,9 +110,23 @@ public class SubBuildingTests
 
   /**
    * Test get subBuilding.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = SubBuildingTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getSubBuilding()
+   {
+    final SubBuilding subBuilding = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
+    assertEquals(SubBuildingTests.FLOOR_13_APART_0815, subBuilding.getSubBuilding(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get subBuilding.
+   */
+  @Test
+  public void stringValue()
    {
     final SubBuilding subBuilding = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
     assertEquals(SubBuildingTests.FLOOR_13_APART_0815, subBuilding.stringValue(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);

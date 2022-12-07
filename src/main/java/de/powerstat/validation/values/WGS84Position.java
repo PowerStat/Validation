@@ -4,7 +4,11 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
+
+import de.powerstat.validation.values.containers.NTuple3;
 
 
 /**
@@ -16,8 +20,15 @@ import java.util.Objects;
  * TODO output formats
  * TODO Get address for position if possible
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class WGS84Position implements Comparable<WGS84Position>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<NTuple3<Double, Double, Double>, WGS84Position> CACHE = new WeakHashMap<>();
+
   /**
    * Epsilon for double compare.
    */
@@ -50,7 +61,7 @@ public final class WGS84Position implements Comparable<WGS84Position>
    * @param longitude Positions longitude specifies the east–west position of a point on the Earth's surface. The prime meridian, which passes near the Royal Observatory, Greenwich, England, is defined as 0° longitude by convention. Positive longitudes are east of the prime meridian, and negative ones are west.
    * @param altitude Positions altitude - height above sea level.
    */
-  public WGS84Position(final double latitude, final double longitude, final double altitude)
+  private WGS84Position(final double latitude, final double longitude, final double altitude)
    {
     super();
     if ((latitude < -90.0) || (latitude > 90.0))
@@ -77,7 +88,18 @@ public final class WGS84Position implements Comparable<WGS84Position>
    */
   public static WGS84Position of(final double latitude, final double longitude, final double altitude)
    {
-    return new WGS84Position(latitude, longitude, altitude);
+    final NTuple3<Double, Double, Double> tuple = NTuple3.of(latitude, longitude, altitude);
+    synchronized (WGS84Position.class)
+     {
+      WGS84Position obj = WGS84Position.CACHE.get(tuple);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new WGS84Position(latitude, longitude, altitude);
+      WGS84Position.CACHE.put(tuple, obj);
+      return obj;
+     }
    }
 
 

@@ -5,7 +5,9 @@ package de.powerstat.validation.values;
 
 
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -17,12 +19,24 @@ import java.util.regex.Pattern;
  * TODO Hostname exists?
  * TODO email exists check
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class EMail implements Comparable<EMail>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, EMail> CACHE = new WeakHashMap<>();
+
   /**
    * Local part regexp.
    */
   private static final Pattern LOCAL_REGEXP = Pattern.compile("^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * EMail.
@@ -49,7 +63,7 @@ public final class EMail implements Comparable<EMail>
    * @throws NullPointerException if email is null
    * @throws IllegalArgumentException if email is not an supported email address
    */
-  public EMail(final String email)
+  private EMail(final String email)
    {
     super();
     Objects.requireNonNull(email, "email"); //$NON-NLS-1$
@@ -109,7 +123,17 @@ public final class EMail implements Comparable<EMail>
    */
   public static EMail of(final String email)
    {
-    return new EMail(email);
+    synchronized (EMail.class)
+     {
+      EMail obj = EMail.CACHE.get(email);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new EMail(email);
+      EMail.CACHE.put(email, obj);
+      return obj;
+     }
    }
 
 
@@ -119,7 +143,7 @@ public final class EMail implements Comparable<EMail>
    * @return EMail string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = EMail.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getEMail()
    {
     return this.email;

@@ -10,9 +10,15 @@ package de.powerstat.validation.values.strategies;
 public final class PasswordDefaultStrategy extends PasswordConfigurableStrategy
  {
   /**
+   * Cache for singleton.
+   */
+  private static final PasswordDefaultStrategy CACHE = new PasswordDefaultStrategy();
+
+
+  /**
    * Default Constructor.
    */
-  public PasswordDefaultStrategy()
+  private PasswordDefaultStrategy()
    {
     super(8, 254, "^[!§$%&/()=?öäüÖÄÜ,.:;_@0-9a-zA-Z-]+$", 0, 1, 0, 0, 0, 3); //$NON-NLS-1$
    }
@@ -25,7 +31,7 @@ public final class PasswordDefaultStrategy extends PasswordConfigurableStrategy
    */
   public static IPasswordStrategy of()
    {
-    return new PasswordDefaultStrategy();
+    return PasswordDefaultStrategy.CACHE;
    }
 
  }

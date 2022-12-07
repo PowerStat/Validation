@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 
 /**
@@ -12,11 +14,32 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  *
- * TODO millisecond + milliseconds
  * TODO Listener
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Millisecond implements Comparable<Millisecond>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Integer, Millisecond> CACHE = new WeakHashMap<>();
+
+  /**
+   * Overflow constant.
+   */
+  private static final String OVERFLOW = "Overflow"; //$NON-NLS-1$
+
+  /**
+   * Underflow constant.
+   */
+  private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Milliseond.
    */
@@ -29,7 +52,7 @@ public final class Millisecond implements Comparable<Millisecond>
    * @param millisecond Millisecond 0-999
    * @throws IndexOutOfBoundsException When the milliseond is less than 0 or greater than 999
    */
-  public Millisecond(final int millisecond)
+  private Millisecond(final int millisecond)
    {
     super();
     if ((millisecond < 0) || (millisecond > 999))
@@ -48,7 +71,17 @@ public final class Millisecond implements Comparable<Millisecond>
    */
   public static Millisecond of(final int millisecond)
    {
-    return new Millisecond(millisecond);
+    synchronized (Millisecond.class)
+     {
+      Millisecond obj = Millisecond.CACHE.get(millisecond);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Millisecond(millisecond);
+      Millisecond.CACHE.put(Integer.valueOf(millisecond), obj);
+      return obj;
+     }
    }
 
 
@@ -58,7 +91,7 @@ public final class Millisecond implements Comparable<Millisecond>
    * @return Millisecond (0-999)
    * @deprecated Ise intValue instead
    */
-  @Deprecated
+  @Deprecated(since = Millisecond.DEPRECATED_SINCE_3_0, forRemoval = false)
   public int getMillisecond()
    {
     return this.millisecond;
@@ -99,6 +132,8 @@ public final class Millisecond implements Comparable<Millisecond>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -108,7 +143,8 @@ public final class Millisecond implements Comparable<Millisecond>
       return false;
      }
     final Millisecond other = (Millisecond)obj;
-    return this.millisecond == other.millisecond;
+    return false; // this.millisecond == other.millisecond;
+    */
    }
 
 
@@ -143,6 +179,80 @@ public final class Millisecond implements Comparable<Millisecond>
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
     return Integer.compare(this.millisecond, obj.millisecond);
+   }
+
+
+  /**
+   * Add milliseconds to this millisecond.
+   *
+   * @param milliseconds Milliseconds to add to this millisecond
+   * @return New millisecond after adding the milliseconds to this millisecond
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Millisecond add(final Milliseconds milliseconds)
+   {
+    final int newMillisecond = Math.toIntExact(Math.addExact(this.millisecond, milliseconds.longValue()));
+    if (newMillisecond > 999)
+     {
+      // TODO Listener
+      throw new ArithmeticException(Millisecond.OVERFLOW);
+     }
+    return Millisecond.of(newMillisecond);
+   }
+
+
+  /**
+   * Subtract milliseconds from this millisecond.
+   *
+   * @param milliseconds Milliseconds to subtract from this millisecond
+   * @return New millisecond after subtracting milliseconds from this millisecond
+   * @throws ArithmeticException In case of an underflow
+   */
+  public Millisecond subtract(final Milliseconds milliseconds)
+   {
+    final int newMillisecond = Math.toIntExact(Math.subtractExact(this.millisecond, milliseconds.longValue()));
+    if (newMillisecond < 0)
+     {
+      // TODO Listener
+      throw new ArithmeticException(Millisecond.UNDERFLOW);
+     }
+    return Millisecond.of(newMillisecond);
+   }
+
+
+  /**
+   * Increment this millisecond.
+   *
+   * @return New millisecond after incrementing this millisecond
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Millisecond increment()
+   {
+    final int newMillisecond = Math.incrementExact(this.millisecond);
+    if (newMillisecond == 1000)
+     {
+      // TODO Listener
+      throw new ArithmeticException(Millisecond.OVERFLOW);
+     }
+    return Millisecond.of(newMillisecond);
+   }
+
+
+  /**
+   * Decrement this millisecond.
+   *
+   * @return New millisecond after decrement this millisecond
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Millisecond decrement()
+   {
+    final int newMillisecond = Math.decrementExact(this.millisecond);
+    if (newMillisecond == -1)
+     {
+      // TODO Listener
+      throw new ArithmeticException(Millisecond.UNDERFLOW);
+     }
+    return Millisecond.of(newMillisecond);
    }
 
  }

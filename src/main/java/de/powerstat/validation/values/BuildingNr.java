@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,12 +18,19 @@ import java.util.regex.Pattern;
  *
  * TODO optimize constructor/compareTo
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class BuildingNr implements Comparable<BuildingNr>
  {
   /**
    * Logger.
    */
   // private static final Logger LOGGER = LogManager.getLogger(BuildingNr.class);
+
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, BuildingNr> CACHE = new WeakHashMap<>();
 
   /**
    * Building nr regexp.
@@ -32,6 +41,11 @@ public final class BuildingNr implements Comparable<BuildingNr>
    * Maximum known building nr in the world.
    */
   private static final int MAX_KNOWN_BUILDING_NR = 29999;
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Building number.
@@ -46,7 +60,7 @@ public final class BuildingNr implements Comparable<BuildingNr>
    * @throws NullPointerException if buildingNr is null
    * @throws IllegalArgumentException if buildingNr is not an correct buildingNr
    */
-  public BuildingNr(final String buildingNr)
+  private BuildingNr(final String buildingNr)
    {
     super();
     Objects.requireNonNull(buildingNr, "buildingNr"); //$NON-NLS-1$
@@ -88,7 +102,17 @@ public final class BuildingNr implements Comparable<BuildingNr>
    */
   public static BuildingNr of(final String buildingNr)
    {
-    return new BuildingNr(buildingNr);
+    synchronized (BuildingNr.class)
+     {
+      BuildingNr obj = BuildingNr.CACHE.get(buildingNr);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new BuildingNr(buildingNr);
+      BuildingNr.CACHE.put(buildingNr, obj);
+      return obj;
+     }
    }
 
 
@@ -98,7 +122,7 @@ public final class BuildingNr implements Comparable<BuildingNr>
    * @return BuildingNr string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = BuildingNr.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getBuildingNr()
    {
     return this.buildingNr;

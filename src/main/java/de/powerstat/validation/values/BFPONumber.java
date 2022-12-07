@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 
 /**
@@ -12,8 +14,20 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class BFPONumber implements Comparable<BFPONumber>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Integer, BFPONumber> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * BFPONumber.
    */
@@ -26,7 +40,7 @@ public final class BFPONumber implements Comparable<BFPONumber>
    * @param bFPONumber BFPONumber
    * @throws IndexOutOfBoundsException When the bFPONumber is out of bounds
    */
-  public BFPONumber(final int bFPONumber)
+  private BFPONumber(final int bFPONumber)
    {
     super();
     if ((bFPONumber < 1) || (bFPONumber > 2035))
@@ -45,7 +59,17 @@ public final class BFPONumber implements Comparable<BFPONumber>
    */
   public static BFPONumber of(final int bFPONumber)
    {
-    return new BFPONumber(bFPONumber);
+    synchronized (BFPONumber.class)
+     {
+      BFPONumber obj = BFPONumber.CACHE.get(bFPONumber);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new BFPONumber(bFPONumber);
+      BFPONumber.CACHE.put(Integer.valueOf(bFPONumber), obj);
+      return obj;
+     }
    }
 
 
@@ -55,7 +79,7 @@ public final class BFPONumber implements Comparable<BFPONumber>
    * @return BFPONumber
    * @deprecated Use intValue() instead.
    */
-  @Deprecated
+  @Deprecated(since = BFPONumber.DEPRECATED_SINCE_3_0, forRemoval = false)
   public int getBFPONumber()
    {
     return this.bFPONumber;
@@ -79,7 +103,7 @@ public final class BFPONumber implements Comparable<BFPONumber>
    * @return BFPONumber as string
    * @deprecated Use stringValue() instead.
    */
-  @Deprecated
+  @Deprecated(since = BFPONumber.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getBFPONumberStr()
    {
     return Integer.toString(this.bFPONumber);
@@ -120,6 +144,8 @@ public final class BFPONumber implements Comparable<BFPONumber>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -129,7 +155,8 @@ public final class BFPONumber implements Comparable<BFPONumber>
       return false;
      }
     final BFPONumber other = (BFPONumber)obj;
-    return this.bFPONumber == other.bFPONumber;
+    return false; // this.bFPONumber == other.bFPONumber;
+    */
    }
 
 

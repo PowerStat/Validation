@@ -55,6 +55,16 @@ public class IPV4AddressTests
    */
   private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
 
+  /**
+   * Address not as expected constant.
+   */
+  private static final String ADDRESS_NOT_AS_EXPECTED = "Address not as expected"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -204,12 +214,26 @@ public class IPV4AddressTests
 
   /**
    * Test get address.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = IPV4AddressTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getAddress()
    {
     final IPV4Address address = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    assertEquals(IPV4AddressTests.PRIVATE_IP_192_168_1_1, address.stringValue(), "Address not as expected"); //$NON-NLS-1$
+    assertEquals(IPV4AddressTests.PRIVATE_IP_192_168_1_1, address.getAddress(), IPV4AddressTests.ADDRESS_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get address.
+   */
+  @Test
+  public void stringValue()
+   {
+    final IPV4Address address = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
+    assertEquals(IPV4AddressTests.PRIVATE_IP_192_168_1_1, address.stringValue(), IPV4AddressTests.ADDRESS_NOT_AS_EXPECTED);
    }
 
 

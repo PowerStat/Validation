@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 
 /**
@@ -12,8 +14,20 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Months implements Comparable<Months>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Long, Months> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Month.
    */
@@ -26,7 +40,7 @@ public final class Months implements Comparable<Months>
    * @param months Months 0-..
    * @throws IndexOutOfBoundsException When the months is less than 0
    */
-  public Months(final long months)
+  private Months(final long months)
    {
     super();
     if (months < 0)
@@ -45,7 +59,17 @@ public final class Months implements Comparable<Months>
    */
   public static Months of(final long months)
    {
-    return new Months(months);
+    synchronized (Months.class)
+     {
+      Months obj = Months.CACHE.get(months);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Months(months);
+      Months.CACHE.put(Long.valueOf(months), obj);
+      return obj;
+     }
    }
 
 
@@ -55,7 +79,7 @@ public final class Months implements Comparable<Months>
    * @return Months
    * @deprecated Use longValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Months.DEPRECATED_SINCE_3_0, forRemoval = false)
   public long getMonths()
    {
     return this.months;
@@ -96,6 +120,8 @@ public final class Months implements Comparable<Months>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -105,7 +131,8 @@ public final class Months implements Comparable<Months>
       return false;
      }
     final Months other = (Months)obj;
-    return this.months == other.months;
+    return false; // this.months == other.months;
+    */
    }
 
 

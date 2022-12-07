@@ -45,6 +45,11 @@ public class CountryTests
    */
   private static final String COUNTRY_CODE_NOT_AS_EXPECTED = "Country code not as expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -105,9 +110,23 @@ public class CountryTests
 
   /**
    * Test get country code.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = CountryTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getCountry()
+   {
+    final Country country = Country.of(CountryTests.DE);
+    assertEquals(CountryTests.DE, country.getCountry(), CountryTests.COUNTRY_CODE_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get country code.
+   */
+  @Test
+  public void stringValue()
    {
     final Country country = Country.of(CountryTests.DE);
     assertEquals(CountryTests.DE, country.stringValue(), CountryTests.COUNTRY_CODE_NOT_AS_EXPECTED);

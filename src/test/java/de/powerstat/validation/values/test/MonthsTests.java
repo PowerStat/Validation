@@ -22,9 +22,30 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Months tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 public class MonthsTests
  {
+  /**
+   * Not a months constant.
+   */
+  private static final String NOT_A_MONTHS = "Not a months!"; //$NON-NLS-1$
+
+  /**
+   * Result not as expected constant.
+   */
+  private static final String RESULT_NOT_AS_EXPECTED = "Result not as expected"; //$NON-NLS-1$
+
+  /**
+   * Arithmetic exception expected constant.
+   */
+  private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
+
   /**
    * Default constructor.
    */
@@ -43,7 +64,7 @@ public class MonthsTests
   @ValueSource(longs = {0, 1, 24})
   public void isMonths(final long months)
    {
-    assertEquals(months, Months.of(months).longValue(), "Not a months!"); //$NON-NLS-1$
+    assertEquals(months, Months.of(months).longValue(), MonthsTests.NOT_A_MONTHS);
    }
 
 
@@ -61,6 +82,29 @@ public class MonthsTests
       /* final Months months = */ Months.of(months);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
+   }
+
+
+  /**
+   * getMonths.
+   *
+   * @deprecated Old version of longValue()
+   */
+  @Deprecated(since = MonthsTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getMonths()
+   {
+    assertEquals(10, Months.of(10).getMonths(), MonthsTests.NOT_A_MONTHS);
+   }
+
+
+  /**
+   * longValue.
+   */
+  @Test
+  public void longValue()
+   {
+    assertEquals(10, Months.of(10).longValue(), MonthsTests.NOT_A_MONTHS);
    }
 
 
@@ -144,7 +188,7 @@ public class MonthsTests
     final Months months1 = Months.of(1);
     final Months months2 = Months.of(1);
     final Months monthsResult = months1.add(months2);
-    assertEquals(2, monthsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(2, monthsResult.longValue(), MonthsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -159,7 +203,7 @@ public class MonthsTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Months monthsResult = */ months1.add(months2);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, MonthsTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 
@@ -173,7 +217,7 @@ public class MonthsTests
     final Months months1 = Months.of(6);
     final Months months2 = Months.of(3);
     final Months monthsResult = months1.subtract(months2);
-    assertEquals(3, monthsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(3, monthsResult.longValue(), MonthsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -186,7 +230,7 @@ public class MonthsTests
     final Months months1 = Months.of(3);
     final Months months2 = Months.of(6);
     final Months monthsResult = months1.subtract(months2);
-    assertEquals(3, monthsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(3, monthsResult.longValue(), MonthsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -198,7 +242,7 @@ public class MonthsTests
    {
     final Months months1 = Months.of(7);
     final Months monthsResult = months1.multiply(3);
-    assertEquals(21, monthsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(21, monthsResult.longValue(), MonthsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -212,7 +256,7 @@ public class MonthsTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Months monthsResult = */ months1.multiply(3);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, MonthsTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 
@@ -225,7 +269,7 @@ public class MonthsTests
    {
     final Months months1 = Months.of(10);
     final Months monthsResult = months1.divide(2);
-    assertEquals(5, monthsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(5, monthsResult.longValue(), MonthsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -237,7 +281,7 @@ public class MonthsTests
    {
     final Months months1 = Months.of(10);
     final Months monthsResult = months1.divide(3);
-    assertEquals(3,monthsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(3, monthsResult.longValue(), MonthsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -251,7 +295,7 @@ public class MonthsTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Months yearsResult = */ months1.divide(0);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, MonthsTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 
@@ -264,7 +308,7 @@ public class MonthsTests
    {
     final Months months1 = Months.of(10);
     final Months monthsResult = months1.modulo(2);
-    assertEquals(0, monthsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(0, monthsResult.longValue(), MonthsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -276,7 +320,7 @@ public class MonthsTests
    {
     final Months months1 = Months.of(10);
     final Months monthsResult = months1.modulo(3);
-    assertEquals(1, monthsResult.longValue(), "Result not as expected"); //$NON-NLS-1$
+    assertEquals(1, monthsResult.longValue(), MonthsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -290,7 +334,7 @@ public class MonthsTests
     assertThrows(ArithmeticException.class, () ->
      {
       /* final Months monthsResult = */ months1.modulo(0);
-     }, "Arithmetic exception expected" //$NON-NLS-1$
+     }, MonthsTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 

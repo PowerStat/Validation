@@ -105,8 +105,11 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] drivers license
 - [ ] payment types
 
-- [ ] Words
+- [ ] Words: NOUNS, PRONOUNS, VERBS, ADJECTIVES, ADVERBS, PREPOSITIONS, CONJUNCTIONS, INTERJECTIONS
+      https://en.wikipedia.org/wiki/English_grammar
 - [ ] Grammars    https://mein-deutschbuch.de/grammatik.html
+- [ ] Acronyms
+- [ ] Synonyms
 
 - [ ] Knowledges
 - [ ] Interests

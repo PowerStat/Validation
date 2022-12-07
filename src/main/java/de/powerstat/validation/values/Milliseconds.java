@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 
 /**
@@ -12,8 +14,20 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Milliseconds implements Comparable<Milliseconds>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Long, Milliseconds> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Milliseonds.
    */
@@ -26,7 +40,7 @@ public final class Milliseconds implements Comparable<Milliseconds>
    * @param milliseconds Milliseconds &gt;= 0
    * @throws IndexOutOfBoundsException When the milliseonds is less than 0
    */
-  public Milliseconds(final long milliseconds)
+  private Milliseconds(final long milliseconds)
    {
     super();
     if (milliseconds < 0)
@@ -45,7 +59,17 @@ public final class Milliseconds implements Comparable<Milliseconds>
    */
   public static Milliseconds of(final long milliseconds)
    {
-    return new Milliseconds(milliseconds);
+    synchronized (Milliseconds.class)
+     {
+      Milliseconds obj = Milliseconds.CACHE.get(milliseconds);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Milliseconds(milliseconds);
+      Milliseconds.CACHE.put(Long.valueOf(milliseconds), obj);
+      return obj;
+     }
    }
 
 
@@ -55,7 +79,7 @@ public final class Milliseconds implements Comparable<Milliseconds>
    * @return Milliseconds (0-Long.MAX_VALUE)
    * @deprecated Use longValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Milliseconds.DEPRECATED_SINCE_3_0, forRemoval = false)
   public long getMilliseconds()
    {
     return this.milliseconds;
@@ -96,6 +120,8 @@ public final class Milliseconds implements Comparable<Milliseconds>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -105,7 +131,8 @@ public final class Milliseconds implements Comparable<Milliseconds>
       return false;
      }
     final Milliseconds other = (Milliseconds)obj;
-    return this.milliseconds == other.milliseconds;
+    return false; // this.milliseconds == other.milliseconds;
+    */
    }
 
 

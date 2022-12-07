@@ -22,13 +22,18 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * BFPONumber tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 public class BFPONumberTests
  {
   /**
    * Not a BFPONumber constant.
    */
   private static final String NOT_A_BFPO_NUMBER = "Not a BFPONumber!"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
 
   /**
@@ -63,6 +68,32 @@ public class BFPONumberTests
   public void isBFPONumberStr(final int bFPONumber)
    {
     assertEquals(Integer.toString(bFPONumber), BFPONumber.of(bFPONumber).stringValue(), BFPONumberTests.NOT_A_BFPO_NUMBER);
+   }
+
+
+  /**
+   * getBFPONumber.
+   *
+   * @deprecated Old version of intValue()
+   */
+  @Deprecated(since = BFPONumberTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getBFPONumber()
+   {
+    assertEquals(1, BFPONumber.of(1).getBFPONumber(), BFPONumberTests.NOT_A_BFPO_NUMBER);
+   }
+
+
+  /**
+   * getBFPONumberStr.
+   *
+   * @deprecated Old version of stringValue()
+   */
+  @Deprecated(since = BFPONumberTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getBFPONumberStr()
+   {
+    assertEquals("1", BFPONumber.of(1).getBFPONumberStr(), BFPONumberTests.NOT_A_BFPO_NUMBER);
    }
 
 

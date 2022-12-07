@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 
 /**
@@ -12,8 +14,20 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Port implements Comparable<Port>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Integer, Port> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Port.
    */
@@ -26,7 +40,7 @@ public final class Port implements Comparable<Port>
    * @param port Port 0-65535
    * @throws IndexOutOfBoundsException When the port is less than 0 or greater than 65535
    */
-  public Port(final int port)
+  private Port(final int port)
    {
     super();
     if ((port < 0) || (port > 65535))
@@ -45,7 +59,17 @@ public final class Port implements Comparable<Port>
    */
   public static Port of(final int port)
    {
-    return new Port(port);
+    synchronized (Port.class)
+     {
+      Port obj = Port.CACHE.get(port);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Port(port);
+      Port.CACHE.put(Integer.valueOf(port), obj);
+      return obj;
+     }
    }
 
 
@@ -88,7 +112,7 @@ public final class Port implements Comparable<Port>
    * @return Port
    * @deprecated Use intValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Port.DEPRECATED_SINCE_3_0, forRemoval = false)
   public int getPort()
    {
     return this.port;
@@ -129,6 +153,8 @@ public final class Port implements Comparable<Port>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -138,7 +164,8 @@ public final class Port implements Comparable<Port>
       return false;
      }
     final Port other = (Port)obj;
-    return this.port == other.port;
+    return false; // this.port == other.port;
+    */
    }
 
 

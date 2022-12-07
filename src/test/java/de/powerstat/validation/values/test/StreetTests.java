@@ -45,6 +45,11 @@ public class StreetTests
    */
   private static final String STREET_NOT_AS_EXPECTED = "Street not as expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -105,9 +110,23 @@ public class StreetTests
 
   /**
    * Test get street.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = StreetTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getStreet()
+   {
+    final Street street = Street.of(StreetTests.HEMELINGER_HEERSTR);
+    assertEquals(StreetTests.HEMELINGER_HEERSTR, street.getStreet(), StreetTests.STREET_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get street.
+   */
+  @Test
+  public void stringValue()
    {
     final Street street = Street.of(StreetTests.HEMELINGER_HEERSTR);
     assertEquals(StreetTests.HEMELINGER_HEERSTR, street.stringValue(), StreetTests.STREET_NOT_AS_EXPECTED);

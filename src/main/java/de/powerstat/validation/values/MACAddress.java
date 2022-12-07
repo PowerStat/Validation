@@ -6,7 +6,9 @@ package de.powerstat.validation.values;
 
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -17,9 +19,15 @@ import java.util.regex.Pattern;
  * TODO Exists in network
  * http://standards-oui.ieee.org/oui/oui.csv
  */
-// @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
+// @SuppressFBWarnings({"CLI_CONSTANT_LIST_INDEX", "PMB_POSSIBLE_MEMORY_BLOAT"})
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class MACAddress implements Comparable<MACAddress>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, MACAddress> CACHE = new WeakHashMap<>();
+
   /**
    * Hex 00.
    */
@@ -51,6 +59,26 @@ public final class MACAddress implements Comparable<MACAddress>
   private static final String SEPARATOR = ":"; //$NON-NLS-1$
 
   /**
+   * Delimiter.
+   */
+  private static final String DELIMITER = "-"; //$NON-NLS-1$
+
+  /**
+   * Delimiter constant.
+   */
+  private static final String DELIMITER_TXT = "delimiter"; //$NON-NLS-1$
+
+  /**
+   * Illegal delimiter length constant.
+   */
+  private static final String ILLEGAL_DELIMITER_LENGTH = "Illegal delimiter length"; //$NON-NLS-1$
+
+  /**
+   * Illegal delimiter character constant.
+   */
+  private static final String ILLEGAL_DELIMITER_CHARACTER = "Illegal delimiter character"; //$NON-NLS-1$
+
+  /**
    * IP V6 regexp.
    */
   private static final Pattern IPV6_REGEXP = Pattern.compile("^[0-9a-f]{2}([:-]?[0-9a-f]{2}){5}$"); //$NON-NLS-1$
@@ -59,6 +87,11 @@ public final class MACAddress implements Comparable<MACAddress>
    * IP V6 separator regexp.
    */
   private static final Pattern IPV6_SEPARATOR_REGEXP = Pattern.compile("[:-]"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * MAC address parts.
@@ -73,7 +106,7 @@ public final class MACAddress implements Comparable<MACAddress>
    * @throws NullPointerException if address is null
    * @throws IllegalArgumentException if address is not a mac address
    */
-  public MACAddress(final String address)
+  private MACAddress(final String address)
    {
     super();
     Objects.requireNonNull(address, "address"); //$NON-NLS-1$
@@ -97,7 +130,17 @@ public final class MACAddress implements Comparable<MACAddress>
    */
   public static MACAddress of(final String address)
    {
-    return new MACAddress(address);
+    synchronized (MACAddress.class)
+     {
+      MACAddress obj = MACAddress.CACHE.get(address);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new MACAddress(address);
+      MACAddress.CACHE.put(address, obj);
+      return obj;
+     }
    }
 
 
@@ -108,17 +151,17 @@ public final class MACAddress implements Comparable<MACAddress>
    * @return MACAddress string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = MACAddress.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getAddress(final String delimiter)
    {
-    Objects.requireNonNull(delimiter, "delimiter"); //$NON-NLS-1$
+    Objects.requireNonNull(delimiter, MACAddress.DELIMITER_TXT);
     if (delimiter.length() > 1)
      {
-      throw new IllegalArgumentException("Illegal delimiter length"); //$NON-NLS-1$
+      throw new IllegalArgumentException(MACAddress.ILLEGAL_DELIMITER_LENGTH);
      }
-    if (!delimiter.isEmpty() && !MACAddress.SEPARATOR.equals(delimiter) && !"-".equals(delimiter)) //$NON-NLS-1$
+    if (!delimiter.isEmpty() && !MACAddress.SEPARATOR.equals(delimiter) && !MACAddress.DELIMITER.equals(delimiter))
      {
-      throw new IllegalArgumentException("Illegal delimiter character"); //$NON-NLS-1$
+      throw new IllegalArgumentException(MACAddress.ILLEGAL_DELIMITER_CHARACTER);
      }
     return String.join(delimiter, this.parts);
    }
@@ -132,14 +175,14 @@ public final class MACAddress implements Comparable<MACAddress>
    */
   public String stringValue(final String delimiter)
    {
-    Objects.requireNonNull(delimiter, "delimiter"); //$NON-NLS-1$
+    Objects.requireNonNull(delimiter, MACAddress.DELIMITER_TXT);
     if (delimiter.length() > 1)
      {
-      throw new IllegalArgumentException("Illegal delimiter length"); //$NON-NLS-1$
+      throw new IllegalArgumentException(MACAddress.ILLEGAL_DELIMITER_LENGTH);
      }
-    if (!delimiter.isEmpty() && !MACAddress.SEPARATOR.equals(delimiter) && !"-".equals(delimiter)) //$NON-NLS-1$
+    if (!delimiter.isEmpty() && !MACAddress.SEPARATOR.equals(delimiter) && !MACAddress.DELIMITER.equals(delimiter))
      {
-      throw new IllegalArgumentException("Illegal delimiter character"); //$NON-NLS-1$
+      throw new IllegalArgumentException(MACAddress.ILLEGAL_DELIMITER_CHARACTER);
      }
     return String.join(delimiter, this.parts);
    }
@@ -152,7 +195,7 @@ public final class MACAddress implements Comparable<MACAddress>
    */
   public String stringValue()
    {
-    return stringValue(":"); //$NON-NLS-1$
+    return stringValue(MACAddress.SEPARATOR);
    }
 
 
@@ -258,6 +301,8 @@ public final class MACAddress implements Comparable<MACAddress>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -267,7 +312,8 @@ public final class MACAddress implements Comparable<MACAddress>
       return false;
      }
     final MACAddress other = (MACAddress)obj;
-    return Arrays.equals(this.parts, other.parts);
+    return false; // Arrays.equals(this.parts, other.parts);
+    */
    }
 
 

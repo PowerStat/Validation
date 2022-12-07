@@ -20,7 +20,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * IP V6 mask tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 public class IPV6MaskTests
  {
   /**
@@ -32,6 +32,11 @@ public class IPV6MaskTests
    * Index out of bounds exception expected constant.
    */
   private static final String INDEX_OUT_OF_BOUNDS = "Index out of bounds exception expected"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
 
   /**
@@ -94,6 +99,31 @@ public class IPV6MaskTests
     assertAll("constructorSuccess1", //$NON-NLS-1$
       () -> assertEquals(128, mask.intValue(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL)
     );
+   }
+
+
+  /**
+   * Test getLength.
+   *
+   * @deprecated Old version of intValue()
+   */
+  @Deprecated(since = IPV6MaskTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getLength()
+   {
+    final IPV6Mask mask = IPV6Mask.of(0);
+    assertEquals(0, mask.getLength(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL);
+   }
+
+
+  /**
+   * Test intValue.
+   */
+  @Test
+  public void intValue()
+   {
+    final IPV6Mask mask = IPV6Mask.of(0);
+    assertEquals(0, mask.intValue(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL);
    }
 
 

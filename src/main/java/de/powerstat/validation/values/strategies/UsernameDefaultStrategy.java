@@ -13,9 +13,15 @@ package de.powerstat.validation.values.strategies;
 public final class UsernameDefaultStrategy extends UsernameConfigurableStrategy
  {
   /**
+   * Cache for singleton.
+   */
+  private static final UsernameDefaultStrategy CACHE = new UsernameDefaultStrategy();
+
+
+  /**
    * Default Constructor.
    */
-  public UsernameDefaultStrategy()
+  private UsernameDefaultStrategy()
    {
     super(2, 254, "^[@./_0-9a-zA-Z-]+$", HandleEMail.EMAIL_POSSIBLE); //$NON-NLS-1$
    }
@@ -28,7 +34,7 @@ public final class UsernameDefaultStrategy extends UsernameConfigurableStrategy
    */
   public static IUsernameStrategy of()
    {
-    return new UsernameDefaultStrategy();
+    return UsernameDefaultStrategy.CACHE;
    }
 
  }

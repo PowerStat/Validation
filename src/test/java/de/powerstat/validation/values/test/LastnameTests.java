@@ -45,6 +45,11 @@ public class LastnameTests
    */
   private static final String LASTNAME_NOT_AS_EXPECTED = "Lastname not as expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -102,9 +107,23 @@ public class LastnameTests
 
   /**
    * Test get lastname.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = LastnameTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getLastname()
+   {
+    final Lastname lastname = Lastname.of(LastnameTests.LASTNAME);
+    assertEquals(LastnameTests.LASTNAME, lastname.getLastname(), LastnameTests.LASTNAME_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get lastname.
+   */
+  @Test
+  public void stringValue()
    {
     final Lastname lastname = Lastname.of(LastnameTests.LASTNAME);
     assertEquals(LastnameTests.LASTNAME, lastname.stringValue(), LastnameTests.LASTNAME_NOT_AS_EXPECTED);

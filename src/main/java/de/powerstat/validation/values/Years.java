@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 
 /**
@@ -12,8 +14,20 @@ import java.util.Objects;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Years implements Comparable<Years>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<Long, Years> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Years.
    */
@@ -26,7 +40,7 @@ public final class Years implements Comparable<Years>
    * @param years Years &gt;= 0
    * @throws IndexOutOfBoundsException When the year is smaller than 0
    */
-  public Years(final long years)
+  private Years(final long years)
    {
     super();
     if (years < 0)
@@ -45,7 +59,17 @@ public final class Years implements Comparable<Years>
    */
   public static Years of(final long years)
    {
-    return new Years(years);
+    synchronized (Years.class)
+     {
+      Years obj = Years.CACHE.get(years);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Years(years);
+      Years.CACHE.put(Long.valueOf(years), obj);
+      return obj;
+     }
    }
 
 
@@ -55,7 +79,7 @@ public final class Years implements Comparable<Years>
    * @return Years
    * @deprecated Use longValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Years.DEPRECATED_SINCE_3_0, forRemoval = false)
   public long getYears()
    {
     return this.years;
@@ -96,6 +120,8 @@ public final class Years implements Comparable<Years>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -105,7 +131,8 @@ public final class Years implements Comparable<Years>
       return false;
      }
     final Years other = (Years)obj;
-    return this.years == other.years;
+    return false; // this.years == other.years;
+    */
    }
 
 

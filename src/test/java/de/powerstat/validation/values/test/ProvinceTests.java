@@ -50,6 +50,11 @@ public class ProvinceTests
    */
   private static final String PROVINCE_NOT_AS_EXPECTED = "Province not as expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -110,9 +115,23 @@ public class ProvinceTests
 
   /**
    * Test get province.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = ProvinceTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getProvince()
+   {
+    final Province province = Province.of(ProvinceTests.ABCD);
+    assertEquals(ProvinceTests.ABCD, province.getProvince(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get province.
+   */
+  @Test
+  public void stringValue()
    {
     final Province province = Province.of(ProvinceTests.ABCD);
     assertEquals(ProvinceTests.ABCD, province.stringValue(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);

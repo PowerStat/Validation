@@ -7,7 +7,9 @@ package de.powerstat.validation.values;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedTlds;
@@ -21,9 +23,15 @@ import de.powerstat.validation.generated.GeneratedTlds;
  * TODO Verify TopLevelDomain
  * TODO ping ok?
  */
-// @SuppressFBWarnings("EXS_EXCEPTION_SOFTENING_RETURN_FALSE")
+// @SuppressFBWarnings({"EXS_EXCEPTION_SOFTENING_RETURN_FALSE", "PMB_POSSIBLE_MEMORY_BLOAT"})
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Hostname implements Comparable<Hostname>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, Hostname> CACHE = new WeakHashMap<>();
+
   /**
    * Hostname regexp.
    */
@@ -33,6 +41,11 @@ public final class Hostname implements Comparable<Hostname>
    * Escaped dot.
    */
   private static final String ESC_DOT = "\\."; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Hostname.
@@ -53,7 +66,7 @@ public final class Hostname implements Comparable<Hostname>
    * @throws NullPointerException if hostname is null
    * @throws IllegalArgumentException if hostname is not a hostname
    */
-  public Hostname(final String hostname)
+  private Hostname(final String hostname)
    {
     super();
     Objects.requireNonNull(hostname, "hostname"); //$NON-NLS-1$
@@ -64,7 +77,7 @@ public final class Hostname implements Comparable<Hostname>
     String tempHostname = ""; //$NON-NLS-1$
     try
      {
-      tempHostname = new IPV4Address(hostname).stringValue();
+      tempHostname = IPV4Address.of(hostname).stringValue();
      }
     catch (final IllegalArgumentException ignored)
      {
@@ -74,7 +87,7 @@ public final class Hostname implements Comparable<Hostname>
      {
       if (tempHostname.isEmpty())
        {
-        tempHostname = new IPV6Address(hostname).stringValue();
+        tempHostname = IPV6Address.of(hostname).stringValue();
        }
      }
     catch (final IllegalArgumentException ignored)
@@ -160,7 +173,17 @@ public final class Hostname implements Comparable<Hostname>
    */
   public static Hostname of(final String hostname)
    {
-    return new Hostname(hostname);
+    synchronized (Hostname.class)
+     {
+      Hostname obj = Hostname.CACHE.get(hostname);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Hostname(hostname);
+      Hostname.CACHE.put(hostname, obj);
+      return obj;
+     }
    }
 
 
@@ -170,7 +193,7 @@ public final class Hostname implements Comparable<Hostname>
    * @return Hostname string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Hostname.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getHostname()
    {
     return this.hostname;

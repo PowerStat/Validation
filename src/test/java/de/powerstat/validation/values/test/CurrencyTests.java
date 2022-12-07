@@ -45,6 +45,11 @@ public class CurrencyTests
    */
   private static final String CURRENCY_CODE_NOT_AS_EXPECTED = "Currency code not as expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -105,9 +110,23 @@ public class CurrencyTests
 
   /**
    * Test get currency code.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = CurrencyTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getCurrency()
+   {
+    final Currency currency = Currency.of(CurrencyTests.EUR);
+    assertEquals(CurrencyTests.EUR, currency.getCurrency(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get currency code.
+   */
+  @Test
+  public void stringValue()
    {
     final Currency currency = Currency.of(CurrencyTests.EUR);
     assertEquals(CurrencyTests.EUR, currency.stringValue(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);

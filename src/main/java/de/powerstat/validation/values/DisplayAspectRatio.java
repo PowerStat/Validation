@@ -4,7 +4,11 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
+
+import de.powerstat.validation.values.containers.NTuple2;
 
 
 /**
@@ -12,8 +16,20 @@ import java.util.Objects;
  *
  * 1:1 2.1:1 3:1 3:2 4:3 5:3 5:4 8:5 9:5 10:6 15:9 16:9 16:10 17:10 25:12 25:16 60:29 64:35 72:35
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<NTuple2<Integer, Integer>, DisplayAspectRatio> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Display x size (1-72).
    */
@@ -31,7 +47,7 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>
    * @param x Display x site (1-72)
    * @param y Display y size (1-35)
    */
-  public DisplayAspectRatio(final int x, final int y)
+  private DisplayAspectRatio(final int x, final int y)
    {
     super();
     if ((x <= 0) || (x > 72))
@@ -57,7 +73,18 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>
    */
   public static DisplayAspectRatio of(final int x, final int y)
    {
-    return new DisplayAspectRatio(x, y);
+    final NTuple2<Integer, Integer> tuple = NTuple2.of(x, y);
+    synchronized (DisplayAspectRatio.class)
+     {
+      DisplayAspectRatio obj = DisplayAspectRatio.CACHE.get(tuple);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new DisplayAspectRatio(x, y);
+      DisplayAspectRatio.CACHE.put(tuple, obj);
+      return obj;
+     }
    }
 
 
@@ -89,7 +116,7 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>
    * @return Aspect ration string (x:y)
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = DisplayAspectRatio.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getAspectRatio()
    {
     return String.valueOf(this.x) + ':' + this.y;
@@ -131,6 +158,8 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>
   @Override
   public boolean equals(final Object obj)
    {
+    return this == obj;
+    /*
     if (this == obj)
      {
       return true;
@@ -145,6 +174,7 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>
       return this.y == other.y;
      }
     return false;
+    */
    }
 
 

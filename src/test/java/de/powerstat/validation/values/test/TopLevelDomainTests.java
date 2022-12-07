@@ -45,6 +45,11 @@ public class TopLevelDomainTests
    */
   private static final String TLD_NOT_AS_EXPECTED = "TopLevelDomain not as expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -105,9 +110,23 @@ public class TopLevelDomainTests
 
   /**
    * Test get topLevelDomain.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = TopLevelDomainTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getTopLevelDomain()
+   {
+    final TopLevelDomain topLevelDomain = TopLevelDomain.of(TopLevelDomainTests.DE);
+    assertEquals(TopLevelDomainTests.DE, topLevelDomain.getTopLevelDomain(), TopLevelDomainTests.TLD_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get topLevelDomain.
+   */
+  @Test
+  public void stringValue()
    {
     final TopLevelDomain topLevelDomain = TopLevelDomain.of(TopLevelDomainTests.DE);
     assertEquals(TopLevelDomainTests.DE, topLevelDomain.stringValue(), TopLevelDomainTests.TLD_NOT_AS_EXPECTED);

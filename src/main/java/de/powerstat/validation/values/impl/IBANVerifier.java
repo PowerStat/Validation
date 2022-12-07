@@ -4,7 +4,11 @@
 package de.powerstat.validation.values.impl;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
+
+import de.powerstat.validation.values.containers.NTuple2;
 
 
 /**
@@ -12,6 +16,11 @@ import java.util.Objects;
  */
 public final class IBANVerifier
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<NTuple2<Integer, String>, IBANVerifier> CACHE = new ConcurrentHashMap<>();
+
   /**
    * IBAN length.
    */
@@ -29,7 +38,7 @@ public final class IBANVerifier
    * @param length Country specific maximum IBAN length.
    * @param regexp Country specific regular expression
    */
-  public IBANVerifier(final int length, final String regexp)
+  private IBANVerifier(final int length, final String regexp)
    {
     super();
     if ((length < 15) || (length > 34))
@@ -56,7 +65,18 @@ public final class IBANVerifier
    */
   public static IBANVerifier of(final int length, final String regexp)
    {
-    return new IBANVerifier(length, regexp);
+    final NTuple2<Integer, String> tuple = NTuple2.of(length, regexp);
+    synchronized (IBANVerifier.class)
+     {
+      IBANVerifier obj = IBANVerifier.CACHE.get(tuple);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new IBANVerifier(length, regexp);
+      IBANVerifier.CACHE.put(tuple, obj);
+      return obj;
+     }
    }
 
 

@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 
 import de.powerstat.validation.values.strategies.IPasswordStrategy;
 import de.powerstat.validation.values.strategies.PasswordDefaultStrategy;
@@ -14,6 +16,8 @@ import de.powerstat.validation.values.strategies.PasswordDefaultStrategy;
  * Password.
  *
  * DSGVO relevant.
+ *
+ * TODO memory protection
  *
  * TODO encryption algorithm (hashtypes)
  * TODO salt
@@ -39,8 +43,20 @@ import de.powerstat.validation.values.strategies.PasswordDefaultStrategy;
  *      https://wiki.skullsecurity.org/Passwords
  *      https://thehacktoday.com/password-cracking-dictionarys-download-for-free/
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Password implements Comparable<Password>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, Password> CACHE = new WeakHashMap<>();
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
   /**
    * Password.
    */
@@ -56,7 +72,7 @@ public final class Password implements Comparable<Password>
    * @throws NullPointerException if password or validationStrategy is null
    * @throws IllegalArgumentException if password contains unsupported characters or is to long or short etc.
    */
-  public Password(final IPasswordStrategy validationStrategy, final String password)
+  private Password(final IPasswordStrategy validationStrategy, final String password)
    {
     super();
     Objects.requireNonNull(validationStrategy, "validationStrategy"); //$NON-NLS-1$
@@ -75,7 +91,18 @@ public final class Password implements Comparable<Password>
    */
   public static Password of(final IPasswordStrategy validationStrategy, final String password)
    {
-    return new Password(validationStrategy, password);
+    synchronized (Password.class)
+     {
+      Password obj = Password.CACHE.get(password);
+      if (obj != null)
+       {
+        validationStrategy.validationStrategy(password);
+        return obj;
+       }
+      obj = new Password(validationStrategy, password);
+      Password.CACHE.put(password, obj);
+      return obj;
+     }
    }
 
 
@@ -97,7 +124,7 @@ public final class Password implements Comparable<Password>
    * @return Password string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Password.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getPassword()
    {
     return this.passwd;

@@ -20,7 +20,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * IP V4 mask tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 public class IPV4MaskTests
  {
   /**
@@ -67,6 +67,11 @@ public class IPV4MaskTests
    * Error message: mask is not equal.
    */
   private static final String MASK_IS_NOT_EQUAL = "mask is not equal"; //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
 
   /**
@@ -331,16 +336,30 @@ public class IPV4MaskTests
 
 
   /**
-   * Test constructor success.
+   * Test getLength.
+   *
+   * @deprecated Old version of intValue()
    */
+  @Deprecated(since = IPV4MaskTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
-  public void constructorSuccess12()
+  public void getLength()
    {
     final IPV4Mask mask = IPV4Mask.of(25);
-    assertAll("constructorSuccess12", //$NON-NLS-1$
-      () -> assertEquals(25, mask.intValue(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
-      () -> assertEquals("255.255.255.128", mask.stringValue(), IPV4MaskTests.MASK_IS_NOT_EQUAL) //$NON-NLS-1$
-    );
+    assertEquals(25, mask.getLength(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL);
+   }
+
+
+  /**
+   * Test getMask.
+   *
+   * @deprecated Old version of stringValue()
+   */
+  @Deprecated(since = IPV4MaskTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Test
+  public void getMask()
+   {
+    final IPV4Mask mask = IPV4Mask.of(0);
+    assertEquals(IPV4MaskTests.IP_ZERO, mask.getMask(), IPV4MaskTests.MASK_IS_NOT_EQUAL);
    }
 
 

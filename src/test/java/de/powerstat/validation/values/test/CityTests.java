@@ -45,6 +45,11 @@ public class CityTests
    */
   private static final String CITY_NOT_AS_EXPECTED = "City not as expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -105,9 +110,23 @@ public class CityTests
 
   /**
    * Test get city.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = CityTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getCity()
+   {
+    final City city = City.of(CityTests.BREMEN);
+    assertEquals(CityTests.BREMEN, city.getCity(), CityTests.CITY_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get city.
+   */
+  @Test
+  public void stringValue()
    {
     final City city = City.of(CityTests.BREMEN);
     assertEquals(CityTests.BREMEN, city.stringValue(), CityTests.CITY_NOT_AS_EXPECTED);

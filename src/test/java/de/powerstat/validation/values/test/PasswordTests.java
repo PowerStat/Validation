@@ -47,6 +47,11 @@ public class PasswordTests
    */
   private static final String PASSWORD_NOT_AS_EXPECTED = "Password not as expected"; //$NON-NLS-1$
 
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -116,9 +121,23 @@ public class PasswordTests
 
   /**
    * Test get password.
+   *
+   * @deprecated Old version of stringValue()
    */
+  @Deprecated(since = PasswordTests.DEPRECATED_SINCE_3_0, forRemoval = false)
   @Test
   public void getPassword()
+   {
+    final Password password = Password.of(PasswordTests.PASSWORD);
+    assertEquals(PasswordTests.PASSWORD, password.getPassword(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test get password.
+   */
+  @Test
+  public void stringValue()
    {
     final Password password = Password.of(PasswordTests.PASSWORD);
     assertEquals(PasswordTests.PASSWORD, password.stringValue(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);

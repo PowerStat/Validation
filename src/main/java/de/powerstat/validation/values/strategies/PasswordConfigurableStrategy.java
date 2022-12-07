@@ -5,8 +5,12 @@ package de.powerstat.validation.values.strategies;
 
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
+import de.powerstat.validation.values.containers.NTuple9;
 
 
 /**
@@ -21,6 +25,11 @@ import java.util.Set;
  */
 public class PasswordConfigurableStrategy implements IPasswordStrategy
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<NTuple9<Integer, Integer, String, Integer, Integer, Integer, Integer, Integer, Integer>, PasswordConfigurableStrategy> CACHE = new ConcurrentHashMap<>();
+
   /**
    * Minimum allowed username length.
    */
@@ -83,7 +92,7 @@ public class PasswordConfigurableStrategy implements IPasswordStrategy
    * @throws NullPointerException If regexp is null
    * TODO parameters via struct
    */
-  public PasswordConfigurableStrategy(final int minLength, final int maxLength, final String regexp, final int minNumeric, final int minLower, final int minUpper, final int minSpecial, final int minUnique, final int maxRepeated)
+  protected PasswordConfigurableStrategy(final int minLength, final int maxLength, final String regexp, final int minNumeric, final int minLower, final int minUpper, final int minSpecial, final int minUnique, final int maxRepeated)
    {
     super();
     Objects.requireNonNull(regexp, "regexp"); //$NON-NLS-1$
@@ -157,7 +166,18 @@ public class PasswordConfigurableStrategy implements IPasswordStrategy
    */
   public static IPasswordStrategy of(final int minLength, final int maxLength, final String regexp, final int minNumeric, final int minLower, final int minUpper, final int minSpecial, final int minUnique, final int maxRepeated)
    {
-    return new PasswordConfigurableStrategy(minLength, maxLength, regexp, minNumeric, minLower, minUpper, minSpecial, minUnique, maxRepeated);
+    final NTuple9<Integer, Integer, String, Integer, Integer, Integer, Integer, Integer, Integer> tuple = NTuple9.of(minLength, maxLength, regexp, minNumeric, minLower, minUpper, minSpecial, minUnique, maxRepeated);
+    synchronized (PasswordConfigurableStrategy.class)
+     {
+      PasswordConfigurableStrategy obj = PasswordConfigurableStrategy.CACHE.get(tuple);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new PasswordConfigurableStrategy(minLength, maxLength, regexp, minNumeric, minLower, minUpper, minSpecial, minUnique, maxRepeated);
+      PasswordConfigurableStrategy.CACHE.put(tuple, obj);
+      return obj;
+     }
    }
 
 

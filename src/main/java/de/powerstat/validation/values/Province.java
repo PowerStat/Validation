@@ -4,7 +4,9 @@
 package de.powerstat.validation.values;
 
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -13,12 +15,24 @@ import java.util.regex.Pattern;
  *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Province implements Comparable<Province>
  {
+  /**
+   * Cache for singletons.
+   */
+  private static final Map<String, Province> CACHE = new WeakHashMap<>();
+
   /**
    * Province regexp.
    */
   private static final Pattern PROVINCE_REGEXP = Pattern.compile("^[\\p{L}][\\p{L} -]*$"); //$NON-NLS-1$
+
+  /**
+   * Deprecated since version 3.0 constant.
+   */
+  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Province.
@@ -33,7 +47,7 @@ public final class Province implements Comparable<Province>
    * @throws NullPointerException if province is null
    * @throws IllegalArgumentException if province is not a correct province name
    */
-  public Province(final String province)
+  private Province(final String province)
    {
     super();
     Objects.requireNonNull(province, "province"); //$NON-NLS-1$
@@ -57,7 +71,17 @@ public final class Province implements Comparable<Province>
    */
   public static Province of(final String province)
    {
-    return new Province(province);
+    synchronized (Province.class)
+     {
+      Province obj = Province.CACHE.get(province);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Province(province);
+      Province.CACHE.put(province, obj);
+      return obj;
+     }
    }
 
 
@@ -67,7 +91,7 @@ public final class Province implements Comparable<Province>
    * @return Province string
    * @deprecated Use stringValue() instead
    */
-  @Deprecated
+  @Deprecated(since = Province.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getProvince()
    {
     return this.province;

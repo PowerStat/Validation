@@ -4,6 +4,7 @@
 package de.powerstat.validation.values.strategies.test;
 
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -11,11 +12,13 @@ import org.junit.jupiter.api.Test;
 
 import de.powerstat.validation.values.strategies.IPasswordStrategy;
 import de.powerstat.validation.values.strategies.PasswordConfigurableStrategy;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
  * Password configurable strategy tests.
  */
+@SuppressFBWarnings("PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS")
 public class PasswordConfigurableStrategyTests
  {
   /**
@@ -89,6 +92,21 @@ public class PasswordConfigurableStrategyTests
    {
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(10, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 0, 0);
     assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test strategy with caching.
+   */
+  @Test
+  public void cache()
+   {
+    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(10, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 0, 0);
+    final IPasswordStrategy cleanStrategy2 = PasswordConfigurableStrategy.of(10, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 0, 0);
+    assertAll("testEquals", //$NON-NLS-1$
+      () -> assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED),
+      () -> assertNotNull(cleanStrategy2, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED)
+    );
    }
 
 
