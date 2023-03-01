@@ -23,6 +23,11 @@ VCARD:
 https://datahub.io/collections/reference-data#currency-codes
 
 - [ ] SSID
+     1. Dürfen nicht mit einem Leerzeichen beginnen und/oder enden
+     2. können max. 32 Zeichen lang sein
+     3. darf nicht leer sein
+     4. Erlaubte Zeichen sind: 
+   Leerzeichen, a-z A-Z 0-9 ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~
 
 - [ ] Country names, Language names
 

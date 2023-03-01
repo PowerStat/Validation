@@ -119,7 +119,7 @@ public final class ValidationUtilsTests
   /**
    * Deprecated since version 3.0 constant.
    */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+  private static final String DEPRECATED_SINCE_2_0 = "2.0"; //$NON-NLS-1$
 
 
   /**
@@ -137,7 +137,7 @@ public final class ValidationUtilsTests
    * @param hostname Hostname
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_3_0, forRemoval = false)
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(strings = {ValidationUtilsTests.WWW_POWERSTAT_DE, "a.de", "www.powerstat012345678901234567890123456789012345678901234567890123.de", "abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.ACCOUNTANT", "192.168.0.1", ValidationUtilsTests.FE80})
   public void checkHostnameOk(final String hostname)
@@ -153,7 +153,7 @@ public final class ValidationUtilsTests
    * @param hostname Hostname
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(strings = {"p", "www..de", "www.powerstat0123456789012345678901234567890123456789012345678901234.de", "www.powerstat1234123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234.de"})
   public void checkHostnameLength(final String hostname)
@@ -172,7 +172,7 @@ public final class ValidationUtilsTests
    * @param hostname Hostname
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(strings = {"www.power~stat.de", "www.powerstat.unknown", "ACCOUNTANT", "www.-powerstat.de", "www.powerstat-.de"})
   public void checkHostnameIllegalParameters(final String hostname)
@@ -191,7 +191,7 @@ public final class ValidationUtilsTests
    * @param port Port
    * @deprecated  Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(ints = {1023, 0, 65535})
   public void checkPortOk(final int port)
@@ -207,7 +207,7 @@ public final class ValidationUtilsTests
    * @param port Port
    * @deprecated  Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(ints = {-1, 65536})
   public void checkPortOutOfRange(final int port)
@@ -225,7 +225,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void sanitizeUrlPathO()
    {
@@ -240,7 +240,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void sanitizeUrlPathEmpty()
    {
@@ -255,7 +255,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void sanitizeUrlPathInvalid()
    {
@@ -269,7 +269,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void isIPV4Null()
    {
@@ -286,7 +286,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void checkIPV4()
    {
@@ -301,7 +301,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void checkNoneIPV4()
    {
@@ -319,7 +319,7 @@ public final class ValidationUtilsTests
    * @param address IP V4 address
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(strings = {"192.168.0.1", "10.0.0.1", "169.254.0.1", "172.16.0.1", "172.31.0.1"})
   public void isIPV4private(final String address)
@@ -334,7 +334,7 @@ public final class ValidationUtilsTests
    * @param address IP V4 address
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(strings = {ValidationUtilsTests.GOOGLE_DNS, "172.15.0.0", "172.32.0.0", "192.169.0.0", "169.255.0.0"})
   public void isIPV4NonePrivate(final String address)
@@ -349,7 +349,7 @@ public final class ValidationUtilsTests
    * @param address IP V4 address
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(strings = {"0.0.0.0", "127.0.0.1", "127.0.2.1", "192.0.0.1", "192.0.2.1", "192.88.99.1", "198.51.100.1", "203.0.113.1", "100.64.0.1", "100.127.0.1", "198.18.0.1", "198.19.0.1", "224.0.0.1", "239.0.0.1", "240.0.0.1", "255.0.0.1"})
   public void isIPV4special(final String address)
@@ -364,7 +364,7 @@ public final class ValidationUtilsTests
    * @param address IP V4 address
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(strings = {"192.1.2.1", "100.63.0.0", "100.128.0.0", "198.17.0.0", "198.20.0.0", "198.50.100.1", "203.1.113.0", "203.0.114.0", "198.51.99.0", "192.0.1.0", "192.88.100.0"})
   public void isIPV4noneSpecial(final String address)
@@ -378,7 +378,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void isIPV4public()
    {
@@ -391,7 +391,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void isIPV4NotPublic1()
    {
@@ -404,7 +404,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void isIPV4NotPublic2()
    {
@@ -418,7 +418,7 @@ public final class ValidationUtilsTests
    * @param mask Prefix mask length 0-32
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(ints = {0, 32})
   public void isIPV4prefixLength1(final int mask)
@@ -432,7 +432,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void isIPV4prefixLength2()
    {
@@ -445,7 +445,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void checkIPV4prefixLength()
    {
@@ -460,7 +460,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void checkIPV4prefixLengthException()
    {
@@ -478,7 +478,7 @@ public final class ValidationUtilsTests
    * @param mask Prefix mask length 0-128
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(ints = {0, 128})
   public void isIPV6prefixLength(final int mask)
@@ -493,7 +493,7 @@ public final class ValidationUtilsTests
    * @param mask Prefix mask length 0-128
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(ints = {-1, 129})
   public void isNotIPV6prefixLength(final int mask)
@@ -507,7 +507,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void checkIPV6prefixLength()
    {
@@ -522,7 +522,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void checkIPV6prefixLengthException()
    {
@@ -541,7 +541,7 @@ public final class ValidationUtilsTests
    * @param expandedAddress Expanded IP V6 address
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @CsvSource({"'fe:80::', '00fe:0080:0000:0000:0000:0000:0000:0000'", "'fe:80::192.168.0.1', '00fe:0080:0000:0000:0000:0000:c0a8:0001'", "'::0', '0000:0000:0000:0000:0000:0000:0000:0000'"})
   public void checkIPV6(final String address, final String expandedAddress)
@@ -557,7 +557,7 @@ public final class ValidationUtilsTests
    * @param address IP V6 address
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(strings = {"fe:80::11::"})
   public void checkIPV6Failure(final String address)
@@ -575,7 +575,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void isIPV6()
    {
@@ -589,7 +589,7 @@ public final class ValidationUtilsTests
    * @param address IP V6 private address
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(strings = {"fe:80:00:00:00:00:00:00", "fc::", "fd::"})
   public void isIPV6private(final String address)
@@ -603,7 +603,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void isIPV6NonePrivate()
    {
@@ -617,7 +617,7 @@ public final class ValidationUtilsTests
    * @param address IP V6 special address
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(strings = {"0000:0000:0000:0000:0000:0000:0000:0000", "0000:0000:0000:0000:0000:0000:0000:0001", "00ff::"})
   public void isIPV6special(final String address)
@@ -631,7 +631,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void isIPV6NoneSpecial()
    {
@@ -644,7 +644,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void isIPV6Public()
    {
@@ -658,7 +658,7 @@ public final class ValidationUtilsTests
    * @param address IP V6 none public address
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(strings = {"00ff::", "fd::"})
   public void isIPV6NonePublic(final String address)
@@ -672,7 +672,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void isHostname()
    {
@@ -685,7 +685,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void isHostnameFalse()
    {
@@ -698,7 +698,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void isPort()
    {
@@ -711,7 +711,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void isPortFalse()
    {
@@ -725,7 +725,7 @@ public final class ValidationUtilsTests
    * @param port Port
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(ints = {0, 1023})
   public void isSystemPort(final int port)
@@ -740,7 +740,7 @@ public final class ValidationUtilsTests
    * @param port Port
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(ints = {49152, 65536})
   public void isSystemPortFalse(final int port)
@@ -755,7 +755,7 @@ public final class ValidationUtilsTests
    * @param port Port
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(ints = {1024, 49151})
   public void isRegisteredPort(final int port)
@@ -770,7 +770,7 @@ public final class ValidationUtilsTests
    * @param port Port
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(ints = {1023, 49152, 65536})
   public void isRegisteredPortFalse(final int port)
@@ -785,7 +785,7 @@ public final class ValidationUtilsTests
    * @param port Port
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(ints = {49152, 65535})
   public void isDynamicPort(final int port)
@@ -800,7 +800,7 @@ public final class ValidationUtilsTests
    * @param port Port
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @ParameterizedTest
   @ValueSource(ints = {1023, 65536})
   public void isDynamicPortFalse(final int port)
@@ -814,7 +814,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void existHostname()
    {
@@ -827,7 +827,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void existHostnameFalse()
    {
@@ -840,7 +840,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void splitHostnamePortOk1()
    {
@@ -857,7 +857,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void splitHostnamePortOk2()
    {
@@ -874,7 +874,7 @@ public final class ValidationUtilsTests
    *
    * @deprecated Use de.powerstat.validation.values.test.* instead.
    */
-  @Deprecated
+  @Deprecated(since = ValidationUtilsTests.DEPRECATED_SINCE_2_0, forRemoval = true)
   @Test
   public void splitHostnamePortWrong()
    {
