@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -45,11 +43,6 @@ public class StreetTests
    */
   private static final String STREET_NOT_AS_EXPECTED = "Street not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -70,7 +63,7 @@ public class StreetTests
   public void streetCorrect(final String street)
    {
     final Street cleanStreet = Street.of(street);
-    assertEquals(street, cleanStreet.stringValue(), StreetTests.STREET_NOT_AS_EXPECTED);
+    assertEquals(street, cleanStreet.street(), StreetTests.STREET_NOT_AS_EXPECTED);
    }
 
 
@@ -105,81 +98,6 @@ public class StreetTests
       /* final Street cleanStreet = */ Street.of(street);
      }, StreetTests.ILLEGAL_ARGUMENT
     );
-   }
-
-
-  /**
-   * Test get street.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = StreetTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getStreet()
-   {
-    final Street street = Street.of(StreetTests.HEMELINGER_HEERSTR);
-    assertEquals(StreetTests.HEMELINGER_HEERSTR, street.getStreet(), StreetTests.STREET_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get street.
-   */
-  @Test
-  public void stringValue()
-   {
-    final Street street = Street.of(StreetTests.HEMELINGER_HEERSTR);
-    assertEquals(StreetTests.HEMELINGER_HEERSTR, street.stringValue(), StreetTests.STREET_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final Street street1 = Street.of(StreetTests.ARBERGER_HEERSTR);
-    final Street street2 = Street.of(StreetTests.ARBERGER_HEERSTR);
-    final Street street3 = Street.of(StreetTests.HEMELINGER_HEERSTR);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(street1.hashCode(), street2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(street1.hashCode(), street3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final Street street1 = Street.of(StreetTests.ARBERGER_HEERSTR);
-    final Street street2 = Street.of(StreetTests.ARBERGER_HEERSTR);
-    final Street street3 = Street.of(StreetTests.HEMELINGER_HEERSTR);
-    final Street street4 = Street.of(StreetTests.ARBERGER_HEERSTR);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(street1.equals(street1), "street11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(street1.equals(street2), "street12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(street2.equals(street1), "street21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(street2.equals(street4), "street24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(street1.equals(street4), "street14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(street1.equals(street3), "street13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(street3.equals(street1), "street31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(street1.equals(null), "street10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final Street street = Street.of(StreetTests.HEMELINGER_HEERSTR);
-    assertEquals("Street[street=Hemelinger Heerstr.]", street.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

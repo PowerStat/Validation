@@ -1,30 +1,23 @@
 /*
- * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 
 /**
  * Millisecond.
  *
+ * @param millisecond Millisecond 0-999
+ * 
  * Not DSGVO relevant.
  *
  * TODO Listener
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Millisecond implements Comparable<Millisecond>
+public record Millisecond(int millisecond) implements Comparable<Millisecond>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<Integer, Millisecond> CACHE = new WeakHashMap<>();
-
   /**
    * Overflow constant.
    */
@@ -35,31 +28,18 @@ public final class Millisecond implements Comparable<Millisecond>
    */
   private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Milliseond.
-   */
-  private final int millisecond;
-
 
   /**
    * Constructor.
    *
-   * @param millisecond Millisecond 0-999
    * @throws IndexOutOfBoundsException When the milliseond is less than 0 or greater than 999
    */
-  private Millisecond(final int millisecond)
+  public Millisecond
    {
-    super();
     if ((millisecond < 0) || (millisecond > 999))
      {
       throw new IndexOutOfBoundsException("Millisecond out of range (0-999)!"); //$NON-NLS-1$
      }
-    this.millisecond = millisecond;
    }
 
 
@@ -71,99 +51,7 @@ public final class Millisecond implements Comparable<Millisecond>
    */
   public static Millisecond of(final int millisecond)
    {
-    synchronized (Millisecond.class)
-     {
-      Millisecond obj = Millisecond.CACHE.get(millisecond);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Millisecond(millisecond);
-      Millisecond.CACHE.put(Integer.valueOf(millisecond), obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get millisecond.
-   *
-   * @return Millisecond (0-999)
-   * @deprecated Ise intValue instead
-   */
-  @Deprecated(since = Millisecond.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public int getMillisecond()
-   {
-    return this.millisecond;
-   }
-
-
-  /**
-   * Returns the value of this Millisecond as an int.
-   *
-   * @return The numeric value represented by this object after conversion to type int (0-999).
-   */
-  public int intValue()
-   {
-    return this.millisecond;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Integer.hashCode(this.millisecond);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    return this == obj;
-    /*
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof Millisecond))
-     {
-      return false;
-     }
-    final Millisecond other = (Millisecond)obj;
-    return false; // this.millisecond == other.millisecond;
-    */
-   }
-
-
-  /**
-   * Returns the string representation of this Millisecond.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Millisecond[millisecond=0]"
-   *
-   * @return String representation of this Millisecond
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder(25);
-    builder.append("Millisecond[millisecond=").append(this.millisecond).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new Millisecond(millisecond);
    }
 
 
@@ -191,7 +79,7 @@ public final class Millisecond implements Comparable<Millisecond>
    */
   public Millisecond add(final Milliseconds milliseconds)
    {
-    final int newMillisecond = Math.toIntExact(Math.addExact(this.millisecond, milliseconds.longValue()));
+    final int newMillisecond = Math.toIntExact(Math.addExact(this.millisecond, milliseconds.milliseconds()));
     if (newMillisecond > 999)
      {
       // TODO Listener
@@ -210,7 +98,7 @@ public final class Millisecond implements Comparable<Millisecond>
    */
   public Millisecond subtract(final Milliseconds milliseconds)
    {
-    final int newMillisecond = Math.toIntExact(Math.subtractExact(this.millisecond, milliseconds.longValue()));
+    final int newMillisecond = Math.toIntExact(Math.subtractExact(this.millisecond, milliseconds.milliseconds()));
     if (newMillisecond < 0)
      {
       // TODO Listener

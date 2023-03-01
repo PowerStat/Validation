@@ -1,12 +1,10 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,23 +12,18 @@ import java.util.regex.Pattern;
 /**
  * Address Building number.
  *
+ * @param buildingNr Building number
+ * 
  * Possibly DSGVO relevant.
  *
  * TODO optimize constructor/compareTo
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class BuildingNr implements Comparable<BuildingNr>
+public record BuildingNr(String buildingNr) implements Comparable<BuildingNr>
  {
   /**
    * Logger.
    */
   // private static final Logger LOGGER = LogManager.getLogger(BuildingNr.class);
-
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<String, BuildingNr> CACHE = new WeakHashMap<>();
 
   /**
    * Building nr regexp.
@@ -42,27 +35,15 @@ public final class BuildingNr implements Comparable<BuildingNr>
    */
   private static final int MAX_KNOWN_BUILDING_NR = 29999;
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Building number.
-   */
-  private final String buildingNr;
-
 
   /**
    * Constructor.
    *
-   * @param buildingNr Building number
    * @throws NullPointerException if buildingNr is null
    * @throws IllegalArgumentException if buildingNr is not an correct buildingNr
    */
-  private BuildingNr(final String buildingNr)
+  public BuildingNr
    {
-    super();
     Objects.requireNonNull(buildingNr, "buildingNr"); //$NON-NLS-1$
     if ((buildingNr.length() < 1) || (buildingNr.length() > 21))
      {
@@ -90,7 +71,6 @@ public final class BuildingNr implements Comparable<BuildingNr>
      {
       throw new IllegalArgumentException("BuildingNr numerator > denominator"); //$NON-NLS-1$
      }
-    this.buildingNr = buildingNr;
    }
 
 
@@ -102,96 +82,7 @@ public final class BuildingNr implements Comparable<BuildingNr>
    */
   public static BuildingNr of(final String buildingNr)
    {
-    synchronized (BuildingNr.class)
-     {
-      BuildingNr obj = BuildingNr.CACHE.get(buildingNr);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new BuildingNr(buildingNr);
-      BuildingNr.CACHE.put(buildingNr, obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get buildingNr string.
-   *
-   * @return BuildingNr string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = BuildingNr.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getBuildingNr()
-   {
-    return this.buildingNr;
-   }
-
-
-  /**
-   * Returns the value of this BuildingNr as a string.
-   *
-   * @return The text value represented by this object after conversion to type string.
-   */
-  public String stringValue()
-   {
-    return this.buildingNr;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return this.buildingNr.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof BuildingNr))
-     {
-      return false;
-     }
-    final BuildingNr other = (BuildingNr)obj;
-    return this.buildingNr.equals(other.buildingNr);
-   }
-
-
-  /**
-   * Returns the string representation of this BuildingNr.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "BuildingNr[buildingNr=42]"
-   *
-   * @return String representation of this BuildingNr
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder(23);
-    builder.append("BuildingNr[buildingNr=").append(this.buildingNr).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new BuildingNr(buildingNr);
    }
 
 

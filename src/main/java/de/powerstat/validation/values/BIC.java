@@ -1,55 +1,36 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
 /**
  * Business Identifier Code (BIC) ISO 9362.
  *
+ * @param bic Business Identifier Code
+ *
  * Not DSGVO relevant.
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class BIC implements Comparable<BIC>
+public record BIC(String bic) implements Comparable<BIC>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<String, BIC> CACHE = new WeakHashMap<>();
-
   /**
    * BIC regexp.
    */
   private static final Pattern BIC_REGEXP = Pattern.compile("^[A-Z0-9]{4}[A-Z]{2}[A-Z2-9][0-9A-NP-Z](XXX|[0-9A-WY-Z][0-9A-Z]{2})?$"); //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * BIC.
-   */
-  private final String bic;
-
 
   /**
    * Constructor.
    *
-   * @param bic BIC
    * @throws NullPointerException if bic is null
    * @throws IllegalArgumentException if bic is not a correct bic
    */
-  private BIC(final String bic)
+  public BIC
    {
-    super();
     Objects.requireNonNull(bic, "bic"); //$NON-NLS-1$
     if ((bic.length() != 8) && (bic.length() != 11))
      {
@@ -60,7 +41,6 @@ public final class BIC implements Comparable<BIC>
       throw new IllegalArgumentException("BIC with wrong format"); //$NON-NLS-1$
      }
     /* final Country country = */ Country.of(bic.substring(4, 6));
-    this.bic = bic;
    }
 
 
@@ -72,96 +52,7 @@ public final class BIC implements Comparable<BIC>
    */
   public static BIC of(final String bic)
    {
-    synchronized (BIC.class)
-     {
-      BIC obj = BIC.CACHE.get(bic);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new BIC(bic);
-      BIC.CACHE.put(bic, obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get bic string.
-   *
-   * @return BIC string
-   * @deprecated Use stringValue() instead.
-   */
-  @Deprecated(since = BIC.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getBIC()
-   {
-    return this.bic;
-   }
-
-
-  /**
-   * Returns the value of this BIC as a string.
-   *
-   * @return The text value represented by this object after conversion to type string.
-   */
-  public String stringValue()
-   {
-    return this.bic;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return this.bic.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof BIC))
-     {
-      return false;
-     }
-    final BIC other = (BIC)obj;
-    return this.bic.equals(other.bic);
-   }
-
-
-  /**
-   * Returns the string representation of this BIC.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "BIC[bic=BELADEBEXXX]"
-   *
-   * @return String representation of this BIC
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("BIC[bic=").append(this.bic).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new BIC(bic);
    }
 
 

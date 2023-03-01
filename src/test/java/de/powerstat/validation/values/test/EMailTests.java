@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -55,11 +53,6 @@ public class EMailTests
    */
   private static final String ILLEGAL_ARGUMENT_EXCEPTION = "Illegal argument exception expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -80,7 +73,7 @@ public class EMailTests
   public void emailOk0(final String email)
    {
     final EMail cleanEMail = EMail.of(email);
-    assertEquals(email, cleanEMail.stringValue(), EMailTests.EMAIL_NOT_AS_EXPECTED);
+    assertEquals(email, cleanEMail.email(), EMailTests.EMAIL_NOT_AS_EXPECTED);
    }
 
 
@@ -228,31 +221,6 @@ public class EMailTests
 
 
   /**
-   * Test get email.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = EMailTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getEMail()
-   {
-    final EMail email = EMail.of(EMailTests.USER_EXAMPLE_COM);
-    assertEquals(EMailTests.USER_EXAMPLE_COM, email.getEMail(), EMailTests.EMAIL_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get email.
-   */
-  @Test
-  public void stringValue()
-   {
-    final EMail email = EMail.of(EMailTests.USER_EXAMPLE_COM);
-    assertEquals(EMailTests.USER_EXAMPLE_COM, email.stringValue(), EMailTests.EMAIL_NOT_AS_EXPECTED);
-   }
-
-
-  /**
    * Test get domain part.
    */
   @Test
@@ -282,56 +250,6 @@ public class EMailTests
    {
     final EMail email = EMail.of(EMailTests.USER_EXAMPLE_COM);
     assertEquals("user", email.getLocalPart(), EMailTests.EMAIL_NOT_AS_EXPECTED); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final EMail email1 = EMail.of(EMailTests.EMAIL_USER1_AT_EXAMPLE_COM);
-    final EMail email2 = EMail.of(EMailTests.EMAIL_USER1_AT_EXAMPLE_COM);
-    final EMail email3 = EMail.of(EMailTests.USER2_EXAMPLE_COM);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(email1.hashCode(), email2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(email1.hashCode(), email3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final EMail email1 = EMail.of(EMailTests.EMAIL_USER1_AT_EXAMPLE_COM);
-    final EMail email2 = EMail.of(EMailTests.EMAIL_USER1_AT_EXAMPLE_COM);
-    final EMail email3 = EMail.of(EMailTests.USER2_EXAMPLE_COM);
-    final EMail email4 = EMail.of(EMailTests.EMAIL_USER1_AT_EXAMPLE_COM);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(email1.equals(email1), "email11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(email1.equals(email2), "email12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(email2.equals(email1), "email21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(email2.equals(email4), "email24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(email1.equals(email4), "email14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(email1.equals(email3), "email13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(email3.equals(email1), "email31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(email1.equals(null), "email10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final EMail email = EMail.of(EMailTests.EMAIL_USER1_AT_EXAMPLE_COM);
-    assertEquals("EMail[email=user1@example.com]", email.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

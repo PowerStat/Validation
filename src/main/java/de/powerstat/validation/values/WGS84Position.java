@@ -1,18 +1,18 @@
 /*
- * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
-
-import de.powerstat.validation.values.containers.NTuple3;
 
 
 /**
  * World geodetic system 1984 position.
+ *
+ * @param latitude Positions latitude specifies the north–south position of a point on the Earth's surface. Ranges from 0° at the Equator to 90° (North or South) at the poles.
+ * @param longitude Positions longitude specifies the east–west position of a point on the Earth's surface. The prime meridian, which passes near the Royal Observatory, Greenwich, England, is defined as 0° longitude by convention. Positive longitudes are east of the prime meridian, and negative ones are west.
+ * @param altitude Positions altitude - height above sea level.
  *
  * Possibly DSGVO relevant.
  *
@@ -20,50 +20,19 @@ import de.powerstat.validation.values.containers.NTuple3;
  * TODO output formats
  * TODO Get address for position if possible
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class WGS84Position implements Comparable<WGS84Position>
+public record WGS84Position(double latitude, double longitude, double altitude) implements Comparable<WGS84Position>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<NTuple3<Double, Double, Double>, WGS84Position> CACHE = new WeakHashMap<>();
-
   /**
    * Epsilon for double compare.
    */
   private static final double EPSILON = 0.000001D;
 
-  /**
-   * Positions latitude specifies the north–south position of a point on the Earth's surface.
-   *
-   * Ranges from 0° at the Equator to 90° (North or South) at the poles.
-   */
-  private final double latitude;
-
-  /**
-   * Positions longitude specifies the east–west position of a point on the Earth's surface.
-   *
-   * The prime meridian, which passes near the Royal Observatory, Greenwich, England, is defined as 0° longitude by convention. Positive longitudes are east of the prime meridian, and negative ones are west.
-   */
-  private final double longitude;
-
-  /**
-   * Positions altitude - height above sea level.
-   */
-  private final double altitude;
-
 
   /**
    * Constructor.
-   *
-   * @param latitude Positions latitude specifies the north–south position of a point on the Earth's surface. Ranges from 0° at the Equator to 90° (North or South) at the poles.
-   * @param longitude Positions longitude specifies the east–west position of a point on the Earth's surface. The prime meridian, which passes near the Royal Observatory, Greenwich, England, is defined as 0° longitude by convention. Positive longitudes are east of the prime meridian, and negative ones are west.
-   * @param altitude Positions altitude - height above sea level.
    */
-  private WGS84Position(final double latitude, final double longitude, final double altitude)
+  public WGS84Position
    {
-    super();
     if ((latitude < -90.0) || (latitude > 90.0))
      {
       throw new IndexOutOfBoundsException("Latitude out of range"); //$NON-NLS-1$
@@ -72,9 +41,6 @@ public final class WGS84Position implements Comparable<WGS84Position>
      {
       throw new IndexOutOfBoundsException("Longitude out of range"); //$NON-NLS-1$
      }
-    this.latitude = latitude;
-    this.longitude = longitude;
-    this.altitude = altitude;
    }
 
 
@@ -88,114 +54,7 @@ public final class WGS84Position implements Comparable<WGS84Position>
    */
   public static WGS84Position of(final double latitude, final double longitude, final double altitude)
    {
-    final NTuple3<Double, Double, Double> tuple = NTuple3.of(latitude, longitude, altitude);
-    synchronized (WGS84Position.class)
-     {
-      WGS84Position obj = WGS84Position.CACHE.get(tuple);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new WGS84Position(latitude, longitude, altitude);
-      WGS84Position.CACHE.put(tuple, obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get latitude.
-   *
-   * @return Latitude
-   */
-  public double getLatitude()
-   {
-    return this.latitude;
-   }
-
-
-  /**
-   * Get longitude.
-   *
-   * @return Longitude
-   */
-  public double getLongitude()
-   {
-    return this.longitude;
-   }
-
-
-  /**
-   * Get altitude.
-   *
-   * @return Altitude
-   */
-  public double getAltitude()
-   {
-    return this.altitude;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    int result = Double.hashCode(this.latitude);
-    result = (31 * result) + Double.hashCode(this.longitude);
-    return (31 * result) + Double.hashCode(this.altitude);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof WGS84Position))
-     {
-      return false;
-     }
-    final WGS84Position other = (WGS84Position)obj;
-    if ((Math.abs(this.latitude - other.latitude) < WGS84Position.EPSILON) && (Math.abs(this.longitude - other.longitude) < WGS84Position.EPSILON))
-    // if ((this.latitude == other.latitude) && (this.longitude == other.longitude))
-     {
-      return Math.abs(this.altitude - other.altitude) < WGS84Position.EPSILON;
-      // return this.altitude == other.altitude;
-     }
-    return false;
-   }
-
-
-  /**
-   * Returns the string representation of this WGS84Position.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "WGS84Position[latitude=0.0, longitude=0.0, altitude=0.0]"
-   *
-   * @return String representation of this WGS84Position
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder(47);
-    builder.append("WGS84Position[latitude=").append(this.latitude).append(", longitude=").append(this.longitude).append(", altitude=").append(this.altitude).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-    return builder.toString();
+    return new WGS84Position(latitude, longitude, altitude);
    }
 
 

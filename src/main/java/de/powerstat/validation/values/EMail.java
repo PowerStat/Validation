@@ -1,57 +1,30 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
 import java.util.Locale;
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
 /**
  * Electronic mail.
  *
+ * @param email EMail
+ * 
  * Probably DSGVO relevant.
  *
  * TODO Hostname exists?
  * TODO email exists check
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class EMail implements Comparable<EMail>
+public record EMail(String email) implements Comparable<EMail>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<String, EMail> CACHE = new WeakHashMap<>();
-
   /**
    * Local part regexp.
    */
   private static final Pattern LOCAL_REGEXP = Pattern.compile("^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * EMail.
-   */
-  private final String email;
-
-  /**
-   * EMails domain part.
-   */
-  private final Hostname domainPart;
-
-  /**
-   * EMails local part.
-   */
-  private final String localPart;
 
 
   /**
@@ -59,13 +32,11 @@ public final class EMail implements Comparable<EMail>
    *
    * Comments, double quotes and UTF-8 characters within the emails local part are not yet supported.
    *
-   * @param email EMail
    * @throws NullPointerException if email is null
    * @throws IllegalArgumentException if email is not an supported email address
    */
-  private EMail(final String email)
+  public EMail
    {
-    super();
     Objects.requireNonNull(email, "email"); //$NON-NLS-1$
     if ((email.length() < 6) || (email.length() > 254))
      {
@@ -89,7 +60,7 @@ public final class EMail implements Comparable<EMail>
        }
       parts[1] = parts[1].substring(0, parts[1].length() - 1);
      }
-    this.domainPart = Hostname.of(parts[1]); // Check hostname and store for isReachable
+    Hostname domainPart = Hostname.of(parts[1]); // Check hostname and store for isReachable
     if ((parts[0].charAt(0) == '(') || (parts[0].charAt(parts[0].length() - 1) == ')'))
      {
       throw new IllegalArgumentException("Comments in email addresses are not supported"); //$NON-NLS-1$
@@ -110,8 +81,7 @@ public final class EMail implements Comparable<EMail>
      {
       throw new IllegalArgumentException("Illegal character found in emails local part or unsupported UTF-8 character"); //$NON-NLS-1$
      }
-    this.localPart = parts[0]; // Store for check receiver
-    this.email = email;
+    String localPart = parts[0]; // Store for check receiver
    }
 
 
@@ -123,41 +93,7 @@ public final class EMail implements Comparable<EMail>
    */
   public static EMail of(final String email)
    {
-    synchronized (EMail.class)
-     {
-      EMail obj = EMail.CACHE.get(email);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new EMail(email);
-      EMail.CACHE.put(email, obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get email string.
-   *
-   * @return EMail string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = EMail.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getEMail()
-   {
-    return this.email;
-   }
-
-
-  /**
-   * Returns the value of this EMail as a string.
-   *
-   * @return The text value represented by this object after conversion to type string.
-   */
-  public String stringValue()
-   {
-    return this.email;
+    return new EMail(email);
    }
 
 
@@ -168,7 +104,9 @@ public final class EMail implements Comparable<EMail>
    */
   public String getDomainPart()
    {
-    return this.domainPart.stringValue();
+    final String[] parts = email.split("@"); //$NON-NLS-1$
+    final Hostname domainPart = Hostname.of(parts[1]); // Check hostname and store for isReachable
+    return domainPart.hostname();
    }
 
 
@@ -179,7 +117,9 @@ public final class EMail implements Comparable<EMail>
    */
   public String getReverseDomainPart()
    {
-    return this.domainPart.getReverseHostname();
+    final String[] parts = email.split("@"); //$NON-NLS-1$
+    final Hostname domainPart = Hostname.of(parts[1]); // Check hostname and store for isReachable
+    return domainPart.getReverseHostname();
    }
 
 
@@ -190,62 +130,9 @@ public final class EMail implements Comparable<EMail>
    */
   public String getLocalPart()
    {
-    return this.localPart;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return this.email.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof EMail))
-     {
-      return false;
-     }
-    final EMail other = (EMail)obj;
-    return this.email.equals(other.email);
-   }
-
-
-  /**
-   * Returns the string representation of this EMail.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "EMail[email=user@example.com]"
-   *
-   * @return String representation of this EMail
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("EMail[email=").append(this.email).append(']'); //$NON-NLS-1$
-    return builder.toString();
+	final String[] parts = email.split("@"); //$NON-NLS-1$
+	final String localPart = parts[0]; // Store for check receiver
+    return localPart;
    }
 
 

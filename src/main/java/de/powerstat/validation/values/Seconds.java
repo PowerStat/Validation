@@ -1,55 +1,35 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 
 /**
  * Seconds.
  *
+ * @param seconds Seconds 0-..
+ * 
+ * 
  * Not DSGVO relevant.
  *
  * TODO inMinutes()
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Seconds implements Comparable<Seconds>
+public record Seconds(long seconds) implements Comparable<Seconds>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<Long, Seconds> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Seconds.
-   */
-  private final long seconds;
-
-
   /**
    * Constructor.
    *
-   * @param seconds Seconds 0-..
    * @throws IndexOutOfBoundsException When the seconds is less than 0
    */
-  private Seconds(final long seconds)
+  public Seconds
    {
-    super();
     if (seconds < 0)
      {
       throw new IndexOutOfBoundsException("Negative seconds are not allowed"); //$NON-NLS-1$
      }
-    this.seconds = seconds;
    }
 
 
@@ -61,99 +41,7 @@ public final class Seconds implements Comparable<Seconds>
    */
   public static Seconds of(final long seconds)
    {
-    synchronized (Seconds.class)
-     {
-      Seconds obj = Seconds.CACHE.get(seconds);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Seconds(seconds);
-      Seconds.CACHE.put(Long.valueOf(seconds), obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get seconds.
-   *
-   * @return Seconds
-   * @deprecated Use longValue() instead
-   */
-  @Deprecated(since = Seconds.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public long getSeconds()
-   {
-    return this.seconds;
-   }
-
-
-  /**
-   * Returns the value of this Seconds as a long.
-   *
-   * @return The numeric value represented by this object after conversion to type long.
-   */
-  public long longValue()
-   {
-    return this.seconds;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Long.hashCode(this.seconds);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    return this == obj;
-    /*
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof Seconds))
-     {
-      return false;
-     }
-    final Seconds other = (Seconds)obj;
-    return false; // this.seconds == other.seconds;
-    */
-   }
-
-
-  /**
-   * Returns the string representation of this Seconds.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Seconds[seconds=1]"
-   *
-   * @return String representation of this Seconds
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder(17);
-    builder.append("Seconds[seconds=").append(this.seconds).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new Seconds(seconds);
    }
 
 

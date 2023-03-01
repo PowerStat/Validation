@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -45,11 +43,6 @@ public class LinesTests
    */
   private static final String LINES_NOT_AS_EXPECTED = "Lines not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -70,7 +63,7 @@ public class LinesTests
   public void linesCorrect(final String lines)
    {
     final Lines cleanLines = Lines.of(lines);
-    assertEquals(lines, cleanLines.stringValue(), LinesTests.LINES_NOT_AS_EXPECTED);
+    assertEquals(lines, cleanLines.lines(), LinesTests.LINES_NOT_AS_EXPECTED);
    }
 
 
@@ -105,81 +98,6 @@ public class LinesTests
       /* final Lines cleanLines = */ Lines.of(lines);
      }, LinesTests.ILLEGAL_ARGUMENT
     );
-   }
-
-
-  /**
-   * Test get lines.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = LinesTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getLines()
-   {
-    final Lines lines = Lines.of(LinesTests.EXAMPLE1);
-    assertEquals(LinesTests.EXAMPLE1, lines.getLines(), LinesTests.LINES_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get lines.
-   */
-  @Test
-  public void stringValue()
-   {
-    final Lines lines = Lines.of(LinesTests.EXAMPLE1);
-    assertEquals(LinesTests.EXAMPLE1, lines.stringValue(), LinesTests.LINES_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final Lines lines1 = Lines.of(LinesTests.EXAMPLE1);
-    final Lines lines2 = Lines.of(LinesTests.EXAMPLE1);
-    final Lines lines3 = Lines.of(LinesTests.EXAMPLE2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(lines1.hashCode(), lines2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(lines1.hashCode(), lines3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final Lines lines1 = Lines.of(LinesTests.EXAMPLE1);
-    final Lines lines2 = Lines.of(LinesTests.EXAMPLE1);
-    final Lines lines3 = Lines.of(LinesTests.EXAMPLE2);
-    final Lines lines4 = Lines.of(LinesTests.EXAMPLE1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(lines1.equals(lines1), "lines11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(lines1.equals(lines2), "lines12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(lines2.equals(lines1), "lines21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(lines2.equals(lines4), "lines24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(lines1.equals(lines4), "lines14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(lines1.equals(lines3), "lines13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(lines3.equals(lines1), "lines31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(lines1.equals(null), "lines10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final Lines lines = Lines.of(LinesTests.EXAMPLE1);
-    assertEquals("Lines[lines=Example1]", lines.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

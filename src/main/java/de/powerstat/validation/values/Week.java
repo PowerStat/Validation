@@ -1,26 +1,24 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 
 /**
  * Week.
  *
+ * @param week Week 1-53
+ * 
  * Not DSGVO relevant.
  *
  * TODO Constructor with year
  * TODO Listener
  * TODO daysWithin = 7
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Week implements Comparable<Week>
+public record Week(int week) implements Comparable<Week>
  {
   /**
    * Overflow constant.
@@ -32,36 +30,18 @@ public final class Week implements Comparable<Week>
    */
   private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
 
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<Integer, Week> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Week.
-   */
-  private final int week;
-
 
   /**
    * Constructor.
    *
-   * @param week Week 1-53
    * @throws IndexOutOfBoundsException When the week is less than 1 or greater than 53
    */
-  private Week(final int week)
+  public Week
    {
-    super();
     if ((week < 1) || (week > 53))
      {
       throw new IndexOutOfBoundsException("Week number out of range (1-53)!"); //$NON-NLS-1$
      }
-    this.week = week;
    }
 
 
@@ -73,99 +53,7 @@ public final class Week implements Comparable<Week>
    */
   public static Week of(final int week)
    {
-    synchronized (Week.class)
-     {
-      Week obj = Week.CACHE.get(week);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Week(week);
-      Week.CACHE.put(Integer.valueOf(week), obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get week.
-   *
-   * @return Week
-   * @deprecated Use intValue() instead
-   */
-  @Deprecated(since = Week.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public int getWeek()
-   {
-    return this.week;
-   }
-
-
-  /**
-   * Returns the value of this Week as an int.
-   *
-   * @return The numeric value represented by this object after conversion to type int.
-   */
-  public int intValue()
-   {
-    return this.week;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Integer.hashCode(this.week);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    return this == obj;
-    /*
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof Week))
-     {
-      return false;
-     }
-    final Week other = (Week)obj;
-    return false; // this.week == other.week;
-    */
-   }
-
-
-  /**
-   * Returns the string representation of this Week.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Week[week=1]"
-   *
-   * @return String representation of this Week
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("Week[week=").append(this.week).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new Week(week);
    }
 
 
@@ -193,7 +81,7 @@ public final class Week implements Comparable<Week>
    */
   public Week add(final Weeks weeks)
    {
-    final int newWeek = Math.toIntExact(Math.addExact(this.week, weeks.longValue()));
+    final int newWeek = Math.toIntExact(Math.addExact(this.week, weeks.weeks()));
     if (newWeek > 53) // TODO 52 depends on year
      {
       // TODO Listener
@@ -212,7 +100,7 @@ public final class Week implements Comparable<Week>
    */
   public Week subtract(final Weeks weeks)
    {
-    final int newWeek = Math.toIntExact(Math.subtractExact(this.week, weeks.longValue()));
+    final int newWeek = Math.toIntExact(Math.subtractExact(this.week, weeks.weeks()));
     if (newWeek <= 0)
      {
       // TODO Listener

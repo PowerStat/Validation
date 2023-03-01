@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
 import java.math.BigInteger;
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.values.impl.IBANVerifierAbstractFactory;
@@ -16,46 +14,29 @@ import de.powerstat.validation.values.impl.IBANVerifierAbstractFactory;
 /**
  * IBAN.
  *
+ * @param iban IBAN
+ * 
  * Probably DSGVO relevant.
  *
  * TODO https://openiban.com/
  * TODO Human format in/out
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class IBAN implements Comparable<IBAN>
+public record IBAN(String iban) implements Comparable<IBAN>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<String, IBAN> CACHE = new WeakHashMap<>();
-
   /**
    * IBAN regexp.
    */
   private static final Pattern IBAN_REGEXP = Pattern.compile("^[A-Z]{2}[0-9]{2}[0-9A-Z]{11,30}$"); //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * IBAN.
-   */
-  private final String iban;
-
 
   /**
    * Constructor.
    *
-   * @param iban IBAN
    * @throws NullPointerException if iban is null
    * @throws IllegalArgumentException if iban is not an correct iban
    */
-  private IBAN(final String iban)
+  public IBAN
    {
-    super();
     Objects.requireNonNull(iban, "iban"); //$NON-NLS-1$
     if ((iban.length() < 15) || (iban.length() > 34))
      {
@@ -79,7 +60,6 @@ public final class IBAN implements Comparable<IBAN>
      {
       throw new IllegalArgumentException("IBAN not correct in country context: " + iban); //$NON-NLS-1$
      }
-    this.iban = iban;
    }
 
 
@@ -107,96 +87,7 @@ public final class IBAN implements Comparable<IBAN>
    */
   public static IBAN of(final String iban)
    {
-    synchronized (IBAN.class)
-     {
-      IBAN obj = IBAN.CACHE.get(iban);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new IBAN(iban);
-      IBAN.CACHE.put(iban, obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get iban string.
-   *
-   * @return IBAN string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = IBAN.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getIBAN()
-   {
-    return this.iban;
-   }
-
-
-  /**
-   * Returns the value of this IBAN as a string.
-   *
-   * @return The text value represented by this object after conversion to type string.
-   */
-  public String stringValue()
-   {
-    return this.iban;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return this.iban.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof IBAN))
-     {
-      return false;
-     }
-    final IBAN other = (IBAN)obj;
-    return this.iban.equals(other.iban);
-   }
-
-
-  /**
-   * Returns the string representation of this IBAN.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "IBAN[iban=DE68210501700012345678]"
-   *
-   * @return String representation of this IBAN
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("IBAN[iban=").append(this.iban).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new IBAN(iban);
    }
 
 

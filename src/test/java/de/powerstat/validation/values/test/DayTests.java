@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -55,7 +53,7 @@ public class DayTests
   @ValueSource(ints = {1, 31})
   public void isDay(final int day)
    {
-    assertEquals(day, Day.of(day).intValue(), "Not a day!"); //$NON-NLS-1$
+    assertEquals(day, Day.of(day).day(), "Not a day!"); //$NON-NLS-1$
    }
 
 
@@ -73,56 +71,6 @@ public class DayTests
       /* final Day day = */ Day.of(day);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final Day day1 = Day.of(1);
-    final Day day2 = Day.of(1);
-    final Day day3 = Day.of(2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(day1.hashCode(), day2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(day1.hashCode(), day3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final Day day1 = Day.of(1);
-    final Day day2 = Day.of(1);
-    final Day day3 = Day.of(2);
-    final Day day4 = Day.of(1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(day1.equals(day1), "day11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(day1.equals(day2), "day12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(day2.equals(day1), "day21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(day2.equals(day4), "day24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(day1.equals(day4), "day14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(day1.equals(day3), "day13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(day3.equals(day1), "day31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(day1.equals(null), "day10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final Day day = Day.of(1);
-    assertEquals("Day[day=1]", day.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -156,7 +104,7 @@ public class DayTests
     final Day day = Day.of(1);
     final Days days = Days.of(1);
     final Day dayResult = day.add(days);
-    assertEquals(2, dayResult.intValue(), DayTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, dayResult.day(), DayTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -185,7 +133,7 @@ public class DayTests
     final Day day = Day.of(2);
     final Days days = Days.of(1);
     final Day dayResult = day.subtract(days);
-    assertEquals(1, dayResult.intValue(), DayTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, dayResult.day(), DayTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -213,7 +161,7 @@ public class DayTests
    {
     final Day day = Day.of(1);
     final Day dayResult = day.increment();
-    assertEquals(2, dayResult.intValue(), DayTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, dayResult.day(), DayTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -240,7 +188,7 @@ public class DayTests
    {
     final Day day = Day.of(2);
     final Day dayResult = day.decrement();
-    assertEquals(1, dayResult.intValue(), DayTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, dayResult.day(), DayTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

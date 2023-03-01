@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2022-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -45,11 +43,6 @@ public class LastnameTests
    */
   private static final String LASTNAME_NOT_AS_EXPECTED = "Lastname not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -70,7 +63,7 @@ public class LastnameTests
   public void lastnameOk0(final String lastname)
    {
     final Lastname cleanLastname = Lastname.of(lastname);
-    assertEquals(lastname, cleanLastname.stringValue(), LastnameTests.LASTNAME_NOT_AS_EXPECTED);
+    assertEquals(lastname, cleanLastname.lastname(), LastnameTests.LASTNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -102,81 +95,6 @@ public class LastnameTests
       /* final Lastname cleanLastname = */ Lastname.of("^!$%&(){}[]=?+*#´§;,:'\""); //$NON-NLS-1$
      }, LastnameTests.ILLEGAL_ARGUMENT
     );
-   }
-
-
-  /**
-   * Test get lastname.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = LastnameTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getLastname()
-   {
-    final Lastname lastname = Lastname.of(LastnameTests.LASTNAME);
-    assertEquals(LastnameTests.LASTNAME, lastname.getLastname(), LastnameTests.LASTNAME_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get lastname.
-   */
-  @Test
-  public void stringValue()
-   {
-    final Lastname lastname = Lastname.of(LastnameTests.LASTNAME);
-    assertEquals(LastnameTests.LASTNAME, lastname.stringValue(), LastnameTests.LASTNAME_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final Lastname lastname1 = Lastname.of(LastnameTests.LASTNAME);
-    final Lastname lastname2 = Lastname.of(LastnameTests.LASTNAME);
-    final Lastname lastname3 = Lastname.of(LastnameTests.LASTNAMEZ);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(lastname1.hashCode(), lastname2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(lastname1.hashCode(), lastname3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final Lastname lastname1 = Lastname.of(LastnameTests.LASTNAME);
-    final Lastname lastname2 = Lastname.of(LastnameTests.LASTNAME);
-    final Lastname lastname3 = Lastname.of(LastnameTests.LASTNAMEZ);
-    final Lastname lastname4 = Lastname.of(LastnameTests.LASTNAME);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(lastname1.equals(lastname1), "lastname11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(lastname1.equals(lastname2), "lastname12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(lastname2.equals(lastname1), "lastname21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(lastname2.equals(lastname4), "lastname24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(lastname1.equals(lastname4), "lastname14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(lastname1.equals(lastname3), "lastname13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(lastname3.equals(lastname1), "lastname31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(lastname1.equals(null), "lastname10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final Lastname lastname = Lastname.of(LastnameTests.LASTNAME);
-    assertEquals("Lastname[lastname=lastname]", lastname.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

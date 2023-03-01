@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -7,7 +7,6 @@ package de.powerstat.validation.values.test;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -30,11 +29,6 @@ public class PortTests
    */
   private static final String PORT_SHOULD_BE_49152 = "Port should be 49152!"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -52,7 +46,7 @@ public class PortTests
   public void isPort()
    {
     final Port port = Port.of(49152);
-    assertEquals(49152, port.intValue(), PortTests.PORT_SHOULD_BE_49152);
+    assertEquals(49152, port.port(), PortTests.PORT_SHOULD_BE_49152);
    }
 
 
@@ -70,31 +64,6 @@ public class PortTests
       /* final Port port = */ Port.of(port);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
-   }
-
-
-  /**
-   * Test getPort.
-   *
-   * @deprecated Old version of intValue()
-   */
-  @Deprecated(since = PortTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getPort()
-   {
-    final Port port = Port.of(49152);
-    assertEquals(49152, port.getPort(), PortTests.PORT_SHOULD_BE_49152);
-   }
-
-
-  /**
-   * Test intValue.
-   */
-  @Test
-  public void intValue()
-   {
-    final Port port = Port.of(49152);
-    assertEquals(49152, port.intValue(), PortTests.PORT_SHOULD_BE_49152);
    }
 
 
@@ -167,56 +136,6 @@ public class PortTests
   public void isDynamicFalse()
    {
     assertFalse(Port.of(1023).isDynamic(), "Should not be a dynamic port!"); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final Port port1 = Port.of(1024);
-    final Port port2 = Port.of(1024);
-    final Port port3 = Port.of(1025);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(port1.hashCode(), port2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(port1.hashCode(), port3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final Port port1 = Port.of(1024);
-    final Port port2 = Port.of(1024);
-    final Port port3 = Port.of(1025);
-    final Port port4 = Port.of(1024);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(port1.equals(port1), "port11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(port1.equals(port2), "port12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(port2.equals(port1), "port21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(port2.equals(port4), "port24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(port1.equals(port4), "port14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(port1.equals(port3), "port13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(port3.equals(port1), "port31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(port1.equals(null), "port10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final Port port = Port.of(49152);
-    assertEquals("Port[port=49152]", port.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

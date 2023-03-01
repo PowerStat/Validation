@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -45,11 +43,6 @@ public class PostalCodeTests
    */
   private static final String POSTAL_CODE_NOT_AS_EXPECTED = "PostalCode not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -69,8 +62,8 @@ public class PostalCodeTests
   @ValueSource(strings = {PostalCodeTests.POSTCODE_28000, "123", "1234567-890", "AD123"})
   public void postalCodeCorrect(final String postalCode)
    {
-    final PostalCode cleanBic = PostalCode.of(postalCode);
-    assertEquals(postalCode, cleanBic.stringValue(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);
+    final PostalCode cleanPostalCode = PostalCode.of(postalCode);
+    assertEquals(postalCode, cleanPostalCode.postalCode(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -110,76 +103,12 @@ public class PostalCodeTests
 
   /**
    * Test get postalCode.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = PostalCodeTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getPostalCode()
-   {
-    final PostalCode postalCode = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    assertEquals(PostalCodeTests.POSTCODE_28000, postalCode.getPostalCode(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get postalCode.
    */
   @Test
   public void stringValue()
    {
     final PostalCode postalCode = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    assertEquals(PostalCodeTests.POSTCODE_28000, postalCode.stringValue(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final PostalCode postalCode1 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    final PostalCode postalCode2 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    final PostalCode postalCode3 = PostalCode.of(PostalCodeTests.POSTCODE_30000);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(postalCode1.hashCode(), postalCode2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(postalCode1.hashCode(), postalCode3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final PostalCode postalCode1 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    final PostalCode postalCode2 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    final PostalCode postalCode3 = PostalCode.of(PostalCodeTests.POSTCODE_30000);
-    final PostalCode postalCode4 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(postalCode1.equals(postalCode1), "postalCode11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(postalCode1.equals(postalCode2), "postalCode12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(postalCode2.equals(postalCode1), "postalCode21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(postalCode2.equals(postalCode4), "postalCode24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(postalCode1.equals(postalCode4), "postalCode14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(postalCode1.equals(postalCode3), "postalCode13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(postalCode3.equals(postalCode1), "postalCode31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(postalCode1.equals(null), "postalCode10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final PostalCode postalCode = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    assertEquals("PostalCode[postalCode=28000]", postalCode.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertEquals(PostalCodeTests.POSTCODE_28000, postalCode.postalCode(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);
    }
 
 

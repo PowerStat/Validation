@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -40,11 +38,6 @@ public class MinutesTests
    */
   private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -64,7 +57,7 @@ public class MinutesTests
   @ValueSource(longs = {0, 120})
   public void isMinutes(final long minutes)
    {
-    assertEquals(minutes, Minutes.of(minutes).longValue(), MinutesTests.NOT_A_MINUTES);
+    assertEquals(minutes, Minutes.of(minutes).minutes(), MinutesTests.NOT_A_MINUTES);
    }
 
 
@@ -82,79 +75,6 @@ public class MinutesTests
       /* final Minutes minutes = */ Minutes.of(minutes);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
-   }
-
-
-  /**
-   * getMinutes.
-   *
-   * @deprecated Old version of longValue()
-   */
-  @Deprecated(since = MinutesTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getMinutes()
-   {
-    assertEquals(10, Minutes.of(10).getMinutes(), MinutesTests.NOT_A_MINUTES);
-   }
-
-
-  /**
-   * longValue.
-   */
-  @Test
-  public void longValue()
-   {
-    assertEquals(10, Minutes.of(10).longValue(), MinutesTests.NOT_A_MINUTES);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final Minutes minutes1 = Minutes.of(1);
-    final Minutes minutes2 = Minutes.of(1);
-    final Minutes minutes3 = Minutes.of(2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(minutes1.hashCode(), minutes2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(minutes1.hashCode(), minutes3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final Minutes minutes1 = Minutes.of(1);
-    final Minutes minutes2 = Minutes.of(1);
-    final Minutes minutes3 = Minutes.of(2);
-    final Minutes minutes4 = Minutes.of(1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(minutes1.equals(minutes1), "minutes11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(minutes1.equals(minutes2), "minutes12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(minutes2.equals(minutes1), "minutes21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(minutes2.equals(minutes4), "minutes24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(minutes1.equals(minutes4), "minutes14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(minutes1.equals(minutes3), "minutes13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(minutes3.equals(minutes1), "minutes31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(minutes1.equals(null), "minutes10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final Minutes minutes = Minutes.of(1);
-    assertEquals("Minutes[minutes=1]", minutes.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -188,7 +108,7 @@ public class MinutesTests
     final Minutes minutes1 = Minutes.of(1);
     final Minutes minutes2 = Minutes.of(1);
     final Minutes minutesResult = minutes1.add(minutes2);
-    assertEquals(2, minutesResult.longValue(), MinutesTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, minutesResult.minutes(), MinutesTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -217,7 +137,7 @@ public class MinutesTests
     final Minutes minutes1 = Minutes.of(6);
     final Minutes minutes2 = Minutes.of(3);
     final Minutes minutesResult = minutes1.subtract(minutes2);
-    assertEquals(3, minutesResult.longValue(), MinutesTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, minutesResult.minutes(), MinutesTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -230,7 +150,7 @@ public class MinutesTests
     final Minutes minutes1 = Minutes.of(3);
     final Minutes minutes2 = Minutes.of(6);
     final Minutes minutesResult = minutes1.subtract(minutes2);
-    assertEquals(3, minutesResult.longValue(), MinutesTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, minutesResult.minutes(), MinutesTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -242,7 +162,7 @@ public class MinutesTests
    {
     final Minutes minutes1 = Minutes.of(7);
     final Minutes minutesResult = minutes1.multiply(3);
-    assertEquals(21, minutesResult.longValue(), MinutesTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(21, minutesResult.minutes(), MinutesTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -269,7 +189,7 @@ public class MinutesTests
    {
     final Minutes minutes1 = Minutes.of(10);
     final Minutes minutesResult = minutes1.divide(2);
-    assertEquals(5, minutesResult.longValue(), MinutesTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(5, minutesResult.minutes(), MinutesTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -281,7 +201,7 @@ public class MinutesTests
    {
     final Minutes minutes1 = Minutes.of(10);
     final Minutes minutesResult = minutes1.divide(3);
-    assertEquals(3, minutesResult.longValue(), MinutesTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, minutesResult.minutes(), MinutesTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -308,7 +228,7 @@ public class MinutesTests
    {
     final Minutes minutes1 = Minutes.of(10);
     final Minutes minutesResult = minutes1.modulo(2);
-    assertEquals(0, minutesResult.longValue(), MinutesTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, minutesResult.minutes(), MinutesTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -320,7 +240,7 @@ public class MinutesTests
    {
     final Minutes minutes1 = Minutes.of(10);
     final Minutes minutesResult = minutes1.modulo(3);
-    assertEquals(1, minutesResult.longValue(), MinutesTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, minutesResult.minutes(), MinutesTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

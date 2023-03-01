@@ -1,53 +1,32 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 
 /**
  * Minutes.
  *
+ * @param minutes Minutes 0-..
+ * 
  * Not DSGVO relevant.
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Minutes implements Comparable<Minutes>
+public record Minutes(long minutes) implements Comparable<Minutes>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<Long, Minutes> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Minutes.
-   */
-  private final long minutes;
-
-
   /**
    * Constructor.
    *
-   * @param minutes Minutes 0-..
    * @throws IndexOutOfBoundsException When the minutes is less than 0
    */
-  private Minutes(final long minutes)
+  public Minutes
    {
-    super();
     if (minutes < 0)
      {
       throw new IndexOutOfBoundsException("Negative minutes are not allowed"); //$NON-NLS-1$
      }
-    this.minutes = minutes;
    }
 
 
@@ -59,99 +38,7 @@ public final class Minutes implements Comparable<Minutes>
    */
   public static Minutes of(final long minutes)
    {
-    synchronized (Minutes.class)
-     {
-      Minutes obj = Minutes.CACHE.get(minutes);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Minutes(minutes);
-      Minutes.CACHE.put(Long.valueOf(minutes), obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get minutes.
-   *
-   * @return Minutes
-   * @deprecated Use longValue() instead
-   */
-  @Deprecated(since = Minutes.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public long getMinutes()
-   {
-    return this.minutes;
-   }
-
-
-  /**
-   * Returns the value of this Minutes as a long.
-   *
-   * @return The numeric value represented by this object after conversion to type long.
-   */
-  public long longValue()
-   {
-    return this.minutes;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Long.hashCode(this.minutes);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    return this == obj;
-    /*
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof Minutes))
-     {
-      return false;
-     }
-    final Minutes other = (Minutes)obj;
-    return false; // this.minutes == other.minutes;
-    */
-   }
-
-
-  /**
-   * Returns the string representation of this Minutes.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Minutes[minutes=1]"
-   *
-   * @return String representation of this Minutes
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder(17);
-    builder.append("Minutes[minutes=").append(this.minutes).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new Minutes(minutes);
    }
 
 

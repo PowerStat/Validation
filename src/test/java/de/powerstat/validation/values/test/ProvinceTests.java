@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -50,11 +48,6 @@ public class ProvinceTests
    */
   private static final String PROVINCE_NOT_AS_EXPECTED = "Province not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -75,7 +68,7 @@ public class ProvinceTests
   public void provinceCorrect(final String province)
    {
     final Province cleanProvince = Province.of(province);
-    assertEquals(province, cleanProvince.stringValue(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
+    assertEquals(province, cleanProvince.province(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
    }
 
 
@@ -110,81 +103,6 @@ public class ProvinceTests
       /* final Province cleanProvince = */ Province.of(province);
      }, ProvinceTests.ILLEGAL_ARGUMENT
     );
-   }
-
-
-  /**
-   * Test get province.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = ProvinceTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getProvince()
-   {
-    final Province province = Province.of(ProvinceTests.ABCD);
-    assertEquals(ProvinceTests.ABCD, province.getProvince(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get province.
-   */
-  @Test
-  public void stringValue()
-   {
-    final Province province = Province.of(ProvinceTests.ABCD);
-    assertEquals(ProvinceTests.ABCD, province.stringValue(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final Province province1 = Province.of(ProvinceTests.ABC);
-    final Province province2 = Province.of(ProvinceTests.ABC);
-    final Province province3 = Province.of(ProvinceTests.DEF);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(province1.hashCode(), province2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(province1.hashCode(), province3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final Province province1 = Province.of(ProvinceTests.ABC);
-    final Province province2 = Province.of(ProvinceTests.ABC);
-    final Province province3 = Province.of(ProvinceTests.DEF);
-    final Province province4 = Province.of(ProvinceTests.ABC);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(province1.equals(province1), "province11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(province1.equals(province2), "province12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(province2.equals(province1), "province21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(province2.equals(province4), "province24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(province1.equals(province4), "province14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(province1.equals(province3), "province13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(province3.equals(province1), "province31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(province1.equals(null), "province10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final Province province = Province.of(ProvinceTests.ABC);
-    assertEquals("Province[province=abc]", province.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

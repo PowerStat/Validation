@@ -1,12 +1,10 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedTlds;
@@ -15,43 +13,26 @@ import de.powerstat.validation.generated.GeneratedTlds;
 /**
  * Top level domain.
  *
+ * @param topLevelDomain Top level domain name (without dot)
+ * 
  * Not DSGVO relevant.
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class TopLevelDomain implements Comparable<TopLevelDomain>
+public record TopLevelDomain(String topLevelDomain) implements Comparable<TopLevelDomain>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<String, TopLevelDomain> CACHE = new WeakHashMap<>();
-
   /**
    * Top level domain regexp.
    */
   private static final Pattern TOPLEVELDOMAIN_REGEXP = Pattern.compile("^[0-9a-zA-Z-]+$"); //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Top level domain.
-   */
-  private final String topLevelDomain;
-
 
   /**
    * Constructor.
    *
-   * @param topLevelDomain Top level domain name (without dot)
    * @throws NullPointerException if top level domain is null
    * @throws IllegalArgumentException if top level domain is not a known top level domain
    */
-  private TopLevelDomain(final String topLevelDomain)
+  public TopLevelDomain
    {
-    super();
     Objects.requireNonNull(topLevelDomain, "topLevelDomain"); //$NON-NLS-1$
     if ((topLevelDomain.length() < 2) || (topLevelDomain.length() > 63)) // actual (2020) longest in use is 24
      {
@@ -69,7 +50,6 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>
      {
       throw new IllegalArgumentException("Unknown top level domain"); //$NON-NLS-1$
      }
-    this.topLevelDomain = topLevelDomain;
    }
 
 
@@ -81,96 +61,7 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>
    */
   public static TopLevelDomain of(final String topLevelDomain)
    {
-    synchronized (TopLevelDomain.class)
-     {
-      TopLevelDomain obj = TopLevelDomain.CACHE.get(topLevelDomain);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new TopLevelDomain(topLevelDomain);
-      TopLevelDomain.CACHE.put(topLevelDomain, obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get top level domain string.
-   *
-   * @return Top level domain string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = TopLevelDomain.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getTopLevelDomain()
-   {
-    return this.topLevelDomain;
-   }
-
-
-  /**
-   * Returns the value of this TopLevelDomain as a string.
-   *
-   * @return The text value represented by this object after conversion to type string.
-   */
-  public String stringValue()
-   {
-    return this.topLevelDomain;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return this.topLevelDomain.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof TopLevelDomain))
-     {
-      return false;
-     }
-    final TopLevelDomain other = (TopLevelDomain)obj;
-    return this.topLevelDomain.equals(other.topLevelDomain);
-   }
-
-
-  /**
-   * Returns the string representation of this TopLevelDomain.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "TopLevelDomain[topLevelDomain=de]"
-   *
-   * @return String representation of this TopLevelDomain
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder(31);
-    builder.append("TopLevelDomain[topLevelDomain=").append(this.topLevelDomain).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new TopLevelDomain(topLevelDomain);
    }
 
 

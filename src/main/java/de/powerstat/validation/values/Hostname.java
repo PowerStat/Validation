@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -7,9 +7,7 @@ package de.powerstat.validation.values;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedTlds;
@@ -18,20 +16,15 @@ import de.powerstat.validation.generated.GeneratedTlds;
 /**
  * Hostname.
  *
+ * @param hostname Hostname
+ * 
  * Probably DSGVO relevant.
  *
  * TODO Verify TopLevelDomain
  * TODO ping ok?
  */
-// @SuppressFBWarnings({"EXS_EXCEPTION_SOFTENING_RETURN_FALSE", "PMB_POSSIBLE_MEMORY_BLOAT"})
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Hostname implements Comparable<Hostname>
+public record Hostname(String hostname) implements Comparable<Hostname>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<String, Hostname> CACHE = new WeakHashMap<>();
-
   /**
    * Hostname regexp.
    */
@@ -42,33 +35,15 @@ public final class Hostname implements Comparable<Hostname>
    */
   private static final String ESC_DOT = "\\."; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Hostname.
-   */
-  private final String hostname;
-
-  /**
-   * Reverse hostname.
-   */
-  @SuppressWarnings("PMD.AvoidFieldNameMatchingMethodName")
-  private final String reverseHostname;
-
 
   /**
    * Constructor.
    *
-   * @param hostname Hostname
    * @throws NullPointerException if hostname is null
    * @throws IllegalArgumentException if hostname is not a hostname
    */
-  private Hostname(final String hostname)
+  public Hostname
    {
-    super();
     Objects.requireNonNull(hostname, "hostname"); //$NON-NLS-1$
     if ((hostname.length() < 2) || (hostname.length() > 253))
      {
@@ -77,7 +52,7 @@ public final class Hostname implements Comparable<Hostname>
     String tempHostname = ""; //$NON-NLS-1$
     try
      {
-      tempHostname = IPV4Address.of(hostname).stringValue();
+      tempHostname = IPV4Address.of(hostname).address();
      }
     catch (final IllegalArgumentException ignored)
      {
@@ -97,13 +72,7 @@ public final class Hostname implements Comparable<Hostname>
     if (tempHostname.isEmpty())
      {
       tempHostname = checkHostname(hostname);
-      this.reverseHostname = reverseHostname(tempHostname);
      }
-    else
-     {
-      this.reverseHostname = tempHostname;
-     }
-    this.hostname = tempHostname;
    }
 
 
@@ -173,41 +142,7 @@ public final class Hostname implements Comparable<Hostname>
    */
   public static Hostname of(final String hostname)
    {
-    synchronized (Hostname.class)
-     {
-      Hostname obj = Hostname.CACHE.get(hostname);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Hostname(hostname);
-      Hostname.CACHE.put(hostname, obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get hostname string.
-   *
-   * @return Hostname string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = Hostname.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getHostname()
-   {
-    return this.hostname;
-   }
-
-
-  /**
-   * Returns the value of this Hostname as a string.
-   *
-   * @return The text value represented by this object after conversion to type string.
-   */
-  public String stringValue()
-   {
-    return this.hostname;
+    return new Hostname(hostname);
    }
 
 
@@ -218,7 +153,7 @@ public final class Hostname implements Comparable<Hostname>
    */
   public String getReverseHostname()
    {
-    return this.reverseHostname;
+    return reverseHostname(hostname);
    }
 
 
@@ -258,61 +193,6 @@ public final class Hostname implements Comparable<Hostname>
      {
       return false;
      }
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return this.hostname.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof Hostname))
-     {
-      return false;
-     }
-    final Hostname other = (Hostname)obj;
-    return this.hostname.equals(other.hostname);
-   }
-
-
-  /**
-   * Returns the string representation of this Hostname.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Hostname[hostname=192.168.0.0]"
-   *
-   * @return String representation of this Hostname
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder(19);
-    builder.append("Hostname[hostname=").append(this.hostname).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

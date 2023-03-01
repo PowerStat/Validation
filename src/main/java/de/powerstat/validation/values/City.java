@@ -1,55 +1,36 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
 /**
  * Address City.
  *
+ * @param city City name
+ * 
  * Not DSGVO relevant.
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class City implements Comparable<City>
+public record City(String city) implements Comparable<City>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<String, City> CACHE = new WeakHashMap<>();
-
   /**
    * City name regexp.
    */
   private static final Pattern CITY_REGEXP = Pattern.compile("^[\\p{L}][\\p{L} -]*$"); //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * City.
-   */
-  private final String city;
-
 
   /**
    * Constructor.
    *
-   * @param city City name
    * @throws NullPointerException if city is null
    * @throws IllegalArgumentException if city is not a correct City name
    */
-  private City(final String city)
+  public City
    {
-    super();
     Objects.requireNonNull(city, "city"); //$NON-NLS-1$
     if ((city.length() < 1) || (city.length() > 85))
      {
@@ -59,7 +40,6 @@ public final class City implements Comparable<City>
      {
       throw new IllegalArgumentException("City with wrong format"); //$NON-NLS-1$
      }
-    this.city = city;
    }
 
 
@@ -71,96 +51,7 @@ public final class City implements Comparable<City>
    */
   public static City of(final String city)
    {
-    synchronized (City.class)
-     {
-      City obj = City.CACHE.get(city);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new City(city);
-      City.CACHE.put(city, obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get city string.
-   *
-   * @return City string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = City.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getCity()
-   {
-    return this.city;
-   }
-
-
-  /**
-   * Returns the value of this City as a string.
-   *
-   * @return The text value represented by this object after conversion to type string.
-   */
-  public String stringValue()
-   {
-    return this.city;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return this.city.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof City))
-     {
-      return false;
-     }
-    final City other = (City)obj;
-    return this.city.equals(other.city);
-   }
-
-
-  /**
-   * Returns the string representation of this City.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "City[city=Bremen]"
-   *
-   * @return String representation of this City
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("City[city=").append(this.city).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new City(city);
    }
 
 

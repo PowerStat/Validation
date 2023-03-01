@@ -1,53 +1,32 @@
 /*
- * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 
 /**
  * Milliseconds.
  *
+ * @param milliseconds Milliseconds &gt;= 0
+ * 
  * Not DSGVO relevant.
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Milliseconds implements Comparable<Milliseconds>
+public record Milliseconds(long milliseconds) implements Comparable<Milliseconds>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<Long, Milliseconds> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Milliseonds.
-   */
-  private final long milliseconds;
-
-
   /**
    * Constructor.
    *
-   * @param milliseconds Milliseconds &gt;= 0
    * @throws IndexOutOfBoundsException When the milliseonds is less than 0
    */
-  private Milliseconds(final long milliseconds)
+  public Milliseconds
    {
-    super();
     if (milliseconds < 0)
      {
       throw new IndexOutOfBoundsException("Milliseconds out of range (0-Long.MAX_VALUE)!"); //$NON-NLS-1$
      }
-    this.milliseconds = milliseconds;
    }
 
 
@@ -59,99 +38,7 @@ public final class Milliseconds implements Comparable<Milliseconds>
    */
   public static Milliseconds of(final long milliseconds)
    {
-    synchronized (Milliseconds.class)
-     {
-      Milliseconds obj = Milliseconds.CACHE.get(milliseconds);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Milliseconds(milliseconds);
-      Milliseconds.CACHE.put(Long.valueOf(milliseconds), obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get milliseconds.
-   *
-   * @return Milliseconds (0-Long.MAX_VALUE)
-   * @deprecated Use longValue() instead
-   */
-  @Deprecated(since = Milliseconds.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public long getMilliseconds()
-   {
-    return this.milliseconds;
-   }
-
-
-  /**
-   * Returns the value of this Milliseconds as a long.
-   *
-   * @return The numeric value represented by this object after conversion to type long (0-Long.MAX_VALUE).
-   */
-  public long longValue()
-   {
-    return this.milliseconds;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Long.hashCode(this.milliseconds);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    return this == obj;
-    /*
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof Milliseconds))
-     {
-      return false;
-     }
-    final Milliseconds other = (Milliseconds)obj;
-    return false; // this.milliseconds == other.milliseconds;
-    */
-   }
-
-
-  /**
-   * Returns the string representation of this Milliseconds.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Milliseconds[milliseconds=0]"
-   *
-   * @return String representation of this Milliseconds
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder(27);
-    builder.append("Milliseconds[milliseconds=").append(this.milliseconds).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new Milliseconds(milliseconds);
    }
 
 

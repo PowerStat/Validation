@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -120,20 +120,6 @@ public class UsernameTests
       /* final Username cleanUsername = */ Username.of(UsernameDefaultStrategy.of(), "^!$%&(){}[]=?+*#´üöäÖÄÜß§;,:'\""); //$NON-NLS-1$
      }, UsernameTests.ILLEGAL_ARGUMENT
     );
-   }
-
-
-  /**
-   * Test get username.
-   *
-   * @deprecated Old verison of stringValue()
-   */
-  @Deprecated(since = UsernameTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getUsername()
-   {
-    final Username username = Username.of(UsernameTests.USERNAME);
-    assertEquals(UsernameTests.USERNAME, username.getUsername(), UsernameTests.USERNAME_NOT_AS_EXPECTED);
    }
 
 

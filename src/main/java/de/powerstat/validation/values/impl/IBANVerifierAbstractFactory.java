@@ -35,7 +35,7 @@ public final class IBANVerifierAbstractFactory
   @SuppressWarnings("java:S1479")
   public static IBANVerifier createIBANVerifier(final Country country)
    {
-    switch (country.stringValue())
+    switch (country.alpha2())
      {
       case "EG": //$NON-NLS-1$
         return IBANVerifier.of(27, "^EG[0-9]{2}[0-9]{23}$"); //$NON-NLS-1$

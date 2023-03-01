@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -45,11 +43,6 @@ public class CountryTests
    */
   private static final String COUNTRY_CODE_NOT_AS_EXPECTED = "Country code not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -70,7 +63,7 @@ public class CountryTests
   public void countryOk0(final String alpha2)
    {
     final Country cleanCountry = Country.of(alpha2);
-    assertEquals(alpha2, cleanCountry.stringValue(), CountryTests.COUNTRY_CODE_NOT_AS_EXPECTED);
+    assertEquals(alpha2, cleanCountry.alpha2(), CountryTests.COUNTRY_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -105,81 +98,6 @@ public class CountryTests
       /* final Country cleanCountry = */ Country.of(alpha2);
      }, CountryTests.ILLEGAL_ARGUMENT
     );
-   }
-
-
-  /**
-   * Test get country code.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = CountryTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getCountry()
-   {
-    final Country country = Country.of(CountryTests.DE);
-    assertEquals(CountryTests.DE, country.getCountry(), CountryTests.COUNTRY_CODE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get country code.
-   */
-  @Test
-  public void stringValue()
-   {
-    final Country country = Country.of(CountryTests.DE);
-    assertEquals(CountryTests.DE, country.stringValue(), CountryTests.COUNTRY_CODE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final Country country1 = Country.of(CountryTests.DE);
-    final Country country2 = Country.of(CountryTests.DE);
-    final Country country3 = Country.of(CountryTests.FR);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(country1.hashCode(), country2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(country1.hashCode(), country3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final Country country1 = Country.of(CountryTests.DE);
-    final Country country2 = Country.of(CountryTests.DE);
-    final Country country3 = Country.of(CountryTests.FR);
-    final Country country4 = Country.of(CountryTests.DE);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(country1.equals(country1), "country11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(country1.equals(country2), "country12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(country2.equals(country1), "country21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(country2.equals(country4), "country24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(country1.equals(country4), "country14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(country1.equals(country3), "country13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(country3.equals(country1), "country31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(country1.equals(null), "country10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final Country country = Country.of(CountryTests.DE);
-    assertEquals("Country[alpha2=DE]", country.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

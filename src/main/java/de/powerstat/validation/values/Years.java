@@ -1,53 +1,32 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 
 /**
  * Years.
  *
+ * @param years Years &gt;= 0
+ * 
  * Not DSGVO relevant.
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Years implements Comparable<Years>
+public record Years(long years) implements Comparable<Years>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<Long, Years> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Years.
-   */
-  private final long years;
-
-
   /**
    * Constructor.
    *
-   * @param years Years &gt;= 0
    * @throws IndexOutOfBoundsException When the year is smaller than 0
    */
-  private Years(final long years)
+  public Years
    {
-    super();
     if (years < 0)
      {
       throw new IndexOutOfBoundsException("Negative years are not allowed"); //$NON-NLS-1$
      }
-    this.years = years;
    }
 
 
@@ -59,99 +38,7 @@ public final class Years implements Comparable<Years>
    */
   public static Years of(final long years)
    {
-    synchronized (Years.class)
-     {
-      Years obj = Years.CACHE.get(years);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Years(years);
-      Years.CACHE.put(Long.valueOf(years), obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get years.
-   *
-   * @return Years
-   * @deprecated Use longValue() instead
-   */
-  @Deprecated(since = Years.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public long getYears()
-   {
-    return this.years;
-   }
-
-
-  /**
-   * Returns the value of this Years as an long.
-   *
-   * @return The numeric value represented by this object after conversion to type long.
-   */
-  public long longValue()
-   {
-    return this.years;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Long.hashCode(this.years);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    return this == obj;
-    /*
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof Years))
-     {
-      return false;
-     }
-    final Years other = (Years)obj;
-    return false; // this.years == other.years;
-    */
-   }
-
-
-  /**
-   * Returns the string representation of this Years.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Years[years=20]"
-   *
-   * @return String representation of this Years
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("Years[years=").append(this.years).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new Years(years);
    }
 
 

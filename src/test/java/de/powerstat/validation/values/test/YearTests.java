@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -55,7 +55,7 @@ public class YearTests
   @ValueSource(longs = {-1, 1, 2020})
   public void isYear(final long year)
    {
-    assertEquals(year, Year.of(year).longValue(), "Not a year!"); //$NON-NLS-1$
+    assertEquals(year, Year.of(year).year(), "Not a year!"); //$NON-NLS-1$
    }
 
 
@@ -73,56 +73,6 @@ public class YearTests
       /* final Year year = */ Year.of(year);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final Year year1 = Year.of(1);
-    final Year year2 = Year.of(1);
-    final Year year3 = Year.of(2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(year1.hashCode(), year2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(year1.hashCode(), year3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final Year year1 = Year.of(1);
-    final Year year2 = Year.of(1);
-    final Year year3 = Year.of(2);
-    final Year year4 = Year.of(1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(year1.equals(year1), "year11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(year1.equals(year2), "year12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(year2.equals(year1), "year21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(year2.equals(year4), "year24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(year1.equals(year4), "year14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(year1.equals(year3), "year13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(year3.equals(year1), "year31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(year1.equals(null), "year10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final Year year = Year.of(1);
-    assertEquals("Year[year=1]", year.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -156,7 +106,7 @@ public class YearTests
     final Year year = Year.of(2022);
     final Years years = Years.of(1);
     final Year yearResult = year.add(years);
-    assertEquals(2023, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2023, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -169,7 +119,7 @@ public class YearTests
     final Year year = Year.of(-1);
     final Years years = Years.of(1);
     final Year yearResult = year.add(years);
-    assertEquals(1, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -198,7 +148,7 @@ public class YearTests
     final Year year = Year.of(-2);
     final Years years = Years.of(1);
     final Year yearResult = year.add(years);
-    assertEquals(-1, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(-1, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -211,7 +161,7 @@ public class YearTests
     final Year year = Year.of(2022);
     final Years years = Years.of(1);
     final Year yearResult = year.subtract(years);
-    assertEquals(2021, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2021, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -224,7 +174,7 @@ public class YearTests
     final Year year = Year.of(1);
     final Years years = Years.of(1);
     final Year yearResult = year.subtract(years);
-    assertEquals(-1, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(-1, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -253,7 +203,7 @@ public class YearTests
     final Year year = Year.of(-1);
     final Years years = Years.of(1);
     final Year yearResult = year.subtract(years);
-    assertEquals(-2, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(-2, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -265,7 +215,7 @@ public class YearTests
    {
     final Year year = Year.of(2022);
     final Year yearResult = year.increment();
-    assertEquals(2023, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2023, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -277,7 +227,7 @@ public class YearTests
    {
     final Year year = Year.of(-1);
     final Year yearResult = year.increment();
-    assertEquals(1, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -304,7 +254,7 @@ public class YearTests
    {
     final Year year = Year.of(2022);
     final Year yearResult = year.decrement();
-    assertEquals(2021, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2021, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -316,7 +266,7 @@ public class YearTests
    {
     final Year year = Year.of(1);
     final Year yearResult = year.decrement();
-    assertEquals(-1, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(-1, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

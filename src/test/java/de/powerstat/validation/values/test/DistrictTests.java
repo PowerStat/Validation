@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -45,11 +43,6 @@ public class DistrictTests
    */
   private static final String DISTRICT_NOT_AS_EXPECTED = "District not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -70,7 +63,7 @@ public class DistrictTests
   public void districtCorrect(final String district)
    {
     final District cleanDistrict = District.of(district);
-    assertEquals(district, cleanDistrict.stringValue(), DistrictTests.DISTRICT_NOT_AS_EXPECTED);
+    assertEquals(district, cleanDistrict.district(), DistrictTests.DISTRICT_NOT_AS_EXPECTED);
    }
 
 
@@ -105,81 +98,6 @@ public class DistrictTests
       /* final District cleanDistrict = */ District.of(district);
      }, DistrictTests.ILLEGAL_ARGUMENT
     );
-   }
-
-
-  /**
-   * Test get district.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = DistrictTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getDistrict()
-   {
-    final District district = District.of(DistrictTests.DISTRICT9);
-    assertEquals(DistrictTests.DISTRICT9, district.getDistrict(), DistrictTests.DISTRICT_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get district.
-   */
-  @Test
-  public void stringValue()
-   {
-    final District district = District.of(DistrictTests.DISTRICT9);
-    assertEquals(DistrictTests.DISTRICT9, district.stringValue(), DistrictTests.DISTRICT_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final District district1 = District.of(DistrictTests.DISTRICT9);
-    final District district2 = District.of(DistrictTests.DISTRICT9);
-    final District district3 = District.of(DistrictTests.DISTRICTABC);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(district1.hashCode(), district2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(district1.hashCode(), district3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final District district1 = District.of(DistrictTests.DISTRICT9);
-    final District district2 = District.of(DistrictTests.DISTRICT9);
-    final District district3 = District.of(DistrictTests.DISTRICTABC);
-    final District district4 = District.of(DistrictTests.DISTRICT9);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(district1.equals(district1), "district11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(district1.equals(district2), "district12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(district2.equals(district1), "district21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(district2.equals(district4), "district24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(district1.equals(district4), "district14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(district1.equals(district3), "district13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(district3.equals(district1), "district31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(district1.equals(null), "district10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final District district = District.of(DistrictTests.DISTRICT9);
-    assertEquals("District[district=9]", district.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

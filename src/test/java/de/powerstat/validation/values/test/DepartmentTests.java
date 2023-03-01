@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -45,11 +45,6 @@ public class DepartmentTests
    */
   private static final String DEPARTMENT_NOT_AS_EXPECTED = "Department not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -70,7 +65,7 @@ public class DepartmentTests
   public void departmentCorrect(final String department)
    {
     final Department cleanDepartment = Department.of(department);
-    assertEquals(department, cleanDepartment.stringValue(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
+    assertEquals(department, cleanDepartment.department(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
    }
 
 
@@ -105,81 +100,6 @@ public class DepartmentTests
       /* final Department cleanDepartment = */ Department.of(department);
      }, DepartmentTests.ILLEGAL_ARGUMENT
     );
-   }
-
-
-  /**
-   * Test get department.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = DepartmentTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getDepartment()
-   {
-    final Department department = Department.of(DepartmentTests.RESEARCH);
-    assertEquals(DepartmentTests.RESEARCH, department.getDepartment(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get department.
-   */
-  @Test
-  public void stringValue()
-   {
-    final Department department = Department.of(DepartmentTests.RESEARCH);
-    assertEquals(DepartmentTests.RESEARCH, department.stringValue(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final Department department1 = Department.of(DepartmentTests.RESEARCH);
-    final Department department2 = Department.of(DepartmentTests.RESEARCH);
-    final Department department3 = Department.of(DepartmentTests.TELECOMUNICATION);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(department1.hashCode(), department2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(department1.hashCode(), department3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final Department department1 = Department.of(DepartmentTests.RESEARCH);
-    final Department department2 = Department.of(DepartmentTests.RESEARCH);
-    final Department department3 = Department.of(DepartmentTests.TELECOMUNICATION);
-    final Department department4 = Department.of(DepartmentTests.RESEARCH);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(department1.equals(department1), "department11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(department1.equals(department2), "department12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(department2.equals(department1), "department21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(department2.equals(department4), "department24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(department1.equals(department4), "department14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(department1.equals(department3), "department13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(department3.equals(department1), "department31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(department1.equals(null), "department10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final Department department = Department.of(DepartmentTests.RESEARCH);
-    assertEquals("Department[department=Research]", department.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

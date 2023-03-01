@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -45,11 +43,6 @@ public class NeighbourhoodTests
    */
   private static final String NEIGHBOURHOOD_NOT_AS_EXPECTED = "Neighbourhood not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -70,7 +63,7 @@ public class NeighbourhoodTests
   public void neighbourhoodCorrect(final String neighbourhood)
    {
     final Neighbourhood cleanNeighbourhood = Neighbourhood.of(neighbourhood);
-    assertEquals(neighbourhood, cleanNeighbourhood.stringValue(), NeighbourhoodTests.NEIGHBOURHOOD_NOT_AS_EXPECTED);
+    assertEquals(neighbourhood, cleanNeighbourhood.neighbourhood(), NeighbourhoodTests.NEIGHBOURHOOD_NOT_AS_EXPECTED);
    }
 
 
@@ -105,81 +98,6 @@ public class NeighbourhoodTests
       /* final Neighbourhood cleanNeighbourhood = */ Neighbourhood.of(neighbourhood);
      }, NeighbourhoodTests.ILLEGAL_ARGUMENT
     );
-   }
-
-
-  /**
-   * Test get Neighbourhood.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = NeighbourhoodTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getNeighbourhood()
-   {
-    final Neighbourhood neighbourhood = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    assertEquals(NeighbourhoodTests.UNKNOWN, neighbourhood.getNeighbourhood(), NeighbourhoodTests.NEIGHBOURHOOD_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get Neighbourhood.
-   */
-  @Test
-  public void stringValue()
-   {
-    final Neighbourhood neighbourhood = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    assertEquals(NeighbourhoodTests.UNKNOWN, neighbourhood.stringValue(), NeighbourhoodTests.NEIGHBOURHOOD_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final Neighbourhood neighbourhood1 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    final Neighbourhood neighbourhood2 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    final Neighbourhood neighbourhood3 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(neighbourhood1.hashCode(), neighbourhood2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(neighbourhood1.hashCode(), neighbourhood3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final Neighbourhood neighbourhood1 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    final Neighbourhood neighbourhood2 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    final Neighbourhood neighbourhood3 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN2);
-    final Neighbourhood neighbourhood4 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(neighbourhood1.equals(neighbourhood1), "neighbourhood11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(neighbourhood1.equals(neighbourhood2), "neighbourhood12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(neighbourhood2.equals(neighbourhood1), "neighbourhood21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(neighbourhood2.equals(neighbourhood4), "neighbourhood24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(neighbourhood1.equals(neighbourhood4), "neighbourhood14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(neighbourhood1.equals(neighbourhood3), "neighbourhood13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(neighbourhood3.equals(neighbourhood1), "neighbourhood31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(neighbourhood1.equals(null), "neighbourhood10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final Neighbourhood neighbourhood = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    assertEquals("Neighbourhood[neighbourhood=Unknown]", neighbourhood.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

@@ -1,31 +1,25 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
  * Gregorian calendar.
  *
+ * @param country Country of gregorian calendar reform
+ *
  * Not DSGVO relevant.
  *
  * TODO More country reform dates
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class GregorianCalendar implements Comparable<GregorianCalendar>
+public record GregorianCalendar(Country country) implements Comparable<GregorianCalendar>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<Country, GregorianCalendar> CACHE = new WeakHashMap<>();
-
   /**
    * Days per month.
    */
@@ -65,11 +59,6 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>
    * Year.
    */
   private static final String YEAR = "year"; //$NON-NLS-1$
-
-  /**
-   * Country of gregorian calendar reform.
-   */
-  private final Country country;
 
 
   /**
@@ -177,14 +166,10 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>
 
   /**
    * Constructor.
-   *
-   * @param country Country of gregorian calendar reform
    */
-  private GregorianCalendar(final Country country)
+  public GregorianCalendar
    {
-    super();
     Objects.requireNonNull(country, "country"); //$NON-NLS-1$
-    this.country = country;
    }
 
 
@@ -196,83 +181,7 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>
    */
   public static GregorianCalendar of(final Country country)
    {
-    synchronized (GregorianCalendar.class)
-     {
-      GregorianCalendar obj = GregorianCalendar.CACHE.get(country);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new GregorianCalendar(country);
-      GregorianCalendar.CACHE.put(country, obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get country.
-   *
-   * @return Country
-   */
-  public Country getCountry()
-   {
-    return this.country;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Objects.hash(this.country);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof GregorianCalendar))
-     {
-      return false;
-     }
-    final GregorianCalendar other = (GregorianCalendar)obj;
-    return this.country.equals(other.country);
-   }
-
-
-  /**
-   * Returns the string representation of this GregorianCalendar.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "GregorianCalendar[]"
-   *
-   * @return String representation of this GregorianCalendar
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder(27);
-    builder.append("GregorianCalendar[country=").append(this.country.stringValue()).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new GregorianCalendar(country);
    }
 
 
@@ -308,11 +217,11 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>
 
     final String beforeAfter = GregorianCalendar.REFORM_DATES.get(this.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.DAYS) == null ? GregorianCalendar.AFTER : GregorianCalendar.BEFORE;
     final long reformYear = GregorianCalendar.REFORM_DATES.get(this.country).get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
-    if (year.longValue() > reformYear)
+    if (year.year() > reformYear)
      {
-      return ((year.longValue() % 4) == 0) && (((year.longValue() % 100) != 0) || ((year.longValue() % 400) == 0));
+      return ((year.year() % 4) == 0) && (((year.year() % 100) != 0) || ((year.year() % 400) == 0));
      }
-    return ((year.longValue() % 4) == 0); // TODO JulianCalendar.isLeapYear(year);
+    return ((year.year() % 4) == 0); // TODO JulianCalendar.isLeapYear(year);
    }
 
 
@@ -332,11 +241,11 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>
     final long reformYear = GregorianCalendar.REFORM_DATES.get(this.country).get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
     final int reformMonth = GregorianCalendar.REFORM_DATES.get(this.country).get(beforeAfter).get(GregorianCalendar.MONTH).intValue();
     final int restDaysInMonth = GregorianCalendar.REFORM_DATES.get(this.country).get(beforeAfter).get(GregorianCalendar.DAYS).intValue();
-    if ((year.longValue() == reformYear) && (month.intValue() == reformMonth)) // Depend on country
+    if ((year.year() == reformYear) && (month.month() == reformMonth)) // Depend on country
      {
       return restDaysInMonth;
      }
-    return GregorianCalendar.DAYS_IN_MONTH[month.intValue()] + (((month.intValue() == 2) && isLeapYear(year)) ? 1 : 0);
+    return GregorianCalendar.DAYS_IN_MONTH[month.month()] + (((month.month() == 2) && isLeapYear(year)) ? 1 : 0);
    }
 
  }

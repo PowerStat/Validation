@@ -1,12 +1,10 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
@@ -15,29 +13,12 @@ import java.util.regex.Pattern;
  *
  * Not DSGVO relevant.
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings({"java:S5869", "PMD.UseConcurrentHashMap"})
-public final class Department implements Comparable<Department>
+public record Department(String department) implements Comparable<Department>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<String, Department> CACHE = new WeakHashMap<>();
-
   /**
    * Department regexp.
    */
   private static final Pattern DEPARTMENT_REGEXP = Pattern.compile("^[\\p{L}][\\p{L}\\\\p{Digi}.& -]*$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Department.
-   */
-  private final String department;
 
 
   /**
@@ -47,9 +28,8 @@ public final class Department implements Comparable<Department>
    * @throws NullPointerException if department is null
    * @throws IllegalArgumentException if department is not a correct department name
    */
-  private Department(final String department)
+  public Department
    {
-    super();
     Objects.requireNonNull(department, "department"); //$NON-NLS-1$
     if ((department.length() < 1) || (department.length() > 64))
      {
@@ -59,7 +39,6 @@ public final class Department implements Comparable<Department>
      {
       throw new IllegalArgumentException("Department with wrong format"); //$NON-NLS-1$
      }
-    this.department = department;
    }
 
 
@@ -71,96 +50,7 @@ public final class Department implements Comparable<Department>
    */
   public static Department of(final String department)
    {
-    synchronized (Department.class)
-     {
-      Department obj = Department.CACHE.get(department);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Department(department);
-      Department.CACHE.put(department, obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get department string.
-   *
-   * @return Department string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = Department.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getDepartment()
-   {
-    return this.department;
-   }
-
-
-  /**
-   * Returns the value of this Department as a string.
-   *
-   * @return he text value represented by this object after conversion to type string.
-   */
-  public String stringValue()
-   {
-    return this.department;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return this.department.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof Department))
-     {
-      return false;
-     }
-    final Department other = (Department)obj;
-    return this.department.equals(other.department);
-   }
-
-
-  /**
-   * Returns the string representation of this Department.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Department[department=Research]"
-   *
-   * @return String representation of this Department
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder(23);
-    builder.append("Department[department=").append(this.department).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new Department(department);
    }
 
 

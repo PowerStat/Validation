@@ -1,12 +1,10 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 
 /**
@@ -14,12 +12,12 @@ import java.util.WeakHashMap;
  *
  * Not DSGVO relevant.
  *
+ * @param minute Minute 0-59
+ * 
  * TODO Listener
  * TODO secondsWithin = 60
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Minute implements Comparable<Minute>
+public record Minute(int minute) implements Comparable<Minute>
  {
   /**
    * Overlfow constant.
@@ -31,36 +29,18 @@ public final class Minute implements Comparable<Minute>
    */
   private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
 
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<Integer, Minute> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Minute.
-   */
-  private final int minute;
-
 
   /**
    * Constructor.
    *
-   * @param minute Minute 0-59
    * @throws IndexOutOfBoundsException When the minute is less than 0 or greater than 59
    */
-  private Minute(final int minute)
+  public Minute
    {
-    super();
     if ((minute < 0) || (minute > 59))
      {
       throw new IndexOutOfBoundsException("Minute number out of range (0-59)!"); //$NON-NLS-1$
      }
-    this.minute = minute;
    }
 
 
@@ -72,99 +52,7 @@ public final class Minute implements Comparable<Minute>
    */
   public static Minute of(final int minute)
    {
-    synchronized (Minute.class)
-     {
-      Minute obj = Minute.CACHE.get(minute);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Minute(minute);
-      Minute.CACHE.put(Integer.valueOf(minute), obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get minute.
-   *
-   * @return Minute
-   * @deprecated Use intValue() instead
-   */
-  @Deprecated(since = Minute.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public int getMinute()
-   {
-    return this.minute;
-   }
-
-
-  /**
-   * Returns the value of this Minute as an int.
-   *
-   * @return The numeric value represented by this object after conversion to type int.
-   */
-  public int intValue()
-   {
-    return this.minute;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Integer.hashCode(this.minute);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    return this == obj;
-    /*
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof Minute))
-     {
-      return false;
-     }
-    final Minute other = (Minute)obj;
-    return false; // this.minute == other.minute;
-    */
-   }
-
-
-  /**
-   * Returns the string representation of this Minute.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Minute[minute=1]"
-   *
-   * @return String representation of this Minute
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("Minute[minute=").append(this.minute).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new Minute(minute);
    }
 
 
@@ -192,7 +80,7 @@ public final class Minute implements Comparable<Minute>
    */
   public Minute add(final Minutes minutes)
    {
-    final int newMinute = Math.toIntExact(Math.addExact(this.minute, minutes.longValue()));
+    final int newMinute = Math.toIntExact(Math.addExact(this.minute, minutes.minutes()));
     if (newMinute > 59)
      {
       // TODO Listener
@@ -211,7 +99,7 @@ public final class Minute implements Comparable<Minute>
    */
   public Minute subtract(final Minutes minutes)
    {
-    final int newMinute = Math.toIntExact(Math.subtractExact(this.minute, minutes.longValue()));
+    final int newMinute = Math.toIntExact(Math.subtractExact(this.minute, minutes.minutes()));
     if (newMinute < 0)
      {
       // TODO Listener

@@ -1,25 +1,23 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 
 /**
  * Hour.
  *
+ * @param hour Hour 0-23
+ * 
  * Not DSGVO relevant.
  *
  * TODO Listener
  * TODO minutesWithin = 60
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Hour implements Comparable<Hour>
+public record Hour(int hour) implements Comparable<Hour>
  {
   /**
    * Overflow constant.
@@ -31,36 +29,18 @@ public final class Hour implements Comparable<Hour>
    */
   private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<Integer, Hour> CACHE = new WeakHashMap<>();
-
-  /**
-   * Hour.
-   */
-  private final int hour;
-
 
   /**
    * Constructor.
    *
-   * @param hour Hour 0-23
    * @throws IndexOutOfBoundsException When the hour is less than 0 or greater than 23
    */
-  private Hour(final int hour)
+  public Hour
    {
-    super();
     if ((hour < 0) || (hour > 23))
      {
       throw new IndexOutOfBoundsException("Hour number out of range (0-23)!"); //$NON-NLS-1$
      }
-    this.hour = hour;
    }
 
 
@@ -72,99 +52,7 @@ public final class Hour implements Comparable<Hour>
    */
   public static Hour of(final int hour)
    {
-    synchronized (Hour.class)
-    {
-     Hour obj = Hour.CACHE.get(hour);
-     if (obj != null)
-      {
-       return obj;
-      }
-     obj = new Hour(hour);
-     Hour.CACHE.put(Integer.valueOf(hour), obj);
-     return obj;
-    }
-   }
-
-
-  /**
-   * Get hour.
-   *
-   * @return Hour
-   * @deprecated Use intValue() instead
-   */
-  @Deprecated(since = Hour.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public int getHour()
-   {
-    return this.hour;
-   }
-
-
-  /**
-   * Returns the value of this Hour as an int.
-   *
-   * @return The numeric value represented by this object after conversion to type int.
-   */
-  public int intValue()
-   {
-    return this.hour;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Integer.hashCode(this.hour);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    return this == obj;
-    /*
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof Hour))
-     {
-      return false;
-     }
-    final Hour other = (Hour)obj;
-    return false; // this.hour == other.hour;
-    */
-   }
-
-
-  /**
-   * Returns the string representation of this Hour.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Hour[hour=1]"
-   *
-   * @return String representation of this Hour
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("Hour[hour=").append(this.hour).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new Hour(hour);
    }
 
 
@@ -192,7 +80,7 @@ public final class Hour implements Comparable<Hour>
    */
   public Hour add(final Hours hours)
    {
-    final int newHour = Math.toIntExact(Math.addExact(this.hour, hours.longValue()));
+    final int newHour = Math.toIntExact(Math.addExact(this.hour, hours.hours()));
     if (newHour > 23)
      {
       // TODO Listener
@@ -211,7 +99,7 @@ public final class Hour implements Comparable<Hour>
    */
   public Hour subtract(final Hours hours)
    {
-    final int newHour = Math.toIntExact(Math.subtractExact(this.hour, hours.longValue()));
+    final int newHour = Math.toIntExact(Math.subtractExact(this.hour, hours.hours()));
     if (newHour < 0)
      {
       // TODO Listener

@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -47,11 +45,6 @@ public class IBANTests
    */
   private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -76,7 +69,7 @@ public class IBANTests
   public void ibanCorrect(final String iban)
    {
     final IBAN cleanIban = IBAN.of(iban);
-    assertEquals(iban, cleanIban.stringValue(), IBANTests.IBAN_NOT_AS_EXPECTED);
+    assertEquals(iban, cleanIban.iban(), IBANTests.IBAN_NOT_AS_EXPECTED);
    }
 
 
@@ -111,81 +104,6 @@ public class IBANTests
       /* final IBAN cleanIban = */ IBAN.of(iban);
      }, IBANTests.ILLEGAL_ARGUMENT
     );
-   }
-
-
-  /**
-   * Test get iban.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = IBANTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getIban()
-   {
-    final IBAN iban = IBAN.of(IBANTests.IBAN_DE68210501700012345678);
-    assertEquals(IBANTests.IBAN_DE68210501700012345678, iban.getIBAN(), IBANTests.IBAN_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get iban.
-   */
-  @Test
-  public void stringValue()
-   {
-    final IBAN iban = IBAN.of(IBANTests.IBAN_DE68210501700012345678);
-    assertEquals(IBANTests.IBAN_DE68210501700012345678, iban.stringValue(), IBANTests.IBAN_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final IBAN iban1 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);
-    final IBAN iban2 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);
-    final IBAN iban3 = IBAN.of(IBANTests.IBAN_DE68210501700012345678);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(iban1.hashCode(), iban2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(iban1.hashCode(), iban3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final IBAN iban1 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);
-    final IBAN iban2 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);
-    final IBAN iban3 = IBAN.of(IBANTests.IBAN_DE68210501700012345678);
-    final IBAN iban4 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(iban1.equals(iban1), "iban11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(iban1.equals(iban2), "iban12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(iban2.equals(iban1), "iban21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(iban2.equals(iban4), "iban24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(iban1.equals(iban4), "iban14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(iban1.equals(iban3), "iban13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(iban3.equals(iban1), "iban31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(iban1.equals(null), "iban10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final IBAN iban = IBAN.of(IBANTests.IBAN_DE68210501700012345678);
-    assertEquals("IBAN[iban=DE68210501700012345678]", iban.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

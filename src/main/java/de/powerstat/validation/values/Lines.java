@@ -1,56 +1,37 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
 /**
  * Address Lines.
  *
+ * @param lines Lines (1-5)
+ * 
  * Not DSGVO relevant.
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Lines implements Comparable<Lines>
+public record Lines(String lines) implements Comparable<Lines>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<String, Lines> CACHE = new WeakHashMap<>();
-
   /**
    * Lines fregexp.
    */
   @SuppressWarnings("java:S6035")
   private static final Pattern LINES_REGEXP = Pattern.compile("^([\\p{L}\\p{Digit},.& -]|\\R)*+$"); //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Lines.
-   */
-  private final String lines;
-
 
   /**
    * Constructor.
    *
-   * @param lines Lines (1-5)
    * @throws NullPointerException if lines is null
    * @throws IllegalArgumentException if lines is not a correct Lines
    */
-  private Lines(final String lines)
+  public Lines
    {
-    super();
     Objects.requireNonNull(lines, "lines"); //$NON-NLS-1$
     if ((lines.length() < 1) || (lines.length() > 200))
      {
@@ -64,7 +45,6 @@ public final class Lines implements Comparable<Lines>
      {
       throw new IllegalArgumentException("Do not use more than 5 lines"); //$NON-NLS-1$
      }
-    this.lines = lines;
    }
 
 
@@ -76,96 +56,7 @@ public final class Lines implements Comparable<Lines>
    */
   public static Lines of(final String lines)
    {
-    synchronized (Lines.class)
-     {
-      Lines obj = Lines.CACHE.get(lines);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Lines(lines);
-      Lines.CACHE.put(lines, obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get lines string.
-   *
-   * @return Lines string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = Lines.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getLines()
-   {
-    return this.lines;
-   }
-
-
-  /**
-   *Returns the value of this Lines as a string.
-   *
-   * @return The text value represented by this object after conversion to type string.
-   */
-  public String stringValue()
-   {
-    return this.lines;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return this.lines.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof Lines))
-     {
-      return false;
-     }
-    final Lines other = (Lines)obj;
-    return this.lines.equals(other.lines);
-   }
-
-
-  /**
-   * Returns the string representation of this Lines.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Lines[lines=Example1]"
-   *
-   * @return String representation of this Lines
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("Lines[lines=").append(this.lines.replace("\n", "\\n").replace("\r", "\\r")).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-    return builder.toString();
+    return new Lines(lines);
    }
 
 

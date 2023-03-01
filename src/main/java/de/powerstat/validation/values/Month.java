@@ -1,17 +1,17 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 
 /**
  * Month.
  *
+ * @param month Month 1-12
+ * 
  * Not DSGVO relevant.
  *
  * TODO constructor with year
@@ -19,15 +19,8 @@ import java.util.WeakHashMap;
  * TODO Listener
  * TODO Translations short/long
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Month implements Comparable<Month>
+public record Month(int month) implements Comparable<Month>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<Integer, Month> CACHE = new WeakHashMap<>();
-
   /**
    * Overflow constant.
    */
@@ -38,31 +31,18 @@ public final class Month implements Comparable<Month>
    */
   private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Month.
-   */
-  private final int month;
-
 
   /**
    * Constructor.
    *
-   * @param month Month 1-12
    * @throws IndexOutOfBoundsException When the month is less than 1 or greater than 12
    */
-  private Month(final int month)
+  public Month
    {
-    super();
     if ((month < 1) || (month > 12))
      {
       throw new IndexOutOfBoundsException("Month number out of range (1-12)!"); //$NON-NLS-1$
      }
-    this.month = month;
    }
 
 
@@ -74,99 +54,7 @@ public final class Month implements Comparable<Month>
    */
   public static Month of(final int month)
    {
-    synchronized (Month.class)
-     {
-      Month obj = Month.CACHE.get(month);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Month(month);
-      Month.CACHE.put(Integer.valueOf(month), obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get month.
-   *
-   * @return Month
-   * @deprecated Use intValue() instead
-   */
-  @Deprecated(since = Month.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public int getMonth()
-   {
-    return this.month;
-   }
-
-
-  /**
-   * Returns the value of this Month as an int.
-   *
-   * @return The numeric value represented by this object after conversion to type int.
-   */
-  public int intValue()
-   {
-    return this.month;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Integer.hashCode(this.month);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    return this == obj;
-    /*
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof Month))
-     {
-      return false;
-     }
-    final Month other = (Month)obj;
-    return false; // this.month == other.month;
-    */
-   }
-
-
-  /**
-   * Returns the string representation of this Month.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Month[month=1]"
-   *
-   * @return String representation of this Month
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("Month[month=").append(this.month).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new Month(month);
    }
 
 
@@ -194,7 +82,7 @@ public final class Month implements Comparable<Month>
    */
   public Month add(final Months months)
    {
-    final long newMonth = Math.toIntExact(Math.addExact(this.month, months.longValue()));
+    final long newMonth = Math.toIntExact(Math.addExact(this.month, months.months()));
     if (newMonth > 12) // while (newMonth > 12)
      {
       // TODO Listener
@@ -215,7 +103,7 @@ public final class Month implements Comparable<Month>
    */
   public Month subtract(final Months months)
    {
-    final long newMonth = Math.toIntExact(Math.subtractExact(this.month, months.longValue()));
+    final long newMonth = Math.toIntExact(Math.subtractExact(this.month, months.months()));
     if (newMonth <= 0) // while (newMonth <= 0)
      {
       // TODO Listener

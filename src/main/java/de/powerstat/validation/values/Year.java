@@ -1,17 +1,17 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 
 /**
  * Year.
  *
+ * @param year Year != 0
+ * 
  * Not DSGVO relevant.
  *
  * TODO isLeapYear (calendar specific)
@@ -19,40 +19,19 @@ import java.util.WeakHashMap;
  * TODO daysWithin() = 365, 366, n
  * TODO monthsWith() = 12
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Year implements Comparable<Year>
+public record Year(long year) implements Comparable<Year>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<Long, Year> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Year.
-   */
-  private final long year;
-
-
   /**
    * Constructor.
    *
-   * @param year Year != 0
    * @throws IndexOutOfBoundsException When the year is 0
    */
-  private Year(final long year)
+  public Year
    {
-    super();
     if (year == 0)
      {
       throw new IndexOutOfBoundsException("Year 0 does not exist!"); //$NON-NLS-1$
      }
-    this.year = year;
    }
 
 
@@ -64,99 +43,7 @@ public final class Year implements Comparable<Year>
    */
   public static Year of(final long year)
    {
-    synchronized (Year.class)
-     {
-      Year obj = Year.CACHE.get(year);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Year(year);
-      Year.CACHE.put(Long.valueOf(year), obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get year.
-   *
-   * @return Year
-   * @deprecated Use longValue() instead
-   */
-  @Deprecated(since = Year.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public long getYear()
-   {
-    return this.year;
-   }
-
-
-  /**
-   * Returns the value of this Year as an long.
-   *
-   * @return The numeric value represented by this object after conversion to type long.
-   */
-  public long longValue()
-   {
-    return this.year;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Long.hashCode(this.year);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    return this == obj;
-    /*
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof Year))
-     {
-      return false;
-     }
-    final Year other = (Year)obj;
-    return false; // this.year == other.year;
-    */
-   }
-
-
-  /**
-   * Returns the string representation of this Year.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Year[year=2020]"
-   *
-   * @return String representation of this Year
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("Year[year=").append(this.year).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new Year(year);
    }
 
 
@@ -184,7 +71,7 @@ public final class Year implements Comparable<Year>
    */
   public Year add(final Years years)
    {
-    long newYear = Math.addExact(this.year, years.longValue());
+    long newYear = Math.addExact(this.year, years.years());
     if ((this.year < 0) && (newYear >= 0))
      {
       newYear = Math.incrementExact(newYear); // Because there is no year 0!
@@ -202,7 +89,7 @@ public final class Year implements Comparable<Year>
    */
   public Year subtract(final Years years)
    {
-    long newYear = Math.subtractExact(this.year, years.longValue());
+    long newYear = Math.subtractExact(this.year, years.years());
     if ((this.year > 0) && (newYear <= 0))
      {
       newYear = Math.decrementExact(newYear); // Because there is no year 0!

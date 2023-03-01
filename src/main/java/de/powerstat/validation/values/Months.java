@@ -1,53 +1,32 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 
 /**
  * Months.
  *
+ * @param months Months 0-..
+ * 
  * Not DSGVO relevant.
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Months implements Comparable<Months>
+public record Months(long months) implements Comparable<Months>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<Long, Months> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Month.
-   */
-  private final long months;
-
-
   /**
    * Constructor.
    *
-   * @param months Months 0-..
    * @throws IndexOutOfBoundsException When the months is less than 0
    */
-  private Months(final long months)
+  public Months
    {
-    super();
     if (months < 0)
      {
       throw new IndexOutOfBoundsException("Negative months are not allowed"); //$NON-NLS-1$
      }
-    this.months = months;
    }
 
 
@@ -59,99 +38,7 @@ public final class Months implements Comparable<Months>
    */
   public static Months of(final long months)
    {
-    synchronized (Months.class)
-     {
-      Months obj = Months.CACHE.get(months);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Months(months);
-      Months.CACHE.put(Long.valueOf(months), obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get months.
-   *
-   * @return Months
-   * @deprecated Use longValue() instead
-   */
-  @Deprecated(since = Months.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public long getMonths()
-   {
-    return this.months;
-   }
-
-
-  /**
-   * Returns the value of this Months as a long.
-   *
-   * @return The numeric value represented by this object after conversion to type long.
-   */
-  public long longValue()
-   {
-    return this.months;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Long.hashCode(this.months);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    return this == obj;
-    /*
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof Months))
-     {
-      return false;
-     }
-    final Months other = (Months)obj;
-    return false; // this.months == other.months;
-    */
-   }
-
-
-  /**
-   * Returns the string representation of this Months.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Months[months=1]"
-   *
-   * @return String representation of this Months
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("Months[months=").append(this.months).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new Months(months);
    }
 
 

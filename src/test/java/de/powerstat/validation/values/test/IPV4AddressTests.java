@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -7,7 +7,6 @@ package de.powerstat.validation.values.test;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -59,11 +58,6 @@ public class IPV4AddressTests
    * Address not as expected constant.
    */
   private static final String ADDRESS_NOT_AS_EXPECTED = "Address not as expected"; //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
 
   /**
@@ -209,81 +203,6 @@ public class IPV4AddressTests
    {
     final IPV4Address address = IPV4Address.of(adr);
     assertFalse(address.isPublic(), IPV4AddressTests.ADDRESS_IS_NOT_PUBLIC);
-   }
-
-
-  /**
-   * Test get address.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = IPV4AddressTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getAddress()
-   {
-    final IPV4Address address = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    assertEquals(IPV4AddressTests.PRIVATE_IP_192_168_1_1, address.getAddress(), IPV4AddressTests.ADDRESS_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get address.
-   */
-  @Test
-  public void stringValue()
-   {
-    final IPV4Address address = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    assertEquals(IPV4AddressTests.PRIVATE_IP_192_168_1_1, address.stringValue(), IPV4AddressTests.ADDRESS_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final IPV4Address address1 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    final IPV4Address address2 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    final IPV4Address address3 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(address1.hashCode(), address2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(address1.hashCode(), address3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final IPV4Address address1 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    final IPV4Address address2 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    final IPV4Address address3 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_2);
-    final IPV4Address address4 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(address1.equals(address1), "address11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(address1.equals(address2), "address12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(address2.equals(address1), "address21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(address2.equals(address4), "address24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(address1.equals(address4), "address14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(address3), "address13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(address3.equals(address1), "address31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(null), "address10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final IPV4Address address = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    assertEquals("IPV4Address[address=192.168.1.1]", address.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

@@ -1,53 +1,34 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 
 /**
  * Days.
  *
+ * @param days Days 0-..
+ *
  * Not DSGVO relevant.
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Days implements Comparable<Days>
+public record Days(long days) implements Comparable<Days>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<Long, Days> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Days.
-   */
-  private final long days;
-
-
   /**
    * Constructor.
    *
-   * @param days Days 0-..
    * @throws IndexOutOfBoundsException When the day is less than 0
    */
-  private Days(final long days)
+  public Days
    {
-    super();
     if (days < 0)
      {
       throw new IndexOutOfBoundsException("Negative days are not allowed"); //$NON-NLS-1$
      }
-    this.days = days;
    }
 
 
@@ -59,99 +40,7 @@ public final class Days implements Comparable<Days>
    */
   public static Days of(final long days)
    {
-    synchronized (Days.class)
-     {
-      Days obj = Days.CACHE.get(days);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Days(days);
-      Days.CACHE.put(Long.valueOf(days), obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get days.
-   *
-   * @return Days
-   * @deprecated Use longValue() instead
-   */
-  @Deprecated(since = Days.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public long getDays()
-   {
-    return this.days;
-   }
-
-
-  /**
-   * Returns the value of this Days as a long.
-   *
-   * @return The numeric value represented by this object after conversion to type long.
-   */
-  public long longValue()
-   {
-    return this.days;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Long.hashCode(this.days);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    return this == obj;
-    /*
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof Days))
-     {
-      return false;
-     }
-    final Days other = (Days)obj;
-    return false; // this.days == other.days;
-    */
-   }
-
-
-  /**
-   * Returns the string representation of this Days.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Days[days=1]"
-   *
-   * @return String representation of this Days
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("Days[days=").append(this.days).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new Days(days);
    }
 
 

@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -45,11 +43,6 @@ public class CityTests
    */
   private static final String CITY_NOT_AS_EXPECTED = "City not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -70,7 +63,7 @@ public class CityTests
   public void cityCorrect(final String city)
    {
     final City cleanCity = City.of(city);
-    assertEquals(city, cleanCity.stringValue(), CityTests.CITY_NOT_AS_EXPECTED);
+    assertEquals(city, cleanCity.city(), CityTests.CITY_NOT_AS_EXPECTED);
    }
 
 
@@ -105,81 +98,6 @@ public class CityTests
       /* final City cleanCity = */ City.of(city);
      }, CityTests.ILLEGAL_ARGUMENT
     );
-   }
-
-
-  /**
-   * Test get city.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = CityTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getCity()
-   {
-    final City city = City.of(CityTests.BREMEN);
-    assertEquals(CityTests.BREMEN, city.getCity(), CityTests.CITY_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get city.
-   */
-  @Test
-  public void stringValue()
-   {
-    final City city = City.of(CityTests.BREMEN);
-    assertEquals(CityTests.BREMEN, city.stringValue(), CityTests.CITY_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final City city1 = City.of(CityTests.BREMEN);
-    final City city2 = City.of(CityTests.BREMEN);
-    final City city3 = City.of(CityTests.HANNOVER);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(city1.hashCode(), city2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(city1.hashCode(), city3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final City city1 = City.of(CityTests.BREMEN);
-    final City city2 = City.of(CityTests.BREMEN);
-    final City city3 = City.of(CityTests.HANNOVER);
-    final City city4 = City.of(CityTests.BREMEN);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(city1.equals(city1), "city11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(city1.equals(city2), "city12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(city2.equals(city1), "city21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(city2.equals(city4), "city24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(city1.equals(city4), "city14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(city1.equals(city3), "city13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(city3.equals(city1), "city31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(city1.equals(null), "city10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final City city = City.of(CityTests.BREMEN);
-    assertEquals("City[city=Bremen]", city.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

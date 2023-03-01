@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -45,11 +45,6 @@ public class SubBuildingTests
    */
   private static final String SUB_BUILDING_NOT_AS_EXPECTED = "SubBuilding not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -70,7 +65,7 @@ public class SubBuildingTests
   public void subBuildingCorrect(final String subBuilding)
    {
     final SubBuilding cleanSubBuilding = SubBuilding.of(subBuilding);
-    assertEquals(subBuilding, cleanSubBuilding.stringValue(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
+    assertEquals(subBuilding, cleanSubBuilding.subBuilding(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
    }
 
 
@@ -105,81 +100,6 @@ public class SubBuildingTests
       /* final SubBuilding cleanSubBuilding = */ SubBuilding.of(subBuilding);
      }, SubBuildingTests.ILLEGAL_ARGUMENT
     );
-   }
-
-
-  /**
-   * Test get subBuilding.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = SubBuildingTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getSubBuilding()
-   {
-    final SubBuilding subBuilding = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    assertEquals(SubBuildingTests.FLOOR_13_APART_0815, subBuilding.getSubBuilding(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get subBuilding.
-   */
-  @Test
-  public void stringValue()
-   {
-    final SubBuilding subBuilding = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    assertEquals(SubBuildingTests.FLOOR_13_APART_0815, subBuilding.stringValue(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final SubBuilding subBuilding1 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    final SubBuilding subBuilding2 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    final SubBuilding subBuilding3 = SubBuilding.of(SubBuildingTests.FLOOR_99);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(subBuilding1.hashCode(), subBuilding2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(subBuilding1.hashCode(), subBuilding3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final SubBuilding subBuilding1 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    final SubBuilding subBuilding2 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    final SubBuilding subBuilding3 = SubBuilding.of(SubBuildingTests.FLOOR_99);
-    final SubBuilding subBuilding4 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(subBuilding1.equals(subBuilding1), "subBulding11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(subBuilding1.equals(subBuilding2), "subBulding12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(subBuilding2.equals(subBuilding1), "subBulding21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(subBuilding2.equals(subBuilding4), "subBulding24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(subBuilding1.equals(subBuilding4), "subBulding14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(subBuilding1.equals(subBuilding3), "subBulding13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(subBuilding3.equals(subBuilding1), "subBulding31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(subBuilding1.equals(null), "subBulding10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final SubBuilding subBuilding = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    assertEquals("SubBuilding[subBuilding=Floor 13, Apart. 0815]", subBuilding.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

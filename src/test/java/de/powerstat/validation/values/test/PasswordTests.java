@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -46,11 +46,6 @@ public class PasswordTests
    * Password not as expected constant.
    */
   private static final String PASSWORD_NOT_AS_EXPECTED = "Password not as expected"; //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
 
   /**
@@ -116,20 +111,6 @@ public class PasswordTests
       /* final Password cleanPassword = */ Password.of(strategy, "\"€"); //$NON-NLS-1$
      }, PasswordTests.ILLEGAL_ARGUMENT
     );
-   }
-
-
-  /**
-   * Test get password.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = PasswordTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getPassword()
-   {
-    final Password password = Password.of(PasswordTests.PASSWORD);
-    assertEquals(PasswordTests.PASSWORD, password.getPassword(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
    }
 
 

@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -45,11 +43,6 @@ public class CurrencyTests
    */
   private static final String CURRENCY_CODE_NOT_AS_EXPECTED = "Currency code not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -70,7 +63,7 @@ public class CurrencyTests
   public void currencyOk0(final String code)
    {
     final Currency cleanCurrency = Currency.of(code);
-    assertEquals(code, cleanCurrency.stringValue(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
+    assertEquals(code, cleanCurrency.code(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -105,81 +98,6 @@ public class CurrencyTests
       /* final Currency cleanCurrency = */ Currency.of(code);
      }, CurrencyTests.ILLEGAL_ARGUMENT
     );
-   }
-
-
-  /**
-   * Test get currency code.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = CurrencyTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getCurrency()
-   {
-    final Currency currency = Currency.of(CurrencyTests.EUR);
-    assertEquals(CurrencyTests.EUR, currency.getCurrency(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get currency code.
-   */
-  @Test
-  public void stringValue()
-   {
-    final Currency currency = Currency.of(CurrencyTests.EUR);
-    assertEquals(CurrencyTests.EUR, currency.stringValue(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final Currency currency1 = Currency.of(CurrencyTests.EUR);
-    final Currency currency2 = Currency.of(CurrencyTests.EUR);
-    final Currency currency3 = Currency.of(CurrencyTests.USD);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(currency1.hashCode(), currency2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(currency1.hashCode(), currency3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final Currency language1 = Currency.of(CurrencyTests.EUR);
-    final Currency language2 = Currency.of(CurrencyTests.EUR);
-    final Currency language3 = Currency.of(CurrencyTests.USD);
-    final Currency language4 = Currency.of(CurrencyTests.EUR);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(language1.equals(language1), "currency11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(language1.equals(language2), "currency12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(language2.equals(language1), "currency21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(language2.equals(language4), "currency24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(language1.equals(language4), "currency14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(language1.equals(language3), "currency13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(language3.equals(language1), "currency31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(language1.equals(null), "currency10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final Currency currency = Currency.of(CurrencyTests.EUR);
-    assertEquals("Currency[code=EUR]", currency.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

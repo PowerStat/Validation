@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -45,11 +43,6 @@ public class LanguageTests
    */
   private static final String LANGUAGE_CODE_NOT_AS_EXPECTED = "Language code not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -70,7 +63,7 @@ public class LanguageTests
   public void languageOk0(final String code)
    {
     final Language cleanLanguage = Language.of(code);
-    assertEquals(code, cleanLanguage.stringValue(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
+    assertEquals(code, cleanLanguage.code(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -105,81 +98,6 @@ public class LanguageTests
       /* final Language cleanLanguage = */ Language.of(code);
      }, LanguageTests.ILLEGAL_ARGUMENT
     );
-   }
-
-
-  /**
-   * Test get language code.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = LanguageTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getLanguage()
-   {
-    final Language language = Language.of(LanguageTests.DE);
-    assertEquals(LanguageTests.DE, language.getLanguage(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get language code.
-   */
-  @Test
-  public void stringValue()
-   {
-    final Language language = Language.of(LanguageTests.DE);
-    assertEquals(LanguageTests.DE, language.stringValue(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final Language language1 = Language.of(LanguageTests.DE);
-    final Language language2 = Language.of(LanguageTests.DE);
-    final Language language3 = Language.of(LanguageTests.FR);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(language1.hashCode(), language2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(language1.hashCode(), language3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final Language language1 = Language.of(LanguageTests.DE);
-    final Language language2 = Language.of(LanguageTests.DE);
-    final Language language3 = Language.of(LanguageTests.FR);
-    final Language language4 = Language.of(LanguageTests.DE);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(language1.equals(language1), "language11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(language1.equals(language2), "language12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(language2.equals(language1), "language21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(language2.equals(language4), "language24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(language1.equals(language4), "language14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(language1.equals(language3), "language13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(language3.equals(language1), "language31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(language1.equals(null), "language10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final Language language = Language.of(LanguageTests.DE);
-    assertEquals("Language[code=de]", language.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

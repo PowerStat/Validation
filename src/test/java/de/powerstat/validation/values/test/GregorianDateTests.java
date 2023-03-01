@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -101,60 +99,6 @@ public class GregorianDateTests
    {
     final GregorianDate date = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
     assertEquals("2020-07-14", date.stringValue(), GregorianDateTests.DATE_NOT_AS_EXPECTED); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final GregorianDate date1 = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
-    final GregorianDate date2 = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
-    final GregorianDate date3 = GregorianDate.of(Year.of(2021), Month.of(8), Day.of(15));
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(date1.hashCode(), date2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(date1.hashCode(), date3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final GregorianDate date1 = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
-    final GregorianDate date2 = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
-    final GregorianDate date3 = GregorianDate.of(Year.of(2021), Month.of(7), Day.of(14));
-    final GregorianDate date4 = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
-    final GregorianDate date5 = GregorianDate.of(Year.of(2020), Month.of(8), Day.of(14));
-    final GregorianDate date6 = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(15));
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(date1.equals(date1), "date11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(date1.equals(date2), "date12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(date2.equals(date1), "date21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(date2.equals(date4), "date24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(date1.equals(date4), "date14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(date1.equals(date3), "date13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(date3.equals(date1), "date31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(date1.equals(null), "date10 is equal"), //$NON-NLS-1$
-      () -> assertFalse(date1.equals(date5), "date15 are equal"), //$NON-NLS-1$
-      () -> assertFalse(date1.equals(date6), "date16 are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final GregorianDate date = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
-    assertEquals("GregorianDate[country=IT, date=2020-07-14]", date.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

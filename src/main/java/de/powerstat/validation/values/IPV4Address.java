@@ -1,32 +1,30 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
 /**
  * IP V4 address.
  *
+ * @param address IP V4 address
+ * 
  * DSGVO relevant.
  *
  * TODO convert to IP V6 format
  * TODO https://datahub.io/core/geoip2-ipv4/r/geoip2-ipv4.csv
  * TODO ping ok?
  */
-// @SuppressFBWarnings({"CLI_CONSTANT_LIST_INDEX", "PMB_POSSIBLE_MEMORY_BLOAT"})
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class IPV4Address implements Comparable<IPV4Address>
+public record IPV4Address(String address) implements Comparable<IPV4Address>
  {
   /**
-   * Cache for singletons.
+   * IPV4 separator.
    */
-  private static final Map<String, IPV4Address> CACHE = new WeakHashMap<>();
+  private static final String SEPARATOR = "\\."; //$NON-NLS-1$
 
   /**
    * Class c 192.
@@ -53,32 +51,15 @@ public final class IPV4Address implements Comparable<IPV4Address>
    */
   private static final Pattern IPV4_REGEXP = Pattern.compile("^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$"); //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * IP V4 address.
-   */
-  private final String address;
-
-  /**
-   * IP V4 address parts.
-   */
-  private final String[] parts;
-
 
   /**
    * Constructor.
    *
-   * @param address IP V4 address
    * @throws NullPointerException if address is null
    * @throws IllegalArgumentException if address is not an ip v4 address
    */
-  private IPV4Address(final String address)
+  public IPV4Address
    {
-    super();
     Objects.requireNonNull(address, "address"); //$NON-NLS-1$
     if ((address.length() < 7) || (address.length() > 15))
      {
@@ -88,8 +69,6 @@ public final class IPV4Address implements Comparable<IPV4Address>
      {
       throw new IllegalArgumentException("Not an IP V4 address"); //$NON-NLS-1$
      }
-    this.address = address;
-    this.parts = address.split("\\."); //$NON-NLS-1$
    }
 
 
@@ -101,17 +80,7 @@ public final class IPV4Address implements Comparable<IPV4Address>
    */
   public static IPV4Address of(final String address)
    {
-    synchronized (IPV4Address.class)
-     {
-      IPV4Address obj = IPV4Address.CACHE.get(address);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new IPV4Address(address);
-      IPV4Address.CACHE.put(address, obj);
-      return obj;
-     }
+    return new IPV4Address(address);
    }
 
 
@@ -127,13 +96,14 @@ public final class IPV4Address implements Comparable<IPV4Address>
    */
   public boolean isPrivate()
    {
-    if ("10".equals(this.parts[0]) || (IPV4Address.CLASS_C_192.equals(this.parts[0]) && "168".equals(this.parts[1])) || ("169".equals(this.parts[0]) && "254".equals(this.parts[1]))) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    final String[] parts = this.address.split(SEPARATOR); //$NON-NLS-1$
+    if ("10".equals(parts[0]) || (IPV4Address.CLASS_C_192.equals(parts[0]) && "168".equals(parts[1])) || ("169".equals(parts[0]) && "254".equals(parts[1]))) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
      {
       return true;
      }
-    if ("172".equals(this.parts[0])) //$NON-NLS-1$
+    if ("172".equals(parts[0])) //$NON-NLS-1$
      {
-      final int block2 = Integer.parseInt(this.parts[1]);
+      final int block2 = Integer.parseInt(parts[1]);
       if ((block2 >= 16) && (block2 <= 31))
        {
         return true;
@@ -163,34 +133,35 @@ public final class IPV4Address implements Comparable<IPV4Address>
    */
   public boolean isSpecial()
    {
-    if (IPV4Address.ZERO.equals(this.parts[0]) ||
-        "127".equals(this.parts[0]) || //$NON-NLS-1$
-        (IPV4Address.CLASS_C_192.equals(this.parts[0]) && IPV4Address.ZERO.equals(this.parts[1]) && IPV4Address.ZERO.equals(this.parts[2])) ||
-        (IPV4Address.CLASS_C_192.equals(this.parts[0]) && IPV4Address.ZERO.equals(this.parts[1]) && "2".equals(this.parts[2])) || //$NON-NLS-1$
-        (IPV4Address.CLASS_C_192.equals(this.parts[0]) && "88".equals(this.parts[1]) && "99".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
-        (IPV4Address.C198.equals(this.parts[0]) && "51".equals(this.parts[1]) && IPV4Address.C100.equals(this.parts[2])) || //$NON-NLS-1$
-        ("203".equals(this.parts[0]) && IPV4Address.ZERO.equals(this.parts[1]) && "113".equals(this.parts[2])) //$NON-NLS-1$ //$NON-NLS-2$
+    final String[] parts = this.address.split(SEPARATOR); //$NON-NLS-1$
+    if (IPV4Address.ZERO.equals(parts[0]) ||
+        "127".equals(parts[0]) || //$NON-NLS-1$
+        (IPV4Address.CLASS_C_192.equals(parts[0]) && IPV4Address.ZERO.equals(parts[1]) && IPV4Address.ZERO.equals(parts[2])) ||
+        (IPV4Address.CLASS_C_192.equals(parts[0]) && IPV4Address.ZERO.equals(parts[1]) && "2".equals(parts[2])) || //$NON-NLS-1$
+        (IPV4Address.CLASS_C_192.equals(parts[0]) && "88".equals(parts[1]) && "99".equals(parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
+        (IPV4Address.C198.equals(parts[0]) && "51".equals(parts[1]) && IPV4Address.C100.equals(parts[2])) || //$NON-NLS-1$
+        ("203".equals(parts[0]) && IPV4Address.ZERO.equals(parts[1]) && "113".equals(parts[2])) //$NON-NLS-1$ //$NON-NLS-2$
        )
      {
       return true;
      }
-    if (IPV4Address.C100.equals(this.parts[0]))
+    if (IPV4Address.C100.equals(parts[0]))
      {
-      final int block2 = Integer.parseInt(this.parts[1]);
+      final int block2 = Integer.parseInt(parts[1]);
       if ((block2 >= 64) && (block2 <= 127))
        {
         return true;
        }
      }
-    if (IPV4Address.C198.equals(this.parts[0]))
+    if (IPV4Address.C198.equals(parts[0]))
      {
-      final int block2 = Integer.parseInt(this.parts[1]);
+      final int block2 = Integer.parseInt(parts[1]);
       if ((block2 >= 18) && (block2 <= 19))
        {
         return true;
        }
      }
-    final int block1 = Integer.parseInt(this.parts[0]);
+    final int block1 = Integer.parseInt(parts[0]);
     return (block1 >= 224);
    }
 
@@ -203,85 +174,6 @@ public final class IPV4Address implements Comparable<IPV4Address>
   public boolean isPublic()
    {
     return !isPrivate() && !isSpecial();
-   }
-
-
-  /**
-   * Get ip V4 address string.
-   *
-   * @return IPV4Address string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = IPV4Address.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getAddress()
-   {
-    return this.address;
-   }
-
-
-  /**
-   * Returns the value of this IPV4Address as a string.
-   *
-   * @return The text value represented by this object after conversion to type string.
-   */
-  public String stringValue()
-   {
-    return this.address;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return this.address.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof IPV4Address))
-     {
-      return false;
-     }
-    final IPV4Address other = (IPV4Address)obj;
-    return this.address.equals(other.address);
-   }
-
-
-  /**
-   * Returns the string representation of this IPV4Address.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "IPV4Address[address=192.168.0.0]"
-   *
-   * @return String representation of this IPV4Address
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder(21);
-    builder.append("IPV4Address[address=").append(this.address).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

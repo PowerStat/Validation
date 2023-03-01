@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -40,11 +38,6 @@ public class DaysTests
    */
   private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -64,7 +57,7 @@ public class DaysTests
   @ValueSource(longs = {0, 1, 7, 30, 365})
   public void isDays(final long days)
    {
-    assertEquals(days, Days.of(days).longValue(), DaysTests.NOT_A_DAYS);
+    assertEquals(days, Days.of(days).days(), DaysTests.NOT_A_DAYS);
    }
 
 
@@ -82,79 +75,6 @@ public class DaysTests
       /* final Days days = */ Days.of(days);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
-   }
-
-
-  /**
-   * getDays.
-   *
-   * @deprecated Old Version of longValue()
-   */
-  @Deprecated(since = DaysTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getDays()
-   {
-    assertEquals(10, Days.of(10).getDays(), DaysTests.NOT_A_DAYS);
-   }
-
-
-  /**
-   * longValue.
-   */
-  @Test
-  public void longValue()
-   {
-    assertEquals(10, Days.of(10).longValue(), DaysTests.NOT_A_DAYS);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final Days days1 = Days.of(1);
-    final Days days2 = Days.of(1);
-    final Days days3 = Days.of(2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(days1.hashCode(), days2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(days1.hashCode(), days3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final Days days1 = Days.of(1);
-    final Days days2 = Days.of(1);
-    final Days days3 = Days.of(2);
-    final Days days4 = Days.of(1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(days1.equals(days1), "days11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(days1.equals(days2), "days12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(days2.equals(days1), "days21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(days2.equals(days4), "days24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(days1.equals(days4), "days14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(days1.equals(days3), "days13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(days3.equals(days1), "days31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(days1.equals(null), "days10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final Days days = Days.of(1);
-    assertEquals("Days[days=1]", days.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -188,7 +108,7 @@ public class DaysTests
     final Days days1 = Days.of(1);
     final Days days2 = Days.of(1);
     final Days daysResult = days1.add(days2);
-    assertEquals(2, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, daysResult.days(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -217,7 +137,7 @@ public class DaysTests
     final Days days1 = Days.of(6);
     final Days days2 = Days.of(3);
     final Days daysResult = days1.subtract(days2);
-    assertEquals(3, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, daysResult.days(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -230,7 +150,7 @@ public class DaysTests
     final Days days1 = Days.of(3);
     final Days days2 = Days.of(6);
     final Days daysResult = days1.subtract(days2);
-    assertEquals(3, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, daysResult.days(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -242,7 +162,7 @@ public class DaysTests
    {
     final Days days1 = Days.of(7);
     final Days daysResult = days1.multiply(3);
-    assertEquals(21, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(21, daysResult.days(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -269,7 +189,7 @@ public class DaysTests
    {
     final Days days1 = Days.of(10);
     final Days daysResult = days1.divide(2);
-    assertEquals(5, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(5, daysResult.days(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -281,7 +201,7 @@ public class DaysTests
    {
     final Days days1 = Days.of(10);
     final Days daysResult = days1.divide(3);
-    assertEquals(3, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, daysResult.days(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -308,7 +228,7 @@ public class DaysTests
    {
     final Days days1 = Days.of(10);
     final Days daysResult = days1.modulo(2);
-    assertEquals(0, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, daysResult.days(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -320,7 +240,7 @@ public class DaysTests
    {
     final Days days1 = Days.of(10);
     final Days daysResult = days1.modulo(3);
-    assertEquals(1, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, daysResult.days(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

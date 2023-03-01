@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -40,11 +38,6 @@ public class MillisecondsTests
    */
   private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -64,7 +57,7 @@ public class MillisecondsTests
   @ValueSource(longs = {0, 2147483647})
   public void isMilliseconds(final long milliseconds)
    {
-    assertEquals(milliseconds, Milliseconds.of(milliseconds).longValue(), MillisecondsTests.NOT_MILLISECONDS);
+    assertEquals(milliseconds, Milliseconds.of(milliseconds).milliseconds(), MillisecondsTests.NOT_MILLISECONDS);
    }
 
 
@@ -82,79 +75,6 @@ public class MillisecondsTests
       /* final Milliseconds milliseconds = */ Milliseconds.of(milliseconds);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
-   }
-
-
-  /**
-   * getMilliseconds.
-   *
-   * @deprecated Old version of longValue()
-   */
-  @Deprecated(since = MillisecondsTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getMilliseconds()
-   {
-    assertEquals(10, Milliseconds.of(10).getMilliseconds(), MillisecondsTests.NOT_MILLISECONDS);
-   }
-
-
-  /**
-   * longValue.
-   */
-  @Test
-  public void longValue()
-   {
-    assertEquals(10, Milliseconds.of(10).longValue(), MillisecondsTests.NOT_MILLISECONDS);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final Milliseconds milliseconds1 = Milliseconds.of(0);
-    final Milliseconds milliseconds2 = Milliseconds.of(0);
-    final Milliseconds milliseconds3 = Milliseconds.of(1);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(milliseconds1.hashCode(), milliseconds2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(milliseconds1.hashCode(), milliseconds3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final Milliseconds milliseconds1 = Milliseconds.of(0);
-    final Milliseconds milliseconds2 = Milliseconds.of(0);
-    final Milliseconds milliseconds3 = Milliseconds.of(1);
-    final Milliseconds milliseconds4 = Milliseconds.of(0);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(milliseconds1.equals(milliseconds1), "milliseconds11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(milliseconds1.equals(milliseconds2), "milliseconds12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(milliseconds2.equals(milliseconds1), "milliseconds21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(milliseconds2.equals(milliseconds4), "milliseconds24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(milliseconds1.equals(milliseconds4), "milliseconds14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(milliseconds1.equals(milliseconds3), "milliseconds13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(milliseconds3.equals(milliseconds1), "milliseconds31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(milliseconds1.equals(null), "milliseconds10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final Milliseconds milliseconds = Milliseconds.of(0);
-    assertEquals("Milliseconds[milliseconds=0]", milliseconds.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -188,7 +108,7 @@ public class MillisecondsTests
     final Milliseconds milliseconds1 = Milliseconds.of(1);
     final Milliseconds milliseconds2 = Milliseconds.of(1);
     final Milliseconds millisecondsResult = milliseconds1.add(milliseconds2);
-    assertEquals(2, millisecondsResult.longValue(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, millisecondsResult.milliseconds(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -217,7 +137,7 @@ public class MillisecondsTests
     final Milliseconds milliseconds1 = Milliseconds.of(6);
     final Milliseconds milliseconds2 = Milliseconds.of(3);
     final Milliseconds millisecondsResult = milliseconds1.subtract(milliseconds2);
-    assertEquals(3, millisecondsResult.longValue(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, millisecondsResult.milliseconds(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -230,7 +150,7 @@ public class MillisecondsTests
     final Milliseconds milliseconds1 = Milliseconds.of(3);
     final Milliseconds milliseconds2 = Milliseconds.of(6);
     final Milliseconds millisecondsResult = milliseconds1.subtract(milliseconds2);
-    assertEquals(3, millisecondsResult.longValue(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, millisecondsResult.milliseconds(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -242,7 +162,7 @@ public class MillisecondsTests
    {
     final Milliseconds milliseconds1 = Milliseconds.of(7);
     final Milliseconds millisecondsResult = milliseconds1.multiply(3);
-    assertEquals(21, millisecondsResult.longValue(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(21, millisecondsResult.milliseconds(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -269,7 +189,7 @@ public class MillisecondsTests
    {
     final Milliseconds milliseconds1 = Milliseconds.of(10);
     final Milliseconds millisecondsResult = milliseconds1.divide(2);
-    assertEquals(5, millisecondsResult.longValue(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(5, millisecondsResult.milliseconds(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -281,7 +201,7 @@ public class MillisecondsTests
    {
     final Milliseconds milliseconds1 = Milliseconds.of(10);
     final Milliseconds millisecondsResult = milliseconds1.divide(3);
-    assertEquals(3, millisecondsResult.longValue(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, millisecondsResult.milliseconds(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -308,7 +228,7 @@ public class MillisecondsTests
    {
     final Milliseconds milliseconds1 = Milliseconds.of(10);
     final Milliseconds millisecondsResult =milliseconds1.modulo(2);
-    assertEquals(0, millisecondsResult.longValue(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, millisecondsResult.milliseconds(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -320,7 +240,7 @@ public class MillisecondsTests
    {
     final Milliseconds milliseconds1 = Milliseconds.of(10);
     final Milliseconds millisecondsResult = milliseconds1.modulo(3);
-    assertEquals(1, millisecondsResult.longValue(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, millisecondsResult.milliseconds(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

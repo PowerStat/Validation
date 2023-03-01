@@ -537,7 +537,7 @@ public class Address implements Comparable<Address>
    {
     super();
     Objects.requireNonNull(country, "country"); //$NON-NLS-1$
-    final String format = Address.ADDRESS_FORMATS.get(country.stringValue());
+    final String format = Address.ADDRESS_FORMATS.get(country.alpha2());
     final String formatWithoutOptionals = Address.NOOPTIONALS_REGEXP.matcher(format).replaceAll(""); //$NON-NLS-1$
     if (formatWithoutOptionals.contains("%3$")) //$NON-NLS-1$
      {
@@ -772,62 +772,62 @@ public class Address implements Comparable<Address>
   public String toString()
    {
     final StringBuilder builder = new StringBuilder(182);
-    builder.append("Address[country=").append(this.country.stringValue()); //$NON-NLS-1$
+    builder.append("Address[country=").append(this.country.alpha2()); //$NON-NLS-1$
     if (this.postalCode != null)
      {
-      builder.append(", postalCode=").append(this.postalCode.stringValue()); //$NON-NLS-1$
+      builder.append(", postalCode=").append(this.postalCode.postalCode()); //$NON-NLS-1$
      }
     if (this.city != null)
      {
-      builder.append(", city=").append(this.city.stringValue()); //$NON-NLS-1$
+      builder.append(", city=").append(this.city.city()); //$NON-NLS-1$
      }
     if (this.province != null)
      {
-      builder.append(", province=").append(this.province.stringValue()); //$NON-NLS-1$
+      builder.append(", province=").append(this.province.province()); //$NON-NLS-1$
      }
     if (this.district != null)
      {
-      builder.append(", district=").append(this.district.stringValue()); //$NON-NLS-1$
+      builder.append(", district=").append(this.district.district()); //$NON-NLS-1$
      }
     if (this.street != null)
      {
-      builder.append(", street=").append(this.street.stringValue()); //$NON-NLS-1$
+      builder.append(", street=").append(this.street.street()); //$NON-NLS-1$
      }
     if (this.buildingNr != null)
      {
-      builder.append(", buildingNr=").append(this.buildingNr.stringValue()); //$NON-NLS-1$
+      builder.append(", buildingNr=").append(this.buildingNr.buildingNr()); //$NON-NLS-1$
      }
     if (this.buildingName != null)
      {
-      builder.append(", buildingName=").append(this.buildingName.stringValue()); //$NON-NLS-1$
+      builder.append(", buildingName=").append(this.buildingName.buildingName()); //$NON-NLS-1$
      }
     if (this.subBuilding != null)
      {
-      builder.append(", subBuilding=").append(this.subBuilding.stringValue()); //$NON-NLS-1$
+      builder.append(", subBuilding=").append(this.subBuilding.subBuilding()); //$NON-NLS-1$
      }
     if (this.poBoxNumber != null)
      {
-      builder.append(", poBoxNumber=").append(this.poBoxNumber.longValue()); //$NON-NLS-1$
+      builder.append(", poBoxNumber=").append(this.poBoxNumber.poBoxNumber()); //$NON-NLS-1$
      }
     if (this.department != null)
      {
-      builder.append(", department=").append(this.department.stringValue()); //$NON-NLS-1$
+      builder.append(", department=").append(this.department.department()); //$NON-NLS-1$
      }
     if (this.neighbourhood != null)
      {
-      builder.append(", neighbourhood=").append(this.neighbourhood.stringValue()); //$NON-NLS-1$
+      builder.append(", neighbourhood=").append(this.neighbourhood.neighbourhood()); //$NON-NLS-1$
      }
     if (this.block != null)
      {
-      builder.append(", block=").append(this.block.stringValue()); //$NON-NLS-1$
+      builder.append(", block=").append(this.block.block()); //$NON-NLS-1$
      }
     if (this.bFPONumber != null)
      {
-      builder.append(", bFPONumber=").append(this.bFPONumber.intValue()); //$NON-NLS-1$
+      builder.append(", bFPONumber=").append(this.bFPONumber.bFPONumber()); //$NON-NLS-1$
      }
     if (this.lines != null)
      {
-      builder.append(", lines=").append(this.lines.stringValue()); //$NON-NLS-1$
+      builder.append(", lines=").append(this.lines.lines()); //$NON-NLS-1$
      }
     builder.append(']');
     return builder.toString();
@@ -961,7 +961,7 @@ public class Address implements Comparable<Address>
         final int posEndBlock = format.indexOf(']', posStartBlock + 1);
         if (posEndBlock == -1)
          {
-          throw new IllegalArgumentException("Block without end found in: " + this.country.stringValue()); //$NON-NLS-1$
+          throw new IllegalArgumentException("Block without end found in: " + this.country.alpha2()); //$NON-NLS-1$
          }
         pos = posEndBlock + 1;
         final String blk = format.substring(posStartBlock + 1, posEndBlock);
@@ -983,7 +983,7 @@ public class Address implements Comparable<Address>
             final int posFieldEnd = blk.indexOf('$', posFieldStart);
             if (posFieldEnd == -1)
              {
-              throw new IllegalArgumentException("Unsupported field format code found in: " + this.country.stringValue()); //$NON-NLS-1$
+              throw new IllegalArgumentException("Unsupported field format code found in: " + this.country.alpha2()); //$NON-NLS-1$
              }
             final int fieldNr = Integer.parseInt(blk.substring(posFieldStart + 1, posFieldEnd));
             fieldPos = posFieldEnd + 1;
@@ -1038,7 +1038,7 @@ public class Address implements Comparable<Address>
   private String getAddressFormat(final String... vars)
    {
     // assert vars.length == 16;
-    final String format = Address.ADDRESS_FORMATS.get(this.country.stringValue());
+    final String format = Address.ADDRESS_FORMATS.get(this.country.alpha2());
     return processBlocks(format, vars);
    }
 
@@ -1056,20 +1056,20 @@ public class Address implements Comparable<Address>
     final StringBuilder builder = new StringBuilder();
     try (Formatter formatter = new Formatter(builder, Locale.getDefault()))
      {
-      final String tmpPostalCode = this.postalCode == null ? null : this.postalCode.stringValue();
-      final String tmpCity = this.city == null ? null : this.city.stringValue();
-      final String tmpProvince = this.province == null ? null : this.province.stringValue();
-      final String tmpDistrict = this.district == null ? null : this.district.stringValue();
-      final String tmpStreet = this.street == null ? null : this.street.stringValue();
-      final String tmpBuildingNr = this.buildingNr == null ? null : this.buildingNr.stringValue();
-      final String tmpBuildingName = this.buildingName == null ? null : this.buildingName.stringValue();
-      final String tmpSubBuilding = this.subBuilding == null ? null : this.subBuilding.stringValue();
+      final String tmpPostalCode = this.postalCode == null ? null : this.postalCode.postalCode();
+      final String tmpCity = this.city == null ? null : this.city.city();
+      final String tmpProvince = this.province == null ? null : this.province.province();
+      final String tmpDistrict = this.district == null ? null : this.district.district();
+      final String tmpStreet = this.street == null ? null : this.street.street();
+      final String tmpBuildingNr = this.buildingNr == null ? null : this.buildingNr.buildingNr();
+      final String tmpBuildingName = this.buildingName == null ? null : this.buildingName.buildingName();
+      final String tmpSubBuilding = this.subBuilding == null ? null : this.subBuilding.subBuilding();
       final String tmpPoBoxNumber = this.poBoxNumber == null ? null : this.poBoxNumber.stringValue();
-      final String tmpDepartment = this.department == null ? null : this.department.stringValue();
-      final String tmpNeighbourhood = this.neighbourhood == null ? null : this.neighbourhood.stringValue();
-      final String tmpBlock = this.block == null ? null : this.block.stringValue();
+      final String tmpDepartment = this.department == null ? null : this.department.department();
+      final String tmpNeighbourhood = this.neighbourhood == null ? null : this.neighbourhood.neighbourhood();
+      final String tmpBlock = this.block == null ? null : this.block.block();
       final String tmpBFPONumber = this.bFPONumber == null ? null : this.bFPONumber.stringValue();
-      final String tmpLines = this.lines == null ? null : this.lines.stringValue();
+      final String tmpLines = this.lines == null ? null : this.lines.lines();
       final String format = getAddressFormat(this.country.getEnglishCountryName(), recipientName, tmpPostalCode, tmpCity, tmpProvince, tmpDistrict, tmpStreet, tmpBuildingNr, tmpBuildingName, tmpSubBuilding, tmpPoBoxNumber, tmpDepartment, tmpNeighbourhood, tmpBlock, tmpBFPONumber, tmpLines);
       formatter.format(format, this.country.getEnglishCountryName(), recipientName, tmpPostalCode, tmpCity, tmpProvince, tmpDistrict, tmpStreet, tmpBuildingNr, tmpBuildingName, tmpSubBuilding, tmpPoBoxNumber, tmpDepartment, tmpNeighbourhood, tmpBlock, tmpBFPONumber, tmpLines);
      }

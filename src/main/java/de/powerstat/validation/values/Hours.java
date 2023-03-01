@@ -1,53 +1,32 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 
 /**
  * Hours.
  *
+ * @param hours Hours 0-..
+ * 
  * Not DSGVO relevant.
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Hours implements Comparable<Hours>
+public record Hours(long hours) implements Comparable<Hours>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<Long, Hours> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Hours.
-   */
-  private final long hours;
-
-
   /**
    * Constructor.
    *
-   * @param hours Hours 0-..
    * @throws IndexOutOfBoundsException When the hours is less than 0
    */
-  private Hours(final long hours)
+  public Hours
    {
-    super();
     if (hours < 0)
      {
       throw new IndexOutOfBoundsException("Negative hours are not allowed"); //$NON-NLS-1$
      }
-    this.hours = hours;
    }
 
 
@@ -59,99 +38,7 @@ public final class Hours implements Comparable<Hours>
    */
   public static Hours of(final long hours)
    {
-    synchronized (Hours.class)
-    {
-     Hours obj = Hours.CACHE.get(hours);
-     if (obj != null)
-      {
-       return obj;
-      }
-     obj = new Hours(hours);
-     Hours.CACHE.put(Long.valueOf(hours), obj);
-     return obj;
-    }
-   }
-
-
-  /**
-   * Get hours.
-   *
-   * @return Hours
-   * @deprecated Use longValue() instead
-   */
-  @Deprecated(since = Hours.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public long getHours()
-   {
-    return this.hours;
-   }
-
-
-  /**
-   * Returns the value of this BFPONumber as a long.
-   *
-   * @return The numeric value represented by this object after conversion to type long.
-   */
-  public long longValue()
-   {
-    return this.hours;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Long.hashCode(this.hours);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    return this == obj;
-    /*
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof Hours))
-     {
-      return false;
-     }
-    final Hours other = (Hours)obj;
-    return false; // this.hours == other.hours;
-    */
-   }
-
-
-  /**
-   * Returns the string representation of this Hours.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Hours[hours=1]"
-   *
-   * @return String representation of this Hours
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("Hours[hours=").append(this.hours).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new Hours(hours);
    }
 
 

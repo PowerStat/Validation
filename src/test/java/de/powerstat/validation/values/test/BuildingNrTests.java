@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -55,11 +53,6 @@ public class BuildingNrTests
    */
   private static final String BUILDING_NR_NOT_AS_EXPECTED = "BuildingNr not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -80,7 +73,7 @@ public class BuildingNrTests
   public void buildingNrCorrect(final String buildingNr)
    {
     final BuildingNr cleanBuildingNr = BuildingNr.of(buildingNr);
-    assertEquals(buildingNr, cleanBuildingNr.stringValue(), BuildingNrTests.BUILDING_NR_NOT_AS_EXPECTED);
+    assertEquals(buildingNr, cleanBuildingNr.buildingNr(), BuildingNrTests.BUILDING_NR_NOT_AS_EXPECTED);
    }
 
 
@@ -115,81 +108,6 @@ public class BuildingNrTests
       /* final BuildingNr cleanBuildingNr = */ BuildingNr.of(buildingNr);
      }, BuildingNrTests.ILLEGAL_ARGUMENT
     );
-   }
-
-
-  /**
-   * Test get buildingNr.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = BuildingNrTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getBuildingNr()
-   {
-    final BuildingNr buildingNr = BuildingNr.of(BuildingNrTests.BUILDINGNR42);
-    assertEquals(BuildingNrTests.BUILDINGNR42, buildingNr.getBuildingNr(), BuildingNrTests.BUILDING_NR_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get buildingNr.
-   */
-  @Test
-  public void stringValue()
-   {
-    final BuildingNr buildingNr = BuildingNr.of(BuildingNrTests.BUILDINGNR42);
-    assertEquals(BuildingNrTests.BUILDINGNR42, buildingNr.stringValue(), BuildingNrTests.BUILDING_NR_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final BuildingNr buildingNr1 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
-    final BuildingNr buildingNr2 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
-    final BuildingNr buildingNr3 = BuildingNr.of(BuildingNrTests.BUILDINGNR42);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(buildingNr1.hashCode(), buildingNr2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(buildingNr1.hashCode(), buildingNr3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final BuildingNr buildingNr1 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
-    final BuildingNr buildingNr2 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
-    final BuildingNr buildingNr3 = BuildingNr.of(BuildingNrTests.BUILDINGNR42);
-    final BuildingNr buildingNr4 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(buildingNr1.equals(buildingNr1), "BuildingNr11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(buildingNr1.equals(buildingNr2), "BuildingNr12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(buildingNr2.equals(buildingNr1), "BuildingNr21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(buildingNr2.equals(buildingNr4), "BuildingNr24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(buildingNr1.equals(buildingNr4), "BuildingNr14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(buildingNr1.equals(buildingNr3), "BuildingNr13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(buildingNr3.equals(buildingNr1), "BuildingNr31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(buildingNr1.equals(null), "BuildingNr10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final BuildingNr buildingNr = BuildingNr.of(BuildingNrTests.BUILDINGNR42);
-    assertEquals("BuildingNr[buildingNr=42]", buildingNr.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

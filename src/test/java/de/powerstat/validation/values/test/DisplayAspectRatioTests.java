@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -43,11 +41,6 @@ public class DisplayAspectRatioTests
    */
   private static final String INDEX_OUT_OF_BOUNDS_EXPECTED = "Index out of bounds exception expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -59,22 +52,6 @@ public class DisplayAspectRatioTests
 
 
   /**
-   * Get aspect ratio.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = DisplayAspectRatioTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getAspectRatio()
-   {
-    final DisplayAspectRatio ratio = DisplayAspectRatio.of(1, 1);
-    assertAll(DisplayAspectRatioTests.TEST_ASPECT_RATIO,
-      () -> assertEquals(DisplayAspectRatioTests.ONE_TWO_ONE, ratio.getAspectRatio(), DisplayAspectRatioTests.ASPECT_RATIO_NOT_AS_EXPECTED)
-    );
-   }
-
-
-  /**
    * Is display aspect ratio.
    */
   @Test
@@ -82,8 +59,8 @@ public class DisplayAspectRatioTests
    {
     final DisplayAspectRatio ratio = DisplayAspectRatio.of(1, 1);
     assertAll(DisplayAspectRatioTests.TEST_ASPECT_RATIO,
-      () -> assertEquals(1, ratio.getX(), "x ratio not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, ratio.getY(), "y ratio not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, ratio.x(), "x ratio not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, ratio.y(), "y ratio not as expected"), //$NON-NLS-1$
       () -> assertEquals(DisplayAspectRatioTests.ONE_TWO_ONE, ratio.stringValue(), DisplayAspectRatioTests.ASPECT_RATIO_NOT_AS_EXPECTED)
     );
    }
@@ -142,70 +119,6 @@ public class DisplayAspectRatioTests
       /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(1, 0);
      }, DisplayAspectRatioTests.INDEX_OUT_OF_BOUNDS_EXPECTED
     );
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final DisplayAspectRatio ratio1 = DisplayAspectRatio.of(1, 1);
-    final DisplayAspectRatio ratio2 = DisplayAspectRatio.of(1, 1);
-    final DisplayAspectRatio ratio3 = DisplayAspectRatio.of(2, 2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(ratio1.hashCode(), ratio2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(ratio1.hashCode(), ratio3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final DisplayAspectRatio ratio1 = DisplayAspectRatio.of(1, 1);
-    final DisplayAspectRatio ratio2 = DisplayAspectRatio.of(1, 1);
-    final DisplayAspectRatio ratio3 = DisplayAspectRatio.of(2, 2);
-    final DisplayAspectRatio ratio4 = DisplayAspectRatio.of(1, 1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(ratio1.equals(ratio1), "ratio11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(ratio1.equals(ratio2), "ratio12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(ratio2.equals(ratio1), "ratio21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(ratio2.equals(ratio4), "ratio24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(ratio1.equals(ratio4), "ratio14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(ratio1.equals(ratio3), "ratio13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(ratio3.equals(ratio1), "ratio31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(ratio1.equals(null), "ratio10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test notEquals.
-   */
-  @Test
-  public void testNotEquals()
-   {
-    final DisplayAspectRatio ratio1 = DisplayAspectRatio.of(1, 1);
-    final DisplayAspectRatio ratio2 = DisplayAspectRatio.of(1, 2);
-    assertAll("testNotEquals", //$NON-NLS-1$
-      () -> assertFalse(ratio1.equals(ratio2), "ratio12 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final DisplayAspectRatio ratio = DisplayAspectRatio.of(1, 1);
-    assertEquals("DisplayAspectRatio[x=1, y=1]", ratio.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

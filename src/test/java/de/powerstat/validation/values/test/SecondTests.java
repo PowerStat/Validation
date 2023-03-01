@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -41,11 +39,6 @@ public class SecondTests
    */
   private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -65,7 +58,7 @@ public class SecondTests
   @ValueSource(ints = {0, 59, 60})
   public void isSecond(final int second)
    {
-    assertEquals(second, Second.of(second).intValue(), SecondTests.NOT_A_SECOND);
+    assertEquals(second, Second.of(second).second(), SecondTests.NOT_A_SECOND);
    }
 
 
@@ -83,79 +76,6 @@ public class SecondTests
       /* final Second second = */ Second.of(second);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
-   }
-
-
-  /**
-   * getSecond.
-   *
-   * @deprecated Old version of intValue()
-   */
-  @Deprecated(since = SecondTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getSecond()
-   {
-    assertEquals(10, Second.of(10).getSecond(), SecondTests.NOT_A_SECOND);
-   }
-
-
-  /**
-   * intValue.
-   */
-  @Test
-  public void intValue()
-   {
-    assertEquals(10, Second.of(10).intValue(), SecondTests.NOT_A_SECOND);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final Second second1 = Second.of(1);
-    final Second second2 = Second.of(1);
-    final Second second3 = Second.of(2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(second1.hashCode(), second2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(second1.hashCode(), second3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final Second second1 = Second.of(1);
-    final Second second2 = Second.of(1);
-    final Second second3 = Second.of(2);
-    final Second second4 = Second.of(1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(second1.equals(second1), "second11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(second1.equals(second2), "second12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(second2.equals(second1), "second21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(second2.equals(second4), "second24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(second1.equals(second4), "second14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(second1.equals(second3), "second13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(second3.equals(second1), "second31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(second1.equals(null), "second10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final Second second = Second.of(1);
-    assertEquals("Second[second=1]", second.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -189,7 +109,7 @@ public class SecondTests
     final Second second = Second.of(1);
     final Seconds seconds = Seconds.of(1);
     final Second secondResult = second.add(seconds);
-    assertEquals(2, secondResult.intValue(), SecondTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, secondResult.second(), SecondTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -218,7 +138,7 @@ public class SecondTests
     final Second second = Second.of(2);
     final Seconds seconds = Seconds.of(1);
     final Second secondResult = second.subtract(seconds);
-    assertEquals(1, secondResult.intValue(), SecondTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, secondResult.second(), SecondTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -246,7 +166,7 @@ public class SecondTests
    {
     final Second second = Second.of(1);
     final Second secondResult = second.increment();
-    assertEquals(2, secondResult.intValue(), SecondTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, secondResult.second(), SecondTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -273,7 +193,7 @@ public class SecondTests
    {
     final Second second = Second.of(2);
     final Second secondResult = second.decrement();
-    assertEquals(1, secondResult.intValue(), SecondTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, secondResult.second(), SecondTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

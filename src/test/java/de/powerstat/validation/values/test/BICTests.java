@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -45,11 +43,6 @@ public class BICTests
    */
   private static final String BIC_RZTIAT22263 = "RZTIAT22263"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -70,7 +63,7 @@ public class BICTests
   public void bicCorrect(final String bic)
    {
     final BIC cleanBic = BIC.of(bic);
-    assertEquals(bic, cleanBic.stringValue(), BICTests.BIC_NOT_AS_EXPECTED);
+    assertEquals(bic, cleanBic.bic(), BICTests.BIC_NOT_AS_EXPECTED);
    }
 
 
@@ -105,81 +98,6 @@ public class BICTests
       /* final BIC cleanBic = */ BIC.of(bic);
      }, BICTests.ILLEGAL_ARGUMENT
     );
-   }
-
-
-  /**
-   * Test get bic.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = BICTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getBic()
-   {
-    final BIC bic = BIC.of(BICTests.BIC_BELADEBEXXX);
-    assertEquals(BICTests.BIC_BELADEBEXXX, bic.getBIC(), BICTests.BIC_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get bic.
-   */
-  @Test
-  public void stringValue()
-   {
-    final BIC bic = BIC.of(BICTests.BIC_BELADEBEXXX);
-    assertEquals(BICTests.BIC_BELADEBEXXX, bic.stringValue(), BICTests.BIC_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final BIC bic1 = BIC.of(BICTests.BIC_BELADEBEXXX);
-    final BIC bic2 = BIC.of(BICTests.BIC_BELADEBEXXX);
-    final BIC bic3 = BIC.of(BICTests.BIC_RZTIAT22263);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(bic1.hashCode(), bic2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(bic1.hashCode(), bic3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final BIC bic1 = BIC.of(BICTests.BIC_BELADEBEXXX);
-    final BIC bic2 = BIC.of(BICTests.BIC_BELADEBEXXX);
-    final BIC bic3 = BIC.of(BICTests.BIC_RZTIAT22263);
-    final BIC bic4 = BIC.of(BICTests.BIC_BELADEBEXXX);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(bic1.equals(bic1), "bic11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(bic1.equals(bic2), "bic12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(bic2.equals(bic1), "bic21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(bic2.equals(bic4), "bic24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(bic1.equals(bic4), "bic14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(bic1.equals(bic3), "bic13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(bic3.equals(bic1), "bic31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(bic1.equals(null), "bic10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final BIC bic = BIC.of(BICTests.BIC_BELADEBEXXX);
-    assertEquals("BIC[bic=BELADEBEXXX]", bic.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

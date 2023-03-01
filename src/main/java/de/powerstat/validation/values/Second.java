@@ -1,26 +1,24 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 
 /**
  * Second.
    *
+ * @param second Second 0-59/60
+ * 
  * Not DSGVO relevant.
  *
    * TODO Constructor with day, month, year, hour, minute
  * TODO Listener  (mod 60 = 0)
  * TODO millisecondsWithin = 1000
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Second implements Comparable<Second>
+public record Second(int second) implements Comparable<Second>
  {
   /**
    * Overflow constant.
@@ -32,36 +30,18 @@ public final class Second implements Comparable<Second>
    */
   private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
 
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<Integer, Second> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Second.
-   */
-  private final int second;
-
 
   /**
    * Constructor.
    *
-   * @param second Second 0-59/60
    * @throws IndexOutOfBoundsException When the second is less than 0 or greater than 59/60
    */
-  private Second(final int second)
+  public Second
    {
-    super();
     if ((second < 0) || (second > 60))
      {
       throw new IndexOutOfBoundsException("Second number out of range (0-59/60)!"); //$NON-NLS-1$
      }
-    this.second = second;
    }
 
 
@@ -73,99 +53,7 @@ public final class Second implements Comparable<Second>
    */
   public static Second of(final int second)
    {
-    synchronized (Second.class)
-     {
-      Second obj = Second.CACHE.get(second);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Second(second);
-      Second.CACHE.put(Integer.valueOf(second), obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get second.
-   *
-   * @return Second
-   * @deprecated Use intValue() instead
-   */
-  @Deprecated(since = Second.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public int getSecond()
-   {
-    return this.second;
-   }
-
-
-  /**
-   * Returns the value of this Second as an int.
-   *
-   * @return The numeric value represented by this object after conversion to type int.
-   */
-  public int intValue()
-   {
-    return this.second;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Integer.hashCode(this.second);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    return this == obj;
-    /*
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof Second))
-     {
-      return false;
-     }
-    final Second other = (Second)obj;
-    return false; // this.second == other.second;
-    */
-   }
-
-
-  /**
-   * Returns the string representation of this Second.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Second[second=1]"
-   *
-   * @return String representation of this Second
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("Second[second=").append(this.second).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new Second(second);
    }
 
 
@@ -193,7 +81,7 @@ public final class Second implements Comparable<Second>
    */
   public Second add(final Seconds seconds)
    {
-    final int newSecond = Math.toIntExact(Math.addExact(this.second, seconds.longValue()));
+    final int newSecond = Math.toIntExact(Math.addExact(this.second, seconds.seconds()));
     if (newSecond > 59)
      {
       // TODO Listener
@@ -212,7 +100,7 @@ public final class Second implements Comparable<Second>
    */
   public Second subtract(final Seconds seconds)
    {
-    final int newSecond = Math.toIntExact(Math.subtractExact(this.second, seconds.longValue()));
+    final int newSecond = Math.toIntExact(Math.subtractExact(this.second, seconds.seconds()));
     if (newSecond < 0)
      {
       // TODO Listener

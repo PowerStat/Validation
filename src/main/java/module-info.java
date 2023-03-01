@@ -7,7 +7,6 @@
  */
 module de.powerstat.validation
  {
-  exports de.powerstat.validation;
   exports de.powerstat.validation.values;
   exports de.powerstat.validation.values.strategies;
 

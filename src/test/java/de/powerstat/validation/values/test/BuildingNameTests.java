@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -45,11 +43,6 @@ public class BuildingNameTests
    */
   private static final String BUILDING_NAME_NOT_AS_EXPECTED = "BuildingName not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -70,7 +63,7 @@ public class BuildingNameTests
   public void buildingNameCorrect(final String buildingName)
    {
     final BuildingName cleanBuildingName = BuildingName.of(buildingName);
-    assertEquals(buildingName, cleanBuildingName.stringValue(), BuildingNameTests.BUILDING_NAME_NOT_AS_EXPECTED);
+    assertEquals(buildingName, cleanBuildingName.buildingName(), BuildingNameTests.BUILDING_NAME_NOT_AS_EXPECTED);
    }
 
 
@@ -105,81 +98,6 @@ public class BuildingNameTests
       /* final BuildingName cleanBuildingName = */ BuildingName.of(buildingName);
      }, BuildingNameTests.ILLEGAL_ARGUMENT
     );
-   }
-
-
-  /**
-   * Test get building name.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = BuildingNameTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getBuildingName()
-   {
-    final BuildingName buildingName = BuildingName.of(BuildingNameTests.RATHAUS);
-    assertEquals(BuildingNameTests.RATHAUS, buildingName.getBuildingName(), BuildingNameTests.BUILDING_NAME_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get building name.
-   */
-  @Test
-  public void stringValue()
-   {
-    final BuildingName buildingName = BuildingName.of(BuildingNameTests.RATHAUS);
-    assertEquals(BuildingNameTests.RATHAUS, buildingName.stringValue(), BuildingNameTests.BUILDING_NAME_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final BuildingName buildingName1 = BuildingName.of(BuildingNameTests.RATHAUS);
-    final BuildingName buildingName2 = BuildingName.of(BuildingNameTests.RATHAUS);
-    final BuildingName buildingName3 = BuildingName.of(BuildingNameTests.STADTWAAGE);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(buildingName1.hashCode(), buildingName2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(buildingName1.hashCode(), buildingName3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final BuildingName name1 = BuildingName.of(BuildingNameTests.RATHAUS);
-    final BuildingName name2 = BuildingName.of(BuildingNameTests.RATHAUS);
-    final BuildingName name3 = BuildingName.of(BuildingNameTests.STADTWAAGE);
-    final BuildingName name4 = BuildingName.of(BuildingNameTests.RATHAUS);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(name1.equals(name1), "name11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(name1.equals(name2), "name12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(name2.equals(name1), "name21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(name2.equals(name4), "name24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(name1.equals(name4), "name14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(name1.equals(name3), "name13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(name3.equals(name1), "name31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(name1.equals(null), "name10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final BuildingName buildingName = BuildingName.of(BuildingNameTests.RATHAUS);
-    assertEquals("BuildingName[buildingName=Rathaus]", buildingName.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

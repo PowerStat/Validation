@@ -1,55 +1,27 @@
 /*
- * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
-
-import de.powerstat.validation.values.containers.NTuple2;
 
 
 /**
  * Display aspect ratio.
  *
+ * @param x Display x site (1-72)
+ * @param y Display y size (1-35)
+ *
  * 1:1 2.1:1 3:1 3:2 4:3 5:3 5:4 8:5 9:5 10:6 15:9 16:9 16:10 17:10 25:12 25:16 60:29 64:35 72:35
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>
+public record DisplayAspectRatio(int x, int y) implements Comparable<DisplayAspectRatio>
  {
   /**
-   * Cache for singletons.
-   */
-  private static final Map<NTuple2<Integer, Integer>, DisplayAspectRatio> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * Display x size (1-72).
-   */
-  private final int x;
-
-  /**
-   * Display y size (1-35).
-   */
-  private final int y;
-
-
-  /**
    * Constructor.
-   *
-   * @param x Display x site (1-72)
-   * @param y Display y size (1-35)
    */
-  private DisplayAspectRatio(final int x, final int y)
+  public DisplayAspectRatio
    {
-    super();
     if ((x <= 0) || (x > 72))
      {
       throw new IndexOutOfBoundsException("x out of range (1-72)"); //$NON-NLS-1$
@@ -59,8 +31,6 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>
       throw new IndexOutOfBoundsException("y out of range (1-35)"); //$NON-NLS-1$
      }
     // verify existing aspect ratios
-    this.x = x;
-    this.y = y;
    }
 
 
@@ -73,53 +43,7 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>
    */
   public static DisplayAspectRatio of(final int x, final int y)
    {
-    final NTuple2<Integer, Integer> tuple = NTuple2.of(x, y);
-    synchronized (DisplayAspectRatio.class)
-     {
-      DisplayAspectRatio obj = DisplayAspectRatio.CACHE.get(tuple);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new DisplayAspectRatio(x, y);
-      DisplayAspectRatio.CACHE.put(tuple, obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get display x size.
-   *
-   * @return X size
-   */
-  public int getX()
-   {
-    return this.x;
-   }
-
-
-  /**
-   * Get display y size.
-   *
-   * @return Y size
-   */
-  public int getY()
-   {
-    return this.y;
-   }
-
-
-  /**
-   * Get aspect ratio string (x:y).
-   *
-   * @return Aspect ration string (x:y)
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = DisplayAspectRatio.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getAspectRatio()
-   {
-    return String.valueOf(this.x) + ':' + this.y;
+    return new DisplayAspectRatio(x, y);
    }
 
 
@@ -131,69 +55,6 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>
   public String stringValue()
    {
     return String.valueOf(this.x) + ':' + this.y;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    final int result = Integer.hashCode(this.x);
-    return (31 * result) + Integer.hashCode(this.y);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    return this == obj;
-    /*
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof DisplayAspectRatio))
-     {
-      return false;
-     }
-    final DisplayAspectRatio other = (DisplayAspectRatio)obj;
-    if (this.x == other.x)
-     {
-      return this.y == other.y;
-     }
-    return false;
-    */
-   }
-
-
-  /**
-   * Returns the string representation of this DisplayAspectRatio.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "DisplayAspectRatio[x=1, y=1]"
-   *
-   * @return String representation of this DisplayAspectRatio
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder(30);
-    builder.append("DisplayAspectRatio[x=").append(this.x).append(", y=").append(this.y).append(']'); //$NON-NLS-1$ //$NON-NLS-2$
-    return builder.toString();
    }
 
 

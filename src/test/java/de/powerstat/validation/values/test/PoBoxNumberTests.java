@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -35,11 +33,6 @@ public class PoBoxNumberTests
    */
   private static final String RESULT10 = "10"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -59,7 +52,7 @@ public class PoBoxNumberTests
   @ValueSource(longs = {1, 99999})
   public void isPoBoxNumber(final long poBoxNumber)
    {
-    assertEquals(poBoxNumber, PoBoxNumber.of(poBoxNumber).longValue(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
+    assertEquals(poBoxNumber, PoBoxNumber.of(poBoxNumber).poBoxNumber(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
    }
 
 
@@ -94,98 +87,12 @@ public class PoBoxNumberTests
 
 
   /**
-   * getPoBoxNumber.
-   *
-   * @deprecated Old version of longValue()
-   */
-  @Deprecated(since = PoBoxNumberTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getPoBoxNumber()
-   {
-    assertEquals(10, PoBoxNumber.of(10).getPoBoxNumber(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
-   }
-
-
-  /**
-   * longValue.
-   */
-  @Test
-  public void longValue()
-   {
-    assertEquals(10, PoBoxNumber.of(10).longValue(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
-   }
-
-
-  /**
-   * getPoBoxNumberStr.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = PoBoxNumberTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getPoBoxNumberStr()
-   {
-    assertEquals(PoBoxNumberTests.RESULT10, PoBoxNumber.of(10).getPoBoxNumberStr(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
-   }
-
-
-  /**
    * stringValue.
    */
   @Test
   public void stringValue()
    {
     assertEquals(PoBoxNumberTests.RESULT10, PoBoxNumber.of(10).stringValue(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final PoBoxNumber poBoxNumber1 = PoBoxNumber.of(1);
-    final PoBoxNumber poBoxNumber2 = PoBoxNumber.of(1);
-    final PoBoxNumber poBoxNumber3 = PoBoxNumber.of(2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(poBoxNumber1.hashCode(), poBoxNumber2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(poBoxNumber1.hashCode(), poBoxNumber3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final PoBoxNumber poBoxNumber1 = PoBoxNumber.of(1);
-    final PoBoxNumber poBoxNumber2 = PoBoxNumber.of(1);
-    final PoBoxNumber poBoxNumber3 = PoBoxNumber.of(2);
-    final PoBoxNumber poBoxNumber4 = PoBoxNumber.of(1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(poBoxNumber1.equals(poBoxNumber1), "poBox11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(poBoxNumber1.equals(poBoxNumber2), "poBox12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(poBoxNumber2.equals(poBoxNumber1), "poBox21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(poBoxNumber2.equals(poBoxNumber4), "poBox24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(poBoxNumber1.equals(poBoxNumber4), "poBox14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(poBoxNumber1.equals(poBoxNumber3), "poBox13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(poBoxNumber3.equals(poBoxNumber1), "poBox31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(poBoxNumber1.equals(null), "poBox10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final PoBoxNumber poBoxNumber = PoBoxNumber.of(1);
-    assertEquals("PoBoxNumber[poBoxNumber=1]", poBoxNumber.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

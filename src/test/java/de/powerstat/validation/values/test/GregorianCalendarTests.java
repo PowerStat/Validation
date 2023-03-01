@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -7,7 +7,6 @@ package de.powerstat.validation.values.test;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -67,57 +66,7 @@ public class GregorianCalendarTests
   public void calendarCorrect(final String country)
    {
     final GregorianCalendar cleanCalendar = GregorianCalendar.of(Country.of(country));
-    assertEquals(country, cleanCalendar.getCountry().stringValue(), "Calendar not as expected"); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final GregorianCalendar calendar1 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
-    final GregorianCalendar calendar2 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
-    final GregorianCalendar calendar3 = GregorianCalendar.of(Country.of(GregorianCalendarTests.DE));
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(calendar1.hashCode(), calendar2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(calendar1.hashCode(), calendar3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final GregorianCalendar calendar1 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
-    final GregorianCalendar calendar2 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
-    final GregorianCalendar calendar3 = GregorianCalendar.of(Country.of(GregorianCalendarTests.DE));
-    final GregorianCalendar calendar4 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(calendar1.equals(calendar1), "calendar11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(calendar1.equals(calendar2), "calendar12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(calendar2.equals(calendar1), "calendar21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(calendar2.equals(calendar4), "calendar24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(calendar1.equals(calendar4), "calendar14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(calendar1.equals(calendar3), "calendar13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(calendar3.equals(calendar1), "calendar31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(calendar1.equals(null), "calendar10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final GregorianCalendar calendar = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
-    assertEquals("GregorianCalendar[country=IT]", calendar.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertEquals(country, cleanCalendar.country().alpha2(), "Calendar not as expected"); //$NON-NLS-1$
    }
 
 

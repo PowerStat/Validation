@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -51,9 +51,9 @@ public class WGS84PositionTests
    {
     final WGS84Position pos = WGS84Position.of(0.0, 0.0, 0.0);
     assertAll("testIsPosition", //$NON-NLS-1$
-      () -> assertEquals(0.0, pos.getLatitude(), "Latitute error!"), //$NON-NLS-1$
-      () -> assertEquals(0.0, pos.getLongitude(), "Longitute error!"), //$NON-NLS-1$
-      () -> assertEquals(0.0, pos.getAltitude(), "Altitude error!") //$NON-NLS-1$
+      () -> assertEquals(0.0, pos.latitude(), "Latitute error!"), //$NON-NLS-1$
+      () -> assertEquals(0.0, pos.longitude(), "Longitute error!"), //$NON-NLS-1$
+      () -> assertEquals(0.0, pos.altitude(), "Altitude error!") //$NON-NLS-1$
     );
    }
 
@@ -111,86 +111,6 @@ public class WGS84PositionTests
       /* final WGS84Position pos = */ WGS84Position.of(0.0, 180.1, 0.0);
      }, WGS84PositionTests.INDEX_OUT_OF_BOUNDS_EXPECTED
     );
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final WGS84Position pos1 = WGS84Position.of(0.0, 0.0, 0.0);
-    final WGS84Position pos2 = WGS84Position.of(0.0, 0.0, 0.0);
-    final WGS84Position pos3 = WGS84Position.of(10.0, 10.0, 0.0);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(pos1.hashCode(), pos2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(pos1.hashCode(), pos3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final WGS84Position pos1 = WGS84Position.of(0.0, 0.0, 0.0);
-    final WGS84Position pos2 = WGS84Position.of(0.0, 0.0, 0.0);
-    final WGS84Position pos3 = WGS84Position.of(10.0, 10.0, 0.0);
-    final WGS84Position pos4 = WGS84Position.of(0.0, 0.0, 0.0);
-    assertAll(WGS84PositionTests.TEST_EQUALS,
-      () -> assertTrue(pos1.equals(pos1), "pos11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(pos1.equals(pos2), "pos12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(pos2.equals(pos1), "pos21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(pos2.equals(pos4), "pos24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(pos1.equals(pos4), "pos14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(pos1.equals(pos3), "pos13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(pos3.equals(pos1), "pos31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(pos1.equals(null), "pos10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals2()
-   {
-    final WGS84Position pos1 = WGS84Position.of(0.0, 0.0, 0.0);
-    final WGS84Position pos2 = WGS84Position.of(0.0, 0.0, 0.0000001D);
-    assertAll(WGS84PositionTests.TEST_EQUALS,
-      () -> assertTrue(pos1.equals(pos2), "pos12 is not equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test not equals.
-   */
-  @Test
-  public void testNotEquals()
-   {
-    final WGS84Position pos1 = WGS84Position.of(0.0, 0.0, 0.0);
-    final WGS84Position pos2 = WGS84Position.of(0.0, 0.0, 0.1);
-    final WGS84Position pos3 = WGS84Position.of(0.0, 0.1, 0.0);
-    assertAll("testNotEquals", //$NON-NLS-1$
-      () -> assertFalse(pos1.equals(pos2), "pos12 is equal"), //$NON-NLS-1$
-      () -> assertFalse(pos1.equals(pos3), "pos13 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final WGS84Position pos = WGS84Position.of(0.0, 0.0, 0.0);
-    assertEquals("WGS84Position[latitude=0.0, longitude=0.0, altitude=0.0]", pos.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

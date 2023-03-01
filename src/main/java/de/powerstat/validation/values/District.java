@@ -1,55 +1,36 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 
 /**
  * Address District.
  *
+ * @param district District name
+ * 
  * Not DSGVO relevant.
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings({"checkstyle:NoWhitespaceBefore", "PMD.UseConcurrentHashMap"})
-public final class District implements Comparable<District>
+public record District(String district) implements Comparable<District>
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<String, District> CACHE = new WeakHashMap<>();
-
   /**
    * District egexp.
    */
   private static final Pattern DISTRICT_REGEXP = Pattern.compile("^[\\p{L}\\p{Digit}][\\p{L}\\p{Digit} -]*$"); //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
-   * District.
-   */
-  private final String district;
-
 
   /**
    * Constructor.
    *
-   * @param district District name
    * @throws NullPointerException if district is null
    * @throws IllegalArgumentException if district is not a correct district name
    */
-  private District(final String district)
+  public District
    {
-    super();
     Objects.requireNonNull(district, "district"); //$NON-NLS-1$
     if ((district.length() < 1) || (district.length() > 18))
      {
@@ -59,7 +40,6 @@ public final class District implements Comparable<District>
      {
       throw new IllegalArgumentException("District with wrong format"); //$NON-NLS-1$
      }
-    this.district = district;
    }
 
 
@@ -71,96 +51,7 @@ public final class District implements Comparable<District>
    */
   public static District of(final String district)
    {
-    synchronized (District .class)
-     {
-      District obj = District.CACHE.get(district);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new District(district);
-      District .CACHE.put(district, obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Get district string.
-   *
-   * @return District string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = District.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getDistrict()
-   {
-    return this.district;
-   }
-
-
-  /**
-   * Returns the value of this District as a string.
-   *
-   * @return The text value represented by this object after conversion to type string.
-   */
-  public String stringValue()
-   {
-    return this.district;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return this.district.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof District))
-     {
-      return false;
-     }
-    final District other = (District)obj;
-    return this.district.equals(other.district);
-   }
-
-
-  /**
-   * Returns the string representation of this District.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "District[district=9]"
-   *
-   * @return String representation of this District
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder(19);
-    builder.append("District[district=").append(this.district).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return new District(district);
    }
 
 

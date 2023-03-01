@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -51,11 +51,6 @@ public final class Password implements Comparable<Password>
    * Cache for singletons.
    */
   private static final Map<String, Password> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Password.
@@ -115,19 +110,6 @@ public final class Password implements Comparable<Password>
   public static Password of(final String password)
    {
     return of(PasswordDefaultStrategy.of(), password);
-   }
-
-
-  /**
-   * Get password string.
-   *
-   * @return Password string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = Password.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getPassword()
-   {
-    return this.passwd;
    }
 
 
