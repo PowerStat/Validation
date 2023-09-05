@@ -9,6 +9,8 @@ import java.util.Objects;
 import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Address Department.
@@ -17,7 +19,7 @@ import java.util.regex.Pattern;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings({"java:S5869", "PMD.UseConcurrentHashMap"})
-public final class Department implements Comparable<Department>
+public final class Department implements Comparable<Department>, IValueObject
  {
   /**
    * Cache for singletons.

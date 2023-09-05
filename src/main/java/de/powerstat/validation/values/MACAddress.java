@@ -11,6 +11,8 @@ import java.util.Objects;
 import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Canonical Media-Access-Control-Adresse (MAC).
@@ -21,7 +23,7 @@ import java.util.regex.Pattern;
  */
 // @SuppressFBWarnings({"CLI_CONSTANT_LIST_INDEX", "PMB_POSSIBLE_MEMORY_BLOAT"})
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class MACAddress implements Comparable<MACAddress>
+public final class MACAddress implements Comparable<MACAddress>, IValueObject
  {
   /**
    * Cache for singletons.

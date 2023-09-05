@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
 
+import de.powerstat.validation.interfaces.IValueObject;
 import de.powerstat.validation.values.strategies.IUsernameStrategy;
 import de.powerstat.validation.values.strategies.UsernameDefaultStrategy;
 
@@ -23,7 +24,7 @@ import de.powerstat.validation.values.strategies.UsernameDefaultStrategy;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Username implements Comparable<Username>
+public final class Username implements Comparable<Username>, IValueObject
  {
   /**
    * Cache for singletons.

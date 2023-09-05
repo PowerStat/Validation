@@ -3,6 +3,7 @@
  */
 package de.powerstat.validation.values;
 
+import de.powerstat.validation.interfaces.IValueObject;
 
 /**
  * Gender/Sex.
@@ -16,7 +17,7 @@ package de.powerstat.validation.values;
  *
  * @see <a href="https://at.wikimannia.org/60_Geschlechtsidentitäten">Geschlechtsidentitäten</a>
  */
-public enum Gender
+public enum Gender implements IValueObject
  {
   /**
    * Unknown/undefined gender.

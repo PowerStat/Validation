@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
 
+import de.powerstat.validation.interfaces.IValueObject;
 import de.powerstat.validation.values.containers.NTuple4;
 
 
@@ -33,7 +34,7 @@ import de.powerstat.validation.values.containers.NTuple4;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class GregorianDate implements Comparable<GregorianDate>
+public final class GregorianDate implements Comparable<GregorianDate>, IValueObject
  {
   /**
    * Cache for singletons.

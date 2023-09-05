@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Millisecond.
@@ -18,7 +20,7 @@ import java.util.WeakHashMap;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Millisecond implements Comparable<Millisecond>
+public final class Millisecond implements Comparable<Millisecond>, IValueObject
  {
   /**
    * Cache for singletons.

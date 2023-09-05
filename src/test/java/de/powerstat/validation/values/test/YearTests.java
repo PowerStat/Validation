@@ -122,7 +122,7 @@ public class YearTests
   public void testToString()
    {
     final Year year = Year.of(1);
-    assertEquals("Year[year=1]", year.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertEquals("Year[calendarSystem=GREGORIAN, year=1]", year.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

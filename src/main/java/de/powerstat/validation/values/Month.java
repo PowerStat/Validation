@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Month.
@@ -21,7 +23,7 @@ import java.util.WeakHashMap;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Month implements Comparable<Month>
+public final class Month implements Comparable<Month>, IValueObject
  {
   /**
    * Cache for singletons.
@@ -71,6 +73,7 @@ public final class Month implements Comparable<Month>
    *
    * @param month Month 1-12
    * @return Month object
+   * @throws IndexOutOfBoundsException When the month is less than 1 or greater than 12
    */
   public static Month of(final int month)
    {
@@ -228,7 +231,7 @@ public final class Month implements Comparable<Month>
 
 
   /**
-   * Increment this week.
+   * Increment this month.
    *
    * @return New month after incrementing this month
    * @throws ArithmeticException In case of an overflow

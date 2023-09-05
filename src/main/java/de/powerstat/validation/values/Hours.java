@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Hours.
@@ -16,7 +18,7 @@ import java.util.WeakHashMap;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Hours implements Comparable<Hours>
+public final class Hours implements Comparable<Hours>, IValueObject
  {
   /**
    * Cache for singletons.

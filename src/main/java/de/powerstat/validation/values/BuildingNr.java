@@ -10,6 +10,8 @@ import java.util.WeakHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Address Building number.
@@ -20,7 +22,7 @@ import java.util.regex.Pattern;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class BuildingNr implements Comparable<BuildingNr>
+public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
  {
   /**
    * Logger.

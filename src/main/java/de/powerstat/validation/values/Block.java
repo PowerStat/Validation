@@ -9,6 +9,8 @@ import java.util.Objects;
 import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Address Block.
@@ -17,7 +19,7 @@ import java.util.regex.Pattern;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Block implements Comparable<Block>
+public final class Block implements Comparable<Block>, IValueObject
  {
   /**
    * Cache for singletons.

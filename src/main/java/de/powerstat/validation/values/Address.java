@@ -12,6 +12,7 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
 import de.powerstat.validation.values.containers.NTuple15;
 
 
@@ -26,7 +27,7 @@ import de.powerstat.validation.values.containers.NTuple15;
  */
 // @SuppressFBWarnings{("CC_CYCLOMATIC_COMPLEXITY", "PMB_POSSIBLE_MEMORY_BLOAT"})
 @SuppressWarnings({"java:S923", "java:S3776", "PMD.ExcessiveClassLength", "PMD.UseConcurrentHashMap"})
-public class Address implements Comparable<Address>
+public class Address implements Comparable<Address>, IValueObject
  {
   /**
    * Cache for singletons.
@@ -532,6 +533,7 @@ public class Address implements Comparable<Address>
    * @param block Block
    * @param bFPONumber British Forces Post Office Number
    * @param lines Lines 1-5
+   * @throws NullPointerException When country or some other required field is null.
    */
   protected Address(final Country country, final PostalCode postalCode, final City city, final Province province, final District district, final Street street, final BuildingNr buildingNr, final BuildingName buildingName, final SubBuilding subBuilding, final PoBoxNumber poBoxNumber, final Department department, final Neighbourhood neighbourhood, final Block block, final BFPONumber bFPONumber, final Lines lines)
    {

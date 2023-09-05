@@ -13,6 +13,7 @@ import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedTlds;
+import de.powerstat.validation.interfaces.IValueObject;
 
 
 /**
@@ -25,7 +26,7 @@ import de.powerstat.validation.generated.GeneratedTlds;
  */
 // @SuppressFBWarnings({"EXS_EXCEPTION_SOFTENING_RETURN_FALSE", "PMB_POSSIBLE_MEMORY_BLOAT"})
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Hostname implements Comparable<Hostname>
+public final class Hostname implements Comparable<Hostname>, IValueObject
  {
   /**
    * Cache for singletons.

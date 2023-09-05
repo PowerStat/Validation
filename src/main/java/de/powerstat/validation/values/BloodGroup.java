@@ -9,13 +9,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Blood group AB0 rhesus system.
  *
  * @see <a href="https://de.wikipedia.org/wiki/Blutgruppe">Blutgruppe</a>
  */
-public enum BloodGroup
+public enum BloodGroup implements IValueObject
  {
   /**
    * 0-.

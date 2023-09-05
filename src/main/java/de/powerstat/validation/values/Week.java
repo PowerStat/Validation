@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Week.
@@ -20,7 +22,7 @@ import java.util.WeakHashMap;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Week implements Comparable<Week>
+public final class Week implements Comparable<Week>, IValueObject
  {
   /**
    * Overflow constant.

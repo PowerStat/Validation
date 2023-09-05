@@ -9,6 +9,8 @@ import java.util.Objects;
 import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Address Street.
@@ -19,7 +21,7 @@ import java.util.regex.Pattern;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Street implements Comparable<Street>
+public final class Street implements Comparable<Street>, IValueObject
  {
   /**
    * Cache for singletons.

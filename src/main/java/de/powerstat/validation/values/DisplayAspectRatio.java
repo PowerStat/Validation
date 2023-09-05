@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
 
+import de.powerstat.validation.interfaces.IValueObject;
 import de.powerstat.validation.values.containers.NTuple2;
 
 
@@ -18,7 +19,7 @@ import de.powerstat.validation.values.containers.NTuple2;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>
+public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>, IValueObject
  {
   /**
    * Cache for singletons.

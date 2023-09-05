@@ -10,6 +10,7 @@ import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedISO4217;
+import de.powerstat.validation.interfaces.IValueObject;
 
 
 /**
@@ -21,7 +22,7 @@ import de.powerstat.validation.generated.GeneratedISO4217;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Currency implements Comparable<Currency>
+public final class Currency implements Comparable<Currency>, IValueObject
  {
   /**
    * Cache for singletons.

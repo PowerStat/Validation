@@ -9,6 +9,8 @@ import java.util.Objects;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Gregorian calendar.
@@ -19,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class GregorianCalendar implements Comparable<GregorianCalendar>
+public final class GregorianCalendar implements Comparable<GregorianCalendar>, IValueObject
  {
   /**
    * Cache for singletons.

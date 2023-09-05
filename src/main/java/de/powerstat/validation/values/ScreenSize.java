@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
 
+import de.powerstat.validation.interfaces.IValueObject;
 import de.powerstat.validation.values.containers.NTuple3;
 
 
@@ -16,7 +17,7 @@ import de.powerstat.validation.values.containers.NTuple3;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class ScreenSize implements Comparable<ScreenSize>
+public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
  {
   /**
    * Cache for singletons.

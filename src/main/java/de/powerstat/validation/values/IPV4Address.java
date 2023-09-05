@@ -9,6 +9,8 @@ import java.util.Objects;
 import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * IP V4 address.
@@ -21,7 +23,7 @@ import java.util.regex.Pattern;
  */
 // @SuppressFBWarnings({"CLI_CONSTANT_LIST_INDEX", "PMB_POSSIBLE_MEMORY_BLOAT"})
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class IPV4Address implements Comparable<IPV4Address>
+public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
  {
   /**
    * Cache for singletons.

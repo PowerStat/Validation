@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * IP V6 mask.
@@ -16,7 +18,7 @@ import java.util.WeakHashMap;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class IPV6Mask implements Comparable<IPV6Mask>
+public final class IPV6Mask implements Comparable<IPV6Mask>, IValueObject
  {
   /**
    * Cache for singletons.

@@ -10,6 +10,7 @@ import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedISO3166A2;
+import de.powerstat.validation.interfaces.IValueObject;
 
 
 /**
@@ -21,7 +22,7 @@ import de.powerstat.validation.generated.GeneratedISO3166A2;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Country implements Comparable<Country>
+public final class Country implements Comparable<Country>, IValueObject
  {
   /**
    * Cache for singletons.

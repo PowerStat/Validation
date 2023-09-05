@@ -9,6 +9,8 @@ import java.util.Objects;
 import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Address District.
@@ -17,7 +19,7 @@ import java.util.regex.Pattern;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings({"checkstyle:NoWhitespaceBefore", "PMD.UseConcurrentHashMap"})
-public final class District implements Comparable<District>
+public final class District implements Comparable<District>, IValueObject
  {
   /**
    * Cache for singletons.

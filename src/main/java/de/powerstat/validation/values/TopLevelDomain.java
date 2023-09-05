@@ -10,6 +10,7 @@ import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedTlds;
+import de.powerstat.validation.interfaces.IValueObject;
 
 
 /**
@@ -19,7 +20,7 @@ import de.powerstat.validation.generated.GeneratedTlds;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class TopLevelDomain implements Comparable<TopLevelDomain>
+public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueObject
  {
   /**
    * Cache for singletons.
