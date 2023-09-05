@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Minute.
@@ -17,7 +19,7 @@ import java.util.Objects;
  * TODO Listener
  * TODO secondsWithin = 60
  */
-public record Minute(int minute) implements Comparable<Minute>
+public record Minute(int minute) implements Comparable<Minute>, IValueObject
  {
   /**
    * Overlfow constant.
@@ -33,6 +35,7 @@ public record Minute(int minute) implements Comparable<Minute>
   /**
    * Constructor.
    *
+   * @param minute Minute 0-59
    * @throws IndexOutOfBoundsException When the minute is less than 0 or greater than 59
    */
   public Minute

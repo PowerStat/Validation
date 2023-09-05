@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Address District.
@@ -15,7 +17,7 @@ import java.util.regex.Pattern;
  * 
  * Not DSGVO relevant.
  */
-public record District(String district) implements Comparable<District>
+public record District(String district) implements Comparable<District>, IValueObject
  {
   /**
    * District egexp.
@@ -26,6 +28,7 @@ public record District(String district) implements Comparable<District>
   /**
    * Constructor.
    *
+   * @param district District name
    * @throws NullPointerException if district is null
    * @throws IllegalArgumentException if district is not a correct district name
    */

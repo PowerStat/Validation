@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Address Lines.
@@ -15,7 +17,7 @@ import java.util.regex.Pattern;
  * 
  * Not DSGVO relevant.
  */
-public record Lines(String lines) implements Comparable<Lines>
+public record Lines(String lines) implements Comparable<Lines>, IValueObject
  {
   /**
    * Lines fregexp.
@@ -27,6 +29,7 @@ public record Lines(String lines) implements Comparable<Lines>
   /**
    * Constructor.
    *
+   * @param lines Lines (1-5)
    * @throws NullPointerException if lines is null
    * @throws IllegalArgumentException if lines is not a correct Lines
    */

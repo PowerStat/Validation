@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Address Block.
@@ -15,7 +17,7 @@ import java.util.regex.Pattern;
  *
  * Not DSGVO relevant.
  */
-public record Block(String block) implements Comparable<Block>
+public record Block(String block) implements Comparable<Block>, IValueObject
  {
   /**
    * Block regexp.
@@ -26,6 +28,7 @@ public record Block(String block) implements Comparable<Block>
   /**
    * Constructor.
    *
+   * @param block Address block
    * @throws NullPointerException if block is null
    * @throws IllegalArgumentException if block is not a correct Block
    */

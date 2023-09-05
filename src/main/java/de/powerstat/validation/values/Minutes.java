@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Minutes.
@@ -14,11 +16,12 @@ import java.util.Objects;
  * 
  * Not DSGVO relevant.
  */
-public record Minutes(long minutes) implements Comparable<Minutes>
+public record Minutes(long minutes) implements Comparable<Minutes>, IValueObject
  {
   /**
    * Constructor.
    *
+   * @param minutes Minutes 0-..
    * @throws IndexOutOfBoundsException When the minutes is less than 0
    */
   public Minutes

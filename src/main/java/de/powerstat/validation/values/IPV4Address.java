@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * IP V4 address.
@@ -19,7 +21,7 @@ import java.util.regex.Pattern;
  * TODO https://datahub.io/core/geoip2-ipv4/r/geoip2-ipv4.csv
  * TODO ping ok?
  */
-public record IPV4Address(String address) implements Comparable<IPV4Address>
+public record IPV4Address(String address) implements Comparable<IPV4Address>, IValueObject
  {
   /**
    * IPV4 separator.
@@ -55,6 +57,7 @@ public record IPV4Address(String address) implements Comparable<IPV4Address>
   /**
    * Constructor.
    *
+   * @param address IP V4 address
    * @throws NullPointerException if address is null
    * @throws IllegalArgumentException if address is not an ip v4 address
    */

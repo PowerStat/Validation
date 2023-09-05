@@ -6,22 +6,24 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Seconds.
  *
  * @param seconds Seconds 0-..
  * 
- * 
  * Not DSGVO relevant.
  *
  * TODO inMinutes()
  */
-public record Seconds(long seconds) implements Comparable<Seconds>
+public record Seconds(long seconds) implements Comparable<Seconds>, IValueObject
  {
   /**
    * Constructor.
    *
+   * @param seconds Seconds 0-..
    * @throws IndexOutOfBoundsException When the seconds is less than 0
    */
   public Seconds

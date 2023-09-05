@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedTlds;
+import de.powerstat.validation.interfaces.IValueObject;
 
 
 /**
@@ -17,7 +18,7 @@ import de.powerstat.validation.generated.GeneratedTlds;
  * 
  * Not DSGVO relevant.
  */
-public record TopLevelDomain(String topLevelDomain) implements Comparable<TopLevelDomain>
+public record TopLevelDomain(String topLevelDomain) implements Comparable<TopLevelDomain>, IValueObject
  {
   /**
    * Top level domain regexp.
@@ -28,6 +29,7 @@ public record TopLevelDomain(String topLevelDomain) implements Comparable<TopLev
   /**
    * Constructor.
    *
+   * @param topLevelDomain Top level domain name (without dot)
    * @throws NullPointerException if top level domain is null
    * @throws IllegalArgumentException if top level domain is not a known top level domain
    */

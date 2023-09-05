@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Hour.
@@ -17,7 +19,7 @@ import java.util.Objects;
  * TODO Listener
  * TODO minutesWithin = 60
  */
-public record Hour(int hour) implements Comparable<Hour>
+public record Hour(int hour) implements Comparable<Hour>, IValueObject
  {
   /**
    * Overflow constant.
@@ -33,6 +35,7 @@ public record Hour(int hour) implements Comparable<Hour>
   /**
    * Constructor.
    *
+   * @param hour Hour 0-23
    * @throws IndexOutOfBoundsException When the hour is less than 0 or greater than 23
    */
   public Hour

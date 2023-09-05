@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Second.
@@ -18,7 +20,7 @@ import java.util.Objects;
  * TODO Listener  (mod 60 = 0)
  * TODO millisecondsWithin = 1000
  */
-public record Second(int second) implements Comparable<Second>
+public record Second(int second) implements Comparable<Second>, IValueObject
  {
   /**
    * Overflow constant.
@@ -34,6 +36,7 @@ public record Second(int second) implements Comparable<Second>
   /**
    * Constructor.
    *
+   * @param second Second 0-59/60
    * @throws IndexOutOfBoundsException When the second is less than 0 or greater than 59/60
    */
   public Second

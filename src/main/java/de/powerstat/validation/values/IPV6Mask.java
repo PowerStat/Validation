@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * IP V6 mask.
@@ -14,11 +16,12 @@ import java.util.Objects;
  * 
  * Not DSGVO relevant.
  */
-public record IPV6Mask(int length) implements Comparable<IPV6Mask>
+public record IPV6Mask(int length) implements Comparable<IPV6Mask>, IValueObject
  {
   /**
    * Constructor.
    *
+   * @param length Prefix length (0-128)
    * @throws IndexOutOfBoundsException if the prefix length is &lt; 0 or &gt; 128
    */
   public IPV6Mask

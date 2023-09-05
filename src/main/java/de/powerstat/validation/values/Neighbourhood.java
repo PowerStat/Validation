@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Address Neighbourhood.
@@ -15,7 +17,7 @@ import java.util.regex.Pattern;
  * 
  * Not DSGVO relevant.
  */
-public record Neighbourhood(String neighbourhood) implements Comparable<Neighbourhood>
+public record Neighbourhood(String neighbourhood) implements Comparable<Neighbourhood>, IValueObject
  {
   /**
    * Neighbourhood fregexp.
@@ -26,6 +28,7 @@ public record Neighbourhood(String neighbourhood) implements Comparable<Neighbou
   /**
    * Constructor.
    *
+   * @param neighbourhood Neighbourhood
    * @throws NullPointerException if neighbourhood is null
    * @throws IllegalArgumentException if neighbourhood is not a correct neighbourhood
    */

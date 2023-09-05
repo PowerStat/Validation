@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedISO4217;
+import de.powerstat.validation.interfaces.IValueObject;
 
 
 /**
@@ -19,7 +20,7 @@ import de.powerstat.validation.generated.GeneratedISO4217;
  *
  * TODO Translations
  */
-public record Currency(String code) implements Comparable<Currency>
+public record Currency(String code) implements Comparable<Currency>, IValueObject
  {
   /**
    * Currency regexp.
@@ -30,6 +31,7 @@ public record Currency(String code) implements Comparable<Currency>
   /**
    * Constructor.
    *
+   * @param code ISO 4217 code
    * @throws NullPointerException if code is null
    * @throws IllegalArgumentException if code is not a known 4217 code
    */

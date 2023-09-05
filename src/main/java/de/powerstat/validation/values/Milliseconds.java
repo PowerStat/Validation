@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Milliseconds.
@@ -14,11 +16,12 @@ import java.util.Objects;
  * 
  * Not DSGVO relevant.
  */
-public record Milliseconds(long milliseconds) implements Comparable<Milliseconds>
+public record Milliseconds(long milliseconds) implements Comparable<Milliseconds>, IValueObject
  {
   /**
    * Constructor.
    *
+   * @param milliseconds Milliseconds &gt;= 0
    * @throws IndexOutOfBoundsException When the milliseonds is less than 0
    */
   public Milliseconds

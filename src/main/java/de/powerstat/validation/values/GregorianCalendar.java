@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Gregorian calendar.
@@ -18,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * TODO More country reform dates
  */
-public record GregorianCalendar(Country country) implements Comparable<GregorianCalendar>
+public record GregorianCalendar(Country country) implements Comparable<GregorianCalendar>, IValueObject
  {
   /**
    * Days per month.
@@ -166,6 +168,8 @@ public record GregorianCalendar(Country country) implements Comparable<Gregorian
 
   /**
    * Constructor.
+   *
+   * @param country Country of gregorian calendar reform
    */
   public GregorianCalendar
    {

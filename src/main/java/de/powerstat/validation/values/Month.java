@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Month.
@@ -19,7 +21,7 @@ import java.util.Objects;
  * TODO Listener
  * TODO Translations short/long
  */
-public record Month(int month) implements Comparable<Month>
+public record Month(int month) implements Comparable<Month>, IValueObject
  {
   /**
    * Overflow constant.
@@ -35,6 +37,7 @@ public record Month(int month) implements Comparable<Month>
   /**
    * Constructor.
    *
+   * @param month Month 1-12
    * @throws IndexOutOfBoundsException When the month is less than 1 or greater than 12
    */
   public Month
@@ -51,6 +54,7 @@ public record Month(int month) implements Comparable<Month>
    *
    * @param month Month 1-12
    * @return Month object
+   * @throws IndexOutOfBoundsException When the month is less than 1 or greater than 12
    */
   public static Month of(final int month)
    {
@@ -116,7 +120,7 @@ public record Month(int month) implements Comparable<Month>
 
 
   /**
-   * Increment this week.
+   * Increment this month.
    *
    * @return New month after incrementing this month
    * @throws ArithmeticException In case of an overflow

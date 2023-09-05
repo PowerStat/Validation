@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Display aspect ratio.
@@ -15,10 +17,14 @@ import java.util.Objects;
  *
  * 1:1 2.1:1 3:1 3:2 4:3 5:3 5:4 8:5 9:5 10:6 15:9 16:9 16:10 17:10 25:12 25:16 60:29 64:35 72:35
  */
-public record DisplayAspectRatio(int x, int y) implements Comparable<DisplayAspectRatio>
+public record DisplayAspectRatio(int x, int y) implements Comparable<DisplayAspectRatio>, IValueObject
  {
   /**
    * Constructor.
+   *
+   * @param x Display x site (1-72)
+   * @param y Display y size (1-35)
+   * @throws IndexOutOfBoundsException When x or y is out of range
    */
   public DisplayAspectRatio
    {

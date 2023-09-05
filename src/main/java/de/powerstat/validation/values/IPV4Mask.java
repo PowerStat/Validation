@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * IP V4 mask.
@@ -18,7 +20,7 @@ import java.util.regex.Pattern;
  * TODO IPV4Address filterMin(IPV4Address)      0
  * TODO IPV4Address filterMax(IPV4Address)      255
  */
-public record IPV4Mask(int length) implements Comparable<IPV4Mask>
+public record IPV4Mask(int length) implements Comparable<IPV4Mask>, IValueObject
  {
   /**
    * 0.
@@ -39,6 +41,7 @@ public record IPV4Mask(int length) implements Comparable<IPV4Mask>
   /**
    * Constructor.
    *
+   * @param length Prefix length (0-32)
    * @throws IndexOutOfBoundsException if the prefix length is &lt; 0 or &gt; 32
    */
   public IPV4Mask

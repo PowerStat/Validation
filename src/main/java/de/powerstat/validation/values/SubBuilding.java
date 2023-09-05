@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Address Sub building.
@@ -15,7 +17,7 @@ import java.util.regex.Pattern;
  * 
  * Possibly DSGVO relevant.
  */
-public record SubBuilding(String subBuilding) implements Comparable<SubBuilding>
+public record SubBuilding(String subBuilding) implements Comparable<SubBuilding>, IValueObject
  {
   /**
    * Subbuilding regexp.
@@ -26,6 +28,7 @@ public record SubBuilding(String subBuilding) implements Comparable<SubBuilding>
   /**
    * Constructor.
    *
+   * @param subBuilding Sub building description
    * @throws NullPointerException if subBuilding is null
    * @throws IllegalArgumentException if subBuilding is not correct
    */

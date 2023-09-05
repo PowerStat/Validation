@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Day.
@@ -19,7 +21,7 @@ import java.util.Objects;
  * TODO Listener
  * TODO hoursWithin = 24
  */
-public record Day(int day) implements Comparable<Day>
+public record Day(int day) implements Comparable<Day>, IValueObject
  {
   /**
    * Overflow constant.
@@ -35,6 +37,7 @@ public record Day(int day) implements Comparable<Day>
   /**
    * Constructor.
    *
+   * @param day Day 1-31
    * @throws IndexOutOfBoundsException When the day is less than 1 or greater than 31
    */
   public Day

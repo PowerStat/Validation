@@ -8,6 +8,8 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Address Building number.
@@ -18,7 +20,7 @@ import java.util.regex.Pattern;
  *
  * TODO optimize constructor/compareTo
  */
-public record BuildingNr(String buildingNr) implements Comparable<BuildingNr>
+public record BuildingNr(String buildingNr) implements Comparable<BuildingNr>, IValueObject
  {
   /**
    * Logger.
@@ -39,6 +41,7 @@ public record BuildingNr(String buildingNr) implements Comparable<BuildingNr>
   /**
    * Constructor.
    *
+   * @param buildingNr Building number
    * @throws NullPointerException if buildingNr is null
    * @throws IllegalArgumentException if buildingNr is not an correct buildingNr
    */

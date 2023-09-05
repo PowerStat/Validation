@@ -11,6 +11,8 @@ import java.util.Objects;
 import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Canonical Media-Access-Control-Adresse (MAC).
@@ -21,7 +23,7 @@ import java.util.regex.Pattern;
  * TODO Exists in network
  * http://standards-oui.ieee.org/oui/oui.csv
  */
-public record MACAddress(String address) implements Comparable<MACAddress>
+public record MACAddress(String address) implements Comparable<MACAddress>, IValueObject
  {
   /**
    * Hex 00.
@@ -87,6 +89,7 @@ public record MACAddress(String address) implements Comparable<MACAddress>
   /**
    * Constructor.
    *
+   * @param address MAC address
    * @throws NullPointerException if address is null
    * @throws IllegalArgumentException if address is not a mac address
    */

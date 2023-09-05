@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Days.
@@ -16,11 +18,12 @@ import java.util.Objects;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public record Days(long days) implements Comparable<Days>
+public record Days(long days) implements Comparable<Days>, IValueObject
  {
   /**
    * Constructor.
    *
+   * @param days Days 0-..
    * @throws IndexOutOfBoundsException When the day is less than 0
    */
   public Days

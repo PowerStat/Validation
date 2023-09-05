@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Address Postal code.
@@ -20,7 +22,7 @@ import java.util.regex.Pattern;
  *
  * TODO Country specific
  */
-public record PostalCode(String postalCode) implements Comparable<PostalCode>
+public record PostalCode(String postalCode) implements Comparable<PostalCode>, IValueObject
  {
   /**
    * Postal code regexp.
@@ -31,6 +33,7 @@ public record PostalCode(String postalCode) implements Comparable<PostalCode>
   /**
    * Constructor.
    *
+   * @param postalCode Postal code
    * @throws NullPointerException if postalCode is null
    * @throws IllegalArgumentException if postalCode is not a correct postalCode
    */

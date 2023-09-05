@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * World geodetic system 1984 position.
@@ -20,7 +22,7 @@ import java.util.Objects;
  * TODO output formats
  * TODO Get address for position if possible
  */
-public record WGS84Position(double latitude, double longitude, double altitude) implements Comparable<WGS84Position>
+public record WGS84Position(double latitude, double longitude, double altitude) implements Comparable<WGS84Position>, IValueObject
  {
   /**
    * Epsilon for double compare.
@@ -30,6 +32,11 @@ public record WGS84Position(double latitude, double longitude, double altitude) 
 
   /**
    * Constructor.
+   *
+   * @param latitude Positions latitude specifies the north–south position of a point on the Earth's surface. Ranges from 0° at the Equator to 90° (North or South) at the poles.
+   * @param longitude Positions longitude specifies the east–west position of a point on the Earth's surface. The prime meridian, which passes near the Royal Observatory, Greenwich, England, is defined as 0° longitude by convention. Positive longitudes are east of the prime meridian, and negative ones are west.
+   * @param altitude Positions altitude - height above sea level.
+   * @throws IndexOutOfBoundsException If latitude or longitude is out of range.
    */
   public WGS84Position
    {

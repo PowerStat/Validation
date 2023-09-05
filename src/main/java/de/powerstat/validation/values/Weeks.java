@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Weeks.
@@ -14,11 +16,12 @@ import java.util.Objects;
  * 
  * Not DSGVO relevant.
  */
-public record Weeks(long weeks) implements Comparable<Weeks>
+public record Weeks(long weeks) implements Comparable<Weeks>, IValueObject
  {
   /**
    * Constructor.
    *
+   * @param weeks Weeks 0-..
    * @throws IndexOutOfBoundsException When the week is less than 0
    */
   public Weeks

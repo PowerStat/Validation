@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Screen size.
@@ -14,10 +16,15 @@ import java.util.Objects;
  * @param height Screen height in pixel (1-8192)
  * @param name Screen size name
  */
-public record ScreenSize(int width, int height, String name) implements Comparable<ScreenSize>
+public record ScreenSize(int width, int height, String name) implements Comparable<ScreenSize>, IValueObject
  {
   /**
    * Constructor.
+   *
+   * @param width Screen width in pixel (1-8192)
+   * @param height Screen height in pixel (1-8192)
+   * @param name Screen size name
+   * @throws IndexOutOfBoundsException If width or height is out of range
    */
   public ScreenSize
    {

@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Hours.
@@ -14,11 +16,12 @@ import java.util.Objects;
  * 
  * Not DSGVO relevant.
  */
-public record Hours(long hours) implements Comparable<Hours>
+public record Hours(long hours) implements Comparable<Hours>, IValueObject
  {
   /**
    * Constructor.
    *
+   * @param hours Hours 0-..
    * @throws IndexOutOfBoundsException When the hours is less than 0
    */
   public Hours

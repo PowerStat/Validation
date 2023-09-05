@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Years.
@@ -14,11 +16,12 @@ import java.util.Objects;
  * 
  * Not DSGVO relevant.
  */
-public record Years(long years) implements Comparable<Years>
+public record Years(long years) implements Comparable<Years>, IValueObject
  {
   /**
    * Constructor.
    *
+   * @param years Years &gt;= 0
    * @throws IndexOutOfBoundsException When the year is smaller than 0
    */
   public Years

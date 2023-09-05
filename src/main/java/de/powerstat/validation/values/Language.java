@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedISO6391;
+import de.powerstat.validation.interfaces.IValueObject;
 
 
 /**
@@ -20,7 +21,7 @@ import de.powerstat.validation.generated.GeneratedISO6391;
  * TODO Languages names in english
  * TODO Translations
  */
-public record Language(String code) implements Comparable<Language>
+public record Language(String code) implements Comparable<Language>, IValueObject
  {
   /**
    * Language regexp.
@@ -31,6 +32,7 @@ public record Language(String code) implements Comparable<Language>
   /**
    * Constructor.
    *
+   * @param code ISO 639-1 code
    * @throws NullPointerException if code is null
    * @throws IllegalArgumentException if code is not a known 639-1 code
    */

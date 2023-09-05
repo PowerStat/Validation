@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Address Street.
@@ -17,7 +19,7 @@ import java.util.regex.Pattern;
  *
  * TODO Verify with openstreetmap
  */
-public record Street(String street) implements Comparable<Street>
+public record Street(String street) implements Comparable<Street>, IValueObject
  {
   /**
    * Street regexp.
@@ -28,6 +30,7 @@ public record Street(String street) implements Comparable<Street>
   /**
    * Constructor.
    *
+   * @param street Street name
    * @throws NullPointerException if street is null
    * @throws IllegalArgumentException if street is not a correct Street name
    */

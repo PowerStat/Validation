@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Business Identifier Code (BIC) ISO 9362.
@@ -15,7 +17,7 @@ import java.util.regex.Pattern;
  *
  * Not DSGVO relevant.
  */
-public record BIC(String bic) implements Comparable<BIC>
+public record BIC(String bic) implements Comparable<BIC>, IValueObject
  {
   /**
    * BIC regexp.
@@ -26,6 +28,7 @@ public record BIC(String bic) implements Comparable<BIC>
   /**
    * Constructor.
    *
+   * @param bic Business Identifier Code
    * @throws NullPointerException if bic is null
    * @throws IllegalArgumentException if bic is not a correct bic
    */

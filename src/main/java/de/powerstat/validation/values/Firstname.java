@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Firstname.
@@ -15,7 +17,7 @@ import java.util.regex.Pattern;
  *
  * @see <a href="https://de.wikipedia.org/wiki/Vorname_(Deutschland)">Vorname</a>
  */
-public record Firstname(String firstname) implements Comparable<Firstname>
+public record Firstname(String firstname) implements Comparable<Firstname>, IValueObject
  {
   /**
    * Firstname regexp.

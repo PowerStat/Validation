@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Week.
@@ -18,7 +20,7 @@ import java.util.Objects;
  * TODO Listener
  * TODO daysWithin = 7
  */
-public record Week(int week) implements Comparable<Week>
+public record Week(int week) implements Comparable<Week>, IValueObject
  {
   /**
    * Overflow constant.
@@ -34,6 +36,7 @@ public record Week(int week) implements Comparable<Week>
   /**
    * Constructor.
    *
+   * @param week Week 1-53
    * @throws IndexOutOfBoundsException When the week is less than 1 or greater than 53
    */
   public Week

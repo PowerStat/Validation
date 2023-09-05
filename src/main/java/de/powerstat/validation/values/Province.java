@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Address Province.
@@ -15,7 +17,7 @@ import java.util.regex.Pattern;
  *
  * Not DSGVO relevant.
  */
-public record Province(String province) implements Comparable<Province>
+public record Province(String province) implements Comparable<Province>, IValueObject
  {
   /**
    * Province regexp.
@@ -26,6 +28,7 @@ public record Province(String province) implements Comparable<Province>
   /**
    * Constructor.
    *
+   * @param province Province name
    * @throws NullPointerException if province is null
    * @throws IllegalArgumentException if province is not a correct province name
    */

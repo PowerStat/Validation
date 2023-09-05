@@ -10,6 +10,8 @@ import java.util.Objects;
 import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * IP V6 address.
@@ -22,7 +24,7 @@ import java.util.regex.Pattern;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public record IPV6Address(String address) implements Comparable<IPV6Address>
+public record IPV6Address(String address) implements Comparable<IPV6Address>, IValueObject
  {
   /**
    * Logger.
@@ -63,6 +65,7 @@ public record IPV6Address(String address) implements Comparable<IPV6Address>
   /**
    * Constructor.
    *
+   * @param address IP V6 address
    * @throws NullPointerException if address is null
    * @throws IllegalArgumentException if address is not an ip v6 address
    */

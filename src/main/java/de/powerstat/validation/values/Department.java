@@ -7,13 +7,15 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Address Department.
  *
  * Not DSGVO relevant.
  */
-public record Department(String department) implements Comparable<Department>
+public record Department(String department) implements Comparable<Department>, IValueObject
  {
   /**
    * Department regexp.

@@ -8,6 +8,7 @@ import java.math.BigInteger;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
 import de.powerstat.validation.values.impl.IBANVerifierAbstractFactory;
 
 
@@ -21,7 +22,7 @@ import de.powerstat.validation.values.impl.IBANVerifierAbstractFactory;
  * TODO https://openiban.com/
  * TODO Human format in/out
  */
-public record IBAN(String iban) implements Comparable<IBAN>
+public record IBAN(String iban) implements Comparable<IBAN>, IValueObject
  {
   /**
    * IBAN regexp.
@@ -32,6 +33,7 @@ public record IBAN(String iban) implements Comparable<IBAN>
   /**
    * Constructor.
    *
+   * @param iban IBAN
    * @throws NullPointerException if iban is null
    * @throws IllegalArgumentException if iban is not an correct iban
    */

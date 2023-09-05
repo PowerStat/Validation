@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Lastname.
@@ -15,7 +17,7 @@ import java.util.regex.Pattern;
  * 
  * DSGVO relevant.
  */
-public record Lastname(String lastname) implements Comparable<Lastname>
+public record Lastname(String lastname) implements Comparable<Lastname>, IValueObject
  {
   /**
    * Lastname regexp.
@@ -26,6 +28,7 @@ public record Lastname(String lastname) implements Comparable<Lastname>
   /**
    * Constructor.
    *
+   * @param lastname Lastname
    * @throws NullPointerException if lastname is null
    * @throws IllegalArgumentException if lastname contains unsupported characters or is to long or short
    */

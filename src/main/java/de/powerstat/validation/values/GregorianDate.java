@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Gregorian calendar date.
@@ -32,7 +34,7 @@ import java.util.Objects;
  * TODO format date
  * TODO parse date
  */
-public record GregorianDate(GregorianCalendar calendar, Year year, Month month, Day day) implements Comparable<GregorianDate>
+public record GregorianDate(GregorianCalendar calendar, Year year, Month month, Day day) implements Comparable<GregorianDate>, IValueObject
  {
   /**
    * Output format.
@@ -52,6 +54,12 @@ public record GregorianDate(GregorianCalendar calendar, Year year, Month month, 
 
   /**
    * Constructor.
+   *
+   * @param calendar Gregorian calendar
+   * @param year Year
+   * @param month Month
+   * @param day Day
+   * @throws IllegalArgumentException If the day does not exist in given month
    */
   public GregorianDate
    {

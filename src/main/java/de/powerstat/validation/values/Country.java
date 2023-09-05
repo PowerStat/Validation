@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedISO3166A2;
+import de.powerstat.validation.interfaces.IValueObject;
 
 
 /**
@@ -19,7 +20,7 @@ import de.powerstat.validation.generated.GeneratedISO3166A2;
  *
  * TODO Translations
  */
-public record Country(String alpha2) implements Comparable<Country>
+public record Country(String alpha2) implements Comparable<Country>, IValueObject
  {
   /**
    * Country regexp.
@@ -30,6 +31,7 @@ public record Country(String alpha2) implements Comparable<Country>
   /**
    * Constructor.
    *
+   * @param alpha2 Alpha-2 code
    * @throws NullPointerException if code is null
    * @throws IllegalArgumentException if code is not a known alpha-2 code
    */

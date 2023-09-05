@@ -6,19 +6,22 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Address BFPONumber.
  *
- * @param bFPONumber Address bFPONumber
+ * @param bFPONumber BFPONumber bFPONumber
  *
  * Not DSGVO relevant.
  */
-public record BFPONumber(int bFPONumber) implements Comparable<BFPONumber>
+public record BFPONumber(int bFPONumber) implements Comparable<BFPONumber>, IValueObject
  {
   /**
    * Constructor.
    *
+   * @param bFPONumber BFPONumber bFPONumber
    * @throws IndexOutOfBoundsException When the bFPONumber is out of bounds
    */
   public BFPONumber

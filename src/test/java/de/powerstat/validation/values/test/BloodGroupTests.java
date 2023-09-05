@@ -165,7 +165,7 @@ public class BloodGroupTests
 
 
   /**
-   * Test getAction of Gender.
+   * Test getAction of BloodGroup.
    */
   @Test
   public void getAction()

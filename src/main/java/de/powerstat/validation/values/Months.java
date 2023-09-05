@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Months.
@@ -14,11 +16,12 @@ import java.util.Objects;
  * 
  * Not DSGVO relevant.
  */
-public record Months(long months) implements Comparable<Months>
+public record Months(long months) implements Comparable<Months>, IValueObject
  {
   /**
    * Constructor.
    *
+   * @param months Months 0-..
    * @throws IndexOutOfBoundsException When the months is less than 0
    */
   public Months

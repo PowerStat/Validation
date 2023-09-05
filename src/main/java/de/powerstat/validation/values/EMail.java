@@ -8,6 +8,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Electronic mail.
@@ -19,7 +21,7 @@ import java.util.regex.Pattern;
  * TODO Hostname exists?
  * TODO email exists check
  */
-public record EMail(String email) implements Comparable<EMail>
+public record EMail(String email) implements Comparable<EMail>, IValueObject
  {
   /**
    * Local part regexp.
@@ -32,6 +34,7 @@ public record EMail(String email) implements Comparable<EMail>
    *
    * Comments, double quotes and UTF-8 characters within the emails local part are not yet supported.
    *
+   * @param email EMail
    * @throws NullPointerException if email is null
    * @throws IllegalArgumentException if email is not an supported email address
    */

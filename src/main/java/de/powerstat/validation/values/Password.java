@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
 
+import de.powerstat.validation.interfaces.IValueObject;
 import de.powerstat.validation.values.strategies.IPasswordStrategy;
 import de.powerstat.validation.values.strategies.PasswordDefaultStrategy;
 
@@ -45,7 +46,7 @@ import de.powerstat.validation.values.strategies.PasswordDefaultStrategy;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Password implements Comparable<Password>
+public final class Password implements Comparable<Password>, IValueObject
  {
   /**
    * Cache for singletons.

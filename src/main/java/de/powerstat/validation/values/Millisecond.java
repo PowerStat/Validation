@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Millisecond.
@@ -16,7 +18,7 @@ import java.util.Objects;
  *
  * TODO Listener
  */
-public record Millisecond(int millisecond) implements Comparable<Millisecond>
+public record Millisecond(int millisecond) implements Comparable<Millisecond>, IValueObject
  {
   /**
    * Overflow constant.
@@ -32,6 +34,7 @@ public record Millisecond(int millisecond) implements Comparable<Millisecond>
   /**
    * Constructor.
    *
+   * @param millisecond Millisecond 0-999
    * @throws IndexOutOfBoundsException When the milliseond is less than 0 or greater than 999
    */
   public Millisecond

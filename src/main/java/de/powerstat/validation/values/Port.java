@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Port.
@@ -14,11 +16,12 @@ import java.util.Objects;
  * 
  * Not DSGVO relevant.
  */
-public record Port(int port) implements Comparable<Port>
+public record Port(int port) implements Comparable<Port>, IValueObject
  {
   /**
    * Constructor.
    *
+   * @param port Port 0-65535
    * @throws IndexOutOfBoundsException When the port is less than 0 or greater than 65535
    */
   public Port

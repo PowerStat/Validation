@@ -11,6 +11,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedTlds;
+import de.powerstat.validation.interfaces.IValueObject;
 
 
 /**
@@ -23,7 +24,7 @@ import de.powerstat.validation.generated.GeneratedTlds;
  * TODO Verify TopLevelDomain
  * TODO ping ok?
  */
-public record Hostname(String hostname) implements Comparable<Hostname>
+public record Hostname(String hostname) implements Comparable<Hostname>, IValueObject
  {
   /**
    * Hostname regexp.
@@ -39,6 +40,7 @@ public record Hostname(String hostname) implements Comparable<Hostname>
   /**
    * Constructor.
    *
+   * @param hostname Hostname
    * @throws NullPointerException if hostname is null
    * @throws IllegalArgumentException if hostname is not a hostname
    */

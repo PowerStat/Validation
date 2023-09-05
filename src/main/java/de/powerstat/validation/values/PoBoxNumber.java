@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Address Post office box number.
@@ -14,11 +16,12 @@ import java.util.Objects;
  * 
  * DSGVO relevant.
  */
-public record PoBoxNumber(long poBoxNumber) implements Comparable<PoBoxNumber>
+public record PoBoxNumber(long poBoxNumber) implements Comparable<PoBoxNumber>, IValueObject
  {
   /**
    * Constructor.
    *
+   * @param poBoxNumber PO box number 1-..
    * @throws IndexOutOfBoundsException When the poBoxNumber is less than 1
    */
   public PoBoxNumber

@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Address Building name.
@@ -15,7 +17,7 @@ import java.util.regex.Pattern;
  *
  * Not DSGVO relevant.
  */
-public record BuildingName(String buildingName) implements Comparable<BuildingName>
+public record BuildingName(String buildingName) implements Comparable<BuildingName>, IValueObject
  {
   /**
    * Building name regexp.
@@ -26,6 +28,7 @@ public record BuildingName(String buildingName) implements Comparable<BuildingNa
   /**
    * Constructor.
    *
+   * @param buildingName Building name
    * @throws NullPointerException if buildingName is null
    * @throws IllegalArgumentException if buildingName is not a correct building name
    */
