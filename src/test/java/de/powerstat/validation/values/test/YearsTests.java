@@ -56,6 +56,16 @@ public class YearsTests
 
 
   /**
+   * Factory string test.
+   */
+  @Test
+  public void factory1()
+   {
+    assertEquals(0, Years.of("0").longValue(), YearsTests.NOT_A_YEARS);
+   }
+
+
+  /**
    * Is years.
    *
    * @param years Years
@@ -105,6 +115,16 @@ public class YearsTests
   public void longValue()
    {
     assertEquals(10, Years.of(10).longValue(), YearsTests.NOT_A_YEARS);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    assertEquals("10", Years.of(10).stringValue(), YearsTests.NOT_A_YEARS);
    }
 
 

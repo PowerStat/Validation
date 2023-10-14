@@ -76,6 +76,18 @@ public final class Years implements Comparable<Years>, IValueObject
 
 
   /**
+   * Years factory.
+   *
+   * @param value Years &gt;= 0 string
+   * @return Years object
+   */
+  public static Years of(final String value)
+   {
+    return of(Long.parseLong(value));
+   }
+
+
+  /**
    * Get years.
    *
    * @return Years
@@ -96,6 +108,18 @@ public final class Years implements Comparable<Years>, IValueObject
   public long longValue()
    {
     return this.years;
+   }
+
+
+  /**
+   * Returns the value of this Years as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.years);
    }
 
 

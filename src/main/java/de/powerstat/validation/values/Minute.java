@@ -89,6 +89,18 @@ public final class Minute implements Comparable<Minute>, IValueObject
 
 
   /**
+   * Minute factory.
+   *
+   * @param value Minute 0-59 string
+   * @return Minute object
+   */
+  public static Minute of(final String value)
+   {
+    return of(Integer.parseInt(value));
+   }
+
+
+  /**
    * Get minute.
    *
    * @return Minute
@@ -109,6 +121,18 @@ public final class Minute implements Comparable<Minute>, IValueObject
   public int intValue()
    {
     return this.minute;
+   }
+
+
+  /**
+   * Returns the value of this Minute as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.minute);
    }
 
 

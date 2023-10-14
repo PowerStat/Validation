@@ -78,6 +78,18 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
 
 
   /**
+   * Seconds factory.
+   *
+   * @param value Seconds 0-.. string
+   * @return Seconds object
+   */
+  public static Seconds of(final String value)
+   {
+    return of(Long.parseLong(value));
+   }
+
+
+  /**
    * Get seconds.
    *
    * @return Seconds
@@ -98,6 +110,18 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
   public long longValue()
    {
     return this.seconds;
+   }
+
+
+  /**
+   * Returns the value of this Seconds as a String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.seconds);
    }
 
 

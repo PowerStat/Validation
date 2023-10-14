@@ -73,6 +73,18 @@ public enum Gender implements IValueObject
 
 
   /**
+   * Gender factory.
+   *
+   * @param value Gender name string
+   * @return Gender object
+   */
+  public static Gender of(final String value)
+   {
+    return Gender.valueOf(value);
+   }
+
+
+  /**
    * Get action number.
    *
    * @return Action number
@@ -80,6 +92,18 @@ public enum Gender implements IValueObject
   public int getAction()
    {
     return this.action;
+   }
+
+
+  /**
+   * Returns the value of this Gender as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.name();
    }
 
  }

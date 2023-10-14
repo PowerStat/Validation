@@ -57,6 +57,16 @@ public class SecondTests
 
 
   /**
+   * Factory string test.
+   */
+  @Test
+  public void factory1()
+   {
+    assertEquals(0, Second.of("0").intValue(), SecondTests.NOT_A_SECOND);
+   }
+
+
+  /**
    * Is second.
    *
    * @param second Second
@@ -106,6 +116,16 @@ public class SecondTests
   public void intValue()
    {
     assertEquals(10, Second.of(10).intValue(), SecondTests.NOT_A_SECOND);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    assertEquals("10", Second.of(10).stringValue(), SecondTests.NOT_A_SECOND);
    }
 
 

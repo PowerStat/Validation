@@ -52,6 +52,11 @@ public class PasswordTests
    */
   private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
+  /**
+   * Hidden password constant.
+   */
+  private static final String SECRET_PASSWORD = "********"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -129,7 +134,7 @@ public class PasswordTests
   public void getPassword()
    {
     final Password password = Password.of(PasswordTests.PASSWORD);
-    assertEquals(PasswordTests.PASSWORD, password.getPassword(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
+    assertEquals(SECRET_PASSWORD, password.getPassword(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
    }
 
 
@@ -140,7 +145,7 @@ public class PasswordTests
   public void stringValue()
    {
     final Password password = Password.of(PasswordTests.PASSWORD);
-    assertEquals(PasswordTests.PASSWORD, password.stringValue(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
+    assertEquals(SECRET_PASSWORD, password.stringValue(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
    }
 
 

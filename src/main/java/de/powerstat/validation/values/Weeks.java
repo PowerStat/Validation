@@ -76,6 +76,18 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
 
 
   /**
+   * Weeks factory.
+   *
+   * @param value Weeks 0-.. string
+   * @return Weeks object
+   */
+  public static Weeks of(final String value)
+   {
+    return of(Long.parseLong(value));
+   }
+
+
+  /**
    * Get weeks.
    *
    * @return Weeks
@@ -96,6 +108,18 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
   public long longValue()
    {
     return this.weeks;
+   }
+
+
+  /**
+   * Returns the value of this Weeks as a String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.weeks);
    }
 
 

@@ -35,6 +35,11 @@ public class BFPONumberTests
    */
   private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
+  /**
+   * 1 constant.
+   */
+  private static final String ONE = "1"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -42,6 +47,16 @@ public class BFPONumberTests
   public BFPONumberTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  public void factory1()
+   {
+    assertEquals(1, BFPONumber.of(ONE).intValue(), BFPONumberTests.NOT_A_BFPO_NUMBER);
    }
 
 
@@ -93,7 +108,7 @@ public class BFPONumberTests
   @Test
   public void getBFPONumberStr()
    {
-    assertEquals("1", BFPONumber.of(1).getBFPONumberStr(), BFPONumberTests.NOT_A_BFPO_NUMBER);
+    assertEquals(ONE, BFPONumber.of(1).getBFPONumberStr(), BFPONumberTests.NOT_A_BFPO_NUMBER);
    }
 
 

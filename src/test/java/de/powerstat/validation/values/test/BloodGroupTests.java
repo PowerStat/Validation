@@ -154,6 +154,16 @@ public class BloodGroupTests
    */
   private static final String BG_0PBN_NOT_OK = "0+ with B- should not be ok"; //$NON-NLS-1$
 
+  /**
+   * ON constant.
+   */
+  private static final String ON = "ON"; //$NON-NLS-1$
+
+  /**
+   * 0- action not as expected constant.
+   */
+  private static final String ZERO_NEGATIVE_ACTION_NOT_AS_EXPECTED = "0- action not as expected";
+
 
   /**
    * Default constructor.
@@ -165,13 +175,23 @@ public class BloodGroupTests
 
 
   /**
+   * Factory string test.
+   */
+  @Test
+  public void factory1()
+   {
+    assertEquals(0, BloodGroup.of(ON).getAction(), ZERO_NEGATIVE_ACTION_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test getAction of BloodGroup.
    */
   @Test
   public void getAction()
    {
-    assertAll("constructor", //$NON-NLS-1$
-      () -> assertEquals(0, BloodGroup.ON.getAction(), "0- action not as expected"), //$NON-NLS-1$
+    assertAll("getAction", //$NON-NLS-1$
+      () -> assertEquals(0, BloodGroup.ON.getAction(), ZERO_NEGATIVE_ACTION_NOT_AS_EXPECTED),
       () -> assertEquals(1, BloodGroup.OP.getAction(), "0+ action not as expected"), //$NON-NLS-1$
       () -> assertEquals(2, BloodGroup.AN.getAction(), "A- action not as expected"), //$NON-NLS-1$
       () -> assertEquals(3, BloodGroup.AP.getAction(), "A+ action not as expected"), //$NON-NLS-1$
@@ -180,6 +200,17 @@ public class BloodGroupTests
       () -> assertEquals(6, BloodGroup.ABN.getAction(), "AB- action not as expected"), //$NON-NLS-1$
       () -> assertEquals(7, BloodGroup.ABP.getAction(), "AB+ action not as expected") //$NON-NLS-1$
     );
+   }
+
+
+  /**
+   * Test stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    final BloodGroup group = BloodGroup.ON;
+    assertEquals(ON, group.stringValue(), "stringValue not as expected");
    }
 
 

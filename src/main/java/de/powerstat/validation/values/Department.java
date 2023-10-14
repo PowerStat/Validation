@@ -105,6 +105,7 @@ public final class Department implements Comparable<Department>, IValueObject
    *
    * @return he text value represented by this object after conversion to type string.
    */
+  @Override
   public String stringValue()
    {
     return this.department;

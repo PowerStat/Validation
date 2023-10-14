@@ -92,6 +92,19 @@ public final class Month implements Comparable<Month>, IValueObject
 
 
   /**
+   * Month factory.
+   *
+   * @param value Month 1-12 string
+   * @return Month object
+   * @throws IndexOutOfBoundsException When the month is less than 1 or greater than 12
+   */
+  public static Month of(final String value)
+   {
+    return of(Integer.parseInt(value));
+   }
+
+
+  /**
    * Get month.
    *
    * @return Month
@@ -112,6 +125,18 @@ public final class Month implements Comparable<Month>, IValueObject
   public int intValue()
    {
     return this.month;
+   }
+
+
+  /**
+   * Returns the value of this Month as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.month);
    }
 
 

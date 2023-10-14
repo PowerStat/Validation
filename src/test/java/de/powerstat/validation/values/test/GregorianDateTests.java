@@ -50,6 +50,21 @@ public class GregorianDateTests
    */
   private static final String SEPARATOR = "-"; //$NON-NLS-1$
 
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT_EXCEPTION_EXPECTED = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * Date constant.
+   */
+  private static final String DATE_2020_02_29 = "2020-02-29"; //$NON-NLS-1$
+
+  /**
+   * Date constant.
+   */
+  private static final String DATE_2020_07_14 = "2020-07-14"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -66,7 +81,7 @@ public class GregorianDateTests
    * @param date ISO8601 date string
    */
   @ParameterizedTest
-  @ValueSource(strings = {"2020-07-14", "2020-06-30", "2020-02-29", "2020-02-28", "2020-01-29", "2019-02-28", "2019-01-29"})
+  @ValueSource(strings = {DATE_2020_07_14, "2020-06-30", DATE_2020_02_29, "2020-02-28", "2020-01-29", "2019-02-28", "2019-01-29"})
   public void dateCorrect(final String date)
    {
     final String[] dateParts = date.split(GregorianDateTests.SEPARATOR);
@@ -88,8 +103,47 @@ public class GregorianDateTests
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final GregorianDate cleanDate = */ GregorianDate.of(Year.of(Long.parseLong(dateParts[0])), Month.of(Integer.parseInt(dateParts[1])), Day.of(Integer.parseInt(dateParts[2])));
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+     }, ILLEGAL_ARGUMENT_EXCEPTION_EXPECTED
     );
+   }
+
+
+  /**
+   * Test GregorianDate.
+   */
+  @Test
+  public void of1()
+   {
+    final GregorianDate cleanDate = GregorianDate.of(DATE_2020_02_29);
+    assertEquals(DATE_2020_02_29, cleanDate.stringValue(), GregorianDateTests.DATE_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test GregorianDate.
+   */
+  @Test
+  public void of2()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final GregorianDate cleanDate = */ GregorianDate.of("2020");
+     }, ILLEGAL_ARGUMENT_EXCEPTION_EXPECTED
+    );
+   }
+
+
+  /**
+   * Test get date.
+   *
+   * @deprecated Use stringValue() instead
+   */
+  @Test
+  @Deprecated
+  public void getDate()
+   {
+    final GregorianDate date = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
+    assertEquals(DATE_2020_07_14, date.getDate(), GregorianDateTests.DATE_NOT_AS_EXPECTED);
    }
 
 
@@ -97,10 +151,10 @@ public class GregorianDateTests
    * Test get date.
    */
   @Test
-  public void getDate()
+  public void stringValue()
    {
     final GregorianDate date = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
-    assertEquals("2020-07-14", date.stringValue(), GregorianDateTests.DATE_NOT_AS_EXPECTED); //$NON-NLS-1$
+    assertEquals(DATE_2020_07_14, date.stringValue(), GregorianDateTests.DATE_NOT_AS_EXPECTED);
    }
 
 

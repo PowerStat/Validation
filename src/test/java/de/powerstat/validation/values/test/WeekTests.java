@@ -57,6 +57,16 @@ public class WeekTests
 
 
   /**
+   * Factory string test.
+   */
+  @Test
+  public void factory1()
+   {
+    assertEquals(1, Week.of("1").intValue(), WeekTests.NOT_A_WEEK);
+   }
+
+
+  /**
    * Is week.
    *
    * @param week Week
@@ -106,6 +116,16 @@ public class WeekTests
   public void intValue()
    {
     assertEquals(10, Week.of(10).intValue(), WeekTests.NOT_A_WEEK);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    assertEquals("10", Week.of(10).stringValue(), WeekTests.NOT_A_WEEK);
    }
 
 

@@ -120,7 +120,7 @@ public class FirstnameTests
 
 
   /**
-   * Test get firstname.
+   * Test stringValue.
    */
   @Test
   public void stringValue()

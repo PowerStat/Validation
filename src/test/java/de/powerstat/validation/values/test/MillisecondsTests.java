@@ -56,6 +56,16 @@ public class MillisecondsTests
 
 
   /**
+   * Factory string test.
+   */
+  @Test
+  public void factory1()
+   {
+    assertEquals(0, Milliseconds.of("0").longValue(), MillisecondsTests.NOT_MILLISECONDS);
+   }
+
+
+  /**
    * Is milliseconds.
    *
    * @param milliseconds Milliseconds
@@ -105,6 +115,16 @@ public class MillisecondsTests
   public void longValue()
    {
     assertEquals(10, Milliseconds.of(10).longValue(), MillisecondsTests.NOT_MILLISECONDS);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    assertEquals("10", Milliseconds.of(10).stringValue(), MillisecondsTests.NOT_MILLISECONDS);
    }
 
 

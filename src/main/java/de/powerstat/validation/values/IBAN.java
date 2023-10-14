@@ -140,6 +140,7 @@ public final class IBAN implements Comparable<IBAN>, IValueObject
    *
    * @return The text value represented by this object after conversion to type string.
    */
+  @Override
   public String stringValue()
    {
     return this.iban;

@@ -35,6 +35,11 @@ public class PortTests
    */
   private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
+  /**
+   * Port 49152 constant.
+   */
+  private static final String PORT_49152 = "49152"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -42,6 +47,16 @@ public class PortTests
   public PortTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  public void factory1()
+   {
+    assertEquals(49152, Port.of(PORT_49152).intValue(), PortTests.PORT_SHOULD_BE_49152);
    }
 
 
@@ -95,6 +110,17 @@ public class PortTests
    {
     final Port port = Port.of(49152);
     assertEquals(49152, port.intValue(), PortTests.PORT_SHOULD_BE_49152);
+   }
+
+
+  /**
+   * Test stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    final Port port = Port.of(49152);
+    assertEquals(PORT_49152, port.stringValue(), PortTests.PORT_SHOULD_BE_49152);
    }
 
 

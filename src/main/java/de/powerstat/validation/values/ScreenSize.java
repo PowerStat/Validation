@@ -106,6 +106,23 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
 
 
   /**
+   * ScreenSize factory.
+   *
+   * @param value width (1-8192) x height (1-8192)
+   * @return ScreenSize
+   */
+  public static ScreenSize of(final String value)
+   {
+    final String[] values = value.split("x");
+    if (values.length != 2)
+     {
+      throw new IllegalArgumentException("value not of expected format");
+     }
+    return of(Integer.parseInt(values[0]), Integer.parseInt(values[1]), "");
+   }
+
+
+  /**
    * Get screen width.
    *
    * @return Screen width in pixel
@@ -145,6 +162,7 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
    *
    * @return The text value represented by this object after conversion to type string format 320x200.
    */
+  @Override
   public String stringValue()
    {
     return String.valueOf(this.width) + 'x' + this.height;

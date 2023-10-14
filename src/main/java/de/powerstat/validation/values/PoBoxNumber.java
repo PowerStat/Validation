@@ -56,7 +56,7 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>, IValueObject
   /**
    * PoBoxNumber factory.
    *
-   * @param poBoxNumber Day 1-31
+   * @param poBoxNumber PoBox number 1-..
    * @return PoBoxNumber object
    */
   public static PoBoxNumber of(final long poBoxNumber)
@@ -72,6 +72,18 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>, IValueObject
       PoBoxNumber.CACHE.put(Long.valueOf(poBoxNumber), obj);
       return obj;
      }
+   }
+
+
+  /**
+   * PoBoxNumber factory.
+   *
+   * @param value PoBox number 1-.. string
+   * @return PoBoxNumber object
+   */
+  public static PoBoxNumber of(final String value)
+   {
+    return of(Long.parseLong(value));
    }
 
 
@@ -117,6 +129,7 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>, IValueObject
    *
    * @return The text value represented by this object after conversion to type string.
    */
+  @Override
   public String stringValue()
    {
     return Long.toString(this.poBoxNumber);

@@ -15,6 +15,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import de.powerstat.validation.values.CalendarSystems;
+import de.powerstat.validation.values.Days;
+import de.powerstat.validation.values.Months;
 import de.powerstat.validation.values.Year;
 import de.powerstat.validation.values.Years;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -36,6 +39,16 @@ public class YearTests
    */
   private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
 
+  /**
+   * 10 constant.
+   */
+  private static final String TEN = "10"; //$NON-NLS-1$
+
+  /**
+   * Not a year constant.
+   */
+  private static final String NOT_A_YEAR = "Not a year!"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -43,6 +56,36 @@ public class YearTests
   public YearTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  public void factory1()
+   {
+    assertEquals(10, Year.of(TEN).longValue(), NOT_A_YEAR);
+   }
+
+
+  /**
+   * longValue.
+   */
+  @Test
+  public void longValue()
+   {
+    assertEquals(10, Year.of(10).longValue(), NOT_A_YEAR);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    assertEquals(TEN, Year.of(10).stringValue(), NOT_A_YEAR);
    }
 
 
@@ -55,7 +98,7 @@ public class YearTests
   @ValueSource(longs = {-1, 1, 2020})
   public void isYear(final long year)
    {
-    assertEquals(year, Year.of(year).longValue(), "Not a year!"); //$NON-NLS-1$
+    assertEquals(year, Year.of(year).longValue(), NOT_A_YEAR);
    }
 
 
@@ -130,7 +173,7 @@ public class YearTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  public void testCompareTo1()
    {
     final Year year1 = Year.of(1);
     final Year year2 = Year.of(1);
@@ -143,6 +186,22 @@ public class YearTests
       () -> assertTrue((year4.compareTo(year3) > 0) && (year3.compareTo(year1) > 0) && (year4.compareTo(year1) > 0), "transitive1"), //$NON-NLS-1$
       () -> assertTrue((year1.compareTo(year2) == 0) && (Math.abs(year1.compareTo(year5)) == Math.abs(year2.compareTo(year5))), "sgn1"), //$NON-NLS-1$
       () -> assertTrue((year1.compareTo(year2) == 0) && year1.equals(year2), "equals") //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test compareTo.
+   */
+  @Test
+  public void testCompareTo2()
+   {
+    final Year year1 = Year.of(CalendarSystems.JULIAN, 1582);
+    final Year year2 = Year.of(CalendarSystems.GREGORIAN, 1582);
+    assertThrows(IllegalStateException.class, () ->
+     {
+      year1.compareTo(year2);
+     }, "Illegal state exception"
     );
    }
 
@@ -332,6 +391,162 @@ public class YearTests
       /* final Year yearResult = */ year.decrement();
      }, YearTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
+   }
+
+
+  /**
+   * Test monthsWithin.
+   */
+  @Test
+  public void testMonthWithin()
+   {
+    final Year year = Year.of(1);
+    final Months result = year.monthsWithin();
+    assertEquals(12, result.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test isLepaYear.
+   */
+  @Test
+  public void testIsLeapYear1()
+   {
+    final Year year = Year.of(CalendarSystems.JULIAN, 4);
+    final boolean result = year.isLeapYear();
+    assertTrue(result, YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test isLepaYear.
+   */
+  @Test
+  public void testIsLeapYear2()
+   {
+    final Year year = Year.of(CalendarSystems.GREGORIAN, 2000);
+    final boolean result = year.isLeapYear();
+    assertTrue(result, YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test isLepaYear.
+   */
+  @Test
+  public void testIsLeapYear3()
+   {
+    final Year year = Year.of(CalendarSystems.GREGORIAN, 1500);
+    final boolean result = year.isLeapYear();
+    assertTrue(result, YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test isLepaYear.
+   */
+  @Test
+  public void testIsLeapYear5()
+   {
+    final Year year = Year.of(CalendarSystems.GREGORIAN, 2001);
+    final boolean result = year.isLeapYear();
+    assertFalse(result, YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test isLepaYear.
+   */
+  @Test
+  public void testIsLeapYear6()
+   {
+    final Year year = Year.of(CalendarSystems.GREGORIAN, 2004);
+    final boolean result = year.isLeapYear();
+    assertTrue(result, YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test isLepaYear.
+   */
+  @Test
+  public void testIsLeapYear7()
+   {
+    final Year year = Year.of(CalendarSystems.JULIAN, -1);
+    final boolean result = year.isLeapYear();
+    assertTrue(result, YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test isLepaYear.
+   */
+  @Test
+  public void testIsLeapYear8()
+   {
+    final Year year = Year.of(CalendarSystems.JULIAN, -2);
+    final boolean result = year.isLeapYear();
+    assertFalse(result, YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test daysWithin.
+   */
+  @Test
+  public void daysWithin1()
+   {
+    final Year year = Year.of(CalendarSystems.GREGORIAN, 2000);
+    final Days days = year.daysWithin();
+    assertEquals(366, days.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test daysWithin.
+   */
+  @Test
+  public void daysWithin2()
+   {
+    final Year year = Year.of(CalendarSystems.GREGORIAN, 2001);
+    final Days days = year.daysWithin();
+    assertEquals(365, days.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test daysWithin.
+   */
+  @Test
+  public void daysWithin3()
+   {
+    final Year year = Year.of(CalendarSystems.GREGORIAN, 1582);
+    final Days days = year.daysWithin();
+    assertEquals(355, days.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test daysWithin.
+   */
+  @Test
+  public void daysWithin4()
+   {
+    final Year year = Year.of(CalendarSystems.JULIAN, 2000);
+    final Days days = year.daysWithin();
+    assertEquals(366, days.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test daysWithin.
+   */
+  @Test
+  public void daysWithin5()
+   {
+    final Year year = Year.of(CalendarSystems.JULIAN, 2001);
+    final Days days = year.daysWithin();
+    assertEquals(365, days.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
  }

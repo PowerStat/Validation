@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -37,6 +38,16 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 @SuppressFBWarnings({"EC_NULL_ARG", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 public class AddressWithWGS84PositionTests
  {
+  /**
+   * Line break unix.
+   */
+  private static final String LINEBREAK_UNIX = "\n"; //$NON-NLS-1$
+
+  /**
+   * Line break windows.
+   */
+  private static final String LINEBREAK_WIN = "\r\n"; //$NON-NLS-1$
+
   /**
    * DE germany.
    */
@@ -82,6 +93,36 @@ public class AddressWithWGS84PositionTests
    */
   private static final String TEST = "Test"; //$NON-NLS-1$
 
+  /**
+   * Constructor constant.
+   */
+  private static final String CONSTRUCTOR = "constructor"; //$NON-NLS-1$
+
+  /**
+   * Address with wgs84 position is null constant.
+   */
+  private static final String ADDRESS_WITH_WGS84_POSITION_IS_NULL = "AddressWithWGS84Position is null"; //$NON-NLS-1$
+
+  /**
+   * Wrong country constant.
+   */
+  private static final String WRONG_COUNTRY = "Wrong country"; //$NON-NLS-1$
+
+  /**
+   * Wrong postal code constant.
+   */
+  private static final String WRONG_POSTAL_CODE = "Wrong postal code"; //$NON-NLS-1$
+
+  /**
+   * Wrong city constant.
+   */
+  private static final String WRONG_CITY = "Wrong city"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception constant.
+   */
+  private static final String ILLEGAL_ARGUMENT_EXCEPTION = "Illegal argument exception"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -99,8 +140,97 @@ public class AddressWithWGS84PositionTests
   public void constructor1()
    {
     final AddressWithWGS84Position address = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.ARBERGER_HEERSTR), BuildingNr.of(AddressWithWGS84PositionTests.BUILDINGNR92), null, null, null, null, null, null, null, null, WGS84Position.of(0.0, 0.0, 0.0));
-    assertAll("constructor", //$NON-NLS-1$
-      () -> assertNotNull(address, "AddressWithWGS84Position is null") //$NON-NLS-1$
+    assertAll(CONSTRUCTOR,
+      () -> assertNotNull(address, ADDRESS_WITH_WGS84_POSITION_IS_NULL)
+    );
+   }
+
+
+  /**
+   * Constructor/Factory test.
+   */
+  @Test
+  public void constructor2()
+   {
+    // Country, PostalCode, City, Province, District, Street, BuildingNr, BuildingName, SubBuilding, PoBoxNumber, Department, Neighbourhood, Block, BFPONumber, Lines, WGS84Position
+    final AddressWithWGS84Position address = AddressWithWGS84Position.of("DE,28307,Bremen,,,,,,,12345,,,,,,0.0 0.0 0.0");
+    assertAll(CONSTRUCTOR,
+      () -> assertNotNull(address, ADDRESS_WITH_WGS84_POSITION_IS_NULL),
+      () -> assertEquals(AddressWithWGS84PositionTests.DE, address.getCountry().stringValue(), WRONG_COUNTRY),
+      () -> assertEquals(AddressWithWGS84PositionTests.POSTALCODE28307, address.getPostalCode().stringValue(), WRONG_POSTAL_CODE),
+      () -> assertEquals(AddressWithWGS84PositionTests.BREMEN, address.getCity().stringValue(), WRONG_CITY),
+      () -> assertEquals(12345, address.getPoBoxNumber().longValue(), "Wrong pobox number")
+      // address.getPosition().getLatitude()
+      // address.getPosition().getLongitude()
+      // address.getPosition().getAltitude()
+    );
+   }
+
+
+  /**
+   * Constructor/factory test.
+   */
+  @Test
+  public void constructor3()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final AddressWithWGS84Position address = */ AddressWithWGS84Position.of("");
+     }, ILLEGAL_ARGUMENT_EXCEPTION
+    );
+   }
+
+
+  /**
+   * Constructor/factory test.
+   */
+  @Test
+  public void constructor4()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final AddressWithWGS84Position address = */ AddressWithWGS84Position.of("DE,28307,Bremen,,,,,,,12345,,,,,,0.0 0.0 0.0,1");
+     }, ILLEGAL_ARGUMENT_EXCEPTION
+    );
+   }
+
+
+  /**
+   * Constructor/factory test.
+   */
+  @Test
+  public void constructor5()
+   {
+    assertThrows(NullPointerException.class, () ->
+     {
+      /* final AddressWithWGS84Position address = */ AddressWithWGS84Position.of("DE,28307,Bremen,,,,,,,12345");
+     }, "Null pointer exception" //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Constructor/Factory test.
+   */
+  @Test
+  public void constructor6()
+   {
+    // Country, PostalCode, City, Province, District, Street, BuildingNr, BuildingName, SubBuilding, PoBoxNumber, Department, Neighbourhood, Block, BFPONumber, Lines, WGS84Position
+    final AddressWithWGS84Position address = AddressWithWGS84Position.of("DE,28307,Bremen,Bremen,9,,,Home,SubB,,Software Quality,Friendly,Block,1,Lines,0.0 0.0 0.0");
+    assertAll(CONSTRUCTOR,
+      () -> assertNotNull(address, ADDRESS_WITH_WGS84_POSITION_IS_NULL),
+      () -> assertEquals(AddressWithWGS84PositionTests.DE, address.getCountry().stringValue(), WRONG_COUNTRY),
+      () -> assertEquals(AddressWithWGS84PositionTests.POSTALCODE28307, address.getPostalCode().stringValue(), WRONG_POSTAL_CODE),
+      () -> assertEquals(AddressWithWGS84PositionTests.BREMEN, address.getCity().stringValue(), WRONG_CITY)
+      // Province
+      // District
+      // BuildingName
+      // SubBuilding
+      // Department
+      // Neighbourhood
+      // Block
+      // BFPONumber
+      // Lines
     );
    }
 
@@ -115,6 +245,18 @@ public class AddressWithWGS84PositionTests
     final AddressWithWGS84Position address = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.ARBERGER_HEERSTR), BuildingNr.of(AddressWithWGS84PositionTests.BUILDINGNR92), null, null, null, null, null, null, null, null, pos);
     final WGS84Position position = address.getPosition();
     assertEquals(pos, position, "Wrong position"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test string value.
+   */
+  @Test
+  public void stringValue()
+   {
+    final WGS84Position pos = WGS84Position.of(0.0, 0.0, 0.0);
+    final AddressWithWGS84Position address = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, null, null, null, null, PoBoxNumber.of(12345), null, null, null, null, null, pos);
+    assertEquals("\nPostfach 12345\n28307 Bremen\n\n0.0 0.0 0.0", address.stringValue().replace(AddressWithWGS84PositionTests.LINEBREAK_WIN, AddressWithWGS84PositionTests.LINEBREAK_UNIX).replace('\r', '\n'), "AddressWithWGS84Position not as expected");
    }
 
 

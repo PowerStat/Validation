@@ -46,6 +46,18 @@ public enum CalendarSystems implements IValueObject
 
 
   /**
+   * CalendarSystems factory.
+   *
+   * @param value CalendarSystems enum string
+   * @return CalendarSystems enum
+   */
+  public static CalendarSystems of(final String value)
+   {
+    return CalendarSystems.valueOf(value);
+   }
+
+
+  /**
    * Get action number.
    *
    * @return Action number
@@ -53,6 +65,18 @@ public enum CalendarSystems implements IValueObject
   public int getAction()
    {
     return this.action;
+   }
+
+
+  /**
+   * Returns the value of this CalendarSystems as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.name();
    }
 
  }

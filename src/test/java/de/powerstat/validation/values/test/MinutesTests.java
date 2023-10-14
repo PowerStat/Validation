@@ -56,6 +56,16 @@ public class MinutesTests
 
 
   /**
+   * Factory string test.
+   */
+  @Test
+  public void factory1()
+   {
+    assertEquals(0, Minutes.of("0").longValue(), MinutesTests.NOT_A_MINUTES);
+   }
+
+
+  /**
    * Is minutes.
    *
    * @param minutes Minutes
@@ -105,6 +115,16 @@ public class MinutesTests
   public void longValue()
    {
     assertEquals(10, Minutes.of(10).longValue(), MinutesTests.NOT_A_MINUTES);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    assertEquals("10", Minutes.of(10).stringValue(), MinutesTests.NOT_A_MINUTES);
    }
 
 

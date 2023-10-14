@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -47,6 +47,11 @@ public class GregorianCalendarTests
    */
   private static final String RU = "RU"; //$NON-NLS-1$
 
+  /**
+   * Calendar not as expected constant.
+   */
+  private static final String CALENDAR_NOT_AS_EXPECTED = "Calendar not as expected"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -67,7 +72,32 @@ public class GregorianCalendarTests
   public void calendarCorrect(final String country)
    {
     final GregorianCalendar cleanCalendar = GregorianCalendar.of(Country.of(country));
-    assertEquals(country, cleanCalendar.getCountry().stringValue(), "Calendar not as expected"); //$NON-NLS-1$
+    assertEquals(country, cleanCalendar.getCountry().stringValue(), CALENDAR_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test factory.
+   *
+   * @param country Country name
+   */
+  @ParameterizedTest
+  @ValueSource(strings = {GregorianCalendarTests.IT})
+  public void of(final String country)
+   {
+    final GregorianCalendar cleanCalendar = GregorianCalendar.of(country);
+    assertEquals(country, cleanCalendar.getCountry().stringValue(), CALENDAR_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test string value.
+   */
+  @Test
+  public void stringValue()
+   {
+    final GregorianCalendar cal = GregorianCalendar.of(Country.of(DE));
+    assertEquals(DE, cal.stringValue(), "Calendar country not as expected");
    }
 
 

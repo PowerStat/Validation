@@ -88,6 +88,18 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
 
 
   /**
+   * Millisecond factory.
+   *
+   * @param value Millisecond string 0-999
+   * @return Millisecond object
+   */
+  public static Millisecond of(final String value)
+   {
+    return of(Integer.parseInt(value));
+   }
+
+
+  /**
    * Get millisecond.
    *
    * @return Millisecond (0-999)
@@ -108,6 +120,18 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
   public int intValue()
    {
     return this.millisecond;
+   }
+
+
+  /**
+   * Returns the value of this Millisecond as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String (0-999).
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.millisecond);
    }
 
 

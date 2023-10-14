@@ -76,6 +76,18 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
 
 
   /**
+   * Factory for string values.
+   *
+   * @param value String value
+   * @return BFPONumber object
+   */
+  public static BFPONumber of(final String value)
+   {
+    return of(Integer.parseInt(value));
+   }
+
+
+  /**
    * Get bFPONumber.
    *
    * @return BFPONumber
@@ -117,6 +129,7 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
    *
    * @return The text value represented by this object after conversion to type string.
    */
+  @Override
   public String stringValue()
    {
     return Integer.toString(this.bFPONumber);

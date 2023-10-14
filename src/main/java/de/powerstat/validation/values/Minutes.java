@@ -76,6 +76,18 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
 
 
   /**
+   * Minutes factory.
+   *
+   * @param value Minutes 0-.. string
+   * @return Minutes object
+   */
+  public static Minutes of(final String value)
+   {
+    return of(Long.parseLong(value));
+   }
+
+
+  /**
    * Get minutes.
    *
    * @return Minutes
@@ -96,6 +108,18 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
   public long longValue()
    {
     return this.minutes;
+   }
+
+
+  /**
+   * Returns the value of this Minutes as a String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.minutes);
    }
 
 

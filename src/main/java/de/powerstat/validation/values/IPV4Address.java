@@ -226,6 +226,7 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
    *
    * @return The text value represented by this object after conversion to type string.
    */
+  @Override
   public String stringValue()
    {
     return this.address;

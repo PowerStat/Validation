@@ -38,6 +38,11 @@ public class IPV6MaskTests
    */
   private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
+  /**
+   * Constructor success constant.
+   */
+  private static final String CONSTRUCTOR_SUCCESS = "constructorSuccess"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -96,7 +101,20 @@ public class IPV6MaskTests
   public void constructorSuccess1()
    {
     final IPV6Mask mask = IPV6Mask.of(128);
-    assertAll("constructorSuccess1", //$NON-NLS-1$
+    assertAll(CONSTRUCTOR_SUCCESS,
+      () -> assertEquals(128, mask.intValue(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL)
+    );
+   }
+
+
+  /**
+   * Test constructor success.
+   */
+  @Test
+  public void constructorSuccess2()
+   {
+    final IPV6Mask mask = IPV6Mask.of("128");
+    assertAll(CONSTRUCTOR_SUCCESS,
       () -> assertEquals(128, mask.intValue(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL)
     );
    }
@@ -124,6 +142,17 @@ public class IPV6MaskTests
    {
     final IPV6Mask mask = IPV6Mask.of(0);
     assertEquals(0, mask.intValue(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL);
+   }
+
+
+  /**
+   * Test stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    final IPV6Mask mask = IPV6Mask.of(0);
+    assertEquals("0", mask.stringValue(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL);
    }
 
 

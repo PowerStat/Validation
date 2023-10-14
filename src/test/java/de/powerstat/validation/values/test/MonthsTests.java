@@ -56,6 +56,16 @@ public class MonthsTests
 
 
   /**
+   * Factory string test.
+   */
+  @Test
+  public void factory1()
+   {
+    assertEquals(0, Months.of("0").longValue(), MonthsTests.NOT_A_MONTHS);
+   }
+
+
+  /**
    * Is months.
    *
    * @param months Months
@@ -105,6 +115,16 @@ public class MonthsTests
   public void longValue()
    {
     assertEquals(10, Months.of(10).longValue(), MonthsTests.NOT_A_MONTHS);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    assertEquals("10", Months.of(10).stringValue(), MonthsTests.NOT_A_MONTHS);
    }
 
 

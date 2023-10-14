@@ -113,6 +113,7 @@ public final class Language implements Comparable<Language>, IValueObject
    *
    * @return The text value represented by this object after conversion to type string (ISO 639-1).
    */
+  @Override
   public String stringValue()
    {
     return this.code;

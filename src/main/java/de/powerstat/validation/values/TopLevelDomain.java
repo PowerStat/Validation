@@ -114,6 +114,7 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueO
    *
    * @return The text value represented by this object after conversion to type string.
    */
+  @Override
   public String stringValue()
    {
     return this.topLevelDomain;

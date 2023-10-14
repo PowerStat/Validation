@@ -62,6 +62,11 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
   private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
+   * IT - italy constant.
+   */
+  private static final String IT = "IT"; //$NON-NLS-1$
+
+  /**
    * Gregorian calendar.
    */
   private final GregorianCalendar calendar;
@@ -144,7 +149,24 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
    */
   public static GregorianDate of(final Year year, final Month month, final Day day)
    {
-    return GregorianDate.of(GregorianCalendar.of(Country.of("IT")), year, month, day); //$NON-NLS-1$
+    return GregorianDate.of(GregorianCalendar.of(Country.of(IT)), year, month, day);
+   }
+
+
+  /**
+   * GregorianDate factory for country=IT.
+   *
+   * @param value String value of ISO8601 type yyyy-mm-dd
+   * @return GregorianDate object
+   */
+  public static GregorianDate of(final String value)
+   {
+    final String[] values = value.split(DATE_SEP);
+    if (values.length != 3)
+     {
+      throw new IllegalArgumentException("Format not as expected: yyyy-mm-dd");
+     }
+    return GregorianDate.of(GregorianCalendar.of(Country.of(IT)), Year.of(values[0]), Month.of(values[1]), Day.of(values[2]));
    }
 
 
@@ -157,7 +179,7 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
   @Deprecated(since = GregorianDate.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getDate()
    {
-    return String.format(GregorianDate.FORMAT_FOURDIGIT, this.year.getYear()) + GregorianDate.DATE_SEP + String.format(GregorianDate.FORMAT_TWODIGIT, this.month.getMonth()) + GregorianDate.DATE_SEP + String.format(GregorianDate.FORMAT_TWODIGIT, this.day.getDay());
+    return String.format(GregorianDate.FORMAT_FOURDIGIT, this.year.longValue()) + GregorianDate.DATE_SEP + String.format(GregorianDate.FORMAT_TWODIGIT, this.month.intValue()) + GregorianDate.DATE_SEP + String.format(GregorianDate.FORMAT_TWODIGIT, this.day.intValue());
    }
 
 
@@ -166,6 +188,7 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
    *
    * @return The text value represented by this object after conversion to type string in ISO8601 format with - as separator.
    */
+  @Override
   public String stringValue()
    {
     return String.format(GregorianDate.FORMAT_FOURDIGIT, this.year.longValue()) + GregorianDate.DATE_SEP + String.format(GregorianDate.FORMAT_TWODIGIT, this.month.intValue()) + GregorianDate.DATE_SEP + String.format(GregorianDate.FORMAT_TWODIGIT, this.day.intValue());

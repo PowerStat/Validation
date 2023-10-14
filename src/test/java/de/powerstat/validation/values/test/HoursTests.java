@@ -56,6 +56,16 @@ public class HoursTests
 
 
   /**
+   * Factory string test.
+   */
+  @Test
+  public void factory1()
+   {
+    assertEquals(0, Hours.of("0").longValue(), HoursTests.NOT_A_HOURS);
+   }
+
+
+  /**
    * Is hours.
    *
    * @param hours Hours
@@ -105,6 +115,16 @@ public class HoursTests
   public void longValue()
    {
     assertEquals(10, Hours.of(10).longValue(), HoursTests.NOT_A_HOURS);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    assertEquals("10", Hours.of(10).stringValue(), HoursTests.NOT_A_HOURS);
    }
 
 

@@ -31,7 +31,7 @@ public class DisplayAspectRatioTests
   /**
    * 1:1 constant.
    */
-  private static final String ONE_TWO_ONE = "1:1"; //$NON-NLS-1$
+  private static final String ONE_TO_ONE = "1:1"; //$NON-NLS-1$
 
   /**
    * Aspect ratio not as expected constant.
@@ -60,6 +60,33 @@ public class DisplayAspectRatioTests
 
   /**
    * Get aspect ratio.
+   */
+  @Test
+  public void of1()
+   {
+    final DisplayAspectRatio ratio = DisplayAspectRatio.of(ONE_TO_ONE);
+    assertAll(DisplayAspectRatioTests.TEST_ASPECT_RATIO,
+      () -> assertEquals(DisplayAspectRatioTests.ONE_TO_ONE, ratio.stringValue(), DisplayAspectRatioTests.ASPECT_RATIO_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Get aspect ratio.
+   */
+  @Test
+  public void of2()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of("11");
+     }, "Illegal argument excetion"
+    );
+   }
+
+
+  /**
+   * Get aspect ratio.
    *
    * @deprecated Old version of stringValue()
    */
@@ -69,7 +96,7 @@ public class DisplayAspectRatioTests
    {
     final DisplayAspectRatio ratio = DisplayAspectRatio.of(1, 1);
     assertAll(DisplayAspectRatioTests.TEST_ASPECT_RATIO,
-      () -> assertEquals(DisplayAspectRatioTests.ONE_TWO_ONE, ratio.getAspectRatio(), DisplayAspectRatioTests.ASPECT_RATIO_NOT_AS_EXPECTED)
+      () -> assertEquals(DisplayAspectRatioTests.ONE_TO_ONE, ratio.getAspectRatio(), DisplayAspectRatioTests.ASPECT_RATIO_NOT_AS_EXPECTED)
     );
    }
 
@@ -84,7 +111,7 @@ public class DisplayAspectRatioTests
     assertAll(DisplayAspectRatioTests.TEST_ASPECT_RATIO,
       () -> assertEquals(1, ratio.getX(), "x ratio not as expected"), //$NON-NLS-1$
       () -> assertEquals(1, ratio.getY(), "y ratio not as expected"), //$NON-NLS-1$
-      () -> assertEquals(DisplayAspectRatioTests.ONE_TWO_ONE, ratio.stringValue(), DisplayAspectRatioTests.ASPECT_RATIO_NOT_AS_EXPECTED)
+      () -> assertEquals(DisplayAspectRatioTests.ONE_TO_ONE, ratio.stringValue(), DisplayAspectRatioTests.ASPECT_RATIO_NOT_AS_EXPECTED)
     );
    }
 

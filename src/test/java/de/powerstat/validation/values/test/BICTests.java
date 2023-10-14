@@ -123,7 +123,7 @@ public class BICTests
 
 
   /**
-   * Test get bic.
+   * Test string value.
    */
   @Test
   public void stringValue()

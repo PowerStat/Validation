@@ -36,6 +36,16 @@ public class DayTests
    */
   private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
 
+  /**
+   * 10 constant.
+   */
+  private static final String TEN = "10"; //$NON-NLS-1$
+
+  /**
+   * Not a day constant.
+   */
+  private static final String NOT_A_DAY = "Not a day!"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -43,6 +53,36 @@ public class DayTests
   public DayTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string gtest.
+   */
+  @Test
+  public void factory1()
+   {
+    assertEquals(10, Day.of(TEN).intValue(), NOT_A_DAY);
+   }
+
+
+  /**
+   * intValue.
+   */
+  @Test
+  public void intValue()
+   {
+    assertEquals(10, Day.of(10).intValue(), NOT_A_DAY);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    assertEquals(TEN, Day.of(10).stringValue(), NOT_A_DAY);
    }
 
 
@@ -55,7 +95,7 @@ public class DayTests
   @ValueSource(ints = {1, 31})
   public void isDay(final int day)
    {
-    assertEquals(day, Day.of(day).intValue(), "Not a day!"); //$NON-NLS-1$
+    assertEquals(day, Day.of(day).intValue(), NOT_A_DAY);
    }
 
 

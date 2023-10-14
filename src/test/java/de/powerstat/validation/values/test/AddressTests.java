@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -293,6 +294,11 @@ public class AddressTests
    */
   private static final String TO_STRING_NOT_EQUAL = "toString not equal"; //$NON-NLS-1$
 
+  /**
+   * Illegal argument exception constant.
+   */
+  private static final String ILLEGAL_ARGUMENT_EXCEPTION = "Illegal argument exception"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -336,6 +342,84 @@ public class AddressTests
       () -> assertEquals(AddressTests.BREMEN, address.getCity().stringValue(), AddressTests.WRONG_CITY),
       () -> assertEquals(12345, address.getPoBoxNumber().longValue(), AddressTests.WRONG_PO_BOX_NUMBER)
     );
+   }
+
+
+  /**
+   * Constructor/Factory test.
+   */
+  @Test
+  public void constructor3()
+   {
+    // Province province, District district, ,, BuildingName buildingName, SubBuilding subBuilding, PoBoxNumber poBoxNumber, Department department, Neighbourhood neighbourhood, Block block, BFPONumber bFPONumber, Lines lines
+    final Address address = Address.of("DE,28307,Bremen,,,,,,,12345,,,,,");
+    assertAll(AddressTests.CONSTRUCTOR,
+      () -> assertNotNull(address, AddressTests.ADDRESS_IS_NULL),
+      () -> assertEquals(AddressTests.DE, address.getCountry().stringValue(), AddressTests.WRONG_COUNTRY),
+      () -> assertEquals(AddressTests.POSTALCODE28307, address.getPostalCode().stringValue(), AddressTests.WRONG_POSTAL_CODE),
+      () -> assertEquals(AddressTests.BREMEN, address.getCity().stringValue(), AddressTests.WRONG_CITY),
+      () -> assertEquals(12345, address.getPoBoxNumber().longValue(), AddressTests.WRONG_PO_BOX_NUMBER)
+    );
+   }
+
+
+  /**
+   * Constructor/Factory test.
+   */
+  @Test
+  public void constructor4()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      // Province province, District district, ,, BuildingName buildingName, SubBuilding subBuilding, PoBoxNumber poBoxNumber, Department department, Neighbourhood neighbourhood, Block block, BFPONumber bFPONumber, Lines lines
+      /* final Address address = */ Address.of("");
+     }, ILLEGAL_ARGUMENT_EXCEPTION
+    );
+   }
+
+
+  /**
+   * Constructor/Factory test.
+   */
+  @Test
+  public void constructor5()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      // Province province, District district, ,, BuildingName buildingName, SubBuilding subBuilding, PoBoxNumber poBoxNumber, Department department, Neighbourhood neighbourhood, Block block, BFPONumber bFPONumber, Lines lines
+      /* final Address address = */ Address.of("DE,28307,Bremen,,,,,,,12345,,,,,,1");
+     }, ILLEGAL_ARGUMENT_EXCEPTION
+    );
+   }
+
+
+  /**
+   * Constructor/Factory test.
+   */
+  @Test
+  public void constructor6()
+   {
+    // Province province, District district, ,, BuildingName buildingName, SubBuilding subBuilding, PoBoxNumber poBoxNumber, Department department, Neighbourhood neighbourhood, Block block, BFPONumber bFPONumber, Lines lines
+    final Address address = Address.of("DE,28307,Bremen,,,,,,,12345,,,,,Lines");
+    assertAll(AddressTests.CONSTRUCTOR,
+      () -> assertNotNull(address, AddressTests.ADDRESS_IS_NULL),
+      () -> assertEquals(AddressTests.DE, address.getCountry().stringValue(), AddressTests.WRONG_COUNTRY),
+      () -> assertEquals(AddressTests.POSTALCODE28307, address.getPostalCode().stringValue(), AddressTests.WRONG_POSTAL_CODE),
+      () -> assertEquals(AddressTests.BREMEN, address.getCity().stringValue(), AddressTests.WRONG_CITY),
+      () -> assertEquals(12345, address.getPoBoxNumber().longValue(), AddressTests.WRONG_PO_BOX_NUMBER)
+      // Lines
+    );
+   }
+
+
+  /**
+   * Test string value.
+   */
+  @Test
+  public void stringValue()
+   {
+    final Address address = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, null, null, null, null, PoBoxNumber.of(12345), null, null, null, null, null);
+    assertEquals("\nPostfach 12345\n28307 Bremen\n\n", address.stringValue().replace(AddressTests.LINEBREAK_WIN, AddressTests.LINEBREAK_UNIX).replace('\r', '\n'), "Address not as expected");
    }
 
 

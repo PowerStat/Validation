@@ -107,6 +107,7 @@ public final class Street implements Comparable<Street>, IValueObject
    *
    * @return The text value represented by this object after conversion to type string.
    */
+  @Override
   public String stringValue()
    {
     return this.street;

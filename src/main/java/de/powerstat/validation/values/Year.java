@@ -24,6 +24,11 @@ import de.powerstat.validation.values.containers.NTuple2;
 public final class Year implements Comparable<Year>, IValueObject
  {
   /**
+   * Unsupported calendar system constant.
+   */
+  private static final String UNSUPPORTED_CALENDAR_SYSTEM = "Unsupported calendar system!";
+
+  /**
    * Cache for singletons.
    */
   private static final Map<NTuple2<CalendarSystems, Long>, Year> CACHE = new WeakHashMap<>();
@@ -109,15 +114,14 @@ public final class Year implements Comparable<Year>, IValueObject
 
 
   /**
-   * Get year.
+   * Gregorian calendar year factory.
    *
-   * @return Year
-   * @deprecated Use longValue() instead
+   * @param value Year != 0 string
+   * @return Year object
    */
-  @Deprecated(since = Year.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public long getYear()
+  public static Year of(final String value)
    {
-    return this.year;
+    return of(CalendarSystems.GREGORIAN, Long.parseLong(value));
    }
 
 
@@ -129,6 +133,18 @@ public final class Year implements Comparable<Year>, IValueObject
   public long longValue()
    {
     return this.year;
+   }
+
+
+  /**
+   * Returns the value of this Year as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.year);
    }
 
 
@@ -196,7 +212,7 @@ public final class Year implements Comparable<Year>, IValueObject
           return isGregorianLeapYear(this.year);
          }
       default:
-        throw new IllegalStateException("Unsupported calendar system!");
+        throw new IllegalStateException(UNSUPPORTED_CALENDAR_SYSTEM);
      }
    }
 
@@ -212,15 +228,15 @@ public final class Year implements Comparable<Year>, IValueObject
     switch (this.calendarSystem)
      {
       case JULIAN:
-        return Days.of(365 + (this.isLeapYear() ? 1 : 0));
+        return Days.of(365L + (this.isLeapYear() ? 1 : 0));
       case GREGORIAN:
         if (this.year == BEFORE_GREGORIAN_YEAR) // Country dependend
          {
-          return Days.of(365 - 10); // Country dependend
+          return Days.of(365L - 10); // Country dependend
          }
-        return Days.of(365 + (this.isLeapYear() ? 1 : 0));
+        return Days.of(365L + (this.isLeapYear() ? 1 : 0));
       default:
-        throw new IllegalStateException("Unsupported calendar system!");
+        throw new IllegalStateException(UNSUPPORTED_CALENDAR_SYSTEM);
     }
    }
 
@@ -277,23 +293,9 @@ public final class Year implements Comparable<Year>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder(28);
     builder.append("Year[calendarSystem=").append(this.calendarSystem).append(", year=").append(this.year).append(']'); //$NON-NLS-1$
     return builder.toString();
-   }
-
-
-  /**
-   * Compare fields.
-   *
-   * @param <T> Field type
-   * @param obj1 Field 1 (this)
-   * @param obj2 Field 2 (other)
-   * @return 0: equal; 1 field 1 greater than field 2; -1 field 1 smaller than field 2
-   */
-  private static <T extends Comparable<T>> int compareField(final T obj1, final T obj2)
-   {
-    return (obj1 == null) ? ((obj2 == null) ? 0 : -1) : ((obj2 == null) ? 1 : obj1.compareTo(obj2));
    }
 
 
@@ -313,7 +315,7 @@ public final class Year implements Comparable<Year>, IValueObject
      {
       throw new IllegalStateException("CalendarSystems are not equal!");
      }
-    return compareField(this.year, obj.year);
+    return Long.compare(this.year, obj.year);
    }
 
 

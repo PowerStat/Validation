@@ -91,15 +91,14 @@ public final class Day implements Comparable<Day>, IValueObject
 
 
   /**
-   * Get day.
+   * Day factory.
    *
-   * @return Day
-   * @deprecated Use intValue() instead
+   * @param value String value
+   * @return Day object
    */
-  @Deprecated(since = Day.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public int getDay()
+  public static Day of(final String value)
    {
-    return this.day;
+    return of(Integer.parseInt(value));
    }
 
 
@@ -111,6 +110,18 @@ public final class Day implements Comparable<Day>, IValueObject
   public int intValue()
    {
     return this.day;
+   }
+
+
+  /**
+   * Returns the value of this Day as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.day);
    }
 
 

@@ -56,6 +56,16 @@ public class DaysTests
 
 
   /**
+   * Factory string test.
+   */
+  @Test
+  public void factory1()
+   {
+    assertEquals(0, Days.of("0").longValue(), DaysTests.NOT_A_DAYS);
+   }
+
+
+  /**
    * Is days.
    *
    * @param days Days
@@ -105,6 +115,16 @@ public class DaysTests
   public void longValue()
    {
     assertEquals(10, Days.of(10).longValue(), DaysTests.NOT_A_DAYS);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    assertEquals("10", Days.of(10).stringValue(), DaysTests.NOT_A_DAYS);
    }
 
 

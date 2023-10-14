@@ -89,6 +89,18 @@ public final class Hour implements Comparable<Hour>, IValueObject
 
 
   /**
+   * Hour factory.
+   *
+   * @param value Hour 0-23 string
+   * @return Hour object
+   */
+  public static Hour of(final String value)
+   {
+    return of(Integer.parseInt(value));
+   }
+
+
+  /**
    * Get hour.
    *
    * @return Hour
@@ -109,6 +121,18 @@ public final class Hour implements Comparable<Hour>, IValueObject
   public int intValue()
    {
     return this.hour;
+   }
+
+
+  /**
+   * Returns the value of this Hour as a String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.hour);
    }
 
 

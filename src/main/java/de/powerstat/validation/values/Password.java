@@ -59,6 +59,12 @@ public final class Password implements Comparable<Password>, IValueObject
   private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
+   * Hidden password.
+   */
+  @SuppressWarnings("java:S2068")
+  private static final String SECRET_PASSWORD = "********"; //$NON-NLS-1$
+
+  /**
    * Password.
    */
   private final String passwd;
@@ -128,7 +134,7 @@ public final class Password implements Comparable<Password>, IValueObject
   @Deprecated(since = Password.DEPRECATED_SINCE_3_0, forRemoval = false)
   public String getPassword()
    {
-    return this.passwd;
+    return SECRET_PASSWORD;
    }
 
 
@@ -137,9 +143,10 @@ public final class Password implements Comparable<Password>, IValueObject
    *
    * @return The text value represented by this object after conversion to type string.
    */
+  @Override
   public String stringValue()
    {
-    return this.passwd;
+    return SECRET_PASSWORD;
    }
 
 

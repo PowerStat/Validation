@@ -33,6 +33,26 @@ public class WGS84PositionTests
    */
   private static final String TEST_EQUALS = "testEquals"; //$NON-NLS-1$
 
+  /**
+   * Zero position constant.
+   */
+  private static final String ZERO = "0.0 0.0 0.0"; //$NON-NLS-1$
+
+  /**
+   * Latitute error constant.
+   */
+  private static final String LATITUTE_ERROR = "Latitute error!"; //$NON-NLS-1$
+
+  /**
+   * Longitute error constant.
+   */
+  private static final String LONGITUTE_ERROR = "Longitute error!"; //$NON-NLS-1$
+
+  /**
+   * Altitude error constant.
+   */
+  private static final String ALTITUDE_ERROR = "Altitude error!"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -44,6 +64,35 @@ public class WGS84PositionTests
 
 
   /**
+   * Factory string test.
+   */
+  @Test
+  public void factory1()
+   {
+    final WGS84Position pos = WGS84Position.of(ZERO);
+    assertAll("factory", //$NON-NLS-1$
+      () -> assertEquals(0.0, pos.getLatitude(), LATITUTE_ERROR),
+      () -> assertEquals(0.0, pos.getLongitude(), LONGITUTE_ERROR),
+      () -> assertEquals(0.0, pos.getAltitude(), ALTITUDE_ERROR)
+    );
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  public void factory2()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final WGS84Position pos = */ WGS84Position.of("0.0");
+     }, "Illegal argument excption"
+    );
+   }
+
+
+  /**
    * Is WGS84 position.
    */
   @Test
@@ -51,9 +100,9 @@ public class WGS84PositionTests
    {
     final WGS84Position pos = WGS84Position.of(0.0, 0.0, 0.0);
     assertAll("testIsPosition", //$NON-NLS-1$
-      () -> assertEquals(0.0, pos.getLatitude(), "Latitute error!"), //$NON-NLS-1$
-      () -> assertEquals(0.0, pos.getLongitude(), "Longitute error!"), //$NON-NLS-1$
-      () -> assertEquals(0.0, pos.getAltitude(), "Altitude error!") //$NON-NLS-1$
+      () -> assertEquals(0.0, pos.getLatitude(), LATITUTE_ERROR),
+      () -> assertEquals(0.0, pos.getLongitude(), LONGITUTE_ERROR),
+      () -> assertEquals(0.0, pos.getAltitude(), ALTITUDE_ERROR)
     );
    }
 
@@ -111,6 +160,16 @@ public class WGS84PositionTests
       /* final WGS84Position pos = */ WGS84Position.of(0.0, 180.1, 0.0);
      }, WGS84PositionTests.INDEX_OUT_OF_BOUNDS_EXPECTED
     );
+   }
+
+
+  /**
+   * Test stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    assertEquals(ZERO, WGS84Position.of(0.0, 0.0, 0.0).stringValue(), "Result not as expected");
    }
 
 

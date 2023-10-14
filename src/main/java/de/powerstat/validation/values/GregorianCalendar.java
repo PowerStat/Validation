@@ -213,6 +213,18 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
 
 
   /**
+   * GregorianClendar factory.
+   *
+   * @param value Country alpha-2 code
+   * @return GregorianDate object
+   */
+  public static GregorianCalendar of(final String value)
+   {
+    return of(Country.of(value));
+   }
+
+
+  /**
    * Get country.
    *
    * @return Country
@@ -220,6 +232,18 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
   public Country getCountry()
    {
     return this.country;
+   }
+
+
+  /**
+   * Returns the value of this GregorianCalendar as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.country.stringValue();
    }
 
 

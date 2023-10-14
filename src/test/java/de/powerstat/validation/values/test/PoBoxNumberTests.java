@@ -51,6 +51,16 @@ public class PoBoxNumberTests
 
 
   /**
+   * Factory string test.
+   */
+  @Test
+  public void factory1()
+   {
+    assertEquals(1, PoBoxNumber.of("1").longValue(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
+   }
+
+
+  /**
    * Is po box number.
    *
    * @param poBoxNumber PO box number

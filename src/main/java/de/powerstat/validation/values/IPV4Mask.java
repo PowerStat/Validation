@@ -149,7 +149,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
   /**
    * IPV4Mask factory.
    *
-   * @param length IP V4 prefix length
+   * @param length IP V4 prefix length 0-32
    * @return IPV4Mask object
    */
   public static IPV4Mask of(final int length)
@@ -173,6 +173,8 @@ public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
    *
    * @param mask IP V4 network mask in format like 255.255.255.0
    * @return IPV4Mask object
+   *
+   * TODO mask=length as string (0-32)?
    */
   public static IPV4Mask of(final String mask)
    {
@@ -231,6 +233,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
    *
    * @return The text value represented by this object after conversion to type string of format 255.255.255.0.
    */
+  @Override
   public String stringValue()
    {
     return this.mask;

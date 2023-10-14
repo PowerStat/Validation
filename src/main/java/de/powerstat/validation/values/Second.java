@@ -90,6 +90,18 @@ public final class Second implements Comparable<Second>, IValueObject
 
 
   /**
+   * Second factory.
+   *
+   * @param value Second 0-59/60 string
+   * @return Second object
+   */
+  public static Second of(final String value)
+   {
+    return of(Integer.parseInt(value));
+   }
+
+
+  /**
    * Get second.
    *
    * @return Second
@@ -110,6 +122,18 @@ public final class Second implements Comparable<Second>, IValueObject
   public int intValue()
    {
     return this.second;
+   }
+
+
+  /**
+   * Returns the value of this Second as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.second);
    }
 
 

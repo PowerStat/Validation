@@ -57,6 +57,16 @@ public class MillisecondTests
 
 
   /**
+   * Factory string test.
+   */
+  @Test
+  public void fatory1()
+   {
+    assertEquals(0, Millisecond.of("0").intValue(), MillisecondTests.NOT_MILLISECOND);
+   }
+
+
+  /**
    * Is millisecond.
    *
    * @param millisecond Millisecond
@@ -105,6 +115,16 @@ public class MillisecondTests
   public void intValue()
    {
     assertEquals(10, Millisecond.of(10).intValue(), MillisecondTests.NOT_MILLISECOND);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    assertEquals("10", Millisecond.of(10).stringValue(), MillisecondTests.NOT_MILLISECOND);
    }
 
 

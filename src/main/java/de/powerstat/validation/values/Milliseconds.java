@@ -76,6 +76,18 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
 
 
   /**
+   * Milliseconds factory.
+   *
+   * @param value Milliseconds 0-[Long.MAX_VALUE] string
+   * @return Milliseconds object
+   */
+  public static Milliseconds of(final String value)
+   {
+    return of(Long.parseLong(value));
+   }
+
+
+  /**
    * Get milliseconds.
    *
    * @return Milliseconds (0-Long.MAX_VALUE)
@@ -96,6 +108,18 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
   public long longValue()
    {
     return this.milliseconds;
+   }
+
+
+  /**
+   * Returns the value of this Milliseconds as a String.
+   *
+   * @return The numeric value represented by this object after conversion to type String (0-Long.MAX_VALUE).
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.milliseconds);
    }
 
 

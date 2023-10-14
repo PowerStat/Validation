@@ -76,6 +76,18 @@ public final class Port implements Comparable<Port>, IValueObject
 
 
   /**
+   * Port factory.
+   *
+   * @param port Port 0-65535
+   * @return Port object
+   */
+  public static Port of(final String port)
+   {
+    return of(Integer.parseInt(port));
+   }
+
+
+  /**
    * Is system port (0-1023).
    *
    * @return true: system port, otherwise false
@@ -129,6 +141,18 @@ public final class Port implements Comparable<Port>, IValueObject
   public int intValue()
    {
     return this.port;
+   }
+
+
+  /**
+   * Returns the value of this Port as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.port);
    }
 
 

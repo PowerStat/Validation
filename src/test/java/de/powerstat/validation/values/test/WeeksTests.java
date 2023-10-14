@@ -56,6 +56,16 @@ public class WeeksTests
 
 
   /**
+   * Factory string test.
+   */
+  @Test
+  public void factory1()
+   {
+    assertEquals(0, Weeks.of("0").longValue(), WeeksTests.NOT_A_WEEKS);
+   }
+
+
+  /**
    * Is weeks.
    *
    * @param weeks Weeks
@@ -105,6 +115,16 @@ public class WeeksTests
   public void longValue()
    {
     assertEquals(1, Weeks.of(1).longValue(), WeeksTests.NOT_A_WEEKS);
+   }
+
+
+  /**
+   * Test stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    assertEquals("1", Weeks.of(1).stringValue(), WeeksTests.NOT_A_WEEKS);
    }
 
 

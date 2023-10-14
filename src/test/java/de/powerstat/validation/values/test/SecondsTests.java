@@ -56,6 +56,16 @@ public class SecondsTests
 
 
   /**
+   * Factory string test.
+   */
+  @Test
+  public void factory1()
+   {
+    assertEquals(0, Seconds.of("0").longValue(), SecondsTests.NOT_A_SECONDS);
+   }
+
+
+  /**
    * Is seconds.
    *
    * @param seconds Seconds
@@ -105,6 +115,16 @@ public class SecondsTests
   public void longValue()
    {
     assertEquals(10, Seconds.of(10).longValue(), SecondsTests.NOT_A_SECONDS);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    assertEquals("10", Seconds.of(10).stringValue(), SecondsTests.NOT_A_SECONDS);
    }
 
 

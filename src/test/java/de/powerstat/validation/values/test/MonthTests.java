@@ -36,6 +36,16 @@ public class MonthTests
    */
   private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
 
+  /**
+   * 10 constant.
+   */
+  private static final String TEN = "10"; //$NON-NLS-1$
+
+  /**
+   * Not a month constant.
+   */
+  private static final String NOT_A_MONTH = "Not a month!"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -43,6 +53,49 @@ public class MonthTests
   public MonthTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  public void factory1()
+   {
+    assertEquals(10, Month.of(TEN).intValue(), NOT_A_MONTH);
+   }
+
+
+  /**
+   * intValue.
+   */
+  @Test
+  public void intValue()
+   {
+    assertEquals(10, Month.of(10).intValue(), NOT_A_MONTH);
+   }
+
+
+  /**
+   * getMonth.
+   *
+   * @deprecated Use stringValue()
+   */
+  @Test
+  @Deprecated
+  public void getMonth()
+   {
+    assertEquals(10, Month.of(10).getMonth(), NOT_A_MONTH);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  public void stringValue()
+   {
+    assertEquals(TEN, Month.of(10).stringValue(), NOT_A_MONTH);
    }
 
 
@@ -55,7 +108,7 @@ public class MonthTests
   @ValueSource(ints = {1, 12})
   public void isMonth(final int month)
    {
-    assertEquals(month, Month.of(month).intValue(), "Not a month!"); //$NON-NLS-1$
+    assertEquals(month, Month.of(month).intValue(), NOT_A_MONTH);
    }
 
 

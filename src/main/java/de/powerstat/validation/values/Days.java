@@ -76,6 +76,18 @@ public final class Days implements Comparable<Days>, IValueObject
 
 
   /**
+   * Days factory.
+   *
+   * @param value String value
+   * @return Days object
+   */
+  public static Days of(final String value)
+   {
+    return of(Long.parseLong(value));
+   }
+
+
+  /**
    * Get days.
    *
    * @return Days
@@ -96,6 +108,18 @@ public final class Days implements Comparable<Days>, IValueObject
   public long longValue()
    {
     return this.days;
+   }
+
+
+  /**
+   * Returns the value of this Days as a String.
+   *
+   * @return The numeric value represented by this object after conversion to type STring.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.days);
    }
 
 

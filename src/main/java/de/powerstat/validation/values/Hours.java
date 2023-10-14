@@ -76,6 +76,18 @@ public final class Hours implements Comparable<Hours>, IValueObject
 
 
   /**
+   * Hours factory.
+   *
+   * @param value Hours 0-.. string
+   * @return Hours object
+   */
+  public static Hours of(final String value)
+   {
+    return of(Long.parseLong(value));
+   }
+
+
+  /**
    * Get hours.
    *
    * @return Hours
@@ -96,6 +108,18 @@ public final class Hours implements Comparable<Hours>, IValueObject
   public long longValue()
    {
     return this.hours;
+   }
+
+
+  /**
+   * Returns the value of this BFPONumber as a String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.hours);
    }
 
 

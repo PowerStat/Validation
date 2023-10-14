@@ -90,6 +90,18 @@ public final class Week implements Comparable<Week>, IValueObject
 
 
   /**
+   * Week factory.
+   *
+   * @param value Week 1-53 string
+   * @return Week object
+   */
+  public static Week of(final String value)
+   {
+    return of(Integer.parseInt(value));
+   }
+
+
+  /**
    * Get week.
    *
    * @return Week
@@ -110,6 +122,18 @@ public final class Week implements Comparable<Week>, IValueObject
   public int intValue()
    {
     return this.week;
+   }
+
+
+  /**
+   * Returns the value of this Week as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.week);
    }
 
 

@@ -149,7 +149,7 @@ public class HostnameTests
 
 
   /**
-   * Test get hostname.
+   * Test string value.
    */
   @Test
   public void stringValue()

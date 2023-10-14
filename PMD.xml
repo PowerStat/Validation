@@ -285,7 +285,7 @@
   <rule ref="category/java/codestyle.xml/LongVariable">
     <properties>
       <property name="minimum">
-        <value>31</value>
+        <value>36</value>
       </property>
     </properties>
   </rule>
@@ -525,7 +525,7 @@
   </rule>
   <rule ref="category/java/documentation.xml/CommentSize">
     <properties>
-      <property name="maxLines" value="21"/>
+      <property name="maxLines" value="40"/>
       <property name="maxLineLength" value="999" />
     </properties>
   </rule>

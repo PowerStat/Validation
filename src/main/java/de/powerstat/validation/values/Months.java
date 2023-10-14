@@ -76,6 +76,18 @@ public final class Months implements Comparable<Months>, IValueObject
 
 
   /**
+   * Months factory.
+   *
+   * @param value Months 0-.. string
+   * @return Months object
+   */
+  public static Months of(final String value)
+   {
+    return of(Long.parseLong(value));
+   }
+
+
+  /**
    * Get months.
    *
    * @return Months
@@ -96,6 +108,18 @@ public final class Months implements Comparable<Months>, IValueObject
   public long longValue()
    {
     return this.months;
+   }
+
+
+  /**
+   * Returns the value of this Months as a String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.months);
    }
 
 

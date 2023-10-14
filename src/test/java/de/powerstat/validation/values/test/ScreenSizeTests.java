@@ -53,6 +53,16 @@ public class ScreenSizeTests
    */
   private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
+  /**
+   * Width is not equal constant.
+   */
+  private static final String WIDTH_IS_NOT_EQUAL = "width is not equal"; //$NON-NLS-1$
+
+  /**
+   * Height is not equal constant.
+   */
+  private static final String HEIGHT_IS_NOT_EQUAL = "height is not equal"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
@@ -64,6 +74,34 @@ public class ScreenSizeTests
 
 
   /**
+   * Factory string test.
+   */
+  @Test
+  public void factory1()
+   {
+    final ScreenSize size = ScreenSize.of(QVGA320X240);
+    assertAll("factory1", //$NON-NLS-1$
+      () -> assertEquals(320, size.getWidth(), WIDTH_IS_NOT_EQUAL),
+      () -> assertEquals(240, size.getHeight(), HEIGHT_IS_NOT_EQUAL)
+    );
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  public void factory2()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final ScreenSize size = */ ScreenSize.of("320");
+     }, "Illegal argument exception"
+    );
+   }
+
+
+  /**
    * Is screen size.
    */
   @Test
@@ -71,8 +109,8 @@ public class ScreenSizeTests
    {
     final ScreenSize size = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
     assertAll("testScreenSize", //$NON-NLS-1$
-      () -> assertEquals(320, size.getWidth(), "width is not equal"), //$NON-NLS-1$
-      () -> assertEquals(240, size.getHeight(), "height is not equal"), //$NON-NLS-1$
+      () -> assertEquals(320, size.getWidth(), WIDTH_IS_NOT_EQUAL),
+      () -> assertEquals(240, size.getHeight(), HEIGHT_IS_NOT_EQUAL),
       () -> assertEquals(ScreenSizeTests.QVGA320X240, size.stringValue(), ScreenSizeTests.SIZE_IS_NOT_EQUAL),
       () -> assertEquals(ScreenSizeTests.QVGA, size.getName(), "size name is not equal") //$NON-NLS-1$
     );

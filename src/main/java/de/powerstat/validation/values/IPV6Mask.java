@@ -56,7 +56,7 @@ public final class IPV6Mask implements Comparable<IPV6Mask>, IValueObject
   /**
    * IPV6Mask factory.
    *
-   * @param length IP V6 prefix length
+   * @param length IP V6 prefix length (0-128)
    * @return IPV6Mask object
    */
   public static IPV6Mask of(final int length)
@@ -72,6 +72,18 @@ public final class IPV6Mask implements Comparable<IPV6Mask>, IValueObject
       IPV6Mask.CACHE.put(Integer.valueOf(length), obj);
       return obj;
      }
+   }
+
+
+  /**
+   * IPV6Mask factory.
+   *
+   * @param value IP V6 prefix length string (0-128)
+   * @return IPV6Mask object
+   */
+  public static IPV6Mask of(final String value)
+   {
+    return of(Integer.parseInt(value));
    }
 
 
@@ -96,6 +108,18 @@ public final class IPV6Mask implements Comparable<IPV6Mask>, IValueObject
   public int intValue()
    {
     return this.length;
+   }
+
+
+  /**
+   * Returns the value of this IPV6Mask as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String (0-128).
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.length);
    }
 
 
