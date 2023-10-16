@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -55,11 +55,6 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
    * ISO8601 separator.
    */
   private static final String DATE_SEP = "-"; //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * IT - italy constant.
@@ -171,19 +166,6 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
 
 
   /**
-   * Get date string ISO8601 format.
-   *
-   * @return GregorianDate string in ISO8601 format with - as separator
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = GregorianDate.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getDate()
-   {
-    return String.format(GregorianDate.FORMAT_FOURDIGIT, this.year.longValue()) + GregorianDate.DATE_SEP + String.format(GregorianDate.FORMAT_TWODIGIT, this.month.intValue()) + GregorianDate.DATE_SEP + String.format(GregorianDate.FORMAT_TWODIGIT, this.day.intValue());
-   }
-
-
-  /**
    * Returns the value of this GregorianDate as a string.
    *
    * @return The text value represented by this object after conversion to type string in ISO8601 format with - as separator.
@@ -255,7 +237,7 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(30);
+    final var builder = new StringBuilder(30);
     builder.append("GregorianDate[country=").append(this.calendar.getCountry().stringValue()).append(", date=").append(stringValue()).append(']'); //$NON-NLS-1$ //$NON-NLS-2$
     return builder.toString();
    }
@@ -301,8 +283,8 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
     final long d = ((((19 * a) + b) - (b / 4) - (((b - ((b + 8) / 25)) + 1) / 3)) + 15) % 30;
     final long e  = ((32 + (2 * (b % 4)) + (2 * (c / 4))) - d - (c % 4)) % 7;
     final long f = ((d + e) - (7 * ((a + (11 * d) + (22 * e)) / 451))) + 114;
-    final Day day = Day.of(((int)f % 31) + 1);
-    final Month month = Month.of((int)(f / 31));
+    final var day = Day.of(((int)f % 31) + 1);
+    final var month = Month.of((int)(f / 31));
     return GregorianDate.of(calendar, year, month, day);
    }
 

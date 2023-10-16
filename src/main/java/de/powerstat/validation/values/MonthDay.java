@@ -234,7 +234,7 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(22);
+    final var builder = new StringBuilder(22);
     builder.append("MonthDay[month=").append(this.month).append(", day=").append(this.day).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

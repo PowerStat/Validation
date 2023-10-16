@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -34,11 +34,6 @@ public final class EMail implements Comparable<EMail>, IValueObject
    * Local part regexp.
    */
   private static final Pattern LOCAL_REGEXP = Pattern.compile("^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * EMail.
@@ -140,19 +135,6 @@ public final class EMail implements Comparable<EMail>, IValueObject
 
 
   /**
-   * Get email string.
-   *
-   * @return EMail string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = EMail.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getEMail()
-   {
-    return this.email;
-   }
-
-
-  /**
    * Returns the value of this EMail as a string.
    *
    * @return The text value represented by this object after conversion to type string.
@@ -246,7 +228,7 @@ public final class EMail implements Comparable<EMail>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final var builder = new StringBuilder();
     builder.append("EMail[email=").append(this.email).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

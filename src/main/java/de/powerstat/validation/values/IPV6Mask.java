@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -24,11 +24,6 @@ public final class IPV6Mask implements Comparable<IPV6Mask>, IValueObject
    * Cache for singletons.
    */
   private static final Map<Integer, IPV6Mask> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Prefix length.
@@ -84,19 +79,6 @@ public final class IPV6Mask implements Comparable<IPV6Mask>, IValueObject
   public static IPV6Mask of(final String value)
    {
     return of(Integer.parseInt(value));
-   }
-
-
-  /**
-   * Get prefix length.
-   *
-   * @return Prefix length (0-128)
-   * @deprecated Use intValue() instead
-   */
-  @Deprecated(since = IPV6Mask.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public int getLength()
-   {
-    return this.length;
    }
 
 
@@ -175,7 +157,7 @@ public final class IPV6Mask implements Comparable<IPV6Mask>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(17);
+    final var builder = new StringBuilder(17);
     builder.append("IPV6Mask[length=").append(this.length).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

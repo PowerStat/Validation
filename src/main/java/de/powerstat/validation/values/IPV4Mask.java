@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -43,11 +43,6 @@ public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
    * IP V4 mask regexp.
    */
   private static final Pattern IPV4_MASK_REGEXP = Pattern.compile("^(((255\\.){3}(255|254|252|248|240|224|192|128|0))|((255\\.){2}(254|252|248|240|224|192|128|0)\\.0)|((255\\.)(254|252|248|240|224|192|128|0)(\\.0){2})|((254|252|248|240|224|192|128|0)(\\.0){3}))$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Prefix length.
@@ -192,19 +187,6 @@ public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
 
 
   /**
-   * Get prefix length.
-   *
-   * @return Prefix length (0-32)
-   * @deprecated Use intValue() instead
-   */
-  @Deprecated(since = IPV4Mask.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public int getLength()
-   {
-    return this.length;
-   }
-
-
-  /**
    * Returns the value of this IPV4Mask as an int.
    *
    * @return The numeric value represented by this object after conversion to type int (0-32).
@@ -212,19 +194,6 @@ public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
   public int intValue()
    {
     return this.length;
-   }
-
-
-  /**
-   * Get network mask.
-   *
-   * @return Network mask of format 255.255.255.0
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = IPV4Mask.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getMask()
-   {
-    return this.mask;
    }
 
 
@@ -289,7 +258,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(24);
+    final var builder = new StringBuilder(24);
     builder.append("IPV4Mask[length=").append(this.length).append(", mask=").append(this.mask).append(']'); //$NON-NLS-1$ //$NON-NLS-2$
     return builder.toString();
    }

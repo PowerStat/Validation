@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -677,7 +677,7 @@ public class Address implements Comparable<Address>, IValueObject
          }
        }
      }
-    final Country country = Country.of(values[0]);
+    final var country = Country.of(values[0]);
     final PostalCode postalCode = values[1].isEmpty() ? null : PostalCode.of(values[1]);
     final City city = values[2].isEmpty() ? null : City.of(values[2]);
     final Province province = values[3].isEmpty() ? null : Province.of(values[3]);
@@ -829,7 +829,7 @@ public class Address implements Comparable<Address>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(182);
+    final var builder = new StringBuilder(182);
     builder.append("Address[country=").append(this.country.stringValue()); //$NON-NLS-1$
     if (this.postalCode != null)
      {
@@ -1022,7 +1022,7 @@ public class Address implements Comparable<Address>, IValueObject
           throw new IllegalArgumentException("Block without end found in: " + this.country.stringValue()); //$NON-NLS-1$
          }
         pos = posEndBlock + 1;
-        final String blk = format.substring(posStartBlock + 1, posEndBlock);
+        final var blk = format.substring(posStartBlock + 1, posEndBlock);
         boolean removedBlock = false;
         int fieldPos = 0;
         while (fieldPos < blk.length())
@@ -1111,8 +1111,8 @@ public class Address implements Comparable<Address>, IValueObject
   public String getFormattedAddress(final String recipientName)
    {
     Objects.requireNonNull(recipientName, "recipientName"); //$NON-NLS-1$
-    final StringBuilder builder = new StringBuilder();
-    try (Formatter formatter = new Formatter(builder, Locale.getDefault()))
+    final var builder = new StringBuilder();
+    try (var formatter = new Formatter(builder, Locale.getDefault()))
      {
       final String tmpPostalCode = this.postalCode == null ? null : this.postalCode.stringValue();
       final String tmpCity = this.city == null ? null : this.city.stringValue();

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -31,11 +31,6 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueO
    * Top level domain regexp.
    */
   private static final Pattern TOPLEVELDOMAIN_REGEXP = Pattern.compile("^[0-9a-zA-Z-]+$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Top level domain.
@@ -93,19 +88,6 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueO
       TopLevelDomain.CACHE.put(topLevelDomain, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get top level domain string.
-   *
-   * @return Top level domain string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = TopLevelDomain.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getTopLevelDomain()
-   {
-    return this.topLevelDomain;
    }
 
 
@@ -170,7 +152,7 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueO
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(31);
+    final var builder = new StringBuilder(31);
     builder.append("TopLevelDomain[topLevelDomain=").append(this.topLevelDomain).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

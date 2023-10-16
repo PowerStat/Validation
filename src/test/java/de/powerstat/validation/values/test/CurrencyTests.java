@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Currency tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class CurrencyTests
+final class CurrencyTests
  {
   /**
    * EURO.
@@ -45,11 +45,6 @@ public class CurrencyTests
    */
   private static final String CURRENCY_CODE_NOT_AS_EXPECTED = "Currency code not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -67,7 +62,7 @@ public class CurrencyTests
    */
   @ParameterizedTest
   @ValueSource(strings = {CurrencyTests.EUR})
-  public void currencyOk0(final String code)
+  /* default */ void testCurrencyOk0(final String code)
    {
     final Currency cleanCurrency = Currency.of(code);
     assertEquals(code, cleanCurrency.stringValue(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
@@ -81,7 +76,7 @@ public class CurrencyTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"EU", "EURO"})
-  public void currencyLength(final String code)
+  /* default */ void testCurrencyLength(final String code)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -98,7 +93,7 @@ public class CurrencyTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"EU~", "ZZZ"})
-  public void ccurrencyIllegalParameters(final String code)
+  /* default */ void testCurrencyIllegalParameters(final String code)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -110,23 +105,9 @@ public class CurrencyTests
 
   /**
    * Test get currency code.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = CurrencyTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getCurrency()
-   {
-    final Currency currency = Currency.of(CurrencyTests.EUR);
-    assertEquals(CurrencyTests.EUR, currency.getCurrency(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get currency code.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final Currency currency = Currency.of(CurrencyTests.EUR);
     assertEquals(CurrencyTests.EUR, currency.stringValue(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
@@ -137,7 +118,7 @@ public class CurrencyTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final Currency currency1 = Currency.of(CurrencyTests.EUR);
     final Currency currency2 = Currency.of(CurrencyTests.EUR);
@@ -153,7 +134,8 @@ public class CurrencyTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final Currency language1 = Currency.of(CurrencyTests.EUR);
     final Currency language2 = Currency.of(CurrencyTests.EUR);
@@ -176,7 +158,7 @@ public class CurrencyTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final Currency currency = Currency.of(CurrencyTests.EUR);
     assertEquals("Currency[code=EUR]", currency.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -187,7 +169,8 @@ public class CurrencyTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Currency currency1 = Currency.of(CurrencyTests.EUR);
     final Currency currency2 = Currency.of(CurrencyTests.EUR);

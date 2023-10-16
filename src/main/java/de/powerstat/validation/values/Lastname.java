@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -30,11 +30,6 @@ public final class Lastname implements Comparable<Lastname>, IValueObject
    * Lastname regexp.
    */
   private static final Pattern LASTNAME_REGEXP = Pattern.compile("^[\\p{L}][\\p{L} -]*$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Lastname.
@@ -85,19 +80,6 @@ public final class Lastname implements Comparable<Lastname>, IValueObject
       Lastname.CACHE.put(lastname, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get lastname string.
-   *
-   * @return Lastname string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = Lastname.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getLastname()
-   {
-    return this.lastname;
    }
 
 
@@ -162,7 +144,7 @@ public final class Lastname implements Comparable<Lastname>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(19);
+    final var builder = new StringBuilder(19);
     builder.append("Lastname[lastname=").append(this.lastname).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

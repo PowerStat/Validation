@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Language tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class LanguageTests
+final class LanguageTests
  {
   /**
    * FR france.
@@ -45,11 +45,6 @@ public class LanguageTests
    */
   private static final String LANGUAGE_CODE_NOT_AS_EXPECTED = "Language code not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -67,7 +62,7 @@ public class LanguageTests
    */
   @ParameterizedTest
   @ValueSource(strings = {LanguageTests.DE})
-  public void languageOk0(final String code)
+  /* default */ void testLanguageOk0(final String code)
    {
     final Language cleanLanguage = Language.of(code);
     assertEquals(code, cleanLanguage.stringValue(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
@@ -81,7 +76,7 @@ public class LanguageTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"d", "dea"})
-  public void languageLength(final String code)
+  /* default */ void testLanguageLength(final String code)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -98,7 +93,7 @@ public class LanguageTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"d~", "zz"})
-  public void countryIllegalParameters(final String code)
+  /* default */ void testCountryIllegalParameters(final String code)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -110,23 +105,9 @@ public class LanguageTests
 
   /**
    * Test get language code.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = LanguageTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getLanguage()
-   {
-    final Language language = Language.of(LanguageTests.DE);
-    assertEquals(LanguageTests.DE, language.getLanguage(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get language code.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final Language language = Language.of(LanguageTests.DE);
     assertEquals(LanguageTests.DE, language.stringValue(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
@@ -137,7 +118,7 @@ public class LanguageTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final Language language1 = Language.of(LanguageTests.DE);
     final Language language2 = Language.of(LanguageTests.DE);
@@ -153,7 +134,8 @@ public class LanguageTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final Language language1 = Language.of(LanguageTests.DE);
     final Language language2 = Language.of(LanguageTests.DE);
@@ -176,7 +158,7 @@ public class LanguageTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final Language language = Language.of(LanguageTests.DE);
     assertEquals("Language[code=de]", language.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -187,7 +169,8 @@ public class LanguageTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Language language1 = Language.of(LanguageTests.DE);
     final Language language2 = Language.of(LanguageTests.DE);

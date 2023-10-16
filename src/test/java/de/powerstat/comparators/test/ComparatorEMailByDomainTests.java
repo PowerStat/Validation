@@ -1,5 +1,5 @@
-/**
- * Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+/*
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.comparators.test;
 
@@ -18,7 +18,7 @@ import de.powerstat.validation.values.EMail;
 /**
  * ComparatorEMailByDomain tests.
  */
-public class ComparatorEMailByDomainTests
+final class ComparatorEMailByDomainTests
  {
   /**
    * User1@example.com constant.
@@ -64,7 +64,7 @@ public class ComparatorEMailByDomainTests
    * Constructor test.
    */
   @Test
-  public void constructor1()
+  /* default */ void testConstructor1()
    {
     final ComparatorEMailByDomain comp = new ComparatorEMailByDomain();
     assertNotNull(comp, "Constructor failed!"); //$NON-NLS-1$
@@ -75,7 +75,7 @@ public class ComparatorEMailByDomainTests
    * Test compare.
    */
   @Test
-  public void compare1()
+  /* default */ void testCompare1()
    {
     final ComparatorEMailByDomain comp = new ComparatorEMailByDomain();
     final EMail email = EMail.of(ComparatorEMailByDomainTests.USER1_EXAMPLE_COM);
@@ -91,7 +91,7 @@ public class ComparatorEMailByDomainTests
    * Test compare.
    */
   @Test
-  public void compare2()
+  /* default */ void testCompare2()
    {
     final ComparatorEMailByDomain comp = new ComparatorEMailByDomain();
     final EMail email = EMail.of(ComparatorEMailByDomainTests.USER1_EXAMPLE_COM);
@@ -107,7 +107,7 @@ public class ComparatorEMailByDomainTests
    * Test compare.
    */
   @Test
-  public void compare3()
+  /* default */ void testCompare3()
    {
     final ComparatorEMailByDomain comp = new ComparatorEMailByDomain();
     final EMail email = EMail.of(ComparatorEMailByDomainTests.USER1_EXAMPLE_COM);
@@ -120,7 +120,7 @@ public class ComparatorEMailByDomainTests
    * Test compare.
    */
   @Test
-  public void compare4()
+  /* default */ void testCompare4()
    {
     final ComparatorEMailByDomain comp = new ComparatorEMailByDomain();
     final EMail email1 = EMail.of(ComparatorEMailByDomainTests.USER1_EXAMPLE_COM);
@@ -134,7 +134,7 @@ public class ComparatorEMailByDomainTests
    * Test compare.
    */
   @Test
-  public void compare5()
+  /* default */ void testCompare5()
    {
     final ComparatorEMailByDomain comp = new ComparatorEMailByDomain();
     final EMail email1 = EMail.of(ComparatorEMailByDomainTests.USER1_EXAMPLE_COM);
@@ -148,7 +148,7 @@ public class ComparatorEMailByDomainTests
    * Test compare.
    */
   @Test
-  public void compare6()
+  /* default */ void testCompare6()
    {
     final ComparatorEMailByDomain comp = new ComparatorEMailByDomain();
     final EMail email1 = EMail.of(ComparatorEMailByDomainTests.USER1_EXAMPLE_COM);
@@ -162,7 +162,7 @@ public class ComparatorEMailByDomainTests
    * Test compare.
    */
   @Test
-  public void compare7()
+  /* default */ void testCompare7()
    {
     final ComparatorEMailByDomain comp = new ComparatorEMailByDomain();
     final EMail email1 = EMail.of(ComparatorEMailByDomainTests.USER1_EXAMPLE_COM);

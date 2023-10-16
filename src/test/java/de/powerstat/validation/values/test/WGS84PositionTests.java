@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * WGS84 position tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class WGS84PositionTests
+final class WGS84PositionTests
  {
   /**
    * Index out of bounds exception expected constant.
@@ -67,7 +67,7 @@ public class WGS84PositionTests
    * Factory string test.
    */
   @Test
-  public void factory1()
+  /* default */ void testFactory1()
    {
     final WGS84Position pos = WGS84Position.of(ZERO);
     assertAll("factory", //$NON-NLS-1$
@@ -82,7 +82,7 @@ public class WGS84PositionTests
    * Factory string test.
    */
   @Test
-  public void factory2()
+  /* default */ void testFactory2()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -96,7 +96,7 @@ public class WGS84PositionTests
    * Is WGS84 position.
    */
   @Test
-  public void isWGS84Position()
+  /* default */ void testIsWGS84Position()
    {
     final WGS84Position pos = WGS84Position.of(0.0, 0.0, 0.0);
     assertAll("testIsPosition", //$NON-NLS-1$
@@ -111,7 +111,7 @@ public class WGS84PositionTests
    * Is not a WGS84 position.
    */
   @Test
-  public void isNotWGS84Position1()
+  /* default */ void testIsNotWGS84Position1()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -125,7 +125,7 @@ public class WGS84PositionTests
    * Is not a WGS84 position.
    */
   @Test
-  public void isNotWGS84Position2()
+  /* default */ void testIsNotWGS84Position2()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -139,7 +139,7 @@ public class WGS84PositionTests
    * Is not a WGS84 position.
    */
   @Test
-  public void isNotWGS84Position3()
+  /* default */ void testIsNotWGS84Position3()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -153,7 +153,7 @@ public class WGS84PositionTests
    * Is not a WGS84 position.
    */
   @Test
-  public void isNotWGS84Position4()
+  /* default */ void testIsNotWGS84Position4()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -167,7 +167,7 @@ public class WGS84PositionTests
    * Test stringValue.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     assertEquals(ZERO, WGS84Position.of(0.0, 0.0, 0.0).stringValue(), "Result not as expected");
    }
@@ -177,7 +177,7 @@ public class WGS84PositionTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final WGS84Position pos1 = WGS84Position.of(0.0, 0.0, 0.0);
     final WGS84Position pos2 = WGS84Position.of(0.0, 0.0, 0.0);
@@ -193,7 +193,8 @@ public class WGS84PositionTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final WGS84Position pos1 = WGS84Position.of(0.0, 0.0, 0.0);
     final WGS84Position pos2 = WGS84Position.of(0.0, 0.0, 0.0);
@@ -216,7 +217,8 @@ public class WGS84PositionTests
    * Test equals.
    */
   @Test
-  public void testEquals2()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals2()
    {
     final WGS84Position pos1 = WGS84Position.of(0.0, 0.0, 0.0);
     final WGS84Position pos2 = WGS84Position.of(0.0, 0.0, 0.0000001D);
@@ -230,7 +232,8 @@ public class WGS84PositionTests
    * Test not equals.
    */
   @Test
-  public void testNotEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testNotEquals()
    {
     final WGS84Position pos1 = WGS84Position.of(0.0, 0.0, 0.0);
     final WGS84Position pos2 = WGS84Position.of(0.0, 0.0, 0.1);
@@ -246,7 +249,7 @@ public class WGS84PositionTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final WGS84Position pos = WGS84Position.of(0.0, 0.0, 0.0);
     assertEquals("WGS84Position[latitude=0.0, longitude=0.0, altitude=0.0]", pos.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -257,7 +260,8 @@ public class WGS84PositionTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final WGS84Position pos1 = WGS84Position.of(0.0, 0.0, 0.0);
     final WGS84Position pos2 = WGS84Position.of(0.0, 0.0, 0.0);
@@ -278,7 +282,8 @@ public class WGS84PositionTests
    * Test not compareTo.
    */
   @Test
-  public void testNotCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testNotCompareTo()
    {
     final WGS84Position pos1 = WGS84Position.of(0.0, 0.0, 0.0);
     final WGS84Position pos2 = WGS84Position.of(0.0, 150.0, 0.0);

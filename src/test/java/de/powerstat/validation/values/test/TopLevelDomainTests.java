@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Top level domain tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class TopLevelDomainTests
+final class TopLevelDomainTests
  {
   /**
    * FR - france.
@@ -45,11 +45,6 @@ public class TopLevelDomainTests
    */
   private static final String TLD_NOT_AS_EXPECTED = "TopLevelDomain not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -67,7 +62,7 @@ public class TopLevelDomainTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"de", "XN--VERMGENSBERATUNG-PWB"}) // , "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJK"
-  public void topLevelDomainOk0(final String topLevelDomain)
+  /* default */ void testTopLevelDomainOk0(final String topLevelDomain)
    {
     final TopLevelDomain cleanTopLevelDomain = TopLevelDomain.of(topLevelDomain);
     assertEquals(topLevelDomain, cleanTopLevelDomain.stringValue(), TopLevelDomainTests.TLD_NOT_AS_EXPECTED);
@@ -81,7 +76,7 @@ public class TopLevelDomainTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"A", "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL"})
-  public void topLevelDomainLength(final String topLevelDomain)
+  /* default */ void testTopLevelDomainLength(final String topLevelDomain)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -98,7 +93,7 @@ public class TopLevelDomainTests
    */
   @ParameterizedTest
   @ValueSource(strings = {".DE", "-DE", "DE-", "D~E", "ZZ"})
-  public void topLevelDomainIllegalParameters(final String topLevelDomain)
+  /* default */ void testTopLevelDomainIllegalParameters(final String topLevelDomain)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -110,23 +105,9 @@ public class TopLevelDomainTests
 
   /**
    * Test get topLevelDomain.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = TopLevelDomainTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getTopLevelDomain()
-   {
-    final TopLevelDomain topLevelDomain = TopLevelDomain.of(TopLevelDomainTests.DE);
-    assertEquals(TopLevelDomainTests.DE, topLevelDomain.getTopLevelDomain(), TopLevelDomainTests.TLD_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get topLevelDomain.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final TopLevelDomain topLevelDomain = TopLevelDomain.of(TopLevelDomainTests.DE);
     assertEquals(TopLevelDomainTests.DE, topLevelDomain.stringValue(), TopLevelDomainTests.TLD_NOT_AS_EXPECTED);
@@ -137,7 +118,7 @@ public class TopLevelDomainTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final TopLevelDomain topLevelDomain1 = TopLevelDomain.of(TopLevelDomainTests.DE);
     final TopLevelDomain topLevelDomain2 = TopLevelDomain.of(TopLevelDomainTests.DE);
@@ -153,7 +134,8 @@ public class TopLevelDomainTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final TopLevelDomain topLevelDomain1 = TopLevelDomain.of(TopLevelDomainTests.DE);
     final TopLevelDomain topLevelDomain2 = TopLevelDomain.of(TopLevelDomainTests.DE);
@@ -176,7 +158,7 @@ public class TopLevelDomainTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final TopLevelDomain topLevelDomain = TopLevelDomain.of(TopLevelDomainTests.DE);
     assertEquals("TopLevelDomain[topLevelDomain=DE]", topLevelDomain.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -187,7 +169,8 @@ public class TopLevelDomainTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final TopLevelDomain topLevelDomain1 = TopLevelDomain.of(TopLevelDomainTests.DE);
     final TopLevelDomain topLevelDomain2 = TopLevelDomain.of(TopLevelDomainTests.DE);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.impl;
 
@@ -14,7 +14,7 @@ import de.powerstat.validation.values.Country;
  * TODO Generate this class
  */
 // @SuppressFBWarnings({"CC_CYCLOMATIC_COMPLEXITY", "CE_CLASS_ENVY"})
-@SuppressWarnings("java:S1541")
+@SuppressWarnings({"java:S1541", "java:S3242"})
 public final class IBANVerifierAbstractFactory
  {
   /**

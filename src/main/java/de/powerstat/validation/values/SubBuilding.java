@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -30,11 +30,6 @@ public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
    * Subbuilding regexp.
    */
   private static final Pattern SUBBUILDING_REGEXP = Pattern.compile("^[\\p{L}][\\p{L}\\p{Digit}., -]*$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Sub building.
@@ -84,19 +79,6 @@ public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
       SubBuilding.CACHE.put(subBuilding, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get subBuilding string.
-   *
-   * @return SubBuilding string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = SubBuilding.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getSubBuilding()
-   {
-    return this.subBuilding;
    }
 
 
@@ -161,7 +143,7 @@ public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(25);
+    final var builder = new StringBuilder(25);
     builder.append("SubBuilding[subBuilding=").append(this.subBuilding).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

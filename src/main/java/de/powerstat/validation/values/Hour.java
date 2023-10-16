@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -32,11 +32,6 @@ public final class Hour implements Comparable<Hour>, IValueObject
    * Underflow contant.
    */
   private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Cache for singletons.
@@ -97,19 +92,6 @@ public final class Hour implements Comparable<Hour>, IValueObject
   public static Hour of(final String value)
    {
     return of(Integer.parseInt(value));
-   }
-
-
-  /**
-   * Get hour.
-   *
-   * @return Hour
-   * @deprecated Use intValue() instead
-   */
-  @Deprecated(since = Hour.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public int getHour()
-   {
-    return this.hour;
    }
 
 
@@ -188,7 +170,7 @@ public final class Hour implements Comparable<Hour>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final var builder = new StringBuilder();
     builder.append("Hour[hour=").append(this.hour).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

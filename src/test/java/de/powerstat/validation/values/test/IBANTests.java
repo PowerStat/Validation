@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -25,7 +25,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * TODO Human formatted output
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class IBANTests
+final class IBANTests
  {
   /**
    * Test iban.
@@ -46,11 +46,6 @@ public class IBANTests
    * Illegal argument exception expected constant.
    */
   private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
 
   /**
@@ -73,7 +68,7 @@ public class IBANTests
     // "XK525678901234567890", // Not an ISO3166 alpha 2 code
     "HR3756789012345678901", "KW6956789012345678901234567890", "LV8656789012345678901", "LB57567890123456789012345678", "LI2856789012345678901", "LT365678901234567890", "LU335678901234567890", "MG91567890123456789012345AB", "ML625678901234567890123456AB", "MT25567890123456789012345678901", "MR58567890123456789012345AB", "MU7956789012345678901234567ABC", "MD9156789012345678901234", "MC06567890123456789012345AB", "ME955678901234567890AB", "MZ985678901234567890123AB", "NL9556789012345678", "MK315678901234567AB", "AT385678901234567890", "TL3056789012345678901AB", "PK4356789012345678901234", "PS955678901234567890123456789", "PL775678901A3456789012345678", "PT895678901234567890123AB", "RO1356789012345678901234", "SM24A6789012345678901234567", "ST625678901234567890123AB", "SA4656789012345678901234", "CH1556789012345678901", "SN025678901234567890123456AB", "RS085678901234567890AB", "SC98567890123456789012345678XXX", "SK1656789012345678901234", "SI805678901234567AB", "ES4456789012AB5678901234", "CZ1856789012345678901234", "TN68567890123456789012AB", "TR985678901234567890123456", "UA075678901234567890123456789", "HU505678901A345678901234567A", "VA345678901234567890123456", "AE585678901234567890123", "GB45567890123456789012", "BY78567890123456789012345678", "CY69567890123456789012345678", "CF87567890123456789012345AB"
    })
-  public void ibanCorrect(final String iban)
+  /* default */ void testIbanCorrect(final String iban)
    {
     final IBAN cleanIban = IBAN.of(iban);
     assertEquals(iban, cleanIban.stringValue(), IBANTests.IBAN_NOT_AS_EXPECTED);
@@ -87,7 +82,7 @@ public class IBANTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"DE345678901234", "DE345678901234567890123456789012345"})
-  public void ibanLength(final String iban)
+  /* default */ void testIbanLength(final String iban)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -104,7 +99,7 @@ public class IBANTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"ZZ0056789012345", "DE0156789012345", "DE9956789012345", "DE025678A012345", "DE67210501700012345678", "DE7321050170001234567X", "DE0021050170001234567Ä"})
-  public void ibanWrong(final String iban)
+  /* default */ void testIbanWrong(final String iban)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -116,23 +111,9 @@ public class IBANTests
 
   /**
    * Test get iban.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = IBANTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getIban()
-   {
-    final IBAN iban = IBAN.of(IBANTests.IBAN_DE68210501700012345678);
-    assertEquals(IBANTests.IBAN_DE68210501700012345678, iban.getIBAN(), IBANTests.IBAN_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get iban.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final IBAN iban = IBAN.of(IBANTests.IBAN_DE68210501700012345678);
     assertEquals(IBANTests.IBAN_DE68210501700012345678, iban.stringValue(), IBANTests.IBAN_NOT_AS_EXPECTED);
@@ -143,7 +124,7 @@ public class IBANTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final IBAN iban1 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);
     final IBAN iban2 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);
@@ -159,7 +140,8 @@ public class IBANTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final IBAN iban1 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);
     final IBAN iban2 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);
@@ -182,7 +164,7 @@ public class IBANTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final IBAN iban = IBAN.of(IBANTests.IBAN_DE68210501700012345678);
     assertEquals("IBAN[iban=DE68210501700012345678]", iban.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -193,7 +175,8 @@ public class IBANTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final IBAN iban1 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);
     final IBAN iban2 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);

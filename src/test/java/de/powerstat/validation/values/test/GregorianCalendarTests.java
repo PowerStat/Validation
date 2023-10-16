@@ -25,7 +25,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Gregorian calendar tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class GregorianCalendarTests
+final class GregorianCalendarTests
  {
   /**
    * Test is leap year constant.
@@ -69,7 +69,7 @@ public class GregorianCalendarTests
    */
   @ParameterizedTest
   @ValueSource(strings = {GregorianCalendarTests.IT})
-  public void calendarCorrect(final String country)
+  /* default */ void testCalendarCorrect(final String country)
    {
     final GregorianCalendar cleanCalendar = GregorianCalendar.of(Country.of(country));
     assertEquals(country, cleanCalendar.getCountry().stringValue(), CALENDAR_NOT_AS_EXPECTED);
@@ -83,7 +83,7 @@ public class GregorianCalendarTests
    */
   @ParameterizedTest
   @ValueSource(strings = {GregorianCalendarTests.IT})
-  public void of(final String country)
+  /* default */ void testOf(final String country)
    {
     final GregorianCalendar cleanCalendar = GregorianCalendar.of(country);
     assertEquals(country, cleanCalendar.getCountry().stringValue(), CALENDAR_NOT_AS_EXPECTED);
@@ -94,7 +94,7 @@ public class GregorianCalendarTests
    * Test string value.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final GregorianCalendar cal = GregorianCalendar.of(Country.of(DE));
     assertEquals(DE, cal.stringValue(), "Calendar country not as expected");
@@ -105,7 +105,7 @@ public class GregorianCalendarTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final GregorianCalendar calendar1 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
     final GregorianCalendar calendar2 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
@@ -121,7 +121,8 @@ public class GregorianCalendarTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final GregorianCalendar calendar1 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
     final GregorianCalendar calendar2 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
@@ -144,7 +145,7 @@ public class GregorianCalendarTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final GregorianCalendar calendar = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
     assertEquals("GregorianCalendar[country=IT]", calendar.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -155,7 +156,8 @@ public class GregorianCalendarTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final GregorianCalendar calendar1 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
     final GregorianCalendar calendar2 = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
@@ -176,7 +178,7 @@ public class GregorianCalendarTests
    * Test isLeapYear.
    */
   @Test
-  public void testIsLeapYear()
+  /* default */ void testIsLeapYear()
    {
     final GregorianCalendar calendarIT = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
     final GregorianCalendar calendarDE = GregorianCalendar.of(Country.of(GregorianCalendarTests.DE));
@@ -199,7 +201,7 @@ public class GregorianCalendarTests
    * Test daysInMonth.
    */
   @Test
-  public void testDaysInMonth()
+  /* default */ void testDaysInMonth()
    {
     final GregorianCalendar calendarIT = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
     final GregorianCalendar calendarRU = GregorianCalendar.of(Country.of(GregorianCalendarTests.RU));

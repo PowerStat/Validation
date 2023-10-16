@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -30,11 +30,6 @@ public final class District implements Comparable<District>, IValueObject
    * District egexp.
    */
   private static final Pattern DISTRICT_REGEXP = Pattern.compile("^[\\p{L}\\p{Digit}][\\p{L}\\p{Digit} -]*$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * District.
@@ -84,19 +79,6 @@ public final class District implements Comparable<District>, IValueObject
       District .CACHE.put(district, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get district string.
-   *
-   * @return District string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = District.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getDistrict()
-   {
-    return this.district;
    }
 
 
@@ -161,7 +143,7 @@ public final class District implements Comparable<District>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(19);
+    final var builder = new StringBuilder(19);
     builder.append("District[district=").append(this.district).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

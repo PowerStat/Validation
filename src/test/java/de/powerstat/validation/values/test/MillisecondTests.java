@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -24,7 +24,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Millisecond tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class MillisecondTests
+final class MillisecondTests
  {
   /**
    * Not millisecond constant.
@@ -41,11 +41,6 @@ public class MillisecondTests
    */
   private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -60,7 +55,7 @@ public class MillisecondTests
    * Factory string test.
    */
   @Test
-  public void fatory1()
+  /* default */ void testFatory1()
    {
     assertEquals(0, Millisecond.of("0").intValue(), MillisecondTests.NOT_MILLISECOND);
    }
@@ -73,7 +68,7 @@ public class MillisecondTests
    */
   @ParameterizedTest
   @ValueSource(ints = {0, 999})
-  public void isMilliseconds(final int millisecond)
+  /* default */ void testIsMilliseconds(final int millisecond)
    {
     assertEquals(millisecond, Millisecond.of(millisecond).intValue(), MillisecondTests.NOT_MILLISECOND);
    }
@@ -85,7 +80,7 @@ public class MillisecondTests
    */
   @ParameterizedTest
   @ValueSource(ints = {-1, 1000})
-  public void isNotAMillisecond(final int millisecond)
+  /* default */ void testIsNotAMillisecond(final int millisecond)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -96,23 +91,10 @@ public class MillisecondTests
 
 
   /**
-   * getMillisecond.
-   *
-   * @deprecated Old version of intValue()
-   */
-  @Deprecated(since = MillisecondTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getMillisecond()
-   {
-    assertEquals(10, Millisecond.of(10).getMillisecond(), MillisecondTests.NOT_MILLISECOND);
-   }
-
-
-  /**
    * intValue.
    */
   @Test
-  public void intValue()
+  /* default */ void testIntValue()
    {
     assertEquals(10, Millisecond.of(10).intValue(), MillisecondTests.NOT_MILLISECOND);
    }
@@ -122,7 +104,7 @@ public class MillisecondTests
    * stringValue.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     assertEquals("10", Millisecond.of(10).stringValue(), MillisecondTests.NOT_MILLISECOND);
    }
@@ -132,7 +114,7 @@ public class MillisecondTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final Millisecond millisecond1 = Millisecond.of(0);
     final Millisecond millisecond2 = Millisecond.of(0);
@@ -148,7 +130,8 @@ public class MillisecondTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final Millisecond millisecond1 = Millisecond.of(0);
     final Millisecond millisecond2 = Millisecond.of(0);
@@ -171,7 +154,7 @@ public class MillisecondTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final Millisecond millisecond = Millisecond.of(0);
     assertEquals("Millisecond[millisecond=0]", millisecond.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -182,7 +165,8 @@ public class MillisecondTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Millisecond millisecond1 = Millisecond.of(1);
     final Millisecond millisecond2 = Millisecond.of(1);
@@ -203,7 +187,7 @@ public class MillisecondTests
    * Test add.
    */
   @Test
-  public void testAdd1()
+  /* default */ void testAdd1()
    {
     final Millisecond millisecond = Millisecond.of(0);
     final Milliseconds milliseconds = Milliseconds.of(1);
@@ -216,7 +200,7 @@ public class MillisecondTests
    * Test add.
    */
   @Test
-  public void testAdd2()
+  /* default */ void testAdd2()
    {
     final Millisecond millisecond = Millisecond.of(999);
     final Milliseconds milliseconds = Milliseconds.of(1);
@@ -232,7 +216,7 @@ public class MillisecondTests
    * Test subtract.
    */
   @Test
-  public void testSubtract1()
+  /* default */ void testSubtract1()
    {
     final Millisecond millisecond = Millisecond.of(2);
     final Milliseconds milliseconds = Milliseconds.of(1);
@@ -245,7 +229,7 @@ public class MillisecondTests
    * Test subtract.
    */
   @Test
-  public void testSubtract2()
+  /* default */ void testSubtract2()
    {
     final Millisecond millisecond = Millisecond.of(0);
     final Milliseconds milliseconds = Milliseconds.of(1);
@@ -261,7 +245,7 @@ public class MillisecondTests
    * Test add.
    */
   @Test
-  public void testIncrement1()
+  /* default */ void testIncrement1()
    {
     final Millisecond millisecond = Millisecond.of(0);
     final Millisecond millisecondResult = millisecond.increment();
@@ -273,7 +257,7 @@ public class MillisecondTests
    * Test add.
    */
   @Test
-  public void testIncrement2()
+  /* default */ void testIncrement2()
    {
     final Millisecond millisecond = Millisecond.of(999);
     assertThrows(ArithmeticException.class, () ->
@@ -288,7 +272,7 @@ public class MillisecondTests
    * Test add.
    */
   @Test
-  public void testDecrement1()
+  /* default */ void testDecrement1()
    {
     final Millisecond millisecond = Millisecond.of(2);
     final Millisecond millisecondResult = millisecond.decrement();
@@ -300,7 +284,7 @@ public class MillisecondTests
    * Test add.
    */
   @Test
-  public void testDecrement2()
+  /* default */ void testDecrement2()
    {
     final Millisecond millisecond = Millisecond.of(0);
     assertThrows(ArithmeticException.class, () ->

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -36,7 +36,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * AddressWithWGS84Position tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class AddressWithWGS84PositionTests
+final class AddressWithWGS84PositionTests
  {
   /**
    * Line break unix.
@@ -137,7 +137,7 @@ public class AddressWithWGS84PositionTests
    * Constructor/factory test.
    */
   @Test
-  public void constructor1()
+  /* default */ void testConstructor1()
    {
     final AddressWithWGS84Position address = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.ARBERGER_HEERSTR), BuildingNr.of(AddressWithWGS84PositionTests.BUILDINGNR92), null, null, null, null, null, null, null, null, WGS84Position.of(0.0, 0.0, 0.0));
     assertAll(CONSTRUCTOR,
@@ -150,7 +150,7 @@ public class AddressWithWGS84PositionTests
    * Constructor/Factory test.
    */
   @Test
-  public void constructor2()
+  /* default */ void testConstructor2()
    {
     // Country, PostalCode, City, Province, District, Street, BuildingNr, BuildingName, SubBuilding, PoBoxNumber, Department, Neighbourhood, Block, BFPONumber, Lines, WGS84Position
     final AddressWithWGS84Position address = AddressWithWGS84Position.of("DE,28307,Bremen,,,,,,,12345,,,,,,0.0 0.0 0.0");
@@ -171,7 +171,7 @@ public class AddressWithWGS84PositionTests
    * Constructor/factory test.
    */
   @Test
-  public void constructor3()
+  /* default */ void testConstructor3()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -185,7 +185,7 @@ public class AddressWithWGS84PositionTests
    * Constructor/factory test.
    */
   @Test
-  public void constructor4()
+  /* default */ void testConstructor4()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -199,7 +199,7 @@ public class AddressWithWGS84PositionTests
    * Constructor/factory test.
    */
   @Test
-  public void constructor5()
+  /* default */ void testConstructor5()
    {
     assertThrows(NullPointerException.class, () ->
      {
@@ -213,7 +213,7 @@ public class AddressWithWGS84PositionTests
    * Constructor/Factory test.
    */
   @Test
-  public void constructor6()
+  /* default */ void testConstructor6()
    {
     // Country, PostalCode, City, Province, District, Street, BuildingNr, BuildingName, SubBuilding, PoBoxNumber, Department, Neighbourhood, Block, BFPONumber, Lines, WGS84Position
     final AddressWithWGS84Position address = AddressWithWGS84Position.of("DE,28307,Bremen,Bremen,9,,,Home,SubB,,Software Quality,Friendly,Block,1,Lines,0.0 0.0 0.0");
@@ -239,7 +239,7 @@ public class AddressWithWGS84PositionTests
    * Get cposition test.
    */
   @Test
-  public void getPosition()
+  /* default */ void testGetPosition()
    {
     final WGS84Position pos = WGS84Position.of(0.0, 0.0, 0.0);
     final AddressWithWGS84Position address = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.ARBERGER_HEERSTR), BuildingNr.of(AddressWithWGS84PositionTests.BUILDINGNR92), null, null, null, null, null, null, null, null, pos);
@@ -252,7 +252,7 @@ public class AddressWithWGS84PositionTests
    * Test string value.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final WGS84Position pos = WGS84Position.of(0.0, 0.0, 0.0);
     final AddressWithWGS84Position address = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, null, null, null, null, PoBoxNumber.of(12345), null, null, null, null, null, pos);
@@ -264,7 +264,7 @@ public class AddressWithWGS84PositionTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final AddressWithWGS84Position address1 = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.ARBERGER_HEERSTR), BuildingNr.of(AddressWithWGS84PositionTests.BUILDINGNR92), null, null, null, null, null, null, null, null, WGS84Position.of(0.0, 0.0, 0.0));
     final AddressWithWGS84Position address2 = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.ARBERGER_HEERSTR), BuildingNr.of(AddressWithWGS84PositionTests.BUILDINGNR92), null, null, null, null, null, null, null, null, WGS84Position.of(0.0, 0.0, 0.0));
@@ -280,7 +280,8 @@ public class AddressWithWGS84PositionTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final AddressWithWGS84Position address1 = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.ARBERGER_HEERSTR), BuildingNr.of(AddressWithWGS84PositionTests.BUILDINGNR92), null, null, null, null, null, null, null, null, WGS84Position.of(0.0, 0.0, 0.0));
     final AddressWithWGS84Position address2 = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.ARBERGER_HEERSTR), BuildingNr.of(AddressWithWGS84PositionTests.BUILDINGNR92), null, null, null, null, null, null, null, null, WGS84Position.of(0.0, 0.0, 0.0));
@@ -303,7 +304,8 @@ public class AddressWithWGS84PositionTests
    * Test not equals.
    */
   @Test
-  public void testNotEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testNotEquals()
    {
     final AddressWithWGS84Position address1 = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.ARBERGER_HEERSTR), BuildingNr.of(AddressWithWGS84PositionTests.BUILDINGNR92), null, null, null, null, null, null, null, null, WGS84Position.of(0.0, 0.0, 0.0));
     final AddressWithWGS84Position address2 = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.ARBERGER_HEERSTR), BuildingNr.of(AddressWithWGS84PositionTests.BUILDINGNR92), null, null, null, null, null, null, null, null, WGS84Position.of(1.0, 1.0, 0.0));
@@ -318,7 +320,7 @@ public class AddressWithWGS84PositionTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final AddressWithWGS84Position address = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), Province.of(AddressWithWGS84PositionTests.TEST), District.of("9"), Street.of(AddressWithWGS84PositionTests.ARBERGER_HEERSTR), BuildingNr.of(AddressWithWGS84PositionTests.BUILDINGNR92), BuildingName.of("TestBuilding"), SubBuilding.of("SubB"), PoBoxNumber.of(4711), Department.of(AddressWithWGS84PositionTests.TEST), Neighbourhood.of("neighbour"), Block.of("blk"), BFPONumber.of(1), Lines.of(AddressWithWGS84PositionTests.TEST), WGS84Position.of(0, 0, 0)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
     assertEquals("AddressWithWGS84Position[position=WGS84Position[latitude=0.0, longitude=0.0, altitude=0.0], Address[country=DE, postalCode=28307, city=Bremen, province=Test, district=9, street=Arberger Heerstr., buildingNr=92, buildingName=TestBuilding, subBuilding=SubB, poBoxNumber=4711, department=Test, neighbourhood=neighbour, block=blk, bFPONumber=1, lines=Test]]", address.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$

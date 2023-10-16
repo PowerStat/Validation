@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Postal codes tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class PostalCodeTests
+final class PostalCodeTests
  {
   /**
    * Post code 28000.
@@ -45,11 +45,6 @@ public class PostalCodeTests
    */
   private static final String POSTAL_CODE_NOT_AS_EXPECTED = "PostalCode not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -67,7 +62,7 @@ public class PostalCodeTests
    */
   @ParameterizedTest
   @ValueSource(strings = {PostalCodeTests.POSTCODE_28000, "123", "1234567-890", "AD123"})
-  public void postalCodeCorrect(final String postalCode)
+  /* default */ void testPostalCodeCorrect(final String postalCode)
    {
     final PostalCode cleanBic = PostalCode.of(postalCode);
     assertEquals(postalCode, cleanBic.stringValue(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);
@@ -81,7 +76,7 @@ public class PostalCodeTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"12", "123456789012"})
-  public void postalCodeLength(final String postalCode)
+  /* default */ void testPostalCodeLength(final String postalCode)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -98,7 +93,7 @@ public class PostalCodeTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"123_45"})
-  public void postalCodeWrong(final String postalCode)
+  /* default */ void testPostalCodeWrong(final String postalCode)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -110,23 +105,9 @@ public class PostalCodeTests
 
   /**
    * Test get postalCode.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = PostalCodeTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getPostalCode()
-   {
-    final PostalCode postalCode = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    assertEquals(PostalCodeTests.POSTCODE_28000, postalCode.getPostalCode(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get postalCode.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final PostalCode postalCode = PostalCode.of(PostalCodeTests.POSTCODE_28000);
     assertEquals(PostalCodeTests.POSTCODE_28000, postalCode.stringValue(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);
@@ -137,7 +118,7 @@ public class PostalCodeTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final PostalCode postalCode1 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
     final PostalCode postalCode2 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
@@ -153,7 +134,8 @@ public class PostalCodeTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final PostalCode postalCode1 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
     final PostalCode postalCode2 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
@@ -176,7 +158,7 @@ public class PostalCodeTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final PostalCode postalCode = PostalCode.of(PostalCodeTests.POSTCODE_28000);
     assertEquals("PostalCode[postalCode=28000]", postalCode.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -187,7 +169,8 @@ public class PostalCodeTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final PostalCode bic1 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
     final PostalCode bic2 = PostalCode.of(PostalCodeTests.POSTCODE_28000);

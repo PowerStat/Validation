@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -26,11 +26,6 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
    * Cache for singletons.
    */
   private static final Map<Long, Seconds> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Seconds.
@@ -86,19 +81,6 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
   public static Seconds of(final String value)
    {
     return of(Long.parseLong(value));
-   }
-
-
-  /**
-   * Get seconds.
-   *
-   * @return Seconds
-   * @deprecated Use longValue() instead
-   */
-  @Deprecated(since = Seconds.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public long getSeconds()
-   {
-    return this.seconds;
    }
 
 
@@ -177,7 +159,7 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(17);
+    final var builder = new StringBuilder(17);
     builder.append("Seconds[seconds=").append(this.seconds).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

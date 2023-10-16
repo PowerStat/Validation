@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -296,7 +296,7 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(27);
+    final var builder = new StringBuilder(27);
     builder.append("GregorianCalendar[country=").append(this.country.stringValue()).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

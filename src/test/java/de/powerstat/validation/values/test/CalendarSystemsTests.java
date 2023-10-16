@@ -15,7 +15,7 @@ import de.powerstat.validation.values.CalendarSystems;
 /**
  * Calendar systems tests.
  */
-public class CalendarSystemsTests
+final class CalendarSystemsTests
  {
   /**
    * Julian action not as expected constant.
@@ -36,7 +36,7 @@ public class CalendarSystemsTests
    * Factory string test.
    */
   @Test
-  public void factory1()
+  /* default */ void testFactory1()
    {
     assertEquals(0, CalendarSystems.of("JULIAN").getAction(), JULIAN_ACTION_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
@@ -46,7 +46,7 @@ public class CalendarSystemsTests
    * Test getAction of CalendarSystems.
    */
   @Test
-  public void getAction()
+  /* default */ void testGetAction()
    {
     assertAll("constructor", //$NON-NLS-1$
       () -> assertEquals(0, CalendarSystems.JULIAN.getAction(), JULIAN_ACTION_NOT_AS_EXPECTED),
@@ -59,7 +59,7 @@ public class CalendarSystemsTests
    * Test stringValue.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final CalendarSystems system = CalendarSystems.GREGORIAN;
     assertEquals("GREGORIAN", system.stringValue(), "stringValue not as expected");

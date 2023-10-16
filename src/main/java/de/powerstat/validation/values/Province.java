@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -30,11 +30,6 @@ public final class Province implements Comparable<Province>, IValueObject
    * Province regexp.
    */
   private static final Pattern PROVINCE_REGEXP = Pattern.compile("^[\\p{L}][\\p{L} -]*$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Province.
@@ -84,19 +79,6 @@ public final class Province implements Comparable<Province>, IValueObject
       Province.CACHE.put(province, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get province string.
-   *
-   * @return Province string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = Province.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getProvince()
-   {
-    return this.province;
    }
 
 
@@ -161,7 +143,7 @@ public final class Province implements Comparable<Province>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(19);
+    final var builder = new StringBuilder(19);
     builder.append("Province[province=").append(this.province).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

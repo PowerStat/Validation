@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -15,7 +15,7 @@ import de.powerstat.validation.values.Gender;
 /**
  * Gender tests.
  */
-public class GenderTests
+final class GenderTests
  {
   /**
    * Unknown constant.
@@ -41,7 +41,7 @@ public class GenderTests
    * Factory string test.
    */
   @Test
-  public void factory1()
+  /* default */ void testFactory1()
    {
     assertEquals(0, Gender.of(UNKNOWN).getAction(), UNKNOWN_ACTION_NOT_AS_EXPECTED);
    }
@@ -51,7 +51,7 @@ public class GenderTests
    * Test getAction of Gender.
    */
   @Test
-  public void getAction()
+  /* default */ void testGetAction()
    {
     assertAll("constructor", //$NON-NLS-1$
       () -> assertEquals(0, Gender.UNKNOWN.getAction(), UNKNOWN_ACTION_NOT_AS_EXPECTED),
@@ -69,7 +69,7 @@ public class GenderTests
    * Test stringValue.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final Gender gender = Gender.UNKNOWN;
     assertEquals(UNKNOWN, gender.stringValue(), "stringValue not as expected");

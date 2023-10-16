@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -30,11 +30,6 @@ public final class BuildingName implements Comparable<BuildingName>, IValueObjec
    * Building name regexp.
    */
   private static final Pattern BUILDNINGNAME_REGEXP = Pattern.compile("^[\\p{L}][\\p{L} -]*$");
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Building name.
@@ -84,19 +79,6 @@ public final class BuildingName implements Comparable<BuildingName>, IValueObjec
       BuildingName.CACHE.put(buildingName, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get building name string.
-   *
-   * @return BuildingName string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = BuildingName.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getBuildingName()
-   {
-    return this.buildingName;
    }
 
 
@@ -161,7 +143,7 @@ public final class BuildingName implements Comparable<BuildingName>, IValueObjec
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(27);
+    final var builder = new StringBuilder(27);
     builder.append("BuildingName[buildingName=").append(this.buildingName).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

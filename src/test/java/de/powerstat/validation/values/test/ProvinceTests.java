@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Province tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class ProvinceTests
+final class ProvinceTests
  {
   /**
    * abc.
@@ -50,11 +50,6 @@ public class ProvinceTests
    */
   private static final String PROVINCE_NOT_AS_EXPECTED = "Province not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -72,7 +67,7 @@ public class ProvinceTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"A", "Abcdefghijklmnopqr"})
-  public void provinceCorrect(final String province)
+  /* default */ void testProvinceCorrect(final String province)
    {
     final Province cleanProvince = Province.of(province);
     assertEquals(province, cleanProvince.stringValue(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
@@ -86,7 +81,7 @@ public class ProvinceTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "Abcdefghijklmnopqrs"})
-  public void provinceLength(final String province)
+  /* default */ void testProvinceLength(final String province)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -103,7 +98,7 @@ public class ProvinceTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"abc0815", "abc_def"})
-  public void provinceWrong(final String province)
+  /* default */ void testProvinceWrong(final String province)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -115,23 +110,9 @@ public class ProvinceTests
 
   /**
    * Test get province.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = ProvinceTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getProvince()
-   {
-    final Province province = Province.of(ProvinceTests.ABCD);
-    assertEquals(ProvinceTests.ABCD, province.getProvince(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get province.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final Province province = Province.of(ProvinceTests.ABCD);
     assertEquals(ProvinceTests.ABCD, province.stringValue(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
@@ -142,7 +123,7 @@ public class ProvinceTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final Province province1 = Province.of(ProvinceTests.ABC);
     final Province province2 = Province.of(ProvinceTests.ABC);
@@ -158,7 +139,8 @@ public class ProvinceTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final Province province1 = Province.of(ProvinceTests.ABC);
     final Province province2 = Province.of(ProvinceTests.ABC);
@@ -181,7 +163,7 @@ public class ProvinceTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final Province province = Province.of(ProvinceTests.ABC);
     assertEquals("Province[province=abc]", province.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -192,7 +174,8 @@ public class ProvinceTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Province province1 = Province.of(ProvinceTests.ABC);
     final Province province2 = Province.of(ProvinceTests.ABC);

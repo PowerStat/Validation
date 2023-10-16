@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -24,11 +24,6 @@ public final class Port implements Comparable<Port>, IValueObject
    * Cache for singletons.
    */
   private static final Map<Integer, Port> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Port.
@@ -121,19 +116,6 @@ public final class Port implements Comparable<Port>, IValueObject
 
 
   /**
-   * Get port.
-   *
-   * @return Port
-   * @deprecated Use intValue() instead
-   */
-  @Deprecated(since = Port.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public int getPort()
-   {
-    return this.port;
-   }
-
-
-  /**
    * Returns the value of this Port as an int.
    *
    * @return The numeric value represented by this object after conversion to type int.
@@ -208,7 +190,7 @@ public final class Port implements Comparable<Port>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final var builder = new StringBuilder();
     builder.append("Port[port=").append(this.port).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

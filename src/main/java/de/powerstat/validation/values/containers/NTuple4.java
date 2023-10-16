@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.containers;
 
@@ -192,7 +192,7 @@ public final class NTuple4<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(47);
+    final var builder = new StringBuilder(47);
     builder.append("NTuple4[object1=").append(this.object1) //$NON-NLS-1$
       .append(", object2=").append(this.object2) //$NON-NLS-1$
       .append(", object3=").append(this.object3) //$NON-NLS-1$

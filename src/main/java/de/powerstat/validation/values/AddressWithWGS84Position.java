@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -125,7 +125,7 @@ public final class AddressWithWGS84Position extends Address
          }
        }
      }
-    final Country country = Country.of(values[0]);
+    final var country = Country.of(values[0]);
     final PostalCode postalCode = values[1].isEmpty() ? null : PostalCode.of(values[1]);
     final City city = values[2].isEmpty() ? null : City.of(values[2]);
     final Province province = values[3].isEmpty() ? null : Province.of(values[3]);
@@ -224,7 +224,7 @@ public final class AddressWithWGS84Position extends Address
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(182);
+    final var builder = new StringBuilder(182);
     builder.append("AddressWithWGS84Position[position=").append(this.position) //$NON-NLS-1$
       .append(", ").append(super.toString()) //$NON-NLS-1$
       .append(']');

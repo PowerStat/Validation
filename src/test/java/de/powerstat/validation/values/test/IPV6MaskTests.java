@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * IP V6 mask tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class IPV6MaskTests
+final class IPV6MaskTests
  {
   /**
    * Length is not equal constant.
@@ -32,11 +32,6 @@ public class IPV6MaskTests
    * Index out of bounds exception expected constant.
    */
   private static final String INDEX_OUT_OF_BOUNDS = "Index out of bounds exception expected"; //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Constructor success constant.
@@ -57,7 +52,7 @@ public class IPV6MaskTests
    * Test constructor failure.
    */
   @Test
-  public void constructorFailure0()
+  /* default */ void testConstructorFailure0()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -71,7 +66,7 @@ public class IPV6MaskTests
    * Test constructor failure.
    */
   @Test
-  public void constructorFailure1()
+  /* default */ void testConstructorFailure1()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -85,7 +80,7 @@ public class IPV6MaskTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess0()
+  /* default */ void testConstructorSuccess0()
    {
     final IPV6Mask mask = IPV6Mask.of(0);
     assertAll("constructorSuccess0", //$NON-NLS-1$
@@ -98,7 +93,7 @@ public class IPV6MaskTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess1()
+  /* default */ void testConstructorSuccess1()
    {
     final IPV6Mask mask = IPV6Mask.of(128);
     assertAll(CONSTRUCTOR_SUCCESS,
@@ -111,7 +106,7 @@ public class IPV6MaskTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess2()
+  /* default */ void testConstructorSuccess2()
    {
     final IPV6Mask mask = IPV6Mask.of("128");
     assertAll(CONSTRUCTOR_SUCCESS,
@@ -121,24 +116,10 @@ public class IPV6MaskTests
 
 
   /**
-   * Test getLength.
-   *
-   * @deprecated Old version of intValue()
-   */
-  @Deprecated(since = IPV6MaskTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getLength()
-   {
-    final IPV6Mask mask = IPV6Mask.of(0);
-    assertEquals(0, mask.getLength(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL);
-   }
-
-
-  /**
    * Test intValue.
    */
   @Test
-  public void intValue()
+  /* default */ void testIntValue()
    {
     final IPV6Mask mask = IPV6Mask.of(0);
     assertEquals(0, mask.intValue(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL);
@@ -149,7 +130,7 @@ public class IPV6MaskTests
    * Test stringValue.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final IPV6Mask mask = IPV6Mask.of(0);
     assertEquals("0", mask.stringValue(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL);
@@ -160,7 +141,7 @@ public class IPV6MaskTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final IPV6Mask mask1 = IPV6Mask.of(112);
     final IPV6Mask mask2 = IPV6Mask.of(112);
@@ -176,7 +157,8 @@ public class IPV6MaskTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final IPV6Mask mask1 = IPV6Mask.of(112);
     final IPV6Mask mask2 = IPV6Mask.of(112);
@@ -199,7 +181,7 @@ public class IPV6MaskTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final IPV6Mask mask = IPV6Mask.of(112);
     assertEquals("IPV6Mask[length=112]", mask.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -210,7 +192,8 @@ public class IPV6MaskTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final IPV6Mask mask1 = IPV6Mask.of(16);
     final IPV6Mask mask2 = IPV6Mask.of(16);

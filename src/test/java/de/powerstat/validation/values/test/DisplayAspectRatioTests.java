@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Display aspect ratio tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class DisplayAspectRatioTests
+final class DisplayAspectRatioTests
  {
   /**
    * Test aspect ration constant.
@@ -43,11 +43,6 @@ public class DisplayAspectRatioTests
    */
   private static final String INDEX_OUT_OF_BOUNDS_EXPECTED = "Index out of bounds exception expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -62,7 +57,7 @@ public class DisplayAspectRatioTests
    * Get aspect ratio.
    */
   @Test
-  public void of1()
+  /* default */ void testOf1()
    {
     final DisplayAspectRatio ratio = DisplayAspectRatio.of(ONE_TO_ONE);
     assertAll(DisplayAspectRatioTests.TEST_ASPECT_RATIO,
@@ -75,7 +70,7 @@ public class DisplayAspectRatioTests
    * Get aspect ratio.
    */
   @Test
-  public void of2()
+  /* default */ void testOf2()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -86,26 +81,10 @@ public class DisplayAspectRatioTests
 
 
   /**
-   * Get aspect ratio.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = DisplayAspectRatioTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getAspectRatio()
-   {
-    final DisplayAspectRatio ratio = DisplayAspectRatio.of(1, 1);
-    assertAll(DisplayAspectRatioTests.TEST_ASPECT_RATIO,
-      () -> assertEquals(DisplayAspectRatioTests.ONE_TO_ONE, ratio.getAspectRatio(), DisplayAspectRatioTests.ASPECT_RATIO_NOT_AS_EXPECTED)
-    );
-   }
-
-
-  /**
    * Is display aspect ratio.
    */
   @Test
-  public void isDisplayAspectRatio()
+  /* default */ void testIsDisplayAspectRatio()
    {
     final DisplayAspectRatio ratio = DisplayAspectRatio.of(1, 1);
     assertAll(DisplayAspectRatioTests.TEST_ASPECT_RATIO,
@@ -120,7 +99,7 @@ public class DisplayAspectRatioTests
    * Is not display aspect ratio.
    */
   @Test
-  public void isNotADisplayAspectRatio1()
+  /* default */ void testIsNotADisplayAspectRatio1()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -134,7 +113,7 @@ public class DisplayAspectRatioTests
    * Is not display aspect ratio.
    */
   @Test
-  public void isNotADisplayAspectRatio2()
+  /* default */ void testIsNotADisplayAspectRatio2()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -148,7 +127,7 @@ public class DisplayAspectRatioTests
    * Is not display aspect ratio.
    */
   @Test
-  public void isNotADisplayAspectRatio3()
+  /* default */ void testIsNotADisplayAspectRatio3()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -162,7 +141,7 @@ public class DisplayAspectRatioTests
    * Is not display aspect ratio.
    */
   @Test
-  public void isNotADisplayAspectRatio4()
+  /* default */ void testIsNotADisplayAspectRatio4()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -176,7 +155,7 @@ public class DisplayAspectRatioTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final DisplayAspectRatio ratio1 = DisplayAspectRatio.of(1, 1);
     final DisplayAspectRatio ratio2 = DisplayAspectRatio.of(1, 1);
@@ -192,7 +171,8 @@ public class DisplayAspectRatioTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final DisplayAspectRatio ratio1 = DisplayAspectRatio.of(1, 1);
     final DisplayAspectRatio ratio2 = DisplayAspectRatio.of(1, 1);
@@ -215,7 +195,8 @@ public class DisplayAspectRatioTests
    * Test notEquals.
    */
   @Test
-  public void testNotEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testNotEquals()
    {
     final DisplayAspectRatio ratio1 = DisplayAspectRatio.of(1, 1);
     final DisplayAspectRatio ratio2 = DisplayAspectRatio.of(1, 2);
@@ -229,7 +210,7 @@ public class DisplayAspectRatioTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final DisplayAspectRatio ratio = DisplayAspectRatio.of(1, 1);
     assertEquals("DisplayAspectRatio[x=1, y=1]", ratio.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -240,7 +221,8 @@ public class DisplayAspectRatioTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final DisplayAspectRatio ratio1 = DisplayAspectRatio.of(1, 1);
     final DisplayAspectRatio ratio2 = DisplayAspectRatio.of(1, 1);

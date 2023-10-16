@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.entities.impl.test;
 
@@ -33,7 +33,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "CE_CLASS_ENVY"})
 @SuppressWarnings("java:S2925")
-public class HistoryOfTests
+final class HistoryOfTests
  {
   /**
    * Lastname constant.
@@ -109,7 +109,7 @@ public class HistoryOfTests
    * Constructor test.
    */
   @Test
-  public void constructor1()
+  /* default */ void testConstructor1()
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
     assertNotNull(lastname, "Constructor failed!"); //$NON-NLS-1$
@@ -120,7 +120,7 @@ public class HistoryOfTests
    * Hash code test.
    */
   @Test
-  public void testHashCode1()
+  /* default */ void testHashCode1()
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
     final int hc1 = lastname.hashCode();
@@ -137,7 +137,7 @@ public class HistoryOfTests
    * Hash code test.
    */
   @Test
-  public void testHashCode2()
+  /* default */ void testHashCode2()
    {
     final HistoryOf<Lastname> lastname1 = new HistoryOf<>();
     lastname1.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
@@ -156,7 +156,8 @@ public class HistoryOfTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final HistoryOf<Lastname> lastname1 = new HistoryOf<>();
     lastname1.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
@@ -187,7 +188,7 @@ public class HistoryOfTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
     final OffsetDateTime datetime = OffsetDateTime.of(2022, 1, 13, 20, 25, 0, 0, ZoneOffset.ofHours(1));
@@ -200,7 +201,7 @@ public class HistoryOfTests
    * Test addEntry.
    */
   @Test
-  public void addEntry1()
+  /* default */ void testAddEntry1()
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
     final OffsetDateTime datetime = OffsetDateTime.of(2022, 1, 13, 20, 25, 0, 0, ZoneOffset.ofHours(1));
@@ -213,12 +214,13 @@ public class HistoryOfTests
    * Test addEntry.
    */
   @Test
-  public void addEntry2()
+  /* default */ void testAddEntry2()
    {
-    final HistoryOf<Lastname> lastname = new HistoryOf<>();
+    final HistoryOf<Lastname> lastnameHistory = new HistoryOf<>();
+    final Lastname lastname = Lastname.of(HistoryOfTests.HOFMANN);
     assertThrows(NullPointerException.class, () ->
      {
-      lastname.addEntry(null, Lastname.of(HistoryOfTests.HOFMANN));
+      lastnameHistory.addEntry(null, lastname);
      }, HistoryOfTests.NULL_POINTER_EXCEPTION
     );
    }
@@ -228,12 +230,13 @@ public class HistoryOfTests
    * Test addEntry.
    */
   @Test
-  public void addEntry3()
+  /* default */ void testAddEntry3()
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
+    final OffsetDateTime now = OffsetDateTime.now();
     assertThrows(NullPointerException.class, () ->
      {
-      lastname.addEntry(OffsetDateTime.now(), null);
+      lastname.addEntry(now, null);
      }, HistoryOfTests.NULL_POINTER_EXCEPTION
     );
    }
@@ -243,12 +246,14 @@ public class HistoryOfTests
    * Test addEntry.
    */
   @Test
-  public void addEntry4()
+  /* default */ void testAddEntry4()
    {
-    final HistoryOf<Lastname> lastname = new HistoryOf<>();
+    final HistoryOf<Lastname> lastnameHistory = new HistoryOf<>();
+    final OffsetDateTime nowPlusOneDay = OffsetDateTime.now().plusDays(1);
+    final Lastname lastname = Lastname.of(HistoryOfTests.HOFMANN);
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
-      lastname.addEntry(OffsetDateTime.now().plusDays(1), Lastname.of(HistoryOfTests.HOFMANN));
+      lastnameHistory.addEntry(nowPlusOneDay, lastname);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
    }
@@ -258,13 +263,15 @@ public class HistoryOfTests
    * Test addEntry.
    */
   @Test
-  public void addEntry5()
+  /* default */ void testAddEntry5()
    {
-    final HistoryOf<Lastname> lastname = new HistoryOf<>();
-    lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
+    final HistoryOf<Lastname> lastnameHistory = new HistoryOf<>();
+    lastnameHistory.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
+    final OffsetDateTime now = OffsetDateTime.now();
+    final Lastname lastname = Lastname.of(HistoryOfTests.HOFMANN);
     assertThrows(IllegalArgumentException.class, () ->
      {
-      lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
+      lastnameHistory.addEntry(now, lastname);
      }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
@@ -274,7 +281,7 @@ public class HistoryOfTests
    * Test getFirstEntry.
    */
   @Test
-  public void getFirstEntry1()
+  /* default */ void testGetFirstEntry1()
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
     lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
@@ -289,7 +296,7 @@ public class HistoryOfTests
    * @throws InterruptedException Interrupted sleep
    */
   @Test
-  public void getFirstEntry2() throws InterruptedException
+  /* default */ void testGetFirstEntry2() throws InterruptedException
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
     lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.LASTNAME));
@@ -304,7 +311,7 @@ public class HistoryOfTests
    * Test getFirstEntry.
    */
   @Test
-  public void getFirstEntry3()
+  /* default */ void testGetFirstEntry3()
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
     assertThrows(NoSuchElementException.class, () ->
@@ -319,7 +326,7 @@ public class HistoryOfTests
    * Test getLastEntry.
    */
   @Test
-  public void getLatestEntry1()
+  /* default */ void testGetLatestEntry1()
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
     lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
@@ -334,7 +341,7 @@ public class HistoryOfTests
    * @throws InterruptedException Interrupted sleep
    */
   @Test
-  public void getLatestEntry2() throws InterruptedException
+  /* default */ void testGetLatestEntry2() throws InterruptedException
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
     lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.LASTNAME));
@@ -349,7 +356,7 @@ public class HistoryOfTests
    * Test getLatestEntry.
    */
   @Test
-  public void getLatestEntry3()
+  /* default */ void testGetLatestEntry3()
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
     assertThrows(NoSuchElementException.class, () ->
@@ -364,7 +371,7 @@ public class HistoryOfTests
    * Test getPreviousEntry.
    */
   @Test
-  public void getPreviousEntry1()
+  /* default */ void testGetPreviousEntry1()
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
     lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
@@ -379,7 +386,7 @@ public class HistoryOfTests
    * @throws InterruptedException Interrupted sleep
    */
   @Test
-  public void getPreviousEntry2() throws InterruptedException
+  /* default */ void testGetPreviousEntry2() throws InterruptedException
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
     lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.LASTNAME));
@@ -394,7 +401,7 @@ public class HistoryOfTests
    * Test getPreviousEntry.
    */
   @Test
-  public void getPreviousEntry3()
+  /* default */ void testGetPreviousEntry3()
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
     assertThrows(NoSuchElementException.class, () ->
@@ -409,7 +416,7 @@ public class HistoryOfTests
    * Test getHistory.
    */
   @Test
-  public void getHistory1()
+  /* default */ void testGetHistory1()
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
     final SortedMap<OffsetDateTime, Lastname> history = lastname.getHistory();
@@ -421,14 +428,14 @@ public class HistoryOfTests
    * Test getHistory.
    */
   @Test
-  public void getHistory2()
+  /* default */ void testGetHistory2()
    {
     final List<Lastname> expected = new ArrayList<>();
     expected.add(Lastname.of(HistoryOfTests.HOFMANN));
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
     lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
     final SortedMap<OffsetDateTime, Lastname> history = lastname.getHistory();
-    assertTrue(history.size() == 1, HistoryOfTests.HISTORY_CORRECT);
+    assertEquals(1, history.size(), HistoryOfTests.HISTORY_CORRECT);
     assertIterableEquals(expected, history.values(), HistoryOfTests.HISTORY_NOT_AS_EXPECTED);
    }
 
@@ -439,7 +446,7 @@ public class HistoryOfTests
    * @throws InterruptedException Interrupted sleep
    */
   @Test
-  public void getHistory3() throws InterruptedException
+  /* default */ void testGetHistory3() throws InterruptedException
    {
     final List<Lastname> expected = new ArrayList<>();
     expected.add(Lastname.of(HistoryOfTests.HOFMANN));
@@ -449,7 +456,7 @@ public class HistoryOfTests
     TimeUnit.MICROSECONDS.sleep(1);
     lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.LASTNAME));
     final SortedMap<OffsetDateTime, Lastname> history = lastname.getHistory();
-    assertTrue(history.size() == 2, HistoryOfTests.HISTORY_CORRECT);
+    assertEquals(2, history.size(), HistoryOfTests.HISTORY_CORRECT);
     assertIterableEquals(expected, history.values(), HistoryOfTests.HISTORY_NOT_AS_EXPECTED);
    }
 

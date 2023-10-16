@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
+
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,10 +11,11 @@ import org.junit.jupiter.api.Test;
 
 import de.powerstat.validation.values.Weekday;
 
+
 /**
  * Weekday tests.
  */
-public class WeekdayTests
+final class WeekdayTests
  {
   /**
    * Monday action not as expected constant.
@@ -34,7 +36,7 @@ public class WeekdayTests
    * Factory string test.
    */
   @Test
-  public void factory1()
+  /* default */ void testFactory1()
    {
     assertEquals(1, Weekday.MONDAY.getAction(), MONDAY_ACTION_NOT_AS_EXPECTED);
    }
@@ -44,7 +46,7 @@ public class WeekdayTests
    * Test getAction of Weekday.
    */
   @Test
-  public void getAction()
+  /* default */ void testGetAction()
    {
     assertAll("getAction", //$NON-NLS-1$
       () -> assertEquals(1, Weekday.MONDAY.getAction(), MONDAY_ACTION_NOT_AS_EXPECTED),
@@ -62,7 +64,7 @@ public class WeekdayTests
    * Test stringValue.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final Weekday wd = Weekday.MONDAY;
     assertEquals("MONDAY", wd.stringValue(), "stringValue not as expected");

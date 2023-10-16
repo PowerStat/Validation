@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -23,11 +23,6 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
    * Cache for singletons.
    */
   private static final Map<NTuple3<Integer, Integer, String>, ScreenSize> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Screen width (1-8192).
@@ -145,19 +140,6 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
 
 
   /**
-   * Get size string.
-   *
-   * @return Size string format 1x1
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = ScreenSize.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getSize()
-   {
-    return String.valueOf(this.width) + 'x' + this.height;
-   }
-
-
-  /**
    * Returns the value of this ScreenSize as a string.
    *
    * @return The text value represented by this object after conversion to type string format 320x200.
@@ -238,7 +220,7 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(47);
+    final var builder = new StringBuilder(47);
     builder.append("ScreenSize[width=").append(this.width).append(", height=").append(this.height).append(", name=").append(this.name).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     return builder.toString();
    }

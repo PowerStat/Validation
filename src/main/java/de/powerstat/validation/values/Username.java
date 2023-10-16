@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -30,11 +30,6 @@ public final class Username implements Comparable<Username>, IValueObject
    * Cache for singletons.
    */
   private static final Map<String, Username> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Username.
@@ -99,19 +94,6 @@ public final class Username implements Comparable<Username>, IValueObject
   public static Username of(final String username)
    {
     return new Username(UsernameDefaultStrategy.of(), username);
-   }
-
-
-  /**
-   * Get username string.
-   *
-   * @return Username string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = Username.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getUsername()
-   {
-    return this.username;
    }
 
 
@@ -187,7 +169,7 @@ public final class Username implements Comparable<Username>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(19);
+    final var builder = new StringBuilder(19);
     builder.append("Username[username=").append(this.username).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

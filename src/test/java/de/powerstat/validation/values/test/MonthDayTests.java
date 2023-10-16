@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -24,7 +24,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Month day tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class MonthDayTests
+final class MonthDayTests
  {
   /**
    * Month not as expected constant.
@@ -65,7 +65,7 @@ public class MonthDayTests
    * Factory test.
    */
   @Test
-  public void of1()
+  /* default */ void testOf1()
    {
     final MonthDay test = MonthDay.of(Month.of(10), Day.of(13));
     assertAll(TEST_OF,
@@ -79,7 +79,7 @@ public class MonthDayTests
    * Factory test.
    */
   @Test
-  public void of2()
+  /* default */ void testOf2()
    {
     final MonthDay test = MonthDay.of(DAYMONTH_10_13);
     assertAll(TEST_OF,
@@ -93,7 +93,7 @@ public class MonthDayTests
    * Factory test.
    */
   @Test
-  public void of3()
+  /* default */ void testOf3()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -107,7 +107,7 @@ public class MonthDayTests
    * Factory test.
    */
   @Test
-  public void of4()
+  /* default */ void testOf4()
    {
     final MonthDay test = MonthDay.of(Month.of(2), Day.of(1));
     assertAll(TEST_OF,
@@ -121,11 +121,13 @@ public class MonthDayTests
    * Factory test.
    */
   @Test
-  public void of5()
+  /* default */ void testOf5()
    {
+    final Month month = Month.of(2);
+    final Day day = Day.of(30);
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
-      /* final MonthDay test = */ MonthDay.of(Month.of(2), Day.of(30));
+      /* final MonthDay test = */ MonthDay.of(month, day);
      }, "Index out of bounds exception"
     );
    }
@@ -135,7 +137,7 @@ public class MonthDayTests
    * stringValue test.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final MonthDay test = MonthDay.of(DAYMONTH_10_13);
     assertEquals(DAYMONTH_10_13, test.stringValue(), MONTH_NOT_AS_EXPECTED);
@@ -146,7 +148,7 @@ public class MonthDayTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final MonthDay test1 = MonthDay.of(Month.of(10), Day.of(13));
     final MonthDay test2 = MonthDay.of(Month.of(10), Day.of(13));
@@ -162,7 +164,8 @@ public class MonthDayTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final MonthDay test1 = MonthDay.of(Month.of(10), Day.of(13));
     final MonthDay test2 = MonthDay.of(Month.of(10), Day.of(13));
@@ -185,7 +188,7 @@ public class MonthDayTests
    * toString test.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final MonthDay test = MonthDay.of(DAYMONTH_10_13);
     assertEquals("MonthDay[month=Month[month=10], day=Day[day=13]]", test.toString(), "toString not as expected");
@@ -196,7 +199,8 @@ public class MonthDayTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final MonthDay test1 = MonthDay.of(Month.of(10), Day.of(13));
     final MonthDay test2 = MonthDay.of(Month.of(10), Day.of(13));
@@ -217,7 +221,7 @@ public class MonthDayTests
    * Test add.
    */
   @Test
-  public void add1()
+  /* default */ void testAdd1()
    {
     final MonthDay test1 = MonthDay.of(Month.of(10), Day.of(13));
     final MonthDay result = test1.add(Months.of(1));
@@ -232,7 +236,7 @@ public class MonthDayTests
    * Test add.
    */
   @Test
-  public void subtract1()
+  /* default */ void testSubtract1()
    {
     final MonthDay test1 = MonthDay.of(Month.of(10), Day.of(13));
     final MonthDay result = test1.subtract(Months.of(1));

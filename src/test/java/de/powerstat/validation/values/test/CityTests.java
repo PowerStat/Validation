@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * City tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class CityTests
+final class CityTests
  {
   /**
    * Bremen.
@@ -45,11 +45,6 @@ public class CityTests
    */
   private static final String CITY_NOT_AS_EXPECTED = "City not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -67,7 +62,7 @@ public class CityTests
    */
   @ParameterizedTest
   @ValueSource(strings = {CityTests.BREMEN, "A", "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefg"})
-  public void cityCorrect(final String city)
+  /* default */ void testCityCorrect(final String city)
    {
     final City cleanCity = City.of(city);
     assertEquals(city, cleanCity.stringValue(), CityTests.CITY_NOT_AS_EXPECTED);
@@ -81,7 +76,7 @@ public class CityTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefgh"})
-  public void cityLength(final String city)
+  /* default */ void testCityLength(final String city)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -98,7 +93,7 @@ public class CityTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"Bremen0815", "abc_def"})
-  public void cityWrong(final String city)
+  /* default */ void testCityWrong(final String city)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -110,23 +105,9 @@ public class CityTests
 
   /**
    * Test get city.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = CityTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getCity()
-   {
-    final City city = City.of(CityTests.BREMEN);
-    assertEquals(CityTests.BREMEN, city.getCity(), CityTests.CITY_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get city.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final City city = City.of(CityTests.BREMEN);
     assertEquals(CityTests.BREMEN, city.stringValue(), CityTests.CITY_NOT_AS_EXPECTED);
@@ -137,7 +118,7 @@ public class CityTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final City city1 = City.of(CityTests.BREMEN);
     final City city2 = City.of(CityTests.BREMEN);
@@ -153,7 +134,8 @@ public class CityTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final City city1 = City.of(CityTests.BREMEN);
     final City city2 = City.of(CityTests.BREMEN);
@@ -176,7 +158,7 @@ public class CityTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final City city = City.of(CityTests.BREMEN);
     assertEquals("City[city=Bremen]", city.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -187,7 +169,8 @@ public class CityTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final City city1 = City.of(CityTests.BREMEN);
     final City city2 = City.of(CityTests.BREMEN);

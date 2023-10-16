@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -39,11 +39,6 @@ public final class Day implements Comparable<Day>, IValueObject
    * Cache for singletons.
    */
   private static final Map<Integer, Day> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Day.
@@ -177,7 +172,7 @@ public final class Day implements Comparable<Day>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final var builder = new StringBuilder();
     builder.append("Day[day=").append(this.day).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

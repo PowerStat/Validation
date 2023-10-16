@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -24,11 +24,6 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>, IValueObject
    * Cache for singletons.
    */
   private static final Map<Long, PoBoxNumber> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Post office box number.
@@ -88,19 +83,6 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>, IValueObject
 
 
   /**
-   * Get PO box number.
-   *
-   * @return PO box number
-   * @deprecated Use longValue() instead
-   */
-  @Deprecated(since = PoBoxNumber.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public long getPoBoxNumber()
-   {
-    return this.poBoxNumber;
-   }
-
-
-  /**
    * Returns the value of this BFPONumber as a long.
    *
    * @return The numeric value represented by this object after conversion to type long.
@@ -108,19 +90,6 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>, IValueObject
   public long longValue()
    {
     return this.poBoxNumber;
-   }
-
-
-  /**
-   * Get PO box number string.
-   *
-   * @return PO box number as string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = PoBoxNumber.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getPoBoxNumberStr()
-   {
-    return Long.toString(this.poBoxNumber);
    }
 
 
@@ -188,7 +157,7 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(25);
+    final var builder = new StringBuilder(25);
     builder.append("PoBoxNumber[poBoxNumber=").append(this.poBoxNumber).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

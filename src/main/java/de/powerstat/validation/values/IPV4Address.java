@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -53,12 +53,7 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
   /**
    * IP V4 regexp.
    */
-  private static final Pattern IPV4_REGEXP = Pattern.compile("^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+  private static final Pattern IPV4_REGEXP = Pattern.compile("^((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)\\.){3}(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)$"); //$NON-NLS-1$
 
   /**
    * IP V4 address.
@@ -209,19 +204,6 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
 
 
   /**
-   * Get ip V4 address string.
-   *
-   * @return IPV4Address string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = IPV4Address.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getAddress()
-   {
-    return this.address;
-   }
-
-
-  /**
    * Returns the value of this IPV4Address as a string.
    *
    * @return The text value represented by this object after conversion to type string.
@@ -282,7 +264,7 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(21);
+    final var builder = new StringBuilder(21);
     builder.append("IPV4Address[address=").append(this.address).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

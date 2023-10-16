@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Country tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class CountryTests
+final class CountryTests
  {
   /**
    * FR france.
@@ -45,11 +45,6 @@ public class CountryTests
    */
   private static final String COUNTRY_CODE_NOT_AS_EXPECTED = "Country code not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -67,7 +62,7 @@ public class CountryTests
    */
   @ParameterizedTest
   @ValueSource(strings = {CountryTests.DE})
-  public void countryOk0(final String alpha2)
+  /* default */ void testCountryOk0(final String alpha2)
    {
     final Country cleanCountry = Country.of(alpha2);
     assertEquals(alpha2, cleanCountry.stringValue(), CountryTests.COUNTRY_CODE_NOT_AS_EXPECTED);
@@ -81,7 +76,7 @@ public class CountryTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"D", "DEA"})
-  public void countryLength(final String alpha2)
+  /* default */ void testCountryLength(final String alpha2)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -98,7 +93,7 @@ public class CountryTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"D~", "ZZ"})
-  public void countryIllegalParameters(final String alpha2)
+  /* default */ void testCountryIllegalParameters(final String alpha2)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -110,23 +105,9 @@ public class CountryTests
 
   /**
    * Test get country code.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = CountryTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getCountry()
-   {
-    final Country country = Country.of(CountryTests.DE);
-    assertEquals(CountryTests.DE, country.getCountry(), CountryTests.COUNTRY_CODE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get country code.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final Country country = Country.of(CountryTests.DE);
     assertEquals(CountryTests.DE, country.stringValue(), CountryTests.COUNTRY_CODE_NOT_AS_EXPECTED);
@@ -137,7 +118,7 @@ public class CountryTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final Country country1 = Country.of(CountryTests.DE);
     final Country country2 = Country.of(CountryTests.DE);
@@ -153,7 +134,8 @@ public class CountryTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final Country country1 = Country.of(CountryTests.DE);
     final Country country2 = Country.of(CountryTests.DE);
@@ -176,7 +158,7 @@ public class CountryTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final Country country = Country.of(CountryTests.DE);
     assertEquals("Country[alpha2=DE]", country.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -187,7 +169,8 @@ public class CountryTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Country country1 = Country.of(CountryTests.DE);
     final Country country2 = Country.of(CountryTests.DE);

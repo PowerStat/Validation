@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -25,11 +25,6 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>,
    * Cache for singletons.
    */
   private static final Map<NTuple2<Integer, Integer>, DisplayAspectRatio> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Display x size (1-72).
@@ -130,19 +125,6 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>,
 
 
   /**
-   * Get aspect ratio string (x:y).
-   *
-   * @return Aspect ration string (x:y)
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = DisplayAspectRatio.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getAspectRatio()
-   {
-    return String.valueOf(this.x) + ':' + this.y;
-   }
-
-
-  /**
    * Returns the value of this DisplayAspectRatio as a string.
    *
    * @return The text value represented by this object after conversion to type string.
@@ -211,7 +193,7 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>,
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(30);
+    final var builder = new StringBuilder(30);
     builder.append("DisplayAspectRatio[x=").append(this.x).append(", y=").append(this.y).append(']'); //$NON-NLS-1$ //$NON-NLS-2$
     return builder.toString();
    }

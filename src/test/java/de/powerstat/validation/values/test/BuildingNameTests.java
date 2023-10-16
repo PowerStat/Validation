@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Building name tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class BuildingNameTests
+final class BuildingNameTests
  {
   /**
    * City hall.
@@ -45,11 +45,6 @@ public class BuildingNameTests
    */
   private static final String BUILDING_NAME_NOT_AS_EXPECTED = "BuildingName not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -67,7 +62,7 @@ public class BuildingNameTests
    */
   @ParameterizedTest
   @ValueSource(strings = {BuildingNameTests.RATHAUS, "A", "Abcdefghijklmnopqrstuvwxyzabcdef"})
-  public void buildingNameCorrect(final String buildingName)
+  /* default */ void testBuildingNameCorrect(final String buildingName)
    {
     final BuildingName cleanBuildingName = BuildingName.of(buildingName);
     assertEquals(buildingName, cleanBuildingName.stringValue(), BuildingNameTests.BUILDING_NAME_NOT_AS_EXPECTED);
@@ -81,7 +76,7 @@ public class BuildingNameTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "Abcdefghijklmnopqrstuvwxyzabcdefg"})
-  public void buildingNameLength(final String buildingName)
+  /* default */ void testBuildingNameLength(final String buildingName)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -98,7 +93,7 @@ public class BuildingNameTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"Bremen0815", "abc_def"})
-  public void buildingNameWrong(final String buildingName)
+  /* default */ void testBuildingNameWrong(final String buildingName)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -110,23 +105,9 @@ public class BuildingNameTests
 
   /**
    * Test get building name.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = BuildingNameTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getBuildingName()
-   {
-    final BuildingName buildingName = BuildingName.of(BuildingNameTests.RATHAUS);
-    assertEquals(BuildingNameTests.RATHAUS, buildingName.getBuildingName(), BuildingNameTests.BUILDING_NAME_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get building name.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final BuildingName buildingName = BuildingName.of(BuildingNameTests.RATHAUS);
     assertEquals(BuildingNameTests.RATHAUS, buildingName.stringValue(), BuildingNameTests.BUILDING_NAME_NOT_AS_EXPECTED);
@@ -137,7 +118,7 @@ public class BuildingNameTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final BuildingName buildingName1 = BuildingName.of(BuildingNameTests.RATHAUS);
     final BuildingName buildingName2 = BuildingName.of(BuildingNameTests.RATHAUS);
@@ -153,7 +134,8 @@ public class BuildingNameTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final BuildingName name1 = BuildingName.of(BuildingNameTests.RATHAUS);
     final BuildingName name2 = BuildingName.of(BuildingNameTests.RATHAUS);
@@ -176,7 +158,7 @@ public class BuildingNameTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final BuildingName buildingName = BuildingName.of(BuildingNameTests.RATHAUS);
     assertEquals("BuildingName[buildingName=Rathaus]", buildingName.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -187,7 +169,8 @@ public class BuildingNameTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final BuildingName name1 = BuildingName.of(BuildingNameTests.RATHAUS);
     final BuildingName name2 = BuildingName.of(BuildingNameTests.RATHAUS);

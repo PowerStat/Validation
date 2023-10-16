@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -33,12 +33,8 @@ public final class Language implements Comparable<Language>, IValueObject
   /**
    * Language regexp.
    */
+  @SuppressWarnings("java:S5867")
   private static final Pattern LANGUAGE_REGEXP = Pattern.compile("^[a-z]{2}$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * ISO 639-1 language code.
@@ -92,19 +88,6 @@ public final class Language implements Comparable<Language>, IValueObject
       Language.CACHE.put(code, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get language code string.
-   *
-   * @return Language code string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = Language.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getLanguage()
-   {
-    return this.code;
    }
 
 
@@ -169,7 +152,7 @@ public final class Language implements Comparable<Language>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final var builder = new StringBuilder();
     builder.append("Language[code=").append(this.code).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

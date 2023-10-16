@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -60,11 +60,6 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
   private static final String IV6_SEP = ":"; //$NON-NLS-1$
 
   /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
    * IP V6 address.
    */
   private final String address;
@@ -119,9 +114,9 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
       return address;
      }
       final int blockStart = address.lastIndexOf(':', ipv4pos);
-      final String ipv4 = address.substring(blockStart + 1);
+    final var ipv4 = address.substring(blockStart + 1);
     /* final IPV4Address ipv4address = */ IPV4Address.of(ipv4); // TODO use IPV4Address to ip v6 conversion method
-      final String newAddress = address.substring(0, blockStart + 1);
+    final var newAddress = address.substring(0, blockStart + 1);
       final String[] parts = ipv4.split("\\."); //$NON-NLS-1$
       final int block1 = Integer.parseInt(parts[0]);
       final int block2 = Integer.parseInt(parts[1]);
@@ -171,8 +166,8 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
      {
       throw new IllegalArgumentException("Not an IP V6 address (more than one expansion block)"); //$NON-NLS-1$
      }
-    final String start = address.substring(0, expPos);
-    final String end = address.substring(expPos + 2);
+    final var start = address.substring(0, expPos);
+    final var end = address.substring(expPos + 2);
     int blocks = 8;
     if (start.length() > 0)
      {
@@ -182,7 +177,7 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
      {
       blocks -= countColons(end) + 1;
      }
-    final StringBuilder replace = new StringBuilder();
+    final var replace = new StringBuilder();
     if (start.length() > 0)
      {
       replace.append(':');
@@ -215,7 +210,7 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
   private static String normalizeIPV6Address(final String address)
    {
     final String[] parts = address.split(IPV6Address.IV6_SEP);
-    final StringBuilder normalizedAddress = new StringBuilder();
+    final var normalizedAddress = new StringBuilder();
     for (final String part : parts)
      {
       normalizedAddress.append(IPV6Address.BLOCK_ZERO.substring(part.length())).append(part).append(':');
@@ -303,19 +298,6 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
 
 
   /**
-   * Get normalized ip V6 address string.
-   *
-   * @return IPV6Address string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = IPV6Address.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getAddress()
-   {
-    return this.address;
-   }
-
-
-  /**
    * Returns the value of this IPV6Address as a string.
    *
    * @return The text value represented by this object after conversion to type string.
@@ -376,7 +358,7 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(21);
+    final var builder = new StringBuilder(21);
     builder.append("IPV6Address[address=").append(this.address).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

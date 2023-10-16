@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.entities.test;
 
@@ -34,7 +34,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
 @SuppressWarnings("java:S2925")
-public class PersonTests
+final class PersonTests
  {
   /**
    * Lastname constant.
@@ -140,7 +140,7 @@ public class PersonTests
    * Constructor/factory test.
    */
   @Test
-  public void constructor1()
+  /* default */ void testConstructor1()
    {
     final Person person = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
     assertAll("constructor", //$NON-NLS-1$
@@ -153,7 +153,7 @@ public class PersonTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final Person person1 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
     final Person person2 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
@@ -169,7 +169,8 @@ public class PersonTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final Person person1 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
     final Person person2 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
@@ -204,7 +205,7 @@ public class PersonTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final Person person = Person.of();
     person.addLastname(OffsetDateTime.of(2022, 1, 16, 11, 38, 0, 0, ZoneOffset.ofHours(1)), Lastname.of(PersonTests.HOFMANN));
@@ -217,7 +218,8 @@ public class PersonTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Person person1 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
     final Person person2 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
@@ -238,7 +240,8 @@ public class PersonTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo2()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo2()
    {
     final Person person1 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
     final Person person2 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.FEMALE);
@@ -274,7 +277,7 @@ public class PersonTests
    * @throws InterruptedException Interrupted sleep
    */
   @Test
-  public void getLastnameAtBirth() throws InterruptedException
+  /* default */ void testGetLastnameAtBirth() throws InterruptedException
    {
     final Person person = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
     TimeUnit.MICROSECONDS.sleep(1);
@@ -290,7 +293,7 @@ public class PersonTests
    * Get lastname actual test.
    */
   @Test
-  public void getLastnameActual()
+  /* default */ void testGetLastnameActual()
    {
     final Person person = Person.of(Lastname.of(PersonTests.LASTNAME), Gender.MALE);
     person.addLastname(OffsetDateTime.now(), Lastname.of(PersonTests.HOFMANN));
@@ -305,7 +308,7 @@ public class PersonTests
    * @throws InterruptedException Interrupted sleep
    */
   @Test
-  public void getLastnamePrevious() throws InterruptedException
+  /* default */ void testGetLastnamePrevious() throws InterruptedException
    {
     final Person person = Person.of(Lastname.of(PersonTests.BIRTHNAME), Gender.UNKNOWN);
     TimeUnit.MICROSECONDS.sleep(1);
@@ -321,7 +324,7 @@ public class PersonTests
    * Add lastname test.
    */
   @Test
-  public void addLastname()
+  /* default */ void testAddLastname()
    {
     final Person person = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
     final Lastname name = person.getLastnameActual();
@@ -335,7 +338,7 @@ public class PersonTests
    * @throws InterruptedException Interrupted sleep
    */
   @Test
-  public void getGenderAtBirth() throws InterruptedException
+  /* default */ void testGetGenderAtBirth() throws InterruptedException
    {
     final Person person = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
     TimeUnit.MICROSECONDS.sleep(1);
@@ -349,7 +352,7 @@ public class PersonTests
    * Get gender actual test.
    */
   @Test
-  public void getGenderActual()
+  /* default */ void testGetGenderActual()
    {
     final Person person = Person.of(Lastname.of(PersonTests.LASTNAME), Gender.MALE);
     person.addGender(OffsetDateTime.now(), Gender.NEUTRAL);
@@ -364,7 +367,7 @@ public class PersonTests
    * @throws InterruptedException Interrupted sleep
    */
   @Test
-  public void getGenderPrevious() throws InterruptedException
+  /* default */ void testGetGenderPrevious() throws InterruptedException
    {
     final Person person = Person.of(Lastname.of(PersonTests.BIRTHNAME), Gender.UNKNOWN);
     TimeUnit.MICROSECONDS.sleep(1);
@@ -380,7 +383,7 @@ public class PersonTests
    * Add gender test.
    */
   @Test
-  public void addGender()
+  /* default */ void testAddGender()
    {
     final Person person = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
     final Gender gender = person.getGenderActual();
@@ -394,7 +397,7 @@ public class PersonTests
    * @throws InterruptedException Interrupted sleep
    */
   @Test
-  public void getFirstnamesAtBirth() throws InterruptedException
+  /* default */ void testGetFirstnamesAtBirth() throws InterruptedException
    {
     final List<Firstname> firstnames = new ArrayList<>();
     firstnames.add(Firstname.of(PersonTests.KAI));
@@ -413,7 +416,7 @@ public class PersonTests
    * Get firstnames actual test.
    */
   @Test
-  public void getFirstnamesActual()
+  /* default */ void testGetFirstnamesActual()
    {
     final List<Firstname> firstnames = new ArrayList<>();
     firstnames.add(Firstname.of(PersonTests.KAI));
@@ -433,7 +436,7 @@ public class PersonTests
    * @throws InterruptedException Interrupted sleep
    */
   @Test
-  public void getFirstnamesPrevious() throws InterruptedException
+  /* default */ void testGetFirstnamesPrevious() throws InterruptedException
    {
     final List<Firstname> firstnames = new ArrayList<>();
     firstnames.add(Firstname.of(PersonTests.KAI));
@@ -452,7 +455,7 @@ public class PersonTests
    * Add firstnames test.
    */
   @Test
-  public void addFirstnames()
+  /* default */ void testAddFirstnames()
    {
     final List<Firstname> firstnames = new ArrayList<>();
     firstnames.add(Firstname.of(PersonTests.KAI));
@@ -467,7 +470,7 @@ public class PersonTests
    * Set birthday test.
    */
   @Test
-  public void setBirthday()
+  /* default */ void testSetBirthday()
    {
     final List<Firstname> firstnames = new ArrayList<>();
     firstnames.add(Firstname.of(PersonTests.KAI));
@@ -481,7 +484,7 @@ public class PersonTests
    * Get birthday test.
    */
   @Test
-  public void getBirthday()
+  /* default */ void testGetBirthday()
    {
     final List<Firstname> firstnames = new ArrayList<>();
     firstnames.add(Firstname.of(PersonTests.KAI));
@@ -494,7 +497,7 @@ public class PersonTests
    * Get birthday test.
    */
   @Test
-  public void getBirthdayUnset()
+  /* default */ void testGetBirthdayUnset()
    {
     final List<Firstname> firstnames = new ArrayList<>();
     firstnames.add(Firstname.of(PersonTests.KAI));
@@ -507,7 +510,7 @@ public class PersonTests
    * Set death date test.
    */
   @Test
-  public void setDeathdate1()
+  /* default */ void testSetDeathdate1()
    {
     final List<Firstname> firstnames = new ArrayList<>();
     firstnames.add(Firstname.of(PersonTests.UNKNOWN));
@@ -521,14 +524,15 @@ public class PersonTests
    * Set death date test.
    */
   @Test
-  public void setDeathdate2()
+  /* default */ void testSetDeathdate2()
    {
     final List<Firstname> firstnames = new ArrayList<>();
     firstnames.add(Firstname.of(PersonTests.UNKNOWN));
     final Person person = Person.of(Lastname.of(PersonTests.UNKNOWN), Gender.MALE, firstnames, OffsetDateTime.of(1972, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(1)));
+    final OffsetDateTime deathdate = OffsetDateTime.of(1971, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(1));
     assertThrows(IllegalArgumentException.class, () ->
      {
-      person.setDeathdate(OffsetDateTime.of(1971, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(1)));
+      person.setDeathdate(deathdate);
      }, "Illegal argument exception expected" //$NON-NLS-1$
     );
    }
@@ -538,7 +542,7 @@ public class PersonTests
    * Get death date test.
    */
   @Test
-  public void getDeathdate()
+  /* default */ void testGetDeathdate()
    {
     final List<Firstname> firstnames = new ArrayList<>();
     firstnames.add(Firstname.of(PersonTests.UNKNOWN));
@@ -552,7 +556,7 @@ public class PersonTests
    * Get death date test.
    */
   @Test
-  public void getDeathdateUnset()
+  /* default */ void testGetDeathdateUnset()
    {
     final List<Firstname> firstnames = new ArrayList<>();
     firstnames.add(Firstname.of(PersonTests.UNKNOWN));
@@ -565,7 +569,7 @@ public class PersonTests
    * Set blood group test.
    */
   @Test
-  public void setBloodGroup()
+  /* default */ void testSetBloodGroup()
    {
     final List<Firstname> firstnames = new ArrayList<>();
     firstnames.add(Firstname.of(PersonTests.UNKNOWN));
@@ -579,7 +583,7 @@ public class PersonTests
    * Get blood group test.
    */
   @Test
-  public void getBloodGroup()
+  /* default */ void testGetBloodGroup()
    {
     final List<Firstname> firstnames = new ArrayList<>();
     firstnames.add(Firstname.of(PersonTests.UNKNOWN));
@@ -593,7 +597,7 @@ public class PersonTests
    * Get blood group test.
    */
   @Test
-  public void getBloodGroupUnset()
+  /* default */ void testGetBloodGroupUnset()
    {
     final List<Firstname> firstnames = new ArrayList<>();
     firstnames.add(Firstname.of(PersonTests.UNKNOWN));

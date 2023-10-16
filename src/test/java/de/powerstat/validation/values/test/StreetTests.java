@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Street tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class StreetTests
+final class StreetTests
  {
   /**
    * Street name.
@@ -45,11 +45,6 @@ public class StreetTests
    */
   private static final String STREET_NOT_AS_EXPECTED = "Street not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -67,7 +62,7 @@ public class StreetTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"Hemelinger Heerstraße", "A", "abcdefghijklmnopqrstuvwxyz abcde"})
-  public void streetCorrect(final String street)
+  /* default */ void testStreetCorrect(final String street)
    {
     final Street cleanStreet = Street.of(street);
     assertEquals(street, cleanStreet.stringValue(), StreetTests.STREET_NOT_AS_EXPECTED);
@@ -81,7 +76,7 @@ public class StreetTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefgh"})
-  public void streetLength(final String street)
+  /* default */ void testStreetLength(final String street)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -98,7 +93,7 @@ public class StreetTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"abc_def"})
-  public void streetWrong(final String street)
+  /* default */ void testStreetWrong(final String street)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -110,23 +105,9 @@ public class StreetTests
 
   /**
    * Test get street.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = StreetTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getStreet()
-   {
-    final Street street = Street.of(StreetTests.HEMELINGER_HEERSTR);
-    assertEquals(StreetTests.HEMELINGER_HEERSTR, street.getStreet(), StreetTests.STREET_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get street.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final Street street = Street.of(StreetTests.HEMELINGER_HEERSTR);
     assertEquals(StreetTests.HEMELINGER_HEERSTR, street.stringValue(), StreetTests.STREET_NOT_AS_EXPECTED);
@@ -137,7 +118,7 @@ public class StreetTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final Street street1 = Street.of(StreetTests.ARBERGER_HEERSTR);
     final Street street2 = Street.of(StreetTests.ARBERGER_HEERSTR);
@@ -153,7 +134,8 @@ public class StreetTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final Street street1 = Street.of(StreetTests.ARBERGER_HEERSTR);
     final Street street2 = Street.of(StreetTests.ARBERGER_HEERSTR);
@@ -176,7 +158,7 @@ public class StreetTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final Street street = Street.of(StreetTests.HEMELINGER_HEERSTR);
     assertEquals("Street[street=Hemelinger Heerstr.]", street.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -187,7 +169,8 @@ public class StreetTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Street street1 = Street.of(StreetTests.ARBERGER_HEERSTR);
     final Street street2 = Street.of(StreetTests.ARBERGER_HEERSTR);

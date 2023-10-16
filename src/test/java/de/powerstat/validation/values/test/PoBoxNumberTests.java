@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Post office  box number tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class PoBoxNumberTests
+final class PoBoxNumberTests
  {
   /**
    * Not a po box number constant.
@@ -34,11 +34,6 @@ public class PoBoxNumberTests
    * Result 10 constant.
    */
   private static final String RESULT10 = "10"; //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
 
   /**
@@ -54,7 +49,7 @@ public class PoBoxNumberTests
    * Factory string test.
    */
   @Test
-  public void factory1()
+  /* default */ void testFactory1()
    {
     assertEquals(1, PoBoxNumber.of("1").longValue(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
    }
@@ -67,7 +62,7 @@ public class PoBoxNumberTests
    */
   @ParameterizedTest
   @ValueSource(longs = {1, 99999})
-  public void isPoBoxNumber(final long poBoxNumber)
+  /* default */ void testIsPoBoxNumber(final long poBoxNumber)
    {
     assertEquals(poBoxNumber, PoBoxNumber.of(poBoxNumber).longValue(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
    }
@@ -80,7 +75,7 @@ public class PoBoxNumberTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"1", "99999"})
-  public void isPoBoxNumberStr(final String poBoxNumber)
+  /* default */ void testIsPoBoxNumberStr(final String poBoxNumber)
    {
     assertEquals(poBoxNumber, PoBoxNumber.of(Long.parseLong(poBoxNumber)).stringValue(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
    }
@@ -93,7 +88,7 @@ public class PoBoxNumberTests
    */
   @ParameterizedTest
   @ValueSource(longs = {0})
-  public void isNotAPoBoxNumber(final long poBoxNumber)
+  /* default */ void testIsNotAPoBoxNumber(final long poBoxNumber)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -104,38 +99,12 @@ public class PoBoxNumberTests
 
 
   /**
-   * getPoBoxNumber.
-   *
-   * @deprecated Old version of longValue()
-   */
-  @Deprecated(since = PoBoxNumberTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getPoBoxNumber()
-   {
-    assertEquals(10, PoBoxNumber.of(10).getPoBoxNumber(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
-   }
-
-
-  /**
    * longValue.
    */
   @Test
-  public void longValue()
+  /* default */ void testLongValue()
    {
     assertEquals(10, PoBoxNumber.of(10).longValue(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
-   }
-
-
-  /**
-   * getPoBoxNumberStr.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = PoBoxNumberTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getPoBoxNumberStr()
-   {
-    assertEquals(PoBoxNumberTests.RESULT10, PoBoxNumber.of(10).getPoBoxNumberStr(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
    }
 
 
@@ -143,7 +112,7 @@ public class PoBoxNumberTests
    * stringValue.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     assertEquals(PoBoxNumberTests.RESULT10, PoBoxNumber.of(10).stringValue(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
    }
@@ -153,7 +122,7 @@ public class PoBoxNumberTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final PoBoxNumber poBoxNumber1 = PoBoxNumber.of(1);
     final PoBoxNumber poBoxNumber2 = PoBoxNumber.of(1);
@@ -169,7 +138,8 @@ public class PoBoxNumberTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final PoBoxNumber poBoxNumber1 = PoBoxNumber.of(1);
     final PoBoxNumber poBoxNumber2 = PoBoxNumber.of(1);
@@ -192,7 +162,7 @@ public class PoBoxNumberTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final PoBoxNumber poBoxNumber = PoBoxNumber.of(1);
     assertEquals("PoBoxNumber[poBoxNumber=1]", poBoxNumber.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -203,7 +173,8 @@ public class PoBoxNumberTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final PoBoxNumber pobox1 = PoBoxNumber.of(1);
     final PoBoxNumber pobox2 = PoBoxNumber.of(1);

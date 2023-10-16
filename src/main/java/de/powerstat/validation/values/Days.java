@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -24,11 +24,6 @@ public final class Days implements Comparable<Days>, IValueObject
    * Cache for singletons.
    */
   private static final Map<Long, Days> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Days.
@@ -84,19 +79,6 @@ public final class Days implements Comparable<Days>, IValueObject
   public static Days of(final String value)
    {
     return of(Long.parseLong(value));
-   }
-
-
-  /**
-   * Get days.
-   *
-   * @return Days
-   * @deprecated Use longValue() instead
-   */
-  @Deprecated(since = Days.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public long getDays()
-   {
-    return this.days;
    }
 
 
@@ -175,7 +157,7 @@ public final class Days implements Comparable<Days>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final var builder = new StringBuilder();
     builder.append("Days[days=").append(this.days).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -23,17 +23,12 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * BFPONumber tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class BFPONumberTests
+final class BFPONumberTests
  {
   /**
    * Not a BFPONumber constant.
    */
   private static final String NOT_A_BFPO_NUMBER = "Not a BFPONumber!"; //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * 1 constant.
@@ -54,7 +49,7 @@ public class BFPONumberTests
    * Factory string test.
    */
   @Test
-  public void factory1()
+  /* default */ void testFactory1()
    {
     assertEquals(1, BFPONumber.of(ONE).intValue(), BFPONumberTests.NOT_A_BFPO_NUMBER);
    }
@@ -67,7 +62,7 @@ public class BFPONumberTests
    */
   @ParameterizedTest
   @ValueSource(ints = {1, 2035})
-  public void isBFPONumber(final int bFPONumber)
+  /* default */ void testIsBFPONumber(final int bFPONumber)
    {
     assertEquals(bFPONumber, BFPONumber.of(bFPONumber).intValue(), BFPONumberTests.NOT_A_BFPO_NUMBER);
    }
@@ -80,35 +75,9 @@ public class BFPONumberTests
    */
   @ParameterizedTest
   @ValueSource(ints = {1, 2035})
-  public void isBFPONumberStr(final int bFPONumber)
+  /* default */ void testIsBFPONumberStr(final int bFPONumber)
    {
     assertEquals(Integer.toString(bFPONumber), BFPONumber.of(bFPONumber).stringValue(), BFPONumberTests.NOT_A_BFPO_NUMBER);
-   }
-
-
-  /**
-   * getBFPONumber.
-   *
-   * @deprecated Old version of intValue()
-   */
-  @Deprecated(since = BFPONumberTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getBFPONumber()
-   {
-    assertEquals(1, BFPONumber.of(1).getBFPONumber(), BFPONumberTests.NOT_A_BFPO_NUMBER);
-   }
-
-
-  /**
-   * getBFPONumberStr.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = BFPONumberTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getBFPONumberStr()
-   {
-    assertEquals(ONE, BFPONumber.of(1).getBFPONumberStr(), BFPONumberTests.NOT_A_BFPO_NUMBER);
    }
 
 
@@ -119,7 +88,7 @@ public class BFPONumberTests
    */
   @ParameterizedTest
   @ValueSource(ints = {0, 2036})
-  public void isNotABFPONumber(final int bFPONumber)
+  /* default */ void testIsNotABFPONumber(final int bFPONumber)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -133,7 +102,7 @@ public class BFPONumberTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final BFPONumber bFPONumber1 = BFPONumber.of(1);
     final BFPONumber bFPONumber2 = BFPONumber.of(1);
@@ -149,7 +118,8 @@ public class BFPONumberTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final BFPONumber bFPONumber1 = BFPONumber.of(1);
     final BFPONumber bFPONumber2 = BFPONumber.of(1);
@@ -172,7 +142,7 @@ public class BFPONumberTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final BFPONumber bFPONumber = BFPONumber.of(1);
     assertEquals("BFPONumber[bFPONumber=1]", bFPONumber.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -183,7 +153,8 @@ public class BFPONumberTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final BFPONumber bFPONumber1 = BFPONumber.of(1);
     final BFPONumber bFPONumber2 = BFPONumber.of(1);

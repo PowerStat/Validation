@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -32,12 +32,8 @@ public final class Currency implements Comparable<Currency>, IValueObject
   /**
    * Currency regexp.
    */
+  @SuppressWarnings("java:S5867")
   private static final Pattern CURRENCY_REGEXP = Pattern.compile("^[A-Z]{3}$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * ISO 4217 currency code.
@@ -91,19 +87,6 @@ public final class Currency implements Comparable<Currency>, IValueObject
       Currency.CACHE.put(code, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get currency code string.
-   *
-   * @return Currency code string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = Currency.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getCurrency()
-   {
-    return this.code;
    }
 
 
@@ -168,7 +151,7 @@ public final class Currency implements Comparable<Currency>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final var builder = new StringBuilder();
     builder.append("Currency[code=").append(this.code).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

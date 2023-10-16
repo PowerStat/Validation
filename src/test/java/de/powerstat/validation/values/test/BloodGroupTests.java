@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -17,7 +17,7 @@ import de.powerstat.validation.values.BloodGroup;
 /**
  * Gender tests.
  */
-public class BloodGroupTests
+final class BloodGroupTests
  {
   /**
    * Compatible blood groups.
@@ -178,7 +178,7 @@ public class BloodGroupTests
    * Factory string test.
    */
   @Test
-  public void factory1()
+  /* default */ void testFactory1()
    {
     assertEquals(0, BloodGroup.of(ON).getAction(), ZERO_NEGATIVE_ACTION_NOT_AS_EXPECTED);
    }
@@ -188,7 +188,7 @@ public class BloodGroupTests
    * Test getAction of BloodGroup.
    */
   @Test
-  public void getAction()
+  /* default */ void testGetAction()
    {
     assertAll("getAction", //$NON-NLS-1$
       () -> assertEquals(0, BloodGroup.ON.getAction(), ZERO_NEGATIVE_ACTION_NOT_AS_EXPECTED),
@@ -207,7 +207,7 @@ public class BloodGroupTests
    * Test stringValue.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final BloodGroup group = BloodGroup.ON;
     assertEquals(ON, group.stringValue(), "stringValue not as expected");
@@ -219,7 +219,7 @@ public class BloodGroupTests
    */
   @SuppressWarnings("PMD.JUnitTestContainsTooManyAsserts")
   @Test
-  public void couldDonateTo()
+  /* default */ void testCouldDonateTo()
    {
     assertAll("couldDonateTo", //$NON-NLS-1$
       () -> assertTrue(BloodGroup.ON.couldDonateTo(BloodGroup.ON), BloodGroupTests.BG_0N0N_OK),
@@ -302,7 +302,7 @@ public class BloodGroupTests
    */
   @SuppressWarnings("PMD.JUnitTestContainsTooManyAsserts")
   @Test
-  public void couldReceiveFrom()
+  /* default */ void testCouldReceiveFrom()
    {
     assertAll("couldReceiveFrom", //$NON-NLS-1$
       () -> assertTrue(BloodGroup.ON.couldReceiveFrom(BloodGroup.ON), BloodGroupTests.BG_0N0N_OK),

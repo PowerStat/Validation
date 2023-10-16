@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Years tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class YearsTests
+final class YearsTests
  {
   /**
    * Not a years constant.
@@ -40,11 +40,6 @@ public class YearsTests
    */
   private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -59,7 +54,7 @@ public class YearsTests
    * Factory string test.
    */
   @Test
-  public void factory1()
+  /* default */ void testFactory1()
    {
     assertEquals(0, Years.of("0").longValue(), YearsTests.NOT_A_YEARS);
    }
@@ -72,7 +67,7 @@ public class YearsTests
    */
   @ParameterizedTest
   @ValueSource(longs = {0, 20})
-  public void isYears(final long years)
+  /* default */ void testIsYears(final long years)
    {
     assertEquals(years, Years.of(years).longValue(), YearsTests.NOT_A_YEARS);
    }
@@ -85,7 +80,7 @@ public class YearsTests
    */
   @ParameterizedTest
   @ValueSource(longs = {-1})
-  public void isNotAYears(final long years)
+  /* default */ void testIsNotAYears(final long years)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -96,23 +91,10 @@ public class YearsTests
 
 
   /**
-   * getYears.
-   *
-   * @deprecated Old version of longValue()
-   */
-  @Deprecated(since = YearsTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getYears()
-   {
-    assertEquals(10, Years.of(10).getYears(), YearsTests.NOT_A_YEARS);
-   }
-
-
-  /**
    * longValue.
    */
   @Test
-  public void longValue()
+  /* default */ void testLongValue()
    {
     assertEquals(10, Years.of(10).longValue(), YearsTests.NOT_A_YEARS);
    }
@@ -122,7 +104,7 @@ public class YearsTests
    * stringValue.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     assertEquals("10", Years.of(10).stringValue(), YearsTests.NOT_A_YEARS);
    }
@@ -132,7 +114,7 @@ public class YearsTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final Years years1 = Years.of(1);
     final Years years2 = Years.of(1);
@@ -148,7 +130,8 @@ public class YearsTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final Years years1 = Years.of(1);
     final Years years2 = Years.of(1);
@@ -171,7 +154,7 @@ public class YearsTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final Years years = Years.of(1);
     assertEquals("Years[years=1]", years.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -182,7 +165,8 @@ public class YearsTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Years years1 = Years.of(1);
     final Years years2 = Years.of(1);
@@ -203,7 +187,7 @@ public class YearsTests
    * Test add.
    */
   @Test
-  public void testAdd1()
+  /* default */ void testAdd1()
    {
     final Years years1 = Years.of(1);
     final Years years2 = Years.of(1);
@@ -216,7 +200,7 @@ public class YearsTests
    * Test add.
    */
   @Test
-  public void testAdd2()
+  /* default */ void testAdd2()
    {
     final Years years1 = Years.of(Long.MAX_VALUE);
     final Years years2 = Years.of(1);
@@ -232,7 +216,7 @@ public class YearsTests
    * Test substract.
    */
   @Test
-  public void testSubstract1()
+  /* default */ void testSubstract1()
    {
     final Years years1 = Years.of(6);
     final Years years2 = Years.of(3);
@@ -245,7 +229,7 @@ public class YearsTests
    * Test substract.
    */
   @Test
-  public void testSubstract2()
+  /* default */ void testSubstract2()
    {
     final Years years1 = Years.of(3);
     final Years years2 = Years.of(6);
@@ -258,7 +242,7 @@ public class YearsTests
    * Test multiply.
    */
   @Test
-  public void testMultiply1()
+  /* default */ void testMultiply1()
    {
     final Years years1 = Years.of(7);
     final Years yearsResult = years1.multiply(3);
@@ -270,7 +254,7 @@ public class YearsTests
    * Test multiply.
    */
   @Test
-  public void testMultiply2()
+  /* default */ void testMultiply2()
    {
     final Years years1 = Years.of(Long.MAX_VALUE / 2);
     assertThrows(ArithmeticException.class, () ->
@@ -285,7 +269,7 @@ public class YearsTests
    * Test divide.
    */
   @Test
-  public void testDivide1()
+  /* default */ void testDivide1()
    {
     final Years years1 = Years.of(10);
     final Years yearsResult = years1.divide(2);
@@ -297,7 +281,7 @@ public class YearsTests
    * Test divide.
    */
   @Test
-  public void testDivide2()
+  /* default */ void testDivide2()
    {
     final Years years1 = Years.of(10);
     final Years yearsResult = years1.divide(3);
@@ -309,7 +293,7 @@ public class YearsTests
    * Test divide.
    */
   @Test
-  public void testDivide3()
+  /* default */ void testDivide3()
    {
     final Years years1 = Years.of(10);
     assertThrows(ArithmeticException.class, () ->
@@ -324,7 +308,7 @@ public class YearsTests
    * Test divide.
    */
   @Test
-  public void testModulo1()
+  /* default */ void testModulo1()
    {
     final Years years1 = Years.of(10);
     final Years yearsResult = years1.modulo(2);
@@ -336,7 +320,7 @@ public class YearsTests
    * Test divide.
    */
   @Test
-  public void testModulo2()
+  /* default */ void testModulo2()
    {
     final Years years1 = Years.of(10);
     final Years yearsResult = years1.modulo(3);
@@ -348,7 +332,7 @@ public class YearsTests
    * Test divide.
    */
   @Test
-  public void testModulo3()
+  /* default */ void testModulo3()
    {
     final Years years1 = Years.of(10);
     assertThrows(ArithmeticException.class, () ->

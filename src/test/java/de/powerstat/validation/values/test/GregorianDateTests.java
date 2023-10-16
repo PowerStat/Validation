@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -28,7 +28,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Gregorian date tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "CLI_CONSTANT_LIST_INDEX", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class GregorianDateTests
+final class GregorianDateTests
  {
   /**
    * IT italy.
@@ -82,7 +82,7 @@ public class GregorianDateTests
    */
   @ParameterizedTest
   @ValueSource(strings = {DATE_2020_07_14, "2020-06-30", DATE_2020_02_29, "2020-02-28", "2020-01-29", "2019-02-28", "2019-01-29"})
-  public void dateCorrect(final String date)
+  /* default */ void testDateCorrect(final String date)
    {
     final String[] dateParts = date.split(GregorianDateTests.SEPARATOR);
     final GregorianDate cleanDate = GregorianDate.of(Year.of(Long.parseLong(dateParts[0])), Month.of(Integer.parseInt(dateParts[1])), Day.of(Integer.parseInt(dateParts[2])));
@@ -97,12 +97,15 @@ public class GregorianDateTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"2019-02-29", "2020-04-31"})
-  public void dateWrong(final String date)
+  /* default */ void testDateWrong(final String date)
    {
     final String[] dateParts = date.split(GregorianDateTests.SEPARATOR);
+    final Year year = Year.of(Long.parseLong(dateParts[0]));
+    final Month month = Month.of(Integer.parseInt(dateParts[1]));
+    final Day day = Day.of(Integer.parseInt(dateParts[2]));
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final GregorianDate cleanDate = */ GregorianDate.of(Year.of(Long.parseLong(dateParts[0])), Month.of(Integer.parseInt(dateParts[1])), Day.of(Integer.parseInt(dateParts[2])));
+      /* final GregorianDate cleanDate = */ GregorianDate.of(year, month, day);
      }, ILLEGAL_ARGUMENT_EXCEPTION_EXPECTED
     );
    }
@@ -112,7 +115,7 @@ public class GregorianDateTests
    * Test GregorianDate.
    */
   @Test
-  public void of1()
+  /* default */ void testOf1()
    {
     final GregorianDate cleanDate = GregorianDate.of(DATE_2020_02_29);
     assertEquals(DATE_2020_02_29, cleanDate.stringValue(), GregorianDateTests.DATE_NOT_AS_EXPECTED);
@@ -123,7 +126,7 @@ public class GregorianDateTests
    * Test GregorianDate.
    */
   @Test
-  public void of2()
+  /* default */ void testOf2()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -135,23 +138,9 @@ public class GregorianDateTests
 
   /**
    * Test get date.
-   *
-   * @deprecated Use stringValue() instead
    */
   @Test
-  @Deprecated
-  public void getDate()
-   {
-    final GregorianDate date = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
-    assertEquals(DATE_2020_07_14, date.getDate(), GregorianDateTests.DATE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get date.
-   */
-  @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final GregorianDate date = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
     assertEquals(DATE_2020_07_14, date.stringValue(), GregorianDateTests.DATE_NOT_AS_EXPECTED);
@@ -162,7 +151,7 @@ public class GregorianDateTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final GregorianDate date1 = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
     final GregorianDate date2 = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
@@ -178,7 +167,8 @@ public class GregorianDateTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final GregorianDate date1 = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
     final GregorianDate date2 = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
@@ -205,7 +195,7 @@ public class GregorianDateTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final GregorianDate date = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
     assertEquals("GregorianDate[country=IT, date=2020-07-14]", date.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -216,7 +206,8 @@ public class GregorianDateTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final GregorianDate date1 = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
     final GregorianDate date2 = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
@@ -237,7 +228,7 @@ public class GregorianDateTests
    * Test easter calculation.
    */
   @Test
-  public void testEaster()
+  /* default */ void testEaster()
    {
     final GregorianDate easter2020 = GregorianDate.easter(GregorianCalendar.of(Country.of(GregorianDateTests.IT)), Year.of(2020));
     final GregorianDate easter2018 = GregorianDate.easter(GregorianCalendar.of(Country.of(GregorianDateTests.IT)), Year.of(2018));

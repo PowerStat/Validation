@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -30,11 +30,6 @@ public final class Block implements Comparable<Block>, IValueObject
    * Block regexp.
    */
   private static final Pattern BLOCK_REGEXP = Pattern.compile("^[\\p{L}\\p{Digit}]*$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Block.
@@ -84,19 +79,6 @@ public final class Block implements Comparable<Block>, IValueObject
       Block.CACHE.put(block, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get block string.
-   *
-   * @return Block string
-   * @deprecated Use stringValue() instead.
-   */
-  @Deprecated(since = Block.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getBlock()
-   {
-    return this.block;
    }
 
 
@@ -161,7 +143,7 @@ public final class Block implements Comparable<Block>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final var builder = new StringBuilder();
     builder.append("Block[block=").append(this.block).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

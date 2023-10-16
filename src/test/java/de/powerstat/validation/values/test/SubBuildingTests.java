@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Sub building tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class SubBuildingTests
+final class SubBuildingTests
  {
   /**
    * Floor 13 apartment 0815.
@@ -45,11 +45,6 @@ public class SubBuildingTests
    */
   private static final String SUB_BUILDING_NOT_AS_EXPECTED = "SubBuilding not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -67,7 +62,7 @@ public class SubBuildingTests
    */
   @ParameterizedTest
   @ValueSource(strings = {SubBuildingTests.FLOOR_13_APART_0815, "A", "Abcdefghijklmnopqrstuvwxyzabcdef"})
-  public void subBuildingCorrect(final String subBuilding)
+  /* default */ void testSubBuildingCorrect(final String subBuilding)
    {
     final SubBuilding cleanSubBuilding = SubBuilding.of(subBuilding);
     assertEquals(subBuilding, cleanSubBuilding.stringValue(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
@@ -81,7 +76,7 @@ public class SubBuildingTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "Abcdefghijklmnopqrstuvwxyzabcdefg"})
-  public void subBuildingLength(final String subBuilding)
+  /* default */ void testSubBuildingLength(final String subBuilding)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -98,7 +93,7 @@ public class SubBuildingTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"abc_def"})
-  public void subBuildingWrong(final String subBuilding)
+  /* default */ void testSubBuildingWrong(final String subBuilding)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -110,23 +105,9 @@ public class SubBuildingTests
 
   /**
    * Test get subBuilding.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = SubBuildingTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getSubBuilding()
-   {
-    final SubBuilding subBuilding = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    assertEquals(SubBuildingTests.FLOOR_13_APART_0815, subBuilding.getSubBuilding(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get subBuilding.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final SubBuilding subBuilding = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
     assertEquals(SubBuildingTests.FLOOR_13_APART_0815, subBuilding.stringValue(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
@@ -137,7 +118,7 @@ public class SubBuildingTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final SubBuilding subBuilding1 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
     final SubBuilding subBuilding2 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
@@ -153,7 +134,8 @@ public class SubBuildingTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final SubBuilding subBuilding1 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
     final SubBuilding subBuilding2 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
@@ -176,7 +158,7 @@ public class SubBuildingTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final SubBuilding subBuilding = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
     assertEquals("SubBuilding[subBuilding=Floor 13, Apart. 0815]", subBuilding.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -187,7 +169,8 @@ public class SubBuildingTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final SubBuilding subBuilding1 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
     final SubBuilding subBuilding2 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);

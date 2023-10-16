@@ -34,11 +34,6 @@ public final class Year implements Comparable<Year>, IValueObject
   private static final Map<NTuple2<CalendarSystems, Long>, Year> CACHE = new WeakHashMap<>();
 
   /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
    * Year of Gregorian calendar reform.
    *
    * TODO Country dependend.
@@ -153,7 +148,7 @@ public final class Year implements Comparable<Year>, IValueObject
    *
    * @return Months (12) within year
    */
-  public Months monthsWithin()
+  public static Months monthsWithin()
    {
     return Months.of(12);
    }
@@ -293,7 +288,7 @@ public final class Year implements Comparable<Year>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(28);
+    final var builder = new StringBuilder(28);
     builder.append("Year[calendarSystem=").append(this.calendarSystem).append(", year=").append(this.year).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

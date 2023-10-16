@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -7,7 +7,6 @@ package de.powerstat.validation.values;
 import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -37,17 +36,12 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
   /**
    * Building nr regexp.
    */
-  private static final Pattern BUILDINGNR_REGEXP = Pattern.compile("^([0-9]{1,5})(([-/])([0-9]{1,5}))?( ([0-9]{1,3})/([0-9]{1,3}))?( ([a-z]))?$"); //$NON-NLS-1$
+  private static final Pattern BUILDINGNR_REGEXP = Pattern.compile("^(\\d{1,5})(([-/])(\\d{1,5}))?( (\\d{1,3})/(\\d{1,3}))?( ([a-z]))?$"); //$NON-NLS-1$
 
   /**
    * Maximum known building nr in the world.
    */
   private static final int MAX_KNOWN_BUILDING_NR = 29999;
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Building number.
@@ -70,7 +64,7 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
      {
       throw new IllegalArgumentException("BuildingNr with wrong length"); //$NON-NLS-1$
      }
-    final Matcher matcher = BuildingNr.BUILDINGNR_REGEXP.matcher(buildingNr);
+    final var matcher = BuildingNr.BUILDINGNR_REGEXP.matcher(buildingNr);
     if (!matcher.matches())
      {
       throw new IllegalArgumentException("BuildingNr with wrong format"); //$NON-NLS-1$
@@ -115,19 +109,6 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
       BuildingNr.CACHE.put(buildingNr, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get buildingNr string.
-   *
-   * @return BuildingNr string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = BuildingNr.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getBuildingNr()
-   {
-    return this.buildingNr;
    }
 
 
@@ -192,7 +173,7 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(23);
+    final var builder = new StringBuilder(23);
     builder.append("BuildingNr[buildingNr=").append(this.buildingNr).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
@@ -211,8 +192,8 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
   public int compareTo(final BuildingNr obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    final Matcher matcher1 = BuildingNr.BUILDINGNR_REGEXP.matcher(this.buildingNr);
-    final Matcher matcher2 = BuildingNr.BUILDINGNR_REGEXP.matcher(obj.buildingNr);
+    final var matcher1 = BuildingNr.BUILDINGNR_REGEXP.matcher(this.buildingNr);
+    final var matcher2 = BuildingNr.BUILDINGNR_REGEXP.matcher(obj.buildingNr);
     /* boolean result1 = */ matcher1.matches();
     /* boolean result2 = */ matcher2.matches();
     // group 1: building nr (from) 42:   42

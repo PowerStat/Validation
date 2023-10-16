@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * BIC Tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class BICTests
+final class BICTests
  {
   /**
    * Illegal argument exception expected.
@@ -45,11 +45,6 @@ public class BICTests
    */
   private static final String BIC_RZTIAT22263 = "RZTIAT22263"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -67,7 +62,7 @@ public class BICTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"POWSDE30XXX", "POWSDE30"})
-  public void bicCorrect(final String bic)
+  /* default */ void testBicCorrect(final String bic)
    {
     final BIC cleanBic = BIC.of(bic);
     assertEquals(bic, cleanBic.stringValue(), BICTests.BIC_NOT_AS_EXPECTED);
@@ -81,7 +76,7 @@ public class BICTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"POWSDE0", "POWSDE30X", "POWSDE30XX", "POWSDE30XXXX"})
-  public void bicLength(final String bic)
+  /* default */ void testBicLength(final String bic)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -98,7 +93,7 @@ public class BICTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"POWSDE10XXX", "POWSZZ30XXX"})
-  public void bicWrong(final String bic)
+  /* default */ void testBicWrong(final String bic)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -109,24 +104,10 @@ public class BICTests
 
 
   /**
-   * Test get bic.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = BICTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getBic()
-   {
-    final BIC bic = BIC.of(BICTests.BIC_BELADEBEXXX);
-    assertEquals(BICTests.BIC_BELADEBEXXX, bic.getBIC(), BICTests.BIC_NOT_AS_EXPECTED);
-   }
-
-
-  /**
    * Test string value.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final BIC bic = BIC.of(BICTests.BIC_BELADEBEXXX);
     assertEquals(BICTests.BIC_BELADEBEXXX, bic.stringValue(), BICTests.BIC_NOT_AS_EXPECTED);
@@ -137,7 +118,7 @@ public class BICTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final BIC bic1 = BIC.of(BICTests.BIC_BELADEBEXXX);
     final BIC bic2 = BIC.of(BICTests.BIC_BELADEBEXXX);
@@ -153,7 +134,8 @@ public class BICTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final BIC bic1 = BIC.of(BICTests.BIC_BELADEBEXXX);
     final BIC bic2 = BIC.of(BICTests.BIC_BELADEBEXXX);
@@ -176,7 +158,7 @@ public class BICTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final BIC bic = BIC.of(BICTests.BIC_BELADEBEXXX);
     assertEquals("BIC[bic=BELADEBEXXX]", bic.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -187,7 +169,8 @@ public class BICTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final BIC bic1 = BIC.of(BICTests.BIC_BELADEBEXXX);
     final BIC bic2 = BIC.of(BICTests.BIC_BELADEBEXXX);

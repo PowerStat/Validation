@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -30,11 +30,6 @@ public final class Department implements Comparable<Department>, IValueObject
    * Department regexp.
    */
   private static final Pattern DEPARTMENT_REGEXP = Pattern.compile("^[\\p{L}][\\p{L}\\\\p{Digi}.& -]*$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Department.
@@ -84,19 +79,6 @@ public final class Department implements Comparable<Department>, IValueObject
       Department.CACHE.put(department, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get department string.
-   *
-   * @return Department string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = Department.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getDepartment()
-   {
-    return this.department;
    }
 
 
@@ -161,7 +143,7 @@ public final class Department implements Comparable<Department>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(23);
+    final var builder = new StringBuilder(23);
     builder.append("Department[department=").append(this.department).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

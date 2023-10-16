@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -11,6 +11,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
 import java.util.regex.Pattern;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import de.powerstat.validation.generated.GeneratedTlds;
 import de.powerstat.validation.interfaces.IValueObject;
@@ -29,6 +32,11 @@ import de.powerstat.validation.interfaces.IValueObject;
 public final class Hostname implements Comparable<Hostname>, IValueObject
  {
   /**
+   * Logger.
+   */
+  private static final Logger LOGGER = LogManager.getLogger(Hostname.class);
+
+  /**
    * Cache for singletons.
    */
   private static final Map<String, Hostname> CACHE = new WeakHashMap<>();
@@ -44,9 +52,9 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
   private static final String ESC_DOT = "\\."; //$NON-NLS-1$
 
   /**
-   * Deprecated since version 3.0 constant.
+   * Hostname by dots regexp.
    */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
+  private static final Pattern HOSTNAME_BY_DOTS = Pattern.compile(Hostname.ESC_DOT);
 
   /**
    * Hostname.
@@ -75,14 +83,17 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
      {
       throw new IllegalArgumentException("To short or long for a hostname"); //$NON-NLS-1$
      }
-    String tempHostname = ""; //$NON-NLS-1$
+    var tempHostname = ""; //$NON-NLS-1$
     try
      {
       tempHostname = IPV4Address.of(hostname).stringValue();
      }
     catch (final IllegalArgumentException ignored)
      {
-      // ignore
+      if (LOGGER.isDebugEnabled())
+       {
+        LOGGER.debug("IllegalArgumentException", ignored);
+       }
      }
     try
      {
@@ -93,7 +104,10 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
      }
     catch (final IllegalArgumentException ignored)
      {
-      // ignore
+      if (LOGGER.isDebugEnabled())
+       {
+        LOGGER.debug("IllegalArgumentException", ignored);
+       }
      }
     if (tempHostname.isEmpty())
      {
@@ -120,7 +134,8 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
      {
       throw new IllegalArgumentException("Hostname contains illegal character"); //$NON-NLS-1$
      }
-    final String[] parts = hostname.split(Hostname.ESC_DOT);
+    final String[] parts = HOSTNAME_BY_DOTS.split(hostname, 0);
+    // final String[] parts = hostname.split(Hostname.ESC_DOT);
     if (parts.length < 2)
      {
       throw new IllegalArgumentException("Hostname must be at a minimum consist of subdomain.topleveldomain"); //$NON-NLS-1$
@@ -152,8 +167,9 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
    */
   private static String reverseHostname(final String hostname)
    {
-    final String[] parts = hostname.split(Hostname.ESC_DOT);
-    final StringBuilder buffer = new StringBuilder(hostname.length());
+    final String[] parts = HOSTNAME_BY_DOTS.split(hostname, 0);
+    // final String[] parts = hostname.split(Hostname.ESC_DOT);
+    final var buffer = new StringBuilder(hostname.length());
     for (int i = parts.length - 1; i >= 0; --i)
      {
       if (buffer.length() != 0)
@@ -185,19 +201,6 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
       Hostname.CACHE.put(hostname, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get hostname string.
-   *
-   * @return Hostname string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = Hostname.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getHostname()
-   {
-    return this.hostname;
    }
 
 
@@ -237,6 +240,10 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
      }
     catch (final UnknownHostException ignored)
      {
+      if (LOGGER.isDebugEnabled())
+       {
+        LOGGER.debug("UnknownHostException", ignored);
+       }
       return false;
      }
     return true;
@@ -253,11 +260,15 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
    {
     try
      {
-      final InetAddress address = InetAddress.getByName(this.hostname);
+      final var address = InetAddress.getByName(this.hostname);
       return address.isReachable(timeout);
      }
     catch (final IOException ignored)
      {
+      if (LOGGER.isDebugEnabled())
+       {
+        LOGGER.debug("IOException", ignored);
+       }
       return false;
      }
    }
@@ -312,7 +323,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(19);
+    final var builder = new StringBuilder(19);
     builder.append("Hostname[hostname=").append(this.hostname).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

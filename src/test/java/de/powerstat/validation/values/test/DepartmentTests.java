@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Department tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class DepartmentTests
+final class DepartmentTests
  {
   /**
    * Reasearch.
@@ -45,11 +45,6 @@ public class DepartmentTests
    */
   private static final String DEPARTMENT_NOT_AS_EXPECTED = "Department not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -67,7 +62,7 @@ public class DepartmentTests
    */
   @ParameterizedTest
   @ValueSource(strings = {DepartmentTests.RESEARCH, "A", "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl"})
-  public void departmentCorrect(final String department)
+  /* default */ void testDepartmentCorrect(final String department)
    {
     final Department cleanDepartment = Department.of(department);
     assertEquals(department, cleanDepartment.stringValue(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
@@ -81,7 +76,7 @@ public class DepartmentTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklm"})
-  public void departmentLength(final String department)
+  /* default */ void testDepartmentLength(final String department)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -98,7 +93,7 @@ public class DepartmentTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"abc_def"})
-  public void departmentWrong(final String department)
+  /* default */ void testDepartmentWrong(final String department)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -110,23 +105,9 @@ public class DepartmentTests
 
   /**
    * Test get department.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = DepartmentTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getDepartment()
-   {
-    final Department department = Department.of(DepartmentTests.RESEARCH);
-    assertEquals(DepartmentTests.RESEARCH, department.getDepartment(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get department.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final Department department = Department.of(DepartmentTests.RESEARCH);
     assertEquals(DepartmentTests.RESEARCH, department.stringValue(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
@@ -137,7 +118,7 @@ public class DepartmentTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final Department department1 = Department.of(DepartmentTests.RESEARCH);
     final Department department2 = Department.of(DepartmentTests.RESEARCH);
@@ -153,7 +134,8 @@ public class DepartmentTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final Department department1 = Department.of(DepartmentTests.RESEARCH);
     final Department department2 = Department.of(DepartmentTests.RESEARCH);
@@ -176,7 +158,7 @@ public class DepartmentTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final Department department = Department.of(DepartmentTests.RESEARCH);
     assertEquals("Department[department=Research]", department.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -187,7 +169,8 @@ public class DepartmentTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Department department1 = Department.of(DepartmentTests.RESEARCH);
     final Department department2 = Department.of(DepartmentTests.RESEARCH);

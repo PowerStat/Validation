@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Milliseconds tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class MillisecondsTests
+final class MillisecondsTests
  {
   /**
    * Not milliseconds constant.
@@ -40,11 +40,6 @@ public class MillisecondsTests
    */
   private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -59,7 +54,7 @@ public class MillisecondsTests
    * Factory string test.
    */
   @Test
-  public void factory1()
+  /* default */ void testFactory1()
    {
     assertEquals(0, Milliseconds.of("0").longValue(), MillisecondsTests.NOT_MILLISECONDS);
    }
@@ -72,7 +67,7 @@ public class MillisecondsTests
    */
   @ParameterizedTest
   @ValueSource(longs = {0, 2147483647})
-  public void isMilliseconds(final long milliseconds)
+  /* default */ void testIsMilliseconds(final long milliseconds)
    {
     assertEquals(milliseconds, Milliseconds.of(milliseconds).longValue(), MillisecondsTests.NOT_MILLISECONDS);
    }
@@ -85,7 +80,7 @@ public class MillisecondsTests
    */
   @ParameterizedTest
   @ValueSource(longs = {-1})
-  public void isNotAMilliseconds(final long milliseconds)
+  /* default */ void testIsNotAMilliseconds(final long milliseconds)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -96,23 +91,10 @@ public class MillisecondsTests
 
 
   /**
-   * getMilliseconds.
-   *
-   * @deprecated Old version of longValue()
-   */
-  @Deprecated(since = MillisecondsTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getMilliseconds()
-   {
-    assertEquals(10, Milliseconds.of(10).getMilliseconds(), MillisecondsTests.NOT_MILLISECONDS);
-   }
-
-
-  /**
    * longValue.
    */
   @Test
-  public void longValue()
+  /* default */ void testLongValue()
    {
     assertEquals(10, Milliseconds.of(10).longValue(), MillisecondsTests.NOT_MILLISECONDS);
    }
@@ -122,7 +104,7 @@ public class MillisecondsTests
    * stringValue.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     assertEquals("10", Milliseconds.of(10).stringValue(), MillisecondsTests.NOT_MILLISECONDS);
    }
@@ -132,7 +114,7 @@ public class MillisecondsTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final Milliseconds milliseconds1 = Milliseconds.of(0);
     final Milliseconds milliseconds2 = Milliseconds.of(0);
@@ -148,7 +130,8 @@ public class MillisecondsTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final Milliseconds milliseconds1 = Milliseconds.of(0);
     final Milliseconds milliseconds2 = Milliseconds.of(0);
@@ -171,7 +154,7 @@ public class MillisecondsTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final Milliseconds milliseconds = Milliseconds.of(0);
     assertEquals("Milliseconds[milliseconds=0]", milliseconds.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -182,7 +165,8 @@ public class MillisecondsTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Milliseconds milliseconds1 = Milliseconds.of(1);
     final Milliseconds milliseconds2 = Milliseconds.of(1);
@@ -203,7 +187,7 @@ public class MillisecondsTests
    * Test add.
    */
   @Test
-  public void testAdd1()
+  /* default */ void testAdd1()
    {
     final Milliseconds milliseconds1 = Milliseconds.of(1);
     final Milliseconds milliseconds2 = Milliseconds.of(1);
@@ -216,7 +200,7 @@ public class MillisecondsTests
    * Test add.
    */
   @Test
-  public void testAdd2()
+  /* default */ void testAdd2()
    {
     final Milliseconds milliseconds1 = Milliseconds.of(Long.MAX_VALUE);
     final Milliseconds milliseconds2 = Milliseconds.of(1);
@@ -232,7 +216,7 @@ public class MillisecondsTests
    * Test substract.
    */
   @Test
-  public void testSubstract1()
+  /* default */ void testSubstract1()
    {
     final Milliseconds milliseconds1 = Milliseconds.of(6);
     final Milliseconds milliseconds2 = Milliseconds.of(3);
@@ -245,7 +229,7 @@ public class MillisecondsTests
    * Test substract.
    */
   @Test
-  public void testSubstract2()
+  /* default */ void testSubstract2()
    {
     final Milliseconds milliseconds1 = Milliseconds.of(3);
     final Milliseconds milliseconds2 = Milliseconds.of(6);
@@ -258,7 +242,7 @@ public class MillisecondsTests
    * Test multiply.
    */
   @Test
-  public void testMultiply1()
+  /* default */ void testMultiply1()
    {
     final Milliseconds milliseconds1 = Milliseconds.of(7);
     final Milliseconds millisecondsResult = milliseconds1.multiply(3);
@@ -270,7 +254,7 @@ public class MillisecondsTests
    * Test multiply.
    */
   @Test
-  public void testMultiply2()
+  /* default */ void testMultiply2()
    {
     final Milliseconds milliseconds1 = Milliseconds.of(Long.MAX_VALUE / 2);
     assertThrows(ArithmeticException.class, () ->
@@ -285,7 +269,7 @@ public class MillisecondsTests
    * Test divide.
    */
   @Test
-  public void testDivide1()
+  /* default */ void testDivide1()
    {
     final Milliseconds milliseconds1 = Milliseconds.of(10);
     final Milliseconds millisecondsResult = milliseconds1.divide(2);
@@ -297,7 +281,7 @@ public class MillisecondsTests
    * Test divide.
    */
   @Test
-  public void testDivide2()
+  /* default */ void testDivide2()
    {
     final Milliseconds milliseconds1 = Milliseconds.of(10);
     final Milliseconds millisecondsResult = milliseconds1.divide(3);
@@ -309,7 +293,7 @@ public class MillisecondsTests
    * Test divide.
    */
   @Test
-  public void testDivide3()
+  /* default */ void testDivide3()
    {
     final Milliseconds milliseconds1 = Milliseconds.of(10);
     assertThrows(ArithmeticException.class, () ->
@@ -324,7 +308,7 @@ public class MillisecondsTests
    * Test divide.
    */
   @Test
-  public void testModulo1()
+  /* default */ void testModulo1()
    {
     final Milliseconds milliseconds1 = Milliseconds.of(10);
     final Milliseconds millisecondsResult =milliseconds1.modulo(2);
@@ -336,7 +320,7 @@ public class MillisecondsTests
    * Test divide.
    */
   @Test
-  public void testModulo2()
+  /* default */ void testModulo2()
    {
     final Milliseconds milliseconds1 = Milliseconds.of(10);
     final Milliseconds millisecondsResult = milliseconds1.modulo(3);
@@ -348,7 +332,7 @@ public class MillisecondsTests
    * Test divide.
    */
   @Test
-  public void testModulo3()
+  /* default */ void testModulo3()
    {
     final Milliseconds milliseconds1 = Milliseconds.of(10);
     assertThrows(ArithmeticException.class, () ->

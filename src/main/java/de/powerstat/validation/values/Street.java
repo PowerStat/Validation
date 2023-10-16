@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -32,11 +32,6 @@ public final class Street implements Comparable<Street>, IValueObject
    * Street regexp.
    */
   private static final Pattern STREET_REGEXP = Pattern.compile("^[\\p{L}][\\p{L}. -]*$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Street.
@@ -86,19 +81,6 @@ public final class Street implements Comparable<Street>, IValueObject
       Street.CACHE.put(street, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get street string.
-   *
-   * @return Street string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = Street.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getStreet()
-   {
-    return this.street;
    }
 
 
@@ -163,7 +145,7 @@ public final class Street implements Comparable<Street>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final var builder = new StringBuilder();
     builder.append("Street[street=").append(this.street).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

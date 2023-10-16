@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -24,7 +24,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Month tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class MonthTests
+final class MonthTests
  {
   /**
    * Result not as expected constant.
@@ -60,7 +60,7 @@ public class MonthTests
    * Factory string test.
    */
   @Test
-  public void factory1()
+  /* default */ void testFactory1()
    {
     assertEquals(10, Month.of(TEN).intValue(), NOT_A_MONTH);
    }
@@ -70,22 +70,9 @@ public class MonthTests
    * intValue.
    */
   @Test
-  public void intValue()
+  /* default */ void testIntValue()
    {
     assertEquals(10, Month.of(10).intValue(), NOT_A_MONTH);
-   }
-
-
-  /**
-   * getMonth.
-   *
-   * @deprecated Use stringValue()
-   */
-  @Test
-  @Deprecated
-  public void getMonth()
-   {
-    assertEquals(10, Month.of(10).getMonth(), NOT_A_MONTH);
    }
 
 
@@ -93,7 +80,7 @@ public class MonthTests
    * stringValue.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     assertEquals(TEN, Month.of(10).stringValue(), NOT_A_MONTH);
    }
@@ -106,7 +93,7 @@ public class MonthTests
    */
   @ParameterizedTest
   @ValueSource(ints = {1, 12})
-  public void isMonth(final int month)
+  /* default */ void testIsMonth(final int month)
    {
     assertEquals(month, Month.of(month).intValue(), NOT_A_MONTH);
    }
@@ -119,7 +106,7 @@ public class MonthTests
    */
   @ParameterizedTest
   @ValueSource(ints = {0, 13})
-  public void isNotAMonth(final int month)
+  /* default */ void testIsNotAMonth(final int month)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -133,7 +120,7 @@ public class MonthTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final Month month1 = Month.of(1);
     final Month month2 = Month.of(1);
@@ -149,7 +136,8 @@ public class MonthTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final Month month1 = Month.of(1);
     final Month month2 = Month.of(1);
@@ -172,7 +160,7 @@ public class MonthTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final Month month = Month.of(1);
     assertEquals("Month[month=1]", month.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -183,7 +171,8 @@ public class MonthTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Month month1 = Month.of(1);
     final Month month2 = Month.of(1);
@@ -204,7 +193,7 @@ public class MonthTests
    * Test add.
    */
   @Test
-  public void testAdd1()
+  /* default */ void testAdd1()
    {
     final Month month = Month.of(1);
     final Months months = Months.of(1);
@@ -217,7 +206,7 @@ public class MonthTests
    * Test add.
    */
   @Test
-  public void testAdd2()
+  /* default */ void testAdd2()
    {
     final Month month = Month.of(12);
     final Months months = Months.of(1);
@@ -233,7 +222,7 @@ public class MonthTests
    * Test subtract.
    */
   @Test
-  public void testSubtract1()
+  /* default */ void testSubtract1()
    {
     final Month month = Month.of(2);
     final Months months = Months.of(1);
@@ -246,7 +235,7 @@ public class MonthTests
    * Test subtract.
    */
   @Test
-  public void testSubtract2()
+  /* default */ void testSubtract2()
    {
     final Month month = Month.of(1);
     final Months months = Months.of(1);
@@ -262,7 +251,7 @@ public class MonthTests
    * Test increment.
    */
   @Test
-  public void testIncrement1()
+  /* default */ void testIncrement1()
    {
     final Month month = Month.of(1);
     final Month monthResult = month.increment();
@@ -274,7 +263,7 @@ public class MonthTests
    * Test increment.
    */
   @Test
-  public void testIncrement2()
+  /* default */ void testIncrement2()
    {
     final Month month = Month.of(12);
     assertThrows(ArithmeticException.class, () ->
@@ -289,7 +278,7 @@ public class MonthTests
    * Test decrement.
    */
   @Test
-  public void testDecrement1()
+  /* default */ void testDecrement1()
    {
     final Month month = Month.of(2);
     final Month monthResult = month.decrement();
@@ -301,7 +290,7 @@ public class MonthTests
    * Test decrement.
    */
   @Test
-  public void testDecrement2()
+  /* default */ void testDecrement2()
    {
     final Month month = Month.of(1);
     assertThrows(ArithmeticException.class, () ->

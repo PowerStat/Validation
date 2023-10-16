@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -32,12 +32,8 @@ public final class Country implements Comparable<Country>, IValueObject
   /**
    * Country regexp.
    */
+  @SuppressWarnings("java:S5867")
   private static final Pattern COUNTRY_REGEXP = Pattern.compile("^[A-Z]{2}$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Alpha-2 country code.
@@ -91,19 +87,6 @@ public final class Country implements Comparable<Country>, IValueObject
       Country.CACHE.put(alpha2, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get country code string.
-   *
-   * @return Country code string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = Country.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getCountry()
-   {
-    return this.alpha2;
    }
 
 
@@ -179,7 +162,7 @@ public final class Country implements Comparable<Country>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final var builder = new StringBuilder();
     builder.append("Country[alpha2=").append(this.alpha2).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

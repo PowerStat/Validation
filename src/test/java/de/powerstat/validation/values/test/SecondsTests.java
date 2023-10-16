@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Seconds tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class SecondsTests
+final class SecondsTests
  {
   /**
    * Not a seconds constant.
@@ -40,11 +40,6 @@ public class SecondsTests
    */
   private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -59,7 +54,7 @@ public class SecondsTests
    * Factory string test.
    */
   @Test
-  public void factory1()
+  /* default */ void testFactory1()
    {
     assertEquals(0, Seconds.of("0").longValue(), SecondsTests.NOT_A_SECONDS);
    }
@@ -72,7 +67,7 @@ public class SecondsTests
    */
   @ParameterizedTest
   @ValueSource(longs = {0, 120})
-  public void isSeconds(final long seconds)
+  /* default */ void testIsSeconds(final long seconds)
    {
     assertEquals(seconds, Seconds.of(seconds).longValue(), SecondsTests.NOT_A_SECONDS);
    }
@@ -85,7 +80,7 @@ public class SecondsTests
    */
   @ParameterizedTest
   @ValueSource(longs = {-1})
-  public void isNotASeconds(final long seconds)
+  /* default */ void testIsNotASeconds(final long seconds)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -96,23 +91,10 @@ public class SecondsTests
 
 
   /**
-   * getSeconds.
-   *
-   * @deprecated Old version of longValue()
-   */
-  @Deprecated(since = SecondsTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getSeconds()
-   {
-    assertEquals(10, Seconds.of(10).getSeconds(), SecondsTests.NOT_A_SECONDS);
-   }
-
-
-  /**
    * longValue.
    */
   @Test
-  public void longValue()
+  /* default */ void testLongValue()
    {
     assertEquals(10, Seconds.of(10).longValue(), SecondsTests.NOT_A_SECONDS);
    }
@@ -122,7 +104,7 @@ public class SecondsTests
    * stringValue.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     assertEquals("10", Seconds.of(10).stringValue(), SecondsTests.NOT_A_SECONDS);
    }
@@ -132,7 +114,7 @@ public class SecondsTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final Seconds seconds1 = Seconds.of(1);
     final Seconds seconds2 = Seconds.of(1);
@@ -148,7 +130,8 @@ public class SecondsTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final Seconds seconds1 = Seconds.of(1);
     final Seconds seconds2 = Seconds.of(1);
@@ -171,7 +154,7 @@ public class SecondsTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final Seconds seconds = Seconds.of(1);
     assertEquals("Seconds[seconds=1]", seconds.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -182,7 +165,8 @@ public class SecondsTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Seconds seconds1 = Seconds.of(1);
     final Seconds seconds2 = Seconds.of(1);
@@ -203,7 +187,7 @@ public class SecondsTests
    * Test add.
    */
   @Test
-  public void testAdd1()
+  /* default */ void testAdd1()
    {
     final Seconds seconds1 = Seconds.of(1);
     final Seconds seconds2 = Seconds.of(1);
@@ -216,7 +200,7 @@ public class SecondsTests
    * Test add.
    */
   @Test
-  public void testAdd2()
+  /* default */ void testAdd2()
    {
     final Seconds seconds1 = Seconds.of(Long.MAX_VALUE);
     final Seconds seconds2 = Seconds.of(1);
@@ -232,7 +216,7 @@ public class SecondsTests
    * Test substract.
    */
   @Test
-  public void testSubstract1()
+  /* default */ void testSubstract1()
    {
     final Seconds seconds1 = Seconds.of(6);
     final Seconds seconds2 = Seconds.of(3);
@@ -245,7 +229,7 @@ public class SecondsTests
    * Test substract.
    */
   @Test
-  public void testSubstract2()
+  /* default */ void testSubstract2()
    {
     final Seconds seconds1 = Seconds.of(3);
     final Seconds seconds2 = Seconds.of(6);
@@ -258,7 +242,7 @@ public class SecondsTests
    * Test multiply.
    */
   @Test
-  public void testMultiply1()
+  /* default */ void testMultiply1()
    {
     final Seconds seconds1 = Seconds.of(7);
     final Seconds secondsResult = seconds1.multiply(3);
@@ -270,7 +254,7 @@ public class SecondsTests
    * Test multiply.
    */
   @Test
-  public void testMultiply2()
+  /* default */ void testMultiply2()
    {
     final Seconds seconds1 = Seconds.of(Long.MAX_VALUE / 2);
     assertThrows(ArithmeticException.class, () ->
@@ -285,7 +269,7 @@ public class SecondsTests
    * Test divide.
    */
   @Test
-  public void testDivide1()
+  /* default */ void testDivide1()
    {
     final Seconds seconds1 = Seconds.of(10);
     final Seconds secondsResult = seconds1.divide(2);
@@ -297,7 +281,7 @@ public class SecondsTests
    * Test divide.
    */
   @Test
-  public void testDivide2()
+  /* default */ void testDivide2()
    {
     final Seconds seconds1 = Seconds.of(10);
     final Seconds secondsResult = seconds1.divide(3);
@@ -309,7 +293,7 @@ public class SecondsTests
    * Test divide.
    */
   @Test
-  public void testDivide3()
+  /* default */ void testDivide3()
    {
     final Seconds seconds1 = Seconds.of(10);
     assertThrows(ArithmeticException.class, () ->
@@ -324,7 +308,7 @@ public class SecondsTests
    * Test divide.
    */
   @Test
-  public void testModulo1()
+  /* default */ void testModulo1()
    {
     final Seconds seconds1 = Seconds.of(10);
     final Seconds secondsResult = seconds1.modulo(2);
@@ -336,7 +320,7 @@ public class SecondsTests
    * Test divide.
    */
   @Test
-  public void testModulo2()
+  /* default */ void testModulo2()
    {
     final Seconds seconds1 = Seconds.of(10);
     final Seconds secondsResult = seconds1.modulo(3);
@@ -348,7 +332,7 @@ public class SecondsTests
    * Test divide.
    */
   @Test
-  public void testModulo3()
+  /* default */ void testModulo3()
    {
     final Seconds seconds1 = Seconds.of(10);
     assertThrows(ArithmeticException.class, () ->

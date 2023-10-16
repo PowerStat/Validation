@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -36,11 +36,6 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
    * Underflow constant.
    */
   private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Milliseond.
@@ -96,19 +91,6 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
   public static Millisecond of(final String value)
    {
     return of(Integer.parseInt(value));
-   }
-
-
-  /**
-   * Get millisecond.
-   *
-   * @return Millisecond (0-999)
-   * @deprecated Ise intValue instead
-   */
-  @Deprecated(since = Millisecond.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public int getMillisecond()
-   {
-    return this.millisecond;
    }
 
 
@@ -187,7 +169,7 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(25);
+    final var builder = new StringBuilder(25);
     builder.append("Millisecond[millisecond=").append(this.millisecond).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

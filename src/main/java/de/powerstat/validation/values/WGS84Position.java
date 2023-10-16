@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -231,7 +231,7 @@ public final class WGS84Position implements Comparable<WGS84Position>, IValueObj
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(47);
+    final var builder = new StringBuilder(47);
     builder.append("WGS84Position[latitude=").append(this.latitude).append(", longitude=").append(this.longitude).append(", altitude=").append(this.altitude).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     return builder.toString();
    }

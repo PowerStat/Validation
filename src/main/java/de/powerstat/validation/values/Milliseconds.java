@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -24,11 +24,6 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
    * Cache for singletons.
    */
   private static final Map<Long, Milliseconds> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Milliseonds.
@@ -84,19 +79,6 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
   public static Milliseconds of(final String value)
    {
     return of(Long.parseLong(value));
-   }
-
-
-  /**
-   * Get milliseconds.
-   *
-   * @return Milliseconds (0-Long.MAX_VALUE)
-   * @deprecated Use longValue() instead
-   */
-  @Deprecated(since = Milliseconds.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public long getMilliseconds()
-   {
-    return this.milliseconds;
    }
 
 
@@ -175,7 +157,7 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(27);
+    final var builder = new StringBuilder(27);
     builder.append("Milliseconds[milliseconds=").append(this.milliseconds).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

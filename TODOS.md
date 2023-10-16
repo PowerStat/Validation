@@ -1,3 +1,76 @@
+Entity: MeterReader
+ID, Hersteller/Company name, Bezeichnung/Description, Installationsort/place of installation, History meter reader (Datum, Zählerstand, [Foto})
+
+
+Meter type: Stromzähler/electric meter, Gaszähler/gas meter, Wasserzähler/water meter, Wärmezähler/heat meter, ...
+unit of measurement: mwh, kwh, m3, ... 
+Zählwerk: 5-6, Nachkomma: 0,1,3
+id: 8, 10, uuid  
+https://en.wikipedia.org/wiki/EAN-8
+https://de.wikipedia.org/wiki/European_Article_Number
+
+
+- [ ] Month (enum) names (language dependend)
+- [ ] Timezone
+- [ ] Date
+- [ ] Format
+- [ ] Holidays
+- [ ] DateDuration, TimeDuration, DateTimeDuration
+- [ ] DateRange, TimeRange, DateTimeRange
+- [ ] Recurring Date / Time
+- [ ] Time
+- [ ] DateTime
+- [ ] UnixEpoche
+
+
+Geburtsdatum (Tag Monat Jahr)
+Datum, Unterschrift
+Familienstand: Verheiratet, Verpartnert, geschieden, verwitwert, ledig
+  https://de.wikipedia.org/wiki/Familienstand
+Staatsangehörigkeit(en)? = Country?
+  https://de.wikipedia.org/wiki/Staatsb%C3%BCrgerschaft
+Telefonnummer/Fax
+  Internationale Vorwahlen: https://de.wikipedia.org/wiki/L%C3%A4ndervorwahlliste_sortiert_nach_Nummern
+  Ortsvorwahl(de) https://de.wikipedia.org/wiki/Telefonvorwahl_(Deutschland)
+  Rufnummer https://de.wikipedia.org/wiki/Rufnummer
+Krankenkasse: Name, Verischertennr
+  https://de.wikipedia.org/wiki/Liste_deutscher_Krankenkassen
+Personalausweisnummer(n)
+  https://de.wikipedia.org/wiki/Personalausweis
+  https://de.wikipedia.org/wiki/Personalausweis_(Deutschland)
+Reisepassausweisnr
+  https://de.wikipedia.org/wiki/Reisepass
+  https://de.wikipedia.org/wiki/Deutscher_Reisepass
+Sozialversicherungsnummer
+  https://de.wikipedia.org/wiki/Sozialversicherung
+  https://de.wikipedia.org/wiki/Sozialversicherung_(Deutschland)
+Steueridentifikationsnummer
+  https://de.wikipedia.org/wiki/Steuerliche_Identifikationsnummer
+Steuernummer
+  https://de.wikipedia.org/wiki/Steuernummer
+Bundesländer (de)
+  https://de.wikipedia.org/wiki/Land_(Deutschland)
+Europäische Union
+  https://de.wikipedia.org/wiki/Europ%C3%A4ische_Union
+Umsatzsteueridentifikationsnr
+  https://de.wikipedia.org/wiki/Umsatzsteuer-Identifikationsnummer
+Aktezeichen
+  https://de.wikipedia.org/wiki/Aktenzeichen_(Deutschland)
+Flurstückskennzeichen (Gemarkung / Flur / Flurstück)
+  https://de.wikipedia.org/wiki/Gemarkung
+  https://de.wikipedia.org/wiki/Flur_(Gel%C3%A4nde)
+  https://de.wikipedia.org/wiki/Flurst%C3%BCck
+Grundbuch: Grundbuchbezirk, Blatt, Laufendrnr
+  https://de.wikipedia.org/wiki/Kataster
+  https://de.wikipedia.org/wiki/Katasterbezirk
+Firmenname/arten
+  https://de.wikipedia.org/wiki/Firma
+Wohnungsnummer
+  https://de.wikipedia.org/wiki/Wohnungsnummer
+Kundennummer
+Vertragsnummer
+Foto(s)
+
 # TODOS
 
 VCARD:
@@ -125,7 +198,88 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] Requirements
 
 
-- [ ] unit conversions
+- [ ] SI base units
+      Mass                        M  kilogram  kg
+      Length                      L  metre     m
+      Time                        T  second    s
+      Temperature                    kelvin    K
+      Amount of substance         N  mole      mol
+      Electric current intensity  I  ampere    A
+      Luminous intensity          J  candela   cd
+      
+      
+     Supplementary SI units
+     
+     Plane angle  radiant     rad
+     Solid angle  steradiant  sr
+     
+     Energy    Radiant intensity
+     Visible   Luminous intensity
+     Particle  Photon intensity
+     
+     
+     SI derived Units
+     
+     becquerel
+     coulomb
+     farad
+     gray
+     henry
+     hertz
+     joule
+     lumen
+     lux
+     newton
+     ohm
+     pascal
+     poiseuille
+     siemens
+     sievert
+     tesla
+     volt
+     watt
+     weber
+     
+     
+     non-SI units
+     
+     ampere-hour
+     day
+     degree
+     diotre
+     hour
+     kilowatt-hour
+     litre
+     minute
+     minute of angle
+     second of angle
+     tex
+     tonne
+     
+     
+     SI Prefixes
+     
+     deca  da  10
+     hecto h   10^2
+     kilo  k   10^3
+     mega  M   10^6
+     giga  G   10^9
+     tera  T   10^12
+     peta  P   10^15
+     exa   E   10^18
+     zetta Z   10^21
+     yotta Y   10^24
+     
+     
+     Kilobyte  KB 2^10 = 1024 bytes
+     Megabyte  MB 2^20 
+     Gigabyte  GB 2^30
+     Terrabyte TB 2^40 ?
+     Petabyte  PB 2^50 ?
+     Exabyte   EB 2^60 ?
+ 
+
+
 
 # Sources
 

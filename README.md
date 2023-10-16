@@ -1,6 +1,6 @@
-# PowerStat's validation utilities
+# PowerStat's validation value objects/entities
 
-These validation utilities should be useful value/entity classes.
+These validation value objects and entities should be useful classes.
 
 ## Installation
 

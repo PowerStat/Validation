@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -24,11 +24,6 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
    * Cache for singletons.
    */
   private static final Map<Integer, BFPONumber> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * BFPONumber.
@@ -88,19 +83,6 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
 
 
   /**
-   * Get bFPONumber.
-   *
-   * @return BFPONumber
-   * @deprecated Use intValue() instead.
-   */
-  @Deprecated(since = BFPONumber.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public int getBFPONumber()
-   {
-    return this.bFPONumber;
-   }
-
-
-  /**
    * Returns the value of this BFPONumber as an int.
    *
    * @return The numeric value represented by this object after conversion to type int.
@@ -108,19 +90,6 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
   public int intValue()
    {
     return this.bFPONumber;
-   }
-
-
-  /**
-   * Get bFPONumber as string.
-   *
-   * @return BFPONumber as string
-   * @deprecated Use stringValue() instead.
-   */
-  @Deprecated(since = BFPONumber.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getBFPONumberStr()
-   {
-    return Integer.toString(this.bFPONumber);
    }
 
 
@@ -188,7 +157,7 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(23);
+    final var builder = new StringBuilder(23);
     builder.append("BFPONumber[bFPONumber=").append(this.bFPONumber).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

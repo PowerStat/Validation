@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -35,11 +35,6 @@ public final class PostalCode implements Comparable<PostalCode>, IValueObject
    * Postal code regexp.
    */
   private static final Pattern POSTALCODE_REGEXP = Pattern.compile("^[0-9A-Z -]{3,11}$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Postal code.
@@ -89,19 +84,6 @@ public final class PostalCode implements Comparable<PostalCode>, IValueObject
       PostalCode.CACHE.put(postalCode, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get PostalCode string.
-   *
-   * @return PostalCode string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = PostalCode.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getPostalCode()
-   {
-    return this.postalCode;
    }
 
 
@@ -166,7 +148,7 @@ public final class PostalCode implements Comparable<PostalCode>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(23);
+    final var builder = new StringBuilder(23);
     builder.append("PostalCode[postalCode=").append(this.postalCode).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

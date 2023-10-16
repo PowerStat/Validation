@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -91,11 +91,6 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
   private static final Pattern IPV6_SEPARATOR_REGEXP = Pattern.compile("[:-]"); //$NON-NLS-1$
 
   /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
-  /**
    * MAC address parts.
    */
   private final String[] parts;
@@ -143,29 +138,6 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
       MACAddress.CACHE.put(address, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get mac address string.
-   *
-   * @param delimiter Delimiter could be empty, : or -
-   * @return MACAddress string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = MACAddress.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getAddress(final String delimiter)
-   {
-    Objects.requireNonNull(delimiter, MACAddress.DELIMITER_TXT);
-    if (delimiter.length() > 1)
-     {
-      throw new IllegalArgumentException(MACAddress.ILLEGAL_DELIMITER_LENGTH);
-     }
-    if (!delimiter.isEmpty() && !MACAddress.SEPARATOR.equals(delimiter) && !MACAddress.DELIMITER.equals(delimiter))
-     {
-      throw new IllegalArgumentException(MACAddress.ILLEGAL_DELIMITER_CHARACTER);
-     }
-    return String.join(delimiter, this.parts);
    }
 
 
@@ -333,7 +305,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(21);
+    final var builder = new StringBuilder(21);
     builder.append("MACAddress[address=").append(String.join(MACAddress.SEPARATOR, this.parts)).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -24,11 +24,6 @@ public final class Months implements Comparable<Months>, IValueObject
    * Cache for singletons.
    */
   private static final Map<Long, Months> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Month.
@@ -84,19 +79,6 @@ public final class Months implements Comparable<Months>, IValueObject
   public static Months of(final String value)
    {
     return of(Long.parseLong(value));
-   }
-
-
-  /**
-   * Get months.
-   *
-   * @return Months
-   * @deprecated Use longValue() instead
-   */
-  @Deprecated(since = Months.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public long getMonths()
-   {
-    return this.months;
    }
 
 
@@ -175,7 +157,7 @@ public final class Months implements Comparable<Months>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final var builder = new StringBuilder();
     builder.append("Months[months=").append(this.months).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

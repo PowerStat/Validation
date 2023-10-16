@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.strategies.test;
 
@@ -20,7 +20,7 @@ import de.powerstat.validation.values.strategies.UsernameConfigurableStrategy.Ha
 /**
  * Username configurable strategy tests.
  */
-public class UsernameConfigurableStrategyTests
+final class UsernameConfigurableStrategyTests
  {
   /**
    * Match pattern 1.
@@ -71,7 +71,7 @@ public class UsernameConfigurableStrategyTests
    * Test constructor.
    */
   @Test
-  public void constructor1()
+  /* default */ void testConstructor1()
    {
     assertThrows(NullPointerException.class, () ->
      {
@@ -85,7 +85,7 @@ public class UsernameConfigurableStrategyTests
    * Test constructor.
    */
   @Test
-  public void constructor2()
+  /* default */ void testConstructor2()
    {
     assertThrows(NullPointerException.class, () ->
      {
@@ -99,7 +99,7 @@ public class UsernameConfigurableStrategyTests
    * Test strategy with minLength to short.
    */
   @Test
-  public void minLengthToShort()
+  /* default */ void testMinLengthToShort()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -113,7 +113,7 @@ public class UsernameConfigurableStrategyTests
    * Test strategy with minLength zero.
    */
   @Test
-  public void minLengthZero()
+  /* default */ void testMinLengthZero()
    {
     final IUsernameStrategy cleanStrategy = UsernameConfigurableStrategy.of(0, 254, UsernameConfigurableStrategyTests.PATTERN2, HandleEMail.EMAIL_POSSIBLE);
     assertNotNull(cleanStrategy, UsernameConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
@@ -124,7 +124,7 @@ public class UsernameConfigurableStrategyTests
    * Test strategy with maxLength &lt; minLength.
    */
   @Test
-  public void maxSmallerThanMinLength()
+  /* default */ void testMaxSmallerThanMinLength()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -138,7 +138,7 @@ public class UsernameConfigurableStrategyTests
    * Test strategy with maxLength = minLength.
    */
   @Test
-  public void maxEqualMinLength()
+  /* default */ void testMaxEqualMinLength()
    {
     final IUsernameStrategy cleanStrategy = UsernameConfigurableStrategy.of(10, 10, UsernameConfigurableStrategyTests.PATTERN1, HandleEMail.EMAIL_POSSIBLE);
     assertNotNull(cleanStrategy, UsernameConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
@@ -149,7 +149,7 @@ public class UsernameConfigurableStrategyTests
    * Test strategy with wrong regexp.
    */
   @Test
-  public void regexpWrong1()
+  /* default */ void testRegexpWrong1()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -163,7 +163,7 @@ public class UsernameConfigurableStrategyTests
    * Test strategy with wrong regexp.
    */
   @Test
-  public void regexpWrong2()
+  /* default */ void testRegexpWrong2()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -177,7 +177,7 @@ public class UsernameConfigurableStrategyTests
    * Test strategy with email denied.
    */
   @Test
-  public void usernameEMailDenied1()
+  /* default */ void testUsernameEMailDenied1()
    {
     final IUsernameStrategy cleanStrategy = UsernameConfigurableStrategy.of(1, 254, UsernameConfigurableStrategyTests.PATTERN1, HandleEMail.EMAIL_DENIED);
     assertThrows(IllegalArgumentException.class, () ->
@@ -192,7 +192,7 @@ public class UsernameConfigurableStrategyTests
    * Test strategy with email denied.
    */
   @Test
-  public void usernameEMailDenied2()
+  /* default */ void testUsernameEMailDenied2()
    {
     final IUsernameStrategy cleanStrategy = UsernameConfigurableStrategy.of(1, 254, UsernameConfigurableStrategyTests.PATTERN1, HandleEMail.EMAIL_DENIED);
     final boolean email = cleanStrategy.validationStrategy(UsernameConfigurableStrategyTests.USERNAME);
@@ -204,7 +204,7 @@ public class UsernameConfigurableStrategyTests
    * Test strategy with email required.
    */
   @Test
-  public void usernameEMailRequired1()
+  /* default */ void testUsernameEMailRequired1()
    {
     final IUsernameStrategy cleanStrategy = UsernameConfigurableStrategy.of(1, 254, UsernameConfigurableStrategyTests.PATTERN1, HandleEMail.EMAIL_REQUIRED);
     assertThrows(IllegalArgumentException.class, () ->
@@ -219,7 +219,7 @@ public class UsernameConfigurableStrategyTests
    * Test strategy with email required.
    */
   @Test
-  public void usernameEMailRequired2()
+  /* default */ void testUsernameEMailRequired2()
    {
     final IUsernameStrategy cleanStrategy = UsernameConfigurableStrategy.of(1, 254, UsernameConfigurableStrategyTests.PATTERN1, HandleEMail.EMAIL_REQUIRED);
     final boolean email = cleanStrategy.validationStrategy(UsernameConfigurableStrategyTests.USERNAME_EXAMPLE_COM);
@@ -231,7 +231,7 @@ public class UsernameConfigurableStrategyTests
    * Test getAction of HandleEMail.
    */
   @Test
-  public void getAction()
+  /* default */ void testGetAction()
    {
     assertEquals(1, HandleEMail.EMAIL_REQUIRED.getAction(), "Action not as expected"); //$NON-NLS-1$
    }

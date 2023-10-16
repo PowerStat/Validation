@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -38,11 +38,6 @@ public final class Second implements Comparable<Second>, IValueObject
    * Cache for singletons.
    */
   private static final Map<Integer, Second> CACHE = new WeakHashMap<>();
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Second.
@@ -98,19 +93,6 @@ public final class Second implements Comparable<Second>, IValueObject
   public static Second of(final String value)
    {
     return of(Integer.parseInt(value));
-   }
-
-
-  /**
-   * Get second.
-   *
-   * @return Second
-   * @deprecated Use intValue() instead
-   */
-  @Deprecated(since = Second.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public int getSecond()
-   {
-    return this.second;
    }
 
 
@@ -189,7 +171,7 @@ public final class Second implements Comparable<Second>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final var builder = new StringBuilder();
     builder.append("Second[second=").append(this.second).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.entities.impl;
 
@@ -97,7 +97,7 @@ public class HistoryOf<T>
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final var builder = new StringBuilder();
     builder.append("HistoryOf<>["); //$NON-NLS-1$
     final int initLength = builder.length();
     for (final Map.Entry<OffsetDateTime, T> entry : this.history.entrySet())

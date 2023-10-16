@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Block tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class BlockTests
+final class BlockTests
  {
   /**
    * Block a.
@@ -45,11 +45,6 @@ public class BlockTests
    */
   private static final String BLOCK_NOT_AS_EXPECTED = "Block not as expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
@@ -67,7 +62,7 @@ public class BlockTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"1", BlockTests.BLOCKA, "Abcdefghijklmnop"})
-  public void blockCorrect(final String block)
+  /* default */ void testBlockCorrect(final String block)
    {
     final Block cleanBlock = Block.of(block);
     assertEquals(block, cleanBlock.stringValue(), BlockTests.BLOCK_NOT_AS_EXPECTED);
@@ -81,7 +76,7 @@ public class BlockTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "Abcdefghijklmnopq"})
-  public void blockLength(final String block)
+  /* default */ void testBlockLength(final String block)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -98,7 +93,7 @@ public class BlockTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"abc_def"})
-  public void blockWrong(final String block)
+  /* default */ void testBlockWrong(final String block)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -110,23 +105,9 @@ public class BlockTests
 
   /**
    * Test get block.
-   *
-   * @deprecated Old version of stringValue()
-   */
-  @Deprecated(since = BlockTests.DEPRECATED_SINCE_3_0, forRemoval = false)
-  @Test
-  public void getBlock()
-   {
-    final Block block = Block.of(BlockTests.BLOCKA);
-    assertEquals(BlockTests.BLOCKA, block.getBlock(), BlockTests.BLOCK_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get block.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final Block block = Block.of(BlockTests.BLOCKA);
     assertEquals(BlockTests.BLOCKA, block.stringValue(), BlockTests.BLOCK_NOT_AS_EXPECTED);
@@ -137,7 +118,7 @@ public class BlockTests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final Block block1 = Block.of(BlockTests.BLOCKA);
     final Block block2 = Block.of(BlockTests.BLOCKA);
@@ -153,7 +134,8 @@ public class BlockTests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final Block block1 = Block.of(BlockTests.BLOCKA);
     final Block block2 = Block.of(BlockTests.BLOCKA);
@@ -176,7 +158,7 @@ public class BlockTests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final Block block = Block.of(BlockTests.BLOCKA);
     assertEquals("Block[block=A]", block.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -187,7 +169,8 @@ public class BlockTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Block block1 = Block.of(BlockTests.BLOCKA);
     final Block block2 = Block.of(BlockTests.BLOCKA);

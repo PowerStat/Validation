@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -31,11 +31,6 @@ public final class Lines implements Comparable<Lines>, IValueObject
    */
   @SuppressWarnings("java:S6035")
   private static final Pattern LINES_REGEXP = Pattern.compile("^([\\p{L}\\p{Digit},.& -]|\\R)*+$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Lines.
@@ -89,19 +84,6 @@ public final class Lines implements Comparable<Lines>, IValueObject
       Lines.CACHE.put(lines, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get lines string.
-   *
-   * @return Lines string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = Lines.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getLines()
-   {
-    return this.lines;
    }
 
 
@@ -166,7 +148,7 @@ public final class Lines implements Comparable<Lines>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final var builder = new StringBuilder();
     builder.append("Lines[lines=").append(this.lines.replace("\n", "\\n").replace("\r", "\\r")).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
     return builder.toString();
    }

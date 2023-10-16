@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -30,11 +30,6 @@ public final class Neighbourhood implements Comparable<Neighbourhood>, IValueObj
    * Neighbourhood fregexp.
    */
   private static final Pattern NEIGHBOURHOOD_REGEXP = Pattern.compile("^[\\p{L}][\\p{L}\\p{Digit}. -]*$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * Neighbourhood.
@@ -84,19 +79,6 @@ public final class Neighbourhood implements Comparable<Neighbourhood>, IValueObj
       Neighbourhood.CACHE.put(neighbourhood, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get neighbourhood string.
-   *
-   * @return Neighbourhood string
-   * @deprecated Use stringValue() instead
-   */
-  @Deprecated(since = Neighbourhood.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getNeighbourhood()
-   {
-    return this.neighbourhood;
    }
 
 
@@ -161,7 +143,7 @@ public final class Neighbourhood implements Comparable<Neighbourhood>, IValueObj
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(29);
+    final var builder = new StringBuilder(29);
     builder.append("Neighbourhood[neighbourhood=").append(this.neighbourhood).append(']'); //$NON-NLS-1$
     return builder.toString();
    }

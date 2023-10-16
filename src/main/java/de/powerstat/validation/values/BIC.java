@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -29,12 +29,8 @@ public final class BIC implements Comparable<BIC>, IValueObject
   /**
    * BIC regexp.
    */
+  @SuppressWarnings("java:S5867")
   private static final Pattern BIC_REGEXP = Pattern.compile("^[A-Z0-9]{4}[A-Z]{2}[A-Z2-9][0-9A-NP-Z](XXX|[0-9A-WY-Z][0-9A-Z]{2})?$"); //$NON-NLS-1$
-
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
 
   /**
    * BIC.
@@ -85,19 +81,6 @@ public final class BIC implements Comparable<BIC>, IValueObject
       BIC.CACHE.put(bic, obj);
       return obj;
      }
-   }
-
-
-  /**
-   * Get bic string.
-   *
-   * @return BIC string
-   * @deprecated Use stringValue() instead.
-   */
-  @Deprecated(since = BIC.DEPRECATED_SINCE_3_0, forRemoval = false)
-  public String getBIC()
-   {
-    return this.bic;
    }
 
 
@@ -162,7 +145,7 @@ public final class BIC implements Comparable<BIC>, IValueObject
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder();
+    final var builder = new StringBuilder();
     builder.append("BIC[bic=").append(this.bic).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
