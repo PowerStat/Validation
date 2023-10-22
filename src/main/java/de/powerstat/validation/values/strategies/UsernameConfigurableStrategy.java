@@ -193,10 +193,12 @@ public class UsernameConfigurableStrategy implements IUsernameStrategy
      }
     catch (final IllegalArgumentException ignore)
      {
+      /*
       if (LOGGER.isDebugEnabled())
        {
         LOGGER.debug("IllegalArgumentException", ignore);
        }
+      */
      }
     if ((this.emailHandling == HandleEMail.EMAIL_REQUIRED) && !checkEMail)
      {

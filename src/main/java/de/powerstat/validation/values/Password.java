@@ -64,23 +64,54 @@ public final class Password implements Comparable<Password>, IValueObject
    */
   private final String passwd;
 
+  /**
+   * Password could be read via stringValue() if true.
+   */
+  private final boolean read;
+
 
   /**
    * Constructor.
    *
    * @param validationStrategy Validation strategy
    * @param password Password
-   *
+   * @param noRead true: password could not be read via stringValue(); false: password could be read
    * @throws NullPointerException if password or validationStrategy is null
    * @throws IllegalArgumentException if password contains unsupported characters or is to long or short etc.
    */
-  private Password(final IPasswordStrategy validationStrategy, final String password)
+  private Password(final IPasswordStrategy validationStrategy, final String password, final boolean noRead)
    {
     super();
     Objects.requireNonNull(validationStrategy, "validationStrategy"); //$NON-NLS-1$
     Objects.requireNonNull(password, "password"); //$NON-NLS-1$
     validationStrategy.validationStrategy(password);
     this.passwd = password;
+    this.read = !noRead;
+   }
+
+
+  /**
+   * Password factory.
+   *
+   * @param validationStrategy Validation strategy
+   * @param password Password
+   * @param noRead true: password could not be read via stringValue(); false: password could be read
+   * @return Password object
+   */
+  public static Password of(final IPasswordStrategy validationStrategy, final String password, final boolean noRead)
+   {
+    synchronized (Password.class)
+     {
+      Password obj = Password.CACHE.get(password);
+      if (obj != null)
+       {
+        validationStrategy.validationStrategy(password);
+        return obj;
+       }
+      obj = new Password(validationStrategy, password, noRead);
+      Password.CACHE.put(password, obj);
+      return obj;
+     }
    }
 
 
@@ -93,18 +124,20 @@ public final class Password implements Comparable<Password>, IValueObject
    */
   public static Password of(final IPasswordStrategy validationStrategy, final String password)
    {
-    synchronized (Password.class)
-     {
-      Password obj = Password.CACHE.get(password);
-      if (obj != null)
-       {
-        validationStrategy.validationStrategy(password);
-        return obj;
-       }
-      obj = new Password(validationStrategy, password);
-      Password.CACHE.put(password, obj);
-      return obj;
-     }
+    return of(validationStrategy, password, false);
+   }
+
+
+  /**
+   * Password factory with PasswordDefaultStrategy.
+   *
+   * @param password Password
+   * @param noRead true: password could not be read via stringValue(); false: password could be read
+   * @return Password object
+   */
+  public static Password of(final String password, final boolean noRead)
+   {
+    return of(PasswordDefaultStrategy.of(), password, noRead);
    }
 
 
@@ -116,19 +149,19 @@ public final class Password implements Comparable<Password>, IValueObject
    */
   public static Password of(final String password)
    {
-    return of(PasswordDefaultStrategy.of(), password);
+    return of(PasswordDefaultStrategy.of(), password, false);
    }
 
 
   /**
-   * Returns the value of this Password as a string.
+   * Returns the value of this Password as a string or ******** if noRead was set during object creation.
    *
    * @return The text value represented by this object after conversion to type string.
    */
   @Override
   public String stringValue()
    {
-    return SECRET_PASSWORD;
+    return this.read ? this.passwd : SECRET_PASSWORD;
    }
 
 
