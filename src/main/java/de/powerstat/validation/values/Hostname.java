@@ -90,10 +90,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
      }
     catch (final IllegalArgumentException ignored)
      {
-      if (LOGGER.isDebugEnabled())
-       {
-        LOGGER.debug("IllegalArgumentException", ignored);
-       }
+      // LOGGER.debug("IllegalArgumentException", ignored);
      }
     try
      {
@@ -104,10 +101,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
      }
     catch (final IllegalArgumentException ignored)
      {
-      if (LOGGER.isDebugEnabled())
-       {
-        LOGGER.debug("IllegalArgumentException", ignored);
-       }
+      // LOGGER.debug("IllegalArgumentException", ignored);
      }
     if (tempHostname.isEmpty())
      {
@@ -240,10 +234,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
      }
     catch (final UnknownHostException ignored)
      {
-      if (LOGGER.isDebugEnabled())
-       {
-        LOGGER.debug("UnknownHostException", ignored);
-       }
+      // LOGGER.debug("UnknownHostException", ignored);
       return false;
      }
     return true;
@@ -265,10 +256,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
      }
     catch (final IOException ignored)
      {
-      if (LOGGER.isDebugEnabled())
-       {
-        LOGGER.debug("IOException", ignored);
-       }
+      // LOGGER.debug("IOException", ignored);
       return false;
      }
    }

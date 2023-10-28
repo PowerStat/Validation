@@ -2,6 +2,7 @@
  * Copyright (C) 2019-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 
+
 /**
  * Validation module.
  */
@@ -17,5 +18,6 @@ module de.powerstat.validation
 
   requires org.apache.logging.log4j;
   requires org.apache.commons.net;
+  requires com.github.spotbugs.annotations;
 
  }
