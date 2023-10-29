@@ -255,7 +255,7 @@ public final class Person implements Comparable<Person>, IEntity
      }
     catch (final NoSuchElementException e)
      {
-      LOGGER.debug("NoSuchElementException", e);
+      // LOGGER.debug("NoSuchElementException", e);
       return ""; //$NON-NLS-1$
      }
    }
