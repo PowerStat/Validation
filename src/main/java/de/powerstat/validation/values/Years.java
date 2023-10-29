@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 import de.powerstat.validation.interfaces.IValueObject;
 
@@ -20,10 +18,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Years implements Comparable<Years>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<Long, Years> CACHE = new WeakHashMap<>();
+  // private static final Map<Long, Years> CACHE = new WeakHashMap<>();
 
   /**
    * Years.
@@ -56,6 +54,7 @@ public final class Years implements Comparable<Years>, IValueObject
    */
   public static Years of(final long years)
    {
+    /*
     synchronized (Years.class)
      {
       Years obj = Years.CACHE.get(years);
@@ -67,6 +66,8 @@ public final class Years implements Comparable<Years>, IValueObject
       Years.CACHE.put(Long.valueOf(years), obj);
       return obj;
      }
+    */
+    return new Years(years);
    }
 
 

@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 import de.powerstat.validation.interfaces.IValueObject;
 
@@ -22,10 +20,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Millisecond implements Comparable<Millisecond>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<Integer, Millisecond> CACHE = new WeakHashMap<>();
+  // private static final Map<Integer, Millisecond> CACHE = new WeakHashMap<>();
 
   /**
    * Overflow constant.
@@ -68,6 +66,7 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
    */
   public static Millisecond of(final int millisecond)
    {
+    /*
     synchronized (Millisecond.class)
      {
       Millisecond obj = Millisecond.CACHE.get(millisecond);
@@ -79,6 +78,8 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
       Millisecond.CACHE.put(Integer.valueOf(millisecond), obj);
       return obj;
      }
+    */
+    return new Millisecond(millisecond);
    }
 
 

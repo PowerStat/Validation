@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -21,10 +19,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings({"checkstyle:NoWhitespaceBefore", "PMD.UseConcurrentHashMap"})
 public final class District implements Comparable<District>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<String, District> CACHE = new WeakHashMap<>();
+  // private static final Map<String, District> CACHE = new WeakHashMap<>();
 
   /**
    * District egexp.
@@ -68,6 +66,7 @@ public final class District implements Comparable<District>, IValueObject
    */
   public static District of(final String district)
    {
+    /*
     synchronized (District .class)
      {
       District obj = District.CACHE.get(district);
@@ -79,6 +78,8 @@ public final class District implements Comparable<District>, IValueObject
       District .CACHE.put(district, obj);
       return obj;
      }
+    */
+    return new District(district);
    }
 
 

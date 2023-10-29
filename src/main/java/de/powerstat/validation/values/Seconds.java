@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 import de.powerstat.validation.interfaces.IValueObject;
 
@@ -22,10 +20,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Seconds implements Comparable<Seconds>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<Long, Seconds> CACHE = new WeakHashMap<>();
+  // private static final Map<Long, Seconds> CACHE = new WeakHashMap<>();
 
   /**
    * Seconds.
@@ -58,6 +56,7 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
    */
   public static Seconds of(final long seconds)
    {
+    /*
     synchronized (Seconds.class)
      {
       Seconds obj = Seconds.CACHE.get(seconds);
@@ -69,6 +68,8 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
       Seconds.CACHE.put(Long.valueOf(seconds), obj);
       return obj;
      }
+    */
+    return new Seconds(seconds);
    }
 
 

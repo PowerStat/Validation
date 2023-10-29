@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 import de.powerstat.validation.interfaces.IValueObject;
 
@@ -20,10 +18,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Port implements Comparable<Port>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<Integer, Port> CACHE = new WeakHashMap<>();
+  // private static final Map<Integer, Port> CACHE = new WeakHashMap<>();
 
   /**
    * Port.
@@ -56,6 +54,7 @@ public final class Port implements Comparable<Port>, IValueObject
    */
   public static Port of(final int port)
    {
+    /*
     synchronized (Port.class)
      {
       Port obj = Port.CACHE.get(port);
@@ -67,6 +66,8 @@ public final class Port implements Comparable<Port>, IValueObject
       Port.CACHE.put(Integer.valueOf(port), obj);
       return obj;
      }
+    */
+    return new Port(port);
    }
 
 

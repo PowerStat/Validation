@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 import de.powerstat.validation.interfaces.IValueObject;
 
@@ -20,10 +18,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<Integer, BFPONumber> CACHE = new WeakHashMap<>();
+  // private static final Map<Integer, BFPONumber> CACHE = new WeakHashMap<>();
 
   /**
    * BFPONumber.
@@ -56,6 +54,7 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
    */
   public static BFPONumber of(final int bFPONumber)
    {
+    /*
     synchronized (BFPONumber.class)
      {
       BFPONumber obj = BFPONumber.CACHE.get(bFPONumber);
@@ -67,6 +66,8 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
       BFPONumber.CACHE.put(Integer.valueOf(bFPONumber), obj);
       return obj;
      }
+    */
+    return new BFPONumber(bFPONumber);
    }
 
 

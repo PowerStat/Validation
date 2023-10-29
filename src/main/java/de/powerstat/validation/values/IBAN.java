@@ -5,9 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.math.BigInteger;
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -26,10 +24,10 @@ import de.powerstat.validation.values.impl.IBANVerifierAbstractFactory;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class IBAN implements Comparable<IBAN>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<String, IBAN> CACHE = new WeakHashMap<>();
+  // private static final Map<String, IBAN> CACHE = new WeakHashMap<>();
 
   /**
    * IBAN regexp.
@@ -104,6 +102,7 @@ public final class IBAN implements Comparable<IBAN>, IValueObject
    */
   public static IBAN of(final String iban)
    {
+    /*
     synchronized (IBAN.class)
      {
       IBAN obj = IBAN.CACHE.get(iban);
@@ -115,6 +114,8 @@ public final class IBAN implements Comparable<IBAN>, IValueObject
       IBAN.CACHE.put(iban, obj);
       return obj;
      }
+    */
+    return new IBAN(iban);
    }
 
 

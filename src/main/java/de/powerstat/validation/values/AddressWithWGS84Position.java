@@ -5,11 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
-
-import de.powerstat.validation.containers.NTuple16;
 
 
 /**
@@ -23,10 +19,10 @@ import de.powerstat.validation.containers.NTuple16;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class AddressWithWGS84Position extends Address
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<NTuple16<Country, PostalCode, City, Province, District, Street, BuildingNr, BuildingName, SubBuilding, PoBoxNumber, Department, Neighbourhood, Block, BFPONumber, Lines, WGS84Position>, AddressWithWGS84Position> CACHE = new WeakHashMap<>();
+  // private static final Map<NTuple16<Country, PostalCode, City, Province, District, Street, BuildingNr, BuildingName, SubBuilding, PoBoxNumber, Department, Neighbourhood, Block, BFPONumber, Lines, WGS84Position>, AddressWithWGS84Position> CACHE = new WeakHashMap<>();
 
   /**
    * WGS84 position.
@@ -85,7 +81,7 @@ public final class AddressWithWGS84Position extends Address
    */
   public static AddressWithWGS84Position of(final Country country, final PostalCode postalCode, final City city, final Province province, final District district, final Street street, final BuildingNr buildingNr, final BuildingName buildingName, final SubBuilding subBuilding, final PoBoxNumber poBoxNumber, final Department department, final Neighbourhood neighbourhood, final Block block, final BFPONumber bFPONumber, final Lines lines, final WGS84Position position)
    {
-    // return new AddressWithWGS84Position(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines, position);
+    /*
     final NTuple16<Country, PostalCode, City, Province, District, Street, BuildingNr, BuildingName, SubBuilding, PoBoxNumber, Department, Neighbourhood, Block, BFPONumber, Lines, WGS84Position> tuple = NTuple16.of(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines, position);
     synchronized (AddressWithWGS84Position.class)
      {
@@ -98,6 +94,8 @@ public final class AddressWithWGS84Position extends Address
       AddressWithWGS84Position.CACHE.put(tuple, obj);
       return obj;
      }
+    */
+    return new AddressWithWGS84Position(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines, position);
    }
 
 

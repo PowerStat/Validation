@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -21,10 +19,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<String, SubBuilding> CACHE = new WeakHashMap<>();
+  // private static final Map<String, SubBuilding> CACHE = new WeakHashMap<>();
 
   /**
    * Subbuilding regexp.
@@ -68,6 +66,7 @@ public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
    */
   public static SubBuilding of(final String subBuilding)
    {
+    /*
     synchronized (SubBuilding.class)
      {
       SubBuilding obj = SubBuilding.CACHE.get(subBuilding);
@@ -79,6 +78,8 @@ public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
       SubBuilding.CACHE.put(subBuilding, obj);
       return obj;
      }
+    */
+    return new SubBuilding(subBuilding);
    }
 
 

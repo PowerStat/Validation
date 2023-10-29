@@ -4,11 +4,8 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
-import de.powerstat.validation.containers.NTuple2;
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -28,10 +25,10 @@ public final class Year implements Comparable<Year>, IValueObject
    */
   private static final String UNSUPPORTED_CALENDAR_SYSTEM = "Unsupported calendar system!";
 
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<NTuple2<CalendarSystems, Long>, Year> CACHE = new WeakHashMap<>();
+  // private static final Map<NTuple2<CalendarSystems, Long>, Year> CACHE = new WeakHashMap<>();
 
   /**
    * Year of Gregorian calendar reform.
@@ -81,6 +78,7 @@ public final class Year implements Comparable<Year>, IValueObject
    */
   public static Year of(final CalendarSystems calendarSystem, final long year)
    {
+    /*
     final NTuple2<CalendarSystems, Long> tuple = NTuple2.of(calendarSystem, year);
     synchronized (Year.class)
      {
@@ -93,6 +91,8 @@ public final class Year implements Comparable<Year>, IValueObject
       Year.CACHE.put(tuple, obj);
       return obj;
      }
+    */
+    return new Year(calendarSystem, year);
    }
 
 

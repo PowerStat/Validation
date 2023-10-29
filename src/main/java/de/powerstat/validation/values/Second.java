@@ -4,19 +4,17 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 import de.powerstat.validation.interfaces.IValueObject;
 
 
 /**
  * Second.
-   *
+ *
  * Not DSGVO relevant.
  *
-   * TODO Constructor with day, month, year, hour, minute
+ * TODO Constructor with day, month, year, hour, minute
  * TODO Listener  (mod 60 = 0)
  * TODO millisecondsWithin = 1000
  */
@@ -34,10 +32,10 @@ public final class Second implements Comparable<Second>, IValueObject
    */
   private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
 
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<Integer, Second> CACHE = new WeakHashMap<>();
+  // private static final Map<Integer, Second> CACHE = new WeakHashMap<>();
 
   /**
    * Second.
@@ -70,6 +68,7 @@ public final class Second implements Comparable<Second>, IValueObject
    */
   public static Second of(final int second)
    {
+    /*
     synchronized (Second.class)
      {
       Second obj = Second.CACHE.get(second);
@@ -81,6 +80,8 @@ public final class Second implements Comparable<Second>, IValueObject
       Second.CACHE.put(Integer.valueOf(second), obj);
       return obj;
      }
+    */
+    return new Second(second);
    }
 
 

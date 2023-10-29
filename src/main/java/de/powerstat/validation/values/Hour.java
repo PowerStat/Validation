@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 import de.powerstat.validation.interfaces.IValueObject;
 
@@ -33,10 +31,10 @@ public final class Hour implements Comparable<Hour>, IValueObject
    */
   private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
 
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<Integer, Hour> CACHE = new WeakHashMap<>();
+  // private static final Map<Integer, Hour> CACHE = new WeakHashMap<>();
 
   /**
    * Hour.
@@ -69,6 +67,7 @@ public final class Hour implements Comparable<Hour>, IValueObject
    */
   public static Hour of(final int hour)
    {
+    /*
     synchronized (Hour.class)
     {
      Hour obj = Hour.CACHE.get(hour);
@@ -80,6 +79,8 @@ public final class Hour implements Comparable<Hour>, IValueObject
      Hour.CACHE.put(Integer.valueOf(hour), obj);
      return obj;
     }
+    */
+    return new Hour(hour);
    }
 
 

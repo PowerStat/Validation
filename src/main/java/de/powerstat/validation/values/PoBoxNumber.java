@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 import de.powerstat.validation.interfaces.IValueObject;
 
@@ -20,10 +18,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class PoBoxNumber implements Comparable<PoBoxNumber>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<Long, PoBoxNumber> CACHE = new WeakHashMap<>();
+  // private static final Map<Long, PoBoxNumber> CACHE = new WeakHashMap<>();
 
   /**
    * Post office box number.
@@ -56,6 +54,7 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>, IValueObject
    */
   public static PoBoxNumber of(final long poBoxNumber)
    {
+    /*
     synchronized (PoBoxNumber.class)
      {
       PoBoxNumber obj = PoBoxNumber.CACHE.get(poBoxNumber);
@@ -67,6 +66,8 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>, IValueObject
       PoBoxNumber.CACHE.put(Long.valueOf(poBoxNumber), obj);
       return obj;
      }
+    */
+    return new PoBoxNumber(poBoxNumber);
    }
 
 

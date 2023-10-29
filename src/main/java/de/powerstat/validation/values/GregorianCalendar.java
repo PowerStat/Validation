@@ -6,7 +6,6 @@ package de.powerstat.validation.values;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -23,10 +22,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class GregorianCalendar implements Comparable<GregorianCalendar>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<Country, GregorianCalendar> CACHE = new WeakHashMap<>();
+  // private static final Map<Country, GregorianCalendar> CACHE = new WeakHashMap<>();
 
   /**
    * Days per month.
@@ -198,6 +197,7 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
    */
   public static GregorianCalendar of(final Country country)
    {
+    /*
     synchronized (GregorianCalendar.class)
      {
       GregorianCalendar obj = GregorianCalendar.CACHE.get(country);
@@ -209,6 +209,8 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
       GregorianCalendar.CACHE.put(country, obj);
       return obj;
      }
+    */
+    return new GregorianCalendar(country);
    }
 
 

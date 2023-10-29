@@ -9,11 +9,9 @@ import java.util.Formatter;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
-import de.powerstat.validation.containers.NTuple15;
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -30,10 +28,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings({"java:S923", "java:S3776", "PMD.ExcessiveClassLength", "PMD.UseConcurrentHashMap"})
 public class Address implements Comparable<Address>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<NTuple15<Country, PostalCode, City, Province, District, Street, BuildingNr, BuildingName, SubBuilding, PoBoxNumber, Department, Neighbourhood, Block, BFPONumber, Lines>, Address> CACHE = new WeakHashMap<>();
+  // private static final Map<NTuple15<Country, PostalCode, City, Province, District, Street, BuildingNr, BuildingName, SubBuilding, PoBoxNumber, Department, Neighbourhood, Block, BFPONumber, Lines>, Address> CACHE = new WeakHashMap<>();
 
   /**
    * Address formats for countries.
@@ -638,6 +636,7 @@ public class Address implements Comparable<Address>, IValueObject
    */
   public static Address of(final Country country, final PostalCode postalCode, final City city, final Province province, final District district, final Street street, final BuildingNr buildingNr, final BuildingName buildingName, final SubBuilding subBuilding, final PoBoxNumber poBoxNumber, final Department department, final Neighbourhood neighbourhood, final Block block, final BFPONumber bFPONumber, final Lines lines)
    {
+    /*
     final NTuple15<Country, PostalCode, City, Province, District, Street, BuildingNr, BuildingName, SubBuilding, PoBoxNumber, Department, Neighbourhood, Block, BFPONumber, Lines> tuple = NTuple15.of(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines);
     synchronized (Address.class)
      {
@@ -650,6 +649,8 @@ public class Address implements Comparable<Address>, IValueObject
       Address.CACHE.put(tuple, obj);
       return obj;
      }
+    */
+    return new Address(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines);
    }
 
 

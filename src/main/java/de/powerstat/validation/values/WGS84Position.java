@@ -4,11 +4,8 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
-import de.powerstat.validation.containers.NTuple3;
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -25,10 +22,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class WGS84Position implements Comparable<WGS84Position>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<NTuple3<Double, Double, Double>, WGS84Position> CACHE = new WeakHashMap<>();
+  // private static final Map<NTuple3<Double, Double, Double>, WGS84Position> CACHE = new WeakHashMap<>();
 
   /**
    * Epsilon for double compare.
@@ -94,6 +91,7 @@ public final class WGS84Position implements Comparable<WGS84Position>, IValueObj
    */
   public static WGS84Position of(final double latitude, final double longitude, final double altitude)
    {
+    /*
     final NTuple3<Double, Double, Double> tuple = NTuple3.of(latitude, longitude, altitude);
     synchronized (WGS84Position.class)
      {
@@ -106,6 +104,8 @@ public final class WGS84Position implements Comparable<WGS84Position>, IValueObj
       WGS84Position.CACHE.put(tuple, obj);
       return obj;
      }
+    */
+    return new WGS84Position(latitude, longitude, altitude);
    }
 
 

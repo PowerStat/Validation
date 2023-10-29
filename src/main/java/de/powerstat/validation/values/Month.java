@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 import de.powerstat.validation.interfaces.IValueObject;
 
@@ -25,10 +23,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Month implements Comparable<Month>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<Integer, Month> CACHE = new WeakHashMap<>();
+  // private static final Map<Integer, Month> CACHE = new WeakHashMap<>();
 
   /**
    * Overflow constant.
@@ -72,6 +70,7 @@ public final class Month implements Comparable<Month>, IValueObject
    */
   public static Month of(final int month)
    {
+    /*
     synchronized (Month.class)
      {
       Month obj = Month.CACHE.get(month);
@@ -83,6 +82,8 @@ public final class Month implements Comparable<Month>, IValueObject
       Month.CACHE.put(Integer.valueOf(month), obj);
       return obj;
      }
+    */
+    return new Month(month);
    }
 
 

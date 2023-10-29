@@ -5,9 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Locale;
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -24,15 +22,15 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
  {
-  /**
+  /* *
    * Logger.
    */
   // private static final Logger LOGGER = LogManager.getLogger(IPV6Address.class);
 
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<String, IPV6Address> CACHE = new WeakHashMap<>();
+  // private static final Map<String, IPV6Address> CACHE = new WeakHashMap<>();
 
   /**
    * IP V6 regexp.
@@ -228,6 +226,7 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
    */
   public static IPV6Address of(final String address)
    {
+    /*
     synchronized (IPV6Address.class)
      {
       IPV6Address obj = IPV6Address.CACHE.get(address);
@@ -239,6 +238,8 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
       IPV6Address.CACHE.put(address, obj);
       return obj;
      }
+    */
+    return new IPV6Address(address);
    }
 
 

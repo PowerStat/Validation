@@ -4,11 +4,8 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
-import de.powerstat.validation.containers.NTuple4;
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -36,10 +33,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class GregorianDate implements Comparable<GregorianDate>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<NTuple4<GregorianCalendar, Year, Month, Day>, GregorianDate> CACHE = new WeakHashMap<>();
+  // private static final Map<NTuple4<GregorianCalendar, Year, Month, Day>, GregorianDate> CACHE = new WeakHashMap<>();
 
   /**
    * Output format.
@@ -119,6 +116,7 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
    */
   public static GregorianDate of(final GregorianCalendar calendar, final Year year, final Month month, final Day day)
    {
+    /*
     final NTuple4<GregorianCalendar, Year, Month, Day> tuple = NTuple4.of(calendar, year, month, day);
     synchronized (GregorianDate.class)
      {
@@ -131,6 +129,8 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
       GregorianDate.CACHE.put(tuple, obj);
       return obj;
      }
+    */
+    return new GregorianDate(calendar, year, month, day);
    }
 
 

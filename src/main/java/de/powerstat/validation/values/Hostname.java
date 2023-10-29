@@ -7,9 +7,7 @@ package de.powerstat.validation.values;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.LogManager;
@@ -36,10 +34,10 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
    */
   private static final Logger LOGGER = LogManager.getLogger(Hostname.class);
 
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<String, Hostname> CACHE = new WeakHashMap<>();
+  // private static final Map<String, Hostname> CACHE = new WeakHashMap<>();
 
   /**
    * Hostname regexp.
@@ -184,6 +182,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
    */
   public static Hostname of(final String hostname)
    {
+    /*
     synchronized (Hostname.class)
      {
       Hostname obj = Hostname.CACHE.get(hostname);
@@ -195,6 +194,8 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
       Hostname.CACHE.put(hostname, obj);
       return obj;
      }
+    */
+    return new Hostname(hostname);
    }
 
 

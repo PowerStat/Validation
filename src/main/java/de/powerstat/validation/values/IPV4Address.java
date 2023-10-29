@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -25,10 +23,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<String, IPV4Address> CACHE = new WeakHashMap<>();
+  // private static final Map<String, IPV4Address> CACHE = new WeakHashMap<>();
 
   /**
    * Class c 192.
@@ -98,6 +96,7 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
    */
   public static IPV4Address of(final String address)
    {
+    /*
     synchronized (IPV4Address.class)
      {
       IPV4Address obj = IPV4Address.CACHE.get(address);
@@ -109,6 +108,8 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
       IPV4Address.CACHE.put(address, obj);
       return obj;
      }
+    */
+    return new IPV4Address(address);
    }
 
 

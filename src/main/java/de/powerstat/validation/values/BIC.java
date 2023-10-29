@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -21,10 +19,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class BIC implements Comparable<BIC>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<String, BIC> CACHE = new WeakHashMap<>();
+  // private static final Map<String, BIC> CACHE = new WeakHashMap<>();
 
   /**
    * BIC regexp.
@@ -70,6 +68,7 @@ public final class BIC implements Comparable<BIC>, IValueObject
    */
   public static BIC of(final String bic)
    {
+    /*
     synchronized (BIC.class)
      {
       BIC obj = BIC.CACHE.get(bic);
@@ -81,6 +80,8 @@ public final class BIC implements Comparable<BIC>, IValueObject
       BIC.CACHE.put(bic, obj);
       return obj;
      }
+    */
+    return new BIC(bic);
    }
 
 

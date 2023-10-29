@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -28,10 +26,10 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
    */
   // private static final Logger LOGGER = LogManager.getLogger(BuildingNr.class);
 
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<String, BuildingNr> CACHE = new WeakHashMap<>();
+  // private static final Map<String, BuildingNr> CACHE = new WeakHashMap<>();
 
   /**
    * Building nr regexp.
@@ -98,6 +96,7 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
    */
   public static BuildingNr of(final String buildingNr)
    {
+    /*
     synchronized (BuildingNr.class)
      {
       BuildingNr obj = BuildingNr.CACHE.get(buildingNr);
@@ -109,6 +108,8 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
       BuildingNr.CACHE.put(buildingNr, obj);
       return obj;
      }
+    */
+    return new BuildingNr(buildingNr);
    }
 
 

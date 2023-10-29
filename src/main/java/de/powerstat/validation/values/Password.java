@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 import de.powerstat.validation.interfaces.IValueObject;
 import de.powerstat.validation.values.strategies.IPasswordStrategy;
@@ -48,10 +46,10 @@ import de.powerstat.validation.values.strategies.PasswordDefaultStrategy;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Password implements Comparable<Password>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<String, Password> CACHE = new WeakHashMap<>();
+  // private static final Map<String, Password> CACHE = new WeakHashMap<>();
 
   /**
    * Hidden password.
@@ -100,6 +98,7 @@ public final class Password implements Comparable<Password>, IValueObject
    */
   public static Password of(final IPasswordStrategy validationStrategy, final String password, final boolean noRead)
    {
+    /*
     synchronized (Password.class)
      {
       Password obj = Password.CACHE.get(password);
@@ -112,6 +111,8 @@ public final class Password implements Comparable<Password>, IValueObject
       Password.CACHE.put(password, obj);
       return obj;
      }
+    */
+    return new Password(validationStrategy, password, noRead);
    }
 
 

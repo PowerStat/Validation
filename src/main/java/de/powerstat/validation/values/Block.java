@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -21,10 +19,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Block implements Comparable<Block>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<String, Block> CACHE = new WeakHashMap<>();
+  // private static final Map<String, Block> CACHE = new WeakHashMap<>();
 
   /**
    * Block regexp.
@@ -68,6 +66,7 @@ public final class Block implements Comparable<Block>, IValueObject
    */
   public static Block of(final String block)
    {
+    /*
     synchronized (Block.class)
      {
       Block obj = Block.CACHE.get(block);
@@ -79,6 +78,8 @@ public final class Block implements Comparable<Block>, IValueObject
       Block.CACHE.put(block, obj);
       return obj;
      }
+    */
+    return new Block(block);
    }
 
 

@@ -4,11 +4,8 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
-import de.powerstat.validation.containers.NTuple3;
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -19,10 +16,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<NTuple3<Integer, Integer, String>, ScreenSize> CACHE = new WeakHashMap<>();
+  // private static final Map<NTuple3<Integer, Integer, String>, ScreenSize> CACHE = new WeakHashMap<>();
 
   /**
    * Screen width (1-8192).
@@ -50,7 +47,6 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
   private ScreenSize(final int width, final int height, final String name)
    {
     super();
-    /*
     if ((width < 1) || (width > 8192.0))
      {
       throw new IndexOutOfBoundsException("Width out of range (1-8192)"); //$NON-NLS-1$
@@ -59,7 +55,6 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
      {
       throw new IndexOutOfBoundsException("Height out of range (1-8192)"); //$NON-NLS-1$
      }
-    */
     Objects.requireNonNull(name);
     this.width = width;
     this.height = height;
@@ -77,6 +72,7 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
    */
   public static ScreenSize of(final int width, final int height, final String name)
    {
+    /*
     if ((width < 1) || (width > 8192.0))
      {
       throw new IndexOutOfBoundsException("Width out of range (1-8192)"); //$NON-NLS-1$
@@ -97,6 +93,8 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
       ScreenSize.CACHE.put(tuple, obj);
       return obj;
      }
+    */
+    return new ScreenSize(width, height, name);
    }
 
 

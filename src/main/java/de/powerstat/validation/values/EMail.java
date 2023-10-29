@@ -5,9 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Locale;
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -25,10 +23,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class EMail implements Comparable<EMail>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<String, EMail> CACHE = new WeakHashMap<>();
+  // private static final Map<String, EMail> CACHE = new WeakHashMap<>();
 
   /**
    * Local part regexp.
@@ -120,6 +118,7 @@ public final class EMail implements Comparable<EMail>, IValueObject
    */
   public static EMail of(final String email)
    {
+    /*
     synchronized (EMail.class)
      {
       EMail obj = EMail.CACHE.get(email);
@@ -131,6 +130,8 @@ public final class EMail implements Comparable<EMail>, IValueObject
       EMail.CACHE.put(email, obj);
       return obj;
      }
+    */
+    return new EMail(email);
    }
 
 

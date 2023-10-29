@@ -6,9 +6,7 @@ package de.powerstat.validation.values;
 
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -25,10 +23,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class MACAddress implements Comparable<MACAddress>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<String, MACAddress> CACHE = new WeakHashMap<>();
+  // private static final Map<String, MACAddress> CACHE = new WeakHashMap<>();
 
   /**
    * Hex 00.
@@ -127,6 +125,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    */
   public static MACAddress of(final String address)
    {
+    /*
     synchronized (MACAddress.class)
      {
       MACAddress obj = MACAddress.CACHE.get(address);
@@ -138,6 +137,8 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
       MACAddress.CACHE.put(address, obj);
       return obj;
      }
+    */
+    return new MACAddress(address);
    }
 
 

@@ -4,11 +4,8 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
-import de.powerstat.validation.containers.NTuple2;
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -21,10 +18,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings({"PMD.UseConcurrentHashMap", "PMD.ShortVariable"})
 public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<NTuple2<Integer, Integer>, DisplayAspectRatio> CACHE = new WeakHashMap<>();
+  // private static final Map<NTuple2<Integer, Integer>, DisplayAspectRatio> CACHE = new WeakHashMap<>();
 
   /**
    * Display x size (1-72).
@@ -69,6 +66,7 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>,
    */
   public static DisplayAspectRatio of(final int x, final int y)
    {
+    /*
     final NTuple2<Integer, Integer> tuple = NTuple2.of(x, y);
     synchronized (DisplayAspectRatio.class)
      {
@@ -81,6 +79,8 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>,
       DisplayAspectRatio.CACHE.put(tuple, obj);
       return obj;
      }
+    */
+    return new DisplayAspectRatio(x, y);
    }
 
 

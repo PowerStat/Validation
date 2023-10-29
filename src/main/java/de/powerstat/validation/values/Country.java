@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedISO3166A2;
@@ -24,10 +22,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Country implements Comparable<Country>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<String, Country> CACHE = new WeakHashMap<>();
+  // private static final Map<String, Country> CACHE = new WeakHashMap<>();
 
   /**
    * Country regexp.
@@ -76,6 +74,7 @@ public final class Country implements Comparable<Country>, IValueObject
    */
   public static Country of(final String alpha2)
    {
+    /*
     synchronized (Country.class)
      {
       Country obj = Country.CACHE.get(alpha2);
@@ -87,6 +86,8 @@ public final class Country implements Comparable<Country>, IValueObject
       Country.CACHE.put(alpha2, obj);
       return obj;
      }
+    */
+    return new Country(alpha2);
    }
 
 

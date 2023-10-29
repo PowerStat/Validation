@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedTlds;
@@ -22,10 +20,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<String, TopLevelDomain> CACHE = new WeakHashMap<>();
+  // private static final Map<String, TopLevelDomain> CACHE = new WeakHashMap<>();
 
   /**
    * Top level domain regexp.
@@ -77,6 +75,7 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueO
    */
   public static TopLevelDomain of(final String topLevelDomain)
    {
+    /*
     synchronized (TopLevelDomain.class)
      {
       TopLevelDomain obj = TopLevelDomain.CACHE.get(topLevelDomain);
@@ -88,6 +87,8 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueO
       TopLevelDomain.CACHE.put(topLevelDomain, obj);
       return obj;
      }
+    */
+    return new TopLevelDomain(topLevelDomain);
    }
 
 

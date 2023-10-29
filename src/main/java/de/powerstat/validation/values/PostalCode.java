@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -26,10 +24,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class PostalCode implements Comparable<PostalCode>, IValueObject
  {
-  /**
+  /* *
    * Cache for singletons.
    */
-  private static final Map<String, PostalCode> CACHE = new WeakHashMap<>();
+  // private static final Map<String, PostalCode> CACHE = new WeakHashMap<>();
 
   /**
    * Postal code regexp.
@@ -73,6 +71,7 @@ public final class PostalCode implements Comparable<PostalCode>, IValueObject
    */
   public static PostalCode of(final String postalCode)
    {
+    /*
     synchronized (PostalCode.class)
      {
       PostalCode obj = PostalCode.CACHE.get(postalCode);
@@ -84,6 +83,8 @@ public final class PostalCode implements Comparable<PostalCode>, IValueObject
       PostalCode.CACHE.put(postalCode, obj);
       return obj;
      }
+    */
+    return new PostalCode(postalCode);
    }
 
 
