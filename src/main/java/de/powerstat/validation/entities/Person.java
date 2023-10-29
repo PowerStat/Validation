@@ -15,12 +15,12 @@ import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import de.powerstat.validation.containers.HistoryOf;
 import de.powerstat.validation.interfaces.IEntity;
 import de.powerstat.validation.values.BloodGroup;
 import de.powerstat.validation.values.Firstname;
 import de.powerstat.validation.values.Gender;
 import de.powerstat.validation.values.Lastname;
-import de.powerstat.validation.values.containers.HistoryOf;
 
 
 /**

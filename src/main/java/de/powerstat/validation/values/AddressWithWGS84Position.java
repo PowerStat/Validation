@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.WeakHashMap;
 
-import de.powerstat.validation.values.containers.NTuple16;
+import de.powerstat.validation.containers.NTuple16;
 
 
 /**

@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-import de.powerstat.validation.values.containers.NTuple2;
+import de.powerstat.validation.containers.NTuple2;
 
 
 /**

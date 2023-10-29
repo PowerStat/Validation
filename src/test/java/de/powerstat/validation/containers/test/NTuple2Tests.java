@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
-package de.powerstat.validation.values.containers.test;
+package de.powerstat.validation.containers.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import de.powerstat.validation.values.containers.NTuple2;
+import de.powerstat.validation.containers.NTuple2;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 

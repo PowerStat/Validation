@@ -11,8 +11,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import de.powerstat.validation.containers.NTuple4;
 import de.powerstat.validation.values.EMail;
-import de.powerstat.validation.values.containers.NTuple4;
 
 
 /**

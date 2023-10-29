@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
-package de.powerstat.validation.values.containers;
+package de.powerstat.validation.containers;
 
 
 import java.util.Objects;

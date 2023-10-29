@@ -13,8 +13,8 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
+import de.powerstat.validation.containers.NTuple15;
 import de.powerstat.validation.interfaces.IValueObject;
-import de.powerstat.validation.values.containers.NTuple15;
 
 
 /**

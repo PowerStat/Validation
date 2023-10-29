@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import de.powerstat.validation.values.containers.NTuple9;
+import de.powerstat.validation.containers.NTuple9;
 
 
 /**

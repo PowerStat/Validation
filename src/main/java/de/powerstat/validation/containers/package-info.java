@@ -6,4 +6,4 @@
 /**
  * Validation value container classes.
  */
-package de.powerstat.validation.values.containers;
+package de.powerstat.validation.containers;
