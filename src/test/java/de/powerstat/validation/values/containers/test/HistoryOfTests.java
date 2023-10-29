@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
-package de.powerstat.validation.entities.impl.test;
+package de.powerstat.validation.values.containers.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -23,8 +23,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 
-import de.powerstat.validation.entities.impl.HistoryOf;
 import de.powerstat.validation.values.Lastname;
+import de.powerstat.validation.values.containers.HistoryOf;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 

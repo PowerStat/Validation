@@ -11,7 +11,6 @@ module de.powerstat.validation
   exports de.powerstat.validation;
   exports de.powerstat.validation.comparators;
   exports de.powerstat.validation.entities;
-  exports de.powerstat.validation.entities.impl;
   exports de.powerstat.validation.interfaces;
   exports de.powerstat.validation.values;
   exports de.powerstat.validation.values.containers;
