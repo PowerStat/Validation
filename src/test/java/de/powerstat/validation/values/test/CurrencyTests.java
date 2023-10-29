@@ -49,7 +49,7 @@ final class CurrencyTests
   /**
    * Default constructor.
    */
-  public CurrencyTests()
+  /* default */ CurrencyTests()
    {
     super();
    }

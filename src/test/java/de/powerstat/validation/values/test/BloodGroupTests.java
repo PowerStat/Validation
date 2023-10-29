@@ -168,7 +168,7 @@ final class BloodGroupTests
   /**
    * Default constructor.
    */
-  public BloodGroupTests()
+  /* default */ BloodGroupTests()
    {
     super();
    }

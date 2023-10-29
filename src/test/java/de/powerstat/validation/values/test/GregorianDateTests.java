@@ -69,7 +69,7 @@ final class GregorianDateTests
   /**
    * Default constructor.
    */
-  public GregorianDateTests()
+  /* default */ GregorianDateTests()
    {
     super();
    }

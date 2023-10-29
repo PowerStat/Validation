@@ -49,7 +49,7 @@ final class LanguageTests
   /**
    * Default constructor.
    */
-  public LanguageTests()
+  /* default */ LanguageTests()
    {
     super();
    }

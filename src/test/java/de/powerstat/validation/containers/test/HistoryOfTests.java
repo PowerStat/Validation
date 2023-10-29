@@ -99,7 +99,7 @@ final class HistoryOfTests
   /**
    * Default constructor.
    */
-  public HistoryOfTests()
+  /* default */ HistoryOfTests()
    {
     super();
    }

@@ -49,7 +49,7 @@ final class SubBuildingTests
   /**
    * Default constructor.
    */
-  public SubBuildingTests()
+  /* default */ SubBuildingTests()
    {
     super();
    }

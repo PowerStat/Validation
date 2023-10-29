@@ -749,8 +749,8 @@ public class Address implements Comparable<Address>, IValueObject
      {
       return true;
      }
-    if ((obj == null) || (this.getClass() != obj.getClass()))
-    // if (!(obj instanceof Address))
+    // if ((obj == null) || (this.getClass() != obj.getClass()))
+    if (!(obj instanceof Address))
      {
       return false;
      }

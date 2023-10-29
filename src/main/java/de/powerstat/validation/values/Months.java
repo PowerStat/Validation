@@ -128,8 +128,6 @@ public final class Months implements Comparable<Months>, IValueObject
   @Override
   public boolean equals(final Object obj)
    {
-    return this == obj;
-    /*
     if (this == obj)
      {
       return true;
@@ -139,8 +137,7 @@ public final class Months implements Comparable<Months>, IValueObject
       return false;
      }
     final Months other = (Months)obj;
-    return false; // this.months == other.months;
-    */
+    return this.months == other.months;
    }
 
 

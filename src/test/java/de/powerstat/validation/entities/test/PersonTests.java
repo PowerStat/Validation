@@ -130,7 +130,7 @@ final class PersonTests
   /**
    * Default constructor.
    */
-  public PersonTests()
+  /* default */ PersonTests()
    {
     super();
    }

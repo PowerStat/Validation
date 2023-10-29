@@ -275,6 +275,7 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
    * @param year Year
    * @return GregorianDate of easter for given year
    */
+  @SuppressWarnings("PMD.ShortVariable")
   public static GregorianDate easter(final GregorianCalendar calendar, final Year year)
    {
     final long a = year.longValue() % 19;

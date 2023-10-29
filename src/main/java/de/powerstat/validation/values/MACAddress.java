@@ -276,8 +276,6 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
   @Override
   public boolean equals(final Object obj)
    {
-    return this == obj;
-    /*
     if (this == obj)
      {
       return true;
@@ -287,8 +285,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
       return false;
      }
     final MACAddress other = (MACAddress)obj;
-    return false; // Arrays.equals(this.parts, other.parts);
-    */
+    return Arrays.equals(this.parts, other.parts);
    }
 
 

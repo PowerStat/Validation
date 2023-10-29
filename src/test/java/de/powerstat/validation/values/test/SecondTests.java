@@ -45,7 +45,7 @@ final class SecondTests
   /**
    * Default constructor.
    */
-  public SecondTests()
+  /* default */ SecondTests()
    {
     super();
    }

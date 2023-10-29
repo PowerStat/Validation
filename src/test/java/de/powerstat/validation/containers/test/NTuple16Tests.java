@@ -172,11 +172,16 @@ final class NTuple16Tests
    */
   private static final String TUPLE151_IS_EQUAL = "tuple151 is equal"; //$NON-NLS-1$
 
+  /**
+   * Suppress sonarqube warning.
+   */
+  private static final String JAVA_S5785 = "java:S5785"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
    */
-  public NTuple16Tests()
+  /* default */ NTuple16Tests()
    {
     super();
    }
@@ -230,7 +235,7 @@ final class NTuple16Tests
    * Test equals.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testEquals()
    {
     final NTuple16<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple16.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
@@ -254,7 +259,7 @@ final class NTuple16Tests
    * Test equals.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testEquals2()
    {
     final NTuple16<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple16.of(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
@@ -298,7 +303,7 @@ final class NTuple16Tests
    * Test equals.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testEquals3()
    {
     final NTuple16<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple16.of(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
@@ -342,7 +347,7 @@ final class NTuple16Tests
    * Test equals.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testEquals4()
    {
     final NTuple16<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1a = NTuple16.of(Integer.valueOf(1), null, null, null, null, null, null, null, null, null, null, null, null, null, null, Integer.valueOf(1));
@@ -408,7 +413,7 @@ final class NTuple16Tests
    * Test compareTo.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testCompareTo()
    {
     final NTuple16<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple16.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
@@ -430,7 +435,7 @@ final class NTuple16Tests
    * Test compareTo.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testCompareTo2()
    {
     final NTuple16<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple16.of(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
@@ -474,7 +479,7 @@ final class NTuple16Tests
    * Test compareTo.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testCompareTo3()
    {
     final NTuple16<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple16.of(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
@@ -516,7 +521,7 @@ final class NTuple16Tests
    * Test compareTo.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testCompareTo4()
    {
     final NTuple16<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1a = NTuple16.of(Integer.valueOf(1), null, null, null, null, null, null, null, null, null, null, null, null, null, null, Integer.valueOf(1));
@@ -571,7 +576,7 @@ final class NTuple16Tests
    * Test compareTo.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testCompareTo5()
    {
     final NTuple16<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1a = NTuple16.of(Integer.valueOf(1), Integer.valueOf(1), null, null, null, null, null, null, null, null, null, null, null, null, null, Integer.valueOf(1));

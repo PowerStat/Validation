@@ -56,7 +56,7 @@ final class GregorianCalendarTests
   /**
    * Default constructor.
    */
-  public GregorianCalendarTests()
+  /* default */ GregorianCalendarTests()
    {
     super();
    }

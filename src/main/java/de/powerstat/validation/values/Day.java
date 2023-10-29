@@ -143,8 +143,6 @@ public final class Day implements Comparable<Day>, IValueObject
   @Override
   public boolean equals(final Object obj)
    {
-    return this == obj;
-    /*
     if (this == obj)
      {
       return true;
@@ -154,8 +152,7 @@ public final class Day implements Comparable<Day>, IValueObject
       return false;
      }
     final Day other = (Day)obj;
-    return false; // this.day == other.day;
-    */
+    return this.day == other.day;
    }
 
 

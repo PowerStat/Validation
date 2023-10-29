@@ -51,7 +51,7 @@ final class IBANTests
   /**
    * Default constructor.
    */
-  public IBANTests()
+  /* default */ IBANTests()
    {
     super();
    }

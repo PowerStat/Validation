@@ -18,7 +18,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * 1:1 2.1:1 3:1 3:2 4:3 5:3 5:4 8:5 9:5 10:6 15:9 16:9 16:10 17:10 25:12 25:16 60:29 64:35 72:35
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
+@SuppressWarnings({"PMD.UseConcurrentHashMap", "PMD.ShortVariable"})
 public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>, IValueObject
  {
   /**
@@ -160,8 +160,6 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>,
   @Override
   public boolean equals(final Object obj)
    {
-    return this == obj;
-    /*
     if (this == obj)
      {
       return true;
@@ -171,12 +169,7 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>,
       return false;
      }
     final DisplayAspectRatio other = (DisplayAspectRatio)obj;
-    if (this.x == other.x)
-     {
-      return this.y == other.y;
-     }
-    return false;
-    */
+    return (this.x == other.x) && (this.y == other.y);
    }
 
 

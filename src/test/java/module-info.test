@@ -19,5 +19,7 @@ module de.powerstat.validation
   requires org.apache.logging.log4j;
   requires org.apache.commons.net;
   requires edu.umd.cs.findbugs.annotations;
+  requires org.junit.jupiter.api;
+  // requires io.cucumber.java;
 
  }

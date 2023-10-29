@@ -161,8 +161,6 @@ public final class Port implements Comparable<Port>, IValueObject
   @Override
   public boolean equals(final Object obj)
    {
-    return this == obj;
-    /*
     if (this == obj)
      {
       return true;
@@ -172,8 +170,7 @@ public final class Port implements Comparable<Port>, IValueObject
       return false;
      }
     final Port other = (Port)obj;
-    return false; // this.port == other.port;
-    */
+    return this.port == other.port;
    }
 
 

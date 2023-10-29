@@ -128,8 +128,6 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>, IValueObject
   @Override
   public boolean equals(final Object obj)
    {
-    return this == obj;
-    /*
     if (this == obj)
      {
       return true;
@@ -139,8 +137,7 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>, IValueObject
       return false;
      }
     final PoBoxNumber other = (PoBoxNumber)obj;
-    return false; // this.poBoxNumber == other.poBoxNumber;
-    */
+    return this.poBoxNumber == other.poBoxNumber;
    }
 
 

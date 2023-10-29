@@ -61,7 +61,7 @@ final class UsernameConfigurableStrategyTests
   /**
    * Default constructor.
    */
-  public UsernameConfigurableStrategyTests()
+  /* default */ UsernameConfigurableStrategyTests()
    {
     super();
    }

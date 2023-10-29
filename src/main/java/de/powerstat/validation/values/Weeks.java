@@ -128,8 +128,6 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
   @Override
   public boolean equals(final Object obj)
    {
-    return this == obj;
-    /*
     if (this == obj)
      {
       return true;
@@ -139,8 +137,7 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
       return false;
      }
     final Weeks other = (Weeks)obj;
-    return false; // this.weeks == other.weeks;
-    */
+    return this.weeks == other.weeks;
    }
 
 

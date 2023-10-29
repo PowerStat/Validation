@@ -49,7 +49,7 @@ final class DepartmentTests
   /**
    * Default constructor.
    */
-  public DepartmentTests()
+  /* default */ DepartmentTests()
    {
     super();
    }

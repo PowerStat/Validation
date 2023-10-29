@@ -74,7 +74,7 @@ final class ValidationUtilsTests
   /**
    * Default constructor.
    */
-  public ValidationUtilsTests()
+  /* default */ ValidationUtilsTests()
    {
     super();
    }

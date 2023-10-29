@@ -25,7 +25,7 @@ final class NTuple2Tests
   /**
    * Default constructor.
    */
-  public NTuple2Tests()
+  /* default */ NTuple2Tests()
    {
     super();
    }

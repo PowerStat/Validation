@@ -208,13 +208,7 @@ public final class WGS84Position implements Comparable<WGS84Position>, IValueObj
       return false;
      }
     final WGS84Position other = (WGS84Position)obj;
-    if ((Math.abs(this.latitude - other.latitude) < WGS84Position.EPSILON) && (Math.abs(this.longitude - other.longitude) < WGS84Position.EPSILON))
-    // if ((this.latitude == other.latitude) && (this.longitude == other.longitude))
-     {
-      return Math.abs(this.altitude - other.altitude) < WGS84Position.EPSILON;
-      // return this.altitude == other.altitude;
-     }
-    return false;
+    return (Math.abs(this.latitude - other.latitude) < WGS84Position.EPSILON) && (Math.abs(this.longitude - other.longitude) < WGS84Position.EPSILON) && (Math.abs(this.altitude - other.altitude) < WGS84Position.EPSILON);
    }
 
 

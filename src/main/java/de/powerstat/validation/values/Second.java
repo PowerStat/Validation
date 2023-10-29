@@ -142,8 +142,6 @@ public final class Second implements Comparable<Second>, IValueObject
   @Override
   public boolean equals(final Object obj)
    {
-    return this == obj;
-    /*
     if (this == obj)
      {
       return true;
@@ -153,8 +151,7 @@ public final class Second implements Comparable<Second>, IValueObject
       return false;
      }
     final Second other = (Second)obj;
-    return false; // this.second == other.second;
-    */
+    return this.second == other.second;
    }
 
 

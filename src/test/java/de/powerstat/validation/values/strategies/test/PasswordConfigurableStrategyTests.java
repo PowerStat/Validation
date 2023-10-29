@@ -50,7 +50,7 @@ final class PasswordConfigurableStrategyTests
   /**
    * Default constructor.
    */
-  public PasswordConfigurableStrategyTests()
+  /* default */ PasswordConfigurableStrategyTests()
    {
     super();
    }

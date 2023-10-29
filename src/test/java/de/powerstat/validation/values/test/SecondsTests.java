@@ -44,7 +44,7 @@ final class SecondsTests
   /**
    * Default constructor.
    */
-  public SecondsTests()
+  /* default */ SecondsTests()
    {
     super();
    }

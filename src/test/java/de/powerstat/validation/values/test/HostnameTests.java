@@ -64,7 +64,7 @@ final class HostnameTests
   /**
    * Default constructor.
    */
-  public HostnameTests()
+  /* default */ HostnameTests()
    {
     super();
    }

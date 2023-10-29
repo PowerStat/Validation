@@ -56,7 +56,7 @@ final class UsernameTests
   /**
    * Default constructor.
    */
-  public UsernameTests()
+  /* default */ UsernameTests()
    {
     super();
    }

@@ -47,7 +47,7 @@ final class DisplayAspectRatioTests
   /**
    * Default constructor.
    */
-  public DisplayAspectRatioTests()
+  /* default */ DisplayAspectRatioTests()
    {
     super();
    }

@@ -45,7 +45,7 @@ final class WeekTests
   /**
    * Default constructor.
    */
-  public WeekTests()
+  /* default */ WeekTests()
    {
     super();
    }

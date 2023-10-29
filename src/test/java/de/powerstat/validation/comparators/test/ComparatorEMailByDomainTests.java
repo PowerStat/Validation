@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
-package de.powerstat.comparators.test;
+package de.powerstat.validation.comparators.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -54,7 +54,7 @@ final class ComparatorEMailByDomainTests
   /**
    * Default constructor.
    */
-  public ComparatorEMailByDomainTests()
+  /* default */ ComparatorEMailByDomainTests()
    {
     super();
    }

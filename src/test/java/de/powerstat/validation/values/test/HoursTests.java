@@ -44,7 +44,7 @@ final class HoursTests
   /**
    * Default constructor.
    */
-  public HoursTests()
+  /* default */ HoursTests()
    {
     super();
    }

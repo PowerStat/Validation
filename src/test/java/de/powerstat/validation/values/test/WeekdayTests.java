@@ -26,7 +26,7 @@ final class WeekdayTests
   /**
    * Default constructor.
    */
-  public WeekdayTests()
+  /* default */ WeekdayTests()
    {
     super();
    }

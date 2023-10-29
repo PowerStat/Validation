@@ -31,7 +31,7 @@ final class GenderTests
   /**
    * Default constructor.
    */
-  public GenderTests()
+  /* default */ GenderTests()
    {
     super();
    }

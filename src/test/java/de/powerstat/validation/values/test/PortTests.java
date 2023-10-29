@@ -39,7 +39,7 @@ final class PortTests
   /**
    * Default constructor.
    */
-  public PortTests()
+  /* default */ PortTests()
    {
     super();
    }

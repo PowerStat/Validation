@@ -199,8 +199,6 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
   @Override
   public boolean equals(final Object obj)
    {
-    return this == obj;
-    /*
     if (this == obj)
      {
       return true;
@@ -210,14 +208,13 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
      {
       return false;
      }
-    final DayMonth other = (DayMonth)obj;
+    final MonthDay other = (MonthDay)obj;
     boolean result = this.month.equals(other.month);
     if (result)
      {
       result = this.day.equals(other.day);
      }
     return result;
-    */
    }
 
 

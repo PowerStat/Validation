@@ -59,7 +59,7 @@ final class EMailTests
   /**
    * Default constructor.
    */
-  public EMailTests()
+  /* default */ EMailTests()
    {
     super();
    }

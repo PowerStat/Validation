@@ -59,7 +59,7 @@ final class BuildingNrTests
   /**
    * Default constructor.
    */
-  public BuildingNrTests()
+  /* default */ BuildingNrTests()
    {
     super();
    }

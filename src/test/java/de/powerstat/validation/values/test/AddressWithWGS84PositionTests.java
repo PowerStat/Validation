@@ -127,7 +127,7 @@ final class AddressWithWGS84PositionTests
   /**
    * Default constructor.
    */
-  public AddressWithWGS84PositionTests()
+  /* default */ AddressWithWGS84PositionTests()
    {
     super();
    }

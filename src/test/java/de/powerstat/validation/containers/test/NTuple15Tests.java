@@ -167,11 +167,16 @@ final class NTuple15Tests
    */
   private static final String TUPLE151_IS_EQUAL = "tuple151 is equal"; //$NON-NLS-1$
 
+  /**
+   * Suppress sonarqube warning.
+   */
+  private static final String JAVA_S5785 = "java:S5785"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
    */
-  public NTuple15Tests()
+  /* default */ NTuple15Tests()
    {
     super();
    }
@@ -224,7 +229,7 @@ final class NTuple15Tests
    * Test equals.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testEquals()
    {
     final NTuple15<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple15.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
@@ -248,7 +253,7 @@ final class NTuple15Tests
    * Test equals.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testEquals2()
    {
     final NTuple15<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple15.of(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
@@ -289,7 +294,7 @@ final class NTuple15Tests
    * Test equals.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testEquals3()
    {
     final NTuple15<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple15.of(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
@@ -341,7 +346,7 @@ final class NTuple15Tests
    * Test compareTo.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testCompareTo()
    {
     final NTuple15<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple15.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
@@ -363,7 +368,7 @@ final class NTuple15Tests
    * Test compareTo.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testCompareTo2()
    {
     final NTuple15<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple15.of(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
@@ -405,7 +410,7 @@ final class NTuple15Tests
    * Test compareTo.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testCompareTo3()
    {
     final NTuple15<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple15.of(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
@@ -447,7 +452,7 @@ final class NTuple15Tests
    * Test compareTo.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testCompareTo4()
    {
     final NTuple15<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1a = NTuple15.of(Integer.valueOf(1), null, null, null, null, null, null, null, null, null, null, null, null, null, null);
@@ -502,7 +507,7 @@ final class NTuple15Tests
    * Test compareTo.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testCompareTo5()
    {
     final NTuple15<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1a = NTuple15.of(Integer.valueOf(1), Integer.valueOf(1), null, null, null, null, null, null, null, null, null, null, null, null, null);

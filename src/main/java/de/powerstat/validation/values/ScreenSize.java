@@ -187,8 +187,6 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
   @Override
   public boolean equals(final Object obj)
    {
-    return this == obj;
-    /*
     if (this == obj)
      {
       return true;
@@ -198,12 +196,7 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
       return false;
      }
     final ScreenSize other = (ScreenSize)obj;
-    if ((this.width == other.width) && (this.height == other.height))
-     {
-      return this.name.equals(other.name);
-     }
-    return false;
-    */
+    return (this.width == other.width) && (this.height == other.height) && this.name.equals(other.name);
    }
 
 

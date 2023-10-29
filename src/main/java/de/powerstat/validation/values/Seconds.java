@@ -130,8 +130,6 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
   @Override
   public boolean equals(final Object obj)
    {
-    return this == obj;
-    /*
     if (this == obj)
      {
       return true;
@@ -141,8 +139,7 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
       return false;
      }
     final Seconds other = (Seconds)obj;
-    return false; // this.seconds == other.seconds;
-    */
+    return this.seconds == other.seconds;
    }
 
 

@@ -72,7 +72,7 @@ final class IPV4MaskTests
   /**
    * Default constructor.
    */
-  public IPV4MaskTests()
+  /* default */ IPV4MaskTests()
    {
     super();
    }

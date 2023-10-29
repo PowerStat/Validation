@@ -49,7 +49,7 @@ final class PostalCodeTests
   /**
    * Default constructor.
    */
-  public PostalCodeTests()
+  /* default */ PostalCodeTests()
    {
     super();
    }

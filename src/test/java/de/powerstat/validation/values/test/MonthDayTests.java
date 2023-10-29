@@ -55,7 +55,7 @@ final class MonthDayTests
   /**
    * Default constructor.
    */
-  public MonthDayTests()
+  /* default */ MonthDayTests()
    {
     super();
    }

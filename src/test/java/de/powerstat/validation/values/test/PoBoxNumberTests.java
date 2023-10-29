@@ -39,7 +39,7 @@ final class PoBoxNumberTests
   /**
    * Default constructor.
    */
-  public PoBoxNumberTests()
+  /* default */ PoBoxNumberTests()
    {
     super();
    }

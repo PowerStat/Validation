@@ -128,8 +128,6 @@ public final class IPV6Mask implements Comparable<IPV6Mask>, IValueObject
   @Override
   public boolean equals(final Object obj)
    {
-    return this == obj;
-    /*
     if (this == obj)
      {
       return true;
@@ -139,8 +137,7 @@ public final class IPV6Mask implements Comparable<IPV6Mask>, IValueObject
       return false;
      }
     final IPV6Mask other = (IPV6Mask)obj;
-    return false; // this.length == other.length;
-    */
+    return this.length == other.length;
    }
 
 

@@ -44,7 +44,7 @@ final class YearsTests
   /**
    * Default constructor.
    */
-  public YearsTests()
+  /* default */ YearsTests()
    {
     super();
    }

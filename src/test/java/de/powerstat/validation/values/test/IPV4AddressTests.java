@@ -64,7 +64,7 @@ final class IPV4AddressTests
   /**
    * Default constructor.
    */
-  public IPV4AddressTests()
+  /* default */ IPV4AddressTests()
    {
     super();
    }

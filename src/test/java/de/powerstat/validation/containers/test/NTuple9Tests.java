@@ -67,11 +67,16 @@ final class NTuple9Tests
    */
   private static final String TUPLE18_IS_EQUAL = "tuple18 is equal"; //$NON-NLS-1$
 
+  /**
+   * Suppress sonarqube warning.
+   */
+  private static final String JAVA_S5785 = "java:S5785"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
    */
-  public NTuple9Tests()
+  /* default */ NTuple9Tests()
    {
     super();
    }
@@ -118,7 +123,7 @@ final class NTuple9Tests
    * Test equals.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testEquals()
    {
     final NTuple9<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple9.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
@@ -142,7 +147,7 @@ final class NTuple9Tests
    * Test equals.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testEquals2()
    {
     final NTuple9<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple9.of(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
@@ -180,7 +185,7 @@ final class NTuple9Tests
    * Test compareTo.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testCompareTo()
    {
     final NTuple9<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple9.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
@@ -202,7 +207,7 @@ final class NTuple9Tests
    * Test compareTo.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testCompareTo2()
    {
     final NTuple9<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple9.of(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));

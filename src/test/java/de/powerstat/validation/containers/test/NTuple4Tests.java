@@ -42,11 +42,16 @@ final class NTuple4Tests
    */
   private static final String TUPLE13_IS_EQUAL = "tuple13 is equal"; //$NON-NLS-1$
 
+  /**
+   * Suppress sonarqube warning.
+   */
+  private static final String JAVA_S5785 = "java:S5785"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
    */
-  public NTuple4Tests()
+  /* default */ NTuple4Tests()
    {
     super();
    }
@@ -88,7 +93,7 @@ final class NTuple4Tests
    * Test equals.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testEquals()
    {
     final NTuple4<Integer, Integer, Integer, Integer> tuple1 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(4));
@@ -112,7 +117,7 @@ final class NTuple4Tests
    * Test equals.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testEquals2()
    {
     final NTuple4<Integer, Integer, Integer, Integer> tuple1 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
@@ -140,7 +145,7 @@ final class NTuple4Tests
    * Test compareTo.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testCompareTo()
    {
     final NTuple4<Integer, Integer, Integer, Integer> tuple1 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(4));
@@ -162,7 +167,7 @@ final class NTuple4Tests
    * Test compareTo.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testCompareTo2()
    {
     final NTuple4<Integer, Integer, Integer, Integer> tuple1 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));

@@ -49,7 +49,7 @@ final class BICTests
   /**
    * Default constructor.
    */
-  public BICTests()
+  /* default */ BICTests()
    {
     super();
    }

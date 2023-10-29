@@ -58,11 +58,16 @@ final class ScreenSizeTests
    */
   private static final String HEIGHT_IS_NOT_EQUAL = "height is not equal"; //$NON-NLS-1$
 
+  /**
+   * Suppress sonarqube warning.
+   */
+  private static final String JAVA_S5785 = "java:S5785"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
    */
-  public ScreenSizeTests()
+  /* default */ ScreenSizeTests()
    {
     super();
    }
@@ -188,7 +193,7 @@ final class ScreenSizeTests
    * Test equals.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testEquals()
    {
     final ScreenSize size1 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
@@ -212,7 +217,7 @@ final class ScreenSizeTests
    * Test not equals.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testNotEquals()
    {
     final ScreenSize size1 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
@@ -238,7 +243,7 @@ final class ScreenSizeTests
    * Test compareTo.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testCompareTo()
    {
     final ScreenSize size1 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
@@ -260,7 +265,7 @@ final class ScreenSizeTests
    * Test compareTo2.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testCompareTo2()
    {
     final ScreenSize size1 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);

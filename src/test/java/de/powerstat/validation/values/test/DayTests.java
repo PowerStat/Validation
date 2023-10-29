@@ -50,7 +50,7 @@ final class DayTests
   /**
    * Default constructor.
    */
-  public DayTests()
+  /* default */ DayTests()
    {
     super();
    }

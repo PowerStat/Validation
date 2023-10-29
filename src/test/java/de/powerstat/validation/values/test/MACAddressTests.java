@@ -65,7 +65,7 @@ final class MACAddressTests
   /**
    * Default constructor.
    */
-  public MACAddressTests()
+  /* default */ MACAddressTests()
    {
     super();
    }

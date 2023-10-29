@@ -42,7 +42,7 @@ final class IPV6MaskTests
   /**
    * Default constructor.
    */
-  public IPV6MaskTests()
+  /* default */ IPV6MaskTests()
    {
     super();
    }

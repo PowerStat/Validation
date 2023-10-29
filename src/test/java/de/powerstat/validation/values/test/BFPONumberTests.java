@@ -39,7 +39,7 @@ final class BFPONumberTests
   /**
    * Default constructor.
    */
-  public BFPONumberTests()
+  /* default */ BFPONumberTests()
    {
     super();
    }

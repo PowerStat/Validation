@@ -128,8 +128,6 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
   @Override
   public boolean equals(final Object obj)
    {
-    return this == obj;
-    /*
     if (this == obj)
      {
       return true;
@@ -139,8 +137,7 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
       return false;
      }
     final BFPONumber other = (BFPONumber)obj;
-    return false; // this.bFPONumber == other.bFPONumber;
-    */
+    return this.bFPONumber == other.bFPONumber;
    }
 
 

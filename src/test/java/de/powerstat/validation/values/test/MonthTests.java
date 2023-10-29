@@ -50,7 +50,7 @@ final class MonthTests
   /**
    * Default constructor.
    */
-  public MonthTests()
+  /* default */ MonthTests()
    {
     super();
    }

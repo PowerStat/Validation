@@ -49,7 +49,7 @@ final class LinesTests
   /**
    * Default constructor.
    */
-  public LinesTests()
+  /* default */ LinesTests()
    {
     super();
    }

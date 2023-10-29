@@ -49,7 +49,7 @@ final class DistrictTests
   /**
    * Default constructor.
    */
-  public DistrictTests()
+  /* default */ DistrictTests()
    {
     super();
    }

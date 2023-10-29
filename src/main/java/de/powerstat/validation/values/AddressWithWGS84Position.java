@@ -195,8 +195,8 @@ public final class AddressWithWGS84Position extends Address
      {
       return true;
      }
-    if ((obj == null) || (this.getClass() != obj.getClass()))
-    // if (!(obj instanceof AddressWithWGS84Position))
+    // if ((obj == null) || (this.getClass() != obj.getClass()))
+    if (!(obj instanceof AddressWithWGS84Position))
      {
       return false;
      }

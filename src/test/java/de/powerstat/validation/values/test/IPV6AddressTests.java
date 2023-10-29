@@ -64,7 +64,7 @@ final class IPV6AddressTests
   /**
    * Default constructor.
    */
-  public IPV6AddressTests()
+  /* default */ IPV6AddressTests()
    {
     super();
    }

@@ -54,7 +54,7 @@ final class ProvinceTests
   /**
    * Default constructor.
    */
-  public ProvinceTests()
+  /* default */ ProvinceTests()
    {
     super();
    }

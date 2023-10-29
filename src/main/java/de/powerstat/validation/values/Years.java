@@ -128,8 +128,6 @@ public final class Years implements Comparable<Years>, IValueObject
   @Override
   public boolean equals(final Object obj)
    {
-    return this == obj;
-    /*
     if (this == obj)
      {
       return true;
@@ -139,8 +137,7 @@ public final class Years implements Comparable<Years>, IValueObject
       return false;
      }
     final Years other = (Years)obj;
-    return false; // this.years == other.years;
-    */
+    return this.years == other.years;
    }
 
 

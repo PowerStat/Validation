@@ -140,8 +140,6 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
   @Override
   public boolean equals(final Object obj)
    {
-    return this == obj;
-    /*
     if (this == obj)
      {
       return true;
@@ -151,8 +149,7 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
       return false;
      }
     final Millisecond other = (Millisecond)obj;
-    return false; // this.millisecond == other.millisecond;
-    */
+    return this.millisecond == other.millisecond;
    }
 
 

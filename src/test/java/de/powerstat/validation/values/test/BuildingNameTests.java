@@ -49,7 +49,7 @@ final class BuildingNameTests
   /**
    * Default constructor.
    */
-  public BuildingNameTests()
+  /* default */ BuildingNameTests()
    {
     super();
    }

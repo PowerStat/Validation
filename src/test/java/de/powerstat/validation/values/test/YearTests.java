@@ -54,7 +54,7 @@ final class YearTests
   /**
    * Default constructor.
    */
-  public YearTests()
+  /* default */ YearTests()
    {
     super();
    }
@@ -475,6 +475,9 @@ final class YearTests
 
   /**
    * Test daysWithin.
+   *
+   * @param pYear Year
+   * @param pDays Number of days in year
    */
   @ParameterizedTest
   @CsvSource({"2000,366", "2001,365", "1582,355"})

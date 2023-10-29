@@ -49,7 +49,7 @@ final class CountryTests
   /**
    * Default constructor.
    */
-  public CountryTests()
+  /* default */ CountryTests()
    {
     super();
    }

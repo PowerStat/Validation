@@ -49,7 +49,7 @@ final class NeighbourhoodTests
   /**
    * Default constructor.
    */
-  public NeighbourhoodTests()
+  /* default */ NeighbourhoodTests()
    {
     super();
    }

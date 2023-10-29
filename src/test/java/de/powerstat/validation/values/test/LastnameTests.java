@@ -49,7 +49,7 @@ final class LastnameTests
   /**
    * Default constructor.
    */
-  public LastnameTests()
+  /* default */ LastnameTests()
    {
     super();
    }

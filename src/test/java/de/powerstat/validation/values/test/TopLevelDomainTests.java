@@ -49,7 +49,7 @@ final class TopLevelDomainTests
   /**
    * Default constructor.
    */
-  public TopLevelDomainTests()
+  /* default */ TopLevelDomainTests()
    {
     super();
    }

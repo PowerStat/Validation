@@ -49,7 +49,7 @@ final class StreetTests
   /**
    * Default constructor.
    */
-  public StreetTests()
+  /* default */ StreetTests()
    {
     super();
    }

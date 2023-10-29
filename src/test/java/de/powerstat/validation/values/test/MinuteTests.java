@@ -45,7 +45,7 @@ final class MinuteTests
   /**
    * Default constructor.
    */
-  public MinuteTests()
+  /* default */ MinuteTests()
    {
     super();
    }

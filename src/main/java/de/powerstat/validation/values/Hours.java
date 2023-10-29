@@ -128,8 +128,6 @@ public final class Hours implements Comparable<Hours>, IValueObject
   @Override
   public boolean equals(final Object obj)
    {
-    return this == obj;
-    /*
     if (this == obj)
      {
       return true;
@@ -139,8 +137,7 @@ public final class Hours implements Comparable<Hours>, IValueObject
       return false;
      }
     final Hours other = (Hours)obj;
-    return false; // this.hours == other.hours;
-    */
+    return this.hours == other.hours;
    }
 
 

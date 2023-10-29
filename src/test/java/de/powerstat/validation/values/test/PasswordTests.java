@@ -61,7 +61,7 @@ final class PasswordTests
   /**
    * Default constructor.
    */
-  public PasswordTests()
+  /* default */ PasswordTests()
    {
     super();
    }

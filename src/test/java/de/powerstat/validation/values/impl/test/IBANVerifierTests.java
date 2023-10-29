@@ -31,7 +31,7 @@ final class IBANVerifierTests
   /**
    * Default Constructor.
    */
-  public IBANVerifierTests()
+  /* default */ IBANVerifierTests()
    {
     super();
    }

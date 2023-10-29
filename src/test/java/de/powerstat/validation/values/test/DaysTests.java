@@ -44,7 +44,7 @@ final class DaysTests
   /**
    * Default constructor.
    */
-  public DaysTests()
+  /* default */ DaysTests()
    {
     super();
    }

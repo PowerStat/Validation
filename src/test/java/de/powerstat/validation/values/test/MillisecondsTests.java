@@ -44,7 +44,7 @@ final class MillisecondsTests
   /**
    * Default constructor.
    */
-  public MillisecondsTests()
+  /* default */ MillisecondsTests()
    {
     super();
    }

@@ -53,11 +53,16 @@ final class WGS84PositionTests
    */
   private static final String ALTITUDE_ERROR = "Altitude error!"; //$NON-NLS-1$
 
+  /**
+   * Suppress sonarqube warning.
+   */
+  private static final String JAVA_S5785 = "java:S5785"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
    */
-  public WGS84PositionTests()
+  /* default */ WGS84PositionTests()
    {
     super();
    }
@@ -193,7 +198,7 @@ final class WGS84PositionTests
    * Test equals.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testEquals()
    {
     final WGS84Position pos1 = WGS84Position.of(0.0, 0.0, 0.0);
@@ -217,7 +222,7 @@ final class WGS84PositionTests
    * Test equals.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testEquals2()
    {
     final WGS84Position pos1 = WGS84Position.of(0.0, 0.0, 0.0);
@@ -232,7 +237,7 @@ final class WGS84PositionTests
    * Test not equals.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testNotEquals()
    {
     final WGS84Position pos1 = WGS84Position.of(0.0, 0.0, 0.0);
@@ -260,7 +265,7 @@ final class WGS84PositionTests
    * Test compareTo.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testCompareTo()
    {
     final WGS84Position pos1 = WGS84Position.of(0.0, 0.0, 0.0);
@@ -282,7 +287,7 @@ final class WGS84PositionTests
    * Test not compareTo.
    */
   @Test
-  @SuppressWarnings("java:S5785")
+  @SuppressWarnings(JAVA_S5785)
   /* default */ void testNotCompareTo()
    {
     final WGS84Position pos1 = WGS84Position.of(0.0, 0.0, 0.0);

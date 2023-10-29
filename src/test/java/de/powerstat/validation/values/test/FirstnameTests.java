@@ -49,7 +49,7 @@ final class FirstnameTests
   /**
    * Default constructor.
    */
-  public FirstnameTests()
+  /* default */ FirstnameTests()
    {
     super();
    }

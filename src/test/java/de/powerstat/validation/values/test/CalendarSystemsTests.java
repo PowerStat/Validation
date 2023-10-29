@@ -26,7 +26,7 @@ final class CalendarSystemsTests
   /**
    * Default constructor.
    */
-  public CalendarSystemsTests()
+  /* default */ CalendarSystemsTests()
    {
     super();
    }

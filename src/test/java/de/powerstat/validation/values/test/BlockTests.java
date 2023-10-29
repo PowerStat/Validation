@@ -49,7 +49,7 @@ final class BlockTests
   /**
    * Default constructor.
    */
-  public BlockTests()
+  /* default */ BlockTests()
    {
     super();
    }

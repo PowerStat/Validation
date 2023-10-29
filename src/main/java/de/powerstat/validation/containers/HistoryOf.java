@@ -70,8 +70,8 @@ public class HistoryOf<T>
      {
       return true;
      }
-    // if (!(obj instanceof HistoryOf<?>))
-    if ((obj == null) || (this.getClass() != obj.getClass()))
+    if (!(obj instanceof HistoryOf<?>))
+    // if ((obj == null) || (this.getClass() != obj.getClass()))
      {
       return false;
      }
