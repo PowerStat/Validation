@@ -23,7 +23,6 @@ Java platform module system:
       requires de.powerstat.validation;
       requires de.powerstat.validation.comparators;
       requires de.powerstat.validation.entities;
-      requires de.powerstat.validation.entities.impl;
       requires de.powerstat.validation.interfaces;
       requires de.powerstat.validation.values;
       requires de.powerstat.validation.values.containers;
