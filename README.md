@@ -21,12 +21,14 @@ Java platform module system:
     module com.example.java.app
      {
       requires de.powerstat.validation;
+      requires de.powerstat.validation.comparators;
       requires de.powerstat.validation.entities;
       requires de.powerstat.validation.entities.impl;
       requires de.powerstat.validation.interfaces;
       requires de.powerstat.validation.values;
       requires de.powerstat.validation.values.containers;
       requires de.powerstat.validation.values.strategies;
+
      }
 
 To compile this project yourself you could use:
