@@ -321,7 +321,7 @@ final class BloodGroupTests
       () -> assertFalse(BloodGroup.OP.couldReceiveFrom(BloodGroup.AN), BloodGroupTests.BG_0PAN_NOT_OK),
       () -> assertFalse(BloodGroup.OP.couldReceiveFrom(BloodGroup.AP), "0+ with A+ should not be ok"), //$NON-NLS-1$
       () -> assertFalse(BloodGroup.OP.couldReceiveFrom(BloodGroup.ABN), BloodGroupTests.BG_0PABN_NOT_OK),
-      () -> assertFalse(BloodGroup.OP.couldReceiveFrom(BloodGroup.ABP), "0+ with AB+ should not be ok") ,//$NON-NLS-1$
+      () -> assertFalse(BloodGroup.OP.couldReceiveFrom(BloodGroup.ABP), "0+ with AB+ should not be ok"), //$NON-NLS-1$
 
       () -> assertTrue(BloodGroup.BN.couldReceiveFrom(BloodGroup.ON), "B- with 0- should be ok"), //$NON-NLS-1$
       () -> assertFalse(BloodGroup.BN.couldReceiveFrom(BloodGroup.OP), BloodGroupTests.BG_BN0P_NOT_OK),

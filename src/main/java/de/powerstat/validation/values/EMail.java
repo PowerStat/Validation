@@ -19,8 +19,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Hostname exists?
  * TODO email exists check
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class EMail implements Comparable<EMail>, IValueObject
  {
   /* *

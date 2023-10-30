@@ -16,8 +16,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * TODO Listener
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Millisecond implements Comparable<Millisecond>, IValueObject
  {
   /* *

@@ -12,8 +12,6 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Screen size.
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
  {
   /* *
@@ -66,7 +64,7 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
    * ScreenSize factory.
    *
    * @param width Screen width in pixel (1-8192)
-   * @param height Screen heightin pixel (1-8192)
+   * @param height Screen height in pixel (1-8192)
    * @param name Screen size name
    * @return ScreenSize
    */

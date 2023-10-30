@@ -16,8 +16,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * TODO Weeks weeksWithin() = (50, 51,) 52, 53 (CalendarSystem, Country dependend ISO vs US)
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Year implements Comparable<Year>, IValueObject
  {
   /**

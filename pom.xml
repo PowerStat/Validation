@@ -46,7 +46,7 @@
                 <phase>generate-sources</phase>
                 <configuration>
                   <target>
-                   <mkdir dir="${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated" />
+                    <mkdir dir="${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated" />
                     <exec executable="cmd.exe">
                       <arg value="/c" />
                       <arg value="${project.basedir}\generatorTLD.bat" />
@@ -193,7 +193,7 @@
               <outputDirectory>${project.build.directory}/downloaded</outputDirectory>
               <outputFileName>tlds-alpha-by-domain.txt</outputFileName>
               <!-- <skipCache>true</skipCache> -->
-             </configuration>
+            </configuration>
           </execution>
           <execution>
             <id>get-countrycodes</id>
@@ -206,7 +206,7 @@
               <outputDirectory>${project.build.directory}/downloaded</outputDirectory>
               <outputFileName>countries.csv</outputFileName>
               <!-- <skipCache>true</skipCache> -->
-             </configuration>
+            </configuration>
           </execution>
           <execution>
             <id>get-languagecodes</id>
@@ -219,7 +219,7 @@
               <outputDirectory>${project.build.directory}/downloaded</outputDirectory>
               <outputFileName>languages.csv</outputFileName>
               <!-- <skipCache>true</skipCache> -->
-             </configuration>
+            </configuration>
           </execution>
           <execution>
             <id>get-currencycodes</id>
@@ -232,7 +232,7 @@
               <outputDirectory>${project.build.directory}/downloaded</outputDirectory>
               <outputFileName>currencies.csv</outputFileName>
               <!-- <skipCache>true</skipCache> -->
-             </configuration>
+            </configuration>
           </execution>
           <execution>
             <id>get-phonenumberareacodes</id>
@@ -268,7 +268,7 @@
           </execution>
         </executions>
       </plugin>
-      
+
       <plugin> <!-- Not working: https://issues.apache.org/jira/browse/MJDEPS-25 -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jdeps-plugin</artifactId>

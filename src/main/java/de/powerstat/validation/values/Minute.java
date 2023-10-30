@@ -17,8 +17,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Listener
  * TODO secondsWithin = 60
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Minute implements Comparable<Minute>, IValueObject
  {
   /**

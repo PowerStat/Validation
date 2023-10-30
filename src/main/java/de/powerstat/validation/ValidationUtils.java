@@ -18,7 +18,7 @@ import java.util.Objects;
 @SuppressWarnings("java:S1696")
 public final class ValidationUtils
  {
-  /**
+  /* *
    * Logger.
    */
   // private static final Logger LOGGER = LogManager.getLogger(ValidationUtils.class);

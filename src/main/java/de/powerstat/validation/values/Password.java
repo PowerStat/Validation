@@ -42,8 +42,6 @@ import de.powerstat.validation.values.strategies.PasswordDefaultStrategy;
  *      https://wiki.skullsecurity.org/Passwords
  *      https://thehacktoday.com/password-cracking-dictionarys-download-for-free/
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Password implements Comparable<Password>, IValueObject
  {
   /* *

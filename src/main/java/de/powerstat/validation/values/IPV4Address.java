@@ -19,8 +19,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO https://datahub.io/core/geoip2-ipv4/r/geoip2-ipv4.csv
  * TODO ping ok?
  */
-// @SuppressFBWarnings({"CLI_CONSTANT_LIST_INDEX", "PMB_POSSIBLE_MEMORY_BLOAT"})
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
  {
   /* *

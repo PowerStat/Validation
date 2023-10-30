@@ -15,8 +15,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * Not DSGVO relevant.
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Neighbourhood implements Comparable<Neighbourhood>, IValueObject
  {
   /* *

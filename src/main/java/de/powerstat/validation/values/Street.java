@@ -17,8 +17,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * TODO Verify with openstreetmap
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Street implements Comparable<Street>, IValueObject
  {
   /* *

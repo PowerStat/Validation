@@ -10,6 +10,8 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Weekday.
  *
+ * Not DSGVO relevant.
+ *
  * TODO: getShortName (language)
  * TODO: getName (language)
  * TODO: FirstWeekday: set, get (country dependend) Monday, Sunday, Saturday
@@ -72,6 +74,18 @@ public enum Weekday implements IValueObject
   Weekday(final int action)
    {
     this.action = action;
+   }
+
+
+  /**
+   * Weekday factory.
+   *
+   * @param value Weekday enum string
+   * @return Weekday enum
+   */
+  public static Weekday of(final String value)
+   {
+    return Weekday.valueOf(value);
    }
 
 

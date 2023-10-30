@@ -17,7 +17,7 @@ import de.powerstat.validation.values.EMail;
  */
 public class UsernameConfigurableStrategy implements IUsernameStrategy
  {
-  /**
+  /* *
    * Logger.
    */
   // private static final Logger LOGGER = LogManager.getLogger(UsernameConfigurableStrategy.class);

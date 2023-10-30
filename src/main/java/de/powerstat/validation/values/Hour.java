@@ -17,8 +17,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Listener
  * TODO minutesWithin = 60
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Hour implements Comparable<Hour>, IValueObject
  {
   /**
@@ -69,16 +67,16 @@ public final class Hour implements Comparable<Hour>, IValueObject
    {
     /*
     synchronized (Hour.class)
-    {
-     Hour obj = Hour.CACHE.get(hour);
-     if (obj != null)
-      {
-       return obj;
-      }
-     obj = new Hour(hour);
-     Hour.CACHE.put(Integer.valueOf(hour), obj);
-     return obj;
-    }
+     {
+      Hour obj = Hour.CACHE.get(hour);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Hour(hour);
+      Hour.CACHE.put(Integer.valueOf(hour), obj);
+      return obj;
+     }
     */
     return new Hour(hour);
    }

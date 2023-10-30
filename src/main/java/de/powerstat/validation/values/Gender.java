@@ -3,7 +3,9 @@
  */
 package de.powerstat.validation.values;
 
+
 import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Gender/Sex.
@@ -16,6 +18,8 @@ import de.powerstat.validation.interfaces.IValueObject;
  * This will be handled in the Person class by a history of the gender.
  *
  * @see <a href="https://at.wikimannia.org/60_Geschlechtsidentitäten">Geschlechtsidentitäten</a>
+ *
+ * Not DSGVO relevant.
  */
 public enum Gender implements IValueObject
  {

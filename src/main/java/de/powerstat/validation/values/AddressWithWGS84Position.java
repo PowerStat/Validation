@@ -15,8 +15,6 @@ import java.util.Objects;
  *
  * TODO compareTo(): AddressWithWGS84Position
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class AddressWithWGS84Position extends Address
  {
   /* *

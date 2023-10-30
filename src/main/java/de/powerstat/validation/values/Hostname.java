@@ -25,8 +25,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Verify TopLevelDomain
  * TODO ping ok?
  */
-// @SuppressFBWarnings({"EXS_EXCEPTION_SOFTENING_RETURN_FALSE", "PMB_POSSIBLE_MEMORY_BLOAT"})
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Hostname implements Comparable<Hostname>, IValueObject
  {
   /**

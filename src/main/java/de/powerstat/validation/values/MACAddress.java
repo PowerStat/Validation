@@ -19,8 +19,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Exists in network
  * http://standards-oui.ieee.org/oui/oui.csv
  */
-// @SuppressFBWarnings({"CLI_CONSTANT_LIST_INDEX", "PMB_POSSIBLE_MEMORY_BLOAT"})
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class MACAddress implements Comparable<MACAddress>, IValueObject
  {
   /* *

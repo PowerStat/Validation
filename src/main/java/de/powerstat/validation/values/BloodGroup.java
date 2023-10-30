@@ -16,6 +16,8 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Blood group AB0 rhesus system.
  *
  * @see <a href="https://de.wikipedia.org/wiki/Blutgruppe">Blutgruppe</a>
+ *
+ * Not DSGVO relevant.
  */
 public enum BloodGroup implements IValueObject
  {

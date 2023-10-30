@@ -18,8 +18,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Listener
  * TODO daysWithin = 7
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Week implements Comparable<Week>, IValueObject
  {
   /**

@@ -17,11 +17,9 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * TODO optimize constructor/compareTo
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
  {
-  /**
+  /* *
    * Logger.
    */
   // private static final Logger LOGGER = LogManager.getLogger(BuildingNr.class);
@@ -215,14 +213,14 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
          {
           return 1;
          }
-          if (matcher1.group(7).compareTo(matcher2.group(7)) != 0)
-           {
-            throw new IllegalStateException("BuildingNrs do not have the same denominator"); //$NON-NLS-1$
-           }
-          result = Integer.compare(Integer.parseInt(matcher1.group(6)), Integer.parseInt(matcher2.group(6)));
-          if (result != 0)
-           {
-            return result;
+        if (matcher1.group(7).compareTo(matcher2.group(7)) != 0)
+         {
+          throw new IllegalStateException("BuildingNrs do not have the same denominator"); //$NON-NLS-1$
+         }
+        result = Integer.compare(Integer.parseInt(matcher1.group(6)), Integer.parseInt(matcher2.group(6)));
+        if (result != 0)
+         {
+          return result;
          }
        }
       if ((matcher1.group(8) != null) || (matcher2.group(8) != null)) // a-z

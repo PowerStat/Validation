@@ -19,8 +19,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Listener
  * TODO Translations short/long
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Month implements Comparable<Month>, IValueObject
  {
   /* *

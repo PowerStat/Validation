@@ -18,8 +18,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Listener  (mod 60 = 0)
  * TODO millisecondsWithin = 1000
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Second implements Comparable<Second>, IValueObject
  {
   /**

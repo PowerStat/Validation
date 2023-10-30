@@ -18,8 +18,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * TODO Translations
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Country implements Comparable<Country>, IValueObject
  {
   /* *

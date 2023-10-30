@@ -20,8 +20,6 @@ import de.powerstat.validation.values.impl.IBANVerifierAbstractFactory;
  * TODO https://openiban.com/
  * TODO Human format in/out
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class IBAN implements Comparable<IBAN>, IValueObject
  {
   /* *

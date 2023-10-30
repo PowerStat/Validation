@@ -20,7 +20,7 @@ import de.powerstat.validation.ValidationUtils;
  */
 final class ValidationUtilsTests
  {
-  /**
+  /* *
    * Logger.
    */
   // private static final Logger LOGGER = LogManager.getLogger(ValidationUtilsTests.class);

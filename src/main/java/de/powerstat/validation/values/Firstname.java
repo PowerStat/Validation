@@ -17,8 +17,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * @see <a href="https://de.wikipedia.org/wiki/Vorname_(Deutschland)">Vorname</a>
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Firstname implements Comparable<Firstname>, IValueObject
  {
   /* *

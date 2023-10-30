@@ -15,8 +15,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * DSGVO relevant.
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Lastname implements Comparable<Lastname>, IValueObject
  {
   /* *

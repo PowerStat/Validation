@@ -15,8 +15,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * Not DSGVO relevant.
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Lines implements Comparable<Lines>, IValueObject
  {
   /* *
@@ -89,7 +87,7 @@ public final class Lines implements Comparable<Lines>, IValueObject
 
 
   /**
-   *Returns the value of this Lines as a string.
+   * Returns the value of this Lines as a string.
    *
    * @return The text value represented by this object after conversion to type string.
    */

@@ -29,8 +29,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO format date
  * TODO parse date
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class GregorianDate implements Comparable<GregorianDate>, IValueObject
  {
   /* *
@@ -282,7 +280,7 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
     final long b = year.longValue() / 100;
     final long c = year.longValue() % 100;
     final long d = ((((19 * a) + b) - (b / 4) - (((b - ((b + 8) / 25)) + 1) / 3)) + 15) % 30;
-    final long e  = ((32 + (2 * (b % 4)) + (2 * (c / 4))) - d - (c % 4)) % 7;
+    final long e = ((32 + (2 * (b % 4)) + (2 * (c / 4))) - d - (c % 4)) % 7;
     final long f = ((d + e) - (7 * ((a + (11 * d) + (22 * e)) / 451))) + 114;
     final var day = Day.of(((int)f % 31) + 1);
     final var month = Month.of((int)(f / 31));

@@ -19,8 +19,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Listener
  * TODO hoursWithin = 24
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Day implements Comparable<Day>, IValueObject
  {
   /**

@@ -15,8 +15,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * Possibly DSGVO relevant.
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
  {
   /* *

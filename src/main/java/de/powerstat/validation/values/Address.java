@@ -25,7 +25,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Get/cache GPS posiion for address
  */
 // @SuppressFBWarnings{("CC_CYCLOMATIC_COMPLEXITY", "PMB_POSSIBLE_MEMORY_BLOAT"})
-@SuppressWarnings({"java:S923", "java:S3776", "PMD.ExcessiveClassLength", "PMD.UseConcurrentHashMap"})
+@SuppressWarnings({"java:S923", "java:S3776", "PMD.ExcessiveClassLength"})
 public class Address implements Comparable<Address>, IValueObject
  {
   /* *
@@ -769,7 +769,7 @@ public class Address implements Comparable<Address>, IValueObject
           if (result)
            {
             result = equalField(this.district, other.district);
-             if (result)
+            if (result)
              {
               result = equalField(this.street, other.street);
               if (result)

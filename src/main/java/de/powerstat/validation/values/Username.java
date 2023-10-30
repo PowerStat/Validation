@@ -20,8 +20,6 @@ import de.powerstat.validation.values.strategies.UsernameDefaultStrategy;
  * TODO case sensitive or insensitive?
  * TODO Comparable&lt;EMail&gt;
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Username implements Comparable<Username>, IValueObject
  {
   /* *

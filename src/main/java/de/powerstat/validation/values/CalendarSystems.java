@@ -9,6 +9,8 @@ import de.powerstat.validation.interfaces.IValueObject;
 
 /**
  * Supported calendar systems.
+ *
+ * Not DSGVO relevant.
  */
 public enum CalendarSystems implements IValueObject
  {

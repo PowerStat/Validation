@@ -681,7 +681,7 @@
       <property name="severity" value="warning"/>
       <property name="accessModifiers" value="public, protected, package, private"/>
       <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-      <property name="ignoreOverridden  " value="false"/>
+      <property name="ignoreOverridden" value="false"/>
     </module>
     <module name="PatternVariableName">
       <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
@@ -866,7 +866,7 @@
     <module name="WhitespaceAround">
       <property name="severity" value="warning"/>
       <property name="allowEmptyCatches" value="false"/>
-      <property name="allowEmptyConstructors  " value="false"/>
+      <property name="allowEmptyConstructors" value="false"/>
       <property name="allowEmptyLambdas" value="false"/>
       <property name="allowEmptyLoops" value="false"/>
       <property name="allowEmptyMethods" value="false"/>

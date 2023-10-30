@@ -311,7 +311,7 @@ final class MillisecondsTests
   /* default */ void testModulo1()
    {
     final Milliseconds milliseconds1 = Milliseconds.of(10);
-    final Milliseconds millisecondsResult =milliseconds1.modulo(2);
+    final Milliseconds millisecondsResult = milliseconds1.modulo(2);
     assertEquals(0, millisecondsResult.longValue(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 

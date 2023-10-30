@@ -14,8 +14,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * Not DSGVO relevant.
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class Hours implements Comparable<Hours>, IValueObject
  {
   /* *
@@ -56,16 +54,16 @@ public final class Hours implements Comparable<Hours>, IValueObject
    {
     /*
     synchronized (Hours.class)
-    {
-     Hours obj = Hours.CACHE.get(hours);
-     if (obj != null)
-      {
-       return obj;
-      }
-     obj = new Hours(hours);
-     Hours.CACHE.put(Long.valueOf(hours), obj);
-     return obj;
-    }
+     {
+      Hours obj = Hours.CACHE.get(hours);
+      if (obj != null)
+       {
+        return obj;
+       }
+      obj = new Hours(hours);
+      Hours.CACHE.put(Long.valueOf(hours), obj);
+      return obj;
+     }
     */
     return new Hours(hours);
    }

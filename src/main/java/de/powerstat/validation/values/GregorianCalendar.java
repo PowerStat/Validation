@@ -18,8 +18,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * TODO More country reform dates
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class GregorianCalendar implements Comparable<GregorianCalendar>, IValueObject
  {
   /* *
@@ -73,7 +71,7 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
   private final Country country;
 
 
-  /**
+  /* *
    * Static initialization.
    */
   static

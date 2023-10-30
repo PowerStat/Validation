@@ -18,8 +18,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO IPV4Address filterMin(IPV4Address)      0
  * TODO IPV4Address filterMax(IPV4Address)      255
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
  {
   /* *
@@ -86,7 +84,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
    }
 
 
-  /**
+  /* *
    * Constructor.
    *
    * @param mask Mask in the form like 255.255.255.0

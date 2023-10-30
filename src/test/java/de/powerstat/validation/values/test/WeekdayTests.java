@@ -38,7 +38,7 @@ final class WeekdayTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(1, Weekday.MONDAY.getAction(), MONDAY_ACTION_NOT_AS_EXPECTED);
+    assertEquals(1, Weekday.of("MONDAY").getAction(), MONDAY_ACTION_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 

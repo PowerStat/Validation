@@ -18,8 +18,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO output formats
  * TODO Get address for position if possible
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class WGS84Position implements Comparable<WGS84Position>, IValueObject
  {
   /* *

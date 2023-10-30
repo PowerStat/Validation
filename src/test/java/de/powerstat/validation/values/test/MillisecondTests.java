@@ -73,6 +73,7 @@ final class MillisecondTests
     assertEquals(millisecond, Millisecond.of(millisecond).intValue(), MillisecondTests.NOT_MILLISECOND);
    }
 
+
   /**
    * Is not a millisecond.
    *

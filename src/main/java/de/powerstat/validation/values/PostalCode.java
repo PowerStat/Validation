@@ -20,8 +20,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * TODO Country specific
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
 public final class PostalCode implements Comparable<PostalCode>, IValueObject
  {
   /* *
