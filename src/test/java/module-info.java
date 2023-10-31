@@ -6,7 +6,7 @@
 /**
  * Validation module in test.
  */
-module de.powerstat.validation
+open module de.powerstat.validation
  {
   exports de.powerstat.validation;
   exports de.powerstat.validation.comparators;
@@ -18,8 +18,14 @@ module de.powerstat.validation
 
   requires org.apache.logging.log4j;
   requires org.apache.commons.net;
-  requires edu.umd.cs.findbugs.annotations;
+  requires com.github.spotbugs.annotations;
+  
   requires org.junit.jupiter.api;
+  requires org.junit.jupiter.params;
+  requires org.junit.platform.launcher;
+  requires org.junit.platform.suite.api;
   // requires io.cucumber.java;
+  // requires io.cucumber.junit.platform.engine;
+  // requires nl.jqno.equalsverifier;
 
  }
