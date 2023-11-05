@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -16,6 +16,8 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Blood group AB0 rhesus system.
  *
  * @see <a href="https://de.wikipedia.org/wiki/Blutgruppe">Blutgruppe</a>
+ *
+ * Not DSGVO relevant.
  */
 public enum BloodGroup implements IValueObject
  {
@@ -194,6 +196,18 @@ public enum BloodGroup implements IValueObject
 
 
   /**
+   * BloodGroup factory.
+   *
+   * @param value Enum name string
+   * @return BloodGroup enum
+   */
+  public static BloodGroup of(final String value)
+   {
+    return BloodGroup.valueOf(value);
+   }
+
+
+  /**
    * Get action number.
    *
    * @return Action number
@@ -201,6 +215,18 @@ public enum BloodGroup implements IValueObject
   public int getAction()
    {
     return this.action;
+   }
+
+
+  /**
+   * Returns the value of this BloodGroup as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.name();
    }
 
 

@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 
-import de.powerstat.validation.entities.impl.HistoryOf;
+import de.powerstat.validation.containers.HistoryOf;
 import de.powerstat.validation.values.Lastname;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

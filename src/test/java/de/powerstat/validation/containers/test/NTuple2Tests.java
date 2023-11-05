@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
-package de.powerstat.validation.values.containers.test;
+package de.powerstat.validation.containers.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import de.powerstat.validation.values.containers.NTuple2;
+import de.powerstat.validation.containers.NTuple2;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
@@ -20,12 +20,12 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * NTuple2 tests.
  */
 @SuppressFBWarnings({"CE_CLASS_ENVY", "RV_NEGATING_RESULT_OF_COMPARETO", "SPP_USE_ZERO_WITH_COMPARATOR", "EC_NULL_ARG"})
-public class NTuple2Tests
+final class NTuple2Tests
  {
   /**
    * Default constructor.
    */
-  public NTuple2Tests()
+  /* default */ NTuple2Tests()
    {
     super();
    }
@@ -35,7 +35,7 @@ public class NTuple2Tests
    * Factory test.
    */
   @Test
-  public void ofIntInt()
+  /* default */ void testOfInt()
    {
     final NTuple2<Integer, Integer> tuple = NTuple2.of(Integer.valueOf(1), Integer.valueOf(4711));
     assertAll("testGetValue", //$NON-NLS-1$
@@ -49,7 +49,7 @@ public class NTuple2Tests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final NTuple2<Integer, Integer> tuple1 = NTuple2.of(Integer.valueOf(1), Integer.valueOf(4711));
     final NTuple2<Integer, Integer> tuple2 = NTuple2.of(Integer.valueOf(1), Integer.valueOf(4711));
@@ -65,7 +65,8 @@ public class NTuple2Tests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testEquals()
    {
     final NTuple2<Integer, Integer> tuple1 = NTuple2.of(Integer.valueOf(1), Integer.valueOf(4711));
     final NTuple2<Integer, Integer> tuple2 = NTuple2.of(Integer.valueOf(1), Integer.valueOf(4711));
@@ -88,7 +89,7 @@ public class NTuple2Tests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final NTuple2<Integer, Integer> tuple1 = NTuple2.of(Integer.valueOf(1), Integer.valueOf(4711));
     assertEquals("NTuple2[object1=1, object2=4711]", tuple1.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -99,7 +100,8 @@ public class NTuple2Tests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final NTuple2<Integer, Integer> tuple1 = NTuple2.of(Integer.valueOf(1), Integer.valueOf(4711));
     final NTuple2<Integer, Integer> tuple2 = NTuple2.of(Integer.valueOf(1), Integer.valueOf(4711));

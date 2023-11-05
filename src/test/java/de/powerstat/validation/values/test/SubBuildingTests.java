@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Sub building tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class SubBuildingTests
+final class SubBuildingTests
  {
   /**
    * Floor 13 apartment 0815.
@@ -49,7 +49,7 @@ public class SubBuildingTests
   /**
    * Default constructor.
    */
-  public SubBuildingTests()
+  /* default */ SubBuildingTests()
    {
     super();
    }
@@ -62,7 +62,7 @@ public class SubBuildingTests
    */
   @ParameterizedTest
   @ValueSource(strings = {SubBuildingTests.FLOOR_13_APART_0815, "A", "Abcdefghijklmnopqrstuvwxyzabcdef"})
-  public void subBuildingCorrect(final String subBuilding)
+  /* default */ void testSubBuildingCorrect(final String subBuilding)
    {
     final SubBuilding cleanSubBuilding = SubBuilding.of(subBuilding);
     assertEquals(subBuilding, cleanSubBuilding.subBuilding(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
@@ -76,7 +76,7 @@ public class SubBuildingTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "Abcdefghijklmnopqrstuvwxyzabcdefg"})
-  public void subBuildingLength(final String subBuilding)
+  /* default */ void testSubBuildingLength(final String subBuilding)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -93,7 +93,7 @@ public class SubBuildingTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"abc_def"})
-  public void subBuildingWrong(final String subBuilding)
+  /* default */ void testSubBuildingWrong(final String subBuilding)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -104,10 +104,22 @@ public class SubBuildingTests
 
 
   /**
+   * Test get subBuilding.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final SubBuilding subBuilding = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
+    assertEquals(SubBuildingTests.FLOOR_13_APART_0815, subBuilding.stringValue(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final SubBuilding subBuilding1 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
     final SubBuilding subBuilding2 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);

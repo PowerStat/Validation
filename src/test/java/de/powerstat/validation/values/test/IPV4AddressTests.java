@@ -22,7 +22,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Tests for IP V4 address class.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class IPV4AddressTests
+final class IPV4AddressTests
  {
   /**
    * Private ip address 192.168.1.1.
@@ -63,7 +63,7 @@ public class IPV4AddressTests
   /**
    * Default constructor.
    */
-  public IPV4AddressTests()
+  /* default */ IPV4AddressTests()
    {
     super();
    }
@@ -73,7 +73,7 @@ public class IPV4AddressTests
    * Test constructor failure illegal argument.
    */
   @Test
-  public void constructorFailure0()
+  /* default */ void testConstructorFailure0()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -87,7 +87,7 @@ public class IPV4AddressTests
    * Test constructor failure null pointer.
    */
   @Test
-  public void constructorFailure1()
+  /* default */ void testConstructorFailure1()
    {
     assertThrows(NullPointerException.class, () ->
      {
@@ -101,7 +101,7 @@ public class IPV4AddressTests
    * Test constructor failure illegal argument.
    */
   @Test
-  public void constructorFailure2()
+  /* default */ void testConstructorFailure2()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -115,7 +115,7 @@ public class IPV4AddressTests
    * Test constructor failure illegal argument.
    */
   @Test
-  public void constructorFailure3()
+  /* default */ void testConstructorFailure3()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -132,7 +132,7 @@ public class IPV4AddressTests
    */
   @ParameterizedTest
   @ValueSource(strings = {IPV4AddressTests.PRIVATE_IP_192_168_1_1, "10.0.0.1", "172.16.0.1", "172.31.0.1", "169.254.0.1"})
-  public void isPrivate(final String ipv4)
+  /* default */ void testIsPrivate(final String ipv4)
    {
     final IPV4Address address = IPV4Address.of(ipv4);
     assertTrue(address.isPrivate(), IPV4AddressTests.ADDRESS_IS_NOT_PRIVATE);
@@ -146,7 +146,7 @@ public class IPV4AddressTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"172.15.0.0", "172.32.0.0", "192.167.0.0", "169.253.0.0"})
-  public void isNotPrivate(final String ipv4)
+  /* default */ void testIsNotPrivate(final String ipv4)
    {
     final IPV4Address address = IPV4Address.of(ipv4);
     assertFalse(address.isPrivate(), "Address is private"); //$NON-NLS-1$
@@ -160,7 +160,7 @@ public class IPV4AddressTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"127.0.0.1", "0.0.0.1", "192.0.0.1", "192.0.2.1", "192.88.99.1", "198.18.0.1", "198.51.100.1", "203.0.113.1", "224.0.0.1", "240.0.0.1", "255.255.255.255", "100.64.0.1", "198.19.0.1", "100.127.0.1", "239.0.0.1"})
-  public void isSpecial(final String ipv4)
+  /* default */ void testIsSpecial(final String ipv4)
    {
     final IPV4Address address = IPV4Address.of(ipv4);
     assertTrue(address.isSpecial(), IPV4AddressTests.ADDRESS_IS_NOT_SPECIAL);
@@ -174,7 +174,7 @@ public class IPV4AddressTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"223.0.0.0", "198.17.0.0", "198.20.0.0", "100.63.0.0", "100.128.0.0", "192.0.1.0", "192.88.98.0", "198.51.99.0", "203.0.112.0", "203.1.113.0"})
-  public void isNotSpecial(final String ipv4)
+  /* default */ void testIsNotSpecial(final String ipv4)
    {
     final IPV4Address address = IPV4Address.of(ipv4);
     assertFalse(address.isSpecial(), "Address is special"); //$NON-NLS-1$
@@ -185,7 +185,7 @@ public class IPV4AddressTests
    * Test if ip v4 is public.
    */
   @Test
-  public void isPublic0()
+  /* default */ void testIsPublic0()
    {
     final IPV4Address address = IPV4Address.of("8.8.8.8"); //$NON-NLS-1$
     assertTrue(address.isPublic(), IPV4AddressTests.ADDRESS_IS_NOT_PUBLIC);
@@ -199,7 +199,7 @@ public class IPV4AddressTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"192.168.0.1", "127.0.0.0"})
-  public void isNotPublic0(final String adr)
+  /* default */ void testIsNotPublic0(final String adr)
    {
     final IPV4Address address = IPV4Address.of(adr);
     assertFalse(address.isPublic(), IPV4AddressTests.ADDRESS_IS_NOT_PUBLIC);
@@ -207,10 +207,22 @@ public class IPV4AddressTests
 
 
   /**
+   * Test get address.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final IPV4Address address = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
+    assertEquals(IPV4AddressTests.PRIVATE_IP_192_168_1_1, address.stringValue(), IPV4AddressTests.ADDRESS_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final IPV4Address address1 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
     final IPV4Address address2 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);

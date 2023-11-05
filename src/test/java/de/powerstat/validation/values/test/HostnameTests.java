@@ -22,7 +22,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Hostname tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class HostnameTests
+final class HostnameTests
  {
   /**
    * Private ip address 192.168.1.1.
@@ -68,7 +68,7 @@ public class HostnameTests
   /**
    * Default constructor.
    */
-  public HostnameTests()
+  /* default */ HostnameTests()
    {
     super();
    }
@@ -81,7 +81,7 @@ public class HostnameTests
    */
   @ParameterizedTest
   @ValueSource(strings = {HostnameTests.WWW_POWERSTAT_DE, "a.de", "www.powerstat012345678901234567890123456789012345678901234567890123.de", "abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdef.com", "192.168.0.1", "00fe:0080:0000:0000:0000:0000:0000:0000"})
-  public void hostnameOk0(final String hostname)
+  /* default */ void testHostnameOk0(final String hostname)
    {
     final Hostname cleanHostname = Hostname.of(hostname);
     assertEquals(hostname, cleanHostname.hostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
@@ -92,7 +92,7 @@ public class HostnameTests
    * Test Hostname with valid hostname.
    */
   @Test
-  public void hostnameOk1()
+  /* default */ void testHostnameOk1()
    {
     final Hostname cleanHostname = Hostname.of(IPV6ZERO); //$NON-NLS-1$
     assertEquals(IPV6ZERO, cleanHostname.hostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED); //$NON-NLS-1$
@@ -106,7 +106,7 @@ public class HostnameTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"p", "www..de", "www.powerstat0123456789012345678901234567890123456789012345678901234.de", "www.powerstat1234123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234.de"})
-  public void hostnameLength(final String hostname)
+  /* default */ void testHostnameLength(final String hostname)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -123,7 +123,7 @@ public class HostnameTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"www.power~stat.de", "www.powerstat.unknown", "ACCOUNTANT", "www.-powerstat.de", "www.powerstat-.de"})
-  public void hostnameIllegalParameters(final String hostname)
+  /* default */ void testHostnameIllegalParameters(final String hostname)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -134,10 +134,21 @@ public class HostnameTests
 
 
   /**
+   * Test string value.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final Hostname hostname = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
+    assertEquals(HostnameTests.PRIVATE_IP_192_168_1_1, hostname.stringValue(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test get reverse hostname.
    */
   @Test
-  public void getReverseHostname1()
+  /* default */ void testGetReverseHostname1()
    {
     final Hostname hostname = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
     assertEquals("1.1.168.192", hostname.getReverseHostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED); //$NON-NLS-1$
@@ -148,7 +159,7 @@ public class HostnameTests
    * Test get reverse hostname.
    */
   @Test
-  public void getReverseHostname2()
+  /* default */ void testGetReverseHostname2()
    {
     final Hostname hostname = Hostname.of(HostnameTests.FD00);
     assertEquals(HostnameTests.FD00, hostname.getReverseHostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
@@ -159,7 +170,7 @@ public class HostnameTests
    * Test get reverse hostname.
    */
   @Test
-  public void getReverseHostname3()
+  /* default */ void testGetReverseHostname3()
    {
     final Hostname hostname = Hostname.of("www.example.com"); //$NON-NLS-1$
     assertEquals("com.example.www", hostname.getReverseHostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED); //$NON-NLS-1$
@@ -170,7 +181,7 @@ public class HostnameTests
    * Exists hostname in DNS.
    */
   @Test
-  public void exist()
+  /* default */ void testExist()
    {
     assertTrue(Hostname.of(HostnameTests.WWW_POWERSTAT_DE).exist(), "Should be an existing hostname"); //$NON-NLS-1$
    }
@@ -180,7 +191,7 @@ public class HostnameTests
    * Exists hostname in DNS.
    */
   @Test
-  public void existFalse()
+  /* default */ void testExistFalse()
    {
     assertFalse(Hostname.of(HostnameTests.NONEXISTANT_EXAMPLE_COM).exist(), "Should not be an existing hostname"); //$NON-NLS-1$
    }
@@ -190,7 +201,7 @@ public class HostnameTests
    * Reachable hostname.
    */
   @Test
-  public void isReachable()
+  /* default */ void testIsReachable()
    {
     assertTrue(Hostname.of(HostnameTests.WWW_POWERSTAT_DE).isReachable(1000), "Should be a reachable hostname"); //$NON-NLS-1$
    }
@@ -200,7 +211,7 @@ public class HostnameTests
    * Non reachable hostname.
    */
   @Test
-  public void isReachableFalse()
+  /* default */ void testIsReachableFalse()
    {
     assertFalse(Hostname.of(HostnameTests.NONEXISTANT_EXAMPLE_COM).isReachable(1000), "Should not be a reachable hostname"); //$NON-NLS-1$
    }
@@ -210,7 +221,8 @@ public class HostnameTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Hostname hostname1 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
     final Hostname hostname2 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);

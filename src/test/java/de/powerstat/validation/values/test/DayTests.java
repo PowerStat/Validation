@@ -22,7 +22,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Day tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class DayTests
+final class DayTests
  {
   /**
    * Result not as expected constant.
@@ -34,13 +34,53 @@ public class DayTests
    */
   private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
 
+  /**
+   * 10 constant.
+   */
+  private static final String TEN = "10"; //$NON-NLS-1$
+
+  /**
+   * Not a day constant.
+   */
+  private static final String NOT_A_DAY = "Not a day!"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
    */
-  public DayTests()
+  /* default */ DayTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string gtest.
+   */
+  @Test
+  /* default */ void testFactory1()
+   {
+    assertEquals(10, Day.of(TEN).day(), NOT_A_DAY);
+   }
+
+
+  /**
+   * day.
+   */
+  @Test
+  /* default */ void testIntValue()
+   {
+    assertEquals(10, Day.of(10).day(), NOT_A_DAY);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    assertEquals(TEN, Day.of(10).stringValue(), NOT_A_DAY);
    }
 
 
@@ -51,9 +91,9 @@ public class DayTests
    */
   @ParameterizedTest
   @ValueSource(ints = {1, 31})
-  public void isDay(final int day)
+  /* default */ void testIsDay(final int day)
    {
-    assertEquals(day, Day.of(day).day(), "Not a day!"); //$NON-NLS-1$
+    assertEquals(day, Day.of(day).day(), NOT_A_DAY);
    }
 
 
@@ -64,7 +104,7 @@ public class DayTests
    */
   @ParameterizedTest
   @ValueSource(ints = {0, 32})
-  public void isNotADay(final int day)
+  /* default */ void testIsNotADay(final int day)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -78,7 +118,8 @@ public class DayTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Day day1 = Day.of(1);
     final Day day2 = Day.of(1);
@@ -99,7 +140,7 @@ public class DayTests
    * Test add.
    */
   @Test
-  public void testAdd1()
+  /* default */ void testAdd1()
    {
     final Day day = Day.of(1);
     final Days days = Days.of(1);
@@ -112,7 +153,7 @@ public class DayTests
    * Test add.
    */
   @Test
-  public void testAdd2()
+  /* default */ void testAdd2()
    {
     final Day day = Day.of(31);
     final Days days = Days.of(1);
@@ -128,7 +169,7 @@ public class DayTests
    * Test subtract.
    */
   @Test
-  public void testSubtract1()
+  /* default */ void testSubtract1()
    {
     final Day day = Day.of(2);
     final Days days = Days.of(1);
@@ -141,7 +182,7 @@ public class DayTests
    * Test subtract.
    */
   @Test
-  public void testSubtract2()
+  /* default */ void testSubtract2()
    {
     final Day day = Day.of(1);
     final Days days = Days.of(1);
@@ -157,7 +198,7 @@ public class DayTests
    * Test increment.
    */
   @Test
-  public void testIncrement1()
+  /* default */ void testIncrement1()
    {
     final Day day = Day.of(1);
     final Day dayResult = day.increment();
@@ -169,7 +210,7 @@ public class DayTests
    * Test increment.
    */
   @Test
-  public void testIncrement2()
+  /* default */ void testIncrement2()
    {
     final Day day = Day.of(31);
     assertThrows(ArithmeticException.class, () ->
@@ -184,7 +225,7 @@ public class DayTests
    * Test decrement.
    */
   @Test
-  public void testDecrement1()
+  /* default */ void testDecrement1()
    {
     final Day day = Day.of(2);
     final Day dayResult = day.decrement();
@@ -196,7 +237,7 @@ public class DayTests
    * Test decrement.
    */
   @Test
-  public void testDecrement2()
+  /* default */ void testDecrement2()
    {
     final Day day = Day.of(1);
     assertThrows(ArithmeticException.class, () ->

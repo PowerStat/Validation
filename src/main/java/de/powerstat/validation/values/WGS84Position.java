@@ -29,6 +29,11 @@ public record WGS84Position(double latitude, double longitude, double altitude) 
    */
   private static final double EPSILON = 0.000001D;
 
+  /**
+   * Position separator.
+   */
+  private static final String SEPARATOR = " ";
+
 
   /**
    * Constructor.
@@ -62,6 +67,38 @@ public record WGS84Position(double latitude, double longitude, double altitude) 
   public static WGS84Position of(final double latitude, final double longitude, final double altitude)
    {
     return new WGS84Position(latitude, longitude, altitude);
+   }
+
+
+  /**
+   * WGS84Position factory.
+   *
+   * @param value latitude longitude altitude separated by one space
+   * @return WGS84Position object
+   */
+  public static WGS84Position of(final String value)
+   {
+    final String[] values = value.split(SEPARATOR);
+    if (values.length != 3)
+     {
+      throw new IllegalArgumentException("value not of expected format");
+     }
+    final double latitude = Double.parseDouble(values[0]);
+    final double longitude = Double.parseDouble(values[1]);
+    final double altitude = Double.parseDouble(values[2]);
+    return of(latitude, longitude, altitude);
+   }
+
+
+  /**
+   * Returns the value of this WGS84Position as a String.
+   *
+   * @return The value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.latitude + SEPARATOR + this.longitude + SEPARATOR + this.altitude;
    }
 
 

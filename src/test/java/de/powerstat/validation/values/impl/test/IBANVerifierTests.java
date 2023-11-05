@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.impl.test;
 
@@ -15,7 +15,7 @@ import de.powerstat.validation.values.impl.IBANVerifier;
 /**
  * IBAN verifier tests.
  */
-public class IBANVerifierTests
+final class IBANVerifierTests
  {
   /**
    * Illegal argument exception expected constant.
@@ -31,7 +31,7 @@ public class IBANVerifierTests
   /**
    * Default Constructor.
    */
-  public IBANVerifierTests()
+  /* default */ IBANVerifierTests()
    {
     super();
    }
@@ -41,7 +41,7 @@ public class IBANVerifierTests
    * Test constructor with illegal length.
    */
   @Test
-  public void constructor1()
+  /* default */ void testConstructor1()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -55,7 +55,7 @@ public class IBANVerifierTests
    * Test constructor with illegal regexp.
    */
   @Test
-  public void constructor2()
+  /* default */ void testConstructor2()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -69,7 +69,7 @@ public class IBANVerifierTests
    * Test constructor with illegal length.
    */
   @Test
-  public void constructor3()
+  /* default */ void testConstructor3()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -83,7 +83,7 @@ public class IBANVerifierTests
    * Test constructor with illegal regexp.
    */
   @Test
-  public void constructor4()
+  /* default */ void testConstructor4()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -97,7 +97,7 @@ public class IBANVerifierTests
    * Testverify.
    */
   @Test
-  public void verify1()
+  /* default */ void testVerify1()
    {
     final IBANVerifier iv = IBANVerifier.of(21, IBANVerifierTests.IBAN_DE_REGEXP);
     final boolean result = iv.verify("DE68210501700012345678"); //$NON-NLS-1$

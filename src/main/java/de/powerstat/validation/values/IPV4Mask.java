@@ -78,8 +78,8 @@ public record IPV4Mask(int length) implements Comparable<IPV4Mask>, IValueObject
      }
     return 0;
    }
-
-
+  
+  
   /**
    * Create bitmask from length.
    *
@@ -87,7 +87,6 @@ public record IPV4Mask(int length) implements Comparable<IPV4Mask>, IValueObject
    * @return Mask string
    */
   private static String lengthToMask(final int length)
-
    {
     String mask;
     if (length < 9)
@@ -99,9 +98,9 @@ public record IPV4Mask(int length) implements Comparable<IPV4Mask>, IValueObject
       mask = "255." + IPV4Mask.BITMASKS[length - 8] + ".0.0"; //$NON-NLS-1$ //$NON-NLS-2$
      }
     else if (length < 25)
-       {
+     {
       mask = "255.255." + IPV4Mask.BITMASKS[length - 16] + ".0"; //$NON-NLS-1$ //$NON-NLS-2$
-       }
+     }
     else
      {
       mask = "255.255.255." + IPV4Mask.BITMASKS[length - 24]; //$NON-NLS-1$
@@ -113,7 +112,7 @@ public record IPV4Mask(int length) implements Comparable<IPV4Mask>, IValueObject
   /**
    * IPV4Mask factory.
    *
-   * @param length IP V4 prefix length
+   * @param length IP V4 prefix length 0-32
    * @return IPV4Mask object
    */
   public static IPV4Mask of(final int length)
@@ -127,6 +126,8 @@ public record IPV4Mask(int length) implements Comparable<IPV4Mask>, IValueObject
    *
    * @param mask IP V4 network mask in format like 255.255.255.0
    * @return IPV4Mask object
+   *
+   * TODO mask=length as string (0-32)?
    */
   public static IPV4Mask of(final String mask)
    {
@@ -148,6 +149,7 @@ public record IPV4Mask(int length) implements Comparable<IPV4Mask>, IValueObject
    *
    * @return The text value represented by this object after conversion to type string of format 255.255.255.0.
    */
+  @Override
   public String stringValue()
    {
     return lengthToMask(this.length);

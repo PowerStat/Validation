@@ -15,6 +15,10 @@ import de.powerstat.validation.interfaces.IValueObject;
  * @param width Screen width in pixel (1-8192)
  * @param height Screen height in pixel (1-8192)
  * @param name Screen size name
+ *
+ * Not DSGVO relevant.
+ *
+ * TODO min, max
  */
 public record ScreenSize(int width, int height, String name) implements Comparable<ScreenSize>, IValueObject
  {
@@ -44,7 +48,7 @@ public record ScreenSize(int width, int height, String name) implements Comparab
    * ScreenSize factory.
    *
    * @param width Screen width in pixel (1-8192)
-   * @param height Screen heightin pixel (1-8192)
+   * @param height Screen height in pixel (1-8192)
    * @param name Screen size name
    * @return ScreenSize
    */
@@ -55,10 +59,28 @@ public record ScreenSize(int width, int height, String name) implements Comparab
 
 
   /**
+   * ScreenSize factory.
+   *
+   * @param value width (1-8192) x height (1-8192)
+   * @return ScreenSize
+   */
+  public static ScreenSize of(final String value)
+   {
+    final String[] values = value.split("x");
+    if (values.length != 2)
+     {
+      throw new IllegalArgumentException("value not of expected format");
+     }
+    return of(Integer.parseInt(values[0]), Integer.parseInt(values[1]), "");
+   }
+
+
+  /**
    * Returns the value of this ScreenSize as a string.
    *
    * @return The text value represented by this object after conversion to type string format 320x200.
    */
+  @Override
   public String stringValue()
    {
     return String.valueOf(this.width) + 'x' + this.height;

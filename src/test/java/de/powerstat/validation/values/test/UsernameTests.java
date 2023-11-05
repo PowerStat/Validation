@@ -16,6 +16,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import de.powerstat.validation.values.Username;
+import de.powerstat.validation.values.strategies.IUsernameStrategy;
 import de.powerstat.validation.values.strategies.UsernameDefaultStrategy;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -24,7 +25,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Username tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class UsernameTests
+final class UsernameTests
  {
   /**
    * Username.
@@ -51,16 +52,11 @@ public class UsernameTests
    */
   private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
 
-  /**
-   * Deprecated since version 3.0 constant.
-   */
-  private static final String DEPRECATED_SINCE_3_0 = "3.0"; //$NON-NLS-1$
-
 
   /**
    * Default constructor.
    */
-  public UsernameTests()
+  /* default */ UsernameTests()
    {
     super();
    }
@@ -73,7 +69,7 @@ public class UsernameTests
    */
   @ParameterizedTest
   @ValueSource(strings = {UsernameTests.USERNAME_KH, UsernameTests.USERNAME, "username@example.com", "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234"})
-  public void usernameOk0(final String username)
+  /* default */ void testUsernameOk0(final String username)
    {
     final Username cleanUsername = Username.of(username);
     assertEquals(username, cleanUsername.stringValue(), UsernameTests.USERNAME_NOT_AS_EXPECTED);
@@ -84,7 +80,7 @@ public class UsernameTests
    * Test Username chaching.
    */
   @Test
-  public void usernameCache()
+  /* default */ void testUsernameCache()
    {
     final Username username1 = Username.of(UsernameDefaultStrategy.of(), UsernameTests.USERNAME_KH);
     final Username username2 = Username.of(UsernameDefaultStrategy.of(), UsernameTests.USERNAME_KH);
@@ -99,7 +95,7 @@ public class UsernameTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "k", "123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345"})
-  public void usernameLength(final String username)
+  /* default */ void testUsernameLength(final String username)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -113,11 +109,12 @@ public class UsernameTests
    * Test Username with illegal characters.
    */
   @Test
-  public void usernameWithIllegalCharacters0()
+  /* default */ void testUsernameWithIllegalCharacters0()
    {
+    final IUsernameStrategy strategy = UsernameDefaultStrategy.of();
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final Username cleanUsername = */ Username.of(UsernameDefaultStrategy.of(), "^!$%&(){}[]=?+*#´üöäÖÄÜß§;,:'\""); //$NON-NLS-1$
+      /* final Username cleanUsername = */ Username.of(strategy, "^!$%&(){}[]=?+*#´üöäÖÄÜß§;,:'\""); //$NON-NLS-1$
      }, UsernameTests.ILLEGAL_ARGUMENT
     );
    }
@@ -127,7 +124,7 @@ public class UsernameTests
    * Test stringValue.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final Username username = Username.of(UsernameTests.USERNAME);
     assertEquals(UsernameTests.USERNAME, username.stringValue(), UsernameTests.USERNAME_NOT_AS_EXPECTED);
@@ -138,7 +135,7 @@ public class UsernameTests
    * Test get isEMail true.
    */
   @Test
-  public void getisEmailTrue()
+  /* default */ void testGetisEmailTrue()
    {
     final Username username = Username.of(UsernameDefaultStrategy.of(), "username@example.com"); //$NON-NLS-1$
     assertTrue(username.isEMail(), "Username is not an email address"); //$NON-NLS-1$
@@ -149,7 +146,7 @@ public class UsernameTests
    * Test get isEMail false.
    */
   @Test
-  public void getisEmailFalse()
+  /* default */ void testGetisEmailFalse()
    {
     final Username username = Username.of(UsernameDefaultStrategy.of(), UsernameTests.USERNAME);
     assertFalse(username.isEMail(), "Username is an email address"); //$NON-NLS-1$
@@ -157,60 +154,11 @@ public class UsernameTests
 
 
   /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final Username username1 = Username.of(UsernameTests.USERNAME);
-    final Username username2 = Username.of(UsernameTests.USERNAME);
-    final Username username3 = Username.of(UsernameTests.USERNAME22);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(username1.hashCode(), username2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(username1.hashCode(), username3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final Username username1 = Username.of(UsernameTests.USERNAME);
-    final Username username2 = Username.of(UsernameTests.USERNAME);
-    final Username username3 = Username.of(UsernameTests.USERNAME22);
-    final Username username4 = Username.of(UsernameTests.USERNAME);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(username1.equals(username1), "username11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(username1.equals(username2), "username12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(username2.equals(username1), "username21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(username2.equals(username4), "username24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(username1.equals(username4), "username14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(username1.equals(username3), "username13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(username3.equals(username1), "username31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(username1.equals(null), "username10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final Username username = Username.of(UsernameTests.USERNAME);
-    assertEquals("Username[username=username]", username.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
-   }
-
-
-  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Username username1 = Username.of(UsernameTests.USERNAME);
     final Username username2 = Username.of(UsernameTests.USERNAME);

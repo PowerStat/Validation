@@ -15,6 +15,8 @@ import de.powerstat.validation.interfaces.IValueObject;
  * @param hours Hours 0-..
  * 
  * Not DSGVO relevant.
+ *
+ * TODO min, max
  */
 public record Hours(long hours) implements Comparable<Hours>, IValueObject
  {
@@ -42,6 +44,30 @@ public record Hours(long hours) implements Comparable<Hours>, IValueObject
   public static Hours of(final long hours)
    {
     return new Hours(hours);
+   }
+
+
+  /**
+   * Hours factory.
+   *
+   * @param value Hours 0-.. string
+   * @return Hours object
+   */
+  public static Hours of(final String value)
+   {
+    return of(Long.parseLong(value));
+   }
+
+
+  /**
+   * Returns the value of this BFPONumber as a String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.hours);
    }
 
 

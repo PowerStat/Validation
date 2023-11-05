@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * District tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class DistrictTests
+final class DistrictTests
  {
   /**
    * District abc.
@@ -47,7 +47,7 @@ public class DistrictTests
   /**
    * Default constructor.
    */
-  public DistrictTests()
+  /* default */ DistrictTests()
    {
     super();
    }
@@ -60,7 +60,7 @@ public class DistrictTests
    */
   @ParameterizedTest
   @ValueSource(strings = {DistrictTests.DISTRICT9, "Abcdefghijklmnopqr"})
-  public void districtCorrect(final String district)
+  /* default */ void testDistrictCorrect(final String district)
    {
     final District cleanDistrict = District.of(district);
     assertEquals(district, cleanDistrict.district(), DistrictTests.DISTRICT_NOT_AS_EXPECTED);
@@ -74,7 +74,7 @@ public class DistrictTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "Abcdefghijklmnopqrs"})
-  public void districtLength(final String district)
+  /* default */ void testDistrictLength(final String district)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -91,7 +91,7 @@ public class DistrictTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"abc_def"})
-  public void districtWrong(final String district)
+  /* default */ void testDistrictWrong(final String district)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -102,10 +102,22 @@ public class DistrictTests
 
 
   /**
+   * Test get district.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final District district = District.of(DistrictTests.DISTRICT9);
+    assertEquals(DistrictTests.DISTRICT9, district.stringValue(), DistrictTests.DISTRICT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final District district1 = District.of(DistrictTests.DISTRICT9);
     final District district2 = District.of(DistrictTests.DISTRICT9);

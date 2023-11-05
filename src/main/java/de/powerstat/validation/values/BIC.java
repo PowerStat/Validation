@@ -22,6 +22,7 @@ public record BIC(String bic) implements Comparable<BIC>, IValueObject
   /**
    * BIC regexp.
    */
+  @SuppressWarnings("java:S5867")
   private static final Pattern BIC_REGEXP = Pattern.compile("^[A-Z0-9]{4}[A-Z]{2}[A-Z2-9][0-9A-NP-Z](XXX|[0-9A-WY-Z][0-9A-Z]{2})?$"); //$NON-NLS-1$
 
 
@@ -56,6 +57,18 @@ public record BIC(String bic) implements Comparable<BIC>, IValueObject
   public static BIC of(final String bic)
    {
     return new BIC(bic);
+   }
+
+
+  /**
+   * Returns the value of this BIC as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.bic;
    }
 
 

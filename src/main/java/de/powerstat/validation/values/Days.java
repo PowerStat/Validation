@@ -15,6 +15,8 @@ import de.powerstat.validation.interfaces.IValueObject;
  * @param days Days 0-..
  *
  * Not DSGVO relevant.
+ *
+ * TODO min, max
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
@@ -44,6 +46,30 @@ public record Days(long days) implements Comparable<Days>, IValueObject
   public static Days of(final long days)
    {
     return new Days(days);
+   }
+
+
+  /**
+   * Days factory.
+   *
+   * @param value String value
+   * @return Days object
+   */
+  public static Days of(final String value)
+   {
+    return of(Long.parseLong(value));
+   }
+
+
+  /**
+   * Returns the value of this Days as a String.
+   *
+   * @return The numeric value represented by this object after conversion to type STring.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.days);
    }
 
 

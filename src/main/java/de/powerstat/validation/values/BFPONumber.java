@@ -46,10 +46,23 @@ public record BFPONumber(int bFPONumber) implements Comparable<BFPONumber>, IVal
 
 
   /**
+   * Factory for string values.
+   *
+   * @param value String value
+   * @return BFPONumber object
+   */
+  public static BFPONumber of(final String value)
+   {
+    return of(Integer.parseInt(value));
+   }
+
+
+  /**
    * Returns the value of this BFPONumber as a string.
    *
    * @return The text value represented by this object after conversion to type string.
    */
+  @Override
   public String stringValue()
    {
     return Integer.toString(this.bFPONumber);

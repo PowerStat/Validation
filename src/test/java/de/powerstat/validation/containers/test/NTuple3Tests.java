@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
-package de.powerstat.validation.values.containers.test;
+package de.powerstat.validation.containers.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import de.powerstat.validation.values.containers.NTuple3;
+import de.powerstat.validation.containers.NTuple3;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
@@ -20,7 +20,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * NTuple3 tests.
  */
 @SuppressFBWarnings({"CE_CLASS_ENVY", "RV_NEGATING_RESULT_OF_COMPARETO", "SPP_USE_ZERO_WITH_COMPARATOR", "EC_NULL_ARG"})
-public class NTuple3Tests
+final class NTuple3Tests
  {
   /**
    * Test equals constant.
@@ -32,11 +32,16 @@ public class NTuple3Tests
    */
   private static final String TEST_COMPARE_TO = "testCompareTo"; //$NON-NLS-1$
 
+  /**
+   * Suppress sonarqube warning.
+   */
+  private static final String JAVA_S5785 = "java:S5785"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
    */
-  public NTuple3Tests()
+  /* default */ NTuple3Tests()
    {
     super();
    }
@@ -46,7 +51,7 @@ public class NTuple3Tests
    * Factory test.
    */
   @Test
-  public void ofIntInt()
+  /* default */ void testOfInt()
    {
     final NTuple3<Integer, Integer, Integer> tuple = NTuple3.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(815));
     assertAll("testGetValue", //$NON-NLS-1$
@@ -61,7 +66,7 @@ public class NTuple3Tests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final NTuple3<Integer, Integer, Integer> tuple1 = NTuple3.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711));
     final NTuple3<Integer, Integer, Integer> tuple2 = NTuple3.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711));
@@ -77,7 +82,8 @@ public class NTuple3Tests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings(JAVA_S5785)
+  /* default */ void testEquals()
    {
     final NTuple3<Integer, Integer, Integer> tuple1 = NTuple3.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711));
     final NTuple3<Integer, Integer, Integer> tuple2 = NTuple3.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711));
@@ -100,7 +106,8 @@ public class NTuple3Tests
    * Test equals.
    */
   @Test
-  public void testEquals2()
+  @SuppressWarnings(JAVA_S5785)
+  /* default */ void testEquals2()
    {
     final NTuple3<Integer, Integer, Integer> tuple1 = NTuple3.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(1));
     final NTuple3<Integer, Integer, Integer> tuple2 = NTuple3.of(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
@@ -114,7 +121,7 @@ public class NTuple3Tests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final NTuple3<Integer, Integer, Integer> tuple1 = NTuple3.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(815));
     assertEquals("NTuple3[object1=1, object2=4711, object3=815]", tuple1.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -125,7 +132,8 @@ public class NTuple3Tests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings(JAVA_S5785)
+  /* default */ void testCompareTo()
    {
     final NTuple3<Integer, Integer, Integer> tuple1 = NTuple3.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711));
     final NTuple3<Integer, Integer, Integer> tuple2 = NTuple3.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711));
@@ -146,7 +154,8 @@ public class NTuple3Tests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo2()
+  @SuppressWarnings(JAVA_S5785)
+ /* default */ void testCompareTo2()
    {
     final NTuple3<Integer, Integer, Integer> tuple1 = NTuple3.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(1));
     final NTuple3<Integer, Integer, Integer> tuple2 = NTuple3.of(Integer.valueOf(1), Integer.valueOf(815), Integer.valueOf(1));

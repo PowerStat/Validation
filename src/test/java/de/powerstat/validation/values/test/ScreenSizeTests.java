@@ -20,7 +20,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Screen size tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class ScreenSizeTests
+final class ScreenSizeTests
  {
   /**
    * QVGA.
@@ -47,13 +47,56 @@ public class ScreenSizeTests
    */
   private static final String INDEX_OUT_OF_BOUNDS_EXPECTED = "Index out of bounds exception expected"; //$NON-NLS-1$
 
+  /**
+   * Width is not equal constant.
+   */
+  private static final String WIDTH_IS_NOT_EQUAL = "width is not equal"; //$NON-NLS-1$
+
+  /**
+   * Height is not equal constant.
+   */
+  private static final String HEIGHT_IS_NOT_EQUAL = "height is not equal"; //$NON-NLS-1$
+
+  /**
+   * Suppress sonarqube warning.
+   */
+  private static final String JAVA_S5785 = "java:S5785"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
    */
-  public ScreenSizeTests()
+  /* default */ ScreenSizeTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory1()
+   {
+    final ScreenSize size = ScreenSize.of(QVGA320X240);
+    assertAll("factory1", //$NON-NLS-1$
+      () -> assertEquals(320, size.width(), WIDTH_IS_NOT_EQUAL),
+      () -> assertEquals(240, size.height(), HEIGHT_IS_NOT_EQUAL)
+    );
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory2()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final ScreenSize size = */ ScreenSize.of("320");
+     }, "Illegal argument exception"
+    );
    }
 
 
@@ -61,12 +104,12 @@ public class ScreenSizeTests
    * Is screen size.
    */
   @Test
-  public void isScreenSize()
+  /* default */ void testIsScreenSize()
    {
     final ScreenSize size = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
     assertAll("testScreenSize", //$NON-NLS-1$
-      () -> assertEquals(320, size.width(), "width is not equal"), //$NON-NLS-1$
-      () -> assertEquals(240, size.height(), "height is not equal"), //$NON-NLS-1$
+      () -> assertEquals(320, size.width(), WIDTH_IS_NOT_EQUAL),
+      () -> assertEquals(240, size.height(), HEIGHT_IS_NOT_EQUAL),
       () -> assertEquals(ScreenSizeTests.QVGA320X240, size.stringValue(), ScreenSizeTests.SIZE_IS_NOT_EQUAL),
       () -> assertEquals(ScreenSizeTests.QVGA, size.name(), "size name is not equal") //$NON-NLS-1$
     );
@@ -77,7 +120,7 @@ public class ScreenSizeTests
    * Is not a screen size.
    */
   @Test
-  public void isNotAScreenSize1()
+  /* default */ void testIsNotAScreenSize1()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -91,7 +134,7 @@ public class ScreenSizeTests
    * Is not a screen size.
    */
   @Test
-  public void isNotAScreenSize2()
+  /* default */ void testIsNotAScreenSize2()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -105,7 +148,7 @@ public class ScreenSizeTests
    * Is not a screen size.
    */
   @Test
-  public void isNotAScreenSize3()
+  /* default */ void testIsNotAScreenSize3()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -119,7 +162,7 @@ public class ScreenSizeTests
    * Is not a screen size.
    */
   @Test
-  public void isNotAScreenSize4()
+  /* default */ void testIsNotAScreenSize4()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -130,24 +173,11 @@ public class ScreenSizeTests
 
 
   /**
-   * Test not equals.
-   */
-  @Test
-  public void testNotEquals()
-   {
-    final ScreenSize size1 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
-    final ScreenSize size2 = ScreenSize.of(320, 241, ScreenSizeTests.QVGA);
-    assertAll("testNotEquals", //$NON-NLS-1$
-      () -> assertFalse(size1.equals(size2), "size12 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings(JAVA_S5785)
+  /* default */ void testCompareTo()
    {
     final ScreenSize size1 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
     final ScreenSize size2 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
@@ -168,7 +198,8 @@ public class ScreenSizeTests
    * Test compareTo2.
    */
   @Test
-  public void testCompareTo2()
+  @SuppressWarnings(JAVA_S5785)
+  /* default */ void testCompareTo2()
    {
     final ScreenSize size1 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
     final ScreenSize size2 = ScreenSize.of(320, 241, ScreenSizeTests.QVGA);

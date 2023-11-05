@@ -22,7 +22,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Millisecond tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class MillisecondTests
+final class MillisecondTests
  {
   /**
    * Not millisecond constant.
@@ -43,9 +43,19 @@ public class MillisecondTests
   /**
    * Default constructor.
    */
-  public MillisecondTests()
+  /* default */ MillisecondTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFatory1()
+   {
+    assertEquals(0, Millisecond.of("0").millisecond(), MillisecondTests.NOT_MILLISECOND);
    }
 
 
@@ -56,10 +66,11 @@ public class MillisecondTests
    */
   @ParameterizedTest
   @ValueSource(ints = {0, 999})
-  public void isMilliseconds(final int millisecond)
+  /* default */ void testIsMilliseconds(final int millisecond)
    {
     assertEquals(millisecond, Millisecond.of(millisecond).millisecond(), MillisecondTests.NOT_MILLISECOND);
    }
+
 
   /**
    * Is not a millisecond.
@@ -68,7 +79,7 @@ public class MillisecondTests
    */
   @ParameterizedTest
   @ValueSource(ints = {-1, 1000})
-  public void isNotAMillisecond(final int millisecond)
+  /* default */ void testIsNotAMillisecond(final int millisecond)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -79,10 +90,31 @@ public class MillisecondTests
 
 
   /**
+   * intValue.
+   */
+  @Test
+  /* default */ void testIntValue()
+   {
+    assertEquals(10, Millisecond.of(10).millisecond(), MillisecondTests.NOT_MILLISECOND);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    assertEquals("10", Millisecond.of(10).stringValue(), MillisecondTests.NOT_MILLISECOND);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Millisecond millisecond1 = Millisecond.of(1);
     final Millisecond millisecond2 = Millisecond.of(1);
@@ -103,7 +135,7 @@ public class MillisecondTests
    * Test add.
    */
   @Test
-  public void testAdd1()
+  /* default */ void testAdd1()
    {
     final Millisecond millisecond = Millisecond.of(0);
     final Milliseconds milliseconds = Milliseconds.of(1);
@@ -116,7 +148,7 @@ public class MillisecondTests
    * Test add.
    */
   @Test
-  public void testAdd2()
+  /* default */ void testAdd2()
    {
     final Millisecond millisecond = Millisecond.of(999);
     final Milliseconds milliseconds = Milliseconds.of(1);
@@ -132,7 +164,7 @@ public class MillisecondTests
    * Test subtract.
    */
   @Test
-  public void testSubtract1()
+  /* default */ void testSubtract1()
    {
     final Millisecond millisecond = Millisecond.of(2);
     final Milliseconds milliseconds = Milliseconds.of(1);
@@ -145,7 +177,7 @@ public class MillisecondTests
    * Test subtract.
    */
   @Test
-  public void testSubtract2()
+  /* default */ void testSubtract2()
    {
     final Millisecond millisecond = Millisecond.of(0);
     final Milliseconds milliseconds = Milliseconds.of(1);
@@ -161,7 +193,7 @@ public class MillisecondTests
    * Test add.
    */
   @Test
-  public void testIncrement1()
+  /* default */ void testIncrement1()
    {
     final Millisecond millisecond = Millisecond.of(0);
     final Millisecond millisecondResult = millisecond.increment();
@@ -173,7 +205,7 @@ public class MillisecondTests
    * Test add.
    */
   @Test
-  public void testIncrement2()
+  /* default */ void testIncrement2()
    {
     final Millisecond millisecond = Millisecond.of(999);
     assertThrows(ArithmeticException.class, () ->
@@ -188,7 +220,7 @@ public class MillisecondTests
    * Test add.
    */
   @Test
-  public void testDecrement1()
+  /* default */ void testDecrement1()
    {
     final Millisecond millisecond = Millisecond.of(2);
     final Millisecond millisecondResult = millisecond.decrement();
@@ -200,7 +232,7 @@ public class MillisecondTests
    * Test add.
    */
   @Test
-  public void testDecrement2()
+  /* default */ void testDecrement2()
    {
     final Millisecond millisecond = Millisecond.of(0);
     assertThrows(ArithmeticException.class, () ->

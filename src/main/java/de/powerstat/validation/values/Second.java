@@ -11,14 +11,15 @@ import de.powerstat.validation.interfaces.IValueObject;
 
 /**
  * Second.
-   *
+ *
  * @param second Second 0-59/60
  * 
  * Not DSGVO relevant.
  *
-   * TODO Constructor with day, month, year, hour, minute
+ * TODO Constructor with day, month, year, hour, minute
  * TODO Listener  (mod 60 = 0)
  * TODO millisecondsWithin = 1000
+ * TODO min, max
  */
 public record Second(int second) implements Comparable<Second>, IValueObject
  {
@@ -57,6 +58,30 @@ public record Second(int second) implements Comparable<Second>, IValueObject
   public static Second of(final int second)
    {
     return new Second(second);
+   }
+
+
+  /**
+   * Second factory.
+   *
+   * @param value Second 0-59/60 string
+   * @return Second object
+   */
+  public static Second of(final String value)
+   {
+    return of(Integer.parseInt(value));
+   }
+
+
+  /**
+   * Returns the value of this Second as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.second);
    }
 
 

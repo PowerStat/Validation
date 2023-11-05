@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -56,6 +56,18 @@ public record Firstname(String firstname) implements Comparable<Firstname>, IVal
   public static Firstname of(final String firstname)
    {
     return new Firstname(firstname);
+   }
+
+
+  /**
+   * Returns the value of this Firstname as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.firstname;
    }
 
 

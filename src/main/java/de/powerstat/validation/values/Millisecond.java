@@ -17,6 +17,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Not DSGVO relevant.
  *
  * TODO Listener
+ * TODO min, max
  */
 public record Millisecond(int millisecond) implements Comparable<Millisecond>, IValueObject
  {
@@ -55,6 +56,30 @@ public record Millisecond(int millisecond) implements Comparable<Millisecond>, I
   public static Millisecond of(final int millisecond)
    {
     return new Millisecond(millisecond);
+   }
+
+
+  /**
+   * Millisecond factory.
+   *
+   * @param value Millisecond string 0-999
+   * @return Millisecond object
+   */
+  public static Millisecond of(final String value)
+   {
+    return of(Integer.parseInt(value));
+   }
+
+
+  /**
+   * Returns the value of this Millisecond as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String (0-999).
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.millisecond);
    }
 
 

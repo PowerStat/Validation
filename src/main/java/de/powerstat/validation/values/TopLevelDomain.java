@@ -68,6 +68,18 @@ public record TopLevelDomain(String topLevelDomain) implements Comparable<TopLev
 
 
   /**
+   * Returns the value of this TopLevelDomain as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.topLevelDomain;
+   }
+
+
+  /**
    * Compare with another object.
    *
    * @param obj Object to compare with

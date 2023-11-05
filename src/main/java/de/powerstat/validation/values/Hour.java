@@ -18,6 +18,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * TODO Listener
  * TODO minutesWithin = 60
+ * TODO min, max
  */
 public record Hour(int hour) implements Comparable<Hour>, IValueObject
  {
@@ -56,6 +57,30 @@ public record Hour(int hour) implements Comparable<Hour>, IValueObject
   public static Hour of(final int hour)
    {
     return new Hour(hour);
+   }
+
+
+  /**
+   * Hour factory.
+   *
+   * @param value Hour 0-23 string
+   * @return Hour object
+   */
+  public static Hour of(final String value)
+   {
+    return of(Integer.parseInt(value));
+   }
+
+
+  /**
+   * Returns the value of this Hour as a String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.hour);
    }
 
 

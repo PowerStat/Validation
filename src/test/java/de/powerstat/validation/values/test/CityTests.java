@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * City tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class CityTests
+final class CityTests
  {
   /**
    * Bremen.
@@ -47,7 +47,7 @@ public class CityTests
   /**
    * Default constructor.
    */
-  public CityTests()
+  /* default */ CityTests()
    {
     super();
    }
@@ -60,7 +60,7 @@ public class CityTests
    */
   @ParameterizedTest
   @ValueSource(strings = {CityTests.BREMEN, "A", "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefg"})
-  public void cityCorrect(final String city)
+  /* default */ void testCityCorrect(final String city)
    {
     final City cleanCity = City.of(city);
     assertEquals(city, cleanCity.city(), CityTests.CITY_NOT_AS_EXPECTED);
@@ -74,7 +74,7 @@ public class CityTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefgh"})
-  public void cityLength(final String city)
+  /* default */ void testCityLength(final String city)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -91,7 +91,7 @@ public class CityTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"Bremen0815", "abc_def"})
-  public void cityWrong(final String city)
+  /* default */ void testCityWrong(final String city)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -102,10 +102,22 @@ public class CityTests
 
 
   /**
+   * Test get city.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final City city = City.of(CityTests.BREMEN);
+    assertEquals(CityTests.BREMEN, city.stringValue(), CityTests.CITY_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final City city1 = City.of(CityTests.BREMEN);
     final City city2 = City.of(CityTests.BREMEN);

@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * BIC Tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class BICTests
+final class BICTests
  {
   /**
    * Illegal argument exception expected.
@@ -47,7 +47,7 @@ public class BICTests
   /**
    * Default constructor.
    */
-  public BICTests()
+  /* default */ BICTests()
    {
     super();
    }
@@ -60,7 +60,7 @@ public class BICTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"POWSDE30XXX", "POWSDE30"})
-  public void bicCorrect(final String bic)
+  /* default */ void testBicCorrect(final String bic)
    {
     final BIC cleanBic = BIC.of(bic);
     assertEquals(bic, cleanBic.bic(), BICTests.BIC_NOT_AS_EXPECTED);
@@ -74,7 +74,7 @@ public class BICTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"POWSDE0", "POWSDE30X", "POWSDE30XX", "POWSDE30XXXX"})
-  public void bicLength(final String bic)
+  /* default */ void testBicLength(final String bic)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -91,7 +91,7 @@ public class BICTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"POWSDE10XXX", "POWSZZ30XXX"})
-  public void bicWrong(final String bic)
+  /* default */ void testBicWrong(final String bic)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -102,10 +102,22 @@ public class BICTests
 
 
   /**
+   * Test string value.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final BIC bic = BIC.of(BICTests.BIC_BELADEBEXXX);
+    assertEquals(BICTests.BIC_BELADEBEXXX, bic.stringValue(), BICTests.BIC_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final BIC bic1 = BIC.of(BICTests.BIC_BELADEBEXXX);
     final BIC bic2 = BIC.of(BICTests.BIC_BELADEBEXXX);

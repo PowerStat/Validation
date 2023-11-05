@@ -25,6 +25,7 @@ public record Currency(String code) implements Comparable<Currency>, IValueObjec
   /**
    * Currency regexp.
    */
+  @SuppressWarnings("java:S5867")
   private static final Pattern CURRENCY_REGEXP = Pattern.compile("^[A-Z]{3}$"); //$NON-NLS-1$
 
 
@@ -62,6 +63,18 @@ public record Currency(String code) implements Comparable<Currency>, IValueObjec
   public static Currency of(final String code)
    {
     return new Currency(code);
+   }
+
+
+  /**
+   * Returns the value of this Currency as a ISO 4217 string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.code;
    }
 
 

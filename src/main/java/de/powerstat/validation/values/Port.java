@@ -15,6 +15,8 @@ import de.powerstat.validation.interfaces.IValueObject;
  * @param port Port 0-65535
  * 
  * Not DSGVO relevant.
+ *
+ * TODO min, max?
  */
 public record Port(int port) implements Comparable<Port>, IValueObject
  {
@@ -42,6 +44,18 @@ public record Port(int port) implements Comparable<Port>, IValueObject
   public static Port of(final int port)
    {
     return new Port(port);
+   }
+
+
+  /**
+   * Port factory.
+   *
+   * @param port Port 0-65535
+   * @return Port object
+   */
+  public static Port of(final String port)
+   {
+    return of(Integer.parseInt(port));
    }
 
 
@@ -75,6 +89,18 @@ public record Port(int port) implements Comparable<Port>, IValueObject
   public boolean isDynamic()
    {
     return (this.port >= 49152);
+   }
+
+
+  /**
+   * Returns the value of this Port as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.port);
    }
 
 

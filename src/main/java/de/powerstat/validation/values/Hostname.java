@@ -10,6 +10,9 @@ import java.net.UnknownHostException;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.powerstat.validation.generated.GeneratedTlds;
 import de.powerstat.validation.interfaces.IValueObject;
 
@@ -36,6 +39,11 @@ public record Hostname(String hostname) implements Comparable<Hostname>, IValueO
    */
   private static final String ESC_DOT = "\\."; //$NON-NLS-1$
 
+  /**
+   * Hostname by dots regexp.
+   */
+  private static final Pattern HOSTNAME_BY_DOTS = Pattern.compile(Hostname.ESC_DOT);
+
 
   /**
    * Constructor.
@@ -51,14 +59,14 @@ public record Hostname(String hostname) implements Comparable<Hostname>, IValueO
      {
       throw new IllegalArgumentException("To short or long for a hostname"); //$NON-NLS-1$
      }
-    String tempHostname = ""; //$NON-NLS-1$
+    var tempHostname = ""; //$NON-NLS-1$
     try
      {
       tempHostname = IPV4Address.of(hostname).address();
      }
     catch (final IllegalArgumentException ignored)
      {
-      // ignore
+      // LOGGER.debug("IllegalArgumentException", ignored);
      }
     try
      {
@@ -69,7 +77,7 @@ public record Hostname(String hostname) implements Comparable<Hostname>, IValueO
      }
     catch (final IllegalArgumentException ignored)
      {
-      // ignore
+      // LOGGER.debug("IllegalArgumentException", ignored);
      }
     if (tempHostname.isEmpty())
      {
@@ -90,7 +98,8 @@ public record Hostname(String hostname) implements Comparable<Hostname>, IValueO
      {
       throw new IllegalArgumentException("Hostname contains illegal character"); //$NON-NLS-1$
      }
-    final String[] parts = hostname.split(Hostname.ESC_DOT);
+    final String[] parts = HOSTNAME_BY_DOTS.split(hostname, 0);
+    // final String[] parts = hostname.split(Hostname.ESC_DOT);
     if (parts.length < 2)
      {
       throw new IllegalArgumentException("Hostname must be at a minimum consist of subdomain.topleveldomain"); //$NON-NLS-1$
@@ -122,8 +131,9 @@ public record Hostname(String hostname) implements Comparable<Hostname>, IValueO
    */
   private static String reverseHostname(final String hostname)
    {
-    final String[] parts = hostname.split(Hostname.ESC_DOT);
-    final StringBuilder buffer = new StringBuilder(hostname.length());
+    final String[] parts = HOSTNAME_BY_DOTS.split(hostname, 0);
+    // final String[] parts = hostname.split(Hostname.ESC_DOT);
+    final var buffer = new StringBuilder(hostname.length());
     for (int i = parts.length - 1; i >= 0; --i)
      {
       if (buffer.length() != 0)
@@ -145,6 +155,18 @@ public record Hostname(String hostname) implements Comparable<Hostname>, IValueO
   public static Hostname of(final String hostname)
    {
     return new Hostname(hostname);
+   }
+
+
+  /**
+   * Returns the value of this Hostname as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.hostname;
    }
 
 
@@ -172,6 +194,7 @@ public record Hostname(String hostname) implements Comparable<Hostname>, IValueO
      }
     catch (final UnknownHostException ignored)
      {
+      // LOGGER.debug("UnknownHostException", ignored);
       return false;
      }
     return true;
@@ -188,11 +211,12 @@ public record Hostname(String hostname) implements Comparable<Hostname>, IValueO
    {
     try
      {
-      final InetAddress address = InetAddress.getByName(this.hostname);
+      final var address = InetAddress.getByName(this.hostname);
       return address.isReachable(timeout);
      }
     catch (final IOException ignored)
      {
+      // LOGGER.debug("IOException", ignored);
       return false;
      }
    }

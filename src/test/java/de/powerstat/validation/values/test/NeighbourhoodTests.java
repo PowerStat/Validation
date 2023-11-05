@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Neighbourhood tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class NeighbourhoodTests
+final class NeighbourhoodTests
  {
   /**
    * Unknown.
@@ -47,7 +47,7 @@ public class NeighbourhoodTests
   /**
    * Default constructor.
    */
-  public NeighbourhoodTests()
+  /* default */ NeighbourhoodTests()
    {
     super();
    }
@@ -60,7 +60,7 @@ public class NeighbourhoodTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"A", "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl"})
-  public void neighbourhoodCorrect(final String neighbourhood)
+  /* default */ void testNeighbourhoodCorrect(final String neighbourhood)
    {
     final Neighbourhood cleanNeighbourhood = Neighbourhood.of(neighbourhood);
     assertEquals(neighbourhood, cleanNeighbourhood.neighbourhood(), NeighbourhoodTests.NEIGHBOURHOOD_NOT_AS_EXPECTED);
@@ -74,7 +74,7 @@ public class NeighbourhoodTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklm"})
-  public void neighbourhoodLength(final String neighbourhood)
+  /* default */ void testNeighbourhoodLength(final String neighbourhood)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -91,7 +91,7 @@ public class NeighbourhoodTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"abc_def"})
-  public void neighbourhoodWrong(final String neighbourhood)
+  /* default */ void testNeighbourhoodWrong(final String neighbourhood)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -102,10 +102,22 @@ public class NeighbourhoodTests
 
 
   /**
+   * Test get Neighbourhood.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final Neighbourhood neighbourhood = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
+    assertEquals(NeighbourhoodTests.UNKNOWN, neighbourhood.stringValue(), NeighbourhoodTests.NEIGHBOURHOOD_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Neighbourhood neighbourhood1 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
     final Neighbourhood neighbourhood2 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);

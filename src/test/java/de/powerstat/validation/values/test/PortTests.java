@@ -22,20 +22,35 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Tests for Port value class.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class PortTests
+final class PortTests
  {
   /**
    * Port should be 49152 constant.
    */
   private static final String PORT_SHOULD_BE_49152 = "Port should be 49152!"; //$NON-NLS-1$
 
+  /**
+   * Port 49152 constant.
+   */
+  private static final String PORT_49152 = "49152"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
    */
-  public PortTests()
+  /* default */ PortTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory1()
+   {
+    assertEquals(49152, Port.of(PORT_49152).port(), PortTests.PORT_SHOULD_BE_49152);
    }
 
 
@@ -43,7 +58,7 @@ public class PortTests
    * Is port.
    */
   @Test
-  public void isPort()
+  /* default */ void testIsPort()
    {
     final Port port = Port.of(49152);
     assertEquals(49152, port.port(), PortTests.PORT_SHOULD_BE_49152);
@@ -57,7 +72,7 @@ public class PortTests
    */
   @ParameterizedTest
   @ValueSource(ints = {65536, -1})
-  public void isPortFalse(final int port)
+  /* default */ void testIsPortFalse(final int port)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -68,13 +83,35 @@ public class PortTests
 
 
   /**
+   * Test port.
+   */
+  @Test
+  /* default */ void testIntValue()
+   {
+    final Port port = Port.of(49152);
+    assertEquals(49152, port.port(), PortTests.PORT_SHOULD_BE_49152);
+   }
+
+
+  /**
+   * Test stringValue.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final Port port = Port.of(49152);
+    assertEquals(PORT_49152, port.stringValue(), PortTests.PORT_SHOULD_BE_49152);
+   }
+
+
+  /**
    * Is system port.
    *
    * @param port Port
    */
   @ParameterizedTest
   @ValueSource(ints = {0, 1023})
-  public void isSystem(final int port)
+  /* default */ void testIsSystem(final int port)
    {
     assertTrue(Port.of(port).isSystem(), "Should be a system port!"); //$NON-NLS-1$
    }
@@ -84,7 +121,7 @@ public class PortTests
    * Is not a system port.
    */
   @Test
-  public void isSystemFalse()
+  /* default */ void testIsSystemFalse()
    {
     assertFalse(Port.of(49152).isSystem(), "Should not be a system port!"); //$NON-NLS-1$
    }
@@ -97,7 +134,7 @@ public class PortTests
    */
   @ParameterizedTest
   @ValueSource(ints = {1024, 49151})
-  public void isRegistered(final int port)
+  /* default */ void testIsRegistered(final int port)
    {
     assertTrue(Port.of(port).isRegistered(), "Should be a registered port!"); //$NON-NLS-1$
    }
@@ -110,7 +147,7 @@ public class PortTests
    */
   @ParameterizedTest
   @ValueSource(ints = {1023, 49152})
-  public void isRegisteredFalse(final int port)
+  /* default */ void testIsRegisteredFalse(final int port)
    {
     assertFalse(Port.of(port).isRegistered(), "Should not be a registered port!"); //$NON-NLS-1$
    }
@@ -123,7 +160,7 @@ public class PortTests
    */
   @ParameterizedTest
   @ValueSource(ints = {49152, 65535})
-  public void isDynamic(final int port)
+  /* default */ void testIsDynamic(final int port)
    {
     assertTrue(Port.of(port).isDynamic(), "Should be a dynamic port!"); //$NON-NLS-1$
    }
@@ -133,7 +170,7 @@ public class PortTests
    * Is not a dynamic port.
    */
   @Test
-  public void isDynamicFalse()
+  /* default */ void testIsDynamicFalse()
    {
     assertFalse(Port.of(1023).isDynamic(), "Should not be a dynamic port!"); //$NON-NLS-1$
    }
@@ -143,7 +180,8 @@ public class PortTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Port port1 = Port.of(1024);
     final Port port2 = Port.of(1024);

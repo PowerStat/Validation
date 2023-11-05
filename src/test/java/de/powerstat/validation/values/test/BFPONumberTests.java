@@ -21,20 +21,35 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * BFPONumber tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class BFPONumberTests
+final class BFPONumberTests
  {
   /**
    * Not a BFPONumber constant.
    */
   private static final String NOT_A_BFPO_NUMBER = "Not a BFPONumber!"; //$NON-NLS-1$
 
+  /**
+   * 1 constant.
+   */
+  private static final String ONE = "1"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
    */
-  public BFPONumberTests()
+  /* default */ BFPONumberTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory1()
+   {
+    assertEquals(1, BFPONumber.of(ONE).bFPONumber(), BFPONumberTests.NOT_A_BFPO_NUMBER);
    }
 
 
@@ -45,7 +60,7 @@ public class BFPONumberTests
    */
   @ParameterizedTest
   @ValueSource(ints = {1, 2035})
-  public void isBFPONumber(final int bFPONumber)
+  /* default */ void testIsBFPONumber(final int bFPONumber)
    {
     assertEquals(bFPONumber, BFPONumber.of(bFPONumber).bFPONumber(), BFPONumberTests.NOT_A_BFPO_NUMBER);
    }
@@ -58,7 +73,7 @@ public class BFPONumberTests
    */
   @ParameterizedTest
   @ValueSource(ints = {1, 2035})
-  public void isBFPONumberStr(final int bFPONumber)
+  /* default */ void testIsBFPONumberStr(final int bFPONumber)
    {
     assertEquals(Integer.toString(bFPONumber), BFPONumber.of(bFPONumber).stringValue(), BFPONumberTests.NOT_A_BFPO_NUMBER);
    }
@@ -71,7 +86,7 @@ public class BFPONumberTests
    */
   @ParameterizedTest
   @ValueSource(ints = {0, 2036})
-  public void isNotABFPONumber(final int bFPONumber)
+  /* default */ void testIsNotABFPONumber(final int bFPONumber)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -85,7 +100,8 @@ public class BFPONumberTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final BFPONumber bFPONumber1 = BFPONumber.of(1);
     final BFPONumber bFPONumber2 = BFPONumber.of(1);

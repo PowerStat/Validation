@@ -5,9 +5,7 @@ package de.powerstat.validation.values;
 
 
 import java.util.Locale;
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -26,15 +24,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public record IPV6Address(String address) implements Comparable<IPV6Address>, IValueObject
  {
-  /**
+  /* *
    * Logger.
    */
   // private static final Logger LOGGER = LogManager.getLogger(IPV6Address.class);
-
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<String, IPV6Address> CACHE = new WeakHashMap<>();
 
   /**
    * IP V6 regexp.
@@ -103,15 +96,15 @@ public record IPV6Address(String address) implements Comparable<IPV6Address>, IV
      {
       return address;
      }
-      final int blockStart = address.lastIndexOf(':', ipv4pos);
-      final String ipv4 = address.substring(blockStart + 1);
+    final int blockStart = address.lastIndexOf(':', ipv4pos);
+    final var ipv4 = address.substring(blockStart + 1);
     /* final IPV4Address ipv4address = */ IPV4Address.of(ipv4); // TODO use IPV4Address to ip v6 conversion method
-      final String newAddress = address.substring(0, blockStart + 1);
-      final String[] parts = ipv4.split("\\."); //$NON-NLS-1$
-      final int block1 = Integer.parseInt(parts[0]);
-      final int block2 = Integer.parseInt(parts[1]);
-      final int block3 = Integer.parseInt(parts[2]);
-      final int block4 = Integer.parseInt(parts[3]);
+    final var newAddress = address.substring(0, blockStart + 1);
+    final String[] parts = ipv4.split("\\."); //$NON-NLS-1$
+    final int block1 = Integer.parseInt(parts[0]);
+    final int block2 = Integer.parseInt(parts[1]);
+    final int block3 = Integer.parseInt(parts[2]);
+    final int block4 = Integer.parseInt(parts[3]);
     return newAddress + Integer.toHexString(block1) + String.format(IPV6Address.HEX_OUTPUT, block2) + ':' + Integer.toHexString(block3) + String.format(IPV6Address.HEX_OUTPUT, block4);
    }
 
@@ -156,8 +149,8 @@ public record IPV6Address(String address) implements Comparable<IPV6Address>, IV
      {
       throw new IllegalArgumentException("Not an IP V6 address (more than one expansion block)"); //$NON-NLS-1$
      }
-    final String start = address.substring(0, expPos);
-    final String end = address.substring(expPos + 2);
+    final var start = address.substring(0, expPos);
+    final var end = address.substring(expPos + 2);
     int blocks = 8;
     if (start.length() > 0)
      {
@@ -167,7 +160,7 @@ public record IPV6Address(String address) implements Comparable<IPV6Address>, IV
      {
       blocks -= countColons(end) + 1;
      }
-    final StringBuilder replace = new StringBuilder();
+    final var replace = new StringBuilder();
     if (start.length() > 0)
      {
       replace.append(':');
@@ -200,7 +193,7 @@ public record IPV6Address(String address) implements Comparable<IPV6Address>, IV
   private static String normalizeIPV6Address(final String address)
    {
     final String[] parts = address.split(IPV6Address.IV6_SEP);
-    final StringBuilder normalizedAddress = new StringBuilder();
+    final var normalizedAddress = new StringBuilder();
     for (final String part : parts)
      {
       normalizedAddress.append(IPV6Address.BLOCK_ZERO.substring(part.length())).append(part).append(':');
@@ -218,17 +211,7 @@ public record IPV6Address(String address) implements Comparable<IPV6Address>, IV
    */
   public static IPV6Address of(final String address)
    {
-    synchronized (IPV6Address.class)
-     {
-      IPV6Address obj = IPV6Address.CACHE.get(address);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new IPV6Address(address);
-      IPV6Address.CACHE.put(address, obj);
-      return obj;
-     }
+    return new IPV6Address(address);
    }
 
 
@@ -294,6 +277,7 @@ public record IPV6Address(String address) implements Comparable<IPV6Address>, IV
    *
    * @return The text value represented by this object after conversion to type string.
    */
+  @Override
   public String stringValue()
    {
     return this.address;

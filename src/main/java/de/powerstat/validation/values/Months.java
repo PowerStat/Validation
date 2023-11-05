@@ -15,6 +15,8 @@ import de.powerstat.validation.interfaces.IValueObject;
  * @param months Months 0-..
  * 
  * Not DSGVO relevant.
+ *
+ * TODO min, max
  */
 public record Months(long months) implements Comparable<Months>, IValueObject
  {
@@ -42,6 +44,30 @@ public record Months(long months) implements Comparable<Months>, IValueObject
   public static Months of(final long months)
    {
     return new Months(months);
+   }
+
+
+  /**
+   * Months factory.
+   *
+   * @param value Months 0-.. string
+   * @return Months object
+   */
+  public static Months of(final String value)
+   {
+    return of(Long.parseLong(value));
+   }
+
+
+  /**
+   * Returns the value of this Months as a String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.months);
    }
 
 

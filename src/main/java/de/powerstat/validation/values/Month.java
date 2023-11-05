@@ -20,6 +20,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO daysWithin() = 31, 30, 29, 28, n (Year specific for february, or october 1582)
  * TODO Listener
  * TODO Translations short/long
+ * TODO min, max
  */
 public record Month(int month) implements Comparable<Month>, IValueObject
  {
@@ -59,6 +60,31 @@ public record Month(int month) implements Comparable<Month>, IValueObject
   public static Month of(final int month)
    {
     return new Month(month);
+   }
+
+
+  /**
+   * Month factory.
+   *
+   * @param value Month 1-12 string
+   * @return Month object
+   * @throws IndexOutOfBoundsException When the month is less than 1 or greater than 12
+   */
+  public static Month of(final String value)
+   {
+    return of(Integer.parseInt(value));
+   }
+
+
+  /**
+   * Returns the value of this Month as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.month);
    }
 
 

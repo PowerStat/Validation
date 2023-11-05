@@ -20,6 +20,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Constructor with day, month, year
  * TODO Listener
  * TODO hoursWithin = 24
+ * TODO min, max
  */
 public record Day(int day) implements Comparable<Day>, IValueObject
  {
@@ -58,6 +59,30 @@ public record Day(int day) implements Comparable<Day>, IValueObject
   public static Day of(final int day)
    {
     return new Day(day);
+   }
+
+
+  /**
+   * Day factory.
+   *
+   * @param value String value
+   * @return Day object
+   */
+  public static Day of(final String value)
+   {
+    return of(Integer.parseInt(value));
+   }
+
+
+  /**
+   * Returns the value of this Day as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.day);
    }
 
 

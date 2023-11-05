@@ -59,6 +59,18 @@ public record BuildingName(String buildingName) implements Comparable<BuildingNa
 
 
   /**
+   * Returns the value of this BuildingName as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.buildingName;
+   }
+
+
+  /**
    * Compare with another object.
    *
    * @param obj Object to compare with

@@ -61,6 +61,18 @@ public record Street(String street) implements Comparable<Street>, IValueObject
 
 
   /**
+   * Returns the value of this Street as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.street;
+   }
+
+
+  /**
    * Compare with another object.
    *
    * @param obj Object to compare with

@@ -1,23 +1,38 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
+import java.util.Arrays;
 import java.util.Formatter;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
-import de.powerstat.validation.values.containers.NTuple15;
 
 
 /**
  * Address.
+ *
+ * @param country Country
+ * @param postalCode Postal code
+ * @param city City
+ * @param province Province
+ * @param district District
+ * @param street Street
+ * @param buildingNr Bulding number
+ * @param buildingName Building name
+ * @param subBuilding Sub building
+ * @param poBoxNumber Post office box number
+ * @param department Department
+ * @param neighbourhood Neighbourhood
+ * @param block Block
+ * @param bFPONumber British Forces Post Office Number
+ * @param lines Lines 1-5
  *
  * DSGVO relevant.
  *
@@ -26,14 +41,9 @@ import de.powerstat.validation.values.containers.NTuple15;
  * TODO Get/cache GPS posiion for address
  */
 // @SuppressFBWarnings{("CC_CYCLOMATIC_COMPLEXITY", "PMB_POSSIBLE_MEMORY_BLOAT"})
-@SuppressWarnings({"java:S923", "java:S3776", "PMD.ExcessiveClassLength", "PMD.UseConcurrentHashMap"})
-public class Address implements Comparable<Address>, IValueObject
+@SuppressWarnings({"java:S923", "java:S3776", "PMD.ExcessiveClassLength"})
+public record Address(Country country, PostalCode postalCode, City city, Province province, District district, Street street, BuildingNr buildingNr, BuildingName buildingName, SubBuilding subBuilding, PoBoxNumber poBoxNumber, Department department, Neighbourhood neighbourhood, Block block, BFPONumber bFPONumber, Lines lines) implements Comparable<Address>, IValueObject
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<NTuple15<Country, PostalCode, City, Province, District, Street, BuildingNr, BuildingName, SubBuilding, PoBoxNumber, Department, Neighbourhood, Block, BFPONumber, Lines>, Address> CACHE = new WeakHashMap<>();
-
   /**
    * Address formats for countries.
    */
@@ -164,81 +174,6 @@ public class Address implements Comparable<Address>, IValueObject
    */
   @SuppressWarnings("java:S5857")
   private static final Pattern NOOPTIONALS_REGEXP = Pattern.compile("\\[.*?\\]"); //$NON-NLS-1$
-
-  /**
-   * Country.
-   */
-  private final Country country;
-
-  /**
-   * Postal code.
-   */
-  private final PostalCode postalCode;
-
-  /**
-   * City.
-   */
-  private final City city;
-
-  /**
-   * Province.
-   */
-  private final Province province;
-
-  /**
-   * District.
-   */
-  private final District district;
-
-  /**
-   * Street.
-   */
-  private final Street street;
-
-  /**
-   * Building number.
-   */
-  private final BuildingNr buildingNr;
-
-  /**
-   * Building name.
-   */
-  private final BuildingName buildingName;
-
-  /**
-   * Sub building.
-   */
-  private final SubBuilding subBuilding;
-
-  /**
-   * Post office box number.
-   */
-  private final PoBoxNumber poBoxNumber;
-
-  /**
-   * Department.
-   */
-  private final Department department;
-
-  /**
-   * Neighbourhood.
-   */
-  private final Neighbourhood neighbourhood;
-
-  /**
-   * Block.
-   */
-  private final Block block;
-
-  /**
-   * British Forces Post Office number.
-   */
-  private final BFPONumber bFPONumber;
-
-  /**
-   * Lines 1-5.
-   */
-  private final Lines lines;
 
 
   /* *
@@ -535,9 +470,8 @@ public class Address implements Comparable<Address>, IValueObject
    * @param lines Lines 1-5
    * @throws NullPointerException When country or some other required field is null.
    */
-  protected Address(final Country country, final PostalCode postalCode, final City city, final Province province, final District district, final Street street, final BuildingNr buildingNr, final BuildingName buildingName, final SubBuilding subBuilding, final PoBoxNumber poBoxNumber, final Department department, final Neighbourhood neighbourhood, final Block block, final BFPONumber bFPONumber, final Lines lines)
+  public Address
    {
-    super();
     Objects.requireNonNull(country, "country"); //$NON-NLS-1$
     final String format = Address.ADDRESS_FORMATS.get(country.alpha2());
     final String formatWithoutOptionals = Address.NOOPTIONALS_REGEXP.matcher(format).replaceAll(""); //$NON-NLS-1$
@@ -597,21 +531,6 @@ public class Address implements Comparable<Address>, IValueObject
      {
       Objects.requireNonNull(lines, "lines"); //$NON-NLS-1$
      }
-    this.country = country;
-    this.postalCode = postalCode;
-    this.city = city;
-    this.province = province;
-    this.district = district;
-    this.street = street;
-    this.buildingNr = buildingNr;
-    this.buildingName = buildingName;
-    this.subBuilding = subBuilding;
-    this.poBoxNumber = poBoxNumber;
-    this.department = department;
-    this.neighbourhood = neighbourhood;
-    this.block = block;
-    this.bFPONumber = bFPONumber;
-    this.lines = lines;
    }
 
 
@@ -634,34 +553,68 @@ public class Address implements Comparable<Address>, IValueObject
    * @param bFPONumber British Forces Post Office Number
    * @param lines Lines 1-5
    * @return Address object
+   * @throws NullPointerException When country or some other required field is null.
    */
   public static Address of(final Country country, final PostalCode postalCode, final City city, final Province province, final District district, final Street street, final BuildingNr buildingNr, final BuildingName buildingName, final SubBuilding subBuilding, final PoBoxNumber poBoxNumber, final Department department, final Neighbourhood neighbourhood, final Block block, final BFPONumber bFPONumber, final Lines lines)
    {
-    final NTuple15<Country, PostalCode, City, Province, District, Street, BuildingNr, BuildingName, SubBuilding, PoBoxNumber, Department, Neighbourhood, Block, BFPONumber, Lines> tuple = NTuple15.of(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines);
-    synchronized (Address.class)
-     {
-      Address obj = Address.CACHE.get(tuple);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Address(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines);
-      Address.CACHE.put(tuple, obj);
-      return obj;
-     }
+    return new Address(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines);
    }
 
 
   /**
-   * Calculate hash code.
+   * Address factory.
    *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
+   * @param value country,postalcode,city,province,district,street,buildingnr,buildingname,subbuilding,poboxnumber,department,neighbourhood,block,bfponumber,lines
+   * @return Address object
+   * @throws NullPointerException When country or some other required field is null.
+   * @throws IllegalArgumentException If the value has less than 1 or more than 15 commas
+   */
+  public static Address of(final String value)
+   {
+    String[] values = value.split(",");
+    if ((values.length < 1) || (values.length > 15))
+     {
+      throw new IllegalArgumentException("value not in expected format: " + values.length);
+     }
+    if (values.length < 15)
+     {
+      values = Arrays.copyOf(values, 15);
+      for (int i = 1; i < 15; ++i)
+       {
+        if (values[i] == null)
+         {
+          values[i] = "";
+         }
+       }
+     }
+    final var country = Country.of(values[0]);
+    final PostalCode postalCode = values[1].isEmpty() ? null : PostalCode.of(values[1]);
+    final City city = values[2].isEmpty() ? null : City.of(values[2]);
+    final Province province = values[3].isEmpty() ? null : Province.of(values[3]);
+    final District district = values[4].isEmpty() ? null : District.of(values[4]);
+    final Street street = values[5].isEmpty() ? null : Street.of(values[5]);
+    final BuildingNr buildingNr = values[6].isEmpty() ? null : BuildingNr.of(values[6]);
+    final BuildingName buildingName = values[7].isEmpty() ? null : BuildingName.of(values[7]);
+    final SubBuilding subBuilding = values[8].isEmpty() ? null : SubBuilding.of(values[8]);
+    final PoBoxNumber poBoxNumber = values[9].isEmpty() ? null : PoBoxNumber.of(values[9]);
+    final Department department = values[10].isEmpty() ? null : Department.of(values[10]);
+    final Neighbourhood neighbourhood = values[11].isEmpty() ? null : Neighbourhood.of(values[11]);
+    final Block block = values[12].isEmpty() ? null : Block.of(values[12]);
+    final BFPONumber bFPONumber = values[13].isEmpty() ? null : BFPONumber.of(values[13]);
+    final Lines lines = values[14].isEmpty() ? null : Lines.of(values[14]);
+    return of(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines);
+   }
+
+
+  /**
+   * Returns the value of this Address as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
    */
   @Override
-  public int hashCode()
+  public String stringValue()
    {
-    return Objects.hash(this.country, this.postalCode, this.city, this.province, this.district, this.street, this.buildingNr, this.buildingName, this.subBuilding, this.poBoxNumber, this.department, this.neighbourhood, this.block, this.bFPONumber, this.lines);
+    return getFormattedAddress("");
    }
 
 
@@ -693,8 +646,8 @@ public class Address implements Comparable<Address>, IValueObject
      {
       return true;
      }
-    if ((obj == null) || (this.getClass() != obj.getClass()))
-    // if (!(obj instanceof Address))
+    // if ((obj == null) || (this.getClass() != obj.getClass()))
+    if (!(obj instanceof Address))
      {
       return false;
      }
@@ -712,7 +665,7 @@ public class Address implements Comparable<Address>, IValueObject
           if (result)
            {
             result = equalField(this.district, other.district);
-             if (result)
+            if (result)
              {
               result = equalField(this.street, other.street);
               if (result)
@@ -757,82 +710,6 @@ public class Address implements Comparable<Address>, IValueObject
        }
      }
     return result;
-   }
-
-
-  /**
-   * Returns the string representation of this Address.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Address[country=DE, postalCode=28000, city=Bremen, province=, district=, street=Hemelinger Heerstr., buildingNr=4711, buildingName=Rathaus, subBuiding=Floor 13, Apart. 0815, poBoxNumber=4711, department=Research, neighbourhood=, block=A, bFPONumber=2, lines=]"
-   *
-   * @return String representation of this Address
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder(182);
-    builder.append("Address[country=").append(this.country.alpha2()); //$NON-NLS-1$
-    if (this.postalCode != null)
-     {
-      builder.append(", postalCode=").append(this.postalCode.postalCode()); //$NON-NLS-1$
-     }
-    if (this.city != null)
-     {
-      builder.append(", city=").append(this.city.city()); //$NON-NLS-1$
-     }
-    if (this.province != null)
-     {
-      builder.append(", province=").append(this.province.province()); //$NON-NLS-1$
-     }
-    if (this.district != null)
-     {
-      builder.append(", district=").append(this.district.district()); //$NON-NLS-1$
-     }
-    if (this.street != null)
-     {
-      builder.append(", street=").append(this.street.street()); //$NON-NLS-1$
-     }
-    if (this.buildingNr != null)
-     {
-      builder.append(", buildingNr=").append(this.buildingNr.buildingNr()); //$NON-NLS-1$
-     }
-    if (this.buildingName != null)
-     {
-      builder.append(", buildingName=").append(this.buildingName.buildingName()); //$NON-NLS-1$
-     }
-    if (this.subBuilding != null)
-     {
-      builder.append(", subBuilding=").append(this.subBuilding.subBuilding()); //$NON-NLS-1$
-     }
-    if (this.poBoxNumber != null)
-     {
-      builder.append(", poBoxNumber=").append(this.poBoxNumber.poBoxNumber()); //$NON-NLS-1$
-     }
-    if (this.department != null)
-     {
-      builder.append(", department=").append(this.department.department()); //$NON-NLS-1$
-     }
-    if (this.neighbourhood != null)
-     {
-      builder.append(", neighbourhood=").append(this.neighbourhood.neighbourhood()); //$NON-NLS-1$
-     }
-    if (this.block != null)
-     {
-      builder.append(", block=").append(this.block.block()); //$NON-NLS-1$
-     }
-    if (this.bFPONumber != null)
-     {
-      builder.append(", bFPONumber=").append(this.bFPONumber.bFPONumber()); //$NON-NLS-1$
-     }
-    if (this.lines != null)
-     {
-      builder.append(", lines=").append(this.lines.lines()); //$NON-NLS-1$
-     }
-    builder.append(']');
-    return builder.toString();
    }
 
 
@@ -966,7 +843,7 @@ public class Address implements Comparable<Address>, IValueObject
           throw new IllegalArgumentException("Block without end found in: " + this.country.alpha2()); //$NON-NLS-1$
          }
         pos = posEndBlock + 1;
-        final String blk = format.substring(posStartBlock + 1, posEndBlock);
+        final var blk = format.substring(posStartBlock + 1, posEndBlock);
         boolean removedBlock = false;
         int fieldPos = 0;
         while (fieldPos < blk.length())
@@ -1055,8 +932,8 @@ public class Address implements Comparable<Address>, IValueObject
   public String getFormattedAddress(final String recipientName)
    {
     Objects.requireNonNull(recipientName, "recipientName"); //$NON-NLS-1$
-    final StringBuilder builder = new StringBuilder();
-    try (Formatter formatter = new Formatter(builder, Locale.getDefault()))
+    final var builder = new StringBuilder();
+    try (var formatter = new Formatter(builder, Locale.getDefault()))
      {
       final String tmpPostalCode = this.postalCode == null ? null : this.postalCode.postalCode();
       final String tmpCity = this.city == null ? null : this.city.city();
@@ -1076,171 +953,6 @@ public class Address implements Comparable<Address>, IValueObject
       formatter.format(format, this.country.getEnglishCountryName(), recipientName, tmpPostalCode, tmpCity, tmpProvince, tmpDistrict, tmpStreet, tmpBuildingNr, tmpBuildingName, tmpSubBuilding, tmpPoBoxNumber, tmpDepartment, tmpNeighbourhood, tmpBlock, tmpBFPONumber, tmpLines);
      }
     return builder.toString();
-   }
-
-
-  /**
-   * Get country.
-   *
-   * @return The country
-   */
-  public Country getCountry()
-   {
-    return this.country;
-   }
-
-
-  /**
-   * Get postalCode.
-   *
-   * @return The postalCode
-   */
-  public PostalCode getPostalCode()
-   {
-    return this.postalCode;
-   }
-
-
-  /**
-   * Get city.
-   *
-   * @return The city
-   */
-  public City getCity()
-   {
-    return this.city;
-   }
-
-
-  /**
-   * Get province.
-   *
-   * @return The province
-   */
-  public Province getProvince()
-   {
-    return this.province;
-   }
-
-
-  /**
-   * Get district.
-   *
-   * @return The district
-   */
-  public District getDistrict()
-   {
-    return this.district;
-   }
-
-
-  /**
-   * Get street.
-   *
-   * @return The street
-   */
-  public Street getStreet()
-   {
-    return this.street;
-   }
-
-
-  /**
-   * Get buildingNr.
-   *
-   * @return The buildingNr
-   */
-  public BuildingNr getBuildingNr()
-   {
-    return this.buildingNr;
-   }
-
-
-  /**
-   * Get buildingName.
-   *
-   * @return The buildingName
-   */
-  public BuildingName getBuildingName()
-   {
-    return this.buildingName;
-   }
-
-
-  /**
-   * Get subBuilding.
-   *
-   * @return The subBuilding
-   */
-  public SubBuilding getSubBuilding()
-   {
-    return this.subBuilding;
-   }
-
-
-  /**
-   * Get poBoxNumber.
-   *
-   * @return The poBoxNumber
-   */
-  public PoBoxNumber getPoBoxNumber()
-   {
-    return this.poBoxNumber;
-   }
-
-
-  /**
-   * Get department.
-   *
-   * @return The department
-   */
-  public Department getDepartment()
-   {
-    return this.department;
-   }
-
-
-  /**
-   * Get neighbourhood.
-   *
-   * @return The neighbourhood
-   */
-  public Neighbourhood getNeighbourhood()
-   {
-    return this.neighbourhood;
-   }
-
-
-  /**
-   * Get block.
-   *
-   * @return The block
-   */
-  public Block getBlock()
-   {
-    return this.block;
-   }
-
-
-  /**
-   * Get bFPONumber.
-   *
-   * @return The bFPONumber
-   */
-  public BFPONumber getBFPONumber()
-   {
-    return this.bFPONumber;
-   }
-
-
-  /**
-   * Get lines.
-   *
-   * @return The lines
-   */
-  public Lines getLines()
-   {
-    return this.lines;
    }
 
  }

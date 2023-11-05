@@ -1,6 +1,6 @@
-# PowerStat's validation utilities
+# PowerStat's validation value objects/entities
 
-These validation utilities should be useful value/entity classes.
+These validation value objects and entities should be useful classes.
 
 ## Installation
 
@@ -11,10 +11,24 @@ For example when using Apache Maven you could add the following dependency to yo
     <dependency>
       <groupId>de.powerstat</groupId>
       <artifactId>validation</artifactId>
-      <version>3.0</version>
+      <version>3.0.0</version>
     </dependency>
 
 Other build tools like gradle will work analogous.
+
+Java platform module system:
+
+    module com.example.java.app
+     {
+      requires de.powerstat.validation;
+      requires de.powerstat.validation.comparators;
+      requires de.powerstat.validation.containers;
+      requires de.powerstat.validation.entities;
+      requires de.powerstat.validation.interfaces;
+      requires de.powerstat.validation.values;
+      requires de.powerstat.validation.values.strategies;
+
+     }
 
 To compile this project yourself you could use:
 
@@ -64,7 +78,7 @@ To run toolchain:
     
 If you use a sonar server:
 
-    mvn sonar:sonar -Dsonar.login=<username> -Dsonar.password=<password>
+    mvn sonar:sonar -Dsonar.token=<token>
 
 If you use [infer][https://fbinfer.com/]:
 

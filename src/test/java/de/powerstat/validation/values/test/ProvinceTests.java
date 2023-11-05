@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Province tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class ProvinceTests
+final class ProvinceTests
  {
   /**
    * abc.
@@ -52,7 +52,7 @@ public class ProvinceTests
   /**
    * Default constructor.
    */
-  public ProvinceTests()
+  /* default */ ProvinceTests()
    {
     super();
    }
@@ -65,7 +65,7 @@ public class ProvinceTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"A", "Abcdefghijklmnopqr"})
-  public void provinceCorrect(final String province)
+  /* default */ void testProvinceCorrect(final String province)
    {
     final Province cleanProvince = Province.of(province);
     assertEquals(province, cleanProvince.province(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
@@ -79,7 +79,7 @@ public class ProvinceTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "Abcdefghijklmnopqrs"})
-  public void provinceLength(final String province)
+  /* default */ void testProvinceLength(final String province)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -96,7 +96,7 @@ public class ProvinceTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"abc0815", "abc_def"})
-  public void provinceWrong(final String province)
+  /* default */ void testProvinceWrong(final String province)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -107,10 +107,22 @@ public class ProvinceTests
 
 
   /**
+   * Test get province.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final Province province = Province.of(ProvinceTests.ABCD);
+    assertEquals(ProvinceTests.ABCD, province.stringValue(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Province province1 = Province.of(ProvinceTests.ABC);
     final Province province2 = Province.of(ProvinceTests.ABC);

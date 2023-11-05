@@ -18,6 +18,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * 
  * TODO Listener
  * TODO secondsWithin = 60
+ * TODO min, max
  */
 public record Minute(int minute) implements Comparable<Minute>, IValueObject
  {
@@ -56,6 +57,30 @@ public record Minute(int minute) implements Comparable<Minute>, IValueObject
   public static Minute of(final int minute)
    {
     return new Minute(minute);
+   }
+
+
+  /**
+   * Minute factory.
+   *
+   * @param value Minute 0-59 string
+   * @return Minute object
+   */
+  public static Minute of(final String value)
+   {
+    return of(Integer.parseInt(value));
+   }
+
+
+  /**
+   * Returns the value of this Minute as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.minute);
    }
 
 

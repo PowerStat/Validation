@@ -6,9 +6,7 @@ package de.powerstat.validation.values;
 
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -146,6 +144,7 @@ public record MACAddress(String address) implements Comparable<MACAddress>, IVal
    *
    * @return The text value represented by this object after conversion to type string.
    */
+  @Override
   public String stringValue()
    {
     return stringValue(MACAddress.SEPARATOR);

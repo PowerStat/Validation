@@ -19,7 +19,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * IP V6 mask tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class IPV6MaskTests
+final class IPV6MaskTests
  {
   /**
    * Length is not equal constant.
@@ -31,11 +31,16 @@ public class IPV6MaskTests
    */
   private static final String INDEX_OUT_OF_BOUNDS = "Index out of bounds exception expected"; //$NON-NLS-1$
 
+  /**
+   * Constructor success constant.
+   */
+  private static final String CONSTRUCTOR_SUCCESS = "constructorSuccess"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
    */
-  public IPV6MaskTests()
+  /* default */ IPV6MaskTests()
    {
     super();
    }
@@ -45,7 +50,7 @@ public class IPV6MaskTests
    * Test constructor failure.
    */
   @Test
-  public void constructorFailure0()
+  /* default */ void testConstructorFailure0()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -59,7 +64,7 @@ public class IPV6MaskTests
    * Test constructor failure.
    */
   @Test
-  public void constructorFailure1()
+  /* default */ void testConstructorFailure1()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -73,7 +78,7 @@ public class IPV6MaskTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess0()
+  /* default */ void testConstructorSuccess0()
    {
     final IPV6Mask mask = IPV6Mask.of(0);
     assertAll("constructorSuccess0", //$NON-NLS-1$
@@ -86,12 +91,47 @@ public class IPV6MaskTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess1()
+  /* default */ void testConstructorSuccess1()
    {
     final IPV6Mask mask = IPV6Mask.of(128);
-    assertAll("constructorSuccess1", //$NON-NLS-1$
+    assertAll(CONSTRUCTOR_SUCCESS,
       () -> assertEquals(128, mask.length(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL)
     );
+   }
+
+
+  /**
+   * Test constructor success.
+   */
+  @Test
+  /* default */ void testConstructorSuccess2()
+   {
+    final IPV6Mask mask = IPV6Mask.of("128");
+    assertAll(CONSTRUCTOR_SUCCESS,
+      () -> assertEquals(128, mask.length(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL)
+    );
+   }
+
+
+  /**
+   * Test mask.
+   */
+  @Test
+  /* default */ void testIntValue()
+   {
+    final IPV6Mask mask = IPV6Mask.of(0);
+    assertEquals(0, mask.length(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL);
+   }
+
+
+  /**
+   * Test stringValue.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final IPV6Mask mask = IPV6Mask.of(0);
+    assertEquals("0", mask.stringValue(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL);
    }
 
 
@@ -99,7 +139,8 @@ public class IPV6MaskTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final IPV6Mask mask1 = IPV6Mask.of(16);
     final IPV6Mask mask2 = IPV6Mask.of(16);

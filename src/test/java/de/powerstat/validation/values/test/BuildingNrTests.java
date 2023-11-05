@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Building number tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "CE_CLASS_ENVY"})
-public class BuildingNrTests
+final class BuildingNrTests
  {
   /**
    * Test compare to.
@@ -57,7 +57,7 @@ public class BuildingNrTests
   /**
    * Default constructor.
    */
-  public BuildingNrTests()
+  /* default */ BuildingNrTests()
    {
     super();
    }
@@ -70,7 +70,7 @@ public class BuildingNrTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"9", BuildingNrTests.BUILDINGNR42, "42-44", "42/44", "42 a", "42 1/3", "42 1/3 a", "29998-29999 998/999 a", "29999", "42 4/4"})
-  public void buildingNrCorrect(final String buildingNr)
+  /* default */ void testBuildingNrCorrect(final String buildingNr)
    {
     final BuildingNr cleanBuildingNr = BuildingNr.of(buildingNr);
     assertEquals(buildingNr, cleanBuildingNr.buildingNr(), BuildingNrTests.BUILDING_NR_NOT_AS_EXPECTED);
@@ -84,7 +84,7 @@ public class BuildingNrTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "1234567890123456789012"})
-  public void buildingNrLength(final String buildingNr)
+  /* default */ void testBuildingNrLength(final String buildingNr)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -101,7 +101,7 @@ public class BuildingNrTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"4a2", "30000", "43-42", "42-42", "42 5/4"})
-  public void buidlingNrWrong(final String buildingNr)
+  /* default */ void testBuidlingNrWrong(final String buildingNr)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -112,10 +112,22 @@ public class BuildingNrTests
 
 
   /**
+   * Test get buildingNr.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final BuildingNr buildingNr = BuildingNr.of(BuildingNrTests.BUILDINGNR42);
+    assertEquals(BuildingNrTests.BUILDINGNR42, buildingNr.stringValue(), BuildingNrTests.BUILDING_NR_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final BuildingNr buildingNr1 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
     final BuildingNr buildingNr2 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
@@ -136,7 +148,8 @@ public class BuildingNrTests
    * Test compareTo ok.
    */
   @Test
-  public void testCompareToOk()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareToOk()
    {
     final BuildingNr buildingNr1 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
     final BuildingNr buildingNr2 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
@@ -165,7 +178,7 @@ public class BuildingNrTests
    * Test compareTo wrong.
    */
   @Test
-  public void testCompareToWrong1()
+  /* default */ void testCompareToWrong1()
    {
     final BuildingNr buildingNr1 = BuildingNr.of("23 1/3"); //$NON-NLS-1$
     final BuildingNr buildingNr2 = BuildingNr.of(BuildingNrTests.BUILDINGNR23_1_4);

@@ -19,6 +19,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Constructor with year
  * TODO Listener
  * TODO daysWithin = 7
+ * TODO min, max
  */
 public record Week(int week) implements Comparable<Week>, IValueObject
  {
@@ -57,6 +58,30 @@ public record Week(int week) implements Comparable<Week>, IValueObject
   public static Week of(final int week)
    {
     return new Week(week);
+   }
+
+
+  /**
+   * Week factory.
+   *
+   * @param value Week 1-53 string
+   * @return Week object
+   */
+  public static Week of(final String value)
+   {
+    return of(Integer.parseInt(value));
+   }
+
+
+  /**
+   * Returns the value of this Week as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.week);
    }
 
 

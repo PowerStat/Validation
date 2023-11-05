@@ -7,7 +7,6 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 
 import de.powerstat.validation.interfaces.IValueObject;
-import de.powerstat.validation.values.containers.NTuple2;
 
 
 /**
@@ -19,9 +18,15 @@ import de.powerstat.validation.values.containers.NTuple2;
  * Not DSGVO relevant.
  *
  * TODO Weeks weeksWithin() = (50, 51,) 52, 53 (CalendarSystem, Country dependend ISO vs US)
+ * TODO min, max
  */
 public record Year(CalendarSystems calendarSystem, long year) implements Comparable<Year>, IValueObject
  {
+  /**
+   * Unsupported calendar system constant.
+   */
+  private static final String UNSUPPORTED_CALENDAR_SYSTEM = "Unsupported calendar system!";
+
   /**
    * Year of Gregorian calendar reform.
    *
@@ -72,13 +77,26 @@ public record Year(CalendarSystems calendarSystem, long year) implements Compara
 
 
   /**
-   * Returns the value of this Year as an long.
+   * Gregorian calendar year factory.
    *
-   * @return The numeric value represented by this object after conversion to type long.
+   * @param value Year != 0 string
+   * @return Year object
    */
-  public long longValue()
+  public static Year of(final String value)
    {
-    return this.year;
+    return of(CalendarSystems.GREGORIAN, Long.parseLong(value));
+   }
+
+
+  /**
+   * Returns the value of this Year as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.year);
    }
 
 
@@ -87,7 +105,7 @@ public record Year(CalendarSystems calendarSystem, long year) implements Compara
    *
    * @return Months (12) within year
    */
-  public Months monthsWithin()
+  public static Months monthsWithin()
    {
     return Months.of(12);
    }
@@ -146,7 +164,7 @@ public record Year(CalendarSystems calendarSystem, long year) implements Compara
           return isGregorianLeapYear(this.year);
          }
       default:
-        throw new IllegalStateException("Unsupported calendar system!");
+        throw new IllegalStateException(UNSUPPORTED_CALENDAR_SYSTEM);
      }
    }
 
@@ -162,30 +180,16 @@ public record Year(CalendarSystems calendarSystem, long year) implements Compara
     switch (this.calendarSystem)
      {
       case JULIAN:
-        return Days.of(365 + (this.isLeapYear() ? 1 : 0));
+        return Days.of(365L + (this.isLeapYear() ? 1 : 0));
       case GREGORIAN:
         if (this.year == BEFORE_GREGORIAN_YEAR) // Country dependend
          {
-          return Days.of(365 - 10); // Country dependend
+          return Days.of(365L - 10); // Country dependend
          }
-        return Days.of(365 + (this.isLeapYear() ? 1 : 0));
+        return Days.of(365L + (this.isLeapYear() ? 1 : 0));
       default:
-        throw new IllegalStateException("Unsupported calendar system!");
+        throw new IllegalStateException(UNSUPPORTED_CALENDAR_SYSTEM);
     }
-   }
-
-
-  /**
-   * Compare fields.
-   *
-   * @param <T> Field type
-   * @param obj1 Field 1 (this)
-   * @param obj2 Field 2 (other)
-   * @return 0: equal; 1 field 1 greater than field 2; -1 field 1 smaller than field 2
-   */
-  private static <T extends Comparable<T>> int compareField(final T obj1, final T obj2)
-   {
-    return (obj1 == null) ? ((obj2 == null) ? 0 : -1) : ((obj2 == null) ? 1 : obj1.compareTo(obj2));
    }
 
 
@@ -205,7 +209,7 @@ public record Year(CalendarSystems calendarSystem, long year) implements Compara
      {
       throw new IllegalStateException("CalendarSystems are not equal!");
      }
-    return compareField(this.year, obj.year);
+    return Long.compare(this.year, obj.year);
    }
 
 

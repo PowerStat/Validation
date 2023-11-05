@@ -54,10 +54,29 @@ public record DisplayAspectRatio(int x, int y) implements Comparable<DisplayAspe
 
 
   /**
+   * Display aspect ration factory.
+   *
+   * @param value String value of type x:y
+   * @return DisplayAspectRatio object
+   * @throws IllegalArgumentException If not of correct format
+   */
+  public static DisplayAspectRatio of(final String value)
+   {
+    final String[] values = value.split(":");
+    if (values.length != 2)
+     {
+      throw new IllegalArgumentException("Not of format x:y");
+     }
+    return of(Integer.parseInt(values[0]), Integer.parseInt(values[1]));
+   }
+
+
+  /**
    * Returns the value of this DisplayAspectRatio as a string.
    *
    * @return The text value represented by this object after conversion to type string.
    */
+  @Override
   public String stringValue()
    {
     return String.valueOf(this.x) + ':' + this.y;

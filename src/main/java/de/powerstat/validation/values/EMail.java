@@ -101,6 +101,18 @@ public record EMail(String email) implements Comparable<EMail>, IValueObject
 
 
   /**
+   * Returns the value of this EMail as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.email;
+   }
+
+
+  /**
    * Get emails domain part string.
    *
    * @return Domain part string
@@ -133,8 +145,8 @@ public record EMail(String email) implements Comparable<EMail>, IValueObject
    */
   public String getLocalPart()
    {
-	final String[] parts = email.split("@"); //$NON-NLS-1$
-	final String localPart = parts[0]; // Store for check receiver
+    final String[] parts = email.split("@"); //$NON-NLS-1$
+    final String localPart = parts[0]; // Store for check receiver
     return localPart;
    }
 

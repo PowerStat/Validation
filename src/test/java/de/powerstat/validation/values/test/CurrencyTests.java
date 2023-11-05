@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Currency tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class CurrencyTests
+final class CurrencyTests
  {
   /**
    * EURO.
@@ -47,7 +47,7 @@ public class CurrencyTests
   /**
    * Default constructor.
    */
-  public CurrencyTests()
+  /* default */ CurrencyTests()
    {
     super();
    }
@@ -60,7 +60,7 @@ public class CurrencyTests
    */
   @ParameterizedTest
   @ValueSource(strings = {CurrencyTests.EUR})
-  public void currencyOk0(final String code)
+  /* default */ void testCurrencyOk0(final String code)
    {
     final Currency cleanCurrency = Currency.of(code);
     assertEquals(code, cleanCurrency.code(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
@@ -74,7 +74,7 @@ public class CurrencyTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"EU", "EURO"})
-  public void currencyLength(final String code)
+  /* default */ void testCurrencyLength(final String code)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -91,7 +91,7 @@ public class CurrencyTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"EU~", "ZZZ"})
-  public void ccurrencyIllegalParameters(final String code)
+  /* default */ void testCurrencyIllegalParameters(final String code)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -102,10 +102,22 @@ public class CurrencyTests
 
 
   /**
+   * Test get currency code.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final Currency currency = Currency.of(CurrencyTests.EUR);
+    assertEquals(CurrencyTests.EUR, currency.stringValue(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Currency currency1 = Currency.of(CurrencyTests.EUR);
     final Currency currency2 = Currency.of(CurrencyTests.EUR);

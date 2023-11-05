@@ -13,8 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import de.powerstat.validation.values.CalendarSystems;
+import de.powerstat.validation.values.Days;
+import de.powerstat.validation.values.Months;
 import de.powerstat.validation.values.Year;
 import de.powerstat.validation.values.Years;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -24,7 +28,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Year tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class YearTests
+final class YearTests
  {
   /**
    * Result nor as expecte constant.
@@ -36,13 +40,53 @@ public class YearTests
    */
   private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
 
+  /**
+   * 10 constant.
+   */
+  private static final String TEN = "10"; //$NON-NLS-1$
+
+  /**
+   * Not a year constant.
+   */
+  private static final String NOT_A_YEAR = "Not a year!"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
    */
-  public YearTests()
+  /* default */ YearTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory1()
+   {
+    assertEquals(10, Year.of(TEN).year(), NOT_A_YEAR);
+   }
+
+
+  /**
+   * longValue.
+   */
+  @Test
+  /* default */ void testLongValue()
+   {
+    assertEquals(10, Year.of(10).year(), NOT_A_YEAR);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    assertEquals(TEN, Year.of(10).stringValue(), NOT_A_YEAR);
    }
 
 
@@ -53,9 +97,9 @@ public class YearTests
    */
   @ParameterizedTest
   @ValueSource(longs = {-1, 1, 2020})
-  public void isYear(final long year)
+  /* default */ void testIsYear(final long year)
    {
-    assertEquals(year, Year.of(year).year(), "Not a year!"); //$NON-NLS-1$
+    assertEquals(year, Year.of(year).year(), NOT_A_YEAR);
    }
 
 
@@ -66,7 +110,7 @@ public class YearTests
    */
   @ParameterizedTest
   @ValueSource(longs = {0})
-  public void isNotAYear(final long year)
+  /* default */ void testIsNotAYear(final long year)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -80,7 +124,8 @@ public class YearTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo1()
    {
     final Year year1 = Year.of(1);
     final Year year2 = Year.of(1);
@@ -98,10 +143,27 @@ public class YearTests
 
 
   /**
+   * Test compareTo.
+   */
+  @Test
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo2()
+   {
+    final Year year1 = Year.of(CalendarSystems.JULIAN, 1582);
+    final Year year2 = Year.of(CalendarSystems.GREGORIAN, 1582);
+    assertThrows(IllegalStateException.class, () ->
+     {
+      year1.compareTo(year2);
+     }, "Illegal state exception"
+    );
+   }
+
+
+  /**
    * Test add.
    */
   @Test
-  public void testAdd1()
+  /* default */ void testAdd1()
    {
     final Year year = Year.of(2022);
     final Years years = Years.of(1);
@@ -114,7 +176,7 @@ public class YearTests
    * Test add.
    */
   @Test
-  public void testAdd2()
+  /* default */ void testAdd2()
    {
     final Year year = Year.of(-1);
     final Years years = Years.of(1);
@@ -127,7 +189,7 @@ public class YearTests
    * Test add.
    */
   @Test
-  public void testAdd3()
+  /* default */ void testAdd3()
    {
     final Year year = Year.of(Long.MAX_VALUE);
     final Years years = Years.of(1);
@@ -143,7 +205,7 @@ public class YearTests
    * Test add.
    */
   @Test
-  public void testAdd4()
+  /* default */ void testAdd4()
    {
     final Year year = Year.of(-2);
     final Years years = Years.of(1);
@@ -156,7 +218,7 @@ public class YearTests
    * Test subtract.
    */
   @Test
-  public void testSubtract1()
+  /* default */ void testSubtract1()
    {
     final Year year = Year.of(2022);
     final Years years = Years.of(1);
@@ -169,7 +231,7 @@ public class YearTests
    * Test subtract.
    */
   @Test
-  public void testSubtract2()
+  /* default */ void testSubtract2()
    {
     final Year year = Year.of(1);
     final Years years = Years.of(1);
@@ -182,7 +244,7 @@ public class YearTests
    * Test subtract.
    */
   @Test
-  public void testSubtract3()
+  /* default */ void testSubtract3()
    {
     final Year year = Year.of(Long.MIN_VALUE);
     final Years years = Years.of(1);
@@ -198,7 +260,7 @@ public class YearTests
    * Test subtract.
    */
   @Test
-  public void testSubtract4()
+  /* default */ void testSubtract4()
    {
     final Year year = Year.of(-1);
     final Years years = Years.of(1);
@@ -211,7 +273,7 @@ public class YearTests
    * Test incfrement.
    */
   @Test
-  public void testIncrement1()
+  /* default */ void testIncrement1()
    {
     final Year year = Year.of(2022);
     final Year yearResult = year.increment();
@@ -223,7 +285,7 @@ public class YearTests
    * Test increment.
    */
   @Test
-  public void testIncrement2()
+  /* default */ void testIncrement2()
    {
     final Year year = Year.of(-1);
     final Year yearResult = year.increment();
@@ -235,7 +297,7 @@ public class YearTests
    * Test increment.
    */
   @Test
-  public void testIncrement3()
+  /* default */ void testIncrement3()
    {
     final Year year = Year.of(Long.MAX_VALUE);
     assertThrows(ArithmeticException.class, () ->
@@ -250,7 +312,7 @@ public class YearTests
    * Test decrement.
    */
   @Test
-  public void testDecrement1()
+  /* default */ void testDecrement1()
    {
     final Year year = Year.of(2022);
     final Year yearResult = year.decrement();
@@ -262,7 +324,7 @@ public class YearTests
    * Test decrement.
    */
   @Test
-  public void testDecrement2()
+  /* default */ void testDecrement2()
    {
     final Year year = Year.of(1);
     final Year yearResult = year.decrement();
@@ -274,7 +336,7 @@ public class YearTests
    * Test decrement.
    */
   @Test
-  public void testDecrement3()
+  /* default */ void testDecrement3()
    {
     final Year year = Year.of(Long.MIN_VALUE);
     assertThrows(ArithmeticException.class, () ->
@@ -282,6 +344,121 @@ public class YearTests
       /* final Year yearResult = */ year.decrement();
      }, YearTests.ARITHMETIC_EXCEPTION_EXPECTED
     );
+   }
+
+
+  /**
+   * Test monthsWithin.
+   */
+  @Test
+  /* default */ void testMonthWithin()
+   {
+    final Year year = Year.of(1);
+    final Months result = year.monthsWithin();
+    assertEquals(12, result.months(), YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test isLepaYear.
+   */
+  @Test
+  /* default */ void testIsLeapYear1()
+   {
+    final Year year = Year.of(CalendarSystems.JULIAN, 4);
+    final boolean result = year.isLeapYear();
+    assertTrue(result, YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test isLepaYear.
+   *
+   * @param pYear Year
+   */
+  @ParameterizedTest
+  @ValueSource(longs = {2000, 1500, 2004})
+  /* default */ void testIsLeapYear2(final long pYear)
+   {
+    final Year year = Year.of(CalendarSystems.GREGORIAN, pYear);
+    final boolean result = year.isLeapYear();
+    assertTrue(result, YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test isLepaYear.
+   */
+  @Test
+  /* default */ void testIsLeapYear5()
+   {
+    final Year year = Year.of(CalendarSystems.GREGORIAN, 2001);
+    final boolean result = year.isLeapYear();
+    assertFalse(result, YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test isLepaYear.
+   */
+  @Test
+  /* default */ void testIsLeapYear7()
+   {
+    final Year year = Year.of(CalendarSystems.JULIAN, -1);
+    final boolean result = year.isLeapYear();
+    assertTrue(result, YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test isLepaYear.
+   */
+  @Test
+  /* default */ void testIsLeapYear8()
+   {
+    final Year year = Year.of(CalendarSystems.JULIAN, -2);
+    final boolean result = year.isLeapYear();
+    assertFalse(result, YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test daysWithin.
+   *
+   * @param pYear Year
+   * @param pDays Number of days in year
+   */
+  @ParameterizedTest
+  @CsvSource({"2000,366", "2001,365", "1582,355"})
+  /* default */ void testDaysWithin1(final long pYear, final long pDays)
+   {
+    final Year year = Year.of(CalendarSystems.GREGORIAN, pYear);
+    final Days days = year.daysWithin();
+    assertEquals(pDays, days.days(), YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test daysWithin.
+   */
+  @Test
+  /* default */ void testDaysWithin4()
+   {
+    final Year year = Year.of(CalendarSystems.JULIAN, 2000);
+    final Days days = year.daysWithin();
+    assertEquals(366, days.days(), YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test daysWithin.
+   */
+  @Test
+  /* default */ void testDaysWithin5()
+   {
+    final Year year = Year.of(CalendarSystems.JULIAN, 2001);
+    final Days days = year.daysWithin();
+    assertEquals(365, days.days(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
  }

@@ -19,7 +19,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * IP V4 mask tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class IPV4MaskTests
+final class IPV4MaskTests
  {
   /**
    * IP address mask 255.0.0.0.
@@ -70,7 +70,7 @@ public class IPV4MaskTests
   /**
    * Default constructor.
    */
-  public IPV4MaskTests()
+  /* default */ IPV4MaskTests()
    {
     super();
    }
@@ -80,7 +80,7 @@ public class IPV4MaskTests
    * Test constructor failure.
    */
   @Test
-  public void constructorFailure0()
+  /* default */ void testConstructorFailure0()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -94,7 +94,7 @@ public class IPV4MaskTests
    * Test constructor failure.
    */
   @Test
-  public void constructorFailure1()
+  /* default */ void testConstructorFailure1()
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -108,7 +108,7 @@ public class IPV4MaskTests
    * Test constructor failure.
    */
   @Test
-  public void constructorFailure2()
+  /* default */ void testConstructorFailure2()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -122,7 +122,7 @@ public class IPV4MaskTests
    * Test constructor failure.
    */
   @Test
-  public void constructorFailure3()
+  /* default */ void testConstructorFailure3()
    {
     assertThrows(NullPointerException.class, () ->
      {
@@ -136,7 +136,7 @@ public class IPV4MaskTests
    * Test constructor failure.
    */
   @Test
-  public void constructorFailure4()
+  /* default */ void testCnstructorFailure4()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -150,7 +150,7 @@ public class IPV4MaskTests
    * Test constructor failure.
    */
   @Test
-  public void constructorFailure5()
+  /* default */ void testConstructorFailure5()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -164,7 +164,7 @@ public class IPV4MaskTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess0()
+  /* default */ void testConstructorSuccess0()
    {
     final IPV4Mask mask = IPV4Mask.of(0);
     assertAll("constructorSuccess0", //$NON-NLS-1$
@@ -178,7 +178,7 @@ public class IPV4MaskTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess1()
+  /* default */ void testConstructorSuccess1()
    {
     final IPV4Mask mask = IPV4Mask.of(32);
     assertAll("constructorSuccess1", //$NON-NLS-1$
@@ -192,7 +192,7 @@ public class IPV4MaskTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess2()
+  /* default */ void testConstructorSuccess2()
    {
     final IPV4Mask mask = IPV4Mask.of(IPV4MaskTests.IP_ZERO);
     assertAll("constructorSuccess2", //$NON-NLS-1$
@@ -206,7 +206,7 @@ public class IPV4MaskTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess3()
+  /* default */ void testConstructorSuccess3()
    {
     final IPV4Mask mask = IPV4Mask.of(IPV4MaskTests.IP255);
     assertAll("constructorSuccess3", //$NON-NLS-1$
@@ -220,7 +220,7 @@ public class IPV4MaskTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess4()
+  /* default */ void testConstructorSuccess4()
    {
     final IPV4Mask mask = IPV4Mask.of(8);
     assertAll("constructorSuccess4", //$NON-NLS-1$
@@ -234,7 +234,7 @@ public class IPV4MaskTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess5()
+  /* default */ void testConstructorSuccess5()
    {
     final IPV4Mask mask = IPV4Mask.of(16);
     assertAll("constructorSuccess5", //$NON-NLS-1$
@@ -248,7 +248,7 @@ public class IPV4MaskTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess6()
+  /* default */ void testConstructorSuccess6()
    {
     final IPV4Mask mask = IPV4Mask.of(24);
     assertAll("constructorSuccess6", //$NON-NLS-1$
@@ -262,7 +262,7 @@ public class IPV4MaskTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess7()
+  /* default */ void testConstructorSuccess7()
    {
     final IPV4Mask mask = IPV4Mask.of(IPV4MaskTests.IPMASK_255_255_255_0);
     assertAll("constructorSuccess7", //$NON-NLS-1$
@@ -276,7 +276,7 @@ public class IPV4MaskTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess8()
+  /* default */ void testConstructorSuccess8()
    {
     final IPV4Mask mask = IPV4Mask.of(IPV4MaskTests.IPMASK_255_255_0_0);
     assertAll("constructorSuccess8", //$NON-NLS-1$
@@ -290,7 +290,7 @@ public class IPV4MaskTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess9()
+  /* default */ void testConstructorSuccess9()
    {
     final IPV4Mask mask = IPV4Mask.of(IPV4MaskTests.IPMASK_255_0_0_0);
     assertAll("constructorSuccess9", //$NON-NLS-1$
@@ -304,7 +304,7 @@ public class IPV4MaskTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess10()
+  /* default */ void testConstructorSuccess10()
    {
     final IPV4Mask mask = IPV4Mask.of(9);
     assertAll("constructorSuccess10", //$NON-NLS-1$
@@ -318,7 +318,7 @@ public class IPV4MaskTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess11()
+  /* default */ void testConstructorSuccess11()
    {
     final IPV4Mask mask = IPV4Mask.of(17);
     assertAll("constructorSuccess11", //$NON-NLS-1$
@@ -332,7 +332,8 @@ public class IPV4MaskTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final IPV4Mask mask1 = IPV4Mask.of(IPV4MaskTests.IPMASK_255_0_0_0);
     final IPV4Mask mask2 = IPV4Mask.of(IPV4MaskTests.IPMASK_255_0_0_0);

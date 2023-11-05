@@ -63,7 +63,7 @@ public record GregorianCalendar(Country country) implements Comparable<Gregorian
   private static final String YEAR = "year"; //$NON-NLS-1$
 
 
-  /**
+  /* *
    * Static initialization.
    */
   static
@@ -184,8 +184,32 @@ public record GregorianCalendar(Country country) implements Comparable<Gregorian
    * @return GregorianDate object
    */
   public static GregorianCalendar of(final Country country)
-   {
+   { 
     return new GregorianCalendar(country);
+   }
+
+
+  /**
+   * GregorianClendar factory.
+   *
+   * @param value Country alpha-2 code
+   * @return GregorianDate object
+   */
+  public static GregorianCalendar of(final String value)
+   {
+    return of(Country.of(value));
+   }
+
+
+  /**
+   * Returns the value of this GregorianCalendar as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.country.stringValue();
    }
 
 

@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Block tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class BlockTests
+final class BlockTests
  {
   /**
    * Block a.
@@ -47,7 +47,7 @@ public class BlockTests
   /**
    * Default constructor.
    */
-  public BlockTests()
+  /* default */ BlockTests()
    {
     super();
    }
@@ -60,7 +60,7 @@ public class BlockTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"1", BlockTests.BLOCKA, "Abcdefghijklmnop"})
-  public void blockCorrect(final String block)
+  /* default */ void testBlockCorrect(final String block)
    {
     final Block cleanBlock = Block.of(block);
     assertEquals(block, cleanBlock.block(), BlockTests.BLOCK_NOT_AS_EXPECTED);
@@ -74,7 +74,7 @@ public class BlockTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "Abcdefghijklmnopq"})
-  public void blockLength(final String block)
+  /* default */ void testBlockLength(final String block)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -91,7 +91,7 @@ public class BlockTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"abc_def"})
-  public void blockWrong(final String block)
+  /* default */ void testBlockWrong(final String block)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -102,10 +102,22 @@ public class BlockTests
 
 
   /**
+   * Test get block.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final Block block = Block.of(BlockTests.BLOCKA);
+    assertEquals(BlockTests.BLOCKA, block.stringValue(), BlockTests.BLOCK_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Block block1 = Block.of(BlockTests.BLOCKA);
     final Block block2 = Block.of(BlockTests.BLOCKA);

@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Department tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class DepartmentTests
+final class DepartmentTests
  {
   /**
    * Reasearch.
@@ -49,7 +49,7 @@ public class DepartmentTests
   /**
    * Default constructor.
    */
-  public DepartmentTests()
+  /* default */ DepartmentTests()
    {
     super();
    }
@@ -62,7 +62,7 @@ public class DepartmentTests
    */
   @ParameterizedTest
   @ValueSource(strings = {DepartmentTests.RESEARCH, "A", "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl"})
-  public void departmentCorrect(final String department)
+  /* default */ void testDepartmentCorrect(final String department)
    {
     final Department cleanDepartment = Department.of(department);
     assertEquals(department, cleanDepartment.department(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
@@ -76,7 +76,7 @@ public class DepartmentTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklm"})
-  public void departmentLength(final String department)
+  /* default */ void testDepartmentLength(final String department)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -93,7 +93,7 @@ public class DepartmentTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"abc_def"})
-  public void departmentWrong(final String department)
+  /* default */ void testDepartmentWrong(final String department)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -104,10 +104,22 @@ public class DepartmentTests
 
 
   /**
+   * Test get department.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final Department department = Department.of(DepartmentTests.RESEARCH);
+    assertEquals(DepartmentTests.RESEARCH, department.stringValue(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Department department1 = Department.of(DepartmentTests.RESEARCH);
     final Department department2 = Department.of(DepartmentTests.RESEARCH);

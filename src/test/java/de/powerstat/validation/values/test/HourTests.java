@@ -22,7 +22,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Hour tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class HourTests
+final class HourTests
  {
   /**
    * Not a hour constant.
@@ -43,9 +43,19 @@ public class HourTests
   /**
    * Default constructor.
    */
-  public HourTests()
+  /* default */ HourTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory1()
+   {
+    assertEquals(0, Hour.of("0").hour(), HourTests.NOT_A_HOUR);
    }
 
 
@@ -56,7 +66,7 @@ public class HourTests
    */
   @ParameterizedTest
   @ValueSource(ints = {0, 23})
-  public void isHour(final int hour)
+  /* default */ void testIsHour(final int hour)
    {
     assertEquals(hour, Hour.of(hour).hour(), HourTests.NOT_A_HOUR);
    }
@@ -69,7 +79,7 @@ public class HourTests
    */
   @ParameterizedTest
   @ValueSource(ints = {-1, 24})
-  public void isNotAHour(final int hour)
+  /* default */ void testIsNotAHour(final int hour)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -80,10 +90,21 @@ public class HourTests
 
 
   /**
+   * stringValue.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    assertEquals("10", Hour.of(10).stringValue(), HourTests.NOT_A_HOUR);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Hour hour1 = Hour.of(1);
     final Hour hour2 = Hour.of(1);
@@ -104,7 +125,7 @@ public class HourTests
    * Test add.
    */
   @Test
-  public void testAdd1()
+  /* default */ void testAdd1()
    {
     final Hour hour = Hour.of(0);
     final Hours hours = Hours.of(1);
@@ -117,7 +138,7 @@ public class HourTests
    * Test add.
    */
   @Test
-  public void testAdd2()
+  /* default */ void testAdd2()
    {
     final Hour hour = Hour.of(23);
     final Hours hours = Hours.of(1);
@@ -133,7 +154,7 @@ public class HourTests
    * Test subtract.
    */
   @Test
-  public void testSubtract1()
+  /* default */ void testSubtract1()
    {
     final Hour hour = Hour.of(1);
     final Hours hours = Hours.of(1);
@@ -146,7 +167,7 @@ public class HourTests
    * Test subtract.
    */
   @Test
-  public void testSubtract2()
+  /* default */ void testSubtract2()
    {
     final Hour hour = Hour.of(0);
     final Hours hours = Hours.of(1);
@@ -162,7 +183,7 @@ public class HourTests
    * Test incement.
    */
   @Test
-  public void testIncrement1()
+  /* default */ void testIncrement1()
    {
     final Hour hour = Hour.of(0);
     final Hour hourResult = hour.increment();
@@ -174,7 +195,7 @@ public class HourTests
    * Test increment.
    */
   @Test
-  public void testIncrement2()
+  /* default */ void testIncrement2()
    {
     final Hour hour = Hour.of(23);
     assertThrows(ArithmeticException.class, () ->
@@ -189,7 +210,7 @@ public class HourTests
    * Test decrement.
    */
   @Test
-  public void testDecrement1()
+  /* default */ void testDecrement1()
    {
     final Hour hour = Hour.of(1);
     final Hour hourResult = hour.decrement();
@@ -201,7 +222,7 @@ public class HourTests
    * Test decrement.
    */
   @Test
-  public void testDecrement2()
+  /* default */ void testDecrement2()
    {
     final Hour hour = Hour.of(0);
     assertThrows(ArithmeticException.class, () ->

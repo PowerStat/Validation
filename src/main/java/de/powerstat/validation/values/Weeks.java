@@ -15,6 +15,8 @@ import de.powerstat.validation.interfaces.IValueObject;
  * @param weeks Weeks 0-..
  * 
  * Not DSGVO relevant.
+ *
+ * TODO min, max
  */
 public record Weeks(long weeks) implements Comparable<Weeks>, IValueObject
  {
@@ -42,6 +44,30 @@ public record Weeks(long weeks) implements Comparable<Weeks>, IValueObject
   public static Weeks of(final long weeks)
    {
     return new Weeks(weeks);
+   }
+
+
+  /**
+   * Weeks factory.
+   *
+   * @param value Weeks 0-.. string
+   * @return Weeks object
+   */
+  public static Weeks of(final String value)
+   {
+    return of(Long.parseLong(value));
+   }
+
+
+  /**
+   * Returns the value of this Weeks as a String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.weeks);
    }
 
 

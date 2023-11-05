@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Months tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class MonthsTests
+final class MonthsTests
  {
   /**
    * Not a months constant.
@@ -42,9 +42,19 @@ public class MonthsTests
   /**
    * Default constructor.
    */
-  public MonthsTests()
+  /* default */ MonthsTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory1()
+   {
+    assertEquals(0, Months.of("0").months(), MonthsTests.NOT_A_MONTHS);
    }
 
 
@@ -55,7 +65,7 @@ public class MonthsTests
    */
   @ParameterizedTest
   @ValueSource(longs = {0, 1, 24})
-  public void isMonths(final long months)
+  /* default */ void testIsMonths(final long months)
    {
     assertEquals(months, Months.of(months).months(), MonthsTests.NOT_A_MONTHS);
    }
@@ -68,7 +78,7 @@ public class MonthsTests
    */
   @ParameterizedTest
   @ValueSource(longs = {-1})
-  public void isNotAMonths(final long months)
+  /* default */ void testIsNotAMonths(final long months)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -79,10 +89,20 @@ public class MonthsTests
 
 
   /**
-   * longValue.
+   * months.
    */
   @Test
-  public void longValue()
+  /* default */ void testLongValue()
+   {
+    assertEquals(10, Months.of(10).months(), MonthsTests.NOT_A_MONTHS);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  /* default */ void testStringValue()
    {
     assertEquals(10, Months.of(10).months(), MonthsTests.NOT_A_MONTHS);
    }
@@ -92,7 +112,8 @@ public class MonthsTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Months months1 = Months.of(1);
     final Months months2 = Months.of(1);
@@ -113,7 +134,7 @@ public class MonthsTests
    * Test add.
    */
   @Test
-  public void testAdd1()
+  /* default */ void testAdd1()
    {
     final Months months1 = Months.of(1);
     final Months months2 = Months.of(1);
@@ -126,7 +147,7 @@ public class MonthsTests
    * Test add.
    */
   @Test
-  public void testAdd2()
+  /* default */ void testAdd2()
    {
     final Months months1 = Months.of(Long.MAX_VALUE);
     final Months months2 = Months.of(1);
@@ -142,7 +163,7 @@ public class MonthsTests
    * Test substract.
    */
   @Test
-  public void testSubstract1()
+  /* default */ void testSubstract1()
    {
     final Months months1 = Months.of(6);
     final Months months2 = Months.of(3);
@@ -155,7 +176,7 @@ public class MonthsTests
    * Test substract.
    */
   @Test
-  public void testSubstract2()
+  /* default */ void testSubstract2()
    {
     final Months months1 = Months.of(3);
     final Months months2 = Months.of(6);
@@ -168,7 +189,7 @@ public class MonthsTests
    * Test multiply.
    */
   @Test
-  public void testMultiply1()
+  /* default */ void testMultiply1()
    {
     final Months months1 = Months.of(7);
     final Months monthsResult = months1.multiply(3);
@@ -180,7 +201,7 @@ public class MonthsTests
    * Test multiply.
    */
   @Test
-  public void testMultiply2()
+  /* default */ void testMultiply2()
    {
     final Months months1 = Months.of(Long.MAX_VALUE / 2);
     assertThrows(ArithmeticException.class, () ->
@@ -195,7 +216,7 @@ public class MonthsTests
    * Test divide.
    */
   @Test
-  public void testDivide1()
+  /* default */ void testDivide1()
    {
     final Months months1 = Months.of(10);
     final Months monthsResult = months1.divide(2);
@@ -207,7 +228,7 @@ public class MonthsTests
    * Test divide.
    */
   @Test
-  public void testDivide2()
+  /* default */ void testDivide2()
    {
     final Months months1 = Months.of(10);
     final Months monthsResult = months1.divide(3);
@@ -219,7 +240,7 @@ public class MonthsTests
    * Test divide.
    */
   @Test
-  public void testDivide3()
+  /* default */ void testDivide3()
    {
     final Months months1 = Months.of(10);
     assertThrows(ArithmeticException.class, () ->
@@ -234,7 +255,7 @@ public class MonthsTests
    * Test divide.
    */
   @Test
-  public void testModulo1()
+  /* default */ void testModulo1()
    {
     final Months months1 = Months.of(10);
     final Months monthsResult = months1.modulo(2);
@@ -246,7 +267,7 @@ public class MonthsTests
    * Test divide.
    */
   @Test
-  public void testModulo2()
+  /* default */ void testModulo2()
    {
     final Months months1 = Months.of(10);
     final Months monthsResult = months1.modulo(3);
@@ -258,7 +279,7 @@ public class MonthsTests
    * Test divide.
    */
   @Test
-  public void testModulo3()
+  /* default */ void testModulo3()
    {
     final Months months1 = Months.of(10);
     assertThrows(ArithmeticException.class, () ->

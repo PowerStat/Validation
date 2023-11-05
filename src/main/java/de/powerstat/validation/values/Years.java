@@ -15,6 +15,8 @@ import de.powerstat.validation.interfaces.IValueObject;
  * @param years Years &gt;= 0
  * 
  * Not DSGVO relevant.
+ *
+ * TODO min, max
  */
 public record Years(long years) implements Comparable<Years>, IValueObject
  {
@@ -42,6 +44,30 @@ public record Years(long years) implements Comparable<Years>, IValueObject
   public static Years of(final long years)
    {
     return new Years(years);
+   }
+
+
+  /**
+   * Years factory.
+   *
+   * @param value Years &gt;= 0 string
+   * @return Years object
+   */
+  public static Years of(final String value)
+   {
+    return of(Long.parseLong(value));
+   }
+
+
+  /**
+   * Returns the value of this Years as an String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.years);
    }
 
 

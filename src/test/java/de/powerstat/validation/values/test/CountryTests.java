@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Country tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class CountryTests
+final class CountryTests
  {
   /**
    * FR france.
@@ -47,7 +47,7 @@ public class CountryTests
   /**
    * Default constructor.
    */
-  public CountryTests()
+  /* default */ CountryTests()
    {
     super();
    }
@@ -60,7 +60,7 @@ public class CountryTests
    */
   @ParameterizedTest
   @ValueSource(strings = {CountryTests.DE})
-  public void countryOk0(final String alpha2)
+  /* default */ void testCountryOk0(final String alpha2)
    {
     final Country cleanCountry = Country.of(alpha2);
     assertEquals(alpha2, cleanCountry.alpha2(), CountryTests.COUNTRY_CODE_NOT_AS_EXPECTED);
@@ -74,7 +74,7 @@ public class CountryTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"D", "DEA"})
-  public void countryLength(final String alpha2)
+  /* default */ void testCountryLength(final String alpha2)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -91,7 +91,7 @@ public class CountryTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"D~", "ZZ"})
-  public void countryIllegalParameters(final String alpha2)
+  /* default */ void testCountryIllegalParameters(final String alpha2)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -102,10 +102,22 @@ public class CountryTests
 
 
   /**
+   * Test get country code.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final Country country = Country.of(CountryTests.DE);
+    assertEquals(CountryTests.DE, country.stringValue(), CountryTests.COUNTRY_CODE_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Country country1 = Country.of(CountryTests.DE);
     final Country country2 = Country.of(CountryTests.DE);

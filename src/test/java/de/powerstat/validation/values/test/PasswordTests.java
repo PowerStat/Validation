@@ -25,7 +25,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Password tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class PasswordTests
+final class PasswordTests
  {
   /**
    * Password.
@@ -35,7 +35,12 @@ public class PasswordTests
   /**
    * Password 2.
    */
-  private static final String PASSWORD22 = "password2"; //$NON-NLS-1$
+  private static final String PASSWORD2 = "password2"; //$NON-NLS-1$
+
+  /**
+   * Password 3 - only for stringValueNoRead() test.
+   */
+  private static final String PASSWORD3 = "password4"; //$NON-NLS-1$
 
   /**
    * Illegal argument exception expected constant.
@@ -47,11 +52,16 @@ public class PasswordTests
    */
   private static final String PASSWORD_NOT_AS_EXPECTED = "Password not as expected"; //$NON-NLS-1$
 
+  /**
+   * Hidden password constant.
+   */
+  private static final String SECRET_PASSWORD = "********"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
    */
-  public PasswordTests()
+  /* default */ PasswordTests()
    {
     super();
    }
@@ -64,7 +74,7 @@ public class PasswordTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"username", "username@example.com", "a2345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234"})
-  public void passwordOk0(final String password)
+  /* default */ void testPasswordOk0(final String password)
    {
     final Password cleanPassword = Password.of(password);
     assertTrue(cleanPassword.verifyPassword(password), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
@@ -75,7 +85,7 @@ public class PasswordTests
    * Test Password with wrong vaidation.
    */
   @Test
-  public void passwordWrongValidation()
+  /* default */ void testPasswordWrongValidation()
    {
     final Password cleanPassword = Password.of(PasswordTests.PASSWORD);
     assertFalse(cleanPassword.verifyPassword("wrongPassword"), "Password verification not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -89,7 +99,7 @@ public class PasswordTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "a234567", "a23456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345"})
-  public void passwordLength(final String password)
+  /* default */ void testPasswordLength(final String password)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -103,9 +113,9 @@ public class PasswordTests
    * Test Password with illegal characters.
    */
   @Test
-  public void passwordWithIllegalCharacters0()
+  /* default */ void testPasswordWithIllegalCharacters0()
    {
-    final IPasswordStrategy strategy = PasswordConfigurableStrategy.of(2, 254, "^[!§$%&/()=?öäüÖÄÜ,.:;_@0-9a-zA-Z-]+$", 0 , 0, 0, 0, 0, 0); //$NON-NLS-1$
+    final IPasswordStrategy strategy = PasswordConfigurableStrategy.of(2, 254, "^[!§$%&/()=?öäüÖÄÜ,.:;_@0-9a-zA-Z-]+$", 0, 0, 0, 0, 0, 0); //$NON-NLS-1$
     assertThrows(IllegalArgumentException.class, () ->
      {
       /* final Password cleanPassword = */ Password.of(strategy, "\"€"); //$NON-NLS-1$
@@ -118,60 +128,10 @@ public class PasswordTests
    * Test get password.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValueNoRead()
    {
-    final Password password = Password.of(PasswordTests.PASSWORD);
-    assertEquals(PasswordTests.PASSWORD, password.stringValue(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test hash code.
-   */
-  @Test
-  public void testHashCode()
-   {
-    final Password password1 = Password.of(PasswordTests.PASSWORD);
-    final Password password2 = Password.of(PasswordTests.PASSWORD);
-    final Password password3 = Password.of(PasswordTests.PASSWORD22);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(password1.hashCode(), password2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(password1.hashCode(), password3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  public void testEquals()
-   {
-    final Password password1 = Password.of(PasswordTests.PASSWORD);
-    final Password password2 = Password.of(PasswordTests.PASSWORD);
-    final Password password3 = Password.of(PasswordTests.PASSWORD22);
-    final Password password4 = Password.of(PasswordTests.PASSWORD);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(password1.equals(password1), "password11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(password1.equals(password2), "password12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(password2.equals(password1), "password21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(password2.equals(password4), "password24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(password1.equals(password4), "password14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(password1.equals(password3), "password13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(password3.equals(password1), "password31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(password1.equals(null), "password10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  public void testToString()
-   {
-    final Password password = Password.of(PasswordTests.PASSWORD);
-    assertEquals("Password[password=********]", password.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
+    final Password password = Password.of(PasswordTests.PASSWORD3);
+    assertEquals(SECRET_PASSWORD, password.stringValue(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
    }
 
 
@@ -179,11 +139,12 @@ public class PasswordTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Password password1 = Password.of(PasswordTests.PASSWORD);
     final Password password2 = Password.of(PasswordTests.PASSWORD);
-    final Password password3 = Password.of(PasswordTests.PASSWORD22);
+    final Password password3 = Password.of(PasswordTests.PASSWORD2);
     final Password password4 = Password.of("password3"); //$NON-NLS-1$
     final Password password5 = Password.of(PasswordTests.PASSWORD);
     assertAll("testCompareTo", //$NON-NLS-1$

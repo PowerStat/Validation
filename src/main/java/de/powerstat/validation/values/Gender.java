@@ -1,9 +1,11 @@
 /*
- * Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
+
 import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Gender/Sex.
@@ -16,6 +18,8 @@ import de.powerstat.validation.interfaces.IValueObject;
  * This will be handled in the Person class by a history of the gender.
  *
  * @see <a href="https://at.wikimannia.org/60_Geschlechtsidentitäten">Geschlechtsidentitäten</a>
+ *
+ * Not DSGVO relevant.
  */
 public enum Gender implements IValueObject
  {
@@ -73,6 +77,18 @@ public enum Gender implements IValueObject
 
 
   /**
+   * Gender factory.
+   *
+   * @param value Gender name string
+   * @return Gender object
+   */
+  public static Gender of(final String value)
+   {
+    return Gender.valueOf(value);
+   }
+
+
+  /**
    * Get action number.
    *
    * @return Action number
@@ -80,6 +96,18 @@ public enum Gender implements IValueObject
   public int getAction()
    {
     return this.action;
+   }
+
+
+  /**
+   * Returns the value of this Gender as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.name();
    }
 
  }

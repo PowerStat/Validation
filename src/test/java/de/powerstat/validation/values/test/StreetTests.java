@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Street tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class StreetTests
+final class StreetTests
  {
   /**
    * Street name.
@@ -47,7 +47,7 @@ public class StreetTests
   /**
    * Default constructor.
    */
-  public StreetTests()
+  /* default */ StreetTests()
    {
     super();
    }
@@ -60,7 +60,7 @@ public class StreetTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"Hemelinger Heerstraße", "A", "abcdefghijklmnopqrstuvwxyz abcde"})
-  public void streetCorrect(final String street)
+  /* default */ void testStreetCorrect(final String street)
    {
     final Street cleanStreet = Street.of(street);
     assertEquals(street, cleanStreet.street(), StreetTests.STREET_NOT_AS_EXPECTED);
@@ -74,7 +74,7 @@ public class StreetTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "Abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefgh"})
-  public void streetLength(final String street)
+  /* default */ void testStreetLength(final String street)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -91,7 +91,7 @@ public class StreetTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"abc_def"})
-  public void streetWrong(final String street)
+  /* default */ void testStreetWrong(final String street)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -102,10 +102,22 @@ public class StreetTests
 
 
   /**
+   * Test get street.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final Street street = Street.of(StreetTests.HEMELINGER_HEERSTR);
+    assertEquals(StreetTests.HEMELINGER_HEERSTR, street.stringValue(), StreetTests.STREET_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Street street1 = Street.of(StreetTests.ARBERGER_HEERSTR);
     final Street street2 = Street.of(StreetTests.ARBERGER_HEERSTR);

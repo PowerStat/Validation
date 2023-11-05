@@ -22,7 +22,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Minute tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class MinuteTests
+final class MinuteTests
  {
   /**
    * Not a minute constant.
@@ -43,9 +43,19 @@ public class MinuteTests
   /**
    * Default constructor.
    */
-  public MinuteTests()
+  /* default */ MinuteTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory1()
+   {
+    assertEquals(0, Minute.of("0").minute(), MinuteTests.NOT_A_MINUTE);
    }
 
 
@@ -56,7 +66,7 @@ public class MinuteTests
    */
   @ParameterizedTest
   @ValueSource(ints = {0, 59})
-  public void isMinute(final int minute)
+  /* default */ void testIsMinute(final int minute)
    {
     assertEquals(minute, Minute.of(minute).minute(), MinuteTests.NOT_A_MINUTE);
    }
@@ -69,7 +79,7 @@ public class MinuteTests
    */
   @ParameterizedTest
   @ValueSource(ints = {-1, 60})
-  public void isNotAMinute(final int minute)
+  /* default */ void testIsNotAMinute(final int minute)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -80,10 +90,31 @@ public class MinuteTests
 
 
   /**
+   * minute.
+   */
+  @Test
+  /* default */ void testIntValue()
+   {
+    assertEquals(10, Minute.of(10).minute(), MinuteTests.NOT_A_MINUTE);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    assertEquals("10", Minute.of(10).stringValue(), MinuteTests.NOT_A_MINUTE);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Minute minute1 = Minute.of(1);
     final Minute minute2 = Minute.of(1);
@@ -104,7 +135,7 @@ public class MinuteTests
    * Test add.
    */
   @Test
-  public void testAdd1()
+  /* default */ void testAdd1()
    {
     final Minute minute = Minute.of(1);
     final Minutes minutes = Minutes.of(1);
@@ -117,7 +148,7 @@ public class MinuteTests
    * Test add.
    */
   @Test
-  public void testAdd2()
+  /* default */ void testAdd2()
    {
     final Minute minute = Minute.of(59);
     final Minutes minutes = Minutes.of(1);
@@ -133,7 +164,7 @@ public class MinuteTests
    * Test subtract.
    */
   @Test
-  public void testSubtract1()
+  /* default */ void testSubtract1()
    {
     final Minute minute = Minute.of(2);
     final Minutes minutes = Minutes.of(1);
@@ -146,7 +177,7 @@ public class MinuteTests
    * Test subtract.
    */
   @Test
-  public void testSubtract2()
+  /* default */ void testSubtract2()
    {
     final Minute minute = Minute.of(0);
     final Minutes minutes = Minutes.of(1);
@@ -162,7 +193,7 @@ public class MinuteTests
    * Test increment.
    */
   @Test
-  public void testIncrement1()
+  /* default */ void testIncrement1()
    {
     final Minute minute = Minute.of(1);
     final Minute minuteResult = minute.increment();
@@ -174,7 +205,7 @@ public class MinuteTests
    * Test increment.
    */
   @Test
-  public void testIncrement2()
+  /* default */ void testIncrement2()
    {
     final Minute minute = Minute.of(59);
     assertThrows(ArithmeticException.class, () ->
@@ -189,7 +220,7 @@ public class MinuteTests
    * Test decrement.
    */
   @Test
-  public void testDecrement1()
+  /* default */ void testDecrement1()
    {
     final Minute minute = Minute.of(2);
     final Minute minuteResult = minute.decrement();
@@ -201,7 +232,7 @@ public class MinuteTests
    * Test decrement.
    */
   @Test
-  public void testDecrement2()
+  /* default */ void testDecrement2()
    {
     final Minute minute = Minute.of(0);
     assertThrows(ArithmeticException.class, () ->

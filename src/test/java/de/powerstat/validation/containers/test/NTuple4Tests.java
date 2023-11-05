@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
-package de.powerstat.validation.values.containers.test;
+package de.powerstat.validation.containers.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import de.powerstat.validation.values.containers.NTuple4;
+import de.powerstat.validation.containers.NTuple4;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
@@ -20,7 +20,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * NTuple4 tests.
  */
 @SuppressFBWarnings({"CE_CLASS_ENVY", "RV_NEGATING_RESULT_OF_COMPARETO", "SPP_USE_ZERO_WITH_COMPARATOR", "EC_NULL_ARG"})
-public class NTuple4Tests
+final class NTuple4Tests
  {
   /**
    * Test equals constant.
@@ -42,11 +42,16 @@ public class NTuple4Tests
    */
   private static final String TUPLE13_IS_EQUAL = "tuple13 is equal"; //$NON-NLS-1$
 
+  /**
+   * Suppress sonarqube warning.
+   */
+  private static final String JAVA_S5785 = "java:S5785"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
    */
-  public NTuple4Tests()
+  /* default */ NTuple4Tests()
    {
     super();
    }
@@ -56,7 +61,7 @@ public class NTuple4Tests
    * Factory test.
    */
   @Test
-  public void ofIntInt()
+  /* default */ void testOfInt()
    {
     final NTuple4<Integer, Integer, Integer, Integer> tuple = NTuple4.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(815), Integer.valueOf(4));
     assertAll("testGetValue", //$NON-NLS-1$
@@ -72,7 +77,7 @@ public class NTuple4Tests
    * Test hash code.
    */
   @Test
-  public void testHashCode()
+  /* default */ void testHashCode()
    {
     final NTuple4<Integer, Integer, Integer, Integer> tuple1 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(4));
     final NTuple4<Integer, Integer, Integer, Integer> tuple2 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(4));
@@ -88,7 +93,8 @@ public class NTuple4Tests
    * Test equals.
    */
   @Test
-  public void testEquals()
+  @SuppressWarnings(JAVA_S5785)
+  /* default */ void testEquals()
    {
     final NTuple4<Integer, Integer, Integer, Integer> tuple1 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(4));
     final NTuple4<Integer, Integer, Integer, Integer> tuple2 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(4));
@@ -111,7 +117,8 @@ public class NTuple4Tests
    * Test equals.
    */
   @Test
-  public void testEquals2()
+  @SuppressWarnings(JAVA_S5785)
+  /* default */ void testEquals2()
    {
     final NTuple4<Integer, Integer, Integer, Integer> tuple1 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
     final NTuple4<Integer, Integer, Integer, Integer> tuple2 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(1), Integer.valueOf(1));
@@ -127,7 +134,7 @@ public class NTuple4Tests
    * Test toString.
    */
   @Test
-  public void testToString()
+  /* default */ void testToString()
    {
     final NTuple4<Integer, Integer, Integer, Integer> tuple1 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(815), Integer.valueOf(4));
     assertEquals("NTuple4[object1=1, object2=4711, object3=815, object4=4]", tuple1.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -138,7 +145,8 @@ public class NTuple4Tests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings(JAVA_S5785)
+  /* default */ void testCompareTo()
    {
     final NTuple4<Integer, Integer, Integer, Integer> tuple1 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(4));
     final NTuple4<Integer, Integer, Integer, Integer> tuple2 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(4));
@@ -159,7 +167,8 @@ public class NTuple4Tests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo2()
+  @SuppressWarnings(JAVA_S5785)
+  /* default */ void testCompareTo2()
    {
     final NTuple4<Integer, Integer, Integer, Integer> tuple1 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
     final NTuple4<Integer, Integer, Integer, Integer> tuple2 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(1), Integer.valueOf(1));

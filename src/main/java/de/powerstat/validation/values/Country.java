@@ -25,6 +25,7 @@ public record Country(String alpha2) implements Comparable<Country>, IValueObjec
   /**
    * Country regexp.
    */
+  @SuppressWarnings("java:S5867")
   private static final Pattern COUNTRY_REGEXP = Pattern.compile("^[A-Z]{2}$"); //$NON-NLS-1$
 
 
@@ -62,6 +63,18 @@ public record Country(String alpha2) implements Comparable<Country>, IValueObjec
   public static Country of(final String alpha2)
    {
     return new Country(alpha2);
+   }
+
+
+  /**
+   * Returns the value of this Country as a ISO 3166-1 string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.alpha2;
    }
 
 

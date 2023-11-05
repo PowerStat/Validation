@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Seconds tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class SecondsTests
+final class SecondsTests
  {
   /**
    * Not a seconds constant.
@@ -42,9 +42,19 @@ public class SecondsTests
   /**
    * Default constructor.
    */
-  public SecondsTests()
+  /* default */ SecondsTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory1()
+   {
+    assertEquals(0, Seconds.of("0").seconds(), SecondsTests.NOT_A_SECONDS);
    }
 
 
@@ -55,7 +65,7 @@ public class SecondsTests
    */
   @ParameterizedTest
   @ValueSource(longs = {0, 120})
-  public void isSeconds(final long seconds)
+  /* default */ void testIsSeconds(final long seconds)
    {
     assertEquals(seconds, Seconds.of(seconds).seconds(), SecondsTests.NOT_A_SECONDS);
    }
@@ -68,7 +78,7 @@ public class SecondsTests
    */
   @ParameterizedTest
   @ValueSource(longs = {-1})
-  public void isNotASeconds(final long seconds)
+  /* default */ void testIsNotASeconds(final long seconds)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -79,10 +89,31 @@ public class SecondsTests
 
 
   /**
+   * longValue.
+   */
+  @Test
+  /* default */ void testLongValue()
+   {
+    assertEquals(10, Seconds.of(10).seconds(), SecondsTests.NOT_A_SECONDS);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    assertEquals("10", Seconds.of(10).stringValue(), SecondsTests.NOT_A_SECONDS);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Seconds seconds1 = Seconds.of(1);
     final Seconds seconds2 = Seconds.of(1);
@@ -103,7 +134,7 @@ public class SecondsTests
    * Test add.
    */
   @Test
-  public void testAdd1()
+  /* default */ void testAdd1()
    {
     final Seconds seconds1 = Seconds.of(1);
     final Seconds seconds2 = Seconds.of(1);
@@ -116,7 +147,7 @@ public class SecondsTests
    * Test add.
    */
   @Test
-  public void testAdd2()
+  /* default */ void testAdd2()
    {
     final Seconds seconds1 = Seconds.of(Long.MAX_VALUE);
     final Seconds seconds2 = Seconds.of(1);
@@ -132,7 +163,7 @@ public class SecondsTests
    * Test substract.
    */
   @Test
-  public void testSubstract1()
+  /* default */ void testSubstract1()
    {
     final Seconds seconds1 = Seconds.of(6);
     final Seconds seconds2 = Seconds.of(3);
@@ -145,7 +176,7 @@ public class SecondsTests
    * Test substract.
    */
   @Test
-  public void testSubstract2()
+  /* default */ void testSubstract2()
    {
     final Seconds seconds1 = Seconds.of(3);
     final Seconds seconds2 = Seconds.of(6);
@@ -158,7 +189,7 @@ public class SecondsTests
    * Test multiply.
    */
   @Test
-  public void testMultiply1()
+  /* default */ void testMultiply1()
    {
     final Seconds seconds1 = Seconds.of(7);
     final Seconds secondsResult = seconds1.multiply(3);
@@ -170,7 +201,7 @@ public class SecondsTests
    * Test multiply.
    */
   @Test
-  public void testMultiply2()
+  /* default */ void testMultiply2()
    {
     final Seconds seconds1 = Seconds.of(Long.MAX_VALUE / 2);
     assertThrows(ArithmeticException.class, () ->
@@ -185,7 +216,7 @@ public class SecondsTests
    * Test divide.
    */
   @Test
-  public void testDivide1()
+  /* default */ void testDivide1()
    {
     final Seconds seconds1 = Seconds.of(10);
     final Seconds secondsResult = seconds1.divide(2);
@@ -197,7 +228,7 @@ public class SecondsTests
    * Test divide.
    */
   @Test
-  public void testDivide2()
+  /* default */ void testDivide2()
    {
     final Seconds seconds1 = Seconds.of(10);
     final Seconds secondsResult = seconds1.divide(3);
@@ -209,7 +240,7 @@ public class SecondsTests
    * Test divide.
    */
   @Test
-  public void testDivide3()
+  /* default */ void testDivide3()
    {
     final Seconds seconds1 = Seconds.of(10);
     assertThrows(ArithmeticException.class, () ->
@@ -224,7 +255,7 @@ public class SecondsTests
    * Test divide.
    */
   @Test
-  public void testModulo1()
+  /* default */ void testModulo1()
    {
     final Seconds seconds1 = Seconds.of(10);
     final Seconds secondsResult = seconds1.modulo(2);
@@ -236,7 +267,7 @@ public class SecondsTests
    * Test divide.
    */
   @Test
-  public void testModulo2()
+  /* default */ void testModulo2()
    {
     final Seconds seconds1 = Seconds.of(10);
     final Seconds secondsResult = seconds1.modulo(3);
@@ -248,7 +279,7 @@ public class SecondsTests
    * Test divide.
    */
   @Test
-  public void testModulo3()
+  /* default */ void testModulo3()
    {
     final Seconds seconds1 = Seconds.of(10);
     assertThrows(ArithmeticException.class, () ->

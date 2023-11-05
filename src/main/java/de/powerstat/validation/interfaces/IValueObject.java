@@ -9,4 +9,12 @@ package de.powerstat.validation.interfaces;
  */
 public interface IValueObject
  {
+  // <T> of(String value)
+
+  /**
+   * String value.
+   *
+   * @return Value as string
+   */
+  String stringValue();
  }

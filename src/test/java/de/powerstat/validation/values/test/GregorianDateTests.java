@@ -26,7 +26,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Gregorian date tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "CLI_CONSTANT_LIST_INDEX", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class GregorianDateTests
+final class GregorianDateTests
  {
   /**
    * IT italy.
@@ -48,11 +48,26 @@ public class GregorianDateTests
    */
   private static final String SEPARATOR = "-"; //$NON-NLS-1$
 
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT_EXCEPTION_EXPECTED = "Illegal argument exception expected"; //$NON-NLS-1$
+
+  /**
+   * Date constant.
+   */
+  private static final String DATE_2020_02_29 = "2020-02-29"; //$NON-NLS-1$
+
+  /**
+   * Date constant.
+   */
+  private static final String DATE_2020_07_14 = "2020-07-14"; //$NON-NLS-1$
+
 
   /**
    * Default constructor.
    */
-  public GregorianDateTests()
+  /* default */ GregorianDateTests()
    {
     super();
    }
@@ -64,8 +79,8 @@ public class GregorianDateTests
    * @param date ISO8601 date string
    */
   @ParameterizedTest
-  @ValueSource(strings = {"2020-07-14", "2020-06-30", "2020-02-29", "2020-02-28", "2020-01-29", "2019-02-28", "2019-01-29"})
-  public void dateCorrect(final String date)
+  @ValueSource(strings = {DATE_2020_07_14, "2020-06-30", DATE_2020_02_29, "2020-02-28", "2020-01-29", "2019-02-28", "2019-01-29"})
+  /* default */ void testDateCorrect(final String date)
    {
     final String[] dateParts = date.split(GregorianDateTests.SEPARATOR);
     final GregorianDate cleanDate = GregorianDate.of(Year.of(Long.parseLong(dateParts[0])), Month.of(Integer.parseInt(dateParts[1])), Day.of(Integer.parseInt(dateParts[2])));
@@ -80,13 +95,41 @@ public class GregorianDateTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"2019-02-29", "2020-04-31"})
-  public void dateWrong(final String date)
+  /* default */ void testDateWrong(final String date)
    {
     final String[] dateParts = date.split(GregorianDateTests.SEPARATOR);
+    final Year year = Year.of(Long.parseLong(dateParts[0]));
+    final Month month = Month.of(Integer.parseInt(dateParts[1]));
+    final Day day = Day.of(Integer.parseInt(dateParts[2]));
     assertThrows(IllegalArgumentException.class, () ->
      {
-      /* final GregorianDate cleanDate = */ GregorianDate.of(Year.of(Long.parseLong(dateParts[0])), Month.of(Integer.parseInt(dateParts[1])), Day.of(Integer.parseInt(dateParts[2])));
-     }, "Illegal argument exception expected" //$NON-NLS-1$
+      /* final GregorianDate cleanDate = */ GregorianDate.of(year, month, day);
+     }, ILLEGAL_ARGUMENT_EXCEPTION_EXPECTED
+    );
+   }
+
+
+  /**
+   * Test GregorianDate.
+   */
+  @Test
+  /* default */ void testOf1()
+   {
+    final GregorianDate cleanDate = GregorianDate.of(DATE_2020_02_29);
+    assertEquals(DATE_2020_02_29, cleanDate.stringValue(), GregorianDateTests.DATE_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test GregorianDate.
+   */
+  @Test
+  /* default */ void testOf2()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final GregorianDate cleanDate = */ GregorianDate.of("2020");
+     }, ILLEGAL_ARGUMENT_EXCEPTION_EXPECTED
     );
    }
 
@@ -95,10 +138,10 @@ public class GregorianDateTests
    * Test get date.
    */
   @Test
-  public void getDate()
+  /* default */ void testStringValue()
    {
     final GregorianDate date = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
-    assertEquals("2020-07-14", date.stringValue(), GregorianDateTests.DATE_NOT_AS_EXPECTED); //$NON-NLS-1$
+    assertEquals(DATE_2020_07_14, date.stringValue(), GregorianDateTests.DATE_NOT_AS_EXPECTED);
    }
 
 
@@ -106,7 +149,8 @@ public class GregorianDateTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final GregorianDate date1 = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
     final GregorianDate date2 = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
@@ -127,7 +171,7 @@ public class GregorianDateTests
    * Test easter calculation.
    */
   @Test
-  public void testEaster()
+  /* default */ void testEaster()
    {
     final GregorianDate easter2020 = GregorianDate.easter(GregorianCalendar.of(Country.of(GregorianDateTests.IT)), Year.of(2020));
     final GregorianDate easter2018 = GregorianDate.easter(GregorianCalendar.of(Country.of(GregorianDateTests.IT)), Year.of(2018));

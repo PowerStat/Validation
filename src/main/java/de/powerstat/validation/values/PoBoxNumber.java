@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -36,12 +36,24 @@ public record PoBoxNumber(long poBoxNumber) implements Comparable<PoBoxNumber>, 
   /**
    * PoBoxNumber factory.
    *
-   * @param poBoxNumber Day 1-31
+   * @param poBoxNumber PoBox number 1-..
    * @return PoBoxNumber object
    */
   public static PoBoxNumber of(final long poBoxNumber)
-   {
+   { 
     return new PoBoxNumber(poBoxNumber);
+   }
+
+
+  /**
+   * PoBoxNumber factory.
+   *
+   * @param value PoBox number 1-.. string
+   * @return PoBoxNumber object
+   */
+  public static PoBoxNumber of(final String value)
+   {
+    return of(Long.parseLong(value));
    }
 
 
@@ -50,6 +62,7 @@ public record PoBoxNumber(long poBoxNumber) implements Comparable<PoBoxNumber>, 
    *
    * @return The text value represented by this object after conversion to type string.
    */
+  @Override
   public String stringValue()
    {
     return Long.toString(this.poBoxNumber);

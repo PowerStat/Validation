@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.strategies;
 
@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import de.powerstat.validation.containers.NTuple4;
 import de.powerstat.validation.values.EMail;
-import de.powerstat.validation.values.containers.NTuple4;
 
 
 /**
@@ -17,6 +17,11 @@ import de.powerstat.validation.values.containers.NTuple4;
  */
 public class UsernameConfigurableStrategy implements IUsernameStrategy
  {
+  /* *
+   * Logger.
+   */
+  // private static final Logger LOGGER = LogManager.getLogger(UsernameConfigurableStrategy.class);
+
   /**
    * Cache for singletons.
    */
@@ -185,7 +190,7 @@ public class UsernameConfigurableStrategy implements IUsernameStrategy
      }
     catch (final IllegalArgumentException ignore)
      {
-      // ignore
+      // LOGGER.debug("IllegalArgumentException", ignore);
      }
     if ((this.emailHandling == HandleEMail.EMAIL_REQUIRED) && !checkEMail)
      {

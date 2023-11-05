@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Top level domain tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class TopLevelDomainTests
+final class TopLevelDomainTests
  {
   /**
    * FR - france.
@@ -49,7 +49,7 @@ public class TopLevelDomainTests
   /**
    * Default constructor.
    */
-  public TopLevelDomainTests()
+  /* default */ TopLevelDomainTests()
    {
     super();
    }
@@ -62,7 +62,7 @@ public class TopLevelDomainTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"de", "XN--VERMGENSBERATUNG-PWB"}) // , "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJK"
-  public void topLevelDomainOk0(final String topLevelDomain)
+  /* default */ void testTopLevelDomainOk0(final String topLevelDomain)
    {
     final TopLevelDomain cleanTopLevelDomain = TopLevelDomain.of(topLevelDomain);
     assertEquals(topLevelDomain, cleanTopLevelDomain.topLevelDomain(), TopLevelDomainTests.TLD_NOT_AS_EXPECTED);
@@ -76,7 +76,7 @@ public class TopLevelDomainTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"A", "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL"})
-  public void topLevelDomainLength(final String topLevelDomain)
+  /* default */ void testTopLevelDomainLength(final String topLevelDomain)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -93,7 +93,7 @@ public class TopLevelDomainTests
    */
   @ParameterizedTest
   @ValueSource(strings = {".DE", "-DE", "DE-", "D~E", "ZZ"})
-  public void topLevelDomainIllegalParameters(final String topLevelDomain)
+  /* default */ void testTopLevelDomainIllegalParameters(final String topLevelDomain)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -104,10 +104,22 @@ public class TopLevelDomainTests
 
 
   /**
+   * Test get topLevelDomain.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final TopLevelDomain topLevelDomain = TopLevelDomain.of(TopLevelDomainTests.DE);
+    assertEquals(TopLevelDomainTests.DE, topLevelDomain.stringValue(), TopLevelDomainTests.TLD_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final TopLevelDomain topLevelDomain1 = TopLevelDomain.of(TopLevelDomainTests.DE);
     final TopLevelDomain topLevelDomain2 = TopLevelDomain.of(TopLevelDomainTests.DE);

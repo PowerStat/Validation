@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Lastname tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class LastnameTests
+final class LastnameTests
  {
   /**
    * Lastname.
@@ -47,7 +47,7 @@ public class LastnameTests
   /**
    * Default constructor.
    */
-  public LastnameTests()
+  /* default */ LastnameTests()
    {
     super();
    }
@@ -60,7 +60,7 @@ public class LastnameTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"H", "Hofmann", LastnameTests.LASTNAME, "AbcdefghijklmnopqrstuvwxyzäöüßABCDEFGHIJ"})
-  public void lastnameOk0(final String lastname)
+  /* default */ void testLastnameOk0(final String lastname)
    {
     final Lastname cleanLastname = Lastname.of(lastname);
     assertEquals(lastname, cleanLastname.lastname(), LastnameTests.LASTNAME_NOT_AS_EXPECTED);
@@ -74,7 +74,7 @@ public class LastnameTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "AbcdefghijklmnopqrstuvwxyzäöüßABCDEFGHIJK"})
-  public void lastnameLength(final String lastname)
+  /* default */ void testLastnameLength(final String lastname)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -88,7 +88,7 @@ public class LastnameTests
    * Test Lastname with illegal characters.
    */
   @Test
-  public void lastnameWithIllegalCharacters0()
+  /* default */ void testLastnameWithIllegalCharacters0()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -99,10 +99,22 @@ public class LastnameTests
 
 
   /**
+   * Test get lastname.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final Lastname lastname = Lastname.of(LastnameTests.LASTNAME);
+    assertEquals(LastnameTests.LASTNAME, lastname.stringValue(), LastnameTests.LASTNAME_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Lastname lastname1 = Lastname.of(LastnameTests.LASTNAME);
     final Lastname lastname2 = Lastname.of(LastnameTests.LASTNAME);

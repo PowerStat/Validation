@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.entities;
 
@@ -12,12 +12,16 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import de.powerstat.validation.entities.impl.HistoryOf;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import de.powerstat.validation.containers.HistoryOf;
 import de.powerstat.validation.interfaces.IEntity;
 import de.powerstat.validation.values.BloodGroup;
 import de.powerstat.validation.values.Firstname;
 import de.powerstat.validation.values.Gender;
 import de.powerstat.validation.values.Lastname;
+import de.powerstat.validation.values.UUID;
 
 
 /**
@@ -52,6 +56,16 @@ import de.powerstat.validation.values.Lastname;
  */
 public final class Person implements Comparable<Person>, IEntity
  {
+  /**
+   * Logger.
+   */
+  private static final Logger LOGGER = LogManager.getLogger(Person.class);
+
+  /**
+   * Universally Unique Identifier.
+   */
+  private final UUID uuid = UUID.of();
+
   /**
    * Lastnames at different times.
    */
@@ -117,7 +131,7 @@ public final class Person implements Comparable<Person>, IEntity
    */
   public static Person of(final Lastname lastname, final Gender gender)
    {
-    final Person person = Person.of();
+    final var person = Person.of();
     person.addLastname(OffsetDateTime.now(), lastname);
     person.addGender(OffsetDateTime.now(), gender);
     return person;
@@ -134,7 +148,7 @@ public final class Person implements Comparable<Person>, IEntity
    */
   public static Person of(final Lastname lastname, final Gender gender, final List<Firstname> firstnames)
    {
-    final Person person = Person.of(lastname, gender);
+    final var person = Person.of(lastname, gender);
     person.addFirstnames(OffsetDateTime.now(), firstnames);
     return person;
    }
@@ -151,7 +165,7 @@ public final class Person implements Comparable<Person>, IEntity
    */
   public static Person of(final Lastname lastname, final Gender gender, final List<Firstname> firstnames, final OffsetDateTime birthdate)
    {
-    final Person person = Person.of(lastname, gender, firstnames);
+    final var person = Person.of(lastname, gender, firstnames);
     person.setBirthday(birthdate);
     return person;
    }
@@ -227,7 +241,7 @@ public final class Person implements Comparable<Person>, IEntity
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(75);
+    final var builder = new StringBuilder(75);
     builder.append("Person[lastname=").append(this.lastname).append(", gender=").append(this.sex).append(", firstnames=").append(this.firstnames).append(", birthday=").append(this.birthday).append(", deathdate=").append(this.deathdate).append(", bloodGroup=").append(this.bloodGroup).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
     return builder.toString();
    }
@@ -247,6 +261,7 @@ public final class Person implements Comparable<Person>, IEntity
      }
     catch (final NoSuchElementException e)
      {
+      // LOGGER.debug("NoSuchElementException", e);
       return ""; //$NON-NLS-1$
      }
    }

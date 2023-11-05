@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Lines tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class LinesTests
+final class LinesTests
  {
   /**
    * Example 1.
@@ -47,7 +47,7 @@ public class LinesTests
   /**
    * Default constructor.
    */
-  public LinesTests()
+  /* default */ LinesTests()
    {
     super();
    }
@@ -60,7 +60,7 @@ public class LinesTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"A", "AbcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqr", "1\n2\n3\n4\n5"})
-  public void linesCorrect(final String lines)
+  /* default */ void testLinesCorrect(final String lines)
    {
     final Lines cleanLines = Lines.of(lines);
     assertEquals(lines, cleanLines.lines(), LinesTests.LINES_NOT_AS_EXPECTED);
@@ -74,7 +74,7 @@ public class LinesTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "AbcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrstuvwxyzAbcdefghijklmnopqrs", "1\n2\n3\n4\n5\n6"})
-  public void linesLength(final String lines)
+  /* default */ void testLinesLength(final String lines)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -91,7 +91,7 @@ public class LinesTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"abc_def"})
-  public void linesWrong(final String lines)
+  /* default */ void testLinesWrong(final String lines)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -102,10 +102,22 @@ public class LinesTests
 
 
   /**
+   * Test get lines.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final Lines lines = Lines.of(LinesTests.EXAMPLE1);
+    assertEquals(LinesTests.EXAMPLE1, lines.stringValue(), LinesTests.LINES_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Lines lines1 = Lines.of(LinesTests.EXAMPLE1);
     final Lines lines2 = Lines.of(LinesTests.EXAMPLE1);

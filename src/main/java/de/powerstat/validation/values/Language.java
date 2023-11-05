@@ -26,6 +26,7 @@ public record Language(String code) implements Comparable<Language>, IValueObjec
   /**
    * Language regexp.
    */
+  @SuppressWarnings("java:S5867")
   private static final Pattern LANGUAGE_REGEXP = Pattern.compile("^[a-z]{2}$"); //$NON-NLS-1$
 
 
@@ -63,6 +64,18 @@ public record Language(String code) implements Comparable<Language>, IValueObjec
   public static Language of(final String code)
    {
     return new Language(code);
+   }
+
+
+  /**
+   * Returns the value of this Language as a string.
+   *
+   * @return The text value represented by this object after conversion to type string (ISO 639-1).
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.code;
    }
 
 

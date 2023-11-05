@@ -4,9 +4,7 @@
 package de.powerstat.validation.values;
 
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.WeakHashMap;
 
 import de.powerstat.validation.interfaces.IValueObject;
 import de.powerstat.validation.values.strategies.IUsernameStrategy;
@@ -16,48 +14,49 @@ import de.powerstat.validation.values.strategies.UsernameDefaultStrategy;
 /**
  * Username.
  *
+ * @param username Username
+ *
  * DSGVO relevant.
  *
  * TODO Already existing user?
  * TODO case sensitive or insensitive?
  * TODO Comparable&lt;EMail&gt;
  */
-// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
-@SuppressWarnings("PMD.UseConcurrentHashMap")
-public final class Username implements Comparable<Username>, IValueObject
+public record Username(String username) implements Comparable<Username>, IValueObject
  {
-  /**
-   * Cache for singletons.
-   */
-  private static final Map<String, Username> CACHE = new WeakHashMap<>();
-
-  /**
-   * Username.
-   */
-  private final String username;
-
-  /**
-   * Does the username conforms to an email address format.
-   */
-  private final boolean conformsToEMailAddressFormat;
-
-
   /**
    * Constructor.
    *
-   * @param validationStrategy Validation strategy
    * @param username Username
+   * @throws NullPointerException if username is null
+   * @throws IllegalArgumentException if username is empty
    *
-   * @throws NullPointerException if username or validationStrategy is null
-   * @throws IllegalArgumentException if username contains unsupported characters or is to long or short
+   * Prefer using factory methods!
    */
-  private Username(final IUsernameStrategy validationStrategy, final String username)
+  public Username
    {
-    super();
-    Objects.requireNonNull(validationStrategy, "validationStrategy"); //$NON-NLS-1$
     Objects.requireNonNull(username, "username"); //$NON-NLS-1$
-    this.conformsToEMailAddressFormat = validationStrategy.validationStrategy(username);
-    this.username = username;
+    if (username.isEmpty())
+     {
+      throw new IllegalArgumentException("username is empty"); //$NON-NLS-1$
+     }
+   }
+
+
+  /**
+   * Username factory using UsernameDefaultStrategy.
+   *
+   * @param username Username
+   * @return Username object
+   * @throws NullPointerException if username is null
+   * @throws IllegalArgumentException if username does not conform to UsernameDefaultStrategy
+   */
+  public static Username of(final String username)
+   {
+    Objects.requireNonNull(username, "username"); //$NON-NLS-1$
+    IUsernameStrategy strategy = UsernameDefaultStrategy.of();
+    /* boolean result = */ strategy.validationStrategy(username);
+    return new Username(username);
    }
 
 
@@ -67,33 +66,15 @@ public final class Username implements Comparable<Username>, IValueObject
    * @param validationStrategy Validation strategy
    * @param username Username
    * @return Username object
+   * @throws NullPointerException if username or validationStrategy is null
+   * @throws IllegalArgumentException if username idoes not confiorms to the validationStrategy
    */
   public static Username of(final IUsernameStrategy validationStrategy, final String username)
    {
-    synchronized (Username.class)
-     {
-      Username obj = Username.CACHE.get(username);
-      if (obj != null)
-       {
-        validationStrategy.validationStrategy(username);
-        return obj;
-       }
-      obj = new Username(validationStrategy, username);
-      Username.CACHE.put(username, obj);
-      return obj;
-     }
-   }
-
-
-  /**
-   * Username factory with UsernameMin2Max254CanBeEMailStrategy.
-   *
-   * @param username Username
-   * @return Username object
-   */
-  public static Username of(final String username)
-   {
-    return new Username(UsernameDefaultStrategy.of(), username);
+    Objects.requireNonNull(username, "username"); //$NON-NLS-1$
+    Objects.requireNonNull(validationStrategy, "validationStrategy"); //$NON-NLS-1$
+    /* boolean conformsToEMailAddressFormat = */ validationStrategy.validationStrategy(username);
+    return new Username(username);
    }
 
 
@@ -102,6 +83,7 @@ public final class Username implements Comparable<Username>, IValueObject
    *
    * @return The text value represented by this object after conversion to type string.
    */
+  @Override
   public String stringValue()
    {
     return this.username;
@@ -115,62 +97,15 @@ public final class Username implements Comparable<Username>, IValueObject
    */
   public boolean isEMail()
    {
-    return this.conformsToEMailAddressFormat;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return this.username.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    if (this == obj)
+    try
      {
-      return true;
+      /* EMail email = */ new EMail(this.username);
      }
-    if (!(obj instanceof Username))
+    catch (IllegalArgumentException ignore)
      {
       return false;
      }
-    final Username other = (Username)obj;
-    return this.username.equals(other.username);
-   }
-
-
-  /**
-   * Returns the string representation of this Username.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Username[username=user@example.com]"
-   *
-   * @return String representation of this Username
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final StringBuilder builder = new StringBuilder(19);
-    builder.append("Username[username=").append(this.username).append(']'); //$NON-NLS-1$
-    return builder.toString();
+    return true;
    }
 
 

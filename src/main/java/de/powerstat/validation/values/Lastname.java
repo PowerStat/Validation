@@ -59,6 +59,18 @@ public record Lastname(String lastname) implements Comparable<Lastname>, IValueO
 
 
   /**
+   * Returns the value of this Lastname as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.lastname;
+   }
+
+
+  /**
    * Compare with another object.
    *
    * @param obj Object to compare with

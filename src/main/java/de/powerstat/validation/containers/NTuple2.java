@@ -1,26 +1,25 @@
 /*
- * Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
-package de.powerstat.validation.values.containers;
+package de.powerstat.validation.containers;
 
 
 import java.util.Objects;
 
 
 /**
- * N-Tuple 3.
+ * N-Tuple 2.
  *
  * @param <T1> Type 1
  * @param <T2> Type 2
- * @param <T3> Type 3
  */
 @SuppressWarnings({"checkstyle:ClassTypeParameterName", "checkstyle:MethodTypeParameterName", "PMD.GenericsNaming"})
-public final class NTuple3<T1 extends Comparable<T1>, T2 extends Comparable<T2>, T3 extends Comparable<T3>> implements Comparable<NTuple3<T1, T2, T3>>
+public final class NTuple2<T1 extends Comparable<T1>, T2 extends Comparable<T2>> implements Comparable<NTuple2<T1, T2>>
  {
   /* *
    * Cache for singletons.
    */
-  // private static final Map<?, NTuple3<T1 extends Comparable<T1>, T2 extends Comparable<T2>, T3 extends Comparable<T3>>> CACHE = new ConcurrentHashMap<>();
+  // private static final Map<?, NTuple2<T1 extends Comparable<T1>, T2 extends Comparable<T2>>> CACHE = new ConcurrentHashMap<>();
 
   /**
    * Object1 of type T1.
@@ -32,51 +31,41 @@ public final class NTuple3<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
    */
   private final T2 object2;
 
-  /**
-   * Object3 of type T3.
-   */
-  private final T3 object3;
-
 
   /**
    * Private constructor.
    *
    * @param obj1 Object 1 of type T1
    * @param obj2 Object 2 of Type T2
-   * @param obj3 Object 3 of Type T3
    */
-  private NTuple3(final T1 obj1, final T2 obj2, final T3 obj3)
+  private NTuple2(final T1 obj1, final T2 obj2)
    {
     super();
     Objects.requireNonNull(obj1, "obj1 is null"); //$NON-NLS-1$
     Objects.requireNonNull(obj2, "obj2 is null"); //$NON-NLS-1$
-    Objects.requireNonNull(obj3, "obj3 is null"); //$NON-NLS-1$
     this.object1 = obj1;
     this.object2 = obj2;
-    this.object3 = obj3;
    }
 
 
   /**
-   * NTuple3 factory.
+   * NTuple2 factory.
    *
    * @param <T1> Type 1
    * @param <T2> Type 2
-   * @param <T3> Type 3
    * @param obj1 Object 1 of type T1
    * @param obj2 Object 2 of Type T2
-   * @param obj3 Object 3 of Type T3
-   * @return NTuple3 object
+   * @return NTuple2 object
    */
-  public static <T1 extends Comparable<T1>, T2 extends Comparable<T2>, T3 extends Comparable<T3>> NTuple3<T1, T2, T3> of(final T1 obj1, final T2 obj2, final T3 obj3)
+  public static <T1 extends Comparable<T1>, T2 extends Comparable<T2>> NTuple2<T1, T2> of(final T1 obj1, final T2 obj2)
    {
-    return new NTuple3<>(obj1, obj2, obj3);
+    return new NTuple2<>(obj1, obj2);
    }
 
 
 
   /**
-   * Returns the first value of this NTuple3 as a T1.
+   * Returns the first value of this NTuple2 as a T1.
    *
    * @return The T1 value represented by this object.
    */
@@ -87,24 +76,13 @@ public final class NTuple3<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
 
 
   /**
-   * Returns the second value of this NTuple3 as a T2.
+   * Returns the second value of this NTuple2 as a T2.
    *
    * @return The T2 value represented by this object.
    */
   public T2 t2Value()
    {
     return this.object2;
-   }
-
-
-  /**
-   * Returns the second value of this NTuple3 as a T3.
-   *
-   * @return The T3 value represented by this object.
-   */
-  public T3 t3Value()
-   {
-    return this.object3;
    }
 
 
@@ -117,7 +95,7 @@ public final class NTuple3<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
   @Override
   public int hashCode()
    {
-    return Objects.hash(this.object1, this.object2, this.object3);
+    return Objects.hash(this.object1, this.object2);
    }
 
 
@@ -135,39 +113,35 @@ public final class NTuple3<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
      {
       return true;
      }
-    if (!(obj instanceof NTuple3))
+    if (!(obj instanceof NTuple2))
      {
       return false;
      }
-    final NTuple3<T1, T2, T3> other = (NTuple3<T1, T2, T3>)obj;
+    final NTuple2<T1, T2> other = (NTuple2<T1, T2>)obj;
     boolean result = this.object1.equals(other.object1);
     if (result)
      {
       result = this.object2.equals(other.object2);
-      if (result)
-       {
-        result = this.object3.equals(other.object3);
-       }
      }
     return result;
    }
 
 
   /**
-   * Returns the string representation of this NTuple3.
+   * Returns the string representation of this NTuple2.
    *
    * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
    *
-   * "NTuple3[object1=..., object2=..., object3=...]"
+   * "NTuple2[object1=..., object2=...]"
    *
-   * @return String representation of this NTuple3
+   * @return String representation of this NTuple2
    * @see java.lang.Object#toString()
    */
   @Override
   public String toString()
    {
-    final StringBuilder builder = new StringBuilder(37);
-    builder.append("NTuple3[object1=").append(this.object1).append(", object2=").append(this.object2).append(", object3=").append(this.object3).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    final var builder = new StringBuilder(27);
+    builder.append("NTuple2[object1=").append(this.object1).append(", object2=").append(this.object2).append(']'); //$NON-NLS-1$ //$NON-NLS-2$
     return builder.toString();
    }
 
@@ -180,17 +154,13 @@ public final class NTuple3<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
    * @see java.lang.Comparable#compareTo(java.lang.Object)
    */
   @Override
-  public int compareTo(final NTuple3<T1, T2, T3> obj)
+  public int compareTo(final NTuple2<T1, T2> obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
     int result = this.object1.compareTo(obj.object1);
     if (result == 0)
      {
       result = this.object2.compareTo(obj.object2);
-      if (result == 0)
-       {
-        result = this.object3.compareTo(obj.object3);
-       }
      }
     return result;
    }

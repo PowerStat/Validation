@@ -15,6 +15,8 @@ import de.powerstat.validation.interfaces.IValueObject;
  * @param milliseconds Milliseconds &gt;= 0
  * 
  * Not DSGVO relevant.
+ *
+ * TODO min, max
  */
 public record Milliseconds(long milliseconds) implements Comparable<Milliseconds>, IValueObject
  {
@@ -42,6 +44,30 @@ public record Milliseconds(long milliseconds) implements Comparable<Milliseconds
   public static Milliseconds of(final long milliseconds)
    {
     return new Milliseconds(milliseconds);
+   }
+
+
+  /**
+   * Milliseconds factory.
+   *
+   * @param value Milliseconds 0-[Long.MAX_VALUE] string
+   * @return Milliseconds object
+   */
+  public static Milliseconds of(final String value)
+   {
+    return of(Long.parseLong(value));
+   }
+
+
+  /**
+   * Returns the value of this Milliseconds as a String.
+   *
+   * @return The numeric value represented by this object after conversion to type String (0-Long.MAX_VALUE).
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.milliseconds);
    }
 
 

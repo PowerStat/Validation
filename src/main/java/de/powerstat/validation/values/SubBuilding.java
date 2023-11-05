@@ -59,6 +59,18 @@ public record SubBuilding(String subBuilding) implements Comparable<SubBuilding>
 
 
   /**
+   * Returns the value of this SubBuilding as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.subBuilding;
+   }
+
+
+  /**
    * Compare with another object.
    *
    * @param obj Object to compare with

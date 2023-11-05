@@ -59,6 +59,18 @@ public record District(String district) implements Comparable<District>, IValueO
 
 
   /**
+   * Returns the value of this District as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.district;
+   }
+
+
+  /**
    * Compare with another object.
    *
    * @param obj Object to compare with

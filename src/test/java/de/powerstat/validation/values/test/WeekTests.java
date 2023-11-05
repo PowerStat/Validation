@@ -24,7 +24,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Week tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class WeekTests
+final class WeekTests
  {
   /**
    * Not a week constant.
@@ -45,9 +45,19 @@ public class WeekTests
   /**
    * Default constructor.
    */
-  public WeekTests()
+  /* default */ WeekTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory1()
+   {
+    assertEquals(1, Week.of("1").week(), WeekTests.NOT_A_WEEK);
    }
 
 
@@ -58,7 +68,7 @@ public class WeekTests
    */
   @ParameterizedTest
   @ValueSource(ints = {1, 53})
-  public void isWeek(final int week)
+  /* default */ void testIsWeek(final int week)
    {
     assertEquals(week, Week.of(week).week(), WeekTests.NOT_A_WEEK);
    }
@@ -71,7 +81,7 @@ public class WeekTests
    */
   @ParameterizedTest
   @ValueSource(ints = {0, 54})
-  public void isNotAWeek(final int week)
+  /* default */ void testIsNotAWeek(final int week)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -82,10 +92,31 @@ public class WeekTests
 
 
   /**
+   * week.
+   */
+  @Test
+  /* default */ void testIntValue()
+   {
+    assertEquals(10, Week.of(10).week(), WeekTests.NOT_A_WEEK);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    assertEquals("10", Week.of(10).stringValue(), WeekTests.NOT_A_WEEK);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Week week1 = Week.of(1);
     final Week week2 = Week.of(1);
@@ -106,7 +137,7 @@ public class WeekTests
    * Test add.
    */
   @Test
-  public void testAdd1()
+  /* default */ void testAdd1()
    {
     final Week week = Week.of(1);
     final Weeks weeks = Weeks.of(1);
@@ -119,7 +150,7 @@ public class WeekTests
    * Test add.
    */
   @Test
-  public void testAdd2()
+  /* default */ void testAdd2()
    {
     final Week week = Week.of(53);
     final Weeks weeks = Weeks.of(1);
@@ -135,7 +166,7 @@ public class WeekTests
    * Test subtract.
    */
   @Test
-  public void testSubtract1()
+  /* default */ void testSubtract1()
    {
     final Week week = Week.of(2);
     final Weeks weeks = Weeks.of(1);
@@ -148,7 +179,7 @@ public class WeekTests
    * Test subtract.
    */
   @Test
-  public void testSubtract2()
+  /* default */ void testSubtract2()
    {
     final Week week = Week.of(1);
     final Weeks weeks = Weeks.of(1);
@@ -164,7 +195,7 @@ public class WeekTests
    * Test increment.
    */
   @Test
-  public void testIncrement1()
+  /* default */ void testIncrement1()
    {
     final Week week = Week.of(1);
     final Week weekResult = week.increment();
@@ -176,7 +207,7 @@ public class WeekTests
    * Test increment.
    */
   @Test
-  public void testIncrement2()
+  /* default */ void testIncrement2()
    {
     final Week week = Week.of(53);
     assertThrows(ArithmeticException.class, () ->
@@ -191,7 +222,7 @@ public class WeekTests
    * Test decrement.
    */
   @Test
-  public void testDecrement1()
+  /* default */ void testDecrement1()
    {
     final Week week = Week.of(2);
     final Week weekResult = week.decrement();
@@ -203,7 +234,7 @@ public class WeekTests
    * Test decrement.
    */
   @Test
-  public void testDecrement2()
+  /* default */ void testDecrement2()
    {
     final Week week = Week.of(1);
     assertThrows(ArithmeticException.class, () ->

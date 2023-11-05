@@ -5,7 +5,6 @@ package de.powerstat.validation.values;
 
 
 import java.util.Objects;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -22,7 +21,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  */
 public record BuildingNr(String buildingNr) implements Comparable<BuildingNr>, IValueObject
  {
-  /**
+  /* *
    * Logger.
    */
   // private static final Logger LOGGER = LogManager.getLogger(BuildingNr.class);
@@ -30,7 +29,7 @@ public record BuildingNr(String buildingNr) implements Comparable<BuildingNr>, I
   /**
    * Building nr regexp.
    */
-  private static final Pattern BUILDINGNR_REGEXP = Pattern.compile("^([0-9]{1,5})(([-/])([0-9]{1,5}))?( ([0-9]{1,3})/([0-9]{1,3}))?( ([a-z]))?$"); //$NON-NLS-1$
+  private static final Pattern BUILDINGNR_REGEXP = Pattern.compile("^(\\d{1,5})(([-/])(\\d{1,5}))?( (\\d{1,3})/(\\d{1,3}))?( ([a-z]))?$"); //$NON-NLS-1$
 
   /**
    * Maximum known building nr in the world.
@@ -52,7 +51,7 @@ public record BuildingNr(String buildingNr) implements Comparable<BuildingNr>, I
      {
       throw new IllegalArgumentException("BuildingNr with wrong length"); //$NON-NLS-1$
      }
-    final Matcher matcher = BuildingNr.BUILDINGNR_REGEXP.matcher(buildingNr);
+    final var matcher = BuildingNr.BUILDINGNR_REGEXP.matcher(buildingNr);
     if (!matcher.matches())
      {
       throw new IllegalArgumentException("BuildingNr with wrong format"); //$NON-NLS-1$
@@ -90,6 +89,18 @@ public record BuildingNr(String buildingNr) implements Comparable<BuildingNr>, I
 
 
   /**
+   * Returns the value of this BuildingNr as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.buildingNr;
+   }
+
+
+  /**
    * Compare with another object.
    *
    * @param obj Object to compare with
@@ -102,8 +113,8 @@ public record BuildingNr(String buildingNr) implements Comparable<BuildingNr>, I
   public int compareTo(final BuildingNr obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    final Matcher matcher1 = BuildingNr.BUILDINGNR_REGEXP.matcher(this.buildingNr);
-    final Matcher matcher2 = BuildingNr.BUILDINGNR_REGEXP.matcher(obj.buildingNr);
+    final var matcher1 = BuildingNr.BUILDINGNR_REGEXP.matcher(this.buildingNr);
+    final var matcher2 = BuildingNr.BUILDINGNR_REGEXP.matcher(obj.buildingNr);
     /* boolean result1 = */ matcher1.matches();
     /* boolean result2 = */ matcher2.matches();
     // group 1: building nr (from) 42:   42
@@ -124,14 +135,14 @@ public record BuildingNr(String buildingNr) implements Comparable<BuildingNr>, I
          {
           return 1;
          }
-          if (matcher1.group(7).compareTo(matcher2.group(7)) != 0)
-           {
-            throw new IllegalStateException("BuildingNrs do not have the same denominator"); //$NON-NLS-1$
-           }
-          result = Integer.compare(Integer.parseInt(matcher1.group(6)), Integer.parseInt(matcher2.group(6)));
-          if (result != 0)
-           {
-            return result;
+        if (matcher1.group(7).compareTo(matcher2.group(7)) != 0)
+         {
+          throw new IllegalStateException("BuildingNrs do not have the same denominator"); //$NON-NLS-1$
+         }
+        result = Integer.compare(Integer.parseInt(matcher1.group(6)), Integer.parseInt(matcher2.group(6)));
+        if (result != 0)
+         {
+          return result;
          }
        }
       if ((matcher1.group(8) != null) || (matcher2.group(8) != null)) // a-z

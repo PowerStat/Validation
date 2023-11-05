@@ -22,7 +22,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Second tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class SecondTests
+final class SecondTests
  {
   /**
    * Not a second constant.
@@ -43,9 +43,19 @@ public class SecondTests
   /**
    * Default constructor.
    */
-  public SecondTests()
+  /* default */ SecondTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory1()
+   {
+    assertEquals(0, Second.of("0").second(), SecondTests.NOT_A_SECOND);
    }
 
 
@@ -56,7 +66,7 @@ public class SecondTests
    */
   @ParameterizedTest
   @ValueSource(ints = {0, 59, 60})
-  public void isSecond(final int second)
+  /* default */ void testIsSecond(final int second)
    {
     assertEquals(second, Second.of(second).second(), SecondTests.NOT_A_SECOND);
    }
@@ -69,7 +79,7 @@ public class SecondTests
    */
   @ParameterizedTest
   @ValueSource(ints = {-1, 61})
-  public void isNotASecond(final int second)
+  /* default */ void testIsNotASecond(final int second)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -80,10 +90,31 @@ public class SecondTests
 
 
   /**
+   * intValue.
+   */
+  @Test
+  /* default */ void testIntValue()
+   {
+    assertEquals(10, Second.of(10).second(), SecondTests.NOT_A_SECOND);
+   }
+
+
+  /**
+   * stringValue.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    assertEquals("10", Second.of(10).stringValue(), SecondTests.NOT_A_SECOND);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Second second1 = Second.of(1);
     final Second second2 = Second.of(1);
@@ -104,7 +135,7 @@ public class SecondTests
    * Test add.
    */
   @Test
-  public void testAdd1()
+  /* default */ void testAdd1()
    {
     final Second second = Second.of(1);
     final Seconds seconds = Seconds.of(1);
@@ -117,7 +148,7 @@ public class SecondTests
    * Test add.
    */
   @Test
-  public void testAdd2()
+  /* default */ void testAdd2()
    {
     final Second second = Second.of(59);
     final Seconds seconds = Seconds.of(1);
@@ -133,7 +164,7 @@ public class SecondTests
    * Test subtract.
    */
   @Test
-  public void testSubtract1()
+  /* default */ void testSubtract1()
    {
     final Second second = Second.of(2);
     final Seconds seconds = Seconds.of(1);
@@ -146,7 +177,7 @@ public class SecondTests
    * Test subtract.
    */
   @Test
-  public void testSubtract2()
+  /* default */ void testSubtract2()
    {
     final Second second = Second.of(0);
     final Seconds seconds = Seconds.of(1);
@@ -162,7 +193,7 @@ public class SecondTests
    * Test increment.
    */
   @Test
-  public void testIncrement1()
+  /* default */ void testIncrement1()
    {
     final Second second = Second.of(1);
     final Second secondResult = second.increment();
@@ -174,7 +205,7 @@ public class SecondTests
    * Test increment.
    */
   @Test
-  public void testIncrement2()
+  /* default */ void testIncrement2()
    {
     final Second second = Second.of(59);
     assertThrows(ArithmeticException.class, () ->
@@ -189,7 +220,7 @@ public class SecondTests
    * Test decrement.
    */
   @Test
-  public void testDecrement1()
+  /* default */ void testDecrement1()
    {
     final Second second = Second.of(2);
     final Second secondResult = second.decrement();
@@ -201,7 +232,7 @@ public class SecondTests
    * Test decrement.
    */
   @Test
-  public void testDecrement2()
+  /* default */ void testDecrement2()
    {
     final Second second = Second.of(0);
     assertThrows(ArithmeticException.class, () ->

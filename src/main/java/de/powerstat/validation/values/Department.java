@@ -57,6 +57,18 @@ public record Department(String department) implements Comparable<Department>, I
 
 
   /**
+   * Returns the value of this Department as a string.
+   *
+   * @return he text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.department;
+   }
+
+
+  /**
    * Compare with another object.
    *
    * @param obj Object to compare with

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.strategies.test;
 
@@ -19,7 +19,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Password configurable strategy tests.
  */
 @SuppressFBWarnings("PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS")
-public class PasswordConfigurableStrategyTests
+final class PasswordConfigurableStrategyTests
  {
   /**
    * Password pattern.
@@ -50,7 +50,7 @@ public class PasswordConfigurableStrategyTests
   /**
    * Default constructor.
    */
-  public PasswordConfigurableStrategyTests()
+  /* default */ PasswordConfigurableStrategyTests()
    {
     super();
    }
@@ -60,7 +60,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minLength to short.
    */
   @Test
-  public void minLengthToShort()
+  /* default */ void testMinLengthToShort()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -74,7 +74,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with maxLength &lt; minLength.
    */
   @Test
-  public void maxSmallerThanMinLength()
+  /* default */ void testMaxSmallerThanMinLength()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -88,7 +88,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with maxLength = minLength.
    */
   @Test
-  public void maxEqualMinLength()
+  /* default */ void testMaxEqualMinLength()
    {
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(10, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 0, 0);
     assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
@@ -99,7 +99,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with caching.
    */
   @Test
-  public void cache()
+  /* default */ void testCache()
    {
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(10, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 0, 0);
     final IPasswordStrategy cleanStrategy2 = PasswordConfigurableStrategy.of(10, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 0, 0);
@@ -114,7 +114,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with wrong regexp.
    */
   @Test
-  public void regexpWrong1()
+  /* default */ void testRegexpWrong1()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -128,7 +128,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with wrong regexp.
    */
   @Test
-  public void regexpWrong2()
+  /* default */ void testRegexpWrong2()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -142,7 +142,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minNumeric negative.
    */
   @Test
-  public void minNumericNegative()
+  /* default */ void testMinNumericNegative()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -156,7 +156,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minNumeric maximum.
    */
   @Test
-  public void minNumericMaximum()
+  /* default */ void testMinNumericMaximum()
    {
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 10, 0, 0, 0, 0, 0);
     cleanStrategy.validationStrategy(PasswordConfigurableStrategyTests.PWD_1234567890);
@@ -168,7 +168,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minNumeric greater than maxLength.
    */
   @Test
-  public void minNumericGreaterMaxLength()
+  /* default */ void testMinNumericGreaterMaxLength()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -182,7 +182,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minLower greater than maxLength.
    */
   @Test
-  public void minLowerGreaterMaxLength()
+  /* default */ void testMinLowerGreaterMaxLength()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -196,7 +196,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minUpper greater than maxLength.
    */
   @Test
-  public void minUpperGreaterMaxLength()
+  /* default */ void testMinUpperGreaterMaxLength()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -210,7 +210,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minSpecial greater than maxLength.
    */
   @Test
-  public void minSpecialGreaterMaxLength()
+  /* default */ void testMinSpecialGreaterMaxLength()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -224,7 +224,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minUniue greater than maxLength.
    */
   @Test
-  public void minUnqiueGreaterMaxLength()
+  /* default */ void testMinUnqiueGreaterMaxLength()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -238,7 +238,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with maxRepeated greater than maxLength.
    */
   @Test
-  public void maxRepeatedGreaterMaxLength()
+  /* default */ void testMaxRepeatedGreaterMaxLength()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -252,7 +252,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minNumeric failure.
    */
   @Test
-  public void numericFailure()
+  /* default */ void testNumericFailure()
    {
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 1, 0, 0, 0, 0, 0);
     assertThrows(IllegalArgumentException.class, () ->
@@ -267,7 +267,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minLower negative.
    */
   @Test
-  public void minLowerNegative()
+  /* default */ void testMinLowerNegative()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -281,7 +281,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minLower maximum.
    */
   @Test
-  public void minLowerMaximum()
+  /* default */ void testMinLowerMaximum()
    {
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 10, 0, 0, 0, 0);
     assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
@@ -292,7 +292,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minLower failure.
    */
   @Test
-  public void lowerFailure()
+  /* default */ void testLowerFailure()
    {
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 1, 0, 0, 0, 0);
     assertThrows(IllegalArgumentException.class, () ->
@@ -307,7 +307,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minUpper negative.
    */
   @Test
-  public void minUpperNegative()
+  /* default */ void testMinUpperNegative()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -321,7 +321,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minUpper maximum.
    */
   @Test
-  public void minUpperMaximum()
+  /* default */ void testMinUpperMaximum()
    {
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 10, 0, 0, 0);
     assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
@@ -332,7 +332,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minUpper failure.
    */
   @Test
-  public void upperFailure()
+  /* default */ void testUpperFailure()
    {
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 1, 0, 0, 0);
     assertThrows(IllegalArgumentException.class, () ->
@@ -347,7 +347,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minSpecial negative.
    */
   @Test
-  public void minSpecialNegative()
+  /* default */ void testMinSpecialNegative()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -361,7 +361,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minSpecial maximum.
    */
   @Test
-  public void minSpecialMaximum()
+  /* default */ void testMinSpecialMaximum()
    {
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 10, 0, 0);
     assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
@@ -372,7 +372,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minSpecial failure.
    */
   @Test
-  public void specialFailure()
+  /* default */ void testSpecialFailure()
    {
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 1, 0, 0);
     assertThrows(IllegalArgumentException.class, () ->
@@ -387,7 +387,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minUnique negative.
    */
   @Test
-  public void minUnqiueNegative()
+  /* default */ void testMinUnqiueNegative()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -401,7 +401,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minUnique maximum.
    */
   @Test
-  public void minUnqiueMaximum()
+  /* default */ void testMinUnqiueMaximum()
    {
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 10, 0);
     assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
@@ -412,7 +412,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with minUnique failure.
    */
   @Test
-  public void uniqueFailure()
+  /* default */ void testUniqueFailure()
    {
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 2, 0);
     assertThrows(IllegalArgumentException.class, () ->
@@ -427,7 +427,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with maxRepeated negative.
    */
   @Test
-  public void maxRepeatedNegative()
+  /* default */ void testMaxRepeatedNegative()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -441,7 +441,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with maxRepeated maximum.
    */
   @Test
-  public void maxRepeatedMaximum()
+  /* default */ void testMaxRepeatedMaximum()
    {
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 0, 10);
     cleanStrategy.validationStrategy(PasswordConfigurableStrategyTests.DUMMY1);
@@ -453,7 +453,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with (minNumeric + minLower + minUpper + minSpecial) > maxLength.
    */
   @Test
-  public void sumWrong()
+  /* default */ void testSumWrong()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -467,7 +467,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with (minNumeric + minLower + minUpper + minSpecial) == maxLength.
    */
   @Test
-  public void sumMaximum()
+  /* default */ void testSumMaximum()
    {
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(1, 12, PasswordConfigurableStrategyTests.PWD_PATTERN, 3, 3, 3, 3, 0, 0);
     assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
@@ -478,7 +478,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy.
    */
   @Test
-  public void success()
+  /* default */ void testSuccess()
    {
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 12, PasswordConfigurableStrategyTests.PWD_PATTERN, 1, 1, 1, 1, 4, 1);
     cleanStrategy.validationStrategy("1aA@1aA@"); //$NON-NLS-1$
@@ -490,7 +490,7 @@ public class PasswordConfigurableStrategyTests
    * Test strategy with repeated characters.
    */
   @Test
-  public void repeatedCharacters()
+  /* default */ void testRepeatedCharacters()
    {
     final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(8, 10, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 0, 2);
     assertThrows(IllegalArgumentException.class, () ->

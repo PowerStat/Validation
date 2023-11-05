@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Hours tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
-public class HoursTests
+final class HoursTests
  {
   /**
    * Not a hours constant.
@@ -42,9 +42,19 @@ public class HoursTests
   /**
    * Default constructor.
    */
-  public HoursTests()
+  /* default */ HoursTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory1()
+   {
+    assertEquals(0, Hours.of("0").hours(), HoursTests.NOT_A_HOURS);
    }
 
 
@@ -55,7 +65,7 @@ public class HoursTests
    */
   @ParameterizedTest
   @ValueSource(longs = {0, 48})
-  public void isHours(final long hours)
+  /* default */ void testIsHours(final long hours)
    {
     assertEquals(hours, Hours.of(hours).hours(), HoursTests.NOT_A_HOURS);
    }
@@ -68,7 +78,7 @@ public class HoursTests
    */
   @ParameterizedTest
   @ValueSource(longs = {-1})
-  public void isNotAHours(final long hours)
+  /* default */ void testIsNotAHours(final long hours)
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -79,10 +89,21 @@ public class HoursTests
 
 
   /**
+   * stringValue.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    assertEquals("10", Hours.of(10).stringValue(), HoursTests.NOT_A_HOURS);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Hours hours1 = Hours.of(1);
     final Hours hours2 = Hours.of(1);
@@ -103,7 +124,7 @@ public class HoursTests
    * Test add.
    */
   @Test
-  public void testAdd1()
+  /* default */ void testAdd1()
    {
     final Hours hours1 = Hours.of(1);
     final Hours hours2 = Hours.of(1);
@@ -116,7 +137,7 @@ public class HoursTests
    * Test add.
    */
   @Test
-  public void testAdd2()
+  /* default */ void testAdd2()
    {
     final Hours hours1 = Hours.of(Long.MAX_VALUE);
     final Hours hours2 = Hours.of(1);
@@ -132,7 +153,7 @@ public class HoursTests
    * Test substract.
    */
   @Test
-  public void testSubstract1()
+  /* default */ void testSubstract1()
    {
     final Hours hours1 = Hours.of(6);
     final Hours hours2 = Hours.of(3);
@@ -145,7 +166,7 @@ public class HoursTests
    * Test substract.
    */
   @Test
-  public void testSubstract2()
+  /* default */ void testSubstract2()
    {
     final Hours hours1 = Hours.of(3);
     final Hours hours2 = Hours.of(6);
@@ -158,7 +179,7 @@ public class HoursTests
    * Test multiply.
    */
   @Test
-  public void testMultiply1()
+  /* default */ void testMultiply1()
    {
     final Hours hours1 = Hours.of(7);
     final Hours hoursResult = hours1.multiply(3);
@@ -170,7 +191,7 @@ public class HoursTests
    * Test multiply.
    */
   @Test
-  public void testMultiply2()
+  /* default */ void testMultiply2()
    {
     final Hours hours1 = Hours.of(Long.MAX_VALUE / 2);
     assertThrows(ArithmeticException.class, () ->
@@ -185,7 +206,7 @@ public class HoursTests
    * Test divide.
    */
   @Test
-  public void testDivide1()
+  /* default */ void testDivide1()
    {
     final Hours hours1 = Hours.of(10);
     final Hours hoursResult = hours1.divide(2);
@@ -197,7 +218,7 @@ public class HoursTests
    * Test divide.
    */
   @Test
-  public void testDivide2()
+  /* default */ void testDivide2()
    {
     final Hours hours1 = Hours.of(10);
     final Hours hoursResult = hours1.divide(3);
@@ -209,7 +230,7 @@ public class HoursTests
    * Test divide.
    */
   @Test
-  public void testDivide3()
+  /* default */ void testDivide3()
    {
     final Hours hours1 = Hours.of(10);
     assertThrows(ArithmeticException.class, () ->
@@ -224,7 +245,7 @@ public class HoursTests
    * Test divide.
    */
   @Test
-  public void testModulo1()
+  /* default */ void testModulo1()
    {
     final Hours hours1 = Hours.of(10);
     final Hours hoursResult = hours1.modulo(2);
@@ -236,7 +257,7 @@ public class HoursTests
    * Test divide.
    */
   @Test
-  public void testModulo2()
+  /* default */ void testModulo2()
    {
     final Hours hours1 = Hours.of(10);
     final Hours hoursResult = hours1.modulo(3);
@@ -248,7 +269,7 @@ public class HoursTests
    * Test divide.
    */
   @Test
-  public void testModulo3()
+  /* default */ void testModulo3()
    {
     final Hours hours1 = Hours.of(10);
     assertThrows(ArithmeticException.class, () ->

@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Language tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class LanguageTests
+final class LanguageTests
  {
   /**
    * FR france.
@@ -47,7 +47,7 @@ public class LanguageTests
   /**
    * Default constructor.
    */
-  public LanguageTests()
+  /* default */ LanguageTests()
    {
     super();
    }
@@ -60,7 +60,7 @@ public class LanguageTests
    */
   @ParameterizedTest
   @ValueSource(strings = {LanguageTests.DE})
-  public void languageOk0(final String code)
+  /* default */ void testLanguageOk0(final String code)
    {
     final Language cleanLanguage = Language.of(code);
     assertEquals(code, cleanLanguage.code(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
@@ -74,7 +74,7 @@ public class LanguageTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"d", "dea"})
-  public void languageLength(final String code)
+  /* default */ void testLanguageLength(final String code)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -91,7 +91,7 @@ public class LanguageTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"d~", "zz"})
-  public void countryIllegalParameters(final String code)
+  /* default */ void testCountryIllegalParameters(final String code)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -102,10 +102,22 @@ public class LanguageTests
 
 
   /**
+   * Test get language code.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final Language language = Language.of(LanguageTests.DE);
+    assertEquals(LanguageTests.DE, language.stringValue(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Language language1 = Language.of(LanguageTests.DE);
     final Language language2 = Language.of(LanguageTests.DE);

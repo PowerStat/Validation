@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -17,7 +17,7 @@ import de.powerstat.validation.values.BloodGroup;
 /**
  * Gender tests.
  */
-public class BloodGroupTests
+final class BloodGroupTests
  {
   /**
    * Compatible blood groups.
@@ -154,13 +154,33 @@ public class BloodGroupTests
    */
   private static final String BG_0PBN_NOT_OK = "0+ with B- should not be ok"; //$NON-NLS-1$
 
+  /**
+   * ON constant.
+   */
+  private static final String ON = "ON"; //$NON-NLS-1$
+
+  /**
+   * 0- action not as expected constant.
+   */
+  private static final String ZERO_NEGATIVE_ACTION_NOT_AS_EXPECTED = "0- action not as expected";
+
 
   /**
    * Default constructor.
    */
-  public BloodGroupTests()
+  /* default */ BloodGroupTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory1()
+   {
+    assertEquals(0, BloodGroup.of(ON).getAction(), ZERO_NEGATIVE_ACTION_NOT_AS_EXPECTED);
    }
 
 
@@ -168,10 +188,10 @@ public class BloodGroupTests
    * Test getAction of BloodGroup.
    */
   @Test
-  public void getAction()
+  /* default */ void testGetAction()
    {
-    assertAll("constructor", //$NON-NLS-1$
-      () -> assertEquals(0, BloodGroup.ON.getAction(), "0- action not as expected"), //$NON-NLS-1$
+    assertAll("getAction", //$NON-NLS-1$
+      () -> assertEquals(0, BloodGroup.ON.getAction(), ZERO_NEGATIVE_ACTION_NOT_AS_EXPECTED),
       () -> assertEquals(1, BloodGroup.OP.getAction(), "0+ action not as expected"), //$NON-NLS-1$
       () -> assertEquals(2, BloodGroup.AN.getAction(), "A- action not as expected"), //$NON-NLS-1$
       () -> assertEquals(3, BloodGroup.AP.getAction(), "A+ action not as expected"), //$NON-NLS-1$
@@ -184,11 +204,22 @@ public class BloodGroupTests
 
 
   /**
+   * Test stringValue.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final BloodGroup group = BloodGroup.ON;
+    assertEquals(ON, group.stringValue(), "stringValue not as expected");
+   }
+
+
+  /**
    * Test could donate to.
    */
   @SuppressWarnings("PMD.JUnitTestContainsTooManyAsserts")
   @Test
-  public void couldDonateTo()
+  /* default */ void testCouldDonateTo()
    {
     assertAll("couldDonateTo", //$NON-NLS-1$
       () -> assertTrue(BloodGroup.ON.couldDonateTo(BloodGroup.ON), BloodGroupTests.BG_0N0N_OK),
@@ -271,7 +302,7 @@ public class BloodGroupTests
    */
   @SuppressWarnings("PMD.JUnitTestContainsTooManyAsserts")
   @Test
-  public void couldReceiveFrom()
+  /* default */ void testCouldReceiveFrom()
    {
     assertAll("couldReceiveFrom", //$NON-NLS-1$
       () -> assertTrue(BloodGroup.ON.couldReceiveFrom(BloodGroup.ON), BloodGroupTests.BG_0N0N_OK),
@@ -290,7 +321,7 @@ public class BloodGroupTests
       () -> assertFalse(BloodGroup.OP.couldReceiveFrom(BloodGroup.AN), BloodGroupTests.BG_0PAN_NOT_OK),
       () -> assertFalse(BloodGroup.OP.couldReceiveFrom(BloodGroup.AP), "0+ with A+ should not be ok"), //$NON-NLS-1$
       () -> assertFalse(BloodGroup.OP.couldReceiveFrom(BloodGroup.ABN), BloodGroupTests.BG_0PABN_NOT_OK),
-      () -> assertFalse(BloodGroup.OP.couldReceiveFrom(BloodGroup.ABP), "0+ with AB+ should not be ok") ,//$NON-NLS-1$
+      () -> assertFalse(BloodGroup.OP.couldReceiveFrom(BloodGroup.ABP), "0+ with AB+ should not be ok"), //$NON-NLS-1$
 
       () -> assertTrue(BloodGroup.BN.couldReceiveFrom(BloodGroup.ON), "B- with 0- should be ok"), //$NON-NLS-1$
       () -> assertFalse(BloodGroup.BN.couldReceiveFrom(BloodGroup.OP), BloodGroupTests.BG_BN0P_NOT_OK),

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Firstname tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class FirstnameTests
+final class FirstnameTests
  {
   /**
    * Firstname.
@@ -47,7 +47,7 @@ public class FirstnameTests
   /**
    * Default constructor.
    */
-  public FirstnameTests()
+  /* default */ FirstnameTests()
    {
     super();
    }
@@ -60,7 +60,7 @@ public class FirstnameTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"K", "Kai", FirstnameTests.FIRSTNAME, "AbcdefghijklmnopqrstuvwxyzäöüßAB"})
-  public void firstnameOk0(final String firstname)
+  /* default */ void testFirstnameOk0(final String firstname)
    {
     final Firstname cleanFirstname = Firstname.of(firstname);
     assertEquals(firstname, cleanFirstname.firstname(), FirstnameTests.FIRSTNAME_NOT_AS_EXPECTED);
@@ -74,7 +74,7 @@ public class FirstnameTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"", "AbcdefghijklmnopqrstuvwxyzäöüßABC"})
-  public void firstnameLength(final String firstname)
+  /* default */ void testFirstnameLength(final String firstname)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -88,7 +88,7 @@ public class FirstnameTests
    * Test Firstname with illegal characters.
    */
   @Test
-  public void firstnameWithIllegalCharacters0()
+  /* default */ void testFirstnameWithIllegalCharacters0()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -99,10 +99,22 @@ public class FirstnameTests
 
 
   /**
+   * Test stringValue.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final Firstname firstname = Firstname.of(FirstnameTests.FIRSTNAME);
+    assertEquals(FirstnameTests.FIRSTNAME, firstname.stringValue(), FirstnameTests.FIRSTNAME_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final Firstname firstname1 = Firstname.of(FirstnameTests.FIRSTNAME);
     final Firstname firstname2 = Firstname.of(FirstnameTests.FIRSTNAME);

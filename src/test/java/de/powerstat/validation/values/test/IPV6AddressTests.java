@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * IP V6 tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class IPV6AddressTests
+final class IPV6AddressTests
  {
   /**
    * IP V6 test address.
@@ -64,7 +64,7 @@ public class IPV6AddressTests
   /**
    * Default constructor.
    */
-  public IPV6AddressTests()
+  /* default */ IPV6AddressTests()
    {
     super();
    }
@@ -74,7 +74,7 @@ public class IPV6AddressTests
    * Test constructor failure illegal argument.
    */
   @Test
-  public void constructorFailure0()
+  /* default */ void testConstructorFailure0()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -88,7 +88,7 @@ public class IPV6AddressTests
    * Test constructor failure illegal argument.
    */
   @Test
-  public void constructorFailure1()
+  /* default */ void testConstructorFailure1()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -102,7 +102,7 @@ public class IPV6AddressTests
    * Test constructor failure illegal argument.
    */
   @Test
-  public void constructorFailure2()
+  /* default */ void testConstructorFailure2()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -116,7 +116,7 @@ public class IPV6AddressTests
    * Test constructor failure illegal argument.
    */
   @Test
-  public void constructorFailure3()
+  /* default */ void testConstructorFailure3()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -130,7 +130,7 @@ public class IPV6AddressTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess0()
+  /* default */ void testConstructorSuccess0()
    {
     final IPV6Address address = IPV6Address.of("::"); //$NON-NLS-1$
     assertEquals("::", address.stringValue(), IPV6AddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
@@ -141,7 +141,7 @@ public class IPV6AddressTests
    * Test constructor success.
    */
   @Test
-  public void constructorSuccess1()
+  /* default */ void testConstructorSuccess1()
    {
     final IPV6Address address = IPV6Address.of("fd00:0000:0000:0000:0000:0000:255.255.255.255"); //$NON-NLS-1$
     assertEquals("fd00:0000:0000:0000:0000:0000:255.255.255.255", address.stringValue(), IPV6AddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
@@ -155,8 +155,8 @@ public class IPV6AddressTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"00fe:0080::", "00fc::", "00fd::"})
-  @Disabled
-  public void isPrivate(final String ipv6)
+  @Disabled("TODO")
+  /* default */ void testIsPrivate(final String ipv6)
    {
     final IPV6Address address = IPV6Address.of(ipv6);
     assertTrue(address.isPrivate(), IPV6AddressTests.ADDRESS_IS_NOT_PRIVATE);
@@ -167,7 +167,7 @@ public class IPV6AddressTests
    * Test if ip v6 is private.
    */
   @Test
-  public void isPrivate3()
+  /* default */ void testIsPrivate3()
    {
     final IPV6Address address = IPV6Address.of("00fe::"); //$NON-NLS-1$
     assertFalse(address.isPrivate(), IPV6AddressTests.ADDRESS_IS_NOT_PRIVATE);
@@ -178,7 +178,7 @@ public class IPV6AddressTests
    * Test if ip v6 is special.
    */
   @Test
-  public void isSpecial0()
+  /* default */ void testIsSpecial0()
    {
     final IPV6Address address = IPV6Address.of("00fd::"); //$NON-NLS-1$
     assertFalse(address.isSpecial(), "Address is special"); //$NON-NLS-1$
@@ -192,8 +192,8 @@ public class IPV6AddressTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"::", "::1", "ff::"})
-  @Disabled
-  public void isSpecial1(final String ipv6)
+  @Disabled("TODO")
+  /* default */ void testIsSpecial1(final String ipv6)
    {
     final IPV6Address address = IPV6Address.of(ipv6);
     assertTrue(address.isSpecial(), "Address is not special"); //$NON-NLS-1$
@@ -204,7 +204,7 @@ public class IPV6AddressTests
    * Test if ip v6 is public.
    */
   @Test
-  public void isPublic0()
+  /* default */ void testIsPublic0()
    {
     final IPV6Address address = IPV6Address.of("00c0::"); //$NON-NLS-1$
     assertTrue(address.isPublic(), IPV6AddressTests.ADDRESS_IS_NOT_PUBLIC);
@@ -218,8 +218,8 @@ public class IPV6AddressTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"00fc::", "ff::"})
-  @Disabled
-  public void isNotPublic0(final String ipv6)
+  @Disabled("TODO")
+  /* default */ void testIsNotPublic0(final String ipv6)
    {
     final IPV6Address address = IPV6Address.of(ipv6);
     assertFalse(address.isPublic(), IPV6AddressTests.ADDRESS_IS_NOT_PUBLIC);
@@ -230,7 +230,7 @@ public class IPV6AddressTests
    * Test get address.
    */
   @Test
-  public void stringValue()
+  /* default */ void testStringValue()
    {
     final IPV6Address address = IPV6Address.of(IPV6AddressTests.IPV6_FD00);
     assertEquals(IPV6AddressTests.IPV6_FD00, address.stringValue(), IPV6AddressTests.ADDRESS_NOT_AS_EXPECTED);
@@ -241,7 +241,8 @@ public class IPV6AddressTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final IPV6Address address1 = IPV6Address.of(IPV6AddressTests.IPV6_FD00);
     final IPV6Address address2 = IPV6Address.of(IPV6AddressTests.IPV6_FD00);

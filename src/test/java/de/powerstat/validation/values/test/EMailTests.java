@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * EMail tests.
  */
 @SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
-public class EMailTests
+final class EMailTests
  {
   /**
    * EMail address for testing user1@example.com.
@@ -57,7 +57,7 @@ public class EMailTests
   /**
    * Default constructor.
    */
-  public EMailTests()
+  /* default */ EMailTests()
    {
     super();
    }
@@ -70,7 +70,7 @@ public class EMailTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"u@example.com", "a@a.de", "user@[192.168.1.1]", "user@[ipv6:00fd:0000:0000:0000:0000:0000:0000:0000]", "1234567890123456789012345678901234567890123456789012345678901234@example.com", "a@abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcde.com"})
-  public void emailOk0(final String email)
+  /* default */ void testEmailOk0(final String email)
    {
     final EMail cleanEMail = EMail.of(email);
     assertEquals(email, cleanEMail.email(), EMailTests.EMAIL_NOT_AS_EXPECTED);
@@ -84,7 +84,7 @@ public class EMailTests
    */
   @ParameterizedTest
   @ValueSource(strings = {"a@a.d", "12345678901234567890123456789012345678901234567890123456789012345@example.com", "a@abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdefghijklmnopqrstuvwxyz.abcdef.com"})
-  public void emailLength(final String email)
+  /* default */ void testEmailLength(final String email)
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -98,7 +98,7 @@ public class EMailTests
    * Test EMail with missing @.
    */
   @Test
-  public void emailWithMissingAt()
+  /* default */ void testEmailWithMissingAt()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -112,7 +112,7 @@ public class EMailTests
    * Test EMail with ip and missing close square bracket.
    */
   @Test
-  public void emailWithIpAndMissingCloseSquareBracket()
+  /* default */ void testEmailWithIpAndMissingCloseSquareBracket()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -126,7 +126,7 @@ public class EMailTests
    * Test EMail with comments.
    */
   @Test
-  public void emailWithComment0()
+  /* default */ void testEmailWithComment0()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -140,7 +140,7 @@ public class EMailTests
    * Test EMail with comments.
    */
   @Test
-  public void emailWithComment1()
+  /* default */ void testEmailWithComment1()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -154,7 +154,7 @@ public class EMailTests
    * Test EMail with double quotes.
    */
   @Test
-  public void emailWithDoubleQuotes()
+  /* default */ void testEmailWithDoubleQuotes()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -168,7 +168,7 @@ public class EMailTests
    * Test EMail with dot at start.
    */
   @Test
-  public void emailWithDotAtStart()
+  /* default */ void testEmailWithDotAtStart()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -182,7 +182,7 @@ public class EMailTests
    * Test EMail with dot at end.
    */
   @Test
-  public void emailWithDotAtEnd()
+  /* default */ void testEmailWithDotAtEnd()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -196,7 +196,7 @@ public class EMailTests
    * Test EMail with double dot.
    */
   @Test
-  public void emailWithDoubleDot()
+  /* default */ void testEmailWithDoubleDot()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -210,7 +210,7 @@ public class EMailTests
    * Test EMail with illegal characters.
    */
   @Test
-  public void emailWithIllegalCharacters0()
+  /* default */ void testEmailWithIllegalCharacters0()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -221,10 +221,21 @@ public class EMailTests
 
 
   /**
+   * Test get email.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final EMail email = EMail.of(EMailTests.USER_EXAMPLE_COM);
+    assertEquals(EMailTests.USER_EXAMPLE_COM, email.stringValue(), EMailTests.EMAIL_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test get domain part.
    */
   @Test
-  public void getDomainPart()
+  /* default */ void testGetDomainPart()
    {
     final EMail email = EMail.of(EMailTests.USER_EXAMPLE_COM);
     assertEquals(EMailTests.EXAMPLE_COM, email.getDomainPart(), EMailTests.EMAIL_NOT_AS_EXPECTED);
@@ -235,7 +246,7 @@ public class EMailTests
    * Test get reverse domain part.
    */
   @Test
-  public void getReverseDomainPart()
+  /* default */ void testGetReverseDomainPart()
    {
     final EMail email = EMail.of(EMailTests.USER_EXAMPLE_COM);
     assertEquals("com.example", email.getReverseDomainPart(), EMailTests.EMAIL_NOT_AS_EXPECTED); //$NON-NLS-1$
@@ -246,7 +257,7 @@ public class EMailTests
    * Test get local part.
    */
   @Test
-  public void getLocalPart()
+  /* default */ void testGetLocalPart()
    {
     final EMail email = EMail.of(EMailTests.USER_EXAMPLE_COM);
     assertEquals("user", email.getLocalPart(), EMailTests.EMAIL_NOT_AS_EXPECTED); //$NON-NLS-1$
@@ -257,7 +268,8 @@ public class EMailTests
    * Test compareTo.
    */
   @Test
-  public void testCompareTo()
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
    {
     final EMail email1 = EMail.of(EMailTests.EMAIL_USER1_AT_EXAMPLE_COM);
     final EMail email2 = EMail.of(EMailTests.EMAIL_USER1_AT_EXAMPLE_COM);

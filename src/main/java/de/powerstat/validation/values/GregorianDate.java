@@ -33,6 +33,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO get WeekNr
  * TODO format date
  * TODO parse date
+ * TODO min, max
  */
 public record GregorianDate(GregorianCalendar calendar, Year year, Month month, Day day) implements Comparable<GregorianDate>, IValueObject
  {
@@ -50,6 +51,11 @@ public record GregorianDate(GregorianCalendar calendar, Year year, Month month, 
    * ISO8601 separator.
    */
   private static final String DATE_SEP = "-"; //$NON-NLS-1$
+
+  /**
+   * IT - italy constant.
+   */
+  private static final String IT = "IT"; //$NON-NLS-1$
 
 
   /**
@@ -99,7 +105,24 @@ public record GregorianDate(GregorianCalendar calendar, Year year, Month month, 
    */
   public static GregorianDate of(final Year year, final Month month, final Day day)
    {
-    return GregorianDate.of(GregorianCalendar.of(Country.of("IT")), year, month, day); //$NON-NLS-1$
+    return GregorianDate.of(GregorianCalendar.of(Country.of(IT)), year, month, day);
+   }
+
+
+  /**
+   * GregorianDate factory for country=IT.
+   *
+   * @param value String value of ISO8601 type yyyy-mm-dd
+   * @return GregorianDate object
+   */
+  public static GregorianDate of(final String value)
+   {
+    final String[] values = value.split(DATE_SEP);
+    if (values.length != 3)
+     {
+      throw new IllegalArgumentException("Format not as expected: yyyy-mm-dd");
+     }
+    return GregorianDate.of(GregorianCalendar.of(Country.of(IT)), Year.of(values[0]), Month.of(values[1]), Day.of(values[2]));
    }
 
 
@@ -108,6 +131,7 @@ public record GregorianDate(GregorianCalendar calendar, Year year, Month month, 
    *
    * @return The text value represented by this object after conversion to type string in ISO8601 format with - as separator.
    */
+  @Override
   public String stringValue()
    {
     return String.format(GregorianDate.FORMAT_FOURDIGIT, this.year.year()) + GregorianDate.DATE_SEP + String.format(GregorianDate.FORMAT_TWODIGIT, this.month.month()) + GregorianDate.DATE_SEP + String.format(GregorianDate.FORMAT_TWODIGIT, this.day.day());
@@ -146,16 +170,17 @@ public record GregorianDate(GregorianCalendar calendar, Year year, Month month, 
    * @param year Year
    * @return GregorianDate of easter for given year
    */
+  @SuppressWarnings("PMD.ShortVariable")
   public static GregorianDate easter(final GregorianCalendar calendar, final Year year)
    {
     final long a = year.year() % 19;
     final long b = year.year() / 100;
     final long c = year.year() % 100;
     final long d = ((((19 * a) + b) - (b / 4) - (((b - ((b + 8) / 25)) + 1) / 3)) + 15) % 30;
-    final long e  = ((32 + (2 * (b % 4)) + (2 * (c / 4))) - d - (c % 4)) % 7;
+    final long e = ((32 + (2 * (b % 4)) + (2 * (c / 4))) - d - (c % 4)) % 7;
     final long f = ((d + e) - (7 * ((a + (11 * d) + (22 * e)) / 451))) + 114;
-    final Day day = Day.of(((int)f % 31) + 1);
-    final Month month = Month.of((int)(f / 31));
+    final var day = Day.of(((int)f % 31) + 1);
+    final var month = Month.of((int)(f / 31));
     return GregorianDate.of(calendar, year, month, day);
    }
 

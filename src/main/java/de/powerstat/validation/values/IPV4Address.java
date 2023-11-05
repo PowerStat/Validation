@@ -51,7 +51,7 @@ public record IPV4Address(String address) implements Comparable<IPV4Address>, IV
   /**
    * IP V4 regexp.
    */
-  private static final Pattern IPV4_REGEXP = Pattern.compile("^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$"); //$NON-NLS-1$
+  private static final Pattern IPV4_REGEXP = Pattern.compile("^((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)\\.){3}(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)$"); //$NON-NLS-1$
 
 
   /**
@@ -177,6 +177,18 @@ public record IPV4Address(String address) implements Comparable<IPV4Address>, IV
   public boolean isPublic()
    {
     return !isPrivate() && !isSpecial();
+   }
+
+
+  /**
+   * Returns the value of this IPV4Address as a string.
+   *
+   * @return The text value represented by this object after conversion to type string.
+   */
+  @Override
+  public String stringValue()
+   {
+    return this.address;
    }
 
 

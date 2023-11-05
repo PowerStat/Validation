@@ -15,6 +15,8 @@ import de.powerstat.validation.interfaces.IValueObject;
  * @param minutes Minutes 0-..
  * 
  * Not DSGVO relevant.
+ *
+ * TODO min, max
  */
 public record Minutes(long minutes) implements Comparable<Minutes>, IValueObject
  {
@@ -42,6 +44,30 @@ public record Minutes(long minutes) implements Comparable<Minutes>, IValueObject
   public static Minutes of(final long minutes)
    {
     return new Minutes(minutes);
+   }
+
+
+  /**
+   * Minutes factory.
+   *
+   * @param value Minutes 0-.. string
+   * @return Minutes object
+   */
+  public static Minutes of(final String value)
+   {
+    return of(Long.parseLong(value));
+   }
+
+
+  /**
+   * Returns the value of this Minutes as a String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.minutes);
    }
 
 

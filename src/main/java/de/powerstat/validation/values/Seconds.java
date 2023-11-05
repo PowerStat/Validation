@@ -17,6 +17,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Not DSGVO relevant.
  *
  * TODO inMinutes()
+ * TODO min, max
  */
 public record Seconds(long seconds) implements Comparable<Seconds>, IValueObject
  {
@@ -44,6 +45,30 @@ public record Seconds(long seconds) implements Comparable<Seconds>, IValueObject
   public static Seconds of(final long seconds)
    {
     return new Seconds(seconds);
+   }
+
+
+  /**
+   * Seconds factory.
+   *
+   * @param value Seconds 0-.. string
+   * @return Seconds object
+   */
+  public static Seconds of(final String value)
+   {
+    return of(Long.parseLong(value));
+   }
+
+
+  /**
+   * Returns the value of this Seconds as a String.
+   *
+   * @return The numeric value represented by this object after conversion to type String.
+   */
+  @Override
+  public String stringValue()
+   {
+    return String.valueOf(this.seconds);
    }
 
 
