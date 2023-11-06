@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -82,6 +83,18 @@ final class PasswordTests
 
 
   /**
+   * Test Password with vaöid values.
+   */
+  @Test
+  /* default */ void testPasswordOk1()
+   {
+    final IPasswordStrategy strategy = PasswordConfigurableStrategy.of(2, 254, "^[!§$%&/()=?öäüÖÄÜ,.:;_@0-9a-zA-Z-]+$", 0, 0, 0, 0, 0, 0); //$NON-NLS-1$
+    final Password cleanPassword = Password.of(strategy, "username"); //$NON-NLS-1$
+    assertNotNull(cleanPassword, PasswordTests.PASSWORD_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test Password with wrong vaidation.
    */
   @Test
@@ -89,6 +102,20 @@ final class PasswordTests
    {
     final Password cleanPassword = Password.of(PasswordTests.PASSWORD);
     assertFalse(cleanPassword.verifyPassword("wrongPassword"), "Password verification not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+   }
+
+
+  /**
+   * Test Password is empty.
+   */
+  @Test
+  /* default */ void testPasswordEmpty()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final Password cleanPassword = */ new Password("");
+     }, PasswordTests.ILLEGAL_ARGUMENT
+    );
    }
 
 
@@ -132,6 +159,17 @@ final class PasswordTests
    {
     final Password password = Password.of(PasswordTests.PASSWORD3);
     assertEquals(SECRET_PASSWORD, password.stringValue(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test passwd.
+   */
+  @Test
+  /* default */ void testPasswd()
+   {
+    final Password password = Password.of(PasswordTests.PASSWORD3);
+    assertEquals(SECRET_PASSWORD, password.passwd(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
    }
 
 

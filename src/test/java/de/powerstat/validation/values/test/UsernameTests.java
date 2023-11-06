@@ -121,6 +121,20 @@ final class UsernameTests
 
 
   /**
+   * Test Username is empty.
+   */
+  @Test
+  /* default */ void testUsernameEmpty()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final Username cleanUsername = */ new Username(""); //$NON-NLS-1$
+     }, UsernameTests.ILLEGAL_ARGUMENT
+    );
+   }
+
+
+  /**
    * Test stringValue.
    */
   @Test
