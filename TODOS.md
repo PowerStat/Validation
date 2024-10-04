@@ -121,9 +121,6 @@ https://datahub.io/collections/reference-data#currency-codes
       https://datahub.io/core/airport-codes/r/airport-codes.csv
 - [ ] UN-Nummern
 
-- [ ] Weekday (language dependend)
-- [ ] Calendar, Date, Time, DateTime, Timezone, Type, Format, Holidays, TimeRange, DateRange, DateTimeRange, UnixEpoche
-- [ ] TimeDuration, DateDuration, DateTimeDuration
 - [ ] Colors
 - [ ] FileType
 - [ ] ImageType
@@ -163,7 +160,7 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] QRCodes
 - [ ] GPCProductClassifications
 
-- [ ] Percent, Promille
+- [ ] Promille
 - [ ] NumberRange
 - [ ] Text
 - [ ] RegExp  
@@ -201,8 +198,8 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] SI base units
       Mass                        M  kilogram  kg
       Length                      L  metre     m
-      Time                        T  second    s
       Temperature                    kelvin    K
+      Time                        T  second    s
       Amount of substance         N  mole      mol
       Electric current intensity  I  ampere    A
       Luminous intensity          J  candela   cd

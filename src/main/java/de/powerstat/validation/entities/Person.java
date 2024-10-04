@@ -21,6 +21,7 @@ import de.powerstat.validation.values.BloodGroup;
 import de.powerstat.validation.values.Firstname;
 import de.powerstat.validation.values.Gender;
 import de.powerstat.validation.values.Lastname;
+import de.powerstat.validation.values.UUID;
 
 
 /**
@@ -33,8 +34,13 @@ import de.powerstat.validation.values.Lastname;
  * TODO history of citizenships
  * TODO Identity card number at different times
  * TODO eye color
- * TODO body height at different times
+ * TODO Skin color
+ * TODO body height at different times (24cm - 272cm)
+ * TODO body weight at different times (212g - 635kg)
+ * TODO body temperature at different times
  * TODO characteristics
+ * TODO Zahnstatus at differet times
+ * TODO DNA
  * TODO faceid, fingerid, eyeid at different times
  * TODO Signature(s)
  * TODO Namenszusätze: Adelstitel, Academic title since, Work titles/qualifications since
@@ -59,6 +65,11 @@ public final class Person implements Comparable<Person>, IEntity
    * Logger.
    */
   private static final Logger LOGGER = LogManager.getLogger(Person.class);
+
+  /**
+   * Universally Unique Identifier.
+   */
+  private final UUID uuid = UUID.of();
 
   /**
    * Lastnames at different times.
@@ -166,6 +177,20 @@ public final class Person implements Comparable<Person>, IEntity
 
 
   /**
+   * Returns the value of this Person as a string.
+   *
+   * @return The text value represented by this object after conversion to type string (lastname, firstnames).
+   */
+  @Override
+  public String stringValue()
+   {
+    final var builder = new StringBuilder(75);
+    builder.append(this.lastname).append(", ").append(this.firstnames); //$NON-NLS-1$
+    return builder.toString();
+   }
+
+
+  /**
    * Calculate hash code.
    *
    * @return Hash
@@ -236,7 +261,24 @@ public final class Person implements Comparable<Person>, IEntity
   public String toString()
    {
     final var builder = new StringBuilder(75);
-    builder.append("Person[lastname=").append(this.lastname).append(", gender=").append(this.sex).append(", firstnames=").append(this.firstnames).append(", birthday=").append(this.birthday).append(", deathdate=").append(this.deathdate).append(", bloodGroup=").append(this.bloodGroup).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+    builder.append("Person[lastname=").append(this.lastname.getLatestEntry()).append(", gender=").append(this.sex.getLatestEntry());
+    if (!this.firstnames.isEmpty())
+     {
+      builder.append(", firstnames=").append(this.firstnames.getLatestEntry());
+     }
+    if (this.birthday.isPresent())
+     {
+      builder.append(", birthday=").append(this.birthday);
+     }
+    if (this.deathdate.isPresent())
+     {
+      builder.append(", deathdate=").append(this.deathdate);
+     }
+    if (this.bloodGroup.isPresent())
+     {
+      builder.append(", bloodGroup=").append(this.bloodGroup);
+     }
+    builder.append(']');
     return builder.toString();
    }
 
@@ -273,10 +315,10 @@ public final class Person implements Comparable<Person>, IEntity
   public int compareTo(final Person obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    int result = this.lastname.getLatestEntry().compareTo(obj.lastname.getLatestEntry());
+    int result = (!this.lastname.isEmpty() && !obj.lastname.isEmpty()) ? this.lastname.getLatestEntry().compareTo(obj.lastname.getLatestEntry()) : Boolean.compare(this.lastname.isEmpty(), obj.lastname.isEmpty());
     if (result == 0)
      {
-      result = this.sex.getLatestEntry().compareTo(obj.sex.getLatestEntry());
+      result = (!this.sex.isEmpty() && !obj.sex.isEmpty()) ? this.sex.getLatestEntry().compareTo(obj.sex.getLatestEntry()) : Boolean.compare(this.sex.isEmpty(), obj.sex.isEmpty());
       if (result == 0)
        {
         final String thisName = Person.getFirstnames(this.firstnames);

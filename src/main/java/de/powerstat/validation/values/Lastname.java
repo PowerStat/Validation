@@ -36,7 +36,7 @@ public final class Lastname implements Comparable<Lastname>, IValueObject
   /**
    * Constructor.
    *
-   * @param lastname Lastname
+   * @param lastname Lastname  (maximum 40 characters)
    *
    * @throws NullPointerException if lastname is null
    * @throws IllegalArgumentException if lastname contains unsupported characters or is to long or short

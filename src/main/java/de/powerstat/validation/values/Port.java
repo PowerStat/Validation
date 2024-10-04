@@ -13,6 +13,8 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Port.
  *
  * Not DSGVO relevant.
+ *
+ * TODO min, max?
  */
 public final class Port implements Comparable<Port>, IValueObject
  {

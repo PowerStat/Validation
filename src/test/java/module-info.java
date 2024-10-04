@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2019-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
- 
+
 
 /**
  * Validation module in test.
@@ -19,7 +19,7 @@ open module de.powerstat.validation
   requires org.apache.logging.log4j;
   requires org.apache.commons.net;
   requires com.github.spotbugs.annotations;
-  
+
   requires org.junit.jupiter.api;
   requires org.junit.jupiter.params;
   requires org.junit.platform.launcher;

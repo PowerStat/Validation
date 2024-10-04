@@ -18,6 +18,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO daysWithin() = 31, 30, 29, 28, n (Year specific for february, or october 1582)
  * TODO Listener
  * TODO Translations short/long
+ * TODO min, max
  */
 public final class Month implements Comparable<Month>, IValueObject
  {

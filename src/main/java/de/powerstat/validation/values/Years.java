@@ -13,6 +13,8 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Years.
  *
  * Not DSGVO relevant.
+ *
+ * TODO min, max
  */
 public final class Years implements Comparable<Years>, IValueObject
  {

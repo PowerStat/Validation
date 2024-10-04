@@ -13,6 +13,8 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Days.
  *
  * Not DSGVO relevant.
+ *
+ * TODO min, max
  */
 public final class Days implements Comparable<Days>, IValueObject
  {

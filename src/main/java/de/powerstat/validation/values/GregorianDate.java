@@ -28,6 +28,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO get WeekNr
  * TODO format date
  * TODO parse date
+ * TODO min, max
  */
 public final class GregorianDate implements Comparable<GregorianDate>, IValueObject
  {

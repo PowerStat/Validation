@@ -13,6 +13,8 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Milliseconds.
  *
  * Not DSGVO relevant.
+ *
+ * TODO min, max
  */
 public final class Milliseconds implements Comparable<Milliseconds>, IValueObject
  {

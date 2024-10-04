@@ -16,6 +16,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * TODO Listener
  * TODO secondsWithin = 60
+ * TODO min, max
  */
 public final class Minute implements Comparable<Minute>, IValueObject
  {

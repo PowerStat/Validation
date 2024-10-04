@@ -198,6 +198,30 @@ final class HistoryOfTests
 
 
   /**
+   * Test isEmpty.
+   */
+  @Test
+  /* default */ void testIsEmpty1()
+   {
+    final HistoryOf<Lastname> lastname = new HistoryOf<>();
+    assertTrue(lastname.isEmpty(), "Not empty");
+   }
+
+
+  /**
+   * Test isEmpty.
+   */
+  @Test
+  /* default */ void testIsEmpty2()
+   {
+    final HistoryOf<Lastname> lastname = new HistoryOf<>();
+    final OffsetDateTime datetime = OffsetDateTime.of(2022, 1, 13, 20, 25, 0, 0, ZoneOffset.ofHours(1));
+    lastname.addEntry(datetime, Lastname.of(HistoryOfTests.HOFMANN));
+    assertFalse(lastname.isEmpty(), "Empty");
+   }
+
+
+  /**
    * Test addEntry.
    */
   @Test

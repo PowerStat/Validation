@@ -18,6 +18,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Constructor with day, month, year
  * TODO Listener
  * TODO hoursWithin = 24
+ * TODO min, max
  */
 public final class Day implements Comparable<Day>, IValueObject
  {

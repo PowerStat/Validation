@@ -13,6 +13,8 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Weeks.
  *
  * Not DSGVO relevant.
+ *
+ * TODO min, max
  */
 public final class Weeks implements Comparable<Weeks>, IValueObject
  {

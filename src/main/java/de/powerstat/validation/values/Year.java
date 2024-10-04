@@ -15,6 +15,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Not DSGVO relevant.
  *
  * TODO Weeks weeksWithin() = (50, 51,) 52, 53 (CalendarSystem, Country dependend ISO vs US)
+ * TODO min, max
  */
 public final class Year implements Comparable<Year>, IValueObject
  {

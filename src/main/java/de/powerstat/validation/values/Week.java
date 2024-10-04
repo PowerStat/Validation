@@ -17,6 +17,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Constructor with year
  * TODO Listener
  * TODO daysWithin = 7
+ * TODO min, max
  */
 public final class Week implements Comparable<Week>, IValueObject
  {

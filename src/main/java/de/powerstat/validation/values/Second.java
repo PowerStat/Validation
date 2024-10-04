@@ -17,6 +17,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Constructor with day, month, year, hour, minute
  * TODO Listener  (mod 60 = 0)
  * TODO millisecondsWithin = 1000
+ * TODO min, max
  */
 public final class Second implements Comparable<Second>, IValueObject
  {

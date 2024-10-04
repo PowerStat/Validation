@@ -11,6 +11,10 @@ import de.powerstat.validation.interfaces.IValueObject;
 
 /**
  * Screen size.
+ *
+ * Not DSGVO relevant.
+ *
+ * TODO min, max
  */
 public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
  {

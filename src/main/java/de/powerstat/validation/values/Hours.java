@@ -13,6 +13,8 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Hours.
  *
  * Not DSGVO relevant.
+ *
+ * TODO min, max
  */
 public final class Hours implements Comparable<Hours>, IValueObject
  {

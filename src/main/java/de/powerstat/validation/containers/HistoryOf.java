@@ -117,6 +117,17 @@ public class HistoryOf<T>
 
 
   /**
+   * Is empty.
+   *
+   * @return true: empty; false otherwise
+   */
+  public boolean isEmpty()
+   {
+    return this.history.isEmpty();
+   }
+
+
+  /**
    * Add entry.
    *
    * @param since Since datetime

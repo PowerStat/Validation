@@ -15,6 +15,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Not DSGVO relevant.
  *
  * TODO LeapYear support
+ * TODO min, max
  */
 public final class MonthDay implements Comparable<MonthDay>, IValueObject
  {
@@ -203,8 +204,8 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
      {
       return true;
      }
-    if ((obj == null) || (this.getClass() != obj.getClass()))
-    // if (!(obj instanceof DayMonth))
+    // if ((obj == null) || (this.getClass() != obj.getClass()))
+    if (!(obj instanceof MonthDay))
      {
       return false;
      }
@@ -305,7 +306,7 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
    * @return New MonthDay after incrementing this MonthDay by one month
    * @throws ArithmeticException In case of an overflow
    */
-  public MonthDay increment()
+  public MonthDay incrementMonth()
    {
     final int newMonth = Math.incrementExact(this.month.intValue());
     if (newMonth == 13)
@@ -320,12 +321,12 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
 
 
   /**
-   * Decrement this MonthDay.
+   * Decrement this MonthDay by one month.
    *
    * @return New MonthDay after decrement this MonthDay by one month
    * @throws ArithmeticException In case of an overflow
    */
-  public MonthDay decrement()
+  public MonthDay decrementMonth()
    {
     final int newMonth = Math.decrementExact(this.month.intValue());
     if (newMonth == 0)

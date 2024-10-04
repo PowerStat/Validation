@@ -5,12 +5,12 @@
   <parent>
     <groupId>de.powerstat.toolbaseline</groupId>
     <artifactId>tbl-java-parent</artifactId>
-    <version>11.3.0</version>
+    <version>17.2.0</version>
   </parent>
 
   <groupId>de.powerstat.validation</groupId>
   <artifactId>validation</artifactId>
-  <version>3.0.1-SNAPSHOT</version>
+  <version>3.1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>PowerStatsValidationUtilities</name>
@@ -20,6 +20,7 @@
   <properties>
     <license.inceptionYear>2018</license.inceptionYear>
 
+    <sonarTypeServer>ossrh</sonarTypeServer>
     <sonarTypeHost>oss.sonatype.org</sonarTypeHost>
 
     <sonar.host.url>http://localhost:9000</sonar.host.url>
@@ -162,7 +163,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.3.0</version>
+        <version>3.4.2</version>
         <configuration>
           <archive>
             <manifestEntries>
@@ -180,7 +181,7 @@
       <plugin>
         <groupId>com.googlecode.maven-download-plugin</groupId>
         <artifactId>download-maven-plugin</artifactId>
-        <version>1.7.1</version>
+        <version>1.9.0</version>
         <executions>
           <execution>
             <id>get-tlds</id>
@@ -253,7 +254,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
-        <version>3.4.0</version>
+        <version>3.6.0</version>
         <executions>
           <execution>
             <phase>generate-sources</phase>
@@ -295,7 +296,7 @@
     <dependency>
       <groupId>commons-net</groupId>
       <artifactId>commons-net</artifactId>
-      <version>3.10.0</version>
+      <version>3.11.1</version>
     </dependency>
 
   </dependencies>

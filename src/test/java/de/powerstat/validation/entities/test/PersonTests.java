@@ -210,7 +210,7 @@ final class PersonTests
     final Person person = Person.of();
     person.addLastname(OffsetDateTime.of(2022, 1, 16, 11, 38, 0, 0, ZoneOffset.ofHours(1)), Lastname.of(PersonTests.HOFMANN));
     person.addGender(OffsetDateTime.of(2022, 1, 16, 11, 38, 0, 0, ZoneOffset.ofHours(1)), Gender.MALE);
-    assertEquals("Person[lastname=HistoryOf<>[2022-01-16T11:38:00+01:00=Lastname[lastname=Hofmann]], gender=HistoryOf<>[2022-01-16T11:38:00+01:00=MALE], firstnames=HistoryOf<>[], birthday=Optional.empty, deathdate=Optional.empty, bloodGroup=Optional.empty]", person.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertEquals("Person[lastname=Lastname[lastname=Hofmann], gender=MALE]", person.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
