@@ -28,7 +28,8 @@ public record Lastname(String lastname) implements Comparable<Lastname>, IValueO
   /**
    * Constructor.
    *
-   * @param lastname Lastname
+   * @param lastname Lastname (maximum 40 characters)
+   *
    * @throws NullPointerException if lastname is null
    * @throws IllegalArgumentException if lastname contains unsupported characters or is to long or short
    */

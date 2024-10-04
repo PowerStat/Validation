@@ -195,7 +195,7 @@ public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IV
    * @return New MonthDay after incrementing this MonthDay by one month
    * @throws ArithmeticException In case of an overflow
    */
-  public MonthDay increment()
+  public MonthDay incrementMonth()
    {
     final int newMonth = Math.incrementExact(this.month.month());
     if (newMonth == 13)
@@ -210,12 +210,12 @@ public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IV
 
 
   /**
-   * Decrement this MonthDay.
+   * Decrement this MonthDay by one month.
    *
    * @return New MonthDay after decrement this MonthDay by one month
    * @throws ArithmeticException In case of an overflow
    */
-  public MonthDay decrement()
+  public MonthDay decrementMonth()
    {
     final int newMonth = Math.decrementExact(this.month.month());
     if (newMonth == 0)

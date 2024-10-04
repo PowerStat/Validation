@@ -185,6 +185,22 @@ final class MonthDayTests
    * Test add.
    */
   @Test
+  /* default */ void testAdd2()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(10), Day.of(13));
+    final Months months = Months.of(3);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final MonthDay result = */ test1.add(months);
+     }, "Arithmetic exception"
+    );
+   }
+
+
+  /**
+   * Test sutract.
+   */
+  @Test
   /* default */ void testSubtract1()
    {
     final MonthDay test1 = MonthDay.of(Month.of(10), Day.of(13));
@@ -192,6 +208,82 @@ final class MonthDayTests
     assertAll("subtract", //$NON-NLS-1$
       () -> assertEquals(9, result.month().month(), RESULT_NOT_AS_EXPECTED),
       () -> assertEquals(13, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test subtract.
+   */
+  @Test
+  /* default */ void testSubtract2()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(2), Day.of(13));
+    final Months months = Months.of(2);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final MonthDay result = */ test1.subtract(months);
+     }, "Arithmetic exception"
+    );
+   }
+
+
+  /**
+   * Test increment.
+   */
+  @Test
+  /* default */ void testIncrement1()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(10), Day.of(13));
+    final MonthDay result = test1.incrementMonth();
+    assertAll("add", //$NON-NLS-1$
+      () -> assertEquals(11, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(13, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test increment.
+   */
+  @Test
+  /* default */ void testIncrement2()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(12), Day.of(13));
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final MonthDay result = */ test1.incrementMonth();
+     }, "Arithmetic exception"
+    );
+   }
+
+
+  /**
+   * Test decrement.
+   */
+  @Test
+  /* default */ void testDecrement1()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(10), Day.of(13));
+    final MonthDay result = test1.decrementMonth();
+    assertAll("add", //$NON-NLS-1$
+      () -> assertEquals(9, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(13, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test decrement.
+   */
+  @Test
+  /* default */ void testDecrement2()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(13));
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final MonthDay result = */ test1.decrementMonth();
+     }, "Arithmetic exception"
     );
    }
 

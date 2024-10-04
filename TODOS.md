@@ -161,7 +161,7 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] QRCodes
 - [ ] GPCProductClassifications
 
-- [ ] Percent, Promille
+- [ ] Promille
 - [ ] NumberRange
 - [ ] Text
 - [ ] RegExp  
@@ -199,8 +199,8 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] SI base units
       Mass                        M  kilogram  kg
       Length                      L  metre     m
-      Time                        T  second    s
       Temperature                    kelvin    K
+      Time                        T  second    s
       Amount of substance         N  mole      mol
       Electric current intensity  I  ampere    A
       Luminous intensity          J  candela   cd
@@ -284,43 +284,3 @@ https://datahub.io/collections/reference-data#currency-codes
 - http://datenbank-osteuropa.imoe.de/kategorien-orange-pages.html?&no_cache=1&user_katalog_pi1[new_wid]=250
 
 - https://datahub.io/collections/reference-data
-
-
-VCard:
-
-FN:Kai Hofmann                                                              (1-n)  X.520 Common Name attribute
-N:Hofmann;Kai;Ernst,Karl;Dr.;Suffix                                         (0-1)
-NICKNAME:PowerStat                                                          (0-n)
-GENDER:M|F|O|N|U                                                            (0-1)
-BDAY:19700918                                                               (0-1)
-ANNIVERSARY:20210326                                                        (0-1)
-PHOTO;MEDIATYPE=image/jpeg:http://example.org/photo.jpg                     (0-n)
-BIRTHPLACE;VALUE=text:Bremen\, Germany                                      (0-1)
-DEATHDATE:                                                                  (0-1)
-DEATHPLACE;VALUE=uri:geo:                                                   (0-1)
-
-SOUND;MEDIATYPE=audio/ogg:http://example.org/sound.ogg                      (0-n)
-
-ORG:Hofmann Software Engineering Internationl;CEO;Master                    (0-n)
-ROLE:CEO                                                                    (0-n)
-TITLE:V.P. Research and Development                                         (0-n)
-ORG-DIRECTORY:http://www.firma.de/mitarbeiter                                    (0-n)
-LOGO:http://example.org/logo.png                                            (0-n)
-
-ADR;TYPE=home:post office box;apartment or suite number;Arberger Heerstr. 92;Bremen;state or province;28307;Germany     (0-n)
-GEO:geo:53.038423310318656,8.924589346544144                                (0-n)
-TZ:Europe/Berlin                                                            (0-n)
-
-EMAIL;TYPE=work;PREF=1:powerstat@web.de                                     (0-n)
-IMPP:xmpp,sip,irc:powerstat@web.de                                          (0-n)
-KEY;MEDIATYPE=application/pgp-keys:http://example.org/key.pgp               (0-n)
-TEL;VALUE=uri;TYPE=text,voice,fax,cell,video,pager,textphone:tel:+1-555-555-5555;ext=5555                               (0-n)
-URL:http://www.powerstat.de                                                 (0-n)
-
-LANG;PREF=1:de                                                              (0-n)
-
-KIND:individual|org|group|location                                          (0-1)
-
-RELATED;TYPE=friend:urn:uuid:550e8400-e29b-11d4-a716-446655440000           (0-n)    contact" / "acquaintance" / "friend" / "met" / "co-worker" / "colleague" / "co-resident" / "neighbor" / "child" / "parent" / "sibling" / "spouse" / "kin" / "muse" / "crush" / "date" / "sweetheart" / "me" / "agent" / "emergency"
-
-- 

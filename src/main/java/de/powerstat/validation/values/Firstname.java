@@ -28,7 +28,7 @@ public record Firstname(String firstname) implements Comparable<Firstname>, IVal
   /**
    * Constructor.
    *
-   * @param firstname Firstname
+   * @param firstname Firstname (maximum 32 characters)
    *
    * @throws NullPointerException if firstname is null
    * @throws IllegalArgumentException if firstname contains unsupported characters or is to long or short
