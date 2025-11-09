@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2019-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 
 
@@ -18,14 +18,14 @@ open module de.powerstat.validation
 
   requires org.apache.logging.log4j;
   requires org.apache.commons.net;
-  requires com.github.spotbugs.annotations;
 
+  requires com.github.spotbugs.annotations;
   requires org.junit.jupiter.api;
   requires org.junit.jupiter.params;
   requires org.junit.platform.launcher;
   requires org.junit.platform.suite.api;
+  requires nl.jqno.equalsverifier;
   // requires io.cucumber.java;
   // requires io.cucumber.junit.platform.engine;
-  // requires nl.jqno.equalsverifier;
 
  }

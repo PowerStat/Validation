@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.Hour;
 import de.powerstat.validation.values.IBAN;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -121,42 +122,12 @@ final class IBANTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final IBAN iban1 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);
-    final IBAN iban2 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);
-    final IBAN iban3 = IBAN.of(IBANTests.IBAN_DE68210501700012345678);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(iban1.hashCode(), iban2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(iban1.hashCode(), iban3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final IBAN iban1 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);
-    final IBAN iban2 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);
-    final IBAN iban3 = IBAN.of(IBANTests.IBAN_DE68210501700012345678);
-    final IBAN iban4 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(iban1.equals(iban1), "iban11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(iban1.equals(iban2), "iban12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(iban2.equals(iban1), "iban21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(iban2.equals(iban4), "iban24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(iban1.equals(iban4), "iban14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(iban1.equals(iban3), "iban13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(iban3.equals(iban1), "iban31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(iban1.equals(null), "iban10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(IBAN.class).withNonnullFields("iban").verify();
    }
 
 

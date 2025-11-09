@@ -13,11 +13,19 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Weeks.
  *
  * Not DSGVO relevant.
- *
- * TODO min, max
  */
 public final class Weeks implements Comparable<Weeks>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final long MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value Long.MAX_VALUE.
+   */
+  public static final long MAX_VALUE = Long.MAX_VALUE;
+
   /* *
    * Cache for singletons.
    */
@@ -133,11 +141,10 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Weeks))
+    if (!(obj instanceof final Weeks other))
      {
       return false;
      }
-    final Weeks other = (Weeks)obj;
     return this.weeks == other.weeks;
    }
 
@@ -197,7 +204,7 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
    */
   public Weeks subtract(final Weeks other)
    {
-    if (other.weeks > this.weeks)
+    if (other.weeks > this.weeks) // NO PITEST
      {
       return Weeks.of(other.weeks - this.weeks);
      }

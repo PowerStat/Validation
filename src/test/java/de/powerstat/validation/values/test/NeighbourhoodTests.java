@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.Month;
 import de.powerstat.validation.values.Neighbourhood;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -115,42 +116,12 @@ final class NeighbourhoodTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Neighbourhood neighbourhood1 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    final Neighbourhood neighbourhood2 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    final Neighbourhood neighbourhood3 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(neighbourhood1.hashCode(), neighbourhood2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(neighbourhood1.hashCode(), neighbourhood3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Neighbourhood neighbourhood1 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    final Neighbourhood neighbourhood2 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    final Neighbourhood neighbourhood3 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN2);
-    final Neighbourhood neighbourhood4 = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(neighbourhood1.equals(neighbourhood1), "neighbourhood11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(neighbourhood1.equals(neighbourhood2), "neighbourhood12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(neighbourhood2.equals(neighbourhood1), "neighbourhood21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(neighbourhood2.equals(neighbourhood4), "neighbourhood24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(neighbourhood1.equals(neighbourhood4), "neighbourhood14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(neighbourhood1.equals(neighbourhood3), "neighbourhood13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(neighbourhood3.equals(neighbourhood1), "neighbourhood31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(neighbourhood1.equals(null), "neighbourhood10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Neighbourhood.class).withNonnullFields("neighbourhood").verify();
    }
 
 

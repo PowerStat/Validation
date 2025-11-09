@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -15,7 +15,7 @@ import de.powerstat.validation.values.BloodGroup;
 
 
 /**
- * Gender tests.
+ * BloodGroup tests.
  */
 final class BloodGroupTests
  {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.PostalCode;
 import de.powerstat.validation.values.Province;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -120,42 +121,12 @@ final class ProvinceTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Province province1 = Province.of(ProvinceTests.ABC);
-    final Province province2 = Province.of(ProvinceTests.ABC);
-    final Province province3 = Province.of(ProvinceTests.DEF);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(province1.hashCode(), province2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(province1.hashCode(), province3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Province province1 = Province.of(ProvinceTests.ABC);
-    final Province province2 = Province.of(ProvinceTests.ABC);
-    final Province province3 = Province.of(ProvinceTests.DEF);
-    final Province province4 = Province.of(ProvinceTests.ABC);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(province1.equals(province1), "province11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(province1.equals(province2), "province12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(province2.equals(province1), "province21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(province2.equals(province4), "province24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(province1.equals(province4), "province14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(province1.equals(province3), "province13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(province3.equals(province1), "province31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(province1.equals(null), "province10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Province.class).withNonnullFields("province").verify();
    }
 
 

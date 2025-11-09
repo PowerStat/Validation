@@ -93,7 +93,7 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
     Objects.requireNonNull(year, "year"); //$NON-NLS-1$
     Objects.requireNonNull(month, "month"); //$NON-NLS-1$
     Objects.requireNonNull(day, "day"); //$NON-NLS-1$
-    if (day.intValue() > calendar.daysInMonth(year, month)) // TODO Does not work for gregorian reform month
+    if (day.intValue() > calendar.daysInMonth(year, month).longValue()) // TODO Does not work for gregorian reform month
      {
       throw new IllegalArgumentException("Day does not exists in month"); //$NON-NLS-1$
      }
@@ -172,7 +172,7 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
   @Override
   public String stringValue()
    {
-    return String.format(GregorianDate.FORMAT_FOURDIGIT, this.year.longValue()) + GregorianDate.DATE_SEP + String.format(GregorianDate.FORMAT_TWODIGIT, this.month.intValue()) + GregorianDate.DATE_SEP + String.format(GregorianDate.FORMAT_TWODIGIT, this.day.intValue());
+    return String.format(GregorianDate.FORMAT_FOURDIGIT, year.longValue()) + GregorianDate.DATE_SEP + String.format(GregorianDate.FORMAT_TWODIGIT, month.intValue()) + GregorianDate.DATE_SEP + String.format(GregorianDate.FORMAT_TWODIGIT, day.intValue());
    }
 
 
@@ -186,7 +186,7 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
   public int hashCode()
    {
     // TODO calendar
-    return Objects.hash(this.year, this.month, this.day);
+    return Objects.hash(year, month, day);
    }
 
 
@@ -204,19 +204,18 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
      {
       return true;
      }
-    if (!(obj instanceof GregorianDate))
+    if (!(obj instanceof final GregorianDate other))
      {
       return false;
      }
-    final GregorianDate other = (GregorianDate)obj;
     // TODO calendar
-    boolean result = this.year.equals(other.year);
+    boolean result = year.equals(other.year);
     if (result)
      {
-      result = this.month.equals(other.month);
+      result = month.equals(other.month);
       if (result)
        {
-        result = this.day.equals(other.day);
+        result = day.equals(other.day);
        }
      }
     return result;
@@ -237,7 +236,7 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
   public String toString()
    {
     final var builder = new StringBuilder(30);
-    builder.append("GregorianDate[country=").append(this.calendar.getCountry().stringValue()).append(", date=").append(stringValue()).append(']'); //$NON-NLS-1$ //$NON-NLS-2$
+    builder.append("GregorianDate[country=").append(calendar.getCountry().stringValue()).append(", date=").append(stringValue()).append(']'); //$NON-NLS-1$ //$NON-NLS-2$
     return builder.toString();
    }
 
@@ -254,13 +253,13 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
     // TODO calendar
-    int result = this.year.compareTo(obj.year);
+    int result = year.compareTo(obj.year);
     if (result == 0)
      {
-      result = this.month.compareTo(obj.month);
+      result = month.compareTo(obj.month);
       if (result == 0)
        {
-        result = this.day.compareTo(obj.day);
+        result = day.compareTo(obj.day);
        }
      }
     return result;

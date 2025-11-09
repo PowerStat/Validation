@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -12,7 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.Province;
 import de.powerstat.validation.values.ScreenSize;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -102,6 +103,34 @@ final class ScreenSizeTests
 
 
   /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory3()
+   {
+    final ScreenSize size = ScreenSize.of(1, 1, "1x1");
+    assertAll("factory1", //$NON-NLS-1$
+      () -> assertEquals(1, size.getWidth(), WIDTH_IS_NOT_EQUAL),
+      () -> assertEquals(1, size.getHeight(), HEIGHT_IS_NOT_EQUAL)
+    );
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory4()
+   {
+    final ScreenSize size = ScreenSize.of(8192, 8192, "8192x8192");
+    assertAll("factory1", //$NON-NLS-1$
+      () -> assertEquals(8192, size.getWidth(), WIDTH_IS_NOT_EQUAL),
+      () -> assertEquals(8192, size.getHeight(), HEIGHT_IS_NOT_EQUAL)
+    );
+   }
+
+
+  /**
    * Is screen size.
    */
   @Test
@@ -174,57 +203,12 @@ final class ScreenSizeTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final ScreenSize size1 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
-    final ScreenSize size2 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
-    final ScreenSize size3 = ScreenSize.of(640, 480, ScreenSizeTests.VGA);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(size1.hashCode(), size2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(size1.hashCode(), size3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings(JAVA_S5785)
-  /* default */ void testEquals()
-   {
-    final ScreenSize size1 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
-    final ScreenSize size2 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
-    final ScreenSize size3 = ScreenSize.of(640, 480, ScreenSizeTests.VGA);
-    final ScreenSize size4 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(size1.equals(size1), "size11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(size1.equals(size2), "size12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(size2.equals(size1), "size21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(size2.equals(size4), "size24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(size1.equals(size4), "size14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(size1.equals(size3), "size13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(size3.equals(size1), "size31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(size1.equals(null), "size10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test not equals.
-   */
-  @Test
-  @SuppressWarnings(JAVA_S5785)
-  /* default */ void testNotEquals()
-   {
-    final ScreenSize size1 = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
-    final ScreenSize size2 = ScreenSize.of(320, 241, ScreenSizeTests.QVGA);
-    assertAll("testNotEquals", //$NON-NLS-1$
-      () -> assertFalse(size1.equals(size2), "size12 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(ScreenSize.class).withNonnullFields("name").verify();
    }
 
 

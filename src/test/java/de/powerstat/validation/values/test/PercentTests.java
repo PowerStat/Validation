@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2024 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2024-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
+
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,9 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.Password;
 import de.powerstat.validation.values.Percent;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Tests for Percent value class.
@@ -35,11 +38,12 @@ final class PercentTests
   /**
    * Is percent.
    */
-  @Test
-  /* default */ void testIsPercent()
+  @ParameterizedTest
+  @ValueSource(ints = {0, 100})
+  /* default */ void testIsPercent(final int percent)
    {
-    final Percent percent = Percent.of(50);
-    assertEquals(50, percent.intValue(), "Percent should be 50");
+    final Percent test = Percent.of(percent);
+    assertEquals(percent, test.intValue(), "Percent should be 50");
    }
 
 
@@ -93,42 +97,12 @@ final class PercentTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Percent percent1 = Percent.of(50);
-    final Percent percent2 = Percent.of(50);
-    final Percent percent3 = Percent.of(51);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(percent1.hashCode(), percent2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(percent1.hashCode(), percent3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Percent percent1 = Percent.of(50);
-    final Percent percent2 = Percent.of(50);
-    final Percent percent3 = Percent.of(51);
-    final Percent percent4 = Percent.of(50);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(percent1.equals(percent1), "percent11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(percent1.equals(percent2), "percent12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(percent2.equals(percent1), "percent21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(percent2.equals(percent4), "percent24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(percent1.equals(percent4), "percent14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(percent1.equals(percent3), "percent13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(percent3.equals(percent1), "percent31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(percent1.equals(null), "percent10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Percent.class).verify();
    }
 
 

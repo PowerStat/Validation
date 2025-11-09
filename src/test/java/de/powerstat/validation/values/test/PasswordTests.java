@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -8,16 +8,19 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.Neighbourhood;
 import de.powerstat.validation.values.Password;
 import de.powerstat.validation.values.strategies.IPasswordStrategy;
 import de.powerstat.validation.values.strategies.PasswordConfigurableStrategy;
+import de.powerstat.validation.values.strategies.PasswordDefaultStrategy;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
@@ -78,6 +81,20 @@ final class PasswordTests
    {
     final Password cleanPassword = Password.of(password);
     assertTrue(cleanPassword.verifyPassword(password), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test Password with valid values.
+   *
+   * @param password Password
+   */
+  @Test
+  /* default */ void testPasswordOk1()
+   {
+    final Password cleanPassword = Password.of(PasswordDefaultStrategy.of(), "username");
+    assertNotNull(cleanPassword, "Password is null");
+    assertTrue(cleanPassword.verifyPassword("username"), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
    }
 
 
@@ -147,42 +164,12 @@ final class PasswordTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Password password1 = Password.of(PasswordTests.PASSWORD);
-    final Password password2 = Password.of(PasswordTests.PASSWORD);
-    final Password password3 = Password.of(PasswordTests.PASSWORD2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(password1.hashCode(), password2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(password1.hashCode(), password3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Password password1 = Password.of(PasswordTests.PASSWORD);
-    final Password password2 = Password.of(PasswordTests.PASSWORD);
-    final Password password3 = Password.of(PasswordTests.PASSWORD2);
-    final Password password4 = Password.of(PasswordTests.PASSWORD);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(password1.equals(password1), "password11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(password1.equals(password2), "password12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(password2.equals(password1), "password21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(password2.equals(password4), "password24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(password1.equals(password4), "password14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(password1.equals(password3), "password13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(password3.equals(password1), "password31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(password1.equals(null), "password10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Password.class).withNonnullFields("passwd").withIgnoredFields("read").verify();
    }
 
 

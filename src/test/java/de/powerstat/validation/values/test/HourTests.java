@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import nl.jqno.equalsverifier.*;
 
 import de.powerstat.validation.values.Hour;
 import de.powerstat.validation.values.Hours;
@@ -112,42 +113,12 @@ final class HourTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Hour hour1 = Hour.of(1);
-    final Hour hour2 = Hour.of(1);
-    final Hour hour3 = Hour.of(2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(hour1.hashCode(), hour2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(hour1.hashCode(), hour3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Hour hour1 = Hour.of(1);
-    final Hour hour2 = Hour.of(1);
-    final Hour hour3 = Hour.of(2);
-    final Hour hour4 = Hour.of(1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(hour1.equals(hour1), "hour11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(hour1.equals(hour2), "hour12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(hour2.equals(hour1), "hour21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(hour2.equals(hour4), "hour24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(hour1.equals(hour4), "hour14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(hour1.equals(hour3), "hour13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(hour3.equals(hour1), "hour31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(hour1.equals(null), "hour10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Hour.class).verify();
    }
 
 
@@ -190,10 +161,10 @@ final class HourTests
   @Test
   /* default */ void testAdd1()
    {
-    final Hour hour = Hour.of(0);
+    final Hour hour = Hour.of(22);
     final Hours hours = Hours.of(1);
     final Hour hourResult = hour.add(hours);
-    assertEquals(1, hourResult.intValue(), HourTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(23, hourResult.intValue(), HourTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

@@ -16,11 +16,24 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * TODO Constructor with day, month, year, hour, minute
  * TODO Listener  (mod 60 = 0)
- * TODO millisecondsWithin = 1000
- * TODO min, max
  */
 public final class Second implements Comparable<Second>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final int MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value 60.
+   */
+  public static final int MAX_VALUE = 60;
+
+  /**
+   * Milliseconds within a second.
+   */
+  public static final Milliseconds MILLISECONDS_WITHIN = Milliseconds.of(1000);
+
   /**
    * Overflow constant.
    */
@@ -146,11 +159,10 @@ public final class Second implements Comparable<Second>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Second))
+    if (!(obj instanceof final Second other))
      {
       return false;
      }
-    final Second other = (Second)obj;
     return this.second == other.second;
    }
 

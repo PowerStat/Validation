@@ -1,10 +1,12 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.impl.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -25,7 +27,7 @@ final class IBANVerifierTests
   /**
    * German IBAN regexp.
    */
-  private static final String IBAN_DE_REGEXP = "^DE[0-9]{2}[0-9]{18}$"; //$NON-NLS-1$
+  private static final String IBAN_DE_REGEXP = "^DE[0-9]{2}[0-9]{17}$"; //$NON-NLS-1$
 
 
   /**
@@ -59,7 +61,7 @@ final class IBANVerifierTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      IBANVerifier.of(15, "DE[0-9]{2}[0-9]{18}"); //$NON-NLS-1$
+      IBANVerifier.of(15, "DE[0-9]{2}[0-9]{11}$"); //$NON-NLS-1$
      }, IBANVerifierTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
@@ -87,9 +89,45 @@ final class IBANVerifierTests
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
-      IBANVerifier.of(15, "^DE[0-9]{2}[0-9]{18}"); //$NON-NLS-1$
+      IBANVerifier.of(15, "^DE[0-9]{2}[0-9]{11}"); //$NON-NLS-1$
      }, IBANVerifierTests.ILLEGAL_ARGUMENT_EXCEPTION
     );
+   }
+
+
+  /**
+   * Test constructor with minimal length.
+   */
+  @Test
+  /* default */ void testConstructor5()
+   {
+    IBANVerifier iv = IBANVerifier.of(15, "^DE[0-9]{2}[0-9]{11}$");
+    assertNotNull(iv, "Verifier not as expected");
+   }
+
+
+  /**
+   * Test constructor with maximal length.
+   */
+  @Test
+  /* default */ void testConstructor6()
+   {
+    IBANVerifier iv = IBANVerifier.of(34, "^DE[0-9]{2}[0-9]{30}$");
+    assertNotNull(iv, "Verifier not as expected");
+   }
+
+
+  /**
+   * Test constructor with maximal length.
+   */
+  @Test
+  /* default */ void testConstructor7()
+   {
+    IBANVerifier iv1 = IBANVerifier.of(33, "^DE[0-9]{2}[0-9]{29}$");
+    IBANVerifier iv2 = IBANVerifier.of(33, "^DE[0-9]{2}[0-9]{29}$");
+    assertNotNull(iv1, "Verifier1 not as expected");
+    assertNotNull(iv2, "Verifier2 not as expected");
+    assertSame(iv1, iv2, "Not the same");
    }
 
 
@@ -101,6 +139,18 @@ final class IBANVerifierTests
    {
     final IBANVerifier iv = IBANVerifier.of(21, IBANVerifierTests.IBAN_DE_REGEXP);
     final boolean result = iv.verify("DE68210501700012345678"); //$NON-NLS-1$
+    assertFalse(result, "result not as expected"); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Testverify.
+   */
+  @Test
+  /* default */ void testVerify2()
+   {
+    final IBANVerifier iv = IBANVerifier.of(21, IBANVerifierTests.IBAN_DE_REGEXP);
+    final boolean result = iv.verify("EN6821050170001234567"); //$NON-NLS-1$
     assertFalse(result, "result not as expected"); //$NON-NLS-1$
    }
 

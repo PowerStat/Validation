@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.strategies.test;
 
@@ -53,6 +53,17 @@ final class PasswordConfigurableStrategyTests
   /* default */ PasswordConfigurableStrategyTests()
    {
     super();
+   }
+
+
+  /**
+   * Test factory.
+   */
+  @Test
+  /* default */ void testOf1()
+   {
+    final IPasswordStrategy cleanStrategy = PasswordConfigurableStrategy.of(10, 13, PasswordConfigurableStrategyTests.PWD_PATTERN, 0, 0, 0, 0, 0, 0);
+    assertNotNull(cleanStrategy, PasswordConfigurableStrategyTests.CLEAN_STRATEGY_NOT_AS_EXPECTED);
    }
 
 

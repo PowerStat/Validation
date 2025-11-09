@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.EMail;
 import de.powerstat.validation.values.Firstname;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -112,42 +113,12 @@ final class FirstnameTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Firstname firstname1 = Firstname.of(FirstnameTests.FIRSTNAME);
-    final Firstname firstname2 = Firstname.of(FirstnameTests.FIRSTNAME);
-    final Firstname firstname3 = Firstname.of(FirstnameTests.FIRSTNAMEZ);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(firstname1.hashCode(), firstname2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(firstname1.hashCode(), firstname3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Firstname firstname1 = Firstname.of(FirstnameTests.FIRSTNAME);
-    final Firstname firstname2 = Firstname.of(FirstnameTests.FIRSTNAME);
-    final Firstname firstname3 = Firstname.of(FirstnameTests.FIRSTNAMEZ);
-    final Firstname firstname4 = Firstname.of(FirstnameTests.FIRSTNAME);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(firstname1.equals(firstname1), "firstname11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(firstname1.equals(firstname2), "firstname12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(firstname2.equals(firstname1), "firstname21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(firstname2.equals(firstname4), "firstname24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(firstname1.equals(firstname4), "firstname14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(firstname1.equals(firstname3), "firstname13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(firstname3.equals(firstname1), "firstname31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(firstname1.equals(null), "firstname10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Firstname.class).withNonnullFields("firstname").verify();
    }
 
 

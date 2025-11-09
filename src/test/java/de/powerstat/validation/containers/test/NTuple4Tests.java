@@ -11,7 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.containers.NTuple3;
 import de.powerstat.validation.containers.NTuple4;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -74,59 +75,12 @@ final class NTuple4Tests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final NTuple4<Integer, Integer, Integer, Integer> tuple1 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(4));
-    final NTuple4<Integer, Integer, Integer, Integer> tuple2 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(4));
-    final NTuple4<Integer, Integer, Integer, Integer> tuple3 = NTuple4.of(Integer.valueOf(2), Integer.valueOf(815), Integer.valueOf(815), Integer.valueOf(4));
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(tuple1.hashCode(), tuple2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(tuple1.hashCode(), tuple3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings(JAVA_S5785)
-  /* default */ void testEquals()
-   {
-    final NTuple4<Integer, Integer, Integer, Integer> tuple1 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(4));
-    final NTuple4<Integer, Integer, Integer, Integer> tuple2 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(4));
-    final NTuple4<Integer, Integer, Integer, Integer> tuple3 = NTuple4.of(Integer.valueOf(2), Integer.valueOf(815), Integer.valueOf(815), Integer.valueOf(4));
-    final NTuple4<Integer, Integer, Integer, Integer> tuple4 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(4711), Integer.valueOf(4));
-    assertAll(NTuple4Tests.TEST_EQUALS,
-      () -> assertTrue(tuple1.equals(tuple1), "tuple11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(tuple1.equals(tuple2), "tuple12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(tuple2.equals(tuple1), "tuple21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(tuple2.equals(tuple4), "tuple24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(tuple1.equals(tuple4), "tuple14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(tuple1.equals(tuple3), "tuple13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(tuple3.equals(tuple1), "tuple31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(tuple1.equals(null), "tuple10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings(JAVA_S5785)
-  /* default */ void testEquals2()
-   {
-    final NTuple4<Integer, Integer, Integer, Integer> tuple1 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
-    final NTuple4<Integer, Integer, Integer, Integer> tuple2 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(1), Integer.valueOf(1));
-    final NTuple4<Integer, Integer, Integer, Integer> tuple3 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(1));
-    assertAll(NTuple4Tests.TEST_EQUALS,
-      () -> assertFalse(tuple1.equals(tuple2), NTuple4Tests.TUPLE12_IS_EQUAL),
-      () -> assertFalse(tuple1.equals(tuple3), NTuple4Tests.TUPLE13_IS_EQUAL)
-    );
+    EqualsVerifier.forClass(NTuple4.class).withNonnullFields("object1", "object2", "object3", "object4").verify();
    }
 
 

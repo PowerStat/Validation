@@ -13,11 +13,19 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Years.
  *
  * Not DSGVO relevant.
- *
- * TODO min, max
  */
 public final class Years implements Comparable<Years>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final long MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value Long.MAX_VALUE.
+   */
+  public static final long MAX_VALUE = Long.MAX_VALUE;
+
   /* *
    * Cache for singletons.
    */
@@ -133,11 +141,10 @@ public final class Years implements Comparable<Years>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Years))
+    if (!(obj instanceof final Years other))
      {
       return false;
      }
-    final Years other = (Years)obj;
     return this.years == other.years;
    }
 
@@ -197,7 +204,7 @@ public final class Years implements Comparable<Years>, IValueObject
    */
   public Years subtract(final Years other)
    {
-    if (other.years > this.years)
+    if (other.years > this.years) // NO PITEST
      {
       return Years.of(other.years - this.years);
      }

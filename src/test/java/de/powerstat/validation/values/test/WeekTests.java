@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import nl.jqno.equalsverifier.*;
 
 import de.powerstat.validation.values.Week;
 import de.powerstat.validation.values.Weeks;
@@ -112,42 +113,12 @@ final class WeekTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Week week1 = Week.of(1);
-    final Week week2 = Week.of(1);
-    final Week week3 = Week.of(2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(week1.hashCode(), week2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(week1.hashCode(), week3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Week week1 = Week.of(1);
-    final Week week2 = Week.of(1);
-    final Week week3 = Week.of(2);
-    final Week week4 = Week.of(1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(week1.equals(week1), "week11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(week1.equals(week2), "week12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(week2.equals(week1), "week21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(week2.equals(week4), "week24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(week1.equals(week4), "week14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(week1.equals(week3), "week13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(week3.equals(week1), "week31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(week1.equals(null), "week10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Week.class).verify();
    }
 
 
@@ -190,10 +161,10 @@ final class WeekTests
   @Test
   /* default */ void testAdd1()
    {
-    final Week week = Week.of(1);
+    final Week week = Week.of(52);
     final Weeks weeks = Weeks.of(1);
     final Week weekResult = week.add(weeks);
-    assertEquals(2, weekResult.intValue(), WeekTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(53, weekResult.intValue(), WeekTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

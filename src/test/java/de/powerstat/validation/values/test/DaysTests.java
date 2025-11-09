@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.Currency;
 import de.powerstat.validation.values.Days;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -111,42 +112,12 @@ final class DaysTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Days days1 = Days.of(1);
-    final Days days2 = Days.of(1);
-    final Days days3 = Days.of(2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(days1.hashCode(), days2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(days1.hashCode(), days3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Days days1 = Days.of(1);
-    final Days days2 = Days.of(1);
-    final Days days3 = Days.of(2);
-    final Days days4 = Days.of(1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(days1.equals(days1), "days11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(days1.equals(days2), "days12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(days2.equals(days1), "days21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(days2.equals(days4), "days24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(days1.equals(days4), "days14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(days1.equals(days3), "days13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(days3.equals(days1), "days31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(days1.equals(null), "days10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Days.class).verify();
    }
 
 

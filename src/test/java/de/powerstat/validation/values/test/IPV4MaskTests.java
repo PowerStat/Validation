@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -12,7 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.IPV4Address;
 import de.powerstat.validation.values.IPV4Mask;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -331,42 +332,26 @@ final class IPV4MaskTests
 
 
   /**
-   * Test hash code.
+   * Test constructor success.
    */
   @Test
-  /* default */ void testHashCode()
+  /* default */ void testConstructorSuccess12()
    {
-    final IPV4Mask mask1 = IPV4Mask.of(IPV4MaskTests.IPMASK_255_255_255_0);
-    final IPV4Mask mask2 = IPV4Mask.of(IPV4MaskTests.IPMASK_255_255_255_0);
-    final IPV4Mask mask3 = IPV4Mask.of(IPV4MaskTests.IPMASK_255_255_0_0);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(mask1.hashCode(), mask2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(mask1.hashCode(), mask3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
+    final IPV4Mask mask = IPV4Mask.of(25);
+    assertAll("constructorSuccess12", //$NON-NLS-1$
+      () -> assertEquals(25, mask.intValue(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
+      () -> assertEquals("255.255.255.128", mask.stringValue(), IPV4MaskTests.MASK_IS_NOT_EQUAL) //$NON-NLS-1$
     );
    }
 
 
   /**
-   * Test equals.
+   * Equalsverifier.
    */
   @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
+  public void equalsContract()
    {
-    final IPV4Mask mask1 = IPV4Mask.of(IPV4MaskTests.IPMASK_255_255_255_0);
-    final IPV4Mask mask2 = IPV4Mask.of(IPV4MaskTests.IPMASK_255_255_255_0);
-    final IPV4Mask mask3 = IPV4Mask.of(IPV4MaskTests.IPMASK_255_255_0_0);
-    final IPV4Mask mask4 = IPV4Mask.of(IPV4MaskTests.IPMASK_255_255_255_0);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(mask1.equals(mask1), "mask11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(mask1.equals(mask2), "mask12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(mask2.equals(mask1), "mask21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(mask2.equals(mask4), "mask24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(mask1.equals(mask4), "mask14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(mask1.equals(mask3), "mask13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(mask3.equals(mask1), "mask31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(mask1.equals(null), "mask10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(IPV4Mask.class).withIgnoredFields("mask").verify();
    }
 
 

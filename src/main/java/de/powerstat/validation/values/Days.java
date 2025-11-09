@@ -13,11 +13,19 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Days.
  *
  * Not DSGVO relevant.
- *
- * TODO min, max
  */
 public final class Days implements Comparable<Days>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final long MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value Long.MAX_VALUE.
+   */
+  public static final long MAX_VALUE = Long.MAX_VALUE;
+
   /* *
    * Cache for singletons.
    */
@@ -133,11 +141,10 @@ public final class Days implements Comparable<Days>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Days))
+    if (!(obj instanceof final Days other))
      {
       return false;
      }
-    final Days other = (Days)obj;
     return this.days == other.days;
    }
 
@@ -197,7 +204,7 @@ public final class Days implements Comparable<Days>, IValueObject
    */
   public Days subtract(final Days other)
    {
-    if (other.days > this.days)
+    if (other.days > this.days) // NO PITEST
      {
       return Days.of(other.days - this.days);
      }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -12,7 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.IPV6Address;
 import de.powerstat.validation.values.IPV6Mask;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -138,42 +139,12 @@ final class IPV6MaskTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final IPV6Mask mask1 = IPV6Mask.of(112);
-    final IPV6Mask mask2 = IPV6Mask.of(112);
-    final IPV6Mask mask3 = IPV6Mask.of(96);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(mask1.hashCode(), mask2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(mask1.hashCode(), mask3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final IPV6Mask mask1 = IPV6Mask.of(112);
-    final IPV6Mask mask2 = IPV6Mask.of(112);
-    final IPV6Mask mask3 = IPV6Mask.of(96);
-    final IPV6Mask mask4 = IPV6Mask.of(112);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(mask1.equals(mask1), "mask11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(mask1.equals(mask2), "mask12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(mask2.equals(mask1), "mask21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(mask2.equals(mask4), "mask24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(mask1.equals(mask4), "mask14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(mask1.equals(mask3), "mask13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(mask3.equals(mask1), "mask31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(mask1.equals(null), "mask10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(IPV6Mask.class).verify();
    }
 
 

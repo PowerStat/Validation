@@ -1,7 +1,8 @@
 /*
- * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
+
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,8 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.Address;
 import de.powerstat.validation.values.AddressWithWGS84Position;
 import de.powerstat.validation.values.BFPONumber;
 import de.powerstat.validation.values.Block;
@@ -31,6 +34,7 @@ import de.powerstat.validation.values.Street;
 import de.powerstat.validation.values.SubBuilding;
 import de.powerstat.validation.values.WGS84Position;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * AddressWithWGS84Position tests.
@@ -201,10 +205,10 @@ final class AddressWithWGS84PositionTests
   @Test
   /* default */ void testConstructor5()
    {
-    assertThrows(NullPointerException.class, () ->
+    assertThrows(IllegalArgumentException.class, () ->
      {
       /* final AddressWithWGS84Position address = */ AddressWithWGS84Position.of("DE,28307,Bremen,,,,,,,12345");
-     }, "Null pointer exception" //$NON-NLS-1$
+     }, ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 
@@ -261,58 +265,12 @@ final class AddressWithWGS84PositionTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final AddressWithWGS84Position address1 = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.ARBERGER_HEERSTR), BuildingNr.of(AddressWithWGS84PositionTests.BUILDINGNR92), null, null, null, null, null, null, null, null, WGS84Position.of(0.0, 0.0, 0.0));
-    final AddressWithWGS84Position address2 = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.ARBERGER_HEERSTR), BuildingNr.of(AddressWithWGS84PositionTests.BUILDINGNR92), null, null, null, null, null, null, null, null, WGS84Position.of(0.0, 0.0, 0.0));
-    final AddressWithWGS84Position address3 = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28359), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.BIBLIOTHEKSTRASSE), BuildingNr.of(AddressWithWGS84PositionTests.BUIDINGNR1), null, null, null, null, null, null, null, null, WGS84Position.of(0.0, 0.0, 0.0));
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(address1.hashCode(), address2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(address1.hashCode(), address3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final AddressWithWGS84Position address1 = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.ARBERGER_HEERSTR), BuildingNr.of(AddressWithWGS84PositionTests.BUILDINGNR92), null, null, null, null, null, null, null, null, WGS84Position.of(0.0, 0.0, 0.0));
-    final AddressWithWGS84Position address2 = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.ARBERGER_HEERSTR), BuildingNr.of(AddressWithWGS84PositionTests.BUILDINGNR92), null, null, null, null, null, null, null, null, WGS84Position.of(0.0, 0.0, 0.0));
-    final AddressWithWGS84Position address3 = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28359), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.BIBLIOTHEKSTRASSE), BuildingNr.of(AddressWithWGS84PositionTests.BUIDINGNR1), null, null, null, null, null, null, null, null, WGS84Position.of(0.0, 0.0, 0.0));
-    final AddressWithWGS84Position address4 = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.ARBERGER_HEERSTR), BuildingNr.of(AddressWithWGS84PositionTests.BUILDINGNR92), null, null, null, null, null, null, null, null, WGS84Position.of(0.0, 0.0, 0.0));
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(address1.equals(address1), "address11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(address1.equals(address2), "address12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(address2.equals(address1), "address21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(address2.equals(address4), "address24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(address1.equals(address4), "address14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(address3), "address13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(address3.equals(address1), "address31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(null), "address10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test not equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testNotEquals()
-   {
-    final AddressWithWGS84Position address1 = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.ARBERGER_HEERSTR), BuildingNr.of(AddressWithWGS84PositionTests.BUILDINGNR92), null, null, null, null, null, null, null, null, WGS84Position.of(0.0, 0.0, 0.0));
-    final AddressWithWGS84Position address2 = AddressWithWGS84Position.of(Country.of(AddressWithWGS84PositionTests.DE), PostalCode.of(AddressWithWGS84PositionTests.POSTALCODE28307), City.of(AddressWithWGS84PositionTests.BREMEN), null, null, Street.of(AddressWithWGS84PositionTests.ARBERGER_HEERSTR), BuildingNr.of(AddressWithWGS84PositionTests.BUILDINGNR92), null, null, null, null, null, null, null, null, WGS84Position.of(1.0, 1.0, 0.0));
-    assertAll("testNotEquals", //$NON-NLS-1$
-      () -> assertFalse(address1.equals(new Object()), "address1o is equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(address2), "address12 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(AddressWithWGS84Position.class).withRedefinedSuperclass().withNonnullFields("position", "country").verify();
    }
 
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.BuildingName;
 import de.powerstat.validation.values.BuildingNr;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -125,42 +126,12 @@ final class BuildingNrTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final BuildingNr buildingNr1 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
-    final BuildingNr buildingNr2 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
-    final BuildingNr buildingNr3 = BuildingNr.of(BuildingNrTests.BUILDINGNR42);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(buildingNr1.hashCode(), buildingNr2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(buildingNr1.hashCode(), buildingNr3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final BuildingNr buildingNr1 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
-    final BuildingNr buildingNr2 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
-    final BuildingNr buildingNr3 = BuildingNr.of(BuildingNrTests.BUILDINGNR42);
-    final BuildingNr buildingNr4 = BuildingNr.of(BuildingNrTests.BUILDINGNR23);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(buildingNr1.equals(buildingNr1), "BuildingNr11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(buildingNr1.equals(buildingNr2), "BuildingNr12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(buildingNr2.equals(buildingNr1), "BuildingNr21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(buildingNr2.equals(buildingNr4), "BuildingNr24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(buildingNr1.equals(buildingNr4), "BuildingNr14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(buildingNr1.equals(buildingNr3), "BuildingNr13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(buildingNr3.equals(buildingNr1), "BuildingNr31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(buildingNr1.equals(null), "BuildingNr10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(BuildingNr.class).withNonnullFields("buildingNr").verify();
    }
 
 

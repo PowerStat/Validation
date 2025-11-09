@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import nl.jqno.equalsverifier.*;
 
+import de.powerstat.validation.values.BFPONumber;
 import de.powerstat.validation.values.BIC;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -115,42 +117,12 @@ final class BICTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final BIC bic1 = BIC.of(BICTests.BIC_BELADEBEXXX);
-    final BIC bic2 = BIC.of(BICTests.BIC_BELADEBEXXX);
-    final BIC bic3 = BIC.of(BICTests.BIC_RZTIAT22263);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(bic1.hashCode(), bic2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(bic1.hashCode(), bic3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final BIC bic1 = BIC.of(BICTests.BIC_BELADEBEXXX);
-    final BIC bic2 = BIC.of(BICTests.BIC_BELADEBEXXX);
-    final BIC bic3 = BIC.of(BICTests.BIC_RZTIAT22263);
-    final BIC bic4 = BIC.of(BICTests.BIC_BELADEBEXXX);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(bic1.equals(bic1), "bic11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(bic1.equals(bic2), "bic12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(bic2.equals(bic1), "bic21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(bic2.equals(bic4), "bic24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(bic1.equals(bic4), "bic14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(bic1.equals(bic3), "bic13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(bic3.equals(bic1), "bic31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(bic1.equals(null), "bic10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(BIC.class).withNonnullFields("bic").verify();
    }
 
 

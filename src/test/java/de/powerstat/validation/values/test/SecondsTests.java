@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.ScreenSize;
 import de.powerstat.validation.values.Seconds;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -111,42 +112,12 @@ final class SecondsTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Seconds seconds1 = Seconds.of(1);
-    final Seconds seconds2 = Seconds.of(1);
-    final Seconds seconds3 = Seconds.of(2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(seconds1.hashCode(), seconds2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(seconds1.hashCode(), seconds3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Seconds seconds1 = Seconds.of(1);
-    final Seconds seconds2 = Seconds.of(1);
-    final Seconds seconds3 = Seconds.of(2);
-    final Seconds seconds4 = Seconds.of(1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(seconds1.equals(seconds1), "seconds11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(seconds1.equals(seconds2), "seconds12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(seconds2.equals(seconds1), "seconds21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(seconds2.equals(seconds4), "seconds24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(seconds1.equals(seconds4), "seconds14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(seconds1.equals(seconds3), "seconds13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(seconds3.equals(seconds1), "seconds31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(seconds1.equals(null), "seconds10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Seconds.class).verify();
    }
 
 

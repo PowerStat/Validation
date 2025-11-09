@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -663,11 +663,11 @@ public class Address implements Comparable<Address>, IValueObject
   public static Address of(final String value)
    {
     String[] values = value.split(",");
-    if ((values.length < 1) || (values.length > 15))
+    if ((values.length < 3) || (values.length > 15))
      {
       throw new IllegalArgumentException("value not in expected format: " + values.length);
      }
-    if (values.length < 15)
+    if (values.length < 15) // NO PITEST
      {
       values = Arrays.copyOf(values, 15);
       for (int i = 1; i < 15; ++i)
@@ -718,7 +718,7 @@ public class Address implements Comparable<Address>, IValueObject
   @Override
   public int hashCode()
    {
-    return Objects.hash(this.country, this.postalCode, this.city, this.province, this.district, this.street, this.buildingNr, this.buildingName, this.subBuilding, this.poBoxNumber, this.department, this.neighbourhood, this.block, this.bFPONumber, this.lines);
+    return Objects.hash(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines);
    }
 
 
@@ -737,6 +737,18 @@ public class Address implements Comparable<Address>, IValueObject
 
 
   /**
+   * Can equal.
+   *
+   * @param other Other object
+   * @return true if it can be equal; false otherwise
+   */
+  public boolean canEqual(Object other)
+   {
+    return (other instanceof Address);
+   }
+
+
+  /**
    * Is equal with another object.
    *
    * @param obj Object
@@ -751,54 +763,57 @@ public class Address implements Comparable<Address>, IValueObject
       return true;
      }
     // if ((obj == null) || (this.getClass() != obj.getClass()))
-    if (!(obj instanceof Address))
+    if (!(obj instanceof final Address other))
      {
       return false;
      }
-    final Address other = (Address)obj;
-    boolean result = this.country.equals(other.country);
+    boolean result = other.canEqual(this);
     if (result)
      {
-      result = equalField(this.postalCode, other.postalCode);
+      result = country.equals(other.country);
       if (result)
        {
-        result = equalField(this.city, other.city);
+        result = equalField(postalCode, other.postalCode);
         if (result)
          {
-          result = equalField(this.province, other.province);
+          result = equalField(city, other.city);
           if (result)
            {
-            result = equalField(this.district, other.district);
+            result = equalField(province, other.province);
             if (result)
              {
-              result = equalField(this.street, other.street);
+              result = equalField(district, other.district);
               if (result)
                {
-                result = equalField(this.buildingNr, other.buildingNr);
+                result = equalField(street, other.street);
                 if (result)
                  {
-                  result = equalField(this.buildingName, other.buildingName);
+                  result = equalField(buildingNr, other.buildingNr);
                   if (result)
                    {
-                    result = equalField(this.subBuilding, other.subBuilding);
+                    result = equalField(buildingName, other.buildingName);
                     if (result)
                      {
-                      result = equalField(this.poBoxNumber, other.poBoxNumber);
+                      result = equalField(subBuilding, other.subBuilding);
                       if (result)
                        {
-                        result = equalField(this.department, other.department);
+                        result = equalField(poBoxNumber, other.poBoxNumber);
                         if (result)
                          {
-                          result = equalField(this.neighbourhood, other.neighbourhood);
+                          result = equalField(department, other.department);
                           if (result)
                            {
-                            result = equalField(this.block, other.block);
+                            result = equalField(neighbourhood, other.neighbourhood);
                             if (result)
                              {
-                              result = equalField(this.bFPONumber, other.bFPONumber);
+                              result = equalField(block, other.block);
                               if (result)
                                {
-                                result = equalField(this.lines, other.lines);
+                                result = equalField(bFPONumber, other.bFPONumber);
+                                if (result)
+                                 {
+                                  result = equalField(lines, other.lines);
+                                 }
                                }
                              }
                            }
@@ -831,62 +846,62 @@ public class Address implements Comparable<Address>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(182);
-    builder.append("Address[country=").append(this.country.stringValue()); //$NON-NLS-1$
-    if (this.postalCode != null)
+    builder.append("Address[country=").append(country.stringValue()); //$NON-NLS-1$
+    if (postalCode != null)
      {
-      builder.append(", postalCode=").append(this.postalCode.stringValue()); //$NON-NLS-1$
+      builder.append(", postalCode=").append(postalCode.stringValue()); //$NON-NLS-1$
      }
-    if (this.city != null)
+    if (city != null)
      {
-      builder.append(", city=").append(this.city.stringValue()); //$NON-NLS-1$
+      builder.append(", city=").append(city.stringValue()); //$NON-NLS-1$
      }
-    if (this.province != null)
+    if (province != null)
      {
-      builder.append(", province=").append(this.province.stringValue()); //$NON-NLS-1$
+      builder.append(", province=").append(province.stringValue()); //$NON-NLS-1$
      }
-    if (this.district != null)
+    if (district != null)
      {
-      builder.append(", district=").append(this.district.stringValue()); //$NON-NLS-1$
+      builder.append(", district=").append(district.stringValue()); //$NON-NLS-1$
      }
-    if (this.street != null)
+    if (street != null)
      {
-      builder.append(", street=").append(this.street.stringValue()); //$NON-NLS-1$
+      builder.append(", street=").append(street.stringValue()); //$NON-NLS-1$
      }
-    if (this.buildingNr != null)
+    if (buildingNr != null)
      {
-      builder.append(", buildingNr=").append(this.buildingNr.stringValue()); //$NON-NLS-1$
+      builder.append(", buildingNr=").append(buildingNr.stringValue()); //$NON-NLS-1$
      }
-    if (this.buildingName != null)
+    if (buildingName != null)
      {
-      builder.append(", buildingName=").append(this.buildingName.stringValue()); //$NON-NLS-1$
+      builder.append(", buildingName=").append(buildingName.stringValue()); //$NON-NLS-1$
      }
-    if (this.subBuilding != null)
+    if (subBuilding != null)
      {
-      builder.append(", subBuilding=").append(this.subBuilding.stringValue()); //$NON-NLS-1$
+      builder.append(", subBuilding=").append(subBuilding.stringValue()); //$NON-NLS-1$
      }
-    if (this.poBoxNumber != null)
+    if (poBoxNumber != null)
      {
-      builder.append(", poBoxNumber=").append(this.poBoxNumber.longValue()); //$NON-NLS-1$
+      builder.append(", poBoxNumber=").append(poBoxNumber.longValue()); //$NON-NLS-1$
      }
-    if (this.department != null)
+    if (department != null)
      {
-      builder.append(", department=").append(this.department.stringValue()); //$NON-NLS-1$
+      builder.append(", department=").append(department.stringValue()); //$NON-NLS-1$
      }
-    if (this.neighbourhood != null)
+    if (neighbourhood != null)
      {
-      builder.append(", neighbourhood=").append(this.neighbourhood.stringValue()); //$NON-NLS-1$
+      builder.append(", neighbourhood=").append(neighbourhood.stringValue()); //$NON-NLS-1$
      }
-    if (this.block != null)
+    if (block != null)
      {
-      builder.append(", block=").append(this.block.stringValue()); //$NON-NLS-1$
+      builder.append(", block=").append(block.stringValue()); //$NON-NLS-1$
      }
-    if (this.bFPONumber != null)
+    if (bFPONumber != null)
      {
-      builder.append(", bFPONumber=").append(this.bFPONumber.intValue()); //$NON-NLS-1$
+      builder.append(", bFPONumber=").append(bFPONumber.intValue()); //$NON-NLS-1$
      }
-    if (this.lines != null)
+    if (lines != null)
      {
-      builder.append(", lines=").append(this.lines.stringValue()); //$NON-NLS-1$
+      builder.append(", lines=").append(lines.stringValue()); //$NON-NLS-1$
      }
     builder.append(']');
     return builder.toString();
@@ -918,49 +933,49 @@ public class Address implements Comparable<Address>, IValueObject
   public int compareTo(final Address obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    int result = this.country.compareTo(obj.country);
+    int result = country.compareTo(obj.country);
     if (result == 0)
      {
-      result = compareField(this.postalCode, obj.postalCode);
+      result = compareField(postalCode, obj.postalCode);
       if (result == 0)
        {
-        result = compareField(this.city, obj.city);
+        result = compareField(city, obj.city);
         if (result == 0)
          {
-          result = compareField(this.province, obj.province);
+          result = compareField(province, obj.province);
           if (result == 0)
            {
-            result = compareField(this.district, obj.district);
+            result = compareField(district, obj.district);
             if (result == 0)
              {
-              result = compareField(this.street, obj.street);
+              result = compareField(street, obj.street);
               if (result == 0)
                {
-                result = compareField(this.buildingNr, obj.buildingNr);
+                result = compareField(buildingNr, obj.buildingNr);
                 if (result == 0)
                  {
-                  result = compareField(this.buildingName, obj.buildingName);
+                  result = compareField(buildingName, obj.buildingName);
                   if (result == 0)
                    {
-                    result = compareField(this.subBuilding, obj.subBuilding);
+                    result = compareField(subBuilding, obj.subBuilding);
                     if (result == 0)
                      {
-                      result = compareField(this.poBoxNumber, obj.poBoxNumber);
+                      result = compareField(poBoxNumber, obj.poBoxNumber);
                       if (result == 0)
                        {
-                        result = compareField(this.department, obj.department);
+                        result = compareField(department, obj.department);
                         if (result == 0)
                          {
-                          result = compareField(this.neighbourhood, obj.neighbourhood);
+                          result = compareField(neighbourhood, obj.neighbourhood);
                           if (result == 0)
                            {
-                            result = compareField(this.block, obj.block);
+                            result = compareField(block, obj.block);
                             if (result == 0)
                              {
-                              result = compareField(this.bFPONumber, obj.bFPONumber);
+                              result = compareField(bFPONumber, obj.bFPONumber);
                               if (result == 0)
                                {
-                                result = compareField(this.lines, obj.lines);
+                                result = compareField(lines, obj.lines);
                                }
                              }
                            }
@@ -1020,7 +1035,7 @@ public class Address implements Comparable<Address>, IValueObject
         final int posEndBlock = format.indexOf(']', posStartBlock + 1);
         if (posEndBlock == -1)
          {
-          throw new IllegalArgumentException("Block without end found in: " + this.country.stringValue()); //$NON-NLS-1$
+          throw new IllegalArgumentException("Block without end found in: " + country.stringValue()); //$NON-NLS-1$
          }
         pos = posEndBlock + 1;
         final var blk = format.substring(posStartBlock + 1, posEndBlock);
@@ -1042,7 +1057,7 @@ public class Address implements Comparable<Address>, IValueObject
             final int posFieldEnd = blk.indexOf('$', posFieldStart);
             if (posFieldEnd == -1)
              {
-              throw new IllegalArgumentException("Unsupported field format code found in: " + this.country.stringValue()); //$NON-NLS-1$
+              throw new IllegalArgumentException("Unsupported field format code found in: " + country.stringValue()); //$NON-NLS-1$
              }
             final int fieldNr = Integer.parseInt(blk.substring(posFieldStart + 1, posFieldEnd));
             fieldPos = posFieldEnd + 1;
@@ -1097,7 +1112,7 @@ public class Address implements Comparable<Address>, IValueObject
   private String getAddressFormat(final String... vars)
    {
     // assert vars.length == 16;
-    final String format = Address.ADDRESS_FORMATS.get(this.country.stringValue());
+    final String format = Address.ADDRESS_FORMATS.get(country.stringValue());
     return processBlocks(format, vars);
    }
 
@@ -1115,22 +1130,22 @@ public class Address implements Comparable<Address>, IValueObject
     final var builder = new StringBuilder();
     try (var formatter = new Formatter(builder, Locale.getDefault()))
      {
-      final String tmpPostalCode = this.postalCode == null ? null : this.postalCode.stringValue();
-      final String tmpCity = this.city == null ? null : this.city.stringValue();
-      final String tmpProvince = this.province == null ? null : this.province.stringValue();
-      final String tmpDistrict = this.district == null ? null : this.district.stringValue();
-      final String tmpStreet = this.street == null ? null : this.street.stringValue();
-      final String tmpBuildingNr = this.buildingNr == null ? null : this.buildingNr.stringValue();
-      final String tmpBuildingName = this.buildingName == null ? null : this.buildingName.stringValue();
-      final String tmpSubBuilding = this.subBuilding == null ? null : this.subBuilding.stringValue();
-      final String tmpPoBoxNumber = this.poBoxNumber == null ? null : this.poBoxNumber.stringValue();
-      final String tmpDepartment = this.department == null ? null : this.department.stringValue();
-      final String tmpNeighbourhood = this.neighbourhood == null ? null : this.neighbourhood.stringValue();
-      final String tmpBlock = this.block == null ? null : this.block.stringValue();
-      final String tmpBFPONumber = this.bFPONumber == null ? null : this.bFPONumber.stringValue();
-      final String tmpLines = this.lines == null ? null : this.lines.stringValue();
-      final String format = getAddressFormat(this.country.getEnglishCountryName(), recipientName, tmpPostalCode, tmpCity, tmpProvince, tmpDistrict, tmpStreet, tmpBuildingNr, tmpBuildingName, tmpSubBuilding, tmpPoBoxNumber, tmpDepartment, tmpNeighbourhood, tmpBlock, tmpBFPONumber, tmpLines);
-      formatter.format(format, this.country.getEnglishCountryName(), recipientName, tmpPostalCode, tmpCity, tmpProvince, tmpDistrict, tmpStreet, tmpBuildingNr, tmpBuildingName, tmpSubBuilding, tmpPoBoxNumber, tmpDepartment, tmpNeighbourhood, tmpBlock, tmpBFPONumber, tmpLines);
+      final String tmpPostalCode = postalCode == null ? null : postalCode.stringValue();
+      final String tmpCity = city == null ? null : city.stringValue();
+      final String tmpProvince = province == null ? null : province.stringValue();
+      final String tmpDistrict = district == null ? null : district.stringValue();
+      final String tmpStreet = street == null ? null : street.stringValue();
+      final String tmpBuildingNr = buildingNr == null ? null : buildingNr.stringValue();
+      final String tmpBuildingName = buildingName == null ? null : buildingName.stringValue();
+      final String tmpSubBuilding = subBuilding == null ? null : subBuilding.stringValue();
+      final String tmpPoBoxNumber = poBoxNumber == null ? null : poBoxNumber.stringValue();
+      final String tmpDepartment = department == null ? null : department.stringValue();
+      final String tmpNeighbourhood = neighbourhood == null ? null : neighbourhood.stringValue();
+      final String tmpBlock = block == null ? null : block.stringValue();
+      final String tmpBFPONumber = bFPONumber == null ? null : bFPONumber.stringValue();
+      final String tmpLines = lines == null ? null : lines.stringValue();
+      final String format = getAddressFormat(country.getEnglishCountryName(), recipientName, tmpPostalCode, tmpCity, tmpProvince, tmpDistrict, tmpStreet, tmpBuildingNr, tmpBuildingName, tmpSubBuilding, tmpPoBoxNumber, tmpDepartment, tmpNeighbourhood, tmpBlock, tmpBFPONumber, tmpLines);
+      formatter.format(format, country.getEnglishCountryName(), recipientName, tmpPostalCode, tmpCity, tmpProvince, tmpDistrict, tmpStreet, tmpBuildingNr, tmpBuildingName, tmpSubBuilding, tmpPoBoxNumber, tmpDepartment, tmpNeighbourhood, tmpBlock, tmpBFPONumber, tmpLines);
      }
     return builder.toString();
    }
@@ -1143,7 +1158,7 @@ public class Address implements Comparable<Address>, IValueObject
    */
   public Country getCountry()
    {
-    return this.country;
+    return country;
    }
 
 
@@ -1154,7 +1169,7 @@ public class Address implements Comparable<Address>, IValueObject
    */
   public PostalCode getPostalCode()
    {
-    return this.postalCode;
+    return postalCode;
    }
 
 
@@ -1165,7 +1180,7 @@ public class Address implements Comparable<Address>, IValueObject
    */
   public City getCity()
    {
-    return this.city;
+    return city;
    }
 
 
@@ -1176,7 +1191,7 @@ public class Address implements Comparable<Address>, IValueObject
    */
   public Province getProvince()
    {
-    return this.province;
+    return province;
    }
 
 
@@ -1187,7 +1202,7 @@ public class Address implements Comparable<Address>, IValueObject
    */
   public District getDistrict()
    {
-    return this.district;
+    return district;
    }
 
 
@@ -1198,7 +1213,7 @@ public class Address implements Comparable<Address>, IValueObject
    */
   public Street getStreet()
    {
-    return this.street;
+    return street;
    }
 
 
@@ -1209,7 +1224,7 @@ public class Address implements Comparable<Address>, IValueObject
    */
   public BuildingNr getBuildingNr()
    {
-    return this.buildingNr;
+    return buildingNr;
    }
 
 
@@ -1220,7 +1235,7 @@ public class Address implements Comparable<Address>, IValueObject
    */
   public BuildingName getBuildingName()
    {
-    return this.buildingName;
+    return buildingName;
    }
 
 
@@ -1231,7 +1246,7 @@ public class Address implements Comparable<Address>, IValueObject
    */
   public SubBuilding getSubBuilding()
    {
-    return this.subBuilding;
+    return subBuilding;
    }
 
 
@@ -1242,7 +1257,7 @@ public class Address implements Comparable<Address>, IValueObject
    */
   public PoBoxNumber getPoBoxNumber()
    {
-    return this.poBoxNumber;
+    return poBoxNumber;
    }
 
 
@@ -1253,7 +1268,7 @@ public class Address implements Comparable<Address>, IValueObject
    */
   public Department getDepartment()
    {
-    return this.department;
+    return department;
    }
 
 
@@ -1264,7 +1279,7 @@ public class Address implements Comparable<Address>, IValueObject
    */
   public Neighbourhood getNeighbourhood()
    {
-    return this.neighbourhood;
+    return neighbourhood;
    }
 
 
@@ -1275,7 +1290,7 @@ public class Address implements Comparable<Address>, IValueObject
    */
   public Block getBlock()
    {
-    return this.block;
+    return block;
    }
 
 
@@ -1286,7 +1301,7 @@ public class Address implements Comparable<Address>, IValueObject
    */
   public BFPONumber getBFPONumber()
    {
-    return this.bFPONumber;
+    return bFPONumber;
    }
 
 
@@ -1297,7 +1312,7 @@ public class Address implements Comparable<Address>, IValueObject
    */
   public Lines getLines()
    {
-    return this.lines;
+    return lines;
    }
 
  }

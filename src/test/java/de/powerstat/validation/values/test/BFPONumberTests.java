@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -11,10 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.AddressWithWGS84Position;
 import de.powerstat.validation.values.BFPONumber;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -99,42 +101,12 @@ final class BFPONumberTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final BFPONumber bFPONumber1 = BFPONumber.of(1);
-    final BFPONumber bFPONumber2 = BFPONumber.of(1);
-    final BFPONumber bFPONumber3 = BFPONumber.of(2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(bFPONumber1.hashCode(), bFPONumber2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(bFPONumber1.hashCode(), bFPONumber3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final BFPONumber bFPONumber1 = BFPONumber.of(1);
-    final BFPONumber bFPONumber2 = BFPONumber.of(1);
-    final BFPONumber bFPONumber3 = BFPONumber.of(2);
-    final BFPONumber bFPONumber4 = BFPONumber.of(1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(bFPONumber1.equals(bFPONumber1), "bFPONumber11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(bFPONumber1.equals(bFPONumber2), "bFPONumber12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(bFPONumber2.equals(bFPONumber1), "bFPONumber21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(bFPONumber2.equals(bFPONumber4), "bFPONumber24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(bFPONumber1.equals(bFPONumber4), "bFPONumber14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(bFPONumber1.equals(bFPONumber3), "bFPONumber13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(bFPONumber3.equals(bFPONumber1), "bFPONumber31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(bFPONumber1.equals(null), "bFPONumber10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(BFPONumber.class).verify();
    }
 
 

@@ -13,11 +13,19 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Milliseconds.
  *
  * Not DSGVO relevant.
- *
- * TODO min, max
  */
 public final class Milliseconds implements Comparable<Milliseconds>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final long MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value Long.MAX_VALUE.
+   */
+  public static final long MAX_VALUE = Long.MAX_VALUE;
+
   /* *
    * Cache for singletons.
    */
@@ -133,11 +141,10 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
      {
       return true;
      }
-    if (!(obj instanceof Milliseconds))
+    if (!(obj instanceof final Milliseconds other))
      {
       return false;
      }
-    final Milliseconds other = (Milliseconds)obj;
     return this.milliseconds == other.milliseconds;
    }
 
@@ -197,7 +204,7 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
    */
   public Milliseconds subtract(final Milliseconds other)
    {
-    if (other.milliseconds > this.milliseconds)
+    if (other.milliseconds > this.milliseconds) // NO PITEST
      {
       return Milliseconds.of(other.milliseconds - this.milliseconds);
      }

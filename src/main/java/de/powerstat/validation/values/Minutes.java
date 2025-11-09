@@ -13,11 +13,19 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Minutes.
  *
  * Not DSGVO relevant.
- *
- * TODO min, max
  */
 public final class Minutes implements Comparable<Minutes>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final long MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value Long.MAX_VALUE.
+   */
+  public static final long MAX_VALUE = Long.MAX_VALUE;
+
   /* *
    * Cache for singletons.
    */
@@ -133,11 +141,10 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Minutes))
+    if (!(obj instanceof final Minutes other))
      {
       return false;
      }
-    final Minutes other = (Minutes)obj;
     return this.minutes == other.minutes;
    }
 
@@ -197,7 +204,7 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
    */
   public Minutes subtract(final Minutes other)
    {
-    if (other.minutes > this.minutes)
+    if (other.minutes > this.minutes) // NO PITEST
      {
       return Minutes.of(other.minutes - this.minutes);
      }

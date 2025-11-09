@@ -15,11 +15,24 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Not DSGVO relevant.
  *
  * TODO Listener
- * TODO secondsWithin = 60
- * TODO min, max
  */
 public final class Minute implements Comparable<Minute>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final int MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value 59.
+   */
+  public static final int MAX_VALUE = 59;
+
+  /**
+   * Seconds within a minute.
+   */
+  public static final Seconds SECONDS_WITHIN = Seconds.of(60);
+
   /**
    * Overlfow constant.
    */
@@ -145,11 +158,10 @@ public final class Minute implements Comparable<Minute>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Minute))
+    if (!(obj instanceof final Minute other))
      {
       return false;
      }
-    final Minute other = (Minute)obj;
     return this.minute == other.minute;
    }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.MACAddress;
 import de.powerstat.validation.values.Milliseconds;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -111,42 +112,12 @@ final class MillisecondsTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Milliseconds milliseconds1 = Milliseconds.of(0);
-    final Milliseconds milliseconds2 = Milliseconds.of(0);
-    final Milliseconds milliseconds3 = Milliseconds.of(1);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(milliseconds1.hashCode(), milliseconds2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(milliseconds1.hashCode(), milliseconds3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Milliseconds milliseconds1 = Milliseconds.of(0);
-    final Milliseconds milliseconds2 = Milliseconds.of(0);
-    final Milliseconds milliseconds3 = Milliseconds.of(1);
-    final Milliseconds milliseconds4 = Milliseconds.of(0);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(milliseconds1.equals(milliseconds1), "milliseconds11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(milliseconds1.equals(milliseconds2), "milliseconds12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(milliseconds2.equals(milliseconds1), "milliseconds21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(milliseconds2.equals(milliseconds4), "milliseconds24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(milliseconds1.equals(milliseconds4), "milliseconds14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(milliseconds1.equals(milliseconds3), "milliseconds13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(milliseconds3.equals(milliseconds1), "milliseconds31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(milliseconds1.equals(null), "milliseconds10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Milliseconds.class).verify();
    }
 
 

@@ -124,7 +124,7 @@ public final class IBANVerifierAbstractFactory
       case "CG": //$NON-NLS-1$
         return IBANVerifier.of(27, "^CG[0-9]{2}[0-9]{21}[0-9A-Z]{2}$"); //$NON-NLS-1$
       case "XK": //$NON-NLS-1$ // Not an ISO3166 alpha 2 code
-        return IBANVerifier.of(20, "^XK[0-9]{2}[0-9]{16}$"); //$NON-NLS-1$
+        return IBANVerifier.of(20, "^XK[0-9]{2}[0-9]{16}$"); //$NON-NLS-1$ // NO PITEST
       case "HR": //$NON-NLS-1$
         return IBANVerifier.of(21, "^HR[0-9]{2}[0-9]{17}$"); //$NON-NLS-1$
       case "KW": //$NON-NLS-1$

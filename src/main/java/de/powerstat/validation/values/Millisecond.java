@@ -15,10 +15,19 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Not DSGVO relevant.
  *
  * TODO Listener
- * TODO min, max
  */
 public final class Millisecond implements Comparable<Millisecond>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final int MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value 999.
+   */
+  public static final int MAX_VALUE = 999;
+
   /* *
    * Cache for singletons.
    */
@@ -144,11 +153,10 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Millisecond))
+    if (!(obj instanceof final Millisecond other))
      {
       return false;
      }
-    final Millisecond other = (Millisecond)obj;
     return this.millisecond == other.millisecond;
    }
 

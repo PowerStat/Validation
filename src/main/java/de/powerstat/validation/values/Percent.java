@@ -3,9 +3,11 @@
  */
 package de.powerstat.validation.values;
 
+
 import java.util.Objects;
 
 import de.powerstat.validation.interfaces.IValueObject;
+
 
 /**
  * Percent 0-100.
@@ -14,6 +16,16 @@ import de.powerstat.validation.interfaces.IValueObject;
  */
 public final class Percent implements Comparable<Percent>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final int MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value 100.
+   */
+  public static final int MAX_VALUE = 100;
+
   /**
    * Percent.
    */

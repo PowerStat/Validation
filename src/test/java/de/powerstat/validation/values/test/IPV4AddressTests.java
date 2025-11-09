@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.IBAN;
 import de.powerstat.validation.values.IPV4Address;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -219,42 +220,12 @@ final class IPV4AddressTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final IPV4Address address1 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    final IPV4Address address2 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    final IPV4Address address3 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(address1.hashCode(), address2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(address1.hashCode(), address3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final IPV4Address address1 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    final IPV4Address address2 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    final IPV4Address address3 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_2);
-    final IPV4Address address4 = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(address1.equals(address1), "address11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(address1.equals(address2), "address12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(address2.equals(address1), "address21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(address2.equals(address4), "address24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(address1.equals(address4), "address14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(address3), "address13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(address3.equals(address1), "address31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(null), "address10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(IPV4Address.class).withNonnullFields("address").withIgnoredFields("parts").verify();
    }
 
 

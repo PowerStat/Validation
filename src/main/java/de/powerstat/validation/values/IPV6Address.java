@@ -90,7 +90,7 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
      }
     expandedAddress = normalizeIPV6Address(expandedAddress);
     this.address = expandedAddress;
-    this.blocks = expandedAddress.split(IPV6Address.IV6_SEP);
+    blocks = expandedAddress.split(IPV6Address.IV6_SEP);
    }
 
 
@@ -253,8 +253,8 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
   @SuppressWarnings("java:S1313")
   public boolean isPrivate()
    {
-    return ("00fe:0080:0000:0000:0000:0000:0000:0000".equals(this.address) || // Link-Local //$NON-NLS-1$
-            "00fc".equals(this.blocks[0]) || "00fd".equals(this.blocks[0]) // Unique Local Unicast //$NON-NLS-1$ //$NON-NLS-2$
+    return ("00fe:0080:0000:0000:0000:0000:0000:0000".equals(address) || // Link-Local //$NON-NLS-1$
+            "00fc".equals(blocks[0]) || "00fd".equals(blocks[0]) // Unique Local Unicast //$NON-NLS-1$ //$NON-NLS-2$
            );
    }
 
@@ -270,8 +270,8 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
    */
   public boolean isSpecial()
    {
-    return ("0000:0000:0000:0000:0000:0000:0000:0000".equals(this.address) || "0000:0000:0000:0000:0000:0000:0000:0001".equals(this.address) || // default route, loopback //$NON-NLS-1$ //$NON-NLS-2$
-            "00ff".equals(this.blocks[0]) // Multicast //$NON-NLS-1$
+    return ("0000:0000:0000:0000:0000:0000:0000:0000".equals(address) || "0000:0000:0000:0000:0000:0000:0000:0001".equals(address) || // default route, loopback //$NON-NLS-1$ //$NON-NLS-2$
+            "00ff".equals(blocks[0]) // Multicast //$NON-NLS-1$
            );
    }
 
@@ -304,7 +304,7 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.address;
+    return address;
    }
 
 
@@ -317,7 +317,7 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.address.hashCode();
+    return address.hashCode();
    }
 
 
@@ -335,12 +335,11 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof IPV6Address))
+    if (!(obj instanceof final IPV6Address other))
      {
       return false;
      }
-    final IPV6Address other = (IPV6Address)obj;
-    return this.address.equals(other.address);
+    return address.equals(other.address);
    }
 
 
@@ -358,7 +357,7 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(21);
-    builder.append("IPV6Address[address=").append(this.address).append(']'); //$NON-NLS-1$
+    builder.append("IPV6Address[address=").append(address).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -374,7 +373,7 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
   public int compareTo(final IPV6Address obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.address.compareTo(obj.address);
+    return address.compareTo(obj.address);
    }
 
  }

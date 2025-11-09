@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.TopLevelDomain;
 import de.powerstat.validation.values.Username;
 import de.powerstat.validation.values.strategies.IUsernameStrategy;
 import de.powerstat.validation.values.strategies.UsernameDefaultStrategy;
@@ -154,42 +155,12 @@ final class UsernameTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Username username1 = Username.of(UsernameTests.USERNAME);
-    final Username username2 = Username.of(UsernameTests.USERNAME);
-    final Username username3 = Username.of(UsernameTests.USERNAME22);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(username1.hashCode(), username2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(username1.hashCode(), username3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Username username1 = Username.of(UsernameTests.USERNAME);
-    final Username username2 = Username.of(UsernameTests.USERNAME);
-    final Username username3 = Username.of(UsernameTests.USERNAME22);
-    final Username username4 = Username.of(UsernameTests.USERNAME);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(username1.equals(username1), "username11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(username1.equals(username2), "username12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(username2.equals(username1), "username21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(username2.equals(username4), "username24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(username1.equals(username4), "username14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(username1.equals(username3), "username13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(username3.equals(username1), "username31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(username1.equals(null), "username10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Username.class).withNonnullFields("username").withIgnoredFields("conformsToEMailAddressFormat").verify();
    }
 
 

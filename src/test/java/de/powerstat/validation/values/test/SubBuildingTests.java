@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.Street;
 import de.powerstat.validation.values.SubBuilding;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -115,42 +116,12 @@ final class SubBuildingTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final SubBuilding subBuilding1 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    final SubBuilding subBuilding2 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    final SubBuilding subBuilding3 = SubBuilding.of(SubBuildingTests.FLOOR_99);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(subBuilding1.hashCode(), subBuilding2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(subBuilding1.hashCode(), subBuilding3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final SubBuilding subBuilding1 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    final SubBuilding subBuilding2 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    final SubBuilding subBuilding3 = SubBuilding.of(SubBuildingTests.FLOOR_99);
-    final SubBuilding subBuilding4 = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(subBuilding1.equals(subBuilding1), "subBulding11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(subBuilding1.equals(subBuilding2), "subBulding12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(subBuilding2.equals(subBuilding1), "subBulding21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(subBuilding2.equals(subBuilding4), "subBulding24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(subBuilding1.equals(subBuilding4), "subBulding14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(subBuilding1.equals(subBuilding3), "subBulding13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(subBuilding3.equals(subBuilding1), "subBulding31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(subBuilding1.equals(null), "subBulding10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(SubBuilding.class).withNonnullFields("subBuilding").verify();
    }
 
 

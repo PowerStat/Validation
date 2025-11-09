@@ -13,11 +13,19 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Port.
  *
  * Not DSGVO relevant.
- *
- * TODO min, max?
  */
 public final class Port implements Comparable<Port>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final int MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value 65535.
+   */
+  public static final int MAX_VALUE = 65535;
+
   /* *
    * Cache for singletons.
    */
@@ -166,11 +174,10 @@ public final class Port implements Comparable<Port>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Port))
+    if (!(obj instanceof final Port other))
      {
       return false;
      }
-    final Port other = (Port)obj;
     return this.port == other.port;
    }
 

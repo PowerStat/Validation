@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2023-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -11,8 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import nl.jqno.equalsverifier.*;
 
 import de.powerstat.validation.values.UUID;
+import de.powerstat.validation.values.Username;
 
 
 /**
@@ -50,42 +52,12 @@ public class UUIDTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final UUID uuid1 = UUID.of("a5409f2d-983d-438c-bfdd-308feff7fb1f");
-    final UUID uuid2 = UUID.of("a5409f2d-983d-438c-bfdd-308feff7fb1f");
-    final UUID uuid3 = UUID.of("67803e53-28f7-42d1-910f-b01dd3fe2d48");
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(uuid1.hashCode(), uuid2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(uuid1.hashCode(), uuid3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final UUID uuid1 = UUID.of("a5409f2d-983d-438c-bfdd-308feff7fb1f");
-    final UUID uuid2 = UUID.of("a5409f2d-983d-438c-bfdd-308feff7fb1f");
-    final UUID uuid3 = UUID.of("67803e53-28f7-42d1-910f-b01dd3fe2d48");
-    final UUID uuid4 = UUID.of("a5409f2d-983d-438c-bfdd-308feff7fb1f");
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(uuid1.equals(uuid1), "uuid11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(uuid1.equals(uuid2), "uuid12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(uuid2.equals(uuid1), "uuid21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(uuid2.equals(uuid4), "uuid24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(uuid1.equals(uuid4), "uuid14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(uuid1.equals(uuid3), "uuid13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(uuid3.equals(uuid1), "uuid31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(uuid1.equals(null), "uuid10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(UUID.class).withNonnullFields("uuid").verify();
    }
 
 

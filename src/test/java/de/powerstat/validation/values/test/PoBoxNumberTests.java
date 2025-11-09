@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.Percent;
 import de.powerstat.validation.values.PoBoxNumber;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -119,42 +120,12 @@ final class PoBoxNumberTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final PoBoxNumber poBoxNumber1 = PoBoxNumber.of(1);
-    final PoBoxNumber poBoxNumber2 = PoBoxNumber.of(1);
-    final PoBoxNumber poBoxNumber3 = PoBoxNumber.of(2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(poBoxNumber1.hashCode(), poBoxNumber2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(poBoxNumber1.hashCode(), poBoxNumber3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final PoBoxNumber poBoxNumber1 = PoBoxNumber.of(1);
-    final PoBoxNumber poBoxNumber2 = PoBoxNumber.of(1);
-    final PoBoxNumber poBoxNumber3 = PoBoxNumber.of(2);
-    final PoBoxNumber poBoxNumber4 = PoBoxNumber.of(1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(poBoxNumber1.equals(poBoxNumber1), "poBox11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(poBoxNumber1.equals(poBoxNumber2), "poBox12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(poBoxNumber2.equals(poBoxNumber1), "poBox21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(poBoxNumber2.equals(poBoxNumber4), "poBox24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(poBoxNumber1.equals(poBoxNumber4), "poBox14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(poBoxNumber1.equals(poBoxNumber3), "poBox13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(poBoxNumber3.equals(poBoxNumber1), "poBox31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(poBoxNumber1.equals(null), "poBox10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(PoBoxNumber.class).verify();
    }
 
 

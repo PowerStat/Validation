@@ -13,11 +13,19 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Months.
  *
  * Not DSGVO relevant.
- *
- * TODO min, max
  */
 public final class Months implements Comparable<Months>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final long MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value Long.MAX_VALUE.
+   */
+  public static final long MAX_VALUE = Long.MAX_VALUE;
+
   /* *
    * Cache for singletons.
    */
@@ -133,11 +141,10 @@ public final class Months implements Comparable<Months>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Months))
+    if (!(obj instanceof final Months other))
      {
       return false;
      }
-    final Months other = (Months)obj;
     return this.months == other.months;
    }
 
@@ -197,7 +204,7 @@ public final class Months implements Comparable<Months>, IValueObject
    */
   public Months subtract(final Months other)
    {
-    if (other.months > this.months)
+    if (other.months > this.months) // NO PITEST
      {
       return Months.of(other.months - this.months);
      }

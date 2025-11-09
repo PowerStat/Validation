@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.SubBuilding;
 import de.powerstat.validation.values.TopLevelDomain;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -115,42 +116,12 @@ final class TopLevelDomainTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final TopLevelDomain topLevelDomain1 = TopLevelDomain.of(TopLevelDomainTests.DE);
-    final TopLevelDomain topLevelDomain2 = TopLevelDomain.of(TopLevelDomainTests.DE);
-    final TopLevelDomain topLevelDomain3 = TopLevelDomain.of(TopLevelDomainTests.FR);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(topLevelDomain1.hashCode(), topLevelDomain2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(topLevelDomain1.hashCode(), topLevelDomain3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final TopLevelDomain topLevelDomain1 = TopLevelDomain.of(TopLevelDomainTests.DE);
-    final TopLevelDomain topLevelDomain2 = TopLevelDomain.of(TopLevelDomainTests.DE);
-    final TopLevelDomain topLevelDomain3 = TopLevelDomain.of(TopLevelDomainTests.FR);
-    final TopLevelDomain topLevelDomain4 = TopLevelDomain.of(TopLevelDomainTests.DE);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(topLevelDomain1.equals(topLevelDomain1), "topLevelDomain11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(topLevelDomain1.equals(topLevelDomain2), "topLevelDomain12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(topLevelDomain2.equals(topLevelDomain1), "topLevelDomain21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(topLevelDomain2.equals(topLevelDomain4), "topLevelDomain24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(topLevelDomain1.equals(topLevelDomain4), "topLevelDomain14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(topLevelDomain1.equals(topLevelDomain3), "topLevelDomain13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(topLevelDomain3.equals(topLevelDomain1), "topLevelDomain31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(topLevelDomain1.equals(null), "topLevelDomain10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(TopLevelDomain.class).withNonnullFields("topLevelDomain").verify();
    }
 
 

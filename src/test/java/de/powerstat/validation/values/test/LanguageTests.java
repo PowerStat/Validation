@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.JulianCalendar;
 import de.powerstat.validation.values.Language;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -115,42 +116,12 @@ final class LanguageTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Language language1 = Language.of(LanguageTests.DE);
-    final Language language2 = Language.of(LanguageTests.DE);
-    final Language language3 = Language.of(LanguageTests.FR);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(language1.hashCode(), language2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(language1.hashCode(), language3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Language language1 = Language.of(LanguageTests.DE);
-    final Language language2 = Language.of(LanguageTests.DE);
-    final Language language3 = Language.of(LanguageTests.FR);
-    final Language language4 = Language.of(LanguageTests.DE);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(language1.equals(language1), "language11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(language1.equals(language2), "language12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(language2.equals(language1), "language21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(language2.equals(language4), "language24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(language1.equals(language4), "language14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(language1.equals(language3), "language13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(language3.equals(language1), "language31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(language1.equals(null), "language10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Language.class).withNonnullFields("code").verify();
    }
 
 

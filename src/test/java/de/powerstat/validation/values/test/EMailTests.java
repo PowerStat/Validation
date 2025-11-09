@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -11,10 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.AddressWithWGS84Position;
 import de.powerstat.validation.values.EMail;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -267,42 +269,12 @@ final class EMailTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final EMail email1 = EMail.of(EMailTests.EMAIL_USER1_AT_EXAMPLE_COM);
-    final EMail email2 = EMail.of(EMailTests.EMAIL_USER1_AT_EXAMPLE_COM);
-    final EMail email3 = EMail.of(EMailTests.USER2_EXAMPLE_COM);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(email1.hashCode(), email2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(email1.hashCode(), email3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final EMail email1 = EMail.of(EMailTests.EMAIL_USER1_AT_EXAMPLE_COM);
-    final EMail email2 = EMail.of(EMailTests.EMAIL_USER1_AT_EXAMPLE_COM);
-    final EMail email3 = EMail.of(EMailTests.USER2_EXAMPLE_COM);
-    final EMail email4 = EMail.of(EMailTests.EMAIL_USER1_AT_EXAMPLE_COM);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(email1.equals(email1), "email11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(email1.equals(email2), "email12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(email2.equals(email1), "email21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(email2.equals(email4), "email24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(email1.equals(email4), "email14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(email1.equals(email3), "email13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(email3.equals(email1), "email31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(email1.equals(null), "email10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(EMail.class).withNonnullFields("email").withIgnoredFields("domainPart", "localPart").verify();
    }
 
 

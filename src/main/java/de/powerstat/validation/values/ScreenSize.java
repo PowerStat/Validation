@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -49,11 +49,11 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
   private ScreenSize(final int width, final int height, final String name)
    {
     super();
-    if ((width < 1) || (width > 8192.0))
+    if ((width < 1) || (width > 8192))
      {
       throw new IndexOutOfBoundsException("Width out of range (1-8192)"); //$NON-NLS-1$
      }
-    if ((height < 1) || (height > 8192.0))
+    if ((height < 1) || (height > 8192))
      {
       throw new IndexOutOfBoundsException("Height out of range (1-8192)"); //$NON-NLS-1$
      }
@@ -75,11 +75,11 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
   public static ScreenSize of(final int width, final int height, final String name)
    {
     /*
-    if ((width < 1) || (width > 8192.0))
+    if ((width < 1) || (width > 8192))
      {
       throw new IndexOutOfBoundsException("Width out of range (1-8192)"); //$NON-NLS-1$
      }
-    if ((height < 1) || (height > 8192.0))
+    if ((height < 1) || (height > 8192))
      {
       throw new IndexOutOfBoundsException("Height out of range (1-8192)"); //$NON-NLS-1$
      }
@@ -191,11 +191,10 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof ScreenSize))
+    if (!(obj instanceof final ScreenSize other))
      {
       return false;
      }
-    final ScreenSize other = (ScreenSize)obj;
     return (this.width == other.width) && (this.height == other.height) && this.name.equals(other.name);
    }
 

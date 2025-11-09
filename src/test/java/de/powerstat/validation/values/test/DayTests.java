@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import nl.jqno.equalsverifier.*;
 
 import de.powerstat.validation.values.Day;
 import de.powerstat.validation.values.Days;
@@ -117,42 +118,12 @@ final class DayTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Day day1 = Day.of(1);
-    final Day day2 = Day.of(1);
-    final Day day3 = Day.of(2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(day1.hashCode(), day2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(day1.hashCode(), day3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Day day1 = Day.of(1);
-    final Day day2 = Day.of(1);
-    final Day day3 = Day.of(2);
-    final Day day4 = Day.of(1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(day1.equals(day1), "day11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(day1.equals(day2), "day12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(day2.equals(day1), "day21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(day2.equals(day4), "day24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(day1.equals(day4), "day14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(day1.equals(day3), "day13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(day3.equals(day1), "day31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(day1.equals(null), "day10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Day.class).verify();
    }
 
 
@@ -195,10 +166,10 @@ final class DayTests
   @Test
   /* default */ void testAdd1()
    {
-    final Day day = Day.of(1);
+    final Day day = Day.of(30);
     final Days days = Days.of(1);
     final Day dayResult = day.add(days);
-    assertEquals(2, dayResult.intValue(), DayTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(31, dayResult.intValue(), DayTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

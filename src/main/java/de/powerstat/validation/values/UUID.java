@@ -14,7 +14,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * Possibly DSGVO relevant.
  */
-public class UUID implements Comparable<UUID>, IValueObject
+public final class UUID implements Comparable<UUID>, IValueObject
  {
   /**
    * UUID.
@@ -28,7 +28,7 @@ public class UUID implements Comparable<UUID>, IValueObject
   private UUID()
    {
     super();
-    this.uuid = java.util.UUID.randomUUID();
+    uuid = java.util.UUID.randomUUID();
    }
 
 
@@ -40,7 +40,7 @@ public class UUID implements Comparable<UUID>, IValueObject
   private UUID(final String value)
    {
     super();
-    this.uuid = java.util.UUID.fromString(value);
+    uuid = java.util.UUID.fromString(value);
    }
 
 
@@ -75,7 +75,7 @@ public class UUID implements Comparable<UUID>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.uuid.toString());
+    return String.valueOf(uuid.toString());
    }
 
 
@@ -88,7 +88,7 @@ public class UUID implements Comparable<UUID>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.uuid.hashCode();
+    return uuid.hashCode();
    }
 
 
@@ -106,12 +106,11 @@ public class UUID implements Comparable<UUID>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof UUID))
+    if (!(obj instanceof final UUID other))
      {
       return false;
      }
-    final UUID other = (UUID)obj;
-    return this.uuid.equals(other.uuid);
+    return uuid.equals(other.uuid);
    }
 
 
@@ -129,7 +128,7 @@ public class UUID implements Comparable<UUID>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("UUID[uuid=").append(this.uuid.toString()).append(']'); //$NON-NLS-1$
+    builder.append("UUID[uuid=").append(uuid.toString()).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -145,7 +144,7 @@ public class UUID implements Comparable<UUID>, IValueObject
   public int compareTo(final UUID obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.uuid.compareTo(obj.uuid);
+    return uuid.compareTo(obj.uuid);
    }
 
  }

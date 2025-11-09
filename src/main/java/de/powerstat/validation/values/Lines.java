@@ -17,6 +17,16 @@ import de.powerstat.validation.interfaces.IValueObject;
  */
 public final class Lines implements Comparable<Lines>, IValueObject
  {
+  /**
+   * Minimum allowed value 1.
+   */
+  public static final int MIN_VALUE = 1;
+
+  /**
+   * Maximum allowed value 5.
+   */
+  public static final int MAX_VALUE = 5;
+
   /* *
    * Cache for singletons.
    */
@@ -125,11 +135,10 @@ public final class Lines implements Comparable<Lines>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Lines))
+    if (!(obj instanceof final Lines other))
      {
       return false;
      }
-    final Lines other = (Lines)obj;
     return this.lines.equals(other.lines);
    }
 

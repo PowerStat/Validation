@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.BIC;
 import de.powerstat.validation.values.Block;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -115,42 +116,12 @@ final class BlockTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Block block1 = Block.of(BlockTests.BLOCKA);
-    final Block block2 = Block.of(BlockTests.BLOCKA);
-    final Block block3 = Block.of(BlockTests.BLOCKB);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(block1.hashCode(), block2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(block1.hashCode(), block3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Block block1 = Block.of(BlockTests.BLOCKA);
-    final Block block2 = Block.of(BlockTests.BLOCKA);
-    final Block block3 = Block.of(BlockTests.BLOCKB);
-    final Block block4 = Block.of(BlockTests.BLOCKA);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(block1.equals(block1), "block11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(block1.equals(block2), "block12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(block2.equals(block1), "block21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(block2.equals(block4), "block24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(block1.equals(block4), "block14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(block1.equals(block3), "block13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(block3.equals(block1), "block31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(block1.equals(null), "block10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Block.class).withNonnullFields("block").verify();
    }
 
 

@@ -13,11 +13,19 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Hours.
  *
  * Not DSGVO relevant.
- *
- * TODO min, max
  */
 public final class Hours implements Comparable<Hours>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final long MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value Long.MAX_VALUE.
+   */
+  public static final long MAX_VALUE = Long.MAX_VALUE;
+
   /* *
    * Cache for singletons.
    */
@@ -133,11 +141,10 @@ public final class Hours implements Comparable<Hours>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Hours))
+    if (!(obj instanceof final Hours other))
      {
       return false;
      }
-    final Hours other = (Hours)obj;
     return this.hours == other.hours;
    }
 
@@ -197,7 +204,7 @@ public final class Hours implements Comparable<Hours>, IValueObject
    */
   public Hours subtract(final Hours other)
    {
-    if (other.hours > this.hours)
+    if (other.hours > this.hours) // NO PITEST
      {
       return Hours.of(other.hours - this.hours);
      }

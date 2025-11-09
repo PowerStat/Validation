@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -188,26 +188,13 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
 
 
   /**
-   * GregorianClendar factory.
+   * GregorianCalendar factory.
    *
    * @param country Country of gregorian calendar reform
-   * @return GregorianDate object
+   * @return GregorianCalendar object
    */
   public static GregorianCalendar of(final Country country)
    {
-    /*
-    synchronized (GregorianCalendar.class)
-     {
-      GregorianCalendar obj = GregorianCalendar.CACHE.get(country);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new GregorianCalendar(country);
-      GregorianCalendar.CACHE.put(country, obj);
-      return obj;
-     }
-    */
     return new GregorianCalendar(country);
    }
 
@@ -221,6 +208,17 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
   public static GregorianCalendar of(final String value)
    {
     return of(Country.of(value));
+   }
+
+
+  /**
+   * GregorianClendar factory.
+   *
+   * @return GregorianDate object
+   */
+  public static GregorianCalendar of()
+   {
+    return of(Country.of("IT"));
    }
 
 
@@ -274,11 +272,10 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
      {
       return true;
      }
-    if (!(obj instanceof GregorianCalendar))
+    if (!(obj instanceof final GregorianCalendar other))
      {
       return false;
      }
-    final GregorianCalendar other = (GregorianCalendar)obj;
     return this.country.equals(other.country);
    }
 
@@ -303,6 +300,25 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
 
 
   /**
+   * Get reform date for country.
+   *
+   * If there is no reform date for a country then the default for the country IT would be used.
+   *
+   * @param country Country
+   * @return Reform date
+   */
+  private Map<String, Map<String, Long>> getReformDate(Country country)
+   {
+    Map<String, Map<String, Long>> reformDate = GregorianCalendar.REFORM_DATES.get(country);
+    if (reformDate == null)
+     {
+      reformDate = GregorianCalendar.REFORM_DATES.get(Country.of("IT"));
+     }
+    return reformDate;
+   }
+
+
+  /**
    * Compare with another object.
    *
    * @param obj Object to compare with
@@ -313,10 +329,10 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
   public int compareTo(final GregorianCalendar obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    int result = GregorianCalendar.REFORM_DATES.get(this.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.YEAR).compareTo(GregorianCalendar.REFORM_DATES.get(obj.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.YEAR));
+    int result = getReformDate(this.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.YEAR).compareTo(getReformDate(obj.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.YEAR));
     if (result == 0)
      {
-      result = GregorianCalendar.REFORM_DATES.get(this.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.MONTH).compareTo(GregorianCalendar.REFORM_DATES.get(obj.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.MONTH));
+      result = getReformDate(this.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.MONTH).compareTo(getReformDate(obj.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.MONTH));
      }
     return result;
    }
@@ -332,13 +348,14 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
    {
     Objects.requireNonNull(year, GregorianCalendar.YEAR);
 
-    final String beforeAfter = GregorianCalendar.REFORM_DATES.get(this.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.DAYS) == null ? GregorianCalendar.AFTER : GregorianCalendar.BEFORE;
-    final long reformYear = GregorianCalendar.REFORM_DATES.get(this.country).get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
-    if (year.longValue() > reformYear)
+    Map<String, Map<String, Long>> reformDate = getReformDate(this.country);
+    final String beforeAfter = reformDate.get(GregorianCalendar.BEFORE).get(GregorianCalendar.DAYS) == null ? GregorianCalendar.AFTER : GregorianCalendar.BEFORE;
+    final long reformYear = reformDate.get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
+    if (year.longValue() > reformYear) // NO PITEST
      {
       return ((year.longValue() % 4) == 0) && (((year.longValue() % 100) != 0) || ((year.longValue() % 400) == 0));
      }
-    return ((year.longValue() % 4) == 0); // TODO JulianCalendar.isLeapYear(year);
+    return JulianCalendar.of().isLeapYear(year);
    }
 
 
@@ -349,20 +366,64 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
    * @param month Month (1-12)
    * @return Days in month (15,17,18,19,21, 28-31)
    */
-  public int daysInMonth(final Year year, final Month month)
+  public Days daysInMonth(final Year year, final Month month)
    {
     Objects.requireNonNull(year, GregorianCalendar.YEAR);
     Objects.requireNonNull(month, GregorianCalendar.MONTH);
 
-    final String beforeAfter = GregorianCalendar.REFORM_DATES.get(this.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.DAYS) == null ? GregorianCalendar.AFTER : GregorianCalendar.BEFORE;
-    final long reformYear = GregorianCalendar.REFORM_DATES.get(this.country).get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
-    final int reformMonth = GregorianCalendar.REFORM_DATES.get(this.country).get(beforeAfter).get(GregorianCalendar.MONTH).intValue();
-    final int restDaysInMonth = GregorianCalendar.REFORM_DATES.get(this.country).get(beforeAfter).get(GregorianCalendar.DAYS).intValue();
+    final String beforeAfter = getReformDate(this.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.DAYS) == null ? GregorianCalendar.AFTER : GregorianCalendar.BEFORE;
+    final long reformYear = getReformDate(this.country).get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
+    final int reformMonth = getReformDate(this.country).get(beforeAfter).get(GregorianCalendar.MONTH).intValue();
+    final int restDaysInMonth = getReformDate(this.country).get(beforeAfter).get(GregorianCalendar.DAYS).intValue();
     if ((year.longValue() == reformYear) && (month.intValue() == reformMonth)) // Depend on country
      {
-      return restDaysInMonth;
+      return Days.of(restDaysInMonth);
      }
-    return GregorianCalendar.DAYS_IN_MONTH[month.intValue()] + (((month.intValue() == 2) && isLeapYear(year)) ? 1 : 0);
+    return Days.of(GregorianCalendar.DAYS_IN_MONTH[month.intValue()] + (((month.intValue() == 2) && isLeapYear(year)) ? 1 : 0)); // Calendar system difference already handled in isLeapYear()
+   }
+
+
+  /**
+   * Days in year.
+   *
+   * @param year Year
+   * @return Days in year (365-366)
+   */
+  public Days daysInYear(final Year year)
+   {
+    Objects.requireNonNull(year, GregorianCalendar.YEAR);
+    long days = 0;
+    for (int day = 1; day <= 12; ++day)
+     {
+      days += daysInMonth(year, Month.of(day)).longValue();
+     }
+    return Days.of(days);
+   }
+
+
+  /**
+   * Calculate gregorian easter date in year.
+   *
+   * @param year Year
+   * @return MonthDay
+   */
+  public MonthDay easterInYear(final Year year)
+   {
+    Objects.requireNonNull(year, GregorianCalendar.YEAR);
+
+    final String beforeAfter = getReformDate(this.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.DAYS) == null ? GregorianCalendar.AFTER : GregorianCalendar.BEFORE;
+    final long reformYear = getReformDate(this.country).get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
+    if (year.longValue() <= reformYear)
+     {
+      return JulianCalendar.of().easterInYear(year);
+     }
+    final int a = (int)(year.longValue() % 19);
+    final int b = (int)(year.longValue() / 100);
+    final int c = (int)(year.longValue() % 100);
+    final int d = ((((19 * a) + b) - (b / 4) - (((b - ((b + 8) / 25)) + 1) / 3)) + 15) % 30;
+    final int e = ((32 + (2 * (b % 4)) + (2 * (c / 4))) - d - (c % 4)) % 7;
+    final long f = ((d + e) - (7 * ((a + (11 * d) + (22 * e)) / 451))) + 114;
+    return MonthDay.of(Month.of((int)(f / 31)), Day.of((int)((f % 31) + 1)));
    }
 
  }

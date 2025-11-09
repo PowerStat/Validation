@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.Port;
 import de.powerstat.validation.values.PostalCode;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -115,42 +116,12 @@ final class PostalCodeTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final PostalCode postalCode1 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    final PostalCode postalCode2 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    final PostalCode postalCode3 = PostalCode.of(PostalCodeTests.POSTCODE_30000);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(postalCode1.hashCode(), postalCode2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(postalCode1.hashCode(), postalCode3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final PostalCode postalCode1 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    final PostalCode postalCode2 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    final PostalCode postalCode3 = PostalCode.of(PostalCodeTests.POSTCODE_30000);
-    final PostalCode postalCode4 = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(postalCode1.equals(postalCode1), "postalCode11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(postalCode1.equals(postalCode2), "postalCode12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(postalCode2.equals(postalCode1), "postalCode21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(postalCode2.equals(postalCode4), "postalCode24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(postalCode1.equals(postalCode4), "postalCode14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(postalCode1.equals(postalCode3), "postalCode13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(postalCode3.equals(postalCode1), "postalCode31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(postalCode1.equals(null), "postalCode10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(PostalCode.class).withNonnullFields("postalCode").verify();
    }
 
 

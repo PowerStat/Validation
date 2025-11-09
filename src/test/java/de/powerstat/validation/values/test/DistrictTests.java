@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.DisplayAspectRatio;
 import de.powerstat.validation.values.District;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -115,42 +116,12 @@ final class DistrictTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final District district1 = District.of(DistrictTests.DISTRICT9);
-    final District district2 = District.of(DistrictTests.DISTRICT9);
-    final District district3 = District.of(DistrictTests.DISTRICTABC);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(district1.hashCode(), district2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(district1.hashCode(), district3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final District district1 = District.of(DistrictTests.DISTRICT9);
-    final District district2 = District.of(DistrictTests.DISTRICT9);
-    final District district3 = District.of(DistrictTests.DISTRICTABC);
-    final District district4 = District.of(DistrictTests.DISTRICT9);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(district1.equals(district1), "district11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(district1.equals(district2), "district12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(district2.equals(district1), "district21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(district2.equals(district4), "district24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(district1.equals(district4), "district14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(district1.equals(district3), "district13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(district3.equals(district1), "district31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(district1.equals(null), "district10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(District.class).withNonnullFields("district").verify();
    }
 
 

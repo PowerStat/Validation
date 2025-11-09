@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.PoBoxNumber;
 import de.powerstat.validation.values.Port;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -178,42 +179,12 @@ final class PortTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Port port1 = Port.of(1024);
-    final Port port2 = Port.of(1024);
-    final Port port3 = Port.of(1025);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(port1.hashCode(), port2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(port1.hashCode(), port3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Port port1 = Port.of(1024);
-    final Port port2 = Port.of(1024);
-    final Port port3 = Port.of(1025);
-    final Port port4 = Port.of(1024);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(port1.equals(port1), "port11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(port1.equals(port2), "port12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(port2.equals(port1), "port21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(port2.equals(port4), "port24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(port1.equals(port4), "port14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(port1.equals(port3), "port13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(port3.equals(port1), "port31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(port1.equals(null), "port10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Port.class).verify();
    }
 
 

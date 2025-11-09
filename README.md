@@ -37,7 +37,6 @@ Java platform module system:
       requires de.powerstat.validation.interfaces;
       requires de.powerstat.validation.values;
       requires de.powerstat.validation.values.strategies;
-
      }
 
 To compile this project yourself you could use:

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -11,14 +11,16 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import nl.jqno.equalsverifier.*;
 
 import de.powerstat.validation.values.CalendarSystems;
 import de.powerstat.validation.values.Days;
-import de.powerstat.validation.values.Months;
+import de.powerstat.validation.values.Weeks;
 import de.powerstat.validation.values.Year;
 import de.powerstat.validation.values.Years;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -121,42 +123,12 @@ final class YearTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Year year1 = Year.of(1);
-    final Year year2 = Year.of(1);
-    final Year year3 = Year.of(2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(year1.hashCode(), year2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(year1.hashCode(), year3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Year year1 = Year.of(1);
-    final Year year2 = Year.of(1);
-    final Year year3 = Year.of(2);
-    final Year year4 = Year.of(1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(year1.equals(year1), "year11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(year1.equals(year2), "year12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(year2.equals(year1), "year21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(year2.equals(year4), "year24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(year1.equals(year4), "year14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(year1.equals(year3), "year13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(year3.equals(year1), "year31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(year1.equals(null), "year10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Year.class).withNonnullFields("calendarSystem").verify();
    }
 
 
@@ -266,6 +238,19 @@ final class YearTests
 
 
   /**
+   * Test add.
+   */
+  @Test
+  /* default */ void testAdd5()
+   {
+    final Year year = Year.of(-1);
+    final Years years = Years.of(2);
+    final Year yearResult = year.add(years);
+    assertEquals(2, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test subtract.
    */
   @Test
@@ -315,6 +300,19 @@ final class YearTests
    {
     final Year year = Year.of(-1);
     final Years years = Years.of(1);
+    final Year yearResult = year.subtract(years);
+    assertEquals(-2, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test subtract.
+   */
+  @Test
+  /* default */ void testSubtract5()
+   {
+    final Year year = Year.of(1);
+    final Years years = Years.of(2);
     final Year yearResult = year.subtract(years);
     assertEquals(-2, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
@@ -399,18 +397,6 @@ final class YearTests
 
 
   /**
-   * Test monthsWithin.
-   */
-  @Test
-  /* default */ void testMonthWithin()
-   {
-    final Year year = Year.of(1);
-    final Months result = year.monthsWithin();
-    assertEquals(12, result.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
-   }
-
-
-  /**
    * Test isLepaYear.
    */
   @Test
@@ -428,7 +414,7 @@ final class YearTests
    * @param pYear Year
    */
   @ParameterizedTest
-  @ValueSource(longs = {2000, 1500, 2004})
+  @ValueSource(longs = {2000, 1500, 2004, 1580})
   /* default */ void testIsLeapYear2(final long pYear)
    {
     final Year year = Year.of(CalendarSystems.GREGORIAN, pYear);
@@ -439,11 +425,14 @@ final class YearTests
 
   /**
    * Test isLepaYear.
+   *
+   * @param pYear Year
    */
-  @Test
-  /* default */ void testIsLeapYear5()
+  @ParameterizedTest
+  @ValueSource(longs = {1900, 2001, 1582, 1581})
+  /* default */ void testIsLeapYear5(final long pYear)
    {
-    final Year year = Year.of(CalendarSystems.GREGORIAN, 2001);
+    final Year year = Year.of(CalendarSystems.GREGORIAN, pYear);
     final boolean result = year.isLeapYear();
     assertFalse(result, YearTests.RESULT_NOT_AS_EXPECTED);
    }
@@ -510,6 +499,23 @@ final class YearTests
     final Year year = Year.of(CalendarSystems.JULIAN, 2001);
     final Days days = year.daysWithin();
     assertEquals(365, days.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test weeksWithin.
+   *
+   * @param pYear Year
+   * @param pWeeks Number of weekss in year
+   */
+  @Disabled("Not yet implemented")
+  @ParameterizedTest
+  @CsvSource({"2000,52", "2004,53", "1582,51"})
+  /* default */ void testWeeksWithin1(final long pYear, final long pWeeks)
+   {
+    final Year year = Year.of(CalendarSystems.GREGORIAN, pYear);
+    final Weeks weeks = year.weeksWithin();
+    assertEquals(pWeeks, weeks.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
  }

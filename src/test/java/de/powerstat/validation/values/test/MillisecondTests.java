@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import nl.jqno.equalsverifier.*;
 
 import de.powerstat.validation.values.Millisecond;
 import de.powerstat.validation.values.Milliseconds;
@@ -112,42 +113,12 @@ final class MillisecondTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Millisecond millisecond1 = Millisecond.of(0);
-    final Millisecond millisecond2 = Millisecond.of(0);
-    final Millisecond millisecond3 = Millisecond.of(1);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(millisecond1.hashCode(), millisecond2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(millisecond1.hashCode(), millisecond3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Millisecond millisecond1 = Millisecond.of(0);
-    final Millisecond millisecond2 = Millisecond.of(0);
-    final Millisecond millisecond3 = Millisecond.of(1);
-    final Millisecond millisecond4 = Millisecond.of(0);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(millisecond1.equals(millisecond1), "millisecond11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(millisecond1.equals(millisecond2), "millisecond12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(millisecond2.equals(millisecond1), "millisecond21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(millisecond2.equals(millisecond4), "millisecond24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(millisecond1.equals(millisecond4), "millisecons14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(millisecond1.equals(millisecond3), "millisecond13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(millisecond3.equals(millisecond1), "millisecond31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(millisecond1.equals(null), "millisecond10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Millisecond.class).verify();
    }
 
 
@@ -190,10 +161,10 @@ final class MillisecondTests
   @Test
   /* default */ void testAdd1()
    {
-    final Millisecond millisecond = Millisecond.of(0);
+    final Millisecond millisecond = Millisecond.of(998);
     final Milliseconds milliseconds = Milliseconds.of(1);
     final Millisecond millisecondResult = millisecond.add(milliseconds);
-    assertEquals(1, millisecondResult.intValue(), MillisecondTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(999, millisecondResult.intValue(), MillisecondTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -219,10 +190,10 @@ final class MillisecondTests
   @Test
   /* default */ void testSubtract1()
    {
-    final Millisecond millisecond = Millisecond.of(2);
+    final Millisecond millisecond = Millisecond.of(1);
     final Milliseconds milliseconds = Milliseconds.of(1);
     final Millisecond millisecondResult = millisecond.subtract(milliseconds);
-    assertEquals(1, millisecondResult.intValue(), MillisecondTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, millisecondResult.intValue(), MillisecondTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

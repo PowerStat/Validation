@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import nl.jqno.equalsverifier.*;
 
 import de.powerstat.validation.values.Minute;
 import de.powerstat.validation.values.Minutes;
@@ -112,42 +113,12 @@ final class MinuteTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Minute minute1 = Minute.of(1);
-    final Minute minute2 = Minute.of(1);
-    final Minute minute3 = Minute.of(2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(minute1.hashCode(), minute2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(minute1.hashCode(), minute3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Minute minute1 = Minute.of(1);
-    final Minute minute2 = Minute.of(1);
-    final Minute minute3 = Minute.of(2);
-    final Minute minute4 = Minute.of(1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(minute1.equals(minute1), "minute11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(minute1.equals(minute2), "minute12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(minute2.equals(minute1), "minute21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(minute2.equals(minute4), "minute24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(minute1.equals(minute4), "minute14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(minute1.equals(minute3), "minute13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(minute3.equals(minute1), "minute31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(minute1.equals(null), "minute10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Minute.class).verify();
    }
 
 
@@ -190,10 +161,10 @@ final class MinuteTests
   @Test
   /* default */ void testAdd1()
    {
-    final Minute minute = Minute.of(1);
+    final Minute minute = Minute.of(58);
     final Minutes minutes = Minutes.of(1);
     final Minute minuteResult = minute.add(minutes);
-    assertEquals(2, minuteResult.intValue(), MinuteTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(59, minuteResult.intValue(), MinuteTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -219,10 +190,10 @@ final class MinuteTests
   @Test
   /* default */ void testSubtract1()
    {
-    final Minute minute = Minute.of(2);
+    final Minute minute = Minute.of(1);
     final Minutes minutes = Minutes.of(1);
     final Minute minuteResult = minute.subtract(minutes);
-    assertEquals(1, minuteResult.intValue(), MinuteTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, minuteResult.intValue(), MinuteTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

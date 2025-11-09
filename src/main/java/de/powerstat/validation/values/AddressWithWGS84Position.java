@@ -1,10 +1,9 @@
 /*
- * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Arrays;
 import java.util.Objects;
 
 
@@ -106,11 +105,12 @@ public final class AddressWithWGS84Position extends Address
   public static AddressWithWGS84Position of(final String value)
    {
     String[] values = value.split(",");
-    if ((values.length < 1) || (values.length > 16))
+    if ((values.length < 16) || (values.length > 16))
      {
       throw new IllegalArgumentException("value not in expected format: " + values.length);
      }
-    if (values.length < 16)
+    /*
+    if (values.length < 16) // NO PITEST
      {
       values = Arrays.copyOf(values, 16);
       for (int i = 1; i < 16; ++i)
@@ -121,6 +121,7 @@ public final class AddressWithWGS84Position extends Address
          }
        }
      }
+    */
     final var country = Country.of(values[0]);
     final PostalCode postalCode = values[1].isEmpty() ? null : PostalCode.of(values[1]);
     final City city = values[2].isEmpty() ? null : City.of(values[2]);
@@ -148,7 +149,7 @@ public final class AddressWithWGS84Position extends Address
    */
   public WGS84Position getPosition()
    {
-    return this.position;
+    return position;
    }
 
 
@@ -160,7 +161,7 @@ public final class AddressWithWGS84Position extends Address
   @Override
   public String stringValue()
    {
-    return super.stringValue() + this.position.stringValue();
+    return super.stringValue() + position.stringValue();
    }
 
 
@@ -173,7 +174,20 @@ public final class AddressWithWGS84Position extends Address
   @Override
   public int hashCode()
    {
-    return Objects.hash(super.hashCode(), this.position);
+    return Objects.hash(super.hashCode(), position);
+   }
+
+
+  /**
+   * Can equal.
+   *
+   * @param other Other object
+   * @return true if it can be equal; false otherwise
+   */
+  @Override
+  public boolean canEqual(Object other)
+   {
+    return (other instanceof AddressWithWGS84Position);
    }
 
 
@@ -191,16 +205,18 @@ public final class AddressWithWGS84Position extends Address
      {
       return true;
      }
-    // if ((obj == null) || (this.getClass() != obj.getClass()))
-    if (!(obj instanceof AddressWithWGS84Position))
+    if (!(obj instanceof final AddressWithWGS84Position other))
      {
       return false;
      }
-    final AddressWithWGS84Position other = (AddressWithWGS84Position)obj;
-    boolean result = this.position.equals(other.position);
+    boolean result = other.canEqual(this);
     if (result)
      {
-      result = super.equals(other);
+      result = position.equals(other.position);
+      if (result)
+       {
+        result = super.equals(other);
+       }
      }
     return result;
    }
@@ -221,7 +237,7 @@ public final class AddressWithWGS84Position extends Address
   public String toString()
    {
     final var builder = new StringBuilder(182);
-    builder.append("AddressWithWGS84Position[position=").append(this.position) //$NON-NLS-1$
+    builder.append("AddressWithWGS84Position[position=").append(position) //$NON-NLS-1$
       .append(", ").append(super.toString()) //$NON-NLS-1$
       .append(']');
     return builder.toString();

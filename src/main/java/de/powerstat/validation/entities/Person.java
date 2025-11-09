@@ -69,7 +69,7 @@ public final class Person implements Comparable<Person>, IEntity
   /**
    * Universally Unique Identifier.
    */
-  private final UUID uuid = UUID.of();
+  // private final UUID uuid = UUID.of();
 
   /**
    * Lastnames at different times.
@@ -89,7 +89,7 @@ public final class Person implements Comparable<Person>, IEntity
   /**
    * Call name at different times.
    */
-  private final HistoryOf<Integer> callname = new HistoryOf<>();
+  // private final HistoryOf<Integer> callname = new HistoryOf<>();
 
   /**
    * Birthday if known with time or 00:00:00.
@@ -185,7 +185,7 @@ public final class Person implements Comparable<Person>, IEntity
   public String stringValue()
    {
     final var builder = new StringBuilder(75);
-    builder.append(this.lastname).append(", ").append(this.firstnames); //$NON-NLS-1$
+    builder.append(lastname).append(", ").append(firstnames); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -199,7 +199,7 @@ public final class Person implements Comparable<Person>, IEntity
   @Override
   public int hashCode()
    {
-    return Objects.hash(this.lastname, this.sex, this.firstnames, this.birthday, this.deathdate, this.bloodGroup);
+    return Objects.hash(lastname, sex, firstnames, birthday, deathdate, bloodGroup);
    }
 
 
@@ -217,27 +217,26 @@ public final class Person implements Comparable<Person>, IEntity
      {
       return true;
      }
-    if (!(obj instanceof Person))
+    if (!(obj instanceof final Person other))
      {
       return false;
      }
-    final Person other = (Person)obj;
-    boolean result = this.lastname.equals(other.lastname);
+    boolean result = lastname.equals(other.lastname);
     if (result)
      {
-      result = this.sex.equals(other.sex);
+      result = sex.equals(other.sex);
       if (result)
        {
-        result = this.firstnames.equals(other.firstnames);
+        result = firstnames.equals(other.firstnames);
         if (result)
          {
-          result = this.birthday.equals(other.birthday);
+          result = birthday.equals(other.birthday);
           if (result)
            {
-            result = this.deathdate.equals(other.deathdate);
+            result = deathdate.equals(other.deathdate);
             if (result)
              {
-              result = this.bloodGroup.equals(other.bloodGroup);
+              result = bloodGroup.equals(other.bloodGroup);
              }
            }
          }
@@ -261,22 +260,22 @@ public final class Person implements Comparable<Person>, IEntity
   public String toString()
    {
     final var builder = new StringBuilder(75);
-    builder.append("Person[lastname=").append(this.lastname.getLatestEntry()).append(", gender=").append(this.sex.getLatestEntry());
-    if (!this.firstnames.isEmpty())
+    builder.append("Person[lastname=").append(lastname.getLatestEntry()).append(", gender=").append(sex.getLatestEntry());
+    if (!firstnames.isEmpty())
      {
-      builder.append(", firstnames=").append(this.firstnames.getLatestEntry());
+      builder.append(", firstnames=").append(firstnames.getLatestEntry());
      }
-    if (this.birthday.isPresent())
+    if (birthday.isPresent())
      {
-      builder.append(", birthday=").append(this.birthday);
+      builder.append(", birthday=").append(birthday);
      }
-    if (this.deathdate.isPresent())
+    if (deathdate.isPresent())
      {
-      builder.append(", deathdate=").append(this.deathdate);
+      builder.append(", deathdate=").append(deathdate);
      }
-    if (this.bloodGroup.isPresent())
+    if (bloodGroup.isPresent())
      {
-      builder.append(", bloodGroup=").append(this.bloodGroup);
+      builder.append(", bloodGroup=").append(bloodGroup);
      }
     builder.append(']');
     return builder.toString();
@@ -315,56 +314,56 @@ public final class Person implements Comparable<Person>, IEntity
   public int compareTo(final Person obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    int result = (!this.lastname.isEmpty() && !obj.lastname.isEmpty()) ? this.lastname.getLatestEntry().compareTo(obj.lastname.getLatestEntry()) : Boolean.compare(this.lastname.isEmpty(), obj.lastname.isEmpty());
+    int result = (!lastname.isEmpty() && !obj.lastname.isEmpty()) ? lastname.getLatestEntry().compareTo(obj.lastname.getLatestEntry()) : Boolean.compare(lastname.isEmpty(), obj.lastname.isEmpty());
     if (result == 0)
      {
-      result = (!this.sex.isEmpty() && !obj.sex.isEmpty()) ? this.sex.getLatestEntry().compareTo(obj.sex.getLatestEntry()) : Boolean.compare(this.sex.isEmpty(), obj.sex.isEmpty());
+      result = (!sex.isEmpty() && !obj.sex.isEmpty()) ? sex.getLatestEntry().compareTo(obj.sex.getLatestEntry()) : Boolean.compare(sex.isEmpty(), obj.sex.isEmpty());
       if (result == 0)
        {
-        final String thisName = Person.getFirstnames(this.firstnames);
+        final String thisName = Person.getFirstnames(firstnames);
         final String thatName = Person.getFirstnames(obj.firstnames);
         result = thisName.compareTo(thatName);
         if (result == 0)
          {
-          if (this.birthday.isPresent() && obj.birthday.isPresent())
+          if (birthday.isPresent() && obj.birthday.isPresent())
            {
-            result = this.birthday.get().compareTo(obj.birthday.get());
+            result = birthday.get().compareTo(obj.birthday.get());
            }
-          else if (!this.birthday.isPresent() && !obj.birthday.isPresent())
+          else if (!birthday.isPresent() && !obj.birthday.isPresent())
            {
             result = 0;
            }
           else
            {
-            result = this.birthday.isPresent() ? 1 : -1;
+            result = birthday.isPresent() ? 1 : -1;
            }
           if (result == 0)
            {
-            if (this.deathdate.isPresent() && obj.deathdate.isPresent())
+            if (deathdate.isPresent() && obj.deathdate.isPresent())
              {
-              result = this.deathdate.get().compareTo(obj.deathdate.get());
+              result = deathdate.get().compareTo(obj.deathdate.get());
              }
-            else if (!this.deathdate.isPresent() && !obj.deathdate.isPresent())
+            else if (!deathdate.isPresent() && !obj.deathdate.isPresent())
              {
               result = 0;
              }
             else
              {
-              result = this.deathdate.isPresent() ? 1 : -1;
+              result = deathdate.isPresent() ? 1 : -1;
              }
             if (result == 0)
              {
-              if (this.bloodGroup.isPresent() && obj.bloodGroup.isPresent())
+              if (bloodGroup.isPresent() && obj.bloodGroup.isPresent())
                {
-                result = this.bloodGroup.get().compareTo(obj.bloodGroup.get());
+                result = bloodGroup.get().compareTo(obj.bloodGroup.get());
                }
-              else if (!this.bloodGroup.isPresent() && !obj.bloodGroup.isPresent())
+              else if (!bloodGroup.isPresent() && !obj.bloodGroup.isPresent())
                {
                 result = 0;
                }
               else
                {
-                result = this.bloodGroup.isPresent() ? 1 : -1;
+                result = bloodGroup.isPresent() ? 1 : -1;
                }
 
              }
@@ -383,7 +382,7 @@ public final class Person implements Comparable<Person>, IEntity
    */
   public Lastname getLastnameAtBirth()
    {
-    return this.lastname.getFirstEntry();
+    return lastname.getFirstEntry();
    }
 
 
@@ -394,7 +393,7 @@ public final class Person implements Comparable<Person>, IEntity
    */
   public Lastname getLastnameActual()
    {
-    return this.lastname.getLatestEntry();
+    return lastname.getLatestEntry();
    }
 
 
@@ -405,7 +404,7 @@ public final class Person implements Comparable<Person>, IEntity
    */
   public Lastname getLastnamePrevious()
    {
-    return this.lastname.getPreviousEntry();
+    return lastname.getPreviousEntry();
    }
 
 
@@ -420,7 +419,7 @@ public final class Person implements Comparable<Person>, IEntity
    */
   public void addLastname(final OffsetDateTime since, final Lastname name)
    {
-    this.lastname.addEntry(since, name);
+    lastname.addEntry(since, name);
    }
 
 
@@ -431,7 +430,7 @@ public final class Person implements Comparable<Person>, IEntity
    */
   public Gender getGenderAtBirth()
    {
-    return this.sex.getFirstEntry();
+    return sex.getFirstEntry();
    }
 
 
@@ -442,7 +441,7 @@ public final class Person implements Comparable<Person>, IEntity
    */
   public Gender getGenderActual()
    {
-    return this.sex.getLatestEntry();
+    return sex.getLatestEntry();
    }
 
 
@@ -453,7 +452,7 @@ public final class Person implements Comparable<Person>, IEntity
    */
   public Gender getGenderPrevious()
    {
-    return this.sex.getPreviousEntry();
+    return sex.getPreviousEntry();
    }
 
 
@@ -466,7 +465,7 @@ public final class Person implements Comparable<Person>, IEntity
    */
   public void addGender(final OffsetDateTime since, final Gender gender)
    {
-    this.sex.addEntry(since, gender);
+    sex.addEntry(since, gender);
    }
 
 
@@ -477,7 +476,7 @@ public final class Person implements Comparable<Person>, IEntity
    */
   public List<Firstname> getFirstnamesAtBirth()
    {
-    return new ArrayList<>(this.firstnames.getFirstEntry());
+    return new ArrayList<>(firstnames.getFirstEntry());
    }
 
 
@@ -488,7 +487,7 @@ public final class Person implements Comparable<Person>, IEntity
    */
   public List<Firstname> getFirstnamesActual()
    {
-    return new ArrayList<>(this.firstnames.getLatestEntry());
+    return new ArrayList<>(firstnames.getLatestEntry());
    }
 
 
@@ -499,7 +498,7 @@ public final class Person implements Comparable<Person>, IEntity
    */
   public List<Firstname> getFirstnamesPrevious()
    {
-    return new ArrayList<>(this.firstnames.getPreviousEntry());
+    return new ArrayList<>(firstnames.getPreviousEntry());
    }
 
 
@@ -514,7 +513,7 @@ public final class Person implements Comparable<Person>, IEntity
    */
   public void addFirstnames(final OffsetDateTime since, final List<Firstname> names)
    {
-    this.firstnames.addEntry(since, new ArrayList<>(names));
+    firstnames.addEntry(since, new ArrayList<>(names));
    }
 
 
@@ -525,7 +524,7 @@ public final class Person implements Comparable<Person>, IEntity
    */
   public void setBirthday(final OffsetDateTime date)
    {
-    this.birthday = Optional.ofNullable(date);
+    birthday = Optional.ofNullable(date);
    }
 
 
@@ -537,7 +536,7 @@ public final class Person implements Comparable<Person>, IEntity
   @SuppressWarnings("PMD.NullAssignment")
   public Optional<OffsetDateTime> getBirthday()
    {
-    return Optional.ofNullable(this.birthday.isPresent() ? this.birthday.get() : null);
+    return Optional.ofNullable(birthday.isPresent() ? birthday.get() : null);
    }
 
 
@@ -549,11 +548,11 @@ public final class Person implements Comparable<Person>, IEntity
    */
   public void setDeathdate(final OffsetDateTime date)
    {
-    if (this.birthday.isPresent() && this.birthday.get().isAfter(date))
+    if (birthday.isPresent() && birthday.get().isAfter(date))
      {
       throw new IllegalArgumentException("birthday > deathdate"); //$NON-NLS-1$
      }
-    this.deathdate = Optional.ofNullable(date);
+    deathdate = Optional.ofNullable(date);
    }
 
 
@@ -565,7 +564,7 @@ public final class Person implements Comparable<Person>, IEntity
   @SuppressWarnings("PMD.NullAssignment")
   public Optional<OffsetDateTime> getDeathdate()
    {
-    return Optional.ofNullable(this.deathdate.isPresent() ? this.deathdate.get() : null);
+    return Optional.ofNullable(deathdate.isPresent() ? deathdate.get() : null);
    }
 
 
@@ -588,7 +587,7 @@ public final class Person implements Comparable<Person>, IEntity
   @SuppressWarnings("PMD.NullAssignment")
   public Optional<BloodGroup> getBloodGroup()
    {
-    return Optional.ofNullable(this.bloodGroup.isPresent() ? this.bloodGroup.get() : null);
+    return Optional.ofNullable(bloodGroup.isPresent() ? bloodGroup.get() : null);
    }
 
  }

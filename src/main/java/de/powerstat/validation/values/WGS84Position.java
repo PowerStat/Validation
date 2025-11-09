@@ -134,7 +134,7 @@ public final class WGS84Position implements Comparable<WGS84Position>, IValueObj
    */
   public double getLatitude()
    {
-    return this.latitude;
+    return latitude;
    }
 
 
@@ -145,7 +145,7 @@ public final class WGS84Position implements Comparable<WGS84Position>, IValueObj
    */
   public double getLongitude()
    {
-    return this.longitude;
+    return longitude;
    }
 
 
@@ -156,7 +156,7 @@ public final class WGS84Position implements Comparable<WGS84Position>, IValueObj
    */
   public double getAltitude()
    {
-    return this.altitude;
+    return altitude;
    }
 
 
@@ -168,7 +168,7 @@ public final class WGS84Position implements Comparable<WGS84Position>, IValueObj
   @Override
   public String stringValue()
    {
-    return this.latitude + SEPARATOR + this.longitude + SEPARATOR + this.altitude;
+    return latitude + SEPARATOR + longitude + SEPARATOR + altitude;
    }
 
 
@@ -181,9 +181,9 @@ public final class WGS84Position implements Comparable<WGS84Position>, IValueObj
   @Override
   public int hashCode()
    {
-    int result = Double.hashCode(this.latitude);
-    result = (31 * result) + Double.hashCode(this.longitude);
-    return (31 * result) + Double.hashCode(this.altitude);
+    int result = Double.hashCode(latitude);
+    result = (31 * result) + Double.hashCode(longitude);
+    return (31 * result) + Double.hashCode(altitude);
    }
 
 
@@ -201,12 +201,11 @@ public final class WGS84Position implements Comparable<WGS84Position>, IValueObj
      {
       return true;
      }
-    if (!(obj instanceof WGS84Position))
+    if (!(obj instanceof final WGS84Position other))
      {
       return false;
      }
-    final WGS84Position other = (WGS84Position)obj;
-    return (Math.abs(this.latitude - other.latitude) < WGS84Position.EPSILON) && (Math.abs(this.longitude - other.longitude) < WGS84Position.EPSILON) && (Math.abs(this.altitude - other.altitude) < WGS84Position.EPSILON);
+    return ((Double.compare(latitude, other.latitude) == 0) && (Double.compare(longitude, other.longitude) == 0) && (Double.compare(altitude, other.altitude) == 0));
    }
 
 
@@ -224,7 +223,7 @@ public final class WGS84Position implements Comparable<WGS84Position>, IValueObj
   public String toString()
    {
     final var builder = new StringBuilder(47);
-    builder.append("WGS84Position[latitude=").append(this.latitude).append(", longitude=").append(this.longitude).append(", altitude=").append(this.altitude).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    builder.append("WGS84Position[latitude=").append(latitude).append(", longitude=").append(longitude).append(", altitude=").append(altitude).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     return builder.toString();
    }
 
@@ -240,13 +239,13 @@ public final class WGS84Position implements Comparable<WGS84Position>, IValueObj
   public int compareTo(final WGS84Position obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    int result = Double.compare(this.latitude, obj.latitude);
+    int result = Double.compare(latitude, obj.latitude);
     if (result == 0)
      {
-      result = Double.compare(this.longitude, obj.longitude);
+      result = Double.compare(longitude, obj.longitude);
       if (result == 0)
        {
-        result = Double.compare(this.altitude, obj.altitude);
+        result = Double.compare(altitude, obj.altitude);
        }
      }
     return result;

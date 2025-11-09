@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.GregorianDate;
 import de.powerstat.validation.values.Hostname;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -214,42 +215,12 @@ final class HostnameTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Hostname hostname1 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
-    final Hostname hostname2 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
-    final Hostname hostname3 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(hostname1.hashCode(), hostname2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(hostname1.hashCode(), hostname3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Hostname hostname1 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
-    final Hostname hostname2 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
-    final Hostname hostname3 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_2);
-    final Hostname hostname4 = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(hostname1.equals(hostname1), "hostname11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(hostname1.equals(hostname2), "hostname12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(hostname2.equals(hostname1), "hostname21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(hostname2.equals(hostname4), "hostname24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(hostname1.equals(hostname4), "hostname14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(hostname1.equals(hostname3), "hostname13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(hostname3.equals(hostname1), "hostname31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(hostname1.equals(null), "hostname10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Hostname.class).withNonnullFields("hostname").withIgnoredFields("reverseHostname").verify();
    }
 
 

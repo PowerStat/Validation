@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import nl.jqno.equalsverifier.*;
 
 import de.powerstat.validation.values.Month;
 import de.powerstat.validation.values.Months;
@@ -117,42 +118,12 @@ final class MonthTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Month month1 = Month.of(1);
-    final Month month2 = Month.of(1);
-    final Month month3 = Month.of(2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(month1.hashCode(), month2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(month1.hashCode(), month3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Month month1 = Month.of(1);
-    final Month month2 = Month.of(1);
-    final Month month3 = Month.of(2);
-    final Month month4 = Month.of(1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(month1.equals(month1), "month11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(month1.equals(month2), "month12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(month2.equals(month1), "month21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(month2.equals(month4), "month24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(month1.equals(month4), "month14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(month1.equals(month3), "month13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(month3.equals(month1), "month31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(month1.equals(null), "month10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Month.class).verify();
    }
 
 
@@ -195,10 +166,10 @@ final class MonthTests
   @Test
   /* default */ void testAdd1()
    {
-    final Month month = Month.of(1);
+    final Month month = Month.of(11);
     final Months months = Months.of(1);
     final Month monthResult = month.add(months);
-    assertEquals(2, monthResult.intValue(), MonthTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(12, monthResult.intValue(), MonthTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

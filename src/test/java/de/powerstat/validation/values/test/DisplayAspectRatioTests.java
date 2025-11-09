@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -12,7 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.Department;
 import de.powerstat.validation.values.DisplayAspectRatio;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -103,7 +104,7 @@ final class DisplayAspectRatioTests
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
-      /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(0, 0);
+      /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(0, 1);
      }, DisplayAspectRatioTests.INDEX_OUT_OF_BOUNDS_EXPECTED
     );
    }
@@ -117,7 +118,7 @@ final class DisplayAspectRatioTests
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
-      /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(73, 0);
+      /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(73, 1);
      }, DisplayAspectRatioTests.INDEX_OUT_OF_BOUNDS_EXPECTED
     );
    }
@@ -152,57 +153,27 @@ final class DisplayAspectRatioTests
 
 
   /**
-   * Test hash code.
+   * Is display aspect ratio.
    */
   @Test
-  /* default */ void testHashCode()
+  /* default */ void testIsDisplayAspectRatio5()
    {
-    final DisplayAspectRatio ratio1 = DisplayAspectRatio.of(1, 1);
-    final DisplayAspectRatio ratio2 = DisplayAspectRatio.of(1, 1);
-    final DisplayAspectRatio ratio3 = DisplayAspectRatio.of(2, 2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(ratio1.hashCode(), ratio2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(ratio1.hashCode(), ratio3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
+    final DisplayAspectRatio ratio = DisplayAspectRatio.of(72, 35);
+    assertAll(DisplayAspectRatioTests.TEST_ASPECT_RATIO,
+      () -> assertEquals(72, ratio.getX(), "x ratio not as expected"), //$NON-NLS-1$
+      () -> assertEquals(35, ratio.getY(), "y ratio not as expected"), //$NON-NLS-1$
+      () -> assertEquals("72:35", ratio.stringValue(), DisplayAspectRatioTests.ASPECT_RATIO_NOT_AS_EXPECTED)
     );
    }
 
 
   /**
-   * Test equals.
+   * Equalsverifier.
    */
   @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
+  public void equalsContract()
    {
-    final DisplayAspectRatio ratio1 = DisplayAspectRatio.of(1, 1);
-    final DisplayAspectRatio ratio2 = DisplayAspectRatio.of(1, 1);
-    final DisplayAspectRatio ratio3 = DisplayAspectRatio.of(2, 2);
-    final DisplayAspectRatio ratio4 = DisplayAspectRatio.of(1, 1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(ratio1.equals(ratio1), "ratio11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(ratio1.equals(ratio2), "ratio12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(ratio2.equals(ratio1), "ratio21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(ratio2.equals(ratio4), "ratio24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(ratio1.equals(ratio4), "ratio14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(ratio1.equals(ratio3), "ratio13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(ratio3.equals(ratio1), "ratio31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(ratio1.equals(null), "ratio10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test notEquals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testNotEquals()
-   {
-    final DisplayAspectRatio ratio1 = DisplayAspectRatio.of(1, 1);
-    final DisplayAspectRatio ratio2 = DisplayAspectRatio.of(1, 2);
-    assertAll("testNotEquals", //$NON-NLS-1$
-      () -> assertFalse(ratio1.equals(ratio2), "ratio12 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(DisplayAspectRatio.class).verify();
    }
 
 

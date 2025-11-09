@@ -7,9 +7,9 @@ package de.powerstat.validation.interfaces;
 /**
  * Entity marker interface.
  */
-public interface IEntity
+public interface IEntity // <T>
  {
-  // <T> of(String value)
+  // T of(String value);
 
   /**
    * String value.

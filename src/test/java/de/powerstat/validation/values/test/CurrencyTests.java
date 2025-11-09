@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.Country;
 import de.powerstat.validation.values.Currency;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -115,42 +116,12 @@ final class CurrencyTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Currency currency1 = Currency.of(CurrencyTests.EUR);
-    final Currency currency2 = Currency.of(CurrencyTests.EUR);
-    final Currency currency3 = Currency.of(CurrencyTests.USD);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(currency1.hashCode(), currency2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(currency1.hashCode(), currency3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Currency language1 = Currency.of(CurrencyTests.EUR);
-    final Currency language2 = Currency.of(CurrencyTests.EUR);
-    final Currency language3 = Currency.of(CurrencyTests.USD);
-    final Currency language4 = Currency.of(CurrencyTests.EUR);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(language1.equals(language1), "currency11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(language1.equals(language2), "currency12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(language2.equals(language1), "currency21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(language2.equals(language4), "currency24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(language1.equals(language4), "currency14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(language1.equals(language3), "currency13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(language3.equals(language1), "currency31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(language1.equals(null), "currency10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Currency.class).withNonnullFields("code").verify();
    }
 
 

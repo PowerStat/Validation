@@ -15,11 +15,24 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Not DSGVO relevant.
  *
  * TODO Listener
- * TODO minutesWithin = 60
- * TODO min, max
  */
 public final class Hour implements Comparable<Hour>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final int MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value 23.
+   */
+  public static final int MAX_VALUE = 23;
+
+  /**
+   * Minutes within a hour.
+   */
+  public static final Minutes MINUTES_WITHIN = Minutes.of(60);
+
   /**
    * Overflow constant.
    */
@@ -145,11 +158,10 @@ public final class Hour implements Comparable<Hour>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Hour))
+    if (!(obj instanceof final Hour other))
      {
       return false;
      }
-    final Hour other = (Hour)obj;
     return this.hour == other.hour;
    }
 

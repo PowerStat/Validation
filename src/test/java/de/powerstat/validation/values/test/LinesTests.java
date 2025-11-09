@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
+import nl.jqno.equalsverifier.*;
+import de.powerstat.validation.values.Lastname;
 import de.powerstat.validation.values.Lines;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -115,42 +116,12 @@ final class LinesTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Lines lines1 = Lines.of(LinesTests.EXAMPLE1);
-    final Lines lines2 = Lines.of(LinesTests.EXAMPLE1);
-    final Lines lines3 = Lines.of(LinesTests.EXAMPLE2);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(lines1.hashCode(), lines2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(lines1.hashCode(), lines3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Lines lines1 = Lines.of(LinesTests.EXAMPLE1);
-    final Lines lines2 = Lines.of(LinesTests.EXAMPLE1);
-    final Lines lines3 = Lines.of(LinesTests.EXAMPLE2);
-    final Lines lines4 = Lines.of(LinesTests.EXAMPLE1);
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(lines1.equals(lines1), "lines11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(lines1.equals(lines2), "lines12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(lines2.equals(lines1), "lines21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(lines2.equals(lines4), "lines24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(lines1.equals(lines4), "lines14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(lines1.equals(lines3), "lines13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(lines3.equals(lines1), "lines31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(lines1.equals(null), "lines10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Lines.class).withNonnullFields("lines").verify();
    }
 
 
