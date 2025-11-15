@@ -19,11 +19,24 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Constructor with day, month
  * TODO Constructor with day, month, year
  * TODO Listener
- * TODO hoursWithin = 24
- * TODO min, max
  */
 public record Day(int day) implements Comparable<Day>, IValueObject
  {
+  /**
+   * Minimum allowed value 1.
+   */
+  public static final int MIN_VALUE = 1;
+
+  /**
+   * Maximum allowed value 31.
+   */
+  public static final int MAX_VALUE = 31;
+
+  /**
+   * Hours within a day.
+   */
+  public static final Hours HOURS_WITHIN = Hours.of(24);
+
   /**
    * Overflow constant.
    */

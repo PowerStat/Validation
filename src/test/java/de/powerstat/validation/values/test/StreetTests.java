@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
 import de.powerstat.validation.values.Street;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

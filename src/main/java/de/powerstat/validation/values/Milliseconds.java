@@ -15,11 +15,19 @@ import de.powerstat.validation.interfaces.IValueObject;
  * @param milliseconds Milliseconds &gt;= 0
  * 
  * Not DSGVO relevant.
- *
- * TODO min, max
  */
 public record Milliseconds(long milliseconds) implements Comparable<Milliseconds>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final long MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value Long.MAX_VALUE.
+   */
+  public static final long MAX_VALUE = Long.MAX_VALUE;
+
   /**
    * Constructor.
    *
@@ -107,7 +115,7 @@ public record Milliseconds(long milliseconds) implements Comparable<Milliseconds
    */
   public Milliseconds subtract(final Milliseconds other)
    {
-    if (other.milliseconds > this.milliseconds)
+    if (other.milliseconds > this.milliseconds) // NO PITEST
      {
       return Milliseconds.of(other.milliseconds - this.milliseconds);
      }

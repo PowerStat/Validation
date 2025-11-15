@@ -280,7 +280,7 @@ public record IPV6Address(String address) implements Comparable<IPV6Address>, IV
   @Override
   public String stringValue()
    {
-    return this.address;
+    return address;
    }
 
 
@@ -295,7 +295,7 @@ public record IPV6Address(String address) implements Comparable<IPV6Address>, IV
   public int compareTo(final IPV6Address obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.address.compareTo(obj.address);
+    return address.compareTo(obj.address);
    }
 
  }

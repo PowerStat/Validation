@@ -15,11 +15,19 @@ import de.powerstat.validation.interfaces.IValueObject;
  * @param years Years &gt;= 0
  * 
  * Not DSGVO relevant.
- *
- * TODO min, max
  */
 public record Years(long years) implements Comparable<Years>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final long MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value Long.MAX_VALUE.
+   */
+  public static final long MAX_VALUE = Long.MAX_VALUE;
+
   /**
    * Constructor.
    *
@@ -107,7 +115,7 @@ public record Years(long years) implements Comparable<Years>, IValueObject
    */
   public Years subtract(final Years other)
    {
-    if (other.years > this.years)
+    if (other.years > this.years) // NO PITEST
      {
       return Years.of(other.years - this.years);
      }

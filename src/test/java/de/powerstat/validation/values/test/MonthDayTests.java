@@ -1,19 +1,18 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 import de.powerstat.validation.values.Day;
+import de.powerstat.validation.values.Days;
 import de.powerstat.validation.values.Month;
 import de.powerstat.validation.values.MonthDay;
 import de.powerstat.validation.values.Months;
@@ -134,6 +133,20 @@ final class MonthDayTests
 
 
   /**
+   * Factory test.
+   */
+  @Test
+  /* default */ void testOf6()
+   {
+    final MonthDay test = MonthDay.of(Month.of(2), Day.of(29));
+    assertAll(TEST_OF,
+      () -> assertEquals(2, test.month().month(), MONTH_NOT_AS_EXPECTED),
+      () -> assertEquals(29, test.day().day(), DAY_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
    * stringValue test.
    */
   @Test
@@ -167,63 +180,92 @@ final class MonthDayTests
 
 
   /**
-   * Test add.
+   * Test add months.
    */
   @Test
-  /* default */ void testAdd1()
+  /* default */ void testAddMonths1()
    {
-    final MonthDay test1 = MonthDay.of(Month.of(10), Day.of(13));
+    final MonthDay test1 = MonthDay.of(Month.of(11), Day.of(13));
     final MonthDay result = test1.add(Months.of(1));
     assertAll("add", //$NON-NLS-1$
-      () -> assertEquals(11, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(12, result.month().month(), RESULT_NOT_AS_EXPECTED),
       () -> assertEquals(13, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
 
   /**
-   * Test add.
+   * Test add months.
    */
   @Test
-  /* default */ void testAdd2()
+  /* default */ void testAddMonths2()
    {
     final MonthDay test1 = MonthDay.of(Month.of(10), Day.of(13));
-    final Months months = Months.of(3);
-    assertThrows(ArithmeticException.class, () ->
-     {
-      /* final MonthDay result = */ test1.add(months);
-     }, "Arithmetic exception"
+    final MonthDay result = test1.add(Months.of(3));
+    assertAll("addMonths2", //$NON-NLS-1$
+      () -> assertEquals(1, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(13, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
 
   /**
-   * Test sutract.
+   * Test add months.
    */
   @Test
-  /* default */ void testSubtract1()
+  /* default */ void testAddMonths3()
    {
-    final MonthDay test1 = MonthDay.of(Month.of(10), Day.of(13));
+    final MonthDay test1 = MonthDay.of(Month.of(3), Day.of(31));
+    final MonthDay result = test1.add(Months.of(1));
+    assertAll("addMonths3", //$NON-NLS-1$
+      () -> assertEquals(4, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(30, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test subtract months.
+   */
+  @Test
+  /* default */ void testSubtractMonths1()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(11), Day.of(30));
     final MonthDay result = test1.subtract(Months.of(1));
-    assertAll("subtract", //$NON-NLS-1$
-      () -> assertEquals(9, result.month().month(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(13, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    assertAll("subtractMonths1", //$NON-NLS-1$
+      () -> assertEquals(10, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(30, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
 
   /**
-   * Test subtract.
+   * Test subtract months.
    */
   @Test
-  /* default */ void testSubtract2()
+  /* default */ void testSubtractMonths2()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(11), Day.of(30));
+    final MonthDay result = test1.subtract(Months.of(2));
+    assertAll("subtractMonths2", //$NON-NLS-1$
+      () -> assertEquals(9, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(30, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test subtract months.
+   */
+  @Test
+  /* default */ void testSubtractMonths3()
    {
     final MonthDay test1 = MonthDay.of(Month.of(2), Day.of(13));
     final Months months = Months.of(2);
-    assertThrows(ArithmeticException.class, () ->
-     {
-      /* final MonthDay result = */ test1.subtract(months);
-     }, "Arithmetic exception"
+    final MonthDay result = test1.subtract(months);
+    assertAll("subtractMonths2", //$NON-NLS-1$
+      () -> assertEquals(12, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(13, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -244,46 +286,330 @@ final class MonthDayTests
 
 
   /**
-   * Test increment.
+   * Test subtract months.
    */
   @Test
-  /* default */ void testIncrement2()
+  /* default */ void testSubtractMonths4()
    {
-    final MonthDay test1 = MonthDay.of(Month.of(12), Day.of(13));
-    assertThrows(ArithmeticException.class, () ->
-     {
-      /* final MonthDay result = */ test1.incrementMonth();
-     }, "Arithmetic exception"
+    final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(31));
+    final MonthDay result = test1.subtract(Months.of(1));
+    assertAll("subtractMonths3", //$NON-NLS-1$
+      () -> assertEquals(12, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(31, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
 
   /**
-   * Test decrement.
+   * Test increment month.
    */
   @Test
-  /* default */ void testDecrement1()
+  /* default */ void testIncrementMonth1()
    {
-    final MonthDay test1 = MonthDay.of(Month.of(10), Day.of(13));
+    final MonthDay test1 = MonthDay.of(Month.of(10), Day.of(30));
+    final MonthDay result = test1.incrementMonth();
+    assertAll("incrementMonth1", //$NON-NLS-1$
+      () -> assertEquals(11, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(30, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test increment month.
+   */
+  @Test
+  /* default */ void testIncrementMonth2()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(12), Day.of(31));
+    final MonthDay result = test1.incrementMonth();
+    assertAll("incfrementMonth2", //$NON-NLS-1$
+      () -> assertEquals(1, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(31, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test increment month.
+   */
+  @Test
+  /* default */ void testIncrementMonth3()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(31));
+    final MonthDay result = test1.incrementMonth();
+    assertAll("incrementMonth3", //$NON-NLS-1$
+      () -> assertEquals(2, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(28, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test decrement month.
+   */
+  @Test
+  /* default */ void testDecrementMonth1()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(12), Day.of(30));
     final MonthDay result = test1.decrementMonth();
     assertAll("add", //$NON-NLS-1$
-      () -> assertEquals(9, result.month().month(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(13, result.day().day(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(11, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(30, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
 
   /**
-   * Test decrement.
+   * Test decrement month.
    */
   @Test
-  /* default */ void testDecrement2()
+  /* default */ void testDecrementMonth2()
    {
-    final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(13));
-    assertThrows(ArithmeticException.class, () ->
-     {
-      /* final MonthDay result = */ test1.decrementMonth();
-     }, "Arithmetic exception"
+    final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(31));
+    final MonthDay result = test1.decrementMonth();
+    assertAll("decrementMonth2", //$NON-NLS-1$
+      () -> assertEquals(12, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(31, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test decrement month.
+   */
+  @Test
+  /* default */ void testDecrementMonth3()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(12), Day.of(31));
+    final MonthDay result = test1.decrementMonth();
+    assertAll("decrementMonth3", //$NON-NLS-1$
+      () -> assertEquals(11, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(30, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test add days.
+   */
+  @Test
+  /* default */ void testAddDays1()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(11), Day.of(30));
+    final MonthDay result = test1.add(Days.of(1));
+    assertAll("addDays1", //$NON-NLS-1$
+      () -> assertEquals(12, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(1, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test add days.
+   */
+  @Test
+  /* default */ void testAddDays2()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(31));
+    final MonthDay result = test1.add(Days.of(1));
+    assertAll("addDays2", //$NON-NLS-1$
+      () -> assertEquals(2, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(1, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test add days.
+   */
+  @Test
+  /* default */ void testAddDays3()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(12), Day.of(31));
+    final MonthDay result = test1.add(Days.of(1));
+    assertAll("addDays3", //$NON-NLS-1$
+      () -> assertEquals(1, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(1, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test add days.
+   */
+  @Test
+  /* default */ void testAddDays4()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(12), Day.of(30));
+    final MonthDay result = test1.add(Days.of(1));
+    assertAll("addDays3", //$NON-NLS-1$
+      () -> assertEquals(12, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(31, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+  /**
+   * Test substract days.
+   */
+  @Test
+  /* default */ void testSubtractDays1()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(2));
+    final MonthDay result = test1.subtract(Days.of(1));
+    assertAll("subtractDays1", //$NON-NLS-1$
+      () -> assertEquals(1, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(1, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test substract days.
+   */
+  @Test
+  /* default */ void testSubtractDays2()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(2), Day.of(1));
+    final MonthDay result = test1.subtract(Days.of(1));
+    assertAll("subtractDays2", //$NON-NLS-1$
+      () -> assertEquals(1, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(31, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test subtract days.
+   */
+  @Test
+  /* default */ void testSubtractDays3()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(1));
+    final MonthDay result = test1.subtract(Days.of(1));
+    assertAll("subtractDays3", //$NON-NLS-1$
+      () -> assertEquals(12, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(31, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test increment day.
+   */
+  @Test
+  /* default */ void testIncrementDay1()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(1));
+    final MonthDay result = test1.incrementDay();
+    assertAll("incrementDay1", //$NON-NLS-1$
+      () -> assertEquals(1, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(2, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test increment day.
+   */
+  @Test
+  /* default */ void testIncrementDay2()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(31));
+    final MonthDay result = test1.incrementDay();
+    assertAll("incrementDay2", //$NON-NLS-1$
+      () -> assertEquals(2, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(1, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test increment day.
+   */
+  @Test
+  /* default */ void testIncrementDay3()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(12), Day.of(31));
+    final MonthDay result = test1.incrementDay();
+    assertAll("incrementDay3", //$NON-NLS-1$
+      () -> assertEquals(1, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(1, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test increment day.
+   */
+  @Test
+  /* default */ void testIncrementDay4()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(11), Day.of(30));
+    final MonthDay result = test1.incrementDay();
+    assertAll("incrementDay3", //$NON-NLS-1$
+      () -> assertEquals(12, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(1, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test increment day.
+   */
+  @Test
+  /* default */ void testIncrementDay5()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(11), Day.of(29));
+    final MonthDay result = test1.incrementDay();
+    assertAll("incrementDay3", //$NON-NLS-1$
+      () -> assertEquals(11, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(30, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test decrement day.
+   */
+  @Test
+  /* default */ void testDecrementDay1()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(2));
+    final MonthDay result = test1.decrementDay();
+    assertAll("decrementDay1", //$NON-NLS-1$
+      () -> assertEquals(1, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(1, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test decrement day.
+   */
+  @Test
+  /* default */ void testDecrementDay2()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(2), Day.of(1));
+    final MonthDay result = test1.decrementDay();
+    assertAll("decrementDay2", //$NON-NLS-1$
+      () -> assertEquals(1, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(31, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test decrement day.
+   */
+  @Test
+  /* default */ void testDecrementDay3()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(1));
+    final MonthDay result = test1.decrementDay();
+    assertAll("decrementDay3", //$NON-NLS-1$
+      () -> assertEquals(12, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(31, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 

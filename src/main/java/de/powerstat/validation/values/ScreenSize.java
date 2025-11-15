@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -32,11 +32,11 @@ public record ScreenSize(int width, int height, String name) implements Comparab
    */
   public ScreenSize
    {
-    if ((width < 1) || (width > 8192.0))
+    if ((width < 1) || (width > 8192))
      {
       throw new IndexOutOfBoundsException("Width out of range (1-8192)"); //$NON-NLS-1$
      }
-    if ((height < 1) || (height > 8192.0))
+    if ((height < 1) || (height > 8192))
      {
       throw new IndexOutOfBoundsException("Height out of range (1-8192)"); //$NON-NLS-1$
      }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -142,10 +142,10 @@ final class MonthTests
   @Test
   /* default */ void testAdd1()
    {
-    final Month month = Month.of(1);
+    final Month month = Month.of(11);
     final Months months = Months.of(1);
     final Month monthResult = month.add(months);
-    assertEquals(2, monthResult.month(), MonthTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(12, monthResult.month(), MonthTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

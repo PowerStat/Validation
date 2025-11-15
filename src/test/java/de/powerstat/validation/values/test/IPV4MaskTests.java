@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-
 import de.powerstat.validation.values.IPV4Mask;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -324,6 +323,20 @@ final class IPV4MaskTests
     assertAll("constructorSuccess11", //$NON-NLS-1$
       () -> assertEquals(17, mask.length(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
       () -> assertEquals("255.255.128.0", mask.stringValue(), IPV4MaskTests.MASK_IS_NOT_EQUAL) //$NON-NLS-1$
+    );
+   }
+
+
+  /**
+   * Test constructor success.
+   */
+  @Test
+  /* default */ void testConstructorSuccess12()
+   {
+    final IPV4Mask mask = IPV4Mask.of(25);
+    assertAll("constructorSuccess12", //$NON-NLS-1$
+      () -> assertEquals(25, mask.length(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
+      () -> assertEquals("255.255.255.128", mask.stringValue(), IPV4MaskTests.MASK_IS_NOT_EQUAL) //$NON-NLS-1$
     );
    }
 

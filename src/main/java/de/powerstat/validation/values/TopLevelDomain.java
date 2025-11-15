@@ -36,7 +36,7 @@ public record TopLevelDomain(String topLevelDomain) implements Comparable<TopLev
   public TopLevelDomain
    {
     Objects.requireNonNull(topLevelDomain, "topLevelDomain"); //$NON-NLS-1$
-    if ((topLevelDomain.length() < 2) || (topLevelDomain.length() > 63)) // actual (2020) longest in use is 24
+    if ((topLevelDomain.length() < 2) || (topLevelDomain.length() > 63)) // actual (2020) longest in use is 24  // NO PITEST
      {
       throw new IllegalArgumentException("To short or long for a top level domain"); //$NON-NLS-1$
      }

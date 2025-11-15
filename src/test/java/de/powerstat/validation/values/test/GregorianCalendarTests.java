@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -14,8 +14,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import de.powerstat.validation.values.Country;
+import de.powerstat.validation.values.Day;
 import de.powerstat.validation.values.GregorianCalendar;
 import de.powerstat.validation.values.Month;
+import de.powerstat.validation.values.MonthDay;
 import de.powerstat.validation.values.Year;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -71,7 +73,7 @@ final class GregorianCalendarTests
   /* default */ void testCalendarCorrect(final String country)
    {
     final GregorianCalendar cleanCalendar = GregorianCalendar.of(Country.of(country));
-    assertEquals(country, cleanCalendar.country().alpha2(), CALENDAR_NOT_AS_EXPECTED); //$NON-NLS-1$
+    assertEquals(country, cleanCalendar.country().alpha2(), CALENDAR_NOT_AS_EXPECTED);
    }
 
 
@@ -126,7 +128,7 @@ final class GregorianCalendarTests
    * Test isLeapYear.
    */
   @Test
-  /* default */ void testIsLeapYear()
+  /* default */ void testIsLeapYear1()
    {
     final GregorianCalendar calendarIT = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
     final GregorianCalendar calendarDE = GregorianCalendar.of(Country.of(GregorianCalendarTests.DE));
@@ -138,10 +140,32 @@ final class GregorianCalendarTests
       () -> assertFalse(calendarIT.isLeapYear(Year.of(2019)), "2019 is not a leap year"), //$NON-NLS-1$
       () -> assertFalse(calendarIT.isLeapYear(Year.of(1582)), "1582 is not a leap year"), //$NON-NLS-1$
       () -> assertTrue(calendarIT.isLeapYear(Year.of(1580)), "1580 is a leap year"), //$NON-NLS-1$
-      () -> assertTrue(calendarDE.isLeapYear(Year.of(1580)), "1700 is not a leap year"), //$NON-NLS-1$
+      () -> assertTrue(calendarDE.isLeapYear(Year.of(1580)), "1700 is a leap year"), //$NON-NLS-1$
       () -> assertTrue(calendarRU.isLeapYear(Year.of(1920)), "1920 is a leap year"), //$NON-NLS-1$
       () -> assertTrue(calendarRU.isLeapYear(Year.of(1900)), "1900 is a leap year") //$NON-NLS-1$
      );
+   }
+
+
+  /**
+   * Test isLeapYear.
+   */
+  @Test
+  /* default */ void testIsLeapYear2()
+   {
+    final GregorianCalendar calendar = GregorianCalendar.of(Country.of("UA"));
+    assertFalse(calendar.isLeapYear(Year.of(1900)), "1900 is not a leap year");
+   }
+
+
+  /**
+   * Test isLeapYear.
+   */
+  @Test
+  /* default */ void testIsLeapYear3()
+   {
+    final GregorianCalendar calendarIT = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
+    assertFalse(calendarIT.isLeapYear(Year.of(1582)), "1582 is not a leap year");
    }
 
 
@@ -154,22 +178,51 @@ final class GregorianCalendarTests
     final GregorianCalendar calendarIT = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
     final GregorianCalendar calendarRU = GregorianCalendar.of(Country.of(GregorianCalendarTests.RU));
     assertAll(GregorianCalendarTests.TEST_IS_LEAP_YEAR,
-      () -> assertEquals(31, calendarIT.daysInMonth(Year.of(2020), Month.of(1)), "January should have 31 days"), //$NON-NLS-1$
-      () -> assertEquals(29, calendarIT.daysInMonth(Year.of(2020), Month.of(2)), "February should have 29 days"), //$NON-NLS-1$
-      () -> assertEquals(31, calendarIT.daysInMonth(Year.of(2020), Month.of(3)), "March should have 31 days"), //$NON-NLS-1$
-      () -> assertEquals(30, calendarIT.daysInMonth(Year.of(2020), Month.of(4)), "April should have 30 days"), //$NON-NLS-1$
-      () -> assertEquals(31, calendarIT.daysInMonth(Year.of(2020), Month.of(5)), "May should have 31 days"), //$NON-NLS-1$
-      () -> assertEquals(30, calendarIT.daysInMonth(Year.of(2020), Month.of(6)), "June should have 30 days"), //$NON-NLS-1$
-      () -> assertEquals(31, calendarIT.daysInMonth(Year.of(2020), Month.of(7)), "July should have 31 days"), //$NON-NLS-1$
-      () -> assertEquals(31, calendarIT.daysInMonth(Year.of(2020), Month.of(8)), "August should have 31 days"), //$NON-NLS-1$
-      () -> assertEquals(30, calendarIT.daysInMonth(Year.of(2020), Month.of(9)), "September should have 30 days"), //$NON-NLS-1$
-      () -> assertEquals(31, calendarIT.daysInMonth(Year.of(2020), Month.of(10)), "October should have 31 days"), //$NON-NLS-1$
-      () -> assertEquals(30, calendarIT.daysInMonth(Year.of(2020), Month.of(11)), "November should have 30 days"), //$NON-NLS-1$
-      () -> assertEquals(31, calendarIT.daysInMonth(Year.of(2020), Month.of(12)), "December should have 31 days"), //$NON-NLS-1$
-      () -> assertEquals(28, calendarIT.daysInMonth(Year.of(2019), Month.of(2)), "February should have 28 days"), //$NON-NLS-1$
-      () -> assertEquals(21, calendarIT.daysInMonth(Year.of(1582), Month.of(10)), "October 1582 should have 21 days"), //$NON-NLS-1$
-      () -> assertEquals(15, calendarRU.daysInMonth(Year.of(1918), Month.of(2)), "February 1918 should have 15 days"), //$NON-NLS-1$
-      () -> assertEquals(30, calendarIT.daysInMonth(Year.of(1582), Month.of(9)), "September 1582 should have 30 days") //$NON-NLS-1$
+      () -> assertEquals(31, calendarIT.daysInMonth(Year.of(2020), Month.of(1)).days(), "January should have 31 days"), //$NON-NLS-1$
+      () -> assertEquals(29, calendarIT.daysInMonth(Year.of(2020), Month.of(2)).days(), "February should have 29 days"), //$NON-NLS-1$
+      () -> assertEquals(31, calendarIT.daysInMonth(Year.of(2020), Month.of(3)).days(), "March should have 31 days"), //$NON-NLS-1$
+      () -> assertEquals(30, calendarIT.daysInMonth(Year.of(2020), Month.of(4)).days(), "April should have 30 days"), //$NON-NLS-1$
+      () -> assertEquals(31, calendarIT.daysInMonth(Year.of(2020), Month.of(5)).days(), "May should have 31 days"), //$NON-NLS-1$
+      () -> assertEquals(30, calendarIT.daysInMonth(Year.of(2020), Month.of(6)).days(), "June should have 30 days"), //$NON-NLS-1$
+      () -> assertEquals(31, calendarIT.daysInMonth(Year.of(2020), Month.of(7)).days(), "July should have 31 days"), //$NON-NLS-1$
+      () -> assertEquals(31, calendarIT.daysInMonth(Year.of(2020), Month.of(8)).days(), "August should have 31 days"), //$NON-NLS-1$
+      () -> assertEquals(30, calendarIT.daysInMonth(Year.of(2020), Month.of(9)).days(), "September should have 30 days"), //$NON-NLS-1$
+      () -> assertEquals(31, calendarIT.daysInMonth(Year.of(2020), Month.of(10)).days(), "October should have 31 days"), //$NON-NLS-1$
+      () -> assertEquals(30, calendarIT.daysInMonth(Year.of(2020), Month.of(11)).days(), "November should have 30 days"), //$NON-NLS-1$
+      () -> assertEquals(31, calendarIT.daysInMonth(Year.of(2020), Month.of(12)).days(), "December should have 31 days"), //$NON-NLS-1$
+      () -> assertEquals(28, calendarIT.daysInMonth(Year.of(2019), Month.of(2)).days(), "February should have 28 days"), //$NON-NLS-1$
+      () -> assertEquals(21, calendarIT.daysInMonth(Year.of(1582), Month.of(10)).days(), "October 1582 should have 21 days"), //$NON-NLS-1$
+      () -> assertEquals(15, calendarRU.daysInMonth(Year.of(1918), Month.of(2)).days(), "February 1918 should have 15 days"), //$NON-NLS-1$
+      () -> assertEquals(30, calendarIT.daysInMonth(Year.of(1582), Month.of(9)).days(), "September 1582 should have 30 days") //$NON-NLS-1$
+     );
+   }
+
+
+  /**
+   * Test daysInYear.
+   */
+  @Test
+  /* default */ void testDaysInYear()
+   {
+    final GregorianCalendar calendar = GregorianCalendar.of();
+    assertAll(GregorianCalendarTests.TEST_IS_LEAP_YEAR,
+      () -> assertEquals(365, calendar.daysInYear(Year.of(1900)).days(), "1900 should have 366 days"), //$NON-NLS-1$
+      () -> assertEquals(366, calendar.daysInYear(Year.of(2000)).days(), "2000 should have 366 days"), //$NON-NLS-1$
+      () -> assertEquals(365, calendar.daysInYear(Year.of(2019)).days(), "2019 should have 365 days"), //$NON-NLS-1$
+      () -> assertEquals(355, calendar.daysInYear(Year.of(1582)).days(), "1582 should have 355 days") //$NON-NLS-1$
+     );
+   }
+
+
+  /**
+   * Test easterInYear.
+   */
+  @Test
+  /* default */ void testEasterInYear()
+   {
+    final GregorianCalendar calendar = GregorianCalendar.of();
+    assertAll(GregorianCalendarTests.TEST_IS_LEAP_YEAR,
+      () -> assertEquals(MonthDay.of(Month.of(3), Day.of(31)), calendar.easterInYear(Year.of(2024)), "2024 should be 31.03.") //$NON-NLS-1$
      );
    }
 

@@ -15,11 +15,19 @@ import de.powerstat.validation.interfaces.IValueObject;
  * @param port Port 0-65535
  * 
  * Not DSGVO relevant.
- *
- * TODO min, max?
  */
 public record Port(int port) implements Comparable<Port>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final int MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value 65535.
+   */
+  public static final int MAX_VALUE = 65535;
+
   /**
    * Constructor.
    *

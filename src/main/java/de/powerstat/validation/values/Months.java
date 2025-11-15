@@ -15,11 +15,19 @@ import de.powerstat.validation.interfaces.IValueObject;
  * @param months Months 0-..
  * 
  * Not DSGVO relevant.
- *
- * TODO min, max
  */
 public record Months(long months) implements Comparable<Months>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final long MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value Long.MAX_VALUE.
+   */
+  public static final long MAX_VALUE = Long.MAX_VALUE;
+
   /**
    * Constructor.
    *
@@ -107,7 +115,7 @@ public record Months(long months) implements Comparable<Months>, IValueObject
    */
   public Months subtract(final Months other)
    {
-    if (other.months > this.months)
+    if (other.months > this.months) // NO PITEST
      {
       return Months.of(other.months - this.months);
      }

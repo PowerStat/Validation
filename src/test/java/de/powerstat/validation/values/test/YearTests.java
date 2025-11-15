@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -7,10 +7,10 @@ package de.powerstat.validation.values.test;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -18,7 +18,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import de.powerstat.validation.values.CalendarSystems;
 import de.powerstat.validation.values.Days;
-import de.powerstat.validation.values.Months;
+import de.powerstat.validation.values.Weeks;
 import de.powerstat.validation.values.Year;
 import de.powerstat.validation.values.Years;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -215,6 +215,19 @@ final class YearTests
 
 
   /**
+   * Test add.
+   */
+  @Test
+  /* default */ void testAdd5()
+   {
+    final Year year = Year.of(-1);
+    final Years years = Years.of(2);
+    final Year yearResult = year.add(years);
+    assertEquals(2, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Test subtract.
    */
   @Test
@@ -264,6 +277,19 @@ final class YearTests
    {
     final Year year = Year.of(-1);
     final Years years = Years.of(1);
+    final Year yearResult = year.subtract(years);
+    assertEquals(-2, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test subtract.
+   */
+  @Test
+  /* default */ void testSubtract5()
+   {
+    final Year year = Year.of(1);
+    final Years years = Years.of(2);
     final Year yearResult = year.subtract(years);
     assertEquals(-2, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
@@ -348,18 +374,6 @@ final class YearTests
 
 
   /**
-   * Test monthsWithin.
-   */
-  @Test
-  /* default */ void testMonthWithin()
-   {
-    final Year year = Year.of(1);
-    final Months result = year.monthsWithin();
-    assertEquals(12, result.months(), YearTests.RESULT_NOT_AS_EXPECTED);
-   }
-
-
-  /**
    * Test isLepaYear.
    */
   @Test
@@ -377,7 +391,7 @@ final class YearTests
    * @param pYear Year
    */
   @ParameterizedTest
-  @ValueSource(longs = {2000, 1500, 2004})
+  @ValueSource(longs = {2000, 1500, 2004, 1580})
   /* default */ void testIsLeapYear2(final long pYear)
    {
     final Year year = Year.of(CalendarSystems.GREGORIAN, pYear);
@@ -388,11 +402,14 @@ final class YearTests
 
   /**
    * Test isLepaYear.
+   *
+   * @param pYear Year
    */
-  @Test
-  /* default */ void testIsLeapYear5()
+  @ParameterizedTest
+  @ValueSource(longs = {1900, 2001, 1582, 1581})
+  /* default */ void testIsLeapYear5(final long pYear)
    {
-    final Year year = Year.of(CalendarSystems.GREGORIAN, 2001);
+    final Year year = Year.of(CalendarSystems.GREGORIAN, pYear);
     final boolean result = year.isLeapYear();
     assertFalse(result, YearTests.RESULT_NOT_AS_EXPECTED);
    }
@@ -459,6 +476,23 @@ final class YearTests
     final Year year = Year.of(CalendarSystems.JULIAN, 2001);
     final Days days = year.daysWithin();
     assertEquals(365, days.days(), YearTests.RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test weeksWithin.
+   *
+   * @param pYear Year
+   * @param pWeeks Number of weekss in year
+   */
+  @Disabled("Not yet implemented")
+  @ParameterizedTest
+  @CsvSource({"2000,52", "2004,53", "1582,51"})
+  /* default */ void testWeeksWithin1(final long pYear, final long pWeeks)
+   {
+    final Year year = Year.of(CalendarSystems.GREGORIAN, pYear);
+    final Weeks weeks = year.weeksWithin();
+    assertEquals(pWeeks, weeks.weeks(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
  }

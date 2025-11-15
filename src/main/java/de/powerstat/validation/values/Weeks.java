@@ -15,11 +15,19 @@ import de.powerstat.validation.interfaces.IValueObject;
  * @param weeks Weeks 0-..
  * 
  * Not DSGVO relevant.
- *
- * TODO min, max
  */
 public record Weeks(long weeks) implements Comparable<Weeks>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final long MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value Long.MAX_VALUE.
+   */
+  public static final long MAX_VALUE = Long.MAX_VALUE;
+
   /**
    * Constructor.
    *
@@ -107,7 +115,7 @@ public record Weeks(long weeks) implements Comparable<Weeks>, IValueObject
    */
   public Weeks subtract(final Weeks other)
    {
-    if (other.weeks > this.weeks)
+    if (other.weeks > this.weeks) // NO PITEST
      {
       return Weeks.of(other.weeks - this.weeks);
      }

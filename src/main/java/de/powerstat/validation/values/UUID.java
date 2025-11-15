@@ -83,7 +83,7 @@ public record UUID(java.util.UUID uuid) implements Comparable<UUID>, IValueObjec
   public int compareTo(final UUID obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.uuid.compareTo(obj.uuid);
+    return uuid.compareTo(obj.uuid);
    }
 
  }

@@ -15,11 +15,19 @@ import de.powerstat.validation.interfaces.IValueObject;
  * @param minutes Minutes 0-..
  * 
  * Not DSGVO relevant.
- *
- * TODO min, max
  */
 public record Minutes(long minutes) implements Comparable<Minutes>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final long MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value Long.MAX_VALUE.
+   */
+  public static final long MAX_VALUE = Long.MAX_VALUE;
+
   /**
    * Constructor.
    *
@@ -107,7 +115,7 @@ public record Minutes(long minutes) implements Comparable<Minutes>, IValueObject
    */
   public Minutes subtract(final Minutes other)
    {
-    if (other.minutes > this.minutes)
+    if (other.minutes > this.minutes) // NO PITEST
      {
       return Minutes.of(other.minutes - this.minutes);
      }

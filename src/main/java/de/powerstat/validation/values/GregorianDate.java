@@ -73,7 +73,7 @@ public record GregorianDate(GregorianCalendar calendar, Year year, Month month, 
     Objects.requireNonNull(year, "year"); //$NON-NLS-1$
     Objects.requireNonNull(month, "month"); //$NON-NLS-1$
     Objects.requireNonNull(day, "day"); //$NON-NLS-1$
-    if (day.day() > calendar.daysInMonth(year, month)) // TODO Does not work for gregorian reform month
+    if (day.day() > calendar.daysInMonth(year, month).days()) // TODO Does not work for gregorian reform month
      {
       throw new IllegalArgumentException("Day does not exists in month"); //$NON-NLS-1$
      }
@@ -150,13 +150,13 @@ public record GregorianDate(GregorianCalendar calendar, Year year, Month month, 
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
     // TODO calendar
-    int result = this.year.compareTo(obj.year);
+    int result = year.compareTo(obj.year);
     if (result == 0)
      {
-      result = this.month.compareTo(obj.month);
+      result = month.compareTo(obj.month);
       if (result == 0)
        {
-        result = this.day.compareTo(obj.day);
+        result = day.compareTo(obj.day);
        }
      }
     return result;

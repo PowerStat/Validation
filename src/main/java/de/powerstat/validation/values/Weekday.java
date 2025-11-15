@@ -1,8 +1,10 @@
 /*
- * Copyright (C) 2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
+
+import java.util.Objects;
 
 import de.powerstat.validation.interfaces.IValueObject;
 
@@ -10,105 +12,184 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Weekday.
  *
+ * @param weekday Weekday 1-7 where Monday = 1
+ *
  * Not DSGVO relevant.
  *
- * TODO: getShortName (language)
- * TODO: getName (language)
- * TODO: FirstWeekday: set, get (country dependend) Monday, Sunday, Saturday
- * TODO: increment (weekStart Listener)
- * TODO: decrement (weekStart Listener)
- * TODO: days between weekdays (weekday - weekday)
- * TODO: add days mod 7 (weekday + 2)
- * TODO: subtract days mod 7 (weekday - 2)
- * TODO: iterate from first to last weekday dependend on FirstWeekday ???
+ * TODO constructor with week, year
+ * TODO Listener
+ * TODO Translations short/long name
  */
-public enum Weekday implements IValueObject
+public record Weekday(int weekday) implements Comparable<Weekday>, IValueObject
  {
   /**
-   * Monday.
+   * Minimum allowed value 1.
    */
-  MONDAY(1),
+  public static final int MIN_VALUE = 1;
 
   /**
-   * Tuesday.
+   * Maximum allowed value L7.
    */
-  TUESDAY(2),
+  public static final int MAX_VALUE = 7;
 
   /**
-   * Wednesday.
+   * Overflow constant.
    */
-  WEDNESDAY(3),
+  private static final String OVERFLOW = "Overflow"; //$NON-NLS-1$
 
   /**
-   * Thursday.
+   * Underflow constant.
    */
-  THURSDAY(4),
-
-  /**
-   * Friday.
-   */
-  FRIDAY(5),
-
-  /**
-   * Saturday.
-   */
-  SATURDAY(6),
-
-  /**
-   * Sunday.
-   */
-  SUNDAY(7);
+  private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
 
 
   /**
-   * Action number.
-   */
-  private final int action;
-
-
-  /**
-   * Ordinal constructor.
+   * Constructor.
    *
-   * @param action Action number
+   * @param weekday Weekday 1-7 where Monday = 1
+   * @throws IndexOutOfBoundsException When the weekday is less than 1 or greater than 7
    */
-  Weekday(final int action)
+  public Weekday
    {
-    this.action = action;
+    if ((weekday < 1) || (weekday > 7))
+     {
+      throw new IndexOutOfBoundsException("Weekday number out of range (1-7)!"); //$NON-NLS-1$
+     }
    }
 
 
   /**
    * Weekday factory.
    *
-   * @param value Weekday enum string
-   * @return Weekday enum
+   * @param weekday Weekday 1-7 where Monday = 1
+   * @return Weekday object
+   * @throws IndexOutOfBoundsException When the weekday is less than 1 or greater than 7
+   */
+  public static Weekday of(final int weekday)
+   {
+    return new Weekday(weekday);
+   }
+
+
+  /**
+   * Weekday factory.
+   *
+   * @param value Weekday 1-7 string
+   * @return Weekday object
+   * @throws IndexOutOfBoundsException When the weekday is less than 1 or greater than 7
    */
   public static Weekday of(final String value)
    {
-    return Weekday.valueOf(value);
+    return of(Integer.parseInt(value));
    }
 
 
   /**
-   * Get action number.
+   * Returns the value of this Weekday as an String.
    *
-   * @return Action number
-   */
-  public int getAction()
-   {
-    return this.action;
-   }
-
-
-  /**
-   * Returns the value of this Weekday as a string.
-   *
-   * @return The text value represented by this object after conversion to type string.
+   * @return The numeric value represented by this object after conversion to type String.
    */
   @Override
   public String stringValue()
    {
-    return this.name();
+    return String.valueOf(this.weekday); // TODO language or english text
+   }
+
+
+  /**
+   * Compare with another object.
+   *
+   * @param obj Object to compare with
+   * @return 0: equal; 1: greater; -1: smaller
+   * @see java.lang.Comparable#compareTo(java.lang.Object)
+   */
+  @Override
+  public int compareTo(final Weekday obj)
+   {
+    Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
+    return Integer.compare(this.weekday, obj.weekday);
+   }
+
+
+  /**
+   * Add weekdays to this weekday.
+   *
+   * @param days Days to add to this weekday
+   * @return New weekday after adding the weekdays to this weekday
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Weekday add(final Days days)
+   {
+    final long newWeekday = Math.toIntExact(Math.addExact(this.weekday, days.days()));
+    if (newWeekday > 7) // while (newWeekday > 7)
+     {
+      // TODO Listener
+      // newWeekday -= 7;
+      // incrementWeek();
+      throw new ArithmeticException(Weekday.OVERFLOW);
+     }
+    return Weekday.of(Math.toIntExact(newWeekday));
+   }
+
+
+  /**
+   * Subtract days from this weekday.
+   *
+   * @param days Days to subtract from this weekday
+   * @return New weekday after subtracting days from this weekday
+   * @throws ArithmeticException In case of an underflow
+   */
+  public Weekday subtract(final Days days)
+   {
+    final long newWeekday = Math.toIntExact(Math.subtractExact(this.weekday, days.days()));
+    if (newWeekday <= 0) // while (newWeekday <= 0)
+     {
+      // TODO Listener
+      // newWeekday += 7;
+      // decrementYear();
+      throw new ArithmeticException(Weekday.UNDERFLOW);
+     }
+    return Weekday.of(Math.toIntExact(newWeekday));
+   }
+
+
+  /**
+   * Increment this weekday.
+   *
+   * @return New weekday after incrementing this weekday
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Weekday increment()
+   {
+    final int newWeekday = Math.incrementExact(this.weekday);
+    if (newWeekday == 8)
+     {
+      // TODO Listener
+      // newWeekday = 1;
+      // incrementYear();
+      throw new ArithmeticException(Weekday.OVERFLOW);
+     }
+    return Weekday.of(newWeekday);
+   }
+
+
+  /**
+   * Decrement this weekday.
+   *
+   * @return New weekday after decrement this weekday
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Weekday decrement()
+   {
+    final int newWeekday = Math.decrementExact(this.weekday);
+    if (newWeekday == 0)
+     {
+      // TODO Listener
+      // newWeekday = 7;
+      // decrementYear();
+      throw new ArithmeticException(Weekday.UNDERFLOW);
+     }
+    return Weekday.of(newWeekday);
    }
 
  }

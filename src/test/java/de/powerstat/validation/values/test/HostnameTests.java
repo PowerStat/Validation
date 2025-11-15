@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
 import de.powerstat.validation.values.Hostname;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -94,8 +93,8 @@ final class HostnameTests
   @Test
   /* default */ void testHostnameOk1()
    {
-    final Hostname cleanHostname = Hostname.of(IPV6ZERO); //$NON-NLS-1$
-    assertEquals(IPV6ZERO, cleanHostname.hostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED); //$NON-NLS-1$
+    final Hostname cleanHostname = Hostname.of(IPV6ZERO);
+    assertEquals(IPV6ZERO, cleanHostname.hostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
    }
 
 

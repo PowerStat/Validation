@@ -17,11 +17,24 @@ import de.powerstat.validation.interfaces.IValueObject;
  * @param minute Minute 0-59
  * 
  * TODO Listener
- * TODO secondsWithin = 60
- * TODO min, max
  */
 public record Minute(int minute) implements Comparable<Minute>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final int MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value 59.
+   */
+  public static final int MAX_VALUE = 59;
+
+  /**
+   * Seconds within a minute.
+   */
+  public static final Seconds SECONDS_WITHIN = Seconds.of(60);
+
   /**
    * Overlfow constant.
    */

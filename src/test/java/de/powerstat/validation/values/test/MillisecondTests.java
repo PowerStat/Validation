@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -137,10 +137,10 @@ final class MillisecondTests
   @Test
   /* default */ void testAdd1()
    {
-    final Millisecond millisecond = Millisecond.of(0);
+    final Millisecond millisecond = Millisecond.of(998);
     final Milliseconds milliseconds = Milliseconds.of(1);
     final Millisecond millisecondResult = millisecond.add(milliseconds);
-    assertEquals(1, millisecondResult.millisecond(), MillisecondTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(999, millisecondResult.millisecond(), MillisecondTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -166,10 +166,10 @@ final class MillisecondTests
   @Test
   /* default */ void testSubtract1()
    {
-    final Millisecond millisecond = Millisecond.of(2);
+    final Millisecond millisecond = Millisecond.of(1);
     final Milliseconds milliseconds = Milliseconds.of(1);
     final Millisecond millisecondResult = millisecond.subtract(milliseconds);
-    assertEquals(1, millisecondResult.millisecond(), MillisecondTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, millisecondResult.millisecond(), MillisecondTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

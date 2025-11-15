@@ -6,8 +6,6 @@ package de.powerstat.validation.entities.test;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
+import nl.jqno.equalsverifier.*;
 
 import de.powerstat.validation.entities.Person;
 import de.powerstat.validation.values.BloodGroup;
@@ -150,54 +149,12 @@ final class PersonTests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final Person person1 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
-    final Person person2 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
-    final Person person3 = Person.of(Lastname.of(PersonTests.LASTNAME), Gender.UNKNOWN);
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(person1.hashCode(), person2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(person1.hashCode(), person3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final Person person1 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
-    final Person person2 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
-    final Person person3 = Person.of(Lastname.of(PersonTests.LASTNAME), Gender.UNKNOWN);
-    final Person person4 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
-    final Person person5 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.FEMALE);
-    final List<Firstname> firstnames = new ArrayList<>();
-    firstnames.add(Firstname.of(PersonTests.KAI));
-    final Person person6 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE, firstnames);
-    final Person person7 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
-    person7.setBirthday(OffsetDateTime.of(1970, 9, 18, 0, 0, 0, 0, ZoneOffset.ofHours(1)));
-    final Person person8 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
-    person8.setDeathdate(OffsetDateTime.of(2070, 9, 18, 0, 0, 0, 0, ZoneOffset.ofHours(2)));
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(person1.equals(person1), "person11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(person1.equals(person2), "person12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(person2.equals(person1), "person21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(person2.equals(person4), "person24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(person1.equals(person4), "person14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(person1.equals(person3), "person13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(person3.equals(person1), "person31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(person1.equals(null), "person10 is equal"), //$NON-NLS-1$
-      () -> assertFalse(person1.equals(person5), "person15 equal"), //$NON-NLS-1$
-      () -> assertFalse(person1.equals(person6), "person16 equal"), //$NON-NLS-1$
-      () -> assertFalse(person1.equals(person7), "person17 equal"), //$NON-NLS-1$
-      () -> assertFalse(person1.equals(person8), "person18 equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(Person.class).suppress(Warning.NONFINAL_FIELDS).withNonnullFields("lastname", "sex", "firstnames", "birthday", "deathdate", "bloodGroup").verify();
    }
 
 
@@ -210,7 +167,26 @@ final class PersonTests
     final Person person = Person.of();
     person.addLastname(OffsetDateTime.of(2022, 1, 16, 11, 38, 0, 0, ZoneOffset.ofHours(1)), Lastname.of(PersonTests.HOFMANN));
     person.addGender(OffsetDateTime.of(2022, 1, 16, 11, 38, 0, 0, ZoneOffset.ofHours(1)), Gender.MALE);
-    assertEquals("Person[lastname=Lastname[lastname=Hofmann], gender=MALE]", person.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
+    final List<Firstname> firstnames = new ArrayList<>();
+    firstnames.add(Firstname.of(PersonTests.KAI));
+    person.addFirstnames(OffsetDateTime.of(2022, 1, 16, 11, 38, 0, 0, ZoneOffset.ofHours(1)), firstnames);
+    person.setBirthday(OffsetDateTime.of(1970, 9, 18, 0, 0, 0, 0, ZoneOffset.ofHours(1)));
+    person.setDeathdate(OffsetDateTime.of(2037, 9, 25, 0, 0, 0, 0, ZoneOffset.ofHours(1)));
+    person.setBloodGroup(BloodGroup.OP);
+    assertEquals("Person[lastname=Lastname[lastname=Hofmann], gender=MALE, firstnames=[Firstname[firstname=Kai]], birthday=Optional[1970-09-18T00:00+01:00], deathdate=Optional[2037-09-25T00:00+01:00], bloodGroup=Optional[OP]]", person.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
+   }
+
+
+  /**
+   * Test stringValue.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final Person person = Person.of();
+    person.addLastname(OffsetDateTime.of(2022, 1, 16, 11, 38, 0, 0, ZoneOffset.ofHours(1)), Lastname.of(PersonTests.HOFMANN));
+    person.addGender(OffsetDateTime.of(2022, 1, 16, 11, 38, 0, 0, ZoneOffset.ofHours(1)), Gender.MALE);
+    assertEquals("HistoryOf<>[2022-01-16T11:38:00+01:00=Lastname[lastname=Hofmann]], HistoryOf<>[]", person.stringValue(), "stringValue not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -268,6 +244,126 @@ final class PersonTests
       () -> assertTrue(person7.compareTo(person1) != 0, "equal71"), //$NON-NLS-1$
       () -> assertTrue(person1.compareTo(person7) != 0, "equal17") //$NON-NLS-1$
     );
+   }
+
+
+  /**
+   * Test compareTo.
+   */
+  @Test
+  /* default */ void testCompareTo3()
+   {
+    final Person person1 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
+    final Person person2 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
+    final List<Firstname> firstnames = new ArrayList<>();
+    firstnames.add(Firstname.of(PersonTests.KAI));
+    person1.addFirstnames(OffsetDateTime.now(), firstnames);
+    person2.addFirstnames(OffsetDateTime.now(), firstnames);
+    person1.setBirthday(OffsetDateTime.of(1970, 9, 18, 0, 0, 0, 0, ZoneOffset.ofHours(1)));
+    assertTrue(person1.compareTo(person2) > 0, "not greater");
+   }
+
+
+  /**
+   * Test compareTo.
+   */
+  @Test
+  /* default */ void testCompareTo4()
+   {
+    final Person person1 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
+    final Person person2 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
+    final List<Firstname> firstnames = new ArrayList<>();
+    firstnames.add(Firstname.of(PersonTests.KAI));
+    person1.addFirstnames(OffsetDateTime.now(), firstnames);
+    person2.addFirstnames(OffsetDateTime.now(), firstnames);
+    person2.setBirthday(OffsetDateTime.of(1970, 9, 18, 0, 0, 0, 0, ZoneOffset.ofHours(1)));
+    assertTrue(person1.compareTo(person2) < 0, "not smaller");
+   }
+
+
+  /**
+   * Test compareTo.
+   */
+  @Test
+  /* default */ void testCompareTo5()
+   {
+    final Person person1 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
+    final Person person2 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
+    final List<Firstname> firstnames = new ArrayList<>();
+    firstnames.add(Firstname.of(PersonTests.KAI));
+    person1.addFirstnames(OffsetDateTime.now(), firstnames);
+    person2.addFirstnames(OffsetDateTime.now(), firstnames);
+    person1.setDeathdate(OffsetDateTime.of(2037, 9, 25, 0, 0, 0, 0, ZoneOffset.ofHours(1)));
+    assertTrue(person1.compareTo(person2) > 0, "not greater");
+   }
+
+
+  /**
+   * Test compareTo.
+   */
+  @Test
+  /* default */ void testCompareTo6()
+   {
+    final Person person1 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
+    final Person person2 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
+    final List<Firstname> firstnames = new ArrayList<>();
+    firstnames.add(Firstname.of(PersonTests.KAI));
+    person1.addFirstnames(OffsetDateTime.now(), firstnames);
+    person2.addFirstnames(OffsetDateTime.now(), firstnames);
+    person2.setDeathdate(OffsetDateTime.of(2037, 9, 25, 0, 0, 0, 0, ZoneOffset.ofHours(1)));
+    assertTrue(person1.compareTo(person2) < 0, "not smaller");
+   }
+
+
+  /**
+   * Test compareTo.
+   */
+  @Test
+  /* default */ void testCompareTo7()
+   {
+    final Person person1 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
+    final Person person2 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
+    final List<Firstname> firstnames = new ArrayList<>();
+    firstnames.add(Firstname.of(PersonTests.KAI));
+    person1.addFirstnames(OffsetDateTime.now(), firstnames);
+    person2.addFirstnames(OffsetDateTime.now(), firstnames);
+    person1.setBloodGroup(BloodGroup.OP);
+    assertTrue(person1.compareTo(person2) > 0, "not greater");
+   }
+
+
+  /**
+   * Test compareTo.
+   */
+  @Test
+  /* default */ void testCompareTo8()
+   {
+    final Person person1 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
+    final Person person2 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
+    final List<Firstname> firstnames = new ArrayList<>();
+    firstnames.add(Firstname.of(PersonTests.KAI));
+    person1.addFirstnames(OffsetDateTime.now(), firstnames);
+    person2.addFirstnames(OffsetDateTime.now(), firstnames);
+    person2.setBloodGroup(BloodGroup.OP);
+    assertTrue(person1.compareTo(person2) < 0, "not smaller");
+   }
+
+
+  /**
+   * Test compareTo.
+   */
+  @Test
+  /* default */ void testCompareTo9()
+   {
+    final Person person1 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
+    final Person person2 = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
+    final List<Firstname> firstnames1 = new ArrayList<>();
+    final List<Firstname> firstnames2 = new ArrayList<>();
+    firstnames1.add(Firstname.of(PersonTests.KAI));
+    firstnames2.add(Firstname.of("Elke"));
+    person1.addFirstnames(OffsetDateTime.now(), firstnames1);
+    person2.addFirstnames(OffsetDateTime.now(), firstnames2);
+    assertTrue(person1.compareTo(person2) != 0, "equal");
    }
 
 

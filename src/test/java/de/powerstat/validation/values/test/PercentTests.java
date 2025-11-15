@@ -1,21 +1,20 @@
 /*
- * Copyright (C) 2024 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2024-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
+
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
 import de.powerstat.validation.values.Percent;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Tests for Percent value class.
@@ -35,11 +34,12 @@ final class PercentTests
   /**
    * Is percent.
    */
-  @Test
-  /* default */ void testIsPercent()
+  @ParameterizedTest
+  @ValueSource(ints = {0, 100})
+  /* default */ void testIsPercent(final int percent)
    {
-    final Percent percent = Percent.of(50);
-    assertEquals(50, percent.percent(), "Percent should be 50");
+    final Percent result = Percent.of(percent);
+    assertEquals(percent, result.percent(), "Percent should be " + percent);
    }
 
 

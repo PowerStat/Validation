@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -16,12 +16,24 @@ import de.powerstat.validation.interfaces.IValueObject;
  * @param year Year != 0
  * 
  * Not DSGVO relevant.
- *
- * TODO Weeks weeksWithin() = (50, 51,) 52, 53 (CalendarSystem, Country dependend ISO vs US)
- * TODO min, max
  */
 public record Year(CalendarSystems calendarSystem, long year) implements Comparable<Year>, IValueObject
  {
+  /**
+   * Minimum allowed value 8.
+   */
+  public static final long MIN_VALUE = 8;
+
+  /**
+   * Maximum allowed value Long.MAX_VALUE.
+   */
+  public static final long MAX_VALUE = Long.MAX_VALUE;
+
+  /**
+   * Months within year.
+   */
+  public static final Months MONTHS_WITHIN = Months.of(12);
+
   /**
    * Unsupported calendar system constant.
    */
@@ -96,49 +108,7 @@ public record Year(CalendarSystems calendarSystem, long year) implements Compara
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.year);
-   }
-
-
-  /**
-   * Months within year.
-   *
-   * @return Months (12) within year
-   */
-  public static Months monthsWithin()
-   {
-    return Months.of(12);
-   }
-
-
-  /**
-   * Is julian calendar leap year.
-   *
-   * @param year Julian calendar year
-   * @return true: is leap year; false otherwise
-   */
-  private static boolean isJulianLeapYear(final long year)
-   {
-    if (year <= 0)
-     {
-      return ((-year) % 4) == 1;
-     }
-    else
-     {
-      return (year % 4) == 0;
-     }
-   }
-
-
-  /**
-   * Is gregorian calendar leap year.
-   *
-   * @param year Gregorian calendar year
-   * @return  true: is leap year; false otherwise
-   */
-  private static boolean isGregorianLeapYear(final long year)
-   {
-    return (((year % 4) == 0) && (((year % 100) > 0) || ((year % 400) == 0)));
+    return String.valueOf(year);
    }
 
 
@@ -150,18 +120,18 @@ public record Year(CalendarSystems calendarSystem, long year) implements Compara
    */
   public boolean isLeapYear()
    {
-    switch (this.calendarSystem)
+    switch (calendarSystem)
      {
       case JULIAN:
-        return isJulianLeapYear(this.year);
+        return JulianCalendar.of().isLeapYear(this);
       case GREGORIAN:
-        if (this.year < BEFORE_GREGORIAN_YEAR) // Country dependend
+        if (year < BEFORE_GREGORIAN_YEAR) // Country dependend // NO PITEST
          {
-          return isJulianLeapYear(this.year);
+          return JulianCalendar.of().isLeapYear(this);
          }
         else
          {
-          return isGregorianLeapYear(this.year);
+          return GregorianCalendar.of().isLeapYear(this);
          }
       default:
         throw new IllegalStateException(UNSUPPORTED_CALENDAR_SYSTEM);
@@ -177,19 +147,37 @@ public record Year(CalendarSystems calendarSystem, long year) implements Compara
    */
   public Days daysWithin()
    {
-    switch (this.calendarSystem)
+    switch (calendarSystem)
      {
       case JULIAN:
         return Days.of(365L + (this.isLeapYear() ? 1 : 0));
       case GREGORIAN:
-        if (this.year == BEFORE_GREGORIAN_YEAR) // Country dependend
+        if (year == BEFORE_GREGORIAN_YEAR) // Country dependend
          {
           return Days.of(365L - 10); // Country dependend
          }
         return Days.of(365L + (this.isLeapYear() ? 1 : 0));
       default:
         throw new IllegalStateException(UNSUPPORTED_CALENDAR_SYSTEM);
-    }
+     }
+   }
+
+
+  /**
+   * Weeks within year.
+   *
+   * @return Weeks within year (50, 51,) 52, 53
+   */
+  public Weeks weeksWithin()
+   {
+    // long weeks = daysWithin().longValue() / 7;   // 355, ..., 365, 366 -> 50, 52
+    // boolean leap = isLeapYear();
+    // firstweekday = weekday(1, 1, this.year);
+    // if (firstweekday == Do || ((firstweekday == Mi && leap == 1)))
+    //  {
+    //   ++weeks;
+    //  }
+    return Weeks.of(0); // TODO = (50, 51,) 52, 53 (CalendarSystem, ISO vs US)
    }
 
 
@@ -205,11 +193,11 @@ public record Year(CalendarSystems calendarSystem, long year) implements Compara
   public int compareTo(final Year obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    if (this.calendarSystem.compareTo(obj.calendarSystem) != 0)
+    if (calendarSystem.compareTo(obj.calendarSystem) != 0)
      {
       throw new IllegalStateException("CalendarSystems are not equal!");
      }
-    return Long.compare(this.year, obj.year);
+    return Long.compare(year, obj.year);
    }
 
 
@@ -227,7 +215,7 @@ public record Year(CalendarSystems calendarSystem, long year) implements Compara
      {
       newYear = Math.incrementExact(newYear); // Because there is no year 0!
      }
-    return Year.of(this.calendarSystem, newYear);
+    return Year.of(calendarSystem, newYear);
    }
 
 
@@ -245,7 +233,7 @@ public record Year(CalendarSystems calendarSystem, long year) implements Compara
      {
       newYear = Math.decrementExact(newYear); // Because there is no year 0!
      }
-    return Year.of(this.calendarSystem, newYear);
+    return Year.of(calendarSystem, newYear);
    }
 
 
@@ -257,8 +245,8 @@ public record Year(CalendarSystems calendarSystem, long year) implements Compara
    */
   public Year increment()
    {
-    long newYear = Math.incrementExact(this.year);
-    if (this.year == -1)
+    long newYear = Math.incrementExact(year);
+    if (year == -1)
      {
       newYear = Math.incrementExact(newYear); // Because there is no year 0!
      }
@@ -274,8 +262,8 @@ public record Year(CalendarSystems calendarSystem, long year) implements Compara
    */
   public Year decrement()
    {
-    long newYear = Math.decrementExact(this.year);
-    if (this.year == 1)
+    long newYear = Math.decrementExact(year);
+    if (year == 1)
      {
       newYear = Math.decrementExact(newYear); // Because there is no year 0!
      }

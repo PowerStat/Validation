@@ -7,9 +7,9 @@ package de.powerstat.validation.interfaces;
 /**
  * Value object marker interface.
  */
-public interface IValueObject
+public interface IValueObject // <T>
  {
-  // <T> of(String value)
+  // T of(String value);
 
   /**
    * String value.

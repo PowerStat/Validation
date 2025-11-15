@@ -17,10 +17,19 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Not DSGVO relevant.
  *
  * TODO Listener
- * TODO min, max
  */
 public record Millisecond(int millisecond) implements Comparable<Millisecond>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final int MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value 999.
+   */
+  public static final int MAX_VALUE = 999;
+
   /**
    * Overflow constant.
    */

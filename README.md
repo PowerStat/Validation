@@ -37,7 +37,6 @@ Java platform module system:
       requires de.powerstat.validation.interfaces;
       requires de.powerstat.validation.values;
       requires de.powerstat.validation.values.strategies;
-
      }
 
 To compile this project yourself you could use:
@@ -136,6 +135,10 @@ If you would like to contribute to this project please read [How to contribute](
 ## License
 
 This code is licensed under the [Apache License Version 2.0](LICENSE.md).
+
+## Coverity status
+
+![Coverity Scan Build Status](https://scan.coverity.com/projects/26919/badge.svg)
 
 ## UML Diagram
 

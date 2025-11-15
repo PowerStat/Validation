@@ -18,11 +18,24 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * TODO Constructor with year
  * TODO Listener
- * TODO daysWithin = 7
- * TODO min, max
  */
 public record Week(int week) implements Comparable<Week>, IValueObject
  {
+  /**
+   * Minimum allowed value 1.
+   */
+  public static final int MIN_VALUE = 1;
+
+  /**
+   * Maximum allowed value 53.
+   */
+  public static final int MAX_VALUE = 53;
+
+  /**
+   * Days within a week.
+   */
+  public static final Days DAYS_WITHIN = Days.of(7);
+
   /**
    * Overflow constant.
    */

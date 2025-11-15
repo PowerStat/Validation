@@ -1,17 +1,15 @@
 /*
- * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-
 import de.powerstat.validation.values.ScreenSize;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -96,6 +94,34 @@ final class ScreenSizeTests
      {
       /* final ScreenSize size = */ ScreenSize.of("320");
      }, "Illegal argument exception"
+    );
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory3()
+   {
+    final ScreenSize size = ScreenSize.of(1, 1, "1x1");
+    assertAll("factory1", //$NON-NLS-1$
+      () -> assertEquals(1, size.width(), WIDTH_IS_NOT_EQUAL),
+      () -> assertEquals(1, size.height(), HEIGHT_IS_NOT_EQUAL)
+    );
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory4()
+   {
+    final ScreenSize size = ScreenSize.of(8192, 8192, "8192x8192");
+    assertAll("factory1", //$NON-NLS-1$
+      () -> assertEquals(8192, size.width(), WIDTH_IS_NOT_EQUAL),
+      () -> assertEquals(8192, size.height(), HEIGHT_IS_NOT_EQUAL)
     );
    }
 

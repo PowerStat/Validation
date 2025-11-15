@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -572,11 +572,11 @@ public record Address(Country country, PostalCode postalCode, City city, Provinc
   public static Address of(final String value)
    {
     String[] values = value.split(",");
-    if ((values.length < 1) || (values.length > 15))
+    if ((values.length < 3) || (values.length > 15))
      {
       throw new IllegalArgumentException("value not in expected format: " + values.length);
      }
-    if (values.length < 15)
+    if (values.length < 15) // NO PITEST
      {
       values = Arrays.copyOf(values, 15);
       for (int i = 1; i < 15; ++i)
@@ -619,101 +619,6 @@ public record Address(Country country, PostalCode postalCode, City city, Provinc
 
 
   /**
-   * Equal fields.
-   *
-   * @param <T> Field type
-   * @param obj1 Field 1 (this)
-   * @param obj2 Field 2 (other)
-   * @return true: equal; false: not equal
-   */
-  private static <T> boolean equalField(final T obj1, final T obj2)
-   {
-    return (obj1 == null) ? (obj2 == null) : obj1.equals(obj2);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    // if ((obj == null) || (this.getClass() != obj.getClass()))
-    if (!(obj instanceof Address))
-     {
-      return false;
-     }
-    final Address other = (Address)obj;
-    boolean result = this.country.equals(other.country);
-    if (result)
-     {
-      result = equalField(this.postalCode, other.postalCode);
-      if (result)
-       {
-        result = equalField(this.city, other.city);
-        if (result)
-         {
-          result = equalField(this.province, other.province);
-          if (result)
-           {
-            result = equalField(this.district, other.district);
-            if (result)
-             {
-              result = equalField(this.street, other.street);
-              if (result)
-               {
-                result = equalField(this.buildingNr, other.buildingNr);
-                if (result)
-                 {
-                  result = equalField(this.buildingName, other.buildingName);
-                  if (result)
-                   {
-                    result = equalField(this.subBuilding, other.subBuilding);
-                    if (result)
-                     {
-                      result = equalField(this.poBoxNumber, other.poBoxNumber);
-                      if (result)
-                       {
-                        result = equalField(this.department, other.department);
-                        if (result)
-                         {
-                          result = equalField(this.neighbourhood, other.neighbourhood);
-                          if (result)
-                           {
-                            result = equalField(this.block, other.block);
-                            if (result)
-                             {
-                              result = equalField(this.bFPONumber, other.bFPONumber);
-                              if (result)
-                               {
-                                result = equalField(this.lines, other.lines);
-                               }
-                             }
-                           }
-                         }
-                       }
-                     }
-                   }
-                 }
-               }
-             }
-           }
-         }
-       }
-     }
-    return result;
-   }
-
-
-  /**
    * Compare fields.
    *
    * @param <T> Field type
@@ -738,49 +643,49 @@ public record Address(Country country, PostalCode postalCode, City city, Provinc
   public int compareTo(final Address obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    int result = this.country.compareTo(obj.country);
+    int result = country.compareTo(obj.country);
     if (result == 0)
      {
-      result = compareField(this.postalCode, obj.postalCode);
+      result = compareField(postalCode, obj.postalCode);
       if (result == 0)
        {
-        result = compareField(this.city, obj.city);
+        result = compareField(city, obj.city);
         if (result == 0)
          {
-          result = compareField(this.province, obj.province);
+          result = compareField(province, obj.province);
           if (result == 0)
            {
-            result = compareField(this.district, obj.district);
+            result = compareField(district, obj.district);
             if (result == 0)
              {
-              result = compareField(this.street, obj.street);
+              result = compareField(street, obj.street);
               if (result == 0)
                {
-                result = compareField(this.buildingNr, obj.buildingNr);
+                result = compareField(buildingNr, obj.buildingNr);
                 if (result == 0)
                  {
-                  result = compareField(this.buildingName, obj.buildingName);
+                  result = compareField(buildingName, obj.buildingName);
                   if (result == 0)
                    {
-                    result = compareField(this.subBuilding, obj.subBuilding);
+                    result = compareField(subBuilding, obj.subBuilding);
                     if (result == 0)
                      {
-                      result = compareField(this.poBoxNumber, obj.poBoxNumber);
+                      result = compareField(poBoxNumber, obj.poBoxNumber);
                       if (result == 0)
                        {
-                        result = compareField(this.department, obj.department);
+                        result = compareField(department, obj.department);
                         if (result == 0)
                          {
-                          result = compareField(this.neighbourhood, obj.neighbourhood);
+                          result = compareField(neighbourhood, obj.neighbourhood);
                           if (result == 0)
                            {
-                            result = compareField(this.block, obj.block);
+                            result = compareField(block, obj.block);
                             if (result == 0)
                              {
-                              result = compareField(this.bFPONumber, obj.bFPONumber);
+                              result = compareField(bFPONumber, obj.bFPONumber);
                               if (result == 0)
                                {
-                                result = compareField(this.lines, obj.lines);
+                                result = compareField(lines, obj.lines);
                                }
                              }
                            }

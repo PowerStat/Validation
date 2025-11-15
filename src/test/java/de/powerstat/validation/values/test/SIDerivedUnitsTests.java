@@ -1,11 +1,12 @@
 /*
- * Copyright (C) 2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2023-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +24,28 @@ final class SIDerivedUnitsTests
   /* default */ SIDerivedUnitsTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory1()
+   {
+    SIDerivedUnits result =  SIDerivedUnits.of("HERTZ");
+    assertNotNull(result, "No derived unit");
+   }
+
+
+  /**
+   * Factory string value test.
+   */
+  @Test
+  /* default */ void testStringValue1()
+   {
+    SIDerivedUnits result =  SIDerivedUnits.of("HERTZ");
+    assertEquals("HERTZ", result.stringValue(), "No derived unit");
    }
 
 

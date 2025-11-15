@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -142,10 +142,10 @@ final class DayTests
   @Test
   /* default */ void testAdd1()
    {
-    final Day day = Day.of(1);
+    final Day day = Day.of(30);
     final Days days = Days.of(1);
     final Day dayResult = day.add(days);
-    assertEquals(2, dayResult.day(), DayTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(31, dayResult.day(), DayTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

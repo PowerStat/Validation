@@ -20,6 +20,16 @@ import de.powerstat.validation.interfaces.IValueObject;
 public record Lines(String lines) implements Comparable<Lines>, IValueObject
  {
   /**
+   * Minimum allowed value 1.
+   */
+  public static final int MIN_VALUE = 1;
+
+  /**
+   * Maximum allowed value 5.
+   */
+  public static final int MAX_VALUE = 5;
+
+  /**
    * Lines fregexp.
    */
   @SuppressWarnings("java:S6035")

@@ -10,9 +10,6 @@ import java.net.UnknownHostException;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import de.powerstat.validation.generated.GeneratedTlds;
 import de.powerstat.validation.interfaces.IValueObject;
 
@@ -21,7 +18,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Hostname.
  *
  * @param hostname Hostname
- * 
+ *
  * Probably DSGVO relevant.
  *
  * TODO Verify TopLevelDomain
@@ -166,7 +163,7 @@ public record Hostname(String hostname) implements Comparable<Hostname>, IValueO
   @Override
   public String stringValue()
    {
-    return this.hostname;
+    return hostname;
    }
 
 
@@ -190,7 +187,7 @@ public record Hostname(String hostname) implements Comparable<Hostname>, IValueO
    {
     try
      {
-      /* final InetAddress address = */ InetAddress.getByName(this.hostname);
+      /* final InetAddress address = */ InetAddress.getByName(hostname);
      }
     catch (final UnknownHostException ignored)
      {
@@ -211,7 +208,7 @@ public record Hostname(String hostname) implements Comparable<Hostname>, IValueO
    {
     try
      {
-      final var address = InetAddress.getByName(this.hostname);
+      final var address = InetAddress.getByName(hostname);
       return address.isReachable(timeout);
      }
     catch (final IOException ignored)
@@ -233,7 +230,7 @@ public record Hostname(String hostname) implements Comparable<Hostname>, IValueO
   public int compareTo(final Hostname obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.hostname.compareTo(obj.hostname);
+    return hostname.compareTo(obj.hostname);
    }
 
  }

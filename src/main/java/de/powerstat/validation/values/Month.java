@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -16,14 +16,32 @@ import de.powerstat.validation.interfaces.IValueObject;
  * 
  * Not DSGVO relevant.
  *
- * TODO constructor with year
- * TODO daysWithin() = 31, 30, 29, 28, n (Year specific for february, or october 1582)
- * TODO Listener
- * TODO Translations short/long
- * TODO min, max
+ * TODO constructor with year ?
+ * TODO Listener for over-/underflow
+ * TODO Translations short/long name
  */
 public record Month(int month) implements Comparable<Month>, IValueObject
  {
+  /**
+   * Minimum allowed value 1.
+   */
+  public static final int MIN_VALUE = 1;
+
+  /**
+   * Maximum allowed value 12.
+   */
+  public static final int MAX_VALUE = 12;
+
+  /**
+   * Minimum days within a month.
+   */
+  public static final Days MIN_DAYS_WITHIN = Days.of(28);
+
+  /**
+   * Maximum days within a month.
+   */
+  public static final Days MAX_DAYS_WITHIN = Days.of(31);
+
   /**
    * Overflow constant.
    */
@@ -33,6 +51,11 @@ public record Month(int month) implements Comparable<Month>, IValueObject
    * Underflow constant.
    */
   private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
+
+  /**
+   * Days per month.
+   */
+  private static final int[] DAYS_IN_MONTH = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 
   /**
@@ -100,6 +123,17 @@ public record Month(int month) implements Comparable<Month>, IValueObject
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
     return Integer.compare(this.month, obj.month);
+   }
+
+
+  /**
+   * Get days in month.
+   *
+   * @return Days (28-31)
+   */
+  public Days daysInMonth()
+   {
+    return Days.of(DAYS_IN_MONTH[this.month]); // TODO depends on year == leapYear for february
    }
 
 

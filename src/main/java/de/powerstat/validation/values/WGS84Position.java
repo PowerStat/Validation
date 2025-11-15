@@ -98,7 +98,7 @@ public record WGS84Position(double latitude, double longitude, double altitude) 
   @Override
   public String stringValue()
    {
-    return this.latitude + SEPARATOR + this.longitude + SEPARATOR + this.altitude;
+    return latitude + SEPARATOR + longitude + SEPARATOR + altitude;
    }
 
 
@@ -113,13 +113,13 @@ public record WGS84Position(double latitude, double longitude, double altitude) 
   public int compareTo(final WGS84Position obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    int result = Double.compare(this.latitude, obj.latitude);
+    int result = Double.compare(latitude, obj.latitude);
     if (result == 0)
      {
-      result = Double.compare(this.longitude, obj.longitude);
+      result = Double.compare(longitude, obj.longitude);
       if (result == 0)
        {
-        result = Double.compare(this.altitude, obj.altitude);
+        result = Double.compare(altitude, obj.altitude);
        }
      }
     return result;

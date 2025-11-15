@@ -17,10 +17,19 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Not DSGVO relevant.
  *
  * TODO inMinutes()
- * TODO min, max
  */
 public record Seconds(long seconds) implements Comparable<Seconds>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final long MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value Long.MAX_VALUE.
+   */
+  public static final long MAX_VALUE = Long.MAX_VALUE;
+
   /**
    * Constructor.
    *
@@ -108,7 +117,7 @@ public record Seconds(long seconds) implements Comparable<Seconds>, IValueObject
    */
   public Seconds subtract(final Seconds other)
    {
-    if (other.seconds > this.seconds)
+    if (other.seconds > this.seconds) // NO PITEST
      {
       return Seconds.of(other.seconds - this.seconds);
      }

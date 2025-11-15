@@ -54,7 +54,7 @@ public class GroupOf<T> implements Set<T>
      {
       throw new IllegalArgumentException("groupName with wrong format"); //$NON-NLS-1$
      }
-    this.name = groupName;
+    name = groupName;
    }
 
 
@@ -65,7 +65,7 @@ public class GroupOf<T> implements Set<T>
    */
   public String name()
    {
-    return this.name;
+    return name;
    }
 
 
@@ -76,9 +76,9 @@ public class GroupOf<T> implements Set<T>
    * @see java.lang.Object#hashCode()
    */
   @Override
-  public int hashCode()
+  public final int hashCode()
    {
-    return Objects.hash(this.name, this.group);
+    return Objects.hash(name, group);
    }
 
 
@@ -91,7 +91,7 @@ public class GroupOf<T> implements Set<T>
    * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
-  public boolean equals(final Object obj)
+  public final boolean equals(final Object obj)
    {
     if (this == obj)
      {
@@ -103,7 +103,7 @@ public class GroupOf<T> implements Set<T>
       return false;
      }
     final GroupOf<T> other = (GroupOf<T>)obj;
-    return this.name.equals(other.name) && this.group.equals(other.group);
+    return name.equals(other.name) && group.equals(other.group);
    }
 
 
@@ -122,10 +122,10 @@ public class GroupOf<T> implements Set<T>
    {
     final var builder = new StringBuilder();
     builder.append("GroupOf<>[name="); //$NON-NLS-1$
-    builder.append(this.name);
+    builder.append(name);
     builder.append(", ");
     final int initLength = builder.length();
-    for (final T entry : this.group)
+    for (final T entry : group)
      {
       builder.append(entry);
       builder.append(", "); //$NON-NLS-1$
@@ -147,7 +147,7 @@ public class GroupOf<T> implements Set<T>
   @Override
   public int size()
    {
-    return this.group.size();
+    return group.size();
    }
 
 
@@ -159,7 +159,7 @@ public class GroupOf<T> implements Set<T>
   @Override
   public boolean isEmpty()
    {
-    return this.group.isEmpty();
+    return group.isEmpty();
    }
 
 
@@ -172,7 +172,7 @@ public class GroupOf<T> implements Set<T>
   @Override
   public boolean contains(final Object o)
    {
-    return this.group.contains(o);
+    return group.contains(o);
    }
 
 
@@ -184,7 +184,7 @@ public class GroupOf<T> implements Set<T>
   @Override
   public Iterator<T> iterator()
    {
-    return this.group.iterator();
+    return group.iterator();
    }
 
 
@@ -196,7 +196,7 @@ public class GroupOf<T> implements Set<T>
   @Override
   public Object[] toArray()
    {
-    return this.group.toArray();
+    return group.toArray();
    }
 
 
@@ -209,7 +209,7 @@ public class GroupOf<T> implements Set<T>
   @Override
   public <T> T[] toArray(final T[] a)
    {
-    return this.group.toArray(a);
+    return group.toArray(a);
    }
 
 
@@ -222,7 +222,7 @@ public class GroupOf<T> implements Set<T>
   @Override
   public boolean add(final T e)
    {
-    return this.group.add(e);
+    return group.add(e);
    }
 
 
@@ -235,7 +235,7 @@ public class GroupOf<T> implements Set<T>
   @Override
   public boolean remove(final Object o)
    {
-    return this.group.remove(o);
+    return group.remove(o);
    }
 
 
@@ -248,7 +248,7 @@ public class GroupOf<T> implements Set<T>
   @Override
   public boolean containsAll(final Collection<?> c)
    {
-    return this.group.containsAll(c);
+    return group.containsAll(c);
    }
 
 
@@ -256,12 +256,12 @@ public class GroupOf<T> implements Set<T>
    * Returns true if this set contains all of the elements of the specified collection. If the specified collection is also a set, this method returns true if it is a subset of this set.
    *
    * @param c Collection to be checked for containment in this set
-   * @return true if this set contains all of the elements of the specified collection
+   * @return true if this collection changed as a result of the call
    */
   @Override
   public boolean addAll(final Collection<? extends T> c)
    {
-    return this.group.addAll(c);
+    return group.addAll(c);
    }
 
 
@@ -274,7 +274,7 @@ public class GroupOf<T> implements Set<T>
   @Override
   public boolean retainAll(final Collection<?> c)
    {
-    return this.group.retainAll(c);
+    return group.retainAll(c);
    }
 
 
@@ -287,7 +287,7 @@ public class GroupOf<T> implements Set<T>
   @Override
   public boolean removeAll(final Collection<?> c)
    {
-    return this.group.removeAll(c);
+    return group.removeAll(c);
    }
 
 
@@ -297,7 +297,7 @@ public class GroupOf<T> implements Set<T>
   @Override
   public void clear()
    {
-    this.group.clear();
+    group.clear();
    }
 
  }

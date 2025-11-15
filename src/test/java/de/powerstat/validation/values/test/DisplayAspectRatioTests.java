@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-
 import de.powerstat.validation.values.DisplayAspectRatio;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -101,7 +100,7 @@ final class DisplayAspectRatioTests
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
-      /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(0, 0);
+      /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(0, 1);
      }, DisplayAspectRatioTests.INDEX_OUT_OF_BOUNDS_EXPECTED
     );
    }
@@ -115,7 +114,7 @@ final class DisplayAspectRatioTests
    {
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
-      /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(73, 0);
+      /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(73, 1);
      }, DisplayAspectRatioTests.INDEX_OUT_OF_BOUNDS_EXPECTED
     );
    }
@@ -145,6 +144,21 @@ final class DisplayAspectRatioTests
      {
       /* final DisplayAspectRatio ratio = */ DisplayAspectRatio.of(1, 0);
      }, DisplayAspectRatioTests.INDEX_OUT_OF_BOUNDS_EXPECTED
+    );
+   }
+
+
+  /**
+   * Is display aspect ratio.
+   */
+  @Test
+  /* default */ void testIsDisplayAspectRatio5()
+   {
+    final DisplayAspectRatio ratio = DisplayAspectRatio.of(72, 35);
+    assertAll(DisplayAspectRatioTests.TEST_ASPECT_RATIO,
+      () -> assertEquals(72, ratio.x(), "x ratio not as expected"), //$NON-NLS-1$
+      () -> assertEquals(35, ratio.y(), "y ratio not as expected"), //$NON-NLS-1$
+      () -> assertEquals("72:35", ratio.stringValue(), DisplayAspectRatioTests.ASPECT_RATIO_NOT_AS_EXPECTED)
     );
    }
 

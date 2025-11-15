@@ -6,11 +6,10 @@ package de.powerstat.validation.containers.test;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import nl.jqno.equalsverifier.*;
 
 import de.powerstat.validation.containers.NTuple2;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -46,42 +45,12 @@ final class NTuple2Tests
 
 
   /**
-   * Test hash code.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode()
+  public void equalsContract()
    {
-    final NTuple2<Integer, Integer> tuple1 = NTuple2.of(Integer.valueOf(1), Integer.valueOf(4711));
-    final NTuple2<Integer, Integer> tuple2 = NTuple2.of(Integer.valueOf(1), Integer.valueOf(4711));
-    final NTuple2<Integer, Integer> tuple3 = NTuple2.of(Integer.valueOf(2), Integer.valueOf(815));
-    assertAll("testHashCode", //$NON-NLS-1$
-      () -> assertEquals(tuple1.hashCode(), tuple2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(tuple1.hashCode(), tuple3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final NTuple2<Integer, Integer> tuple1 = NTuple2.of(Integer.valueOf(1), Integer.valueOf(4711));
-    final NTuple2<Integer, Integer> tuple2 = NTuple2.of(Integer.valueOf(1), Integer.valueOf(4711));
-    final NTuple2<Integer, Integer> tuple3 = NTuple2.of(Integer.valueOf(2), Integer.valueOf(815));
-    final NTuple2<Integer, Integer> tuple4 = NTuple2.of(Integer.valueOf(1), Integer.valueOf(4711));
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(tuple1.equals(tuple1), "tuple11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(tuple1.equals(tuple2), "tuple12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(tuple2.equals(tuple1), "tuple21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(tuple2.equals(tuple4), "tuple24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(tuple1.equals(tuple4), "tuple14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(tuple1.equals(tuple3), "tuple13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(tuple3.equals(tuple1), "tuple31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(tuple1.equals(null), "tuple10 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(NTuple2.class).withNonnullFields("object1", "object2").verify();
    }
 
 

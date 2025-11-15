@@ -10,7 +10,7 @@ import de.powerstat.validation.interfaces.IValueObject;
 
 
 /**
- * DayMonth.
+ * Day within month.
  *
  * @param month Month
  * @param day Day
@@ -18,7 +18,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Not DSGVO relevant.
  *
  * TODO LeapYear support
- * TODO min, max
+ * TODO min, max  01.01.    31.12.
  */
 public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IValueObject
  {
@@ -148,23 +148,41 @@ public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IV
 
 
   /**
+   * Fix day if necessary (day > lastDayInMonth).
+   *
+   * @param month Month
+   * @return Fixed day
+   */
+  private int fixDay(Month month)
+   {
+    long lastDayInMonth = month.daysInMonth().days();
+    int newDay = this.day.day();
+    if (this.day.day() > lastDayInMonth) // NO PITEST
+     {
+      newDay = (int)lastDayInMonth;
+     }
+    return newDay;
+   }
+
+
+  /**
    * Add months to this MonthDay.
    *
    * @param months Months to add to this MonthDay
    * @return New MonthDay after adding the months to this MonthDay
-   * @throws ArithmeticException In case of an overflow
    */
   public MonthDay add(final Months months)
    {
-    final long newMonth = Math.toIntExact(Math.addExact(this.month.month(), months.months()));
-    if (newMonth > 12) // while (newMonth > 12)
+    long newMonth = Math.toIntExact(Math.addExact(this.month.month(), months.months()));
+    while (newMonth > 12)
      {
-      // TODO Listener
-      // newMonthDay -= 12;
+      // TODO Listener year
+      newMonth -= 12;
       // incrementYear();
-      throw new ArithmeticException(MonthDay.OVERFLOW);
      }
-    return MonthDay.of(Month.of(Math.toIntExact(newMonth)), this.day);
+    Month month = Month.of(Math.toIntExact(newMonth));
+    int newDay = fixDay(month);
+    return MonthDay.of(month, Day.of(newDay));
    }
 
 
@@ -173,19 +191,19 @@ public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IV
    *
    * @param months Months to subtract from this MonthDay
    * @return New MonthDay after subtracting months from this MonthDay
-   * @throws ArithmeticException In case of an underflow
    */
   public MonthDay subtract(final Months months)
    {
-    final long newMonth = Math.toIntExact(Math.subtractExact(this.month.month(), months.months()));
-    if (newMonth <= 0) // while (newMonth <= 0)
+    long newMonth = Math.toIntExact(Math.subtractExact(this.month.month(), months.months()));
+    while (newMonth <= 0)
      {
-      // TODO Listener
-      // newMonth += 12;
+      // TODO Listener year
+      newMonth += 12;
       // decrementYear();
-      throw new ArithmeticException(MonthDay.UNDERFLOW);
      }
-    return MonthDay.of(Month.of(Math.toIntExact(newMonth)), this.day);
+    Month month = Month.of(Math.toIntExact(newMonth));
+    int newDay = fixDay(month);
+    return MonthDay.of(month, Day.of(newDay));
    }
 
 
@@ -193,19 +211,19 @@ public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IV
    * Increment this MonthDay by one month.
    *
    * @return New MonthDay after incrementing this MonthDay by one month
-   * @throws ArithmeticException In case of an overflow
    */
   public MonthDay incrementMonth()
    {
-    final int newMonth = Math.incrementExact(this.month.month());
+    int newMonth = Math.incrementExact(this.month.month());
     if (newMonth == 13)
      {
-      // TODO Listener
-      // newMonth = 1;
+      // TODO Listener year
+      newMonth = 1;
       // incrementYear();
-      throw new ArithmeticException(MonthDay.OVERFLOW);
      }
-    return MonthDay.of(Month.of(newMonth), this.day);
+    Month month = Month.of(Math.toIntExact(newMonth));
+    int newDay = fixDay(month);
+    return MonthDay.of(month, Day.of(newDay));
    }
 
 
@@ -213,25 +231,119 @@ public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IV
    * Decrement this MonthDay by one month.
    *
    * @return New MonthDay after decrement this MonthDay by one month
-   * @throws ArithmeticException In case of an overflow
    */
   public MonthDay decrementMonth()
    {
-    final int newMonth = Math.decrementExact(this.month.month());
+    int newMonth = Math.decrementExact(this.month.month());
     if (newMonth == 0)
      {
-      // TODO Listener
-      // newMonth = 12;
+      // TODO Listener year
+      newMonth = 12;
       // decrementYear();
-      throw new ArithmeticException(MonthDay.UNDERFLOW);
      }
-    return MonthDay.of(Month.of(newMonth), this.day);
+    Month month = Month.of(Math.toIntExact(newMonth));
+    int newDay = fixDay(month);
+    return MonthDay.of(month, Day.of(newDay));
    }
 
 
-  // TODO add days (leap year)
-  // TODO subtract days (leap year)
-  // TODO increment day (leap year)
-  // TODO decrement day (leap year)
+  /**
+   * Add days to this MonthDay.
+   *
+   * @param days Days to add to this MonthDay
+   * @return New MonthDay after adding the days to this MonthDay
+   */
+  public MonthDay add(final Days days)
+   {
+    long newDay = Math.toIntExact(Math.addExact(this.day.day(), days.days()));
+    int newMonth = this.month.month();
+    while (newDay > Month.of(newMonth).daysInMonth().days())
+     {
+      newDay -= Month.of(newMonth).daysInMonth().days();
+      ++newMonth;
+      if (newMonth > 12)
+       {
+        newMonth = 1;
+        // incrementYear()
+        // TODO Listener Year
+       }
+     }
+    return MonthDay.of(Month.of(newMonth), Day.of(Math.toIntExact(newDay)));
+   }
+
+
+  /**
+   * Subtract days from this MonthDay.
+   *
+   * @param days Days to subtract from this MonthDay
+   * @return New MonthDay after subtrating the days from this MonthDay
+   */
+  public MonthDay subtract(final Days days)
+   {
+    long newDay = Math.toIntExact(Math.subtractExact(this.day.day(), days.days()));
+    int newMonth = this.month.month();
+    while (newDay < 1)
+     {
+      --newMonth;
+      if (newMonth < 1)
+       {
+        newMonth = 12;
+        // decrementYear()
+        // TODO Listener Year
+       }
+      newDay += Month.of(newMonth).daysInMonth().days();
+     }
+    return MonthDay.of(Month.of(newMonth), Day.of(Math.toIntExact(newDay)));
+   }
+
+
+  /**
+   * Increment this MonthDay by one day.
+   *
+   * @return New MonthDay after incrementing this MonthDay by one day
+   */
+  public MonthDay incrementDay()
+   {
+    int newMonth = this.month.month();
+    int newDay = Math.incrementExact(this.day.day());
+    if (newDay > this.month.daysInMonth().days())
+     {
+      newDay -= this.month.daysInMonth().days();
+      // TODO Listener month
+      ++newMonth;
+      if (newMonth > 12)
+       {
+        newMonth = 1;
+        // TODO Listener year
+        // incrementYear();
+       }
+     }
+    return MonthDay.of(Month.of(Math.toIntExact(newMonth)), Day.of(newDay));
+   }
+
+
+  /**
+   * Decrement this MonthDay by one day.
+   *
+   * @return New MonthDay after decrementing this MonthDay by one day
+   */
+  public MonthDay decrementDay()
+   {
+    int newMonth = this.month.month();
+    int newDay = Math.decrementExact(this.day.day());
+    if (newDay < 1)
+     {
+      // TODO Listener month
+      --newMonth;
+      if (newMonth < 1)
+       {
+        newMonth = 12;
+        // TODO Listener year
+        // incrementYear();
+       }
+      newDay += Month.of(newMonth).daysInMonth().days();
+     }
+    return MonthDay.of(Month.of(Math.toIntExact(newMonth)), Day.of(newDay));
+   }
 
  }

@@ -45,13 +45,13 @@ public class HistoryOf<T>
    * @see java.lang.Object#hashCode()
    */
   @Override
-  public int hashCode()
+  public final int hashCode()
    {
-    if (this.history.isEmpty())
+    if (history.isEmpty())
      {
       return 0;
      }
-    return Objects.hash(this.getLatestEntry());
+    return Objects.hash(history);
    }
 
 
@@ -64,7 +64,7 @@ public class HistoryOf<T>
    * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
-  public boolean equals(final Object obj)
+  public final boolean equals(final Object obj)
    {
     if (this == obj)
      {
@@ -76,11 +76,12 @@ public class HistoryOf<T>
       return false;
      }
     final HistoryOf<T> other = (HistoryOf<T>)obj;
-    if ((this.history.isEmpty()) || (other.history.isEmpty()))
+    if ((history.isEmpty()) || (other.history.isEmpty()))
      {
-      return ((this.history.isEmpty()) && (other.history.isEmpty()));
+      return ((history.isEmpty()) && (other.history.isEmpty()));
      }
-    return this.getLatestEntry().equals(other.getLatestEntry());
+    // return this.getLatestEntry().equals(other.getLatestEntry());
+    return history.equals(other.history);
    }
 
 
@@ -100,7 +101,7 @@ public class HistoryOf<T>
     final var builder = new StringBuilder();
     builder.append("HistoryOf<>["); //$NON-NLS-1$
     final int initLength = builder.length();
-    for (final Map.Entry<OffsetDateTime, T> entry : this.history.entrySet())
+    for (final Map.Entry<OffsetDateTime, T> entry : history.entrySet())
      {
       builder.append(entry.getKey().format(DateTimeFormatter.ISO_DATE_TIME));
       builder.append('=');
@@ -123,7 +124,7 @@ public class HistoryOf<T>
    */
   public boolean isEmpty()
    {
-    return this.history.isEmpty();
+    return history.isEmpty();
    }
 
 
@@ -144,11 +145,11 @@ public class HistoryOf<T>
      {
       throw new IndexOutOfBoundsException("since lies in the future!"); //$NON-NLS-1$
      }
-    if ((!this.history.isEmpty()) && entry.equals(this.getLatestEntry()))
+    if ((!history.isEmpty()) && entry.equals(this.getLatestEntry()))
      {
       throw new IllegalArgumentException("entry is already latest in HistoryOf!");
      }
-    this.history.put(since, entry);
+    history.put(since, entry);
    }
 
 
@@ -160,7 +161,7 @@ public class HistoryOf<T>
    */
   public T getFirstEntry()
    {
-    return this.history.get(this.history.firstKey());
+    return history.get(history.firstKey());
    }
 
 
@@ -172,7 +173,7 @@ public class HistoryOf<T>
    */
   public T getLatestEntry()
    {
-    return this.history.get(this.history.lastKey());
+    return history.get(history.lastKey());
    }
 
 
@@ -184,9 +185,9 @@ public class HistoryOf<T>
    */
   public T getPreviousEntry()
    {
-    final Set<OffsetDateTime> keys = this.history.keySet();
-    OffsetDateTime previous = this.history.firstKey();
-    OffsetDateTime latest = this.history.firstKey();
+    final Set<OffsetDateTime> keys = history.keySet();
+    OffsetDateTime previous = history.firstKey();
+    OffsetDateTime latest = history.firstKey();
     for (final OffsetDateTime key : keys)
      {
       if (!latest.equals(key))
@@ -198,7 +199,7 @@ public class HistoryOf<T>
         latest = key;
        }
      }
-    return this.history.get(previous);
+    return history.get(previous);
    }
 
 
@@ -209,7 +210,7 @@ public class HistoryOf<T>
    */
   public SortedMap<OffsetDateTime, T> getHistory()
    {
-    return new ConcurrentSkipListMap<>(this.history);
+    return new ConcurrentSkipListMap<>(history);
    }
 
  }

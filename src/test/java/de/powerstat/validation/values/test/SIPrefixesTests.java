@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2023-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -28,6 +28,16 @@ final class SIPrefixesTests
   /* default */ SIPrefixesTests()
    {
     super();
+   }
+
+
+  /**
+   * Factory string value test.
+   */
+  @Test
+  /* default */ void testStringValue1()
+   {
+    assertEquals("GIGA", SIPrefixes.GIGA.stringValue(), "No prefix");
    }
 
 

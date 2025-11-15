@@ -1,14 +1,12 @@
 /*
- * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.containers.test;
 
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,6 +20,7 @@ import java.util.SortedMap;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
+import nl.jqno.equalsverifier.*;
 
 import de.powerstat.validation.containers.HistoryOf;
 import de.powerstat.validation.values.Lastname;
@@ -117,70 +116,12 @@ final class HistoryOfTests
 
 
   /**
-   * Hash code test.
+   * Equalsverifier.
    */
   @Test
-  /* default */ void testHashCode1()
+  public void equalsContract()
    {
-    final HistoryOf<Lastname> lastname = new HistoryOf<>();
-    final int hc1 = lastname.hashCode();
-    lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
-    final int hc2 = lastname.hashCode();
-    assertAll(HistoryOfTests.TEST_HASH_CODE,
-      () -> assertEquals(0, hc1, "hc1 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(-1543832814, hc2, "hc2 not as expected") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Hash code test.
-   */
-  @Test
-  /* default */ void testHashCode2()
-   {
-    final HistoryOf<Lastname> lastname1 = new HistoryOf<>();
-    lastname1.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
-    final HistoryOf<Lastname> lastname2 = new HistoryOf<>();
-    lastname2.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
-    final HistoryOf<Lastname> lastname3 = new HistoryOf<>();
-    lastname3.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.LASTNAME));
-    assertAll(HistoryOfTests.TEST_HASH_CODE,
-      () -> assertEquals(lastname1.hashCode(), lastname2.hashCode(), "hashCodes are not equal"), //$NON-NLS-1$
-      () -> assertNotEquals(lastname1.hashCode(), lastname3.hashCode(), "hashCodes are equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals()
-   {
-    final HistoryOf<Lastname> lastname1 = new HistoryOf<>();
-    lastname1.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
-    final HistoryOf<Lastname> lastname2 = new HistoryOf<>();
-    lastname2.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
-    final HistoryOf<Lastname> lastname3 = new HistoryOf<>();
-    lastname3.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.LASTNAME));
-    final HistoryOf<Lastname> lastname4 = new HistoryOf<>();
-    lastname4.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
-    final HistoryOf<Lastname> lastname5 = new HistoryOf<>();
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertTrue(lastname1.equals(lastname1), "lastname11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(lastname1.equals(lastname2), "lastname12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(lastname2.equals(lastname1), "lastname21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(lastname2.equals(lastname4), "lastname24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(lastname1.equals(lastname4), "lastname14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(lastname1.equals(lastname3), "lastname13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(lastname3.equals(lastname1), "lastname31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(lastname1.equals(null), "lastname10 is equal"), //$NON-NLS-1$
-      () -> assertFalse(lastname1.equals(new Object()), "lastname1obj is equal"), //$NON-NLS-1$
-      () -> assertFalse(lastname1.equals(lastname5), "lastname15 is equal"), //$NON-NLS-1$
-      () -> assertFalse(lastname5.equals(lastname1), "lastname51 is equal") //$NON-NLS-1$
-    );
+    EqualsVerifier.forClass(HistoryOf.class).withNonnullFields("history").verify();
    }
 
 

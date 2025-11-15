@@ -1,10 +1,9 @@
 /*
- * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
 
-import java.util.Arrays;
 import java.util.Objects;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -85,11 +84,12 @@ public record AddressWithWGS84Position(Address address, WGS84Position position) 
   public static AddressWithWGS84Position of(final String value)
    {
     String[] values = value.split(",");
-    if ((values.length < 1) || (values.length > 16))
+    if ((values.length < 16) || (values.length > 16))
      {
       throw new IllegalArgumentException("value not in expected format: " + values.length);
      }
-    if (values.length < 16)
+    /*
+    if (values.length < 16) // NO PITEST
      {
       values = Arrays.copyOf(values, 16);
       for (int i = 1; i < 16; ++i)
@@ -100,6 +100,7 @@ public record AddressWithWGS84Position(Address address, WGS84Position position) 
          }
        }
      }
+    */
     final var country = Country.of(values[0]);
     final PostalCode postalCode = values[1].isEmpty() ? null : PostalCode.of(values[1]);
     final City city = values[2].isEmpty() ? null : City.of(values[2]);

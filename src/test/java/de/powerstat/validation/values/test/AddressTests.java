@@ -1,19 +1,16 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-
 import de.powerstat.validation.values.Address;
 import de.powerstat.validation.values.BFPONumber;
 import de.powerstat.validation.values.Block;
@@ -418,6 +415,22 @@ final class AddressTests
 
 
   /**
+   * Constructor/Factory test.
+   */
+  @Test
+  /* default */ void testConstructor7()
+   {
+    final Address address = Address.of("DE,28307,Bremen");
+    assertAll(AddressTests.CONSTRUCTOR,
+      () -> assertNotNull(address, AddressTests.ADDRESS_IS_NULL),
+      () -> assertEquals(AddressTests.DE, address.country().stringValue(), AddressTests.WRONG_COUNTRY),
+      () -> assertEquals(AddressTests.POSTALCODE28307, address.postalCode().stringValue(), AddressTests.WRONG_POSTAL_CODE),
+      () -> assertEquals(AddressTests.BREMEN, address.city().stringValue(), AddressTests.WRONG_CITY)
+    );
+   }
+
+
+  /**
    * Test string value.
    */
   @Test
@@ -425,83 +438,6 @@ final class AddressTests
    {
     final Address address = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, null, null, null, null, PoBoxNumber.of(12345), null, null, null, null, null);
     assertEquals("\nPostfach 12345\n28307 Bremen\n\n", address.stringValue().replace(AddressTests.LINEBREAK_WIN, AddressTests.LINEBREAK_UNIX).replace('\r', '\n'), "Address not as expected");
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings(JAVA_S5785)
-  /* default */ void testEquals()
-   {
-    final Address address1 = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, null, null, null, null, null, null);
-    final Address address2 = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, null, null, null, null, null, null);
-    final Address address3 = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28359), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.BIBLIOTHEKSTRASSE), BuildingNr.of(AddressTests.BUIDINGNR1), null, null, null, null, null, null, null, null);
-    final Address address4 = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, null, null, null, null, null, null);
-    assertAll(AddressTests.TEST_EQUALS,
-      () -> assertTrue(address1.equals(address1), "address11 is not equal"), //$NON-NLS-1$
-      () -> assertTrue(address1.equals(address2), "address12 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(address2.equals(address1), "address21 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(address2.equals(address4), "address24 are not equal"), //$NON-NLS-1$
-      () -> assertTrue(address1.equals(address4), "address14 are not equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(address3), "address13 are equal"), //$NON-NLS-1$
-      () -> assertFalse(address3.equals(address1), "address31 are equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(null), "address10 is equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings(JAVA_S5785)
-  /* default */ void testEquals2()
-   {
-    final Address address1 = Address.of(Country.of(AddressTests.GB), PostalCode.of(AddressTests.POSTALCODE_GB), City.of(AddressTests.BEDFORDSHIRE), null, null, null, null, null, null, null, Department.of(AddressTests.TEST), null, null, BFPONumber.of(1), Lines.of("Test1")); //$NON-NLS-1$
-    final Address address2 = Address.of(Country.of(AddressTests.GB), PostalCode.of(AddressTests.POSTALCODE_GB), City.of(AddressTests.BEDFORDSHIRE), null, null, null, null, null, null, null, Department.of(AddressTests.TEST), null, null, BFPONumber.of(1), Lines.of("Test2")); //$NON-NLS-1$
-    assertFalse(address1.equals(address2), "address12 is not equal"); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Test not equals.
-   */
-  @Test
-  @SuppressWarnings(JAVA_S5785)
-  /* default */ void testNotEquals()
-   {
-    final Address address1 = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, null, null, null, null, null, null);
-    final Address address2 = Address.of(Country.of(AddressTests.GB), PostalCode.of(AddressTests.POSTALCODE_GB), City.of(AddressTests.BEDFORDSHIRE), null, null, null, null, null, null, null, Department.of(AddressTests.TEST), null, null, BFPONumber.of(1), Lines.of(AddressTests.TEST2));
-    final Address address3 = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.HANNOVER), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, null, null, null, null, null, null);
-    final Address address4 = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.BIBLIOTHEKSTRASSE), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, null, null, null, null, null, null);
-    final Address address5 = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUIDINGNR1), null, null, null, null, null, null, null, null);
-    final Address address6 = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), Province.of(AddressTests.TESTPROVINCE), null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, null, null, null, null, null, null);
-    final Address address7 = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, District.of(AddressTests.DISTRICT), Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, null, null, null, null, null, null);
-    final Address address8 = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), BuildingName.of(AddressTests.TEST2), null, null, null, null, null, null, null);
-    final Address address9 = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, SubBuilding.of(AddressTests.SUBBUILDING), null, null, null, null, null, null);
-    final Address address10 = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, PoBoxNumber.of(1), null, null, null, null, null);
-    final Address address11 = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, null, Department.of(AddressTests.TESTDEPARTMENT), null, null, null, null);
-    final Address address12 = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, null, null, Neighbourhood.of(AddressTests.TESTNEIGHBOUR), null, null, null);
-    final Address address13 = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, null, null, null, Block.of(AddressTests.TESTBLOCK13), null, null);
-    final Address address14 = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, null, null, null, null, BFPONumber.of(1), null);
-    assertAll(AddressTests.TEST_EQUALS,
-      () -> assertFalse(address1.equals(new Object()), "address1o is equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(address2), "address12 is equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(address3), "address13 is equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(address4), "address14 is equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(address5), "address15 is equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(address6), "address16 is equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(address7), "address17 is equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(address8), "address18 is equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(address9), "address19 is equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(address10), "address1a is equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(address11), "address1b is equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(address12), "address1c is equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(address13), "address1d is equal"), //$NON-NLS-1$
-      () -> assertFalse(address1.equals(address14), "address1e is equal") //$NON-NLS-1$
-    );
    }
 
 

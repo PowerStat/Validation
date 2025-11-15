@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -127,10 +127,10 @@ final class HourTests
   @Test
   /* default */ void testAdd1()
    {
-    final Hour hour = Hour.of(0);
+    final Hour hour = Hour.of(22);
     final Hours hours = Hours.of(1);
     final Hour hourResult = hour.add(hours);
-    assertEquals(1, hourResult.hour(), HourTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(23, hourResult.hour(), HourTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

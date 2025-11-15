@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -7,7 +7,6 @@ package de.powerstat.validation.values.test;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
 import de.powerstat.validation.values.Password;
 import de.powerstat.validation.values.strategies.IPasswordStrategy;
 import de.powerstat.validation.values.strategies.PasswordConfigurableStrategy;
@@ -83,7 +81,9 @@ final class PasswordTests
 
 
   /**
-   * Test Password with vaöid values.
+   * Test Password with valid values.
+   *
+   * @param password Password
    */
   @Test
   /* default */ void testPasswordOk1()
@@ -159,17 +159,6 @@ final class PasswordTests
    {
     final Password password = Password.of(PasswordTests.PASSWORD3);
     assertEquals(SECRET_PASSWORD, password.stringValue(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test passwd.
-   */
-  @Test
-  /* default */ void testPasswd()
-   {
-    final Password password = Password.of(PasswordTests.PASSWORD3);
-    assertEquals(SECRET_PASSWORD, password.passwd(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
    }
 
 

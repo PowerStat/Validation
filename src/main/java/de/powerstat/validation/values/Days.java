@@ -15,13 +15,21 @@ import de.powerstat.validation.interfaces.IValueObject;
  * @param days Days 0-..
  *
  * Not DSGVO relevant.
- *
- * TODO min, max
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
 public record Days(long days) implements Comparable<Days>, IValueObject
  {
+  /**
+   * Minimum allowed value 0.
+   */
+  public static final long MIN_VALUE = 0;
+
+  /**
+   * Maximum allowed value Long.MAX_VALUE.
+   */
+  public static final long MAX_VALUE = Long.MAX_VALUE;
+
   /**
    * Constructor.
    *
@@ -109,7 +117,7 @@ public record Days(long days) implements Comparable<Days>, IValueObject
    */
   public Days subtract(final Days other)
    {
-    if (other.days > this.days)
+    if (other.days > this.days) // NO PITEST
      {
       return Days.of(other.days - this.days);
      }

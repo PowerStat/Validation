@@ -1,36 +1,25 @@
 /*
- * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
+
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-
 import de.powerstat.validation.values.AddressWithWGS84Position;
-import de.powerstat.validation.values.BFPONumber;
-import de.powerstat.validation.values.Block;
-import de.powerstat.validation.values.BuildingName;
 import de.powerstat.validation.values.BuildingNr;
 import de.powerstat.validation.values.City;
 import de.powerstat.validation.values.Country;
-import de.powerstat.validation.values.Department;
-import de.powerstat.validation.values.District;
-import de.powerstat.validation.values.Lines;
-import de.powerstat.validation.values.Neighbourhood;
 import de.powerstat.validation.values.PoBoxNumber;
 import de.powerstat.validation.values.PostalCode;
-import de.powerstat.validation.values.Province;
 import de.powerstat.validation.values.Street;
-import de.powerstat.validation.values.SubBuilding;
 import de.powerstat.validation.values.WGS84Position;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * AddressWithWGS84Position tests.
@@ -201,10 +190,10 @@ final class AddressWithWGS84PositionTests
   @Test
   /* default */ void testConstructor5()
    {
-    assertThrows(NullPointerException.class, () ->
+    assertThrows(IllegalArgumentException.class, () ->
      {
       /* final AddressWithWGS84Position address = */ AddressWithWGS84Position.of("DE,28307,Bremen,,,,,,,12345");
-     }, "Null pointer exception" //$NON-NLS-1$
+     }, ILLEGAL_ARGUMENT_EXCEPTION
     );
    }
 

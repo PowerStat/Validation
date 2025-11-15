@@ -1,13 +1,11 @@
 /*
- * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -93,6 +91,36 @@ final class WGS84PositionTests
      {
       /* final WGS84Position pos = */ WGS84Position.of("0.0");
      }, "Illegal argument excption"
+    );
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory3()
+   {
+    final WGS84Position pos = WGS84Position.of("-90.0 -180.0 7.0");
+    assertAll("factory", //$NON-NLS-1$
+      () -> assertEquals(-90.0, pos.latitude(), LATITUTE_ERROR),
+      () -> assertEquals(-180.0, pos.longitude(), LONGITUTE_ERROR),
+      () -> assertEquals(7.0, pos.altitude(), ALTITUDE_ERROR)
+    );
+   }
+
+
+  /**
+   * Factory string test.
+   */
+  @Test
+  /* default */ void testFactory4()
+   {
+    final WGS84Position pos = WGS84Position.of("90.0 180.0 9.0");
+    assertAll("factory", //$NON-NLS-1$
+      () -> assertEquals(90.0, pos.latitude(), LATITUTE_ERROR),
+      () -> assertEquals(180.0, pos.longitude(), LONGITUTE_ERROR),
+      () -> assertEquals(9.0, pos.altitude(), ALTITUDE_ERROR)
     );
    }
 

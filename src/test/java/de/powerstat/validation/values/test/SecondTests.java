@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values.test;
 
@@ -137,10 +137,10 @@ final class SecondTests
   @Test
   /* default */ void testAdd1()
    {
-    final Second second = Second.of(1);
+    final Second second = Second.of(58);
     final Seconds seconds = Seconds.of(1);
     final Second secondResult = second.add(seconds);
-    assertEquals(2, secondResult.second(), SecondTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(59, secondResult.second(), SecondTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -166,10 +166,10 @@ final class SecondTests
   @Test
   /* default */ void testSubtract1()
    {
-    final Second second = Second.of(2);
+    final Second second = Second.of(1);
     final Seconds seconds = Seconds.of(1);
     final Second secondResult = second.subtract(seconds);
-    assertEquals(1, secondResult.second(), SecondTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, secondResult.second(), SecondTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
