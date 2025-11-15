@@ -10,7 +10,7 @@ import de.powerstat.validation.interfaces.IValueObject;
 
 
 /**
- * Month.
+ * Weekday.
  *
  * Not DSGVO relevant.
  *
@@ -96,7 +96,7 @@ public final class Weekday implements Comparable<Weekday>, IValueObject
    */
   public int intValue()
    {
-    return this.weekday;
+    return weekday;
    }
 
 
@@ -108,7 +108,7 @@ public final class Weekday implements Comparable<Weekday>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.weekday); // TODO language or english text
+    return String.valueOf(weekday); // TODO language or english text
    }
 
 
@@ -121,7 +121,7 @@ public final class Weekday implements Comparable<Weekday>, IValueObject
   @Override
   public int hashCode()
    {
-    return Integer.hashCode(this.weekday);
+    return Integer.hashCode(weekday);
    }
 
 
@@ -143,7 +143,7 @@ public final class Weekday implements Comparable<Weekday>, IValueObject
      {
       return false;
      }
-    return this.weekday == other.weekday;
+    return weekday == other.weekday;
    }
 
 
@@ -161,7 +161,7 @@ public final class Weekday implements Comparable<Weekday>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("Weekday[weekday=").append(this.weekday).append(']'); //$NON-NLS-1$
+    builder.append("Weekday[weekday=").append(weekday).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -177,7 +177,7 @@ public final class Weekday implements Comparable<Weekday>, IValueObject
   public int compareTo(final Weekday obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.weekday, obj.weekday);
+    return Integer.compare(weekday, obj.weekday);
    }
 
 
@@ -190,7 +190,7 @@ public final class Weekday implements Comparable<Weekday>, IValueObject
    */
   public Weekday add(final Days days)
    {
-    final long newWeekday = Math.toIntExact(Math.addExact(this.weekday, days.longValue()));
+    final long newWeekday = Math.toIntExact(Math.addExact(weekday, days.longValue()));
     if (newWeekday > 7) // while (newWeekday > 7)
      {
       // TODO Listener
@@ -211,7 +211,7 @@ public final class Weekday implements Comparable<Weekday>, IValueObject
    */
   public Weekday subtract(final Days days)
    {
-    final long newWeekday = Math.toIntExact(Math.subtractExact(this.weekday, days.longValue()));
+    final long newWeekday = Math.toIntExact(Math.subtractExact(weekday, days.longValue()));
     if (newWeekday <= 0) // while (newWeekday <= 0)
      {
       // TODO Listener
@@ -231,7 +231,7 @@ public final class Weekday implements Comparable<Weekday>, IValueObject
    */
   public Weekday increment()
    {
-    final int newWeekday = Math.incrementExact(this.weekday);
+    final int newWeekday = Math.incrementExact(weekday);
     if (newWeekday == 8)
      {
       // TODO Listener
@@ -251,7 +251,7 @@ public final class Weekday implements Comparable<Weekday>, IValueObject
    */
   public Weekday decrement()
    {
-    final int newWeekday = Math.decrementExact(this.weekday);
+    final int newWeekday = Math.decrementExact(weekday);
     if (newWeekday == 0)
      {
       // TODO Listener

@@ -104,8 +104,6 @@ final class NTuple9Tests
    }
 
 
-
-
   /**
    * Equalsverifier.
    */

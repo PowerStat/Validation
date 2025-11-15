@@ -11,19 +11,22 @@ https://de.wikipedia.org/wiki/European_Article_Number
 
 
 - [ ] Month (enum) names (language dependend)
+- [ ] YearMonthDay    Geburtsdatum (Tag Monat Jahr), Datum   Julian/Gregorian
+- [ ] YearWeek     Julian/Gregorian
+- [ ] YearWeekWeekday   Julian/Gregorian
 - [ ] Timezone
-- [ ] Date
+- [ ] Date   Julian/Gregorian  -> YearMonthDay
 - [ ] Format
 - [ ] Holidays
-- [ ] DateDuration, TimeDuration, DateTimeDuration
-- [ ] DateRange, TimeRange, DateTimeRange
+- [ ] DateDuration, TimeDuration, DateTimeDuration     Julian/Gregorian
+- [ ] DateRange, TimeRange, DateTimeRange              Julian/Gregorian
 - [ ] Recurring Date / Time
 - [ ] Time
-- [ ] DateTime
+- [ ] DateTime            Julian/Gregorian
 - [ ] UnixEpoche
 
 
-Geburtsdatum (Tag Monat Jahr)
+
 Datum, Unterschrift
 Familienstand: Verheiratet, Verpartnert, geschieden, verwitwert, ledig
   https://de.wikipedia.org/wiki/Familienstand
@@ -125,7 +128,7 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] FileType
 - [ ] ImageType
 
-- [ ] ISBN-10, ISBN-13
+- [ ] ISBN-10
       https://de.wikipedia.org/wiki/Internationale_Standardbuchnummer
 - [ ] ISSN
       https://de.wikipedia.org/wiki/Internationale_Standardnummer_f%C3%BCr_fortlaufende_Sammelwerke
@@ -172,7 +175,6 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] EyeId
 - [ ] Eye colors
 - [ ] Body height
-- [ ] Blood group
 - [ ] Characteristics
 - [ ] identification card(s)
 - [ ] passport
