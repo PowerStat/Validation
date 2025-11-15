@@ -4,11 +4,9 @@
 package de.powerstat.validation.containers.test;
 
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,7 +21,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 import nl.jqno.equalsverifier.*;
-import de.powerstat.validation.containers.GroupOf;
 import de.powerstat.validation.containers.HistoryOf;
 import de.powerstat.validation.values.Lastname;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

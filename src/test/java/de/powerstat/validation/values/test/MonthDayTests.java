@@ -7,7 +7,6 @@ package de.powerstat.validation.values.test;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,7 +15,6 @@ import nl.jqno.equalsverifier.*;
 
 import de.powerstat.validation.values.Day;
 import de.powerstat.validation.values.Days;
-import de.powerstat.validation.values.Minute;
 import de.powerstat.validation.values.Month;
 import de.powerstat.validation.values.MonthDay;
 import de.powerstat.validation.values.Months;

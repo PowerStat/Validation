@@ -6,13 +6,10 @@ package de.powerstat.validation.containers.test;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import nl.jqno.equalsverifier.*;
-import de.powerstat.validation.containers.NTuple4;
 import de.powerstat.validation.containers.NTuple9;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

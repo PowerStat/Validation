@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.*;
 
 import de.powerstat.validation.values.SIPrefixes;
 

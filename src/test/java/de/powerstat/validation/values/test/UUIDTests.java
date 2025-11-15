@@ -6,15 +6,12 @@ package de.powerstat.validation.values.test;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import nl.jqno.equalsverifier.*;
 
 import de.powerstat.validation.values.UUID;
-import de.powerstat.validation.values.Username;
 
 
 /**

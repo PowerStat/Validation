@@ -13,8 +13,6 @@ import org.junit.jupiter.api.Test;
 import nl.jqno.equalsverifier.*;
 
 import de.powerstat.validation.values.Day;
-import de.powerstat.validation.values.GregorianCalendar;
-import de.powerstat.validation.values.ISBN13;
 import de.powerstat.validation.values.JulianCalendar;
 import de.powerstat.validation.values.Month;
 import de.powerstat.validation.values.MonthDay;
