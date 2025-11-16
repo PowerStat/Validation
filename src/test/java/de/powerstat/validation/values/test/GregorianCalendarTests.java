@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.*;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.values.Country;
 import de.powerstat.validation.values.Day;
@@ -26,9 +26,19 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Gregorian calendar tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"RV_NEGATING_RESULT_OF_COMPARETO", "SPP_USE_ZERO_WITH_COMPARATOR"})
 final class GregorianCalendarTests
  {
+  /**
+   * 1582 is not a leap year.
+   */
+  private static final String YEAR_1582_IS_NOT_A_LEAP_YEAR = "1582 is not a leap year";
+
+  /**
+   * 1900 is not a leap year.
+   */
+  private static final String YEAR_1900_IS_NOT_A_LEAP_YEAR = "1900 is not a leap year";
+
   /**
    * Test is leap year constant.
    */
@@ -156,11 +166,11 @@ final class GregorianCalendarTests
     final GregorianCalendar calendarDE = GregorianCalendar.of(Country.of(GregorianCalendarTests.DE));
     final GregorianCalendar calendarRU = GregorianCalendar.of(Country.of(GregorianCalendarTests.RU));
     assertAll(GregorianCalendarTests.TEST_IS_LEAP_YEAR,
-      () -> assertFalse(calendarIT.isLeapYear(Year.of(1900)), "1900 is not a leap year"), //$NON-NLS-1$
+      () -> assertFalse(calendarIT.isLeapYear(Year.of(1900)), YEAR_1900_IS_NOT_A_LEAP_YEAR),
       () -> assertTrue(calendarIT.isLeapYear(Year.of(2000)), "2000 is a leap year"), //$NON-NLS-1$
       () -> assertTrue(calendarIT.isLeapYear(Year.of(2020)), "2020 is a leap year"), //$NON-NLS-1$
       () -> assertFalse(calendarIT.isLeapYear(Year.of(2019)), "2019 is not a leap year"), //$NON-NLS-1$
-      () -> assertFalse(calendarIT.isLeapYear(Year.of(1582)), "1582 is not a leap year"), //$NON-NLS-1$
+      () -> assertFalse(calendarIT.isLeapYear(Year.of(1582)), YEAR_1582_IS_NOT_A_LEAP_YEAR),
       () -> assertTrue(calendarIT.isLeapYear(Year.of(1580)), "1580 is a leap year"), //$NON-NLS-1$
       () -> assertTrue(calendarDE.isLeapYear(Year.of(1580)), "1700 is a leap year"), //$NON-NLS-1$
       () -> assertTrue(calendarRU.isLeapYear(Year.of(1920)), "1920 is a leap year"), //$NON-NLS-1$
@@ -176,7 +186,7 @@ final class GregorianCalendarTests
   /* default */ void testIsLeapYear2()
    {
     final GregorianCalendar calendar = GregorianCalendar.of(Country.of("UA"));
-    assertFalse(calendar.isLeapYear(Year.of(1900)), "1900 is not a leap year");
+    assertFalse(calendar.isLeapYear(Year.of(1900)), YEAR_1900_IS_NOT_A_LEAP_YEAR);
    }
 
 
@@ -187,7 +197,7 @@ final class GregorianCalendarTests
   /* default */ void testIsLeapYear3()
    {
     final GregorianCalendar calendarIT = GregorianCalendar.of(Country.of(GregorianCalendarTests.IT));
-    assertFalse(calendarIT.isLeapYear(Year.of(1582)), "1582 is not a leap year");
+    assertFalse(calendarIT.isLeapYear(Year.of(1582)), YEAR_1582_IS_NOT_A_LEAP_YEAR);
    }
 
 

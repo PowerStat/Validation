@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import de.powerstat.validation.values.impl.IBANVerifier;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
@@ -19,6 +20,16 @@ import de.powerstat.validation.values.impl.IBANVerifier;
  */
 final class IBANVerifierTests
  {
+  /**
+   * Result not as expected.
+   */
+  private static final String RESULT_NOT_AS_EXPECTED = "result not as expected";
+
+  /**
+   * IBAN DE pattern.
+   */
+  private static final String IBAN_DE_PATTERN = "^DE[0-9]{2}[0-9]{29}$";
+
   /**
    * Illegal argument exception expected constant.
    */
@@ -101,7 +112,7 @@ final class IBANVerifierTests
   @Test
   /* default */ void testConstructor5()
    {
-    IBANVerifier iv = IBANVerifier.of(15, "^DE[0-9]{2}[0-9]{11}$");
+    final IBANVerifier iv = IBANVerifier.of(15, "^DE[0-9]{2}[0-9]{11}$");
     assertNotNull(iv, "Verifier not as expected");
    }
 
@@ -112,7 +123,7 @@ final class IBANVerifierTests
   @Test
   /* default */ void testConstructor6()
    {
-    IBANVerifier iv = IBANVerifier.of(34, "^DE[0-9]{2}[0-9]{30}$");
+    final IBANVerifier iv = IBANVerifier.of(34, "^DE[0-9]{2}[0-9]{30}$");
     assertNotNull(iv, "Verifier not as expected");
    }
 
@@ -120,11 +131,12 @@ final class IBANVerifierTests
   /**
    * Test constructor with maximal length.
    */
+  @SuppressFBWarnings("PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS")
   @Test
   /* default */ void testConstructor7()
    {
-    IBANVerifier iv1 = IBANVerifier.of(33, "^DE[0-9]{2}[0-9]{29}$");
-    IBANVerifier iv2 = IBANVerifier.of(33, "^DE[0-9]{2}[0-9]{29}$");
+    final IBANVerifier iv1 = IBANVerifier.of(33, IBAN_DE_PATTERN);
+    final IBANVerifier iv2 = IBANVerifier.of(33, IBAN_DE_PATTERN);
     assertNotNull(iv1, "Verifier1 not as expected");
     assertNotNull(iv2, "Verifier2 not as expected");
     assertSame(iv1, iv2, "Not the same");
@@ -139,7 +151,7 @@ final class IBANVerifierTests
    {
     final IBANVerifier iv = IBANVerifier.of(21, IBANVerifierTests.IBAN_DE_REGEXP);
     final boolean result = iv.verify("DE68210501700012345678"); //$NON-NLS-1$
-    assertFalse(result, "result not as expected"); //$NON-NLS-1$
+    assertFalse(result, RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -151,7 +163,7 @@ final class IBANVerifierTests
    {
     final IBANVerifier iv = IBANVerifier.of(21, IBANVerifierTests.IBAN_DE_REGEXP);
     final boolean result = iv.verify("EN6821050170001234567"); //$NON-NLS-1$
-    assertFalse(result, "result not as expected"); //$NON-NLS-1$
+    assertFalse(result, RESULT_NOT_AS_EXPECTED);
    }
 
  }

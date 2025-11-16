@@ -18,6 +18,11 @@ import de.powerstat.validation.values.WeekdayEnum;
 final class WeekdayEnumTests
  {
   /**
+   * Monday.
+   */
+  private static final String MONDAY = "MONDAY";
+
+  /**
    * Monday action not as expected constant.
    */
   private static final String MONDAY_ACTION_NOT_AS_EXPECTED = "1 action not as expected";
@@ -26,7 +31,7 @@ final class WeekdayEnumTests
   /**
    * Default constructor.
    */
-  WeekdayEnumTests()
+  /* default */ WeekdayEnumTests()
    {
     super();
    }
@@ -38,7 +43,7 @@ final class WeekdayEnumTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(1, WeekdayEnum.of("MONDAY").getAction(), MONDAY_ACTION_NOT_AS_EXPECTED); //$NON-NLS-1$
+    assertEquals(1, WeekdayEnum.of(MONDAY).getAction(), MONDAY_ACTION_NOT_AS_EXPECTED);
    }
 
 
@@ -67,7 +72,7 @@ final class WeekdayEnumTests
   /* default */ void testStringValue()
    {
     final WeekdayEnum wd = WeekdayEnum.MONDAY;
-    assertEquals("MONDAY", wd.stringValue(), "stringValue not as expected");
+    assertEquals(MONDAY, wd.stringValue(), "stringValue not as expected");
    }
 
 

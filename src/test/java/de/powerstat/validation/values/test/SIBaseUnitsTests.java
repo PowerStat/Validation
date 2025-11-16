@@ -33,7 +33,7 @@ final class SIBaseUnitsTests
   @Test
   /* default */ void testFactory1()
    {
-    SIBaseUnits result =  SIBaseUnits.of("SECOND");
+    final SIBaseUnits result = SIBaseUnits.of("SECOND");
     assertNotNull(result, "No base unit");
    }
 
@@ -44,7 +44,7 @@ final class SIBaseUnitsTests
   @Test
   /* default */ void testStringValue1()
    {
-    SIBaseUnits result =  SIBaseUnits.of("SECOND");
+    final SIBaseUnits result = SIBaseUnits.of("SECOND");
     assertEquals("SECOND", result.stringValue(), "No base unit");
    }
 

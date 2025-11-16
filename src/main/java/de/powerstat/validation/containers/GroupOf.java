@@ -13,14 +13,21 @@ import java.util.SortedSet;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.regex.Pattern;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Group of a specific type.
  *
  * @param <T> Use only entities
  */
-public class GroupOf<T> implements Set<T>
+public final class GroupOf<T> implements Set<T>
  {
+  /**
+   * Separation.
+   */
+  private static final String SEPARATION = ", ";
+
   /**
    * Group name regexp.
    */
@@ -90,6 +97,7 @@ public class GroupOf<T> implements Set<T>
    * @throws NoSuchElementException If there is no entry in this GroupOf
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.LooseCoupling"})
   @Override
   public final boolean equals(final Object obj)
    {
@@ -98,7 +106,6 @@ public class GroupOf<T> implements Set<T>
       return true;
      }
     if (!(obj instanceof GroupOf<?>))
-    // if ((obj == null) || (this.getClass() != obj.getClass()))
      {
       return false;
      }
@@ -117,20 +124,17 @@ public class GroupOf<T> implements Set<T>
    * @return String representation of this GroupOf
    * @see java.lang.Object#toString()
    */
+  @SuppressFBWarnings("POTENTIAL_XML_INJECTION")
   @Override
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("GroupOf<>[name="); //$NON-NLS-1$
-    builder.append(name);
-    builder.append(", ");
-    final int initLength = builder.length();
+    builder.append("GroupOf<>[name=").append(name).append(SEPARATION); //$NON-NLS-1$
     for (final T entry : group)
      {
-      builder.append(entry);
-      builder.append(", "); //$NON-NLS-1$
+      builder.append(entry).append(SEPARATION);
      }
-    if (", ".equals(builder.substring(builder.length() - 2)))
+    if (SEPARATION.equals(builder.substring(builder.length() - 2)))
      {
       builder.setLength(builder.length() - 2);
      }
@@ -166,13 +170,13 @@ public class GroupOf<T> implements Set<T>
   /**
    * Returns true if this set contains the specified element. More formally, returns true if and only if this set contains an element e such that (o==null ? e==null : o.equals(e)).
    *
-   * @param o Element whose presence in this set is to be tested
+   * @param obj Element whose presence in this set is to be tested
    * @return true if this set contains the specified element
    */
   @Override
-  public boolean contains(final Object o)
+  public boolean contains(final Object obj)
    {
-    return group.contains(o);
+    return group.contains(obj);
    }
 
 
@@ -203,91 +207,91 @@ public class GroupOf<T> implements Set<T>
   /**
    * Returns an array containing all of the elements in this set; the runtime type of the returned array is that of the specified array. If the set fits in the specified array, it is returned therein. Otherwise, a new array is allocated with the runtime type of the specified array and the size of this set.
    *
-   * @param a The array into which the elements of this set are to be stored, if it is big enough; otherwise, a new array of the same runtime type is allocated for this purpose.
+   * @param arr The array into which the elements of this set are to be stored, if it is big enough; otherwise, a new array of the same runtime type is allocated for this purpose.
    * @return An array containing all the elements in this set
    */
   @Override
-  public <T> T[] toArray(final T[] a)
+  public <T> T[] toArray(final T[] arr)
    {
-    return group.toArray(a);
+    return group.toArray(arr);
    }
 
 
   /**
    * Adds the specified element to this set if it is not already present.
    *
-   * @param e Element to be added to this set
+   * @param elem Element to be added to this set
    * @return true if this set did not already contain the specified element
    */
   @Override
-  public boolean add(final T e)
+  public boolean add(final T elem)
    {
-    return group.add(e);
+    return group.add(elem);
    }
 
 
   /**
    * Removes the specified element from this set if it is present.
    *
-   * @param o object to be removed from this set, if present
+   * @param obj object to be removed from this set, if present
    * @return true if this set contained the specified element
    */
   @Override
-  public boolean remove(final Object o)
+  public boolean remove(final Object obj)
    {
-    return group.remove(o);
+    return group.remove(obj);
    }
 
 
   /**
    * Returns true if this set contains all of the elements of the specified collection. If the specified collection is also a set, this method returns true if it is a subset of this set.
    *
-   * @param c Collection to be checked for containment in this set
+   * @param coll Collection to be checked for containment in this set
    * @return true if this set contains all of the elements of the specified collection
    */
   @Override
-  public boolean containsAll(final Collection<?> c)
+  public boolean containsAll(final Collection<?> coll)
    {
-    return group.containsAll(c);
+    return group.containsAll(coll);
    }
 
 
   /**
    * Returns true if this set contains all of the elements of the specified collection. If the specified collection is also a set, this method returns true if it is a subset of this set.
    *
-   * @param c Collection to be checked for containment in this set
+   * @param coll Collection to be checked for containment in this set
    * @return true if this collection changed as a result of the call
    */
   @Override
-  public boolean addAll(final Collection<? extends T> c)
+  public boolean addAll(final Collection<? extends T> coll)
    {
-    return group.addAll(c);
+    return group.addAll(coll);
    }
 
 
   /**
    * Retains only the elements in this set that are contained in the specified collection.
    *
-   * @param c Collection containing elements to be retained in this set
+   * @param coll Collection containing elements to be retained in this set
    * @return true if this set changed as a result of the call
    */
   @Override
-  public boolean retainAll(final Collection<?> c)
+  public boolean retainAll(final Collection<?> coll)
    {
-    return group.retainAll(c);
+    return group.retainAll(coll);
    }
 
 
   /**
    * Removes from this set all of its elements that are contained in the specified collection.
    *
-   * @param c Collection containing elements to be removed from this set
+   * @param coll Collection containing elements to be removed from this set
    * @return true if this set changed as a result of the call
    */
   @Override
-  public boolean removeAll(final Collection<?> c)
+  public boolean removeAll(final Collection<?> coll)
    {
-    return group.removeAll(c);
+    return group.removeAll(coll);
    }
 
 

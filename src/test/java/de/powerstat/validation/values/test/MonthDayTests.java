@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.*;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.values.Day;
 import de.powerstat.validation.values.Days;
@@ -24,7 +24,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Month day tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
+@SuppressFBWarnings({"RV_NEGATING_RESULT_OF_COMPARETO", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 final class MonthDayTests
  {
   /**
@@ -315,7 +315,7 @@ final class MonthDayTests
    {
     final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(31));
     final MonthDay result = test1.subtract(Months.of(1));
-    assertAll("subtractMonths3", //$NON-NLS-1$
+    assertAll("subtractMonths4", //$NON-NLS-1$
       () -> assertEquals(12, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
       () -> assertEquals(31, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
     );
@@ -465,7 +465,7 @@ final class MonthDayTests
    {
     final MonthDay test1 = MonthDay.of(Month.of(12), Day.of(30));
     final MonthDay result = test1.add(Days.of(1));
-    assertAll("addDays3", //$NON-NLS-1$
+    assertAll("addDays4", //$NON-NLS-1$
       () -> assertEquals(12, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
       () -> assertEquals(31, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
     );
@@ -569,7 +569,7 @@ final class MonthDayTests
    {
     final MonthDay test1 = MonthDay.of(Month.of(11), Day.of(30));
     final MonthDay result = test1.incrementDay();
-    assertAll("incrementDay3", //$NON-NLS-1$
+    assertAll("incrementDay4", //$NON-NLS-1$
       () -> assertEquals(12, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
       () -> assertEquals(1, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
     );
@@ -584,7 +584,7 @@ final class MonthDayTests
    {
     final MonthDay test1 = MonthDay.of(Month.of(11), Day.of(29));
     final MonthDay result = test1.incrementDay();
-    assertAll("incrementDay3", //$NON-NLS-1$
+    assertAll("incrementDay5", //$NON-NLS-1$
       () -> assertEquals(11, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
       () -> assertEquals(30, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
     );

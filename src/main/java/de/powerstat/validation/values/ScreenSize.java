@@ -106,6 +106,7 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
    * @param value width (1-8192) x height (1-8192)
    * @return ScreenSize
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public static ScreenSize of(final String value)
    {
     final String[] values = value.split("x");
@@ -124,7 +125,7 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
    */
   public int getWidth()
    {
-    return this.width;
+    return width;
    }
 
 
@@ -135,7 +136,7 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
    */
   public int getHeight()
    {
-    return this.height;
+    return height;
    }
 
 
@@ -147,7 +148,7 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.width) + 'x' + this.height;
+    return String.valueOf(width) + 'x' + height;
    }
 
 
@@ -158,7 +159,7 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
    */
   public String getName()
    {
-    return this.name;
+    return name;
    }
 
 
@@ -171,9 +172,9 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
   @Override
   public int hashCode()
    {
-    int result = Integer.hashCode(this.width);
-    result = (31 * result) + Integer.hashCode(this.height);
-    return (31 * result) + this.name.hashCode();
+    int result = Integer.hashCode(width);
+    result = (31 * result) + Integer.hashCode(height);
+    return (31 * result) + name.hashCode();
    }
 
 
@@ -195,7 +196,7 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
      {
       return false;
      }
-    return (this.width == other.width) && (this.height == other.height) && this.name.equals(other.name);
+    return (width == other.width) && (height == other.height) && name.equals(other.name);
    }
 
 
@@ -213,7 +214,7 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(47);
-    builder.append("ScreenSize[width=").append(this.width).append(", height=").append(this.height).append(", name=").append(this.name).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    builder.append("ScreenSize[width=").append(width).append(", height=").append(height).append(", name=").append(name).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     return builder.toString();
    }
 
@@ -229,13 +230,13 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
   public int compareTo(final ScreenSize obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    int result = Integer.compare(this.width, obj.width);
+    int result = Integer.compare(width, obj.width);
     if (result == 0)
      {
-      result = Integer.compare(this.height, obj.height);
+      result = Integer.compare(height, obj.height);
       if (result == 0)
        {
-        result = this.name.compareTo(obj.name);
+        result = name.compareTo(obj.name);
        }
      }
     return result;

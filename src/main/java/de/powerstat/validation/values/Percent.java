@@ -80,7 +80,7 @@ public final class Percent implements Comparable<Percent>, IValueObject
    */
   public int intValue()
    {
-    return this.percent;
+    return percent;
    }
 
 
@@ -92,7 +92,7 @@ public final class Percent implements Comparable<Percent>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.percent);
+    return String.valueOf(percent);
    }
 
 
@@ -105,7 +105,7 @@ public final class Percent implements Comparable<Percent>, IValueObject
   @Override
   public int hashCode()
    {
-    return Integer.hashCode(this.percent);
+    return Integer.hashCode(percent);
    }
 
 
@@ -116,6 +116,7 @@ public final class Percent implements Comparable<Percent>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -127,7 +128,7 @@ public final class Percent implements Comparable<Percent>, IValueObject
      {
       return false;
      }
-    return this.percent == other.percent;
+    return (percent == other.percent);
    }
 
 
@@ -144,8 +145,8 @@ public final class Percent implements Comparable<Percent>, IValueObject
   @Override
   public String toString()
    {
-    final var builder = new StringBuilder();
-    builder.append("Percent[percent=").append(this.percent).append(']'); //$NON-NLS-1$
+    final var builder = new StringBuilder(17);
+    builder.append("Percent[percent=").append(percent).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -161,7 +162,7 @@ public final class Percent implements Comparable<Percent>, IValueObject
   public int compareTo(final Percent obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.percent, obj.percent);
+    return Integer.compare(percent, obj.percent);
    }
 
  }

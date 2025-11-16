@@ -26,11 +26,6 @@ public final class WGS84Position implements Comparable<WGS84Position>, IValueObj
   // private static final Map<NTuple3<Double, Double, Double>, WGS84Position> CACHE = new WeakHashMap<>();
 
   /**
-   * Epsilon for double compare.
-   */
-  private static final double EPSILON = 0.000001D;
-
-  /**
    * Position separator.
    */
   private static final String SEPARATOR = " ";
@@ -113,6 +108,7 @@ public final class WGS84Position implements Comparable<WGS84Position>, IValueObj
    * @param value latitude longitude altitude separated by one space
    * @return WGS84Position object
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public static WGS84Position of(final String value)
    {
     final String[] values = value.split(SEPARATOR);
@@ -194,6 +190,7 @@ public final class WGS84Position implements Comparable<WGS84Position>, IValueObj
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {

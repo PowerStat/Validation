@@ -116,7 +116,7 @@ public final class Second implements Comparable<Second>, IValueObject
    */
   public int intValue()
    {
-    return this.second;
+    return second;
    }
 
 
@@ -128,7 +128,7 @@ public final class Second implements Comparable<Second>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.second);
+    return String.valueOf(second);
    }
 
 
@@ -141,7 +141,7 @@ public final class Second implements Comparable<Second>, IValueObject
   @Override
   public int hashCode()
    {
-    return Integer.hashCode(this.second);
+    return Integer.hashCode(second);
    }
 
 
@@ -152,6 +152,7 @@ public final class Second implements Comparable<Second>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -163,7 +164,7 @@ public final class Second implements Comparable<Second>, IValueObject
      {
       return false;
      }
-    return this.second == other.second;
+    return (second == other.second);
    }
 
 
@@ -181,7 +182,7 @@ public final class Second implements Comparable<Second>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("Second[second=").append(this.second).append(']'); //$NON-NLS-1$
+    builder.append("Second[second=").append(second).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -197,7 +198,7 @@ public final class Second implements Comparable<Second>, IValueObject
   public int compareTo(final Second obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.second, obj.second);
+    return Integer.compare(second, obj.second);
    }
 
 
@@ -208,9 +209,10 @@ public final class Second implements Comparable<Second>, IValueObject
    * @return New second after adding the seconds to this second
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Second add(final Seconds seconds)
    {
-    final int newSecond = Math.toIntExact(Math.addExact(this.second, seconds.longValue()));
+    final int newSecond = Math.toIntExact(Math.addExact(second, seconds.longValue()));
     if (newSecond > 59)
      {
       // TODO Listener
@@ -229,7 +231,7 @@ public final class Second implements Comparable<Second>, IValueObject
    */
   public Second subtract(final Seconds seconds)
    {
-    final int newSecond = Math.toIntExact(Math.subtractExact(this.second, seconds.longValue()));
+    final int newSecond = Math.toIntExact(Math.subtractExact(second, seconds.longValue()));
     if (newSecond < 0)
      {
       // TODO Listener
@@ -245,9 +247,10 @@ public final class Second implements Comparable<Second>, IValueObject
    * @return New second after incrementing this second
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Second increment()
    {
-    final int newSecond = Math.incrementExact(this.second);
+    final int newSecond = Math.incrementExact(second);
     if (newSecond == 60)
      {
       // TODO Listener
@@ -265,7 +268,7 @@ public final class Second implements Comparable<Second>, IValueObject
    */
   public Second decrement()
    {
-    final int newSecond = Math.decrementExact(this.second);
+    final int newSecond = Math.decrementExact(second);
     if (newSecond == -1)
      {
       // TODO Listener

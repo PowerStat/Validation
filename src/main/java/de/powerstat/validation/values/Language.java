@@ -45,6 +45,7 @@ public final class Language implements Comparable<Language>, IValueObject
    * @throws NullPointerException if code is null
    * @throws IllegalArgumentException if code is not a known 639-1 code
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   private Language(final String code)
    {
     super();
@@ -98,7 +99,7 @@ public final class Language implements Comparable<Language>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.code;
+    return code;
    }
 
 
@@ -111,7 +112,7 @@ public final class Language implements Comparable<Language>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.code.hashCode();
+    return code.hashCode();
    }
 
 
@@ -122,6 +123,7 @@ public final class Language implements Comparable<Language>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings("PMD.SimplifyBooleanReturns")
   @Override
   public boolean equals(final Object obj)
    {
@@ -129,12 +131,11 @@ public final class Language implements Comparable<Language>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Language))
+    if (!(obj instanceof final Language other))
      {
       return false;
      }
-    final Language other = (Language)obj;
-    return this.code.equals(other.code);
+    return code.equals(other.code);
    }
 
 
@@ -152,7 +153,7 @@ public final class Language implements Comparable<Language>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("Language[code=").append(this.code).append(']'); //$NON-NLS-1$
+    builder.append("Language[code=").append(code).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -168,7 +169,7 @@ public final class Language implements Comparable<Language>, IValueObject
   public int compareTo(final Language obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.code.compareTo(obj.code);
+    return code.compareTo(obj.code);
    }
 
  }

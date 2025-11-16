@@ -98,7 +98,7 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
    */
   public long longValue()
    {
-    return this.weeks;
+    return weeks;
    }
 
 
@@ -110,7 +110,7 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.weeks);
+    return String.valueOf(weeks);
    }
 
 
@@ -123,7 +123,7 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
   @Override
   public int hashCode()
    {
-    return Long.hashCode(this.weeks);
+    return Long.hashCode(weeks);
    }
 
 
@@ -134,6 +134,7 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -145,7 +146,7 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
      {
       return false;
      }
-    return this.weeks == other.weeks;
+    return (weeks == other.weeks);
    }
 
 
@@ -163,7 +164,7 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("Weeks[weeks=").append(this.weeks).append(']'); //$NON-NLS-1$
+    builder.append("Weeks[weeks=").append(weeks).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -179,7 +180,7 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
   public int compareTo(final Weeks obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Long.compare(this.weeks, obj.weeks);
+    return Long.compare(weeks, obj.weeks);
    }
 
 
@@ -192,7 +193,7 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
    */
   public Weeks add(final Weeks other)
    {
-    return Weeks.of(Math.addExact(this.weeks, other.weeks));
+    return Weeks.of(Math.addExact(weeks, other.weeks));
    }
 
 
@@ -204,11 +205,11 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
    */
   public Weeks subtract(final Weeks other)
    {
-    if (other.weeks > this.weeks) // NO PITEST
+    if (other.weeks > weeks) // NO PITEST
      {
-      return Weeks.of(other.weeks - this.weeks);
+      return Weeks.of(other.weeks - weeks);
      }
-    return Weeks.of(this.weeks - other.weeks);
+    return Weeks.of(weeks - other.weeks);
    }
 
 
@@ -221,7 +222,7 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
    */
   public Weeks multiply(final long multiplier)
    {
-    return Weeks.of(Math.multiplyExact(this.weeks, multiplier));
+    return Weeks.of(Math.multiplyExact(weeks, multiplier));
    }
 
 
@@ -234,7 +235,7 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
    */
   public Weeks divide(final long divisor)
    {
-    return Weeks.of(Math.floorDiv(this.weeks, divisor));
+    return Weeks.of(Math.floorDiv(weeks, divisor));
    }
 
 
@@ -247,7 +248,7 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
    */
   public Weeks modulo(final long divisor)
    {
-    return Weeks.of(Math.floorMod(this.weeks, divisor));
+    return Weeks.of(Math.floorMod(weeks, divisor));
    }
 
  }

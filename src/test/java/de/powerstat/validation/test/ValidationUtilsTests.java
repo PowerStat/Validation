@@ -63,6 +63,7 @@ final class ValidationUtilsTests
   /**
    * FE80.
    */
+  @SuppressWarnings({"PMD.AvoidUsingHardCodedIP"})
   private static final String FE80 = "fe:80::"; //$NON-NLS-1$
 
   /**

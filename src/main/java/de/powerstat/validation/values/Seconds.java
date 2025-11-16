@@ -100,7 +100,7 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
    */
   public long longValue()
    {
-    return this.seconds;
+    return seconds;
    }
 
 
@@ -112,7 +112,7 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.seconds);
+    return String.valueOf(seconds);
    }
 
 
@@ -125,7 +125,7 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
   @Override
   public int hashCode()
    {
-    return Long.hashCode(this.seconds);
+    return Long.hashCode(seconds);
    }
 
 
@@ -136,6 +136,7 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -147,7 +148,7 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
      {
       return false;
      }
-    return this.seconds == other.seconds;
+    return (seconds == other.seconds);
    }
 
 
@@ -165,7 +166,7 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(17);
-    builder.append("Seconds[seconds=").append(this.seconds).append(']'); //$NON-NLS-1$
+    builder.append("Seconds[seconds=").append(seconds).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -181,7 +182,7 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
   public int compareTo(final Seconds obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Long.compare(this.seconds, obj.seconds);
+    return Long.compare(seconds, obj.seconds);
    }
 
 
@@ -194,7 +195,7 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
    */
   public Seconds add(final Seconds other)
    {
-    return Seconds.of(Math.addExact(this.seconds, other.seconds));
+    return Seconds.of(Math.addExact(seconds, other.seconds));
    }
 
 
@@ -206,11 +207,11 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
    */
   public Seconds subtract(final Seconds other)
    {
-    if (other.seconds > this.seconds) // NO PITEST
+    if (other.seconds > seconds) // NO PITEST
      {
-      return Seconds.of(other.seconds - this.seconds);
+      return Seconds.of(other.seconds - seconds);
      }
-    return Seconds.of(this.seconds - other.seconds);
+    return Seconds.of(seconds - other.seconds);
    }
 
 
@@ -223,7 +224,7 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
    */
   public Seconds multiply(final long multiplier)
    {
-    return Seconds.of(Math.multiplyExact(this.seconds, multiplier));
+    return Seconds.of(Math.multiplyExact(seconds, multiplier));
    }
 
 
@@ -236,7 +237,7 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
    */
   public Seconds divide(final long divisor)
    {
-    return Seconds.of(Math.floorDiv(this.seconds, divisor));
+    return Seconds.of(Math.floorDiv(seconds, divisor));
    }
 
 
@@ -249,7 +250,7 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
    */
   public Seconds modulo(final long divisor)
    {
-    return Seconds.of(Math.floorMod(this.seconds, divisor));
+    return Seconds.of(Math.floorMod(seconds, divisor));
    }
 
  }

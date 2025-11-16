@@ -98,7 +98,7 @@ public final class Days implements Comparable<Days>, IValueObject
    */
   public long longValue()
    {
-    return this.days;
+    return days;
    }
 
 
@@ -110,7 +110,7 @@ public final class Days implements Comparable<Days>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.days);
+    return String.valueOf(days);
    }
 
 
@@ -123,7 +123,7 @@ public final class Days implements Comparable<Days>, IValueObject
   @Override
   public int hashCode()
    {
-    return Long.hashCode(this.days);
+    return Long.hashCode(days);
    }
 
 
@@ -134,6 +134,7 @@ public final class Days implements Comparable<Days>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -145,7 +146,7 @@ public final class Days implements Comparable<Days>, IValueObject
      {
       return false;
      }
-    return this.days == other.days;
+    return (days == other.days);
    }
 
 
@@ -163,7 +164,7 @@ public final class Days implements Comparable<Days>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("Days[days=").append(this.days).append(']'); //$NON-NLS-1$
+    builder.append("Days[days=").append(days).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -179,7 +180,7 @@ public final class Days implements Comparable<Days>, IValueObject
   public int compareTo(final Days obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Long.compare(this.days, obj.days);
+    return Long.compare(days, obj.days);
    }
 
 
@@ -192,7 +193,7 @@ public final class Days implements Comparable<Days>, IValueObject
    */
   public Days add(final Days other)
    {
-    return Days.of(Math.addExact(this.days, other.days));
+    return Days.of(Math.addExact(days, other.days));
    }
 
 
@@ -204,11 +205,11 @@ public final class Days implements Comparable<Days>, IValueObject
    */
   public Days subtract(final Days other)
    {
-    if (other.days > this.days) // NO PITEST
+    if (other.days > days) // NO PITEST
      {
-      return Days.of(other.days - this.days);
+      return Days.of(other.days - days);
      }
-    return Days.of(this.days - other.days);
+    return Days.of(days - other.days);
    }
 
 
@@ -221,7 +222,7 @@ public final class Days implements Comparable<Days>, IValueObject
    */
   public Days multiply(final long multiplier)
    {
-    return Days.of(Math.multiplyExact(this.days, multiplier));
+    return Days.of(Math.multiplyExact(days, multiplier));
    }
 
 
@@ -234,7 +235,7 @@ public final class Days implements Comparable<Days>, IValueObject
    */
   public Days divide(final long divisor)
    {
-    return Days.of(Math.floorDiv(this.days, divisor));
+    return Days.of(Math.floorDiv(days, divisor));
    }
 
 
@@ -247,7 +248,7 @@ public final class Days implements Comparable<Days>, IValueObject
    */
   public Days modulo(final long divisor)
    {
-    return Days.of(Math.floorMod(this.days, divisor));
+    return Days.of(Math.floorMod(days, divisor));
    }
 
  }

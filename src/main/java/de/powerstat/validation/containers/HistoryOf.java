@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
  *
  * TODO Change Datetime to an earlier Datetime
  */
-public class HistoryOf<T>
+public final class HistoryOf<T>
  {
   /**
    * History.
@@ -71,7 +71,6 @@ public class HistoryOf<T>
       return true;
      }
     if (!(obj instanceof HistoryOf<?>))
-    // if ((obj == null) || (this.getClass() != obj.getClass()))
      {
       return false;
      }
@@ -103,10 +102,7 @@ public class HistoryOf<T>
     final int initLength = builder.length();
     for (final Map.Entry<OffsetDateTime, T> entry : history.entrySet())
      {
-      builder.append(entry.getKey().format(DateTimeFormatter.ISO_DATE_TIME));
-      builder.append('=');
-      builder.append(entry.getValue());
-      builder.append(", "); //$NON-NLS-1$
+      builder.append(entry.getKey().format(DateTimeFormatter.ISO_DATE_TIME)).append('=').append(entry.getValue()).append(", "); //$NON-NLS-1$
      }
     if (builder.length() > initLength)
      {

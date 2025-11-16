@@ -51,6 +51,7 @@ public final class Lines implements Comparable<Lines>, IValueObject
    * @throws NullPointerException if lines is null
    * @throws IllegalArgumentException if lines is not a correct Lines
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   private Lines(final String lines)
    {
     super();
@@ -104,7 +105,7 @@ public final class Lines implements Comparable<Lines>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.lines;
+    return lines;
    }
 
 
@@ -117,7 +118,7 @@ public final class Lines implements Comparable<Lines>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.lines.hashCode();
+    return lines.hashCode();
    }
 
 
@@ -128,6 +129,7 @@ public final class Lines implements Comparable<Lines>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -139,7 +141,7 @@ public final class Lines implements Comparable<Lines>, IValueObject
      {
       return false;
      }
-    return this.lines.equals(other.lines);
+    return lines.equals(other.lines);
    }
 
 
@@ -157,7 +159,7 @@ public final class Lines implements Comparable<Lines>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("Lines[lines=").append(this.lines.replace("\n", "\\n").replace("\r", "\\r")).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+    builder.append("Lines[lines=").append(lines.replace("\n", "\\n").replace("\r", "\\r")).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
     return builder.toString();
    }
 
@@ -173,7 +175,7 @@ public final class Lines implements Comparable<Lines>, IValueObject
   public int compareTo(final Lines obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.lines.compareTo(obj.lines);
+    return lines.compareTo(obj.lines);
    }
 
  }

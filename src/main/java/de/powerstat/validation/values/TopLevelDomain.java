@@ -98,7 +98,7 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueO
   @Override
   public String stringValue()
    {
-    return this.topLevelDomain;
+    return topLevelDomain;
    }
 
 
@@ -111,7 +111,7 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueO
   @Override
   public int hashCode()
    {
-    return this.topLevelDomain.hashCode();
+    return topLevelDomain.hashCode();
    }
 
 
@@ -122,6 +122,7 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueO
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -133,7 +134,7 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueO
      {
       return false;
      }
-    return this.topLevelDomain.equals(other.topLevelDomain);
+    return topLevelDomain.equals(other.topLevelDomain);
    }
 
 
@@ -151,7 +152,7 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueO
   public String toString()
    {
     final var builder = new StringBuilder(31);
-    builder.append("TopLevelDomain[topLevelDomain=").append(this.topLevelDomain).append(']'); //$NON-NLS-1$
+    builder.append("TopLevelDomain[topLevelDomain=").append(topLevelDomain).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -167,7 +168,7 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueO
   public int compareTo(final TopLevelDomain obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.topLevelDomain.compareTo(obj.topLevelDomain);
+    return topLevelDomain.compareTo(obj.topLevelDomain);
    }
 
  }

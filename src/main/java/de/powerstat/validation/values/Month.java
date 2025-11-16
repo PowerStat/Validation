@@ -129,7 +129,7 @@ public final class Month implements Comparable<Month>, IValueObject
    */
   public int intValue()
    {
-    return this.month;
+    return month;
    }
 
 
@@ -141,7 +141,7 @@ public final class Month implements Comparable<Month>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.month);
+    return String.valueOf(month);
    }
 
 
@@ -154,7 +154,7 @@ public final class Month implements Comparable<Month>, IValueObject
   @Override
   public int hashCode()
    {
-    return Integer.hashCode(this.month);
+    return Integer.hashCode(month);
    }
 
 
@@ -165,6 +165,7 @@ public final class Month implements Comparable<Month>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -176,7 +177,7 @@ public final class Month implements Comparable<Month>, IValueObject
      {
       return false;
      }
-    return this.month == other.month;
+    return (month == other.month);
    }
 
 
@@ -194,7 +195,7 @@ public final class Month implements Comparable<Month>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("Month[month=").append(this.month).append(']'); //$NON-NLS-1$
+    builder.append("Month[month=").append(month).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -210,7 +211,7 @@ public final class Month implements Comparable<Month>, IValueObject
   public int compareTo(final Month obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.month, obj.month);
+    return Integer.compare(month, obj.month);
    }
 
 
@@ -221,7 +222,7 @@ public final class Month implements Comparable<Month>, IValueObject
    */
   public Days daysInMonth()
    {
-    return Days.of(DAYS_IN_MONTH[this.month]); // TODO depends on year == leapYear for february
+    return Days.of(DAYS_IN_MONTH[month]); // TODO depends on year == leapYear for february
    }
 
 
@@ -232,9 +233,10 @@ public final class Month implements Comparable<Month>, IValueObject
    * @return New month after adding the months to this month
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Month add(final Months months)
    {
-    final long newMonth = Math.toIntExact(Math.addExact(this.month, months.longValue()));
+    final long newMonth = Math.toIntExact(Math.addExact(month, months.longValue()));
     if (newMonth > 12) // while (newMonth > 12)
      {
       // TODO Listener
@@ -255,7 +257,7 @@ public final class Month implements Comparable<Month>, IValueObject
    */
   public Month subtract(final Months months)
    {
-    final long newMonth = Math.toIntExact(Math.subtractExact(this.month, months.longValue()));
+    final long newMonth = Math.toIntExact(Math.subtractExact(month, months.longValue()));
     if (newMonth <= 0) // while (newMonth <= 0)
      {
       // TODO Listener
@@ -273,9 +275,10 @@ public final class Month implements Comparable<Month>, IValueObject
    * @return New month after incrementing this month
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Month increment()
    {
-    final int newMonth = Math.incrementExact(this.month);
+    final int newMonth = Math.incrementExact(month);
     if (newMonth == 13)
      {
       // TODO Listener
@@ -295,7 +298,7 @@ public final class Month implements Comparable<Month>, IValueObject
    */
   public Month decrement()
    {
-    final int newMonth = Math.decrementExact(this.month);
+    final int newMonth = Math.decrementExact(month);
     if (newMonth == 0)
      {
       // TODO Listener

@@ -56,6 +56,7 @@ public final class EMail implements Comparable<EMail>, IValueObject
    * @throws NullPointerException if email is null
    * @throws IllegalArgumentException if email is not an supported email address
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   private EMail(final String email)
    {
     super();
@@ -82,7 +83,7 @@ public final class EMail implements Comparable<EMail>, IValueObject
        }
       parts[1] = parts[1].substring(0, parts[1].length() - 1);
      }
-    this.domainPart = Hostname.of(parts[1]); // Check hostname and store for isReachable
+    domainPart = Hostname.of(parts[1]); // Check hostname and store for isReachable
     if ((parts[0].charAt(0) == '(') || (parts[0].charAt(parts[0].length() - 1) == ')'))
      {
       throw new IllegalArgumentException("Comments in email addresses are not supported"); //$NON-NLS-1$
@@ -103,7 +104,7 @@ public final class EMail implements Comparable<EMail>, IValueObject
      {
       throw new IllegalArgumentException("Illegal character found in emails local part or unsupported UTF-8 character"); //$NON-NLS-1$
      }
-    this.localPart = parts[0]; // Store for check receiver
+    localPart = parts[0]; // Store for check receiver
     this.email = email;
    }
 
@@ -141,7 +142,7 @@ public final class EMail implements Comparable<EMail>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.email;
+    return email;
    }
 
 
@@ -152,7 +153,7 @@ public final class EMail implements Comparable<EMail>, IValueObject
    */
   public String getDomainPart()
    {
-    return this.domainPart.stringValue();
+    return domainPart.stringValue();
    }
 
 
@@ -163,7 +164,7 @@ public final class EMail implements Comparable<EMail>, IValueObject
    */
   public String getReverseDomainPart()
    {
-    return this.domainPart.getReverseHostname();
+    return domainPart.getReverseHostname();
    }
 
 
@@ -174,7 +175,7 @@ public final class EMail implements Comparable<EMail>, IValueObject
    */
   public String getLocalPart()
    {
-    return this.localPart;
+    return localPart;
    }
 
 
@@ -187,7 +188,7 @@ public final class EMail implements Comparable<EMail>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.email.hashCode();
+    return email.hashCode();
    }
 
 
@@ -198,6 +199,7 @@ public final class EMail implements Comparable<EMail>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings("PMD.SimplifyBooleanReturns")
   @Override
   public boolean equals(final Object obj)
    {
@@ -205,12 +207,11 @@ public final class EMail implements Comparable<EMail>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof EMail))
+    if (!(obj instanceof final EMail other))
      {
       return false;
      }
-    final EMail other = (EMail)obj;
-    return this.email.equals(other.email);
+    return email.equals(other.email);
    }
 
 
@@ -228,7 +229,7 @@ public final class EMail implements Comparable<EMail>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("EMail[email=").append(this.email).append(']'); //$NON-NLS-1$
+    builder.append("EMail[email=").append(email).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -244,7 +245,7 @@ public final class EMail implements Comparable<EMail>, IValueObject
   public int compareTo(final EMail obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.email.compareTo(obj.email); // TODO hostname, username
+    return email.compareTo(obj.email); // TODO hostname, username
    }
 
  }

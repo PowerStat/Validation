@@ -132,6 +132,7 @@ public final class Weekday implements Comparable<Weekday>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -143,7 +144,7 @@ public final class Weekday implements Comparable<Weekday>, IValueObject
      {
       return false;
      }
-    return weekday == other.weekday;
+    return (weekday == other.weekday);
    }
 
 
@@ -160,7 +161,7 @@ public final class Weekday implements Comparable<Weekday>, IValueObject
   @Override
   public String toString()
    {
-    final var builder = new StringBuilder();
+    final var builder = new StringBuilder(17);
     builder.append("Weekday[weekday=").append(weekday).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
@@ -188,6 +189,7 @@ public final class Weekday implements Comparable<Weekday>, IValueObject
    * @return New weekday after adding the weekdays to this weekday
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Weekday add(final Days days)
    {
     final long newWeekday = Math.toIntExact(Math.addExact(weekday, days.longValue()));
@@ -229,6 +231,7 @@ public final class Weekday implements Comparable<Weekday>, IValueObject
    * @return New weekday after incrementing this weekday
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Weekday increment()
    {
     final int newWeekday = Math.incrementExact(weekday);

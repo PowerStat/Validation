@@ -117,7 +117,7 @@ public final class Day implements Comparable<Day>, IValueObject
    */
   public int intValue()
    {
-    return this.day;
+    return day;
    }
 
 
@@ -129,7 +129,7 @@ public final class Day implements Comparable<Day>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.day);
+    return String.valueOf(day);
    }
 
 
@@ -142,7 +142,7 @@ public final class Day implements Comparable<Day>, IValueObject
   @Override
   public int hashCode()
    {
-    return Integer.hashCode(this.day);
+    return Integer.hashCode(day);
    }
 
 
@@ -153,6 +153,7 @@ public final class Day implements Comparable<Day>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -164,7 +165,7 @@ public final class Day implements Comparable<Day>, IValueObject
      {
       return false;
      }
-    return this.day == other.day;
+    return (day == other.day);
    }
 
 
@@ -182,7 +183,7 @@ public final class Day implements Comparable<Day>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("Day[day=").append(this.day).append(']'); //$NON-NLS-1$
+    builder.append("Day[day=").append(day).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -198,7 +199,7 @@ public final class Day implements Comparable<Day>, IValueObject
   public int compareTo(final Day obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.day, obj.day);
+    return Integer.compare(day, obj.day);
    }
 
 
@@ -209,9 +210,10 @@ public final class Day implements Comparable<Day>, IValueObject
    * @return New day after adding the days to this day
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings({"PMD.AvoidLiteralsInIfCondition"})
   public Day add(final Days days)
    {
-    final int newDay = Math.toIntExact(Math.addExact(this.day, days.longValue()));
+    final int newDay = Math.toIntExact(Math.addExact(day, days.longValue()));
     if (newDay > 31) // TODO depends on month and year
      {
       // TODO Listener
@@ -230,7 +232,7 @@ public final class Day implements Comparable<Day>, IValueObject
    */
   public Day subtract(final Days days)
    {
-    final int newDay = Math.toIntExact(Math.subtractExact(this.day, days.longValue()));
+    final int newDay = Math.toIntExact(Math.subtractExact(day, days.longValue()));
     if (newDay <= 0)
      {
       // TODO Listener
@@ -246,9 +248,10 @@ public final class Day implements Comparable<Day>, IValueObject
    * @return New day after incrementing this day
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings({"PMD.AvoidLiteralsInIfCondition"})
   public Day increment()
    {
-    final int newDay = Math.incrementExact(this.day);
+    final int newDay = Math.incrementExact(day);
     if (newDay == 32) // TODO depends on month and year
      {
       // TODO Listener
@@ -266,7 +269,7 @@ public final class Day implements Comparable<Day>, IValueObject
    */
   public Day decrement()
    {
-    final int newDay = Math.decrementExact(this.day);
+    final int newDay = Math.decrementExact(day);
     if (newDay == 0)
      {
       // TODO Listener

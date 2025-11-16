@@ -12,8 +12,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+// import org.apache.logging.log4j.LogManager;
+// import org.apache.logging.log4j.Logger;
 
 import de.powerstat.validation.containers.HistoryOf;
 import de.powerstat.validation.interfaces.IEntity;
@@ -64,7 +64,7 @@ public final class Person implements Comparable<Person>, IEntity
   /**
    * Logger.
    */
-  private static final Logger LOGGER = LogManager.getLogger(Person.class);
+  // private static final Logger LOGGER = LogManager.getLogger(Person.class);
 
   /**
    * Universally Unique Identifier.
@@ -309,7 +309,7 @@ public final class Person implements Comparable<Person>, IEntity
    * @return 0: equal; 1: greater; -1: smaller
    * @see java.lang.Comparable#compareTo(java.lang.Object)
    */
-  @SuppressWarnings("PMD.ConfusingTernary")
+  @SuppressWarnings({"PMD.ConfusingTernary", "PMD.NPathComplexity"})
   @Override
   public int compareTo(final Person obj)
    {

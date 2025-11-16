@@ -5,6 +5,7 @@ package de.powerstat.validation.values.impl;
 
 
 import de.powerstat.validation.values.Country;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 // import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
@@ -13,7 +14,7 @@ import de.powerstat.validation.values.Country;
  *
  * TODO Generate this class
  */
-// @SuppressFBWarnings({"CC_CYCLOMATIC_COMPLEXITY", "CE_CLASS_ENVY"})
+@SuppressFBWarnings({"CE_CLASS_ENVY"})
 @SuppressWarnings({"java:S1541", "java:S3242"})
 public final class IBANVerifierAbstractFactory
  {
@@ -32,7 +33,8 @@ public final class IBANVerifierAbstractFactory
    * @param country Country
    * @return IBANVerifier object for country
    */
-  @SuppressWarnings("java:S1479")
+  @SuppressFBWarnings({"CC_CYCLOMATIC_COMPLEXITY", "OCP_OVERLY_CONCRETE_PARAMETER", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
+  @SuppressWarnings({"java:S1479", "PMD.CyclomaticComplexity"})
   public static IBANVerifier createIBANVerifier(final Country country)
    {
     switch (country.stringValue())

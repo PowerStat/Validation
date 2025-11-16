@@ -27,7 +27,7 @@ public class GeneratedISO3166A2Tests
   @Test
   /* default */ void testGetName1()
    {
-    String countryName = GeneratedISO3166A2.getName("DE");
+    final String countryName = GeneratedISO3166A2.getName("DE");
     assertAll("constructor", //$NON-NLS-1$
       () -> assertEquals(countryName, "", "Country name is not equal") //$NON-NLS-1$
     );

@@ -115,7 +115,7 @@ public final class Minute implements Comparable<Minute>, IValueObject
    */
   public int intValue()
    {
-    return this.minute;
+    return minute;
    }
 
 
@@ -127,7 +127,7 @@ public final class Minute implements Comparable<Minute>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.minute);
+    return String.valueOf(minute);
    }
 
 
@@ -140,7 +140,7 @@ public final class Minute implements Comparable<Minute>, IValueObject
   @Override
   public int hashCode()
    {
-    return Integer.hashCode(this.minute);
+    return Integer.hashCode(minute);
    }
 
 
@@ -151,6 +151,7 @@ public final class Minute implements Comparable<Minute>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -162,7 +163,7 @@ public final class Minute implements Comparable<Minute>, IValueObject
      {
       return false;
      }
-    return this.minute == other.minute;
+    return (minute == other.minute);
    }
 
 
@@ -180,7 +181,7 @@ public final class Minute implements Comparable<Minute>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("Minute[minute=").append(this.minute).append(']'); //$NON-NLS-1$
+    builder.append("Minute[minute=").append(minute).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -196,7 +197,7 @@ public final class Minute implements Comparable<Minute>, IValueObject
   public int compareTo(final Minute obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.minute, obj.minute);
+    return Integer.compare(minute, obj.minute);
    }
 
 
@@ -207,9 +208,10 @@ public final class Minute implements Comparable<Minute>, IValueObject
    * @return New minute after adding the minutes to this minute
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Minute add(final Minutes minutes)
    {
-    final int newMinute = Math.toIntExact(Math.addExact(this.minute, minutes.longValue()));
+    final int newMinute = Math.toIntExact(Math.addExact(minute, minutes.longValue()));
     if (newMinute > 59)
      {
       // TODO Listener
@@ -228,7 +230,7 @@ public final class Minute implements Comparable<Minute>, IValueObject
    */
   public Minute subtract(final Minutes minutes)
    {
-    final int newMinute = Math.toIntExact(Math.subtractExact(this.minute, minutes.longValue()));
+    final int newMinute = Math.toIntExact(Math.subtractExact(minute, minutes.longValue()));
     if (newMinute < 0)
      {
       // TODO Listener
@@ -244,9 +246,10 @@ public final class Minute implements Comparable<Minute>, IValueObject
    * @return New minute after incrementing this minute
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Minute increment()
    {
-    final int newMinute = Math.incrementExact(this.minute);
+    final int newMinute = Math.incrementExact(minute);
     if (newMinute == 60)
      {
       // TODO Listener
@@ -264,7 +267,7 @@ public final class Minute implements Comparable<Minute>, IValueObject
    */
   public Minute decrement()
    {
-    final int newMinute = Math.decrementExact(this.minute);
+    final int newMinute = Math.decrementExact(minute);
     if (newMinute == -1)
      {
       // TODO Listener

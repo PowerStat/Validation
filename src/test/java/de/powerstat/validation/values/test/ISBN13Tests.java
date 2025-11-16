@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.*;
+import nl.jqno.equalsverifier.EqualsVerifier;
 import de.powerstat.validation.values.ISBN13;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -21,9 +21,30 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * ISBN13 tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"RV_NEGATING_RESULT_OF_COMPARETO", "SPP_USE_ZERO_WITH_COMPARATOR"})
 final class ISBN13Tests
  {
+  /**
+   * Unused at the moment.
+   */
+  private static final String UNUSED_AT_THE_MOMENT = "Unused at the moment";
+
+  /**
+   * Test ISBN.
+   */
+  private static final String ISBN_978_1_61729_410_5 = "978-1-61729-410-5";
+
+  /**
+   * Test ISBN.
+   */
+  private static final String ISBN_978_3_8362_7277_3 = "978-3-8362-7277-3";
+
+  /**
+   * ISBN13 not as expected.
+   */
+  private static final String ISBN13_NOT_AS_EXPECTED = "ISBN13 not as expected";
+
+
   /**
    * Default constructor.
    */
@@ -43,7 +64,7 @@ final class ISBN13Tests
   /* default */ void testIsbn13Correct(final String isbn)
    {
     final ISBN13 cleanIsbn = ISBN13.of(isbn);
-    assertEquals(isbn, cleanIsbn.stringValue(), "ISBN13 not as expected");
+    assertEquals(isbn, cleanIsbn.stringValue(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -53,11 +74,11 @@ final class ISBN13Tests
    * @param isbn ISBN13
    */
   @ParameterizedTest
-  @ValueSource(strings = {"978-3-8362-7277-3", "978-1-61729-410-5"}) // "979-8-3291-7678-0"
+  @ValueSource(strings = {ISBN_978_3_8362_7277_3, ISBN_978_1_61729_410_5}) // "979-8-3291-7678-0"
   /* default */ void testIsbn13CorrectWithHyphen(final String isbn)
    {
     final ISBN13 cleanIsbn = ISBN13.of(isbn);
-    assertEquals(isbn, cleanIsbn.stringHyphen(), "ISBN13 not as expected");
+    assertEquals(isbn, cleanIsbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -71,7 +92,7 @@ final class ISBN13Tests
   /* default */ void testIsbn13CorrectWithSpace(final String isbn)
    {
     final ISBN13 cleanIsbn = ISBN13.of(isbn);
-    assertEquals(isbn, cleanIsbn.stringHyphen().replace('-', ' '), "ISBN13 not as expected");
+    assertEquals(isbn, cleanIsbn.stringHyphen().replace('-', ' '), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -146,7 +167,7 @@ final class ISBN13Tests
    * @param isbn ISBN13
    */
   @ParameterizedTest
-  @ValueSource(strings = {"977-3-8362-7277-4",})
+  @ValueSource(strings = {"977-3-8362-7277-4"})
   /* default */ void testIsbnWrongPrefix(final String isbn)
    {
     assertThrows(IllegalArgumentException.class, () ->
@@ -163,8 +184,8 @@ final class ISBN13Tests
   @Test
   /* default */ void testStringValue()
    {
-    final ISBN13 isbn = ISBN13.of("978-3-8362-7277-3");
-    assertEquals("9783836272773", isbn.stringValue(), "ISBN13 not as expected");
+    final ISBN13 isbn = ISBN13.of(ISBN_978_3_8362_7277_3);
+    assertEquals("9783836272773", isbn.stringValue(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -175,7 +196,7 @@ final class ISBN13Tests
   /* default */ void testStringWithHypenValue1()
    {
     final ISBN13 isbn = ISBN13.of("9783836272773");
-    assertEquals("978-3-8362-7277-3", isbn.stringHyphen(), "ISBN13 not as expected");
+    assertEquals(ISBN_978_3_8362_7277_3, isbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -186,7 +207,7 @@ final class ISBN13Tests
   /* default */ void testStringWithHypenValue2()
    {
     final ISBN13 isbn = ISBN13.of("9780836272772");
-    assertEquals("978-0-8362-7277-2", isbn.stringHyphen(), "ISBN13 not as expected");
+    assertEquals("978-0-8362-7277-2", isbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -194,11 +215,11 @@ final class ISBN13Tests
    * Test string with hyphen value.
    */
   @Test
-  @Disabled("Unused at the moment")
+  @Disabled(UNUSED_AT_THE_MOMENT)
   /* default */ void testStringWithHypenValue3()
    {
     final ISBN13 isbn = ISBN13.of("9785836272777");
-    assertEquals("978-5-8362-7277-7", isbn.stringHyphen(), "ISBN13 not as expected");
+    assertEquals("978-5-8362-7277-7", isbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -206,11 +227,11 @@ final class ISBN13Tests
    * Test string with hyphen value.
    */
   @Test
-  @Disabled("Unused at the moment")
+  @Disabled(UNUSED_AT_THE_MOMENT)
   /* default */ void testStringWithHypenValue4()
    {
     final ISBN13 isbn = ISBN13.of("9787836272771");
-    assertEquals("978-7-8362-7277-1", isbn.stringHyphen(), "ISBN13 not as expected");
+    assertEquals("978-7-8362-7277-1", isbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -218,11 +239,11 @@ final class ISBN13Tests
    * Test string with hyphen value.
    */
   @Test
-  @Disabled("Unused at the moment")
+  @Disabled(UNUSED_AT_THE_MOMENT)
   /* default */ void testStringWithHypenValue5()
    {
     final ISBN13 isbn = ISBN13.of("9788036272776");
-    assertEquals("978-8-0362-7277-6", isbn.stringHyphen(), "ISBN13 not as expected");
+    assertEquals("978-8-0362-7277-6", isbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -230,11 +251,11 @@ final class ISBN13Tests
    * Test string with hyphen value.
    */
   @Test
-  @Disabled("Unused at the moment")
+  @Disabled(UNUSED_AT_THE_MOMENT)
   /* default */ void testStringWithHypenValue6()
    {
     final ISBN13 isbn = ISBN13.of("9788436272772");
-    assertEquals("978-8-4362-7277-2", isbn.stringHyphen(), "ISBN13 not as expected");
+    assertEquals("978-8-4362-7277-2", isbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -242,11 +263,11 @@ final class ISBN13Tests
    * Test string with hyphen value.
    */
   @Test
-  @Disabled("Unused at the moment")
+  @Disabled(UNUSED_AT_THE_MOMENT)
   /* default */ void testStringWithHypenValue7()
    {
     final ISBN13 isbn = ISBN13.of("9789036272773");
-    assertEquals("978-9-0362-7277-3", isbn.stringHyphen(), "ISBN13 not as expected");
+    assertEquals("978-9-0362-7277-3", isbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -254,11 +275,11 @@ final class ISBN13Tests
    * Test string with hyphen value.
    */
   @Test
-  @Disabled("Unused at the moment")
+  @Disabled(UNUSED_AT_THE_MOMENT)
   /* default */ void testStringWithHypenValue8()
    {
     final ISBN13 isbn = ISBN13.of("9789436272779");
-    assertEquals("978-9-4362-7277-9", isbn.stringHyphen(), "ISBN13 not as expected");
+    assertEquals("978-9-4362-7277-9", isbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -266,11 +287,11 @@ final class ISBN13Tests
    * Test string with hyphen value.
    */
   @Test
-  @Disabled("Unused at the moment")
+  @Disabled(UNUSED_AT_THE_MOMENT)
   /* default */ void testStringWithHypenValue9()
    {
     final ISBN13 isbn = ISBN13.of("9786036272772");
-    assertEquals("978-6-0362-7277-2", isbn.stringHyphen(), "ISBN13 not as expected");
+    assertEquals("978-6-0362-7277-2", isbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -278,11 +299,11 @@ final class ISBN13Tests
    * Test string with hyphen value.
    */
   @Test
-  @Disabled("Unused at the moment")
+  @Disabled(UNUSED_AT_THE_MOMENT)
   /* default */ void testStringWithHypenValue10()
    {
     final ISBN13 isbn = ISBN13.of("9786436272778");
-    assertEquals("978-6-4362-7277-8", isbn.stringHyphen(), "ISBN13 not as expected");
+    assertEquals("978-6-4362-7277-8", isbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -290,11 +311,11 @@ final class ISBN13Tests
    * Test string with hyphen value.
    */
   @Test
-  @Disabled("Unused at the moment")
+  @Disabled(UNUSED_AT_THE_MOMENT)
   /* default */ void testStringWithHypenValue11()
    {
     final ISBN13 isbn = ISBN13.of("9789536272778");
-    assertEquals("978-9-5362-7277-8", isbn.stringHyphen(), "ISBN13 not as expected");
+    assertEquals("978-9-5362-7277-8", isbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -302,11 +323,11 @@ final class ISBN13Tests
    * Test string with hyphen value.
    */
   @Test
-  @Disabled("Unused at the moment")
+  @Disabled(UNUSED_AT_THE_MOMENT)
   /* default */ void testStringWithHypenValue12()
    {
     final ISBN13 isbn = ISBN13.of("9789836272775");
-    assertEquals("978-9-8362-7277-5", isbn.stringHyphen(), "ISBN13 not as expected");
+    assertEquals("978-9-8362-7277-5", isbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -314,11 +335,11 @@ final class ISBN13Tests
    * Test string with hyphen value.
    */
   @Test
-  @Disabled("Unused at the moment")
+  @Disabled(UNUSED_AT_THE_MOMENT)
   /* default */ void testStringWithHypenValue13()
    {
     final ISBN13 isbn = ISBN13.of("9789906272773");
-    assertEquals("978-9-9062-7277-3", isbn.stringHyphen(), "ISBN13 not as expected");
+    assertEquals("978-9-9062-7277-3", isbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -326,11 +347,11 @@ final class ISBN13Tests
    * Test string with hyphen value.
    */
   @Test
-  @Disabled("Unused at the moment")
+  @Disabled(UNUSED_AT_THE_MOMENT)
   /* default */ void testStringWithHypenValue14()
    {
     final ISBN13 isbn = ISBN13.of("9789986272779");
-    assertEquals("978-9-9862-7277-9", isbn.stringHyphen(), "ISBN13 not as expected");
+    assertEquals("978-9-9862-7277-9", isbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -338,11 +359,11 @@ final class ISBN13Tests
    * Test string with hyphen value.
    */
   @Test
-  @Disabled("Unused at the moment")
+  @Disabled(UNUSED_AT_THE_MOMENT)
   /* default */ void testStringWithHypenValue15()
    {
     final ISBN13 isbn = ISBN13.of("9789996272776");
-    assertEquals("978-9-9962-7277-6", isbn.stringHyphen(), "ISBN13 not as expected");
+    assertEquals("978-9-9962-7277-6", isbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -350,11 +371,11 @@ final class ISBN13Tests
    * Test string with hyphen value.
    */
   @Test
-  @Disabled("Unused at the moment")
+  @Disabled(UNUSED_AT_THE_MOMENT)
   /* default */ void testStringWithHypenValue16()
    {
     final ISBN13 isbn = ISBN13.of("9791996272779");
-    assertEquals("979-1-9962-7277-9", isbn.stringHyphen(), "ISBN13 not as expected");
+    assertEquals("979-1-9962-7277-9", isbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -362,11 +383,11 @@ final class ISBN13Tests
    * Test string with hyphen value.
    */
   @Test
-  @Disabled("Unused at the moment")
+  @Disabled(UNUSED_AT_THE_MOMENT)
   /* default */ void testStringWithHypenValue17()
    {
     final ISBN13 isbn = ISBN13.of("9792996272776");
-    assertEquals("979-2-9962-7277-6", isbn.stringHyphen(), "ISBN13 not as expected");
+    assertEquals("979-2-9962-7277-6", isbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
    }
 
 
@@ -386,7 +407,7 @@ final class ISBN13Tests
   @Test
   /* default */ void testToString()
    {
-    final ISBN13 isbn = ISBN13.of("978-3-8362-7277-3");
+    final ISBN13 isbn = ISBN13.of(ISBN_978_3_8362_7277_3);
     assertEquals("ISBN13[isbn13=9783836272773]", isbn.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
@@ -398,11 +419,11 @@ final class ISBN13Tests
   @SuppressWarnings("java:S5785")
   /* default */ void testCompareTo()
    {
-    final ISBN13 isbn1 = ISBN13.of("978-1-61729-410-5");
-    final ISBN13 isbn2 = ISBN13.of("978-1-61729-410-5");
-    final ISBN13 isbn3 = ISBN13.of("978-3-8362-7277-3");
+    final ISBN13 isbn1 = ISBN13.of(ISBN_978_1_61729_410_5);
+    final ISBN13 isbn2 = ISBN13.of(ISBN_978_1_61729_410_5);
+    final ISBN13 isbn3 = ISBN13.of(ISBN_978_3_8362_7277_3);
     final ISBN13 isbn4 = ISBN13.of("978-3-89650-485-2"); //$NON-NLS-1$
-    final ISBN13 isbn5 = ISBN13.of("978-1-61729-410-5");
+    final ISBN13 isbn5 = ISBN13.of(ISBN_978_1_61729_410_5);
     assertAll("testCompareTo", //$NON-NLS-1$
       () -> assertTrue(isbn1.compareTo(isbn2) == -isbn2.compareTo(isbn1), "reflexive1"), //$NON-NLS-1$
       () -> assertTrue(isbn1.compareTo(isbn3) == -isbn3.compareTo(isbn1), "reflexive2"), //$NON-NLS-1$

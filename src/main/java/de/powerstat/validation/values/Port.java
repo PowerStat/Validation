@@ -98,7 +98,7 @@ public final class Port implements Comparable<Port>, IValueObject
    */
   public boolean isSystem()
    {
-    return this.port <= 1023;
+    return port <= 1023;
    }
 
 
@@ -109,7 +109,7 @@ public final class Port implements Comparable<Port>, IValueObject
    */
   public boolean isRegistered()
    {
-    return (this.port >= 1024) && (this.port <= 49151);
+    return (port >= 1024) && (port <= 49151);
    }
 
 
@@ -120,7 +120,7 @@ public final class Port implements Comparable<Port>, IValueObject
    */
   public boolean isDynamic()
    {
-    return (this.port >= 49152);
+    return (port >= 49152);
    }
 
 
@@ -131,7 +131,7 @@ public final class Port implements Comparable<Port>, IValueObject
    */
   public int intValue()
    {
-    return this.port;
+    return port;
    }
 
 
@@ -143,7 +143,7 @@ public final class Port implements Comparable<Port>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.port);
+    return String.valueOf(port);
    }
 
 
@@ -156,7 +156,7 @@ public final class Port implements Comparable<Port>, IValueObject
   @Override
   public int hashCode()
    {
-    return Integer.hashCode(this.port);
+    return Integer.hashCode(port);
    }
 
 
@@ -167,6 +167,7 @@ public final class Port implements Comparable<Port>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -178,7 +179,7 @@ public final class Port implements Comparable<Port>, IValueObject
      {
       return false;
      }
-    return this.port == other.port;
+    return (port == other.port);
    }
 
 
@@ -196,7 +197,7 @@ public final class Port implements Comparable<Port>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("Port[port=").append(this.port).append(']'); //$NON-NLS-1$
+    builder.append("Port[port=").append(port).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -212,7 +213,7 @@ public final class Port implements Comparable<Port>, IValueObject
   public int compareTo(final Port obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.port, obj.port);
+    return Integer.compare(port, obj.port);
    }
 
  }

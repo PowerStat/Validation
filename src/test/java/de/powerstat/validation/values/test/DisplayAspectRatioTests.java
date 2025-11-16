@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.*;
+import nl.jqno.equalsverifier.EqualsVerifier;
 import de.powerstat.validation.values.DisplayAspectRatio;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -18,9 +18,19 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Display aspect ratio tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
+@SuppressFBWarnings({"RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 final class DisplayAspectRatioTests
  {
+  /**
+   * Y ratio not as expected.
+   */
+  private static final String Y_RATIO_NOT_AS_EXPECTED = "y ratio not as expected";
+
+  /**
+   * X ratio not as expected.
+   */
+  private static final String X_RATIO_NOT_AS_EXPECTED = "x ratio not as expected";
+
   /**
    * Test aspect ration constant.
    */
@@ -86,8 +96,8 @@ final class DisplayAspectRatioTests
    {
     final DisplayAspectRatio ratio = DisplayAspectRatio.of(1, 1);
     assertAll(DisplayAspectRatioTests.TEST_ASPECT_RATIO,
-      () -> assertEquals(1, ratio.getX(), "x ratio not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, ratio.getY(), "y ratio not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, ratio.getX(), X_RATIO_NOT_AS_EXPECTED),
+      () -> assertEquals(1, ratio.getY(), Y_RATIO_NOT_AS_EXPECTED),
       () -> assertEquals(DisplayAspectRatioTests.ONE_TO_ONE, ratio.stringValue(), DisplayAspectRatioTests.ASPECT_RATIO_NOT_AS_EXPECTED)
     );
    }
@@ -157,8 +167,8 @@ final class DisplayAspectRatioTests
    {
     final DisplayAspectRatio ratio = DisplayAspectRatio.of(72, 35);
     assertAll(DisplayAspectRatioTests.TEST_ASPECT_RATIO,
-      () -> assertEquals(72, ratio.getX(), "x ratio not as expected"), //$NON-NLS-1$
-      () -> assertEquals(35, ratio.getY(), "y ratio not as expected"), //$NON-NLS-1$
+      () -> assertEquals(72, ratio.getX(), X_RATIO_NOT_AS_EXPECTED),
+      () -> assertEquals(35, ratio.getY(), Y_RATIO_NOT_AS_EXPECTED),
       () -> assertEquals("72:35", ratio.stringValue(), DisplayAspectRatioTests.ASPECT_RATIO_NOT_AS_EXPECTED)
     );
    }

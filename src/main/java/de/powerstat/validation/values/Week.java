@@ -116,7 +116,7 @@ public final class Week implements Comparable<Week>, IValueObject
    */
   public int intValue()
    {
-    return this.week;
+    return week;
    }
 
 
@@ -128,7 +128,7 @@ public final class Week implements Comparable<Week>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.week);
+    return String.valueOf(week);
    }
 
 
@@ -141,7 +141,7 @@ public final class Week implements Comparable<Week>, IValueObject
   @Override
   public int hashCode()
    {
-    return Integer.hashCode(this.week);
+    return Integer.hashCode(week);
    }
 
 
@@ -152,6 +152,7 @@ public final class Week implements Comparable<Week>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -163,7 +164,7 @@ public final class Week implements Comparable<Week>, IValueObject
      {
       return false;
      }
-    return this.week == other.week;
+    return (week == other.week);
    }
 
 
@@ -181,7 +182,7 @@ public final class Week implements Comparable<Week>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("Week[week=").append(this.week).append(']'); //$NON-NLS-1$
+    builder.append("Week[week=").append(week).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -197,7 +198,7 @@ public final class Week implements Comparable<Week>, IValueObject
   public int compareTo(final Week obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.week, obj.week);
+    return Integer.compare(week, obj.week);
    }
 
 
@@ -208,9 +209,10 @@ public final class Week implements Comparable<Week>, IValueObject
    * @return New week after adding the weeks to this week
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Week add(final Weeks weeks)
    {
-    final int newWeek = Math.toIntExact(Math.addExact(this.week, weeks.longValue()));
+    final int newWeek = Math.toIntExact(Math.addExact(week, weeks.longValue()));
     if (newWeek > 53) // TODO 52 depends on year
      {
       // TODO Listener
@@ -229,7 +231,7 @@ public final class Week implements Comparable<Week>, IValueObject
    */
   public Week subtract(final Weeks weeks)
    {
-    final int newWeek = Math.toIntExact(Math.subtractExact(this.week, weeks.longValue()));
+    final int newWeek = Math.toIntExact(Math.subtractExact(week, weeks.longValue()));
     if (newWeek <= 0)
      {
       // TODO Listener
@@ -245,9 +247,10 @@ public final class Week implements Comparable<Week>, IValueObject
    * @return New week after incrementing this week
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Week increment()
    {
-    final int newWeek = Math.incrementExact(this.week);
+    final int newWeek = Math.incrementExact(week);
     if (newWeek == 54) // TODO 53 depending on year
      {
       // TODO Listener
@@ -265,7 +268,7 @@ public final class Week implements Comparable<Week>, IValueObject
    */
   public Week decrement()
    {
-    final int newWeek = Math.decrementExact(this.week);
+    final int newWeek = Math.decrementExact(week);
     if (newWeek == 0)
      {
       // TODO Listener

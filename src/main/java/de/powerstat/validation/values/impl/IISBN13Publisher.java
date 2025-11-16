@@ -16,6 +16,6 @@ public interface IISBN13Publisher
    * @return Publisher number (variable length)
    * @throws IllegalArgumentException When an illegal character appears
    */
-  public String publisher(final String rest);
+  String publisher(String rest);
 
  }

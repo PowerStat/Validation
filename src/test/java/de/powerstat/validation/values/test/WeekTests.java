@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.*;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.values.Week;
 import de.powerstat.validation.values.Weeks;
@@ -22,7 +22,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Week tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
+@SuppressFBWarnings({"RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 final class WeekTests
  {
   /**
@@ -169,6 +169,7 @@ final class WeekTests
   /**
    * Test add.
    */
+  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
   @Test
   /* default */ void testAdd2()
    {
@@ -198,6 +199,7 @@ final class WeekTests
   /**
    * Test subtract.
    */
+  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
   @Test
   /* default */ void testSubtract2()
    {
@@ -226,6 +228,7 @@ final class WeekTests
   /**
    * Test increment.
    */
+  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
   @Test
   /* default */ void testIncrement2()
    {
@@ -253,6 +256,7 @@ final class WeekTests
   /**
    * Test decrement.
    */
+  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
   @Test
   /* default */ void testDecrement2()
    {

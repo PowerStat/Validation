@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
@@ -82,7 +83,7 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
       throw new IllegalArgumentException("Not an IP V4 address"); //$NON-NLS-1$
      }
     this.address = address;
-    this.parts = address.split("\\."); //$NON-NLS-1$
+    parts = address.split("\\."); //$NON-NLS-1$
    }
 
 
@@ -121,15 +122,17 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
    *
    * @return true when private address, otherwise false
    */
+  @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public boolean isPrivate()
    {
-    if ("10".equals(this.parts[0]) || (IPV4Address.CLASS_C_192.equals(this.parts[0]) && "168".equals(this.parts[1])) || ("169".equals(this.parts[0]) && "254".equals(this.parts[1]))) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    if ("10".equals(parts[0]) || (IPV4Address.CLASS_C_192.equals(parts[0]) && "168".equals(parts[1])) || ("169".equals(parts[0]) && "254".equals(parts[1]))) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
      {
       return true;
      }
-    if ("172".equals(this.parts[0])) //$NON-NLS-1$
+    if ("172".equals(parts[0])) //$NON-NLS-1$
      {
-      final int block2 = Integer.parseInt(this.parts[1]);
+      final int block2 = Integer.parseInt(parts[1]);
       if ((block2 >= 16) && (block2 <= 31))
        {
         return true;
@@ -157,36 +160,38 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
    *
    * @return true when special address, otherwise false
    */
+  @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
+  @SuppressWarnings({"PMD.NPathComplexity"})
   public boolean isSpecial()
    {
-    if (IPV4Address.ZERO.equals(this.parts[0]) ||
-        "127".equals(this.parts[0]) || //$NON-NLS-1$
-        (IPV4Address.CLASS_C_192.equals(this.parts[0]) && IPV4Address.ZERO.equals(this.parts[1]) && IPV4Address.ZERO.equals(this.parts[2])) ||
-        (IPV4Address.CLASS_C_192.equals(this.parts[0]) && IPV4Address.ZERO.equals(this.parts[1]) && "2".equals(this.parts[2])) || //$NON-NLS-1$
-        (IPV4Address.CLASS_C_192.equals(this.parts[0]) && "88".equals(this.parts[1]) && "99".equals(this.parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
-        (IPV4Address.C198.equals(this.parts[0]) && "51".equals(this.parts[1]) && IPV4Address.C100.equals(this.parts[2])) || //$NON-NLS-1$
-        ("203".equals(this.parts[0]) && IPV4Address.ZERO.equals(this.parts[1]) && "113".equals(this.parts[2])) //$NON-NLS-1$ //$NON-NLS-2$
+    if (IPV4Address.ZERO.equals(parts[0]) ||
+        "127".equals(parts[0]) || //$NON-NLS-1$
+        (IPV4Address.CLASS_C_192.equals(parts[0]) && IPV4Address.ZERO.equals(parts[1]) && IPV4Address.ZERO.equals(parts[2])) ||
+        (IPV4Address.CLASS_C_192.equals(parts[0]) && IPV4Address.ZERO.equals(parts[1]) && "2".equals(parts[2])) || //$NON-NLS-1$
+        (IPV4Address.CLASS_C_192.equals(parts[0]) && "88".equals(parts[1]) && "99".equals(parts[2])) || //$NON-NLS-1$ //$NON-NLS-2$
+        (IPV4Address.C198.equals(parts[0]) && "51".equals(parts[1]) && IPV4Address.C100.equals(parts[2])) || //$NON-NLS-1$
+        ("203".equals(parts[0]) && IPV4Address.ZERO.equals(parts[1]) && "113".equals(parts[2])) //$NON-NLS-1$ //$NON-NLS-2$
        )
      {
       return true;
      }
-    if (IPV4Address.C100.equals(this.parts[0]))
+    if (IPV4Address.C100.equals(parts[0]))
      {
-      final int block2 = Integer.parseInt(this.parts[1]);
+      final int block2 = Integer.parseInt(parts[1]);
       if ((block2 >= 64) && (block2 <= 127))
        {
         return true;
        }
      }
-    if (IPV4Address.C198.equals(this.parts[0]))
+    if (IPV4Address.C198.equals(parts[0]))
      {
-      final int block2 = Integer.parseInt(this.parts[1]);
+      final int block2 = Integer.parseInt(parts[1]);
       if ((block2 >= 18) && (block2 <= 19))
        {
         return true;
        }
      }
-    final int block1 = Integer.parseInt(this.parts[0]);
+    final int block1 = Integer.parseInt(parts[0]);
     return (block1 >= 224);
    }
 
@@ -210,7 +215,7 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.address;
+    return address;
    }
 
 
@@ -223,7 +228,7 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.address.hashCode();
+    return address.hashCode();
    }
 
 
@@ -234,6 +239,7 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -241,12 +247,11 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof IPV4Address))
+    if (!(obj instanceof final IPV4Address other))
      {
       return false;
      }
-    final IPV4Address other = (IPV4Address)obj;
-    return this.address.equals(other.address);
+    return address.equals(other.address);
    }
 
 
@@ -264,7 +269,7 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(21);
-    builder.append("IPV4Address[address=").append(this.address).append(']'); //$NON-NLS-1$
+    builder.append("IPV4Address[address=").append(address).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -280,7 +285,7 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
   public int compareTo(final IPV4Address obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.address.compareTo(obj.address);
+    return address.compareTo(obj.address);
    }
 
  }

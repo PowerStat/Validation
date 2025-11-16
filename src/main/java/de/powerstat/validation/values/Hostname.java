@@ -10,11 +10,12 @@ import java.net.UnknownHostException;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+// import org.apache.logging.log4j.LogManager;
+// import org.apache.logging.log4j.Logger;
 
 import de.powerstat.validation.generated.GeneratedTlds;
 import de.powerstat.validation.interfaces.IValueObject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
@@ -30,7 +31,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
   /**
    * Logger.
    */
-  private static final Logger LOGGER = LogManager.getLogger(Hostname.class);
+  // private static final Logger LOGGER = LogManager.getLogger(Hostname.class);
 
   /* *
    * Cache for singletons.
@@ -102,11 +103,11 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
     if (tempHostname.isEmpty())
      {
       tempHostname = checkHostname(hostname);
-      this.reverseHostname = reverseHostname(tempHostname);
+      reverseHostname = reverseHostname(tempHostname);
      }
     else
      {
-      this.reverseHostname = tempHostname;
+      reverseHostname = tempHostname;
      }
     this.hostname = tempHostname;
    }
@@ -118,6 +119,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
    * @param hostname Hostname
    * @return Hostname
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   private static String checkHostname(final String hostname)
    {
     if (!Hostname.HOSTNAME_REGEXP.matcher(hostname).matches())
@@ -205,7 +207,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.hostname;
+    return hostname;
    }
 
 
@@ -216,7 +218,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
    */
   public String getReverseHostname()
    {
-    return this.reverseHostname;
+    return reverseHostname;
    }
 
 
@@ -225,11 +227,12 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
    *
    * @return true if hostname was found, false otherwise
    */
+  @SuppressFBWarnings("EXS_EXCEPTION_SOFTENING_RETURN_FALSE")
   public boolean exist()
    {
     try
      {
-      /* final InetAddress address = */ InetAddress.getByName(this.hostname);
+      /* final InetAddress address = */ InetAddress.getByName(hostname);
      }
     catch (final UnknownHostException ignored)
      {
@@ -250,7 +253,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
    {
     try
      {
-      final var address = InetAddress.getByName(this.hostname);
+      final var address = InetAddress.getByName(hostname);
       return address.isReachable(timeout);
      }
     catch (final IOException ignored)
@@ -270,7 +273,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.hostname.hashCode();
+    return hostname.hashCode();
    }
 
 
@@ -281,6 +284,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -288,12 +292,11 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Hostname))
+    if (!(obj instanceof final Hostname other))
      {
       return false;
      }
-    final Hostname other = (Hostname)obj;
-    return this.hostname.equals(other.hostname);
+    return hostname.equals(other.hostname);
    }
 
 
@@ -311,7 +314,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(19);
-    builder.append("Hostname[hostname=").append(this.hostname).append(']'); //$NON-NLS-1$
+    builder.append("Hostname[hostname=").append(hostname).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -327,7 +330,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
   public int compareTo(final Hostname obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.hostname.compareTo(obj.hostname);
+    return hostname.compareTo(obj.hostname);
    }
 
  }

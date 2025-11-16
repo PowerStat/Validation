@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.*;
+import nl.jqno.equalsverifier.EqualsVerifier;
 import de.powerstat.validation.values.ScreenSize;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -18,7 +18,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Screen size tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
+@SuppressFBWarnings({"RV_NEGATING_RESULT_OF_COMPARETO", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 final class ScreenSizeTests
  {
   /**
@@ -106,7 +106,7 @@ final class ScreenSizeTests
   /* default */ void testFactory3()
    {
     final ScreenSize size = ScreenSize.of(1, 1, "1x1");
-    assertAll("factory1", //$NON-NLS-1$
+    assertAll("factory3", //$NON-NLS-1$
       () -> assertEquals(1, size.getWidth(), WIDTH_IS_NOT_EQUAL),
       () -> assertEquals(1, size.getHeight(), HEIGHT_IS_NOT_EQUAL)
     );
@@ -120,7 +120,7 @@ final class ScreenSizeTests
   /* default */ void testFactory4()
    {
     final ScreenSize size = ScreenSize.of(8192, 8192, "8192x8192");
-    assertAll("factory1", //$NON-NLS-1$
+    assertAll("factory4", //$NON-NLS-1$
       () -> assertEquals(8192, size.getWidth(), WIDTH_IS_NOT_EQUAL),
       () -> assertEquals(8192, size.getHeight(), HEIGHT_IS_NOT_EQUAL)
     );

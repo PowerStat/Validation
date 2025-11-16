@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
@@ -111,7 +112,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
      {
       throw new IllegalArgumentException("Not a mac address"); //$NON-NLS-1$
      }
-    this.parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
+    parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
    }
 
 
@@ -157,7 +158,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
      {
       throw new IllegalArgumentException(MACAddress.ILLEGAL_DELIMITER_CHARACTER);
      }
-    return String.join(delimiter, this.parts);
+    return String.join(delimiter, parts);
    }
 
 
@@ -178,9 +179,10 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    *
    * @return true if broadcast address, false otherwise
    */
+  @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
   public boolean isBroadcast()
    {
-    return MACAddress.HFF.equals(this.parts[0]) && MACAddress.HFF.equals(this.parts[1]) && MACAddress.HFF.equals(this.parts[2]) && MACAddress.HFF.equals(this.parts[3]) && MACAddress.HFF.equals(this.parts[4]) && MACAddress.HFF.equals(this.parts[5]);
+    return MACAddress.HFF.equals(parts[0]) && MACAddress.HFF.equals(parts[1]) && MACAddress.HFF.equals(parts[2]) && MACAddress.HFF.equals(parts[3]) && MACAddress.HFF.equals(parts[4]) && MACAddress.HFF.equals(parts[5]);
    }
 
 
@@ -191,7 +193,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    */
   public boolean isGroup()
    {
-    return (Integer.parseInt(this.parts[0], 16) & 0x01) != 0;
+    return (Integer.parseInt(parts[0], 16) & 0x01) != 0;
    }
 
 
@@ -202,7 +204,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    */
   public boolean isLocal()
    {
-    return (Integer.parseInt(this.parts[0], 16) & 0x02) != 0;
+    return (Integer.parseInt(parts[0], 16) & 0x02) != 0;
    }
 
 
@@ -211,9 +213,10 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    *
    * @return true if mac is an ip v4 multicast address, false otherwise
    */
+  @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
   public boolean isIPV4Multicast()
    {
-    return MACAddress.H01.equals(this.parts[0]) && MACAddress.H00.equals(this.parts[1]) && MACAddress.H5E.equals(this.parts[2]) && ((Integer.parseInt(this.parts[3], 16) & 0x80) == 0);
+    return MACAddress.H01.equals(parts[0]) && MACAddress.H00.equals(parts[1]) && MACAddress.H5E.equals(parts[2]) && ((Integer.parseInt(parts[3], 16) & 0x80) == 0);
    }
 
 
@@ -222,9 +225,10 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    *
    * @return true if mac is an ip v6 multicast address, false otherwise
    */
+  @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
   public boolean isIPV6Multicast()
    {
-    return MACAddress.H33.equals(this.parts[0]) && MACAddress.H33.equals(this.parts[1]);
+    return MACAddress.H33.equals(parts[0]) && MACAddress.H33.equals(parts[1]);
    }
 
 
@@ -233,9 +237,10 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    *
    * @return true if mac is a vrrp address, false otherwise
    */
+  @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
   public boolean isVRRP()
    {
-    return MACAddress.H00.equals(this.parts[0]) && MACAddress.H00.equals(this.parts[1]) && MACAddress.H5E.equals(this.parts[2]) && MACAddress.H00.equals(this.parts[3]) && MACAddress.H01.equals(this.parts[4]);
+    return MACAddress.H00.equals(parts[0]) && MACAddress.H00.equals(parts[1]) && MACAddress.H5E.equals(parts[2]) && MACAddress.H00.equals(parts[3]) && MACAddress.H01.equals(parts[4]);
    }
 
 
@@ -246,9 +251,10 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    *
    * TODO OUI-28 (MA-M), OUI-36 (MA-S)
    */
+  @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
   public String getOUI()
    {
-    return String.format("%1$02X", Integer.parseInt(this.parts[0], 16) & 0xfc) + this.parts[1].toUpperCase(Locale.getDefault()) + this.parts[2].toUpperCase(Locale.getDefault()); //$NON-NLS-1$
+    return String.format("%1$02X", Integer.parseInt(parts[0], 16) & 0xfc) + parts[1].toUpperCase(Locale.getDefault()) + parts[2].toUpperCase(Locale.getDefault()); //$NON-NLS-1$
    }
 
 
@@ -261,7 +267,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
   @Override
   public int hashCode()
    {
-    return Arrays.hashCode(this.parts);
+    return Arrays.hashCode(parts);
    }
 
 
@@ -279,12 +285,11 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof MACAddress))
+    if (!(obj instanceof final MACAddress other))
      {
       return false;
      }
-    final MACAddress other = (MACAddress)obj;
-    return Arrays.equals(this.parts, other.parts);
+    return Arrays.equals(parts, other.parts);
    }
 
 
@@ -302,7 +307,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(21);
-    builder.append("MACAddress[address=").append(String.join(MACAddress.SEPARATOR, this.parts)).append(']'); //$NON-NLS-1$
+    builder.append("MACAddress[address=").append(String.join(MACAddress.SEPARATOR, parts)).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -318,7 +323,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
   public int compareTo(final MACAddress obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Arrays.compare(this.parts, obj.parts);
+    return Arrays.compare(parts, obj.parts);
    }
 
  }

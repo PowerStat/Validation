@@ -250,7 +250,7 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
    *
    * @return true if private, false otherwise
    */
-  @SuppressWarnings("java:S1313")
+  @SuppressWarnings({"java:S1313", "PMD.AvoidLiteralsInIfCondition", "PMD.AvoidUsingHardCodedIP"})
   public boolean isPrivate()
    {
     return ("00fe:0080:0000:0000:0000:0000:0000:0000".equals(address) || // Link-Local //$NON-NLS-1$
@@ -268,6 +268,7 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
    *
    * @return true if special, false otherwise
    */
+  @SuppressWarnings({"PMD.AvoidLiteralsInIfCondition", "PMD.AvoidUsingHardCodedIP"})
   public boolean isSpecial()
    {
     return ("0000:0000:0000:0000:0000:0000:0000:0000".equals(address) || "0000:0000:0000:0000:0000:0000:0000:0001".equals(address) || // default route, loopback //$NON-NLS-1$ //$NON-NLS-2$
@@ -328,6 +329,7 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {

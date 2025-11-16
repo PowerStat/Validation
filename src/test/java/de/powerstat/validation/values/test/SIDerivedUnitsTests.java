@@ -33,7 +33,7 @@ final class SIDerivedUnitsTests
   @Test
   /* default */ void testFactory1()
    {
-    SIDerivedUnits result =  SIDerivedUnits.of("HERTZ");
+    final SIDerivedUnits result = SIDerivedUnits.of("HERTZ");
     assertNotNull(result, "No derived unit");
    }
 
@@ -44,7 +44,7 @@ final class SIDerivedUnitsTests
   @Test
   /* default */ void testStringValue1()
    {
-    SIDerivedUnits result =  SIDerivedUnits.of("HERTZ");
+    final SIDerivedUnits result = SIDerivedUnits.of("HERTZ");
     assertEquals("HERTZ", result.stringValue(), "No derived unit");
    }
 

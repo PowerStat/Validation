@@ -20,7 +20,7 @@ import java.util.SortedMap;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.*;
+import nl.jqno.equalsverifier.EqualsVerifier;
 import de.powerstat.validation.containers.HistoryOf;
 import de.powerstat.validation.values.Lastname;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -29,10 +29,15 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * HistoryOf tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "CE_CLASS_ENVY"})
+@SuppressFBWarnings({"RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"})
 @SuppressWarnings("java:S2925")
 final class HistoryOfTests
  {
+  /**
+   * Law of demeter.
+   */
+  private static final String PMD_LAW_OF_DEMETER = "PMD.LawOfDemeter";
+
   /**
    * Lastname constant.
    */
@@ -244,6 +249,7 @@ final class HistoryOfTests
   /**
    * Test getFirstEntry.
    */
+  @SuppressWarnings({PMD_LAW_OF_DEMETER})
   @Test
   /* default */ void testGetFirstEntry1()
    {
@@ -259,6 +265,7 @@ final class HistoryOfTests
    *
    * @throws InterruptedException Interrupted sleep
    */
+  @SuppressWarnings({PMD_LAW_OF_DEMETER})
   @Test
   /* default */ void testGetFirstEntry2() throws InterruptedException
    {
@@ -289,6 +296,7 @@ final class HistoryOfTests
   /**
    * Test getLastEntry.
    */
+  @SuppressWarnings({PMD_LAW_OF_DEMETER})
   @Test
   /* default */ void testGetLatestEntry1()
    {
@@ -304,6 +312,7 @@ final class HistoryOfTests
    *
    * @throws InterruptedException Interrupted sleep
    */
+  @SuppressWarnings({PMD_LAW_OF_DEMETER})
   @Test
   /* default */ void testGetLatestEntry2() throws InterruptedException
    {
@@ -334,6 +343,7 @@ final class HistoryOfTests
   /**
    * Test getPreviousEntry.
    */
+  @SuppressWarnings({PMD_LAW_OF_DEMETER})
   @Test
   /* default */ void testGetPreviousEntry1()
    {
@@ -349,6 +359,7 @@ final class HistoryOfTests
    *
    * @throws InterruptedException Interrupted sleep
    */
+  @SuppressWarnings({PMD_LAW_OF_DEMETER})
   @Test
   /* default */ void testGetPreviousEntry2() throws InterruptedException
    {

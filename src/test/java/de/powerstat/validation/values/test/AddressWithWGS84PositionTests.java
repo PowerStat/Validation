@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.*;
+import nl.jqno.equalsverifier.EqualsVerifier;
 import de.powerstat.validation.values.AddressWithWGS84Position;
 import de.powerstat.validation.values.BFPONumber;
 import de.powerstat.validation.values.Block;
@@ -34,7 +34,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * AddressWithWGS84Position tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 final class AddressWithWGS84PositionTests
  {
   /**

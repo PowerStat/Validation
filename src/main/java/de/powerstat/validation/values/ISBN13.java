@@ -13,6 +13,7 @@ import de.powerstat.validation.interfaces.IValueObject;
 import de.powerstat.validation.values.impl.ISBN13Publisher0;
 import de.powerstat.validation.values.impl.ISBN13Publisher1;
 import de.powerstat.validation.values.impl.ISBN13Publisher3;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
@@ -22,6 +23,96 @@ import de.powerstat.validation.values.impl.ISBN13Publisher3;
  */
 public final class ISBN13 implements Comparable<ISBN13>, IValueObject
  {
+  /**
+   * ISBN separator.
+   */
+  private static final String ISBN_SEPARATOR = "-";
+
+  /**
+   * Mongolian.
+   */
+  private static final String MONGOLIAN = "mn";
+
+  /**
+   * Suaheli.
+   */
+  private static final String SUAHELI = "sw";
+
+  /**
+   * Albanian.
+   */
+  private static final String ALBANIAN = "sq";
+
+  /**
+   * Malay.
+   */
+  private static final String MALAY = "ms";
+
+  /**
+   * Dutch.
+   */
+  private static final String DUTCH = "nl";
+
+  /**
+   * Chinese.
+   */
+  private static final String CHINESE = "zh";
+
+  /**
+   * Thai.
+   */
+  private static final String THAI = "th";
+
+  /**
+   * Spanish.
+   */
+  private static final String SPANISH = "es";
+
+  /**
+   * Arabic.
+   */
+  private static final String ARABIC = "ar";
+
+  /**
+   * French.
+   */
+  private static final String FRENCH = "fr";
+
+  /**
+   * English.
+   */
+  private static final String ENGLISH = "en";
+
+  /**
+   * Mongolia.
+   */
+  private static final String MN = "MN";
+
+  /**
+   * Albania.
+   */
+  private static final String AL = "AL";
+
+  /**
+   * Bosnia and Herzegovina.
+   */
+  private static final String BA = "BA";
+
+  /**
+   * 979.
+   */
+  private static final String PREFIX_979 = "979";
+
+  /**
+   * 978.
+   */
+  private static final String PREFIX_978 = "978";
+
+  /**
+   * Mauritius.
+   */
+  private static final String MAURITIUS = "MU";
+
   /**
    * ISBN13 regexp.
    */
@@ -82,14 +173,14 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
     COUNTRY_MAP978.put("609", Country.of("LT"));
     COUNTRY_MAP978.put("611", Country.of("TH"));
     COUNTRY_MAP978.put("612", Country.of("PE"));
-    COUNTRY_MAP978.put("613", Country.of("MU"));
+    COUNTRY_MAP978.put("613", Country.of(MAURITIUS));
     COUNTRY_MAP978.put("614", Country.of("LB"));
     COUNTRY_MAP978.put("615", Country.of("HU"));
     COUNTRY_MAP978.put("616", Country.of("TH"));
     COUNTRY_MAP978.put("617", Country.of("UA"));
     COUNTRY_MAP978.put("618", Country.of("GR"));
     COUNTRY_MAP978.put("619", Country.of("BG"));
-    COUNTRY_MAP978.put("620", Country.of("MU"));
+    COUNTRY_MAP978.put("620", Country.of(MAURITIUS));
     COUNTRY_MAP978.put("621", Country.of("PH"));
     COUNTRY_MAP978.put("7", Country.of("CN"));
     COUNTRY_MAP978.put("80", Country.of("CZ"));
@@ -135,8 +226,8 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
     COUNTRY_MAP978.put("975", Country.of("TR"));
     COUNTRY_MAP978.put("976", Country.of("BQ"));
     COUNTRY_MAP978.put("977", Country.of("EG"));
-    COUNTRY_MAP978.put("978", Country.of("NG"));
-    COUNTRY_MAP978.put("979", Country.of("ID"));
+    COUNTRY_MAP978.put(PREFIX_978, Country.of("NG"));
+    COUNTRY_MAP978.put(PREFIX_979, Country.of("ID"));
     COUNTRY_MAP978.put("980", Country.of("VE"));
     COUNTRY_MAP978.put("981", Country.of("SG"));
     COUNTRY_MAP978.put("982", Country.of("UM")); // Südpazifik ?
@@ -147,9 +238,9 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
     COUNTRY_MAP978.put("987", Country.of("AR"));
     COUNTRY_MAP978.put("988", Country.of("HK"));
     COUNTRY_MAP978.put("989", Country.of("PT"));
-    COUNTRY_MAP978.put("9926", Country.of("BA"));
+    COUNTRY_MAP978.put("9926", Country.of(BA));
     COUNTRY_MAP978.put("9927", Country.of("QA"));
-    COUNTRY_MAP978.put("9928", Country.of("AL"));
+    COUNTRY_MAP978.put("9928", Country.of(AL));
     COUNTRY_MAP978.put("9929", Country.of("GT"));
     COUNTRY_MAP978.put("9930", Country.of("CR"));
     COUNTRY_MAP978.put("9931", Country.of("DZ"));
@@ -179,7 +270,7 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
     COUNTRY_MAP978.put("9955", Country.of("LT"));
     COUNTRY_MAP978.put("9956", Country.of("CM"));
     COUNTRY_MAP978.put("9957", Country.of("JO"));
-    COUNTRY_MAP978.put("9958", Country.of("BA"));
+    COUNTRY_MAP978.put("9958", Country.of(BA));
     COUNTRY_MAP978.put("9959", Country.of("LY"));
     COUNTRY_MAP978.put("9960", Country.of("SA"));
     COUNTRY_MAP978.put("9961", Country.of("DZ"));
@@ -213,7 +304,7 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
     COUNTRY_MAP978.put("9989", Country.of("MK"));
     COUNTRY_MAP978.put("99901", Country.of("BH"));
     COUNTRY_MAP978.put("99902", Country.of("GA"));
-    COUNTRY_MAP978.put("99903", Country.of("MU"));
+    COUNTRY_MAP978.put("99903", Country.of(MAURITIUS));
     COUNTRY_MAP978.put("99904", Country.of("CW"));
     COUNTRY_MAP978.put("99905", Country.of("BO"));
     COUNTRY_MAP978.put("99906", Country.of("KW"));
@@ -237,9 +328,9 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
     COUNTRY_MAP978.put("99924", Country.of("NI"));
     COUNTRY_MAP978.put("99925", Country.of("PY"));
     COUNTRY_MAP978.put("99926", Country.of("HN"));
-    COUNTRY_MAP978.put("99927", Country.of("AL"));
+    COUNTRY_MAP978.put("99927", Country.of(AL));
     COUNTRY_MAP978.put("99928", Country.of("GE"));
-    COUNTRY_MAP978.put("99929", Country.of("MN"));
+    COUNTRY_MAP978.put("99929", Country.of(MN));
     COUNTRY_MAP978.put("99930", Country.of("AM"));
     COUNTRY_MAP978.put("99931", Country.of("SC"));
     COUNTRY_MAP978.put("99932", Country.of("MT"));
@@ -248,31 +339,31 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
     COUNTRY_MAP978.put("99935", Country.of("HT"));
     COUNTRY_MAP978.put("99936", Country.of("BT"));
     COUNTRY_MAP978.put("99937", Country.of("MO"));
-    COUNTRY_MAP978.put("99938", Country.of("BA"));
+    COUNTRY_MAP978.put("99938", Country.of(BA));
     COUNTRY_MAP978.put("99939", Country.of("GT"));
     COUNTRY_MAP978.put("99940", Country.of("GE"));
     COUNTRY_MAP978.put("99941", Country.of("AM"));
     COUNTRY_MAP978.put("99942", Country.of("SD"));
-    COUNTRY_MAP978.put("99943", Country.of("AL"));
+    COUNTRY_MAP978.put("99943", Country.of(AL));
     COUNTRY_MAP978.put("99944", Country.of("ET"));
     COUNTRY_MAP978.put("99945", Country.of("NA"));
     COUNTRY_MAP978.put("99946", Country.of("NP"));
     COUNTRY_MAP978.put("99947", Country.of("TJ"));
     COUNTRY_MAP978.put("99948", Country.of("ER"));
-    COUNTRY_MAP978.put("99949", Country.of("MU"));
+    COUNTRY_MAP978.put("99949", Country.of(MAURITIUS));
     COUNTRY_MAP978.put("99950", Country.of("KH"));
     COUNTRY_MAP978.put("99951", Country.of("CD"));
     COUNTRY_MAP978.put("99952", Country.of("ML"));
     COUNTRY_MAP978.put("99953", Country.of("PY"));
     COUNTRY_MAP978.put("99954", Country.of("BO"));
-    COUNTRY_MAP978.put("99955", Country.of("BA"));
-    COUNTRY_MAP978.put("99956", Country.of("AL"));
+    COUNTRY_MAP978.put("99955", Country.of(BA));
+    COUNTRY_MAP978.put("99956", Country.of(AL));
     COUNTRY_MAP978.put("99957", Country.of("MT"));
     COUNTRY_MAP978.put("99958", Country.of("BH"));
     COUNTRY_MAP978.put("99959", Country.of("LU"));
     COUNTRY_MAP978.put("99960", Country.of("MW"));
     COUNTRY_MAP978.put("99961", Country.of("SV"));
-    COUNTRY_MAP978.put("99962", Country.of("MN"));
+    COUNTRY_MAP978.put("99962", Country.of(MN));
     COUNTRY_MAP978.put("99963", Country.of("KH"));
     COUNTRY_MAP978.put("99964", Country.of("NI"));
     COUNTRY_MAP978.put("99965", Country.of("MO"));
@@ -283,12 +374,12 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
     COUNTRY_MAP978.put("99970", Country.of("HT"));
     COUNTRY_MAP978.put("99971", Country.of("MM"));
     COUNTRY_MAP978.put("99972", Country.of("FO"));
-    COUNTRY_MAP978.put("99973", Country.of("MN"));
+    COUNTRY_MAP978.put("99973", Country.of(MN));
     COUNTRY_MAP978.put("99974", Country.of("BO"));
     COUNTRY_MAP978.put("99975", Country.of("TJ"));
-    COUNTRY_MAP978.put("99976", Country.of("BA"));
+    COUNTRY_MAP978.put("99976", Country.of(BA));
     COUNTRY_MAP978.put("99977", Country.of("RW"));
-    COUNTRY_MAP978.put("99978", Country.of("MN"));
+    COUNTRY_MAP978.put("99978", Country.of(MN));
     COUNTRY_MAP978.put("99979", Country.of("HN"));
 
     COUNTRY_MAP979.put("8", Country.of("US"));
@@ -297,237 +388,237 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
     COUNTRY_MAP979.put("11", Country.of("KR"));
     COUNTRY_MAP979.put("12", Country.of("IT"));
 
-    LANGUAGE_MAP978.put("0", Language.of("en"));
-    LANGUAGE_MAP978.put("1", Language.of("en"));
-    LANGUAGE_MAP978.put("2", Language.of("fr"));
+    LANGUAGE_MAP978.put("0", Language.of(ENGLISH));
+    LANGUAGE_MAP978.put("1", Language.of(ENGLISH));
+    LANGUAGE_MAP978.put("2", Language.of(FRENCH));
     LANGUAGE_MAP978.put("3", Language.of("de"));
     LANGUAGE_MAP978.put("4", Language.of("ja"));
     LANGUAGE_MAP978.put("5", Language.of("ru"));
     LANGUAGE_MAP978.put("600", Language.of("fa"));
     LANGUAGE_MAP978.put("601", Language.of("kk"));
     LANGUAGE_MAP978.put("602", Language.of("id"));
-    LANGUAGE_MAP978.put("603", Language.of("ar"));
+    LANGUAGE_MAP978.put("603", Language.of(ARABIC));
     LANGUAGE_MAP978.put("604", Language.of("vi"));
     LANGUAGE_MAP978.put("605", Language.of("tr"));
     LANGUAGE_MAP978.put("606", Language.of("ro"));
-    LANGUAGE_MAP978.put("607", Language.of("es"));
+    LANGUAGE_MAP978.put("607", Language.of(SPANISH));
     LANGUAGE_MAP978.put("608", Language.of("mk"));
     LANGUAGE_MAP978.put("609", Language.of("lt"));
     // LANGUAGE_MAP978.put("610", Language.of("")); // Nicht vergeben?
-    LANGUAGE_MAP978.put("611", Language.of("th"));
-    LANGUAGE_MAP978.put("612", Language.of("es"));
-    LANGUAGE_MAP978.put("613", Language.of("en"));
-    LANGUAGE_MAP978.put("614", Language.of("ar"));
+    LANGUAGE_MAP978.put("611", Language.of(THAI));
+    LANGUAGE_MAP978.put("612", Language.of(SPANISH));
+    LANGUAGE_MAP978.put("613", Language.of(ENGLISH));
+    LANGUAGE_MAP978.put("614", Language.of(ARABIC));
     LANGUAGE_MAP978.put("615", Language.of("hu"));
-    LANGUAGE_MAP978.put("616", Language.of("th"));
+    LANGUAGE_MAP978.put("616", Language.of(THAI));
     LANGUAGE_MAP978.put("617", Language.of("uk"));
     LANGUAGE_MAP978.put("618", Language.of("el"));
     LANGUAGE_MAP978.put("619", Language.of("bg"));
-    LANGUAGE_MAP978.put("620", Language.of("en"));
-    LANGUAGE_MAP978.put("621", Language.of("en"));
-    LANGUAGE_MAP978.put("7", Language.of("zh"));
+    LANGUAGE_MAP978.put("620", Language.of(ENGLISH));
+    LANGUAGE_MAP978.put("621", Language.of(ENGLISH));
+    LANGUAGE_MAP978.put("7", Language.of(CHINESE));
     LANGUAGE_MAP978.put("80", Language.of("cs"));
     LANGUAGE_MAP978.put("81", Language.of("hi"));
     LANGUAGE_MAP978.put("82", Language.of("no"));
     LANGUAGE_MAP978.put("83", Language.of("pl"));
-    LANGUAGE_MAP978.put("84", Language.of("es"));
+    LANGUAGE_MAP978.put("84", Language.of(SPANISH));
     LANGUAGE_MAP978.put("85", Language.of("pt"));
     LANGUAGE_MAP978.put("86", Language.of("sl"));
     LANGUAGE_MAP978.put("87", Language.of("da"));
     LANGUAGE_MAP978.put("88", Language.of("it"));
     LANGUAGE_MAP978.put("89", Language.of("ko"));
-    LANGUAGE_MAP978.put("90", Language.of("nl"));
+    LANGUAGE_MAP978.put("90", Language.of(DUTCH));
     LANGUAGE_MAP978.put("91", Language.of("sv"));
     // LANGUAGE_MAP978.put("92", Language.of("")); // Internationale Verleger (UNO, UNESCO, EU usw.)
     LANGUAGE_MAP978.put("93", Language.of("hi"));
-    LANGUAGE_MAP978.put("94", Language.of("nl"));
-    LANGUAGE_MAP978.put("950", Language.of("es"));
+    LANGUAGE_MAP978.put("94", Language.of(DUTCH));
+    LANGUAGE_MAP978.put("950", Language.of(SPANISH));
     LANGUAGE_MAP978.put("951", Language.of("fi"));
     LANGUAGE_MAP978.put("952", Language.of("fi"));
     LANGUAGE_MAP978.put("953", Language.of("hr"));
     LANGUAGE_MAP978.put("954", Language.of("bg"));
     LANGUAGE_MAP978.put("955", Language.of("si"));
-    LANGUAGE_MAP978.put("956", Language.of("es"));
-    LANGUAGE_MAP978.put("957", Language.of("zh"));
-    LANGUAGE_MAP978.put("958", Language.of("es"));
-    LANGUAGE_MAP978.put("959", Language.of("es"));
+    LANGUAGE_MAP978.put("956", Language.of(SPANISH));
+    LANGUAGE_MAP978.put("957", Language.of(CHINESE));
+    LANGUAGE_MAP978.put("958", Language.of(SPANISH));
+    LANGUAGE_MAP978.put("959", Language.of(SPANISH));
     LANGUAGE_MAP978.put("960", Language.of("el"));
     LANGUAGE_MAP978.put("961", Language.of("sl"));
-    LANGUAGE_MAP978.put("962", Language.of("zh"));
-    LANGUAGE_MAP978.put("963", Language.of("th"));
+    LANGUAGE_MAP978.put("962", Language.of(CHINESE));
+    LANGUAGE_MAP978.put("963", Language.of(THAI));
     LANGUAGE_MAP978.put("964", Language.of("fa"));
     LANGUAGE_MAP978.put("965", Language.of("he"));
     LANGUAGE_MAP978.put("966", Language.of("uk"));
-    LANGUAGE_MAP978.put("967", Language.of("ms"));
-    LANGUAGE_MAP978.put("968", Language.of("es"));
+    LANGUAGE_MAP978.put("967", Language.of(MALAY));
+    LANGUAGE_MAP978.put("968", Language.of(SPANISH));
     LANGUAGE_MAP978.put("969", Language.of("ur"));
-    LANGUAGE_MAP978.put("970", Language.of("es"));
-    LANGUAGE_MAP978.put("971", Language.of("en"));
+    LANGUAGE_MAP978.put("970", Language.of(SPANISH));
+    LANGUAGE_MAP978.put("971", Language.of(ENGLISH));
     LANGUAGE_MAP978.put("972", Language.of("pt"));
     LANGUAGE_MAP978.put("973", Language.of("ro"));
-    LANGUAGE_MAP978.put("974", Language.of("th"));
+    LANGUAGE_MAP978.put("974", Language.of(THAI));
     LANGUAGE_MAP978.put("975", Language.of("tr"));
-    LANGUAGE_MAP978.put("976", Language.of("en"));
-    LANGUAGE_MAP978.put("977", Language.of("ar"));
-    LANGUAGE_MAP978.put("978", Language.of("en"));
-    LANGUAGE_MAP978.put("979", Language.of("id"));
-    LANGUAGE_MAP978.put("980", Language.of("es"));
-    LANGUAGE_MAP978.put("981", Language.of("ms"));
-    LANGUAGE_MAP978.put("982", Language.of("en"));
-    LANGUAGE_MAP978.put("983", Language.of("ms"));
+    LANGUAGE_MAP978.put("976", Language.of(ENGLISH));
+    LANGUAGE_MAP978.put("977", Language.of(ARABIC));
+    LANGUAGE_MAP978.put(PREFIX_978, Language.of(ENGLISH));
+    LANGUAGE_MAP978.put(PREFIX_979, Language.of("id"));
+    LANGUAGE_MAP978.put("980", Language.of(SPANISH));
+    LANGUAGE_MAP978.put("981", Language.of(MALAY));
+    LANGUAGE_MAP978.put("982", Language.of(ENGLISH));
+    LANGUAGE_MAP978.put("983", Language.of(MALAY));
     LANGUAGE_MAP978.put("984", Language.of("bn"));
     LANGUAGE_MAP978.put("985", Language.of("be"));
-    LANGUAGE_MAP978.put("986", Language.of("zh"));
-    LANGUAGE_MAP978.put("987", Language.of("es"));
-    LANGUAGE_MAP978.put("988", Language.of("zh"));
+    LANGUAGE_MAP978.put("986", Language.of(CHINESE));
+    LANGUAGE_MAP978.put("987", Language.of(SPANISH));
+    LANGUAGE_MAP978.put("988", Language.of(CHINESE));
     LANGUAGE_MAP978.put("989", Language.of("pt"));
     LANGUAGE_MAP978.put("9926", Language.of("bs"));
-    LANGUAGE_MAP978.put("9927", Language.of("ar"));
-    LANGUAGE_MAP978.put("9928", Language.of("sq"));
-    LANGUAGE_MAP978.put("9929", Language.of("es"));
-    LANGUAGE_MAP978.put("9930", Language.of("es"));
-    LANGUAGE_MAP978.put("9931", Language.of("ar"));
+    LANGUAGE_MAP978.put("9927", Language.of(ARABIC));
+    LANGUAGE_MAP978.put("9928", Language.of(ALBANIAN));
+    LANGUAGE_MAP978.put("9929", Language.of(SPANISH));
+    LANGUAGE_MAP978.put("9930", Language.of(SPANISH));
+    LANGUAGE_MAP978.put("9931", Language.of(ARABIC));
     LANGUAGE_MAP978.put("9932", Language.of("lo"));
-    LANGUAGE_MAP978.put("9933", Language.of("ar"));
+    LANGUAGE_MAP978.put("9933", Language.of(ARABIC));
     LANGUAGE_MAP978.put("9934", Language.of("lv"));
     LANGUAGE_MAP978.put("9935", Language.of("is"));
     LANGUAGE_MAP978.put("9936", Language.of("ps"));
     LANGUAGE_MAP978.put("9937", Language.of("ne"));
-    LANGUAGE_MAP978.put("9938", Language.of("ar"));
+    LANGUAGE_MAP978.put("9938", Language.of(ARABIC));
     LANGUAGE_MAP978.put("9939", Language.of("hy"));
     // LANGUAGE_MAP978.put("9940", Language.of("")); // Montenegro
     LANGUAGE_MAP978.put("9941", Language.of("ka"));
-    LANGUAGE_MAP978.put("9942", Language.of("es"));
+    LANGUAGE_MAP978.put("9942", Language.of(SPANISH));
     LANGUAGE_MAP978.put("9943", Language.of("uz"));
     LANGUAGE_MAP978.put("9944", Language.of("tr"));
-    LANGUAGE_MAP978.put("9945", Language.of("es"));
+    LANGUAGE_MAP978.put("9945", Language.of(SPANISH));
     LANGUAGE_MAP978.put("9946", Language.of("ko"));
-    LANGUAGE_MAP978.put("9947", Language.of("ar"));
-    LANGUAGE_MAP978.put("9948", Language.of("ar"));
+    LANGUAGE_MAP978.put("9947", Language.of(ARABIC));
+    LANGUAGE_MAP978.put("9948", Language.of(ARABIC));
     LANGUAGE_MAP978.put("9949", Language.of("et"));
-    LANGUAGE_MAP978.put("9950", Language.of("ar"));
-    LANGUAGE_MAP978.put("9951", Language.of("sq"));
+    LANGUAGE_MAP978.put("9950", Language.of(ARABIC));
+    LANGUAGE_MAP978.put("9951", Language.of(ALBANIAN));
     LANGUAGE_MAP978.put("9952", Language.of("az"));
-    LANGUAGE_MAP978.put("9953", Language.of("ar"));
-    LANGUAGE_MAP978.put("9954", Language.of("ar"));
+    LANGUAGE_MAP978.put("9953", Language.of(ARABIC));
+    LANGUAGE_MAP978.put("9954", Language.of(ARABIC));
     LANGUAGE_MAP978.put("9955", Language.of("lt"));
-    LANGUAGE_MAP978.put("9956", Language.of("fr"));
-    LANGUAGE_MAP978.put("9957", Language.of("ar"));
+    LANGUAGE_MAP978.put("9956", Language.of(FRENCH));
+    LANGUAGE_MAP978.put("9957", Language.of(ARABIC));
     LANGUAGE_MAP978.put("9958", Language.of("bs"));
-    LANGUAGE_MAP978.put("9959", Language.of("ar"));
-    LANGUAGE_MAP978.put("9960", Language.of("ar"));
-    LANGUAGE_MAP978.put("9961", Language.of("ar"));
-    LANGUAGE_MAP978.put("9962", Language.of("es"));
+    LANGUAGE_MAP978.put("9959", Language.of(ARABIC));
+    LANGUAGE_MAP978.put("9960", Language.of(ARABIC));
+    LANGUAGE_MAP978.put("9961", Language.of(ARABIC));
+    LANGUAGE_MAP978.put("9962", Language.of(SPANISH));
     LANGUAGE_MAP978.put("9963", Language.of("el"));
-    LANGUAGE_MAP978.put("9964", Language.of("en"));
+    LANGUAGE_MAP978.put("9964", Language.of(ENGLISH));
     LANGUAGE_MAP978.put("9965", Language.of("kk"));
-    LANGUAGE_MAP978.put("9966", Language.of("sw"));
+    LANGUAGE_MAP978.put("9966", Language.of(SUAHELI));
     LANGUAGE_MAP978.put("9967", Language.of("ky"));
-    LANGUAGE_MAP978.put("9968", Language.of("es"));
+    LANGUAGE_MAP978.put("9968", Language.of(SPANISH));
     // LANGUAGE_MAP978.put("9969", Language.of("")); // Nicht vergeben?
-    LANGUAGE_MAP978.put("9970", Language.of("sw"));
-    LANGUAGE_MAP978.put("9971", Language.of("ms"));
-    LANGUAGE_MAP978.put("9972", Language.of("es"));
-    LANGUAGE_MAP978.put("9973", Language.of("ar"));
-    LANGUAGE_MAP978.put("9974", Language.of("es"));
+    LANGUAGE_MAP978.put("9970", Language.of(SUAHELI));
+    LANGUAGE_MAP978.put("9971", Language.of(MALAY));
+    LANGUAGE_MAP978.put("9972", Language.of(SPANISH));
+    LANGUAGE_MAP978.put("9973", Language.of(ARABIC));
+    LANGUAGE_MAP978.put("9974", Language.of(SPANISH));
     LANGUAGE_MAP978.put("9975", Language.of("ro"));
-    LANGUAGE_MAP978.put("9976", Language.of("sw"));
-    LANGUAGE_MAP978.put("9977", Language.of("es"));
-    LANGUAGE_MAP978.put("9978", Language.of("es"));
+    LANGUAGE_MAP978.put("9976", Language.of(SUAHELI));
+    LANGUAGE_MAP978.put("9977", Language.of(SPANISH));
+    LANGUAGE_MAP978.put("9978", Language.of(SPANISH));
     LANGUAGE_MAP978.put("9979", Language.of("is"));
     LANGUAGE_MAP978.put("9980", Language.of("ho"));
-    LANGUAGE_MAP978.put("9981", Language.of("ar"));
-    LANGUAGE_MAP978.put("9982", Language.of("en"));
-    LANGUAGE_MAP978.put("9983", Language.of("en"));
+    LANGUAGE_MAP978.put("9981", Language.of(ARABIC));
+    LANGUAGE_MAP978.put("9982", Language.of(ENGLISH));
+    LANGUAGE_MAP978.put("9983", Language.of(ENGLISH));
     LANGUAGE_MAP978.put("9984", Language.of("lv"));
     LANGUAGE_MAP978.put("9985", Language.of("et"));
     LANGUAGE_MAP978.put("9986", Language.of("lt"));
-    LANGUAGE_MAP978.put("9987", Language.of("sw"));
-    LANGUAGE_MAP978.put("9988", Language.of("en"));
+    LANGUAGE_MAP978.put("9987", Language.of(SUAHELI));
+    LANGUAGE_MAP978.put("9988", Language.of(ENGLISH));
     LANGUAGE_MAP978.put("9989", Language.of("mk"));
-    LANGUAGE_MAP978.put("99901", Language.of("ar"));
-    LANGUAGE_MAP978.put("99902", Language.of("fr"));
-    LANGUAGE_MAP978.put("99903", Language.of("en"));
-    LANGUAGE_MAP978.put("99904", Language.of("nl"));
-    LANGUAGE_MAP978.put("99905", Language.of("es"));
-    LANGUAGE_MAP978.put("99906", Language.of("ar"));
+    LANGUAGE_MAP978.put("99901", Language.of(ARABIC));
+    LANGUAGE_MAP978.put("99902", Language.of(FRENCH));
+    LANGUAGE_MAP978.put("99903", Language.of(ENGLISH));
+    LANGUAGE_MAP978.put("99904", Language.of(DUTCH));
+    LANGUAGE_MAP978.put("99905", Language.of(SPANISH));
+    LANGUAGE_MAP978.put("99906", Language.of(ARABIC));
     // LANGUAGE_MAP978.put("99907", Language.of("")); // Nicht vergeben?
-    LANGUAGE_MAP978.put("99908", Language.of("en"));
+    LANGUAGE_MAP978.put("99908", Language.of(ENGLISH));
     LANGUAGE_MAP978.put("99909", Language.of("mt"));
-    LANGUAGE_MAP978.put("99910", Language.of("en"));
-    LANGUAGE_MAP978.put("99911", Language.of("en"));
+    LANGUAGE_MAP978.put("99910", Language.of(ENGLISH));
+    LANGUAGE_MAP978.put("99911", Language.of(ENGLISH));
     LANGUAGE_MAP978.put("99912", Language.of("tn"));
     LANGUAGE_MAP978.put("99913", Language.of("ca"));
-    LANGUAGE_MAP978.put("99914", Language.of("nl"));
+    LANGUAGE_MAP978.put("99914", Language.of(DUTCH));
     // LANGUAGE_MAP978.put("99915", Language.of("")); // Malediven
-    LANGUAGE_MAP978.put("99916", Language.of("en"));
-    LANGUAGE_MAP978.put("99917", Language.of("ms"));
+    LANGUAGE_MAP978.put("99916", Language.of(ENGLISH));
+    LANGUAGE_MAP978.put("99917", Language.of(MALAY));
     LANGUAGE_MAP978.put("99918", Language.of("fo"));
-    LANGUAGE_MAP978.put("99919", Language.of("fr"));
+    LANGUAGE_MAP978.put("99919", Language.of(FRENCH));
     LANGUAGE_MAP978.put("99920", Language.of("ca"));
-    LANGUAGE_MAP978.put("99921", Language.of("ar"));
-    LANGUAGE_MAP978.put("99922", Language.of("es"));
-    LANGUAGE_MAP978.put("99923", Language.of("es"));
-    LANGUAGE_MAP978.put("99924", Language.of("es"));
+    LANGUAGE_MAP978.put("99921", Language.of(ARABIC));
+    LANGUAGE_MAP978.put("99922", Language.of(SPANISH));
+    LANGUAGE_MAP978.put("99923", Language.of(SPANISH));
+    LANGUAGE_MAP978.put("99924", Language.of(SPANISH));
     LANGUAGE_MAP978.put("99925", Language.of("gn"));
-    LANGUAGE_MAP978.put("99926", Language.of("es"));
-    LANGUAGE_MAP978.put("99927", Language.of("sq"));
+    LANGUAGE_MAP978.put("99926", Language.of(SPANISH));
+    LANGUAGE_MAP978.put("99927", Language.of(ALBANIAN));
     LANGUAGE_MAP978.put("99928", Language.of("ka"));
-    LANGUAGE_MAP978.put("99929", Language.of("mn"));
+    LANGUAGE_MAP978.put("99929", Language.of(MONGOLIAN));
     LANGUAGE_MAP978.put("99930", Language.of("hy"));
-    LANGUAGE_MAP978.put("99931", Language.of("en"));
+    LANGUAGE_MAP978.put("99931", Language.of(ENGLISH));
     LANGUAGE_MAP978.put("99932", Language.of("mt"));
     LANGUAGE_MAP978.put("99933", Language.of("ne"));
-    LANGUAGE_MAP978.put("99934", Language.of("es"));
+    LANGUAGE_MAP978.put("99934", Language.of(SPANISH));
     LANGUAGE_MAP978.put("99935", Language.of("ht"));
     LANGUAGE_MAP978.put("99936", Language.of("dz"));
-    LANGUAGE_MAP978.put("99937", Language.of("zh"));
+    LANGUAGE_MAP978.put("99937", Language.of(CHINESE));
     LANGUAGE_MAP978.put("99938", Language.of("sr"));
-    LANGUAGE_MAP978.put("99939", Language.of("es"));
+    LANGUAGE_MAP978.put("99939", Language.of(SPANISH));
     LANGUAGE_MAP978.put("99940", Language.of("ka"));
     LANGUAGE_MAP978.put("99941", Language.of("hy"));
-    LANGUAGE_MAP978.put("99942", Language.of("ar"));
-    LANGUAGE_MAP978.put("99943", Language.of("sq"));
+    LANGUAGE_MAP978.put("99942", Language.of(ARABIC));
+    LANGUAGE_MAP978.put("99943", Language.of(ALBANIAN));
     LANGUAGE_MAP978.put("99944", Language.of("am"));
-    LANGUAGE_MAP978.put("99945", Language.of("en"));
+    LANGUAGE_MAP978.put("99945", Language.of(ENGLISH));
     LANGUAGE_MAP978.put("99946", Language.of("ne"));
     LANGUAGE_MAP978.put("99947", Language.of("tg"));
     LANGUAGE_MAP978.put("99948", Language.of("ti"));
-    LANGUAGE_MAP978.put("99949", Language.of("en"));
+    LANGUAGE_MAP978.put("99949", Language.of(ENGLISH));
     LANGUAGE_MAP978.put("99950", Language.of("km"));
-    LANGUAGE_MAP978.put("99951", Language.of("fr"));
+    LANGUAGE_MAP978.put("99951", Language.of(FRENCH));
     LANGUAGE_MAP978.put("99952", Language.of("bm"));
     LANGUAGE_MAP978.put("99953", Language.of("gn"));
-    LANGUAGE_MAP978.put("99954", Language.of("es"));
+    LANGUAGE_MAP978.put("99954", Language.of(SPANISH));
     LANGUAGE_MAP978.put("99955", Language.of("sr"));
-    LANGUAGE_MAP978.put("99956", Language.of("sq"));
+    LANGUAGE_MAP978.put("99956", Language.of(ALBANIAN));
     LANGUAGE_MAP978.put("99957", Language.of("mt"));
-    LANGUAGE_MAP978.put("99958", Language.of("ar"));
+    LANGUAGE_MAP978.put("99958", Language.of(ARABIC));
     LANGUAGE_MAP978.put("99959", Language.of("lb"));
-    LANGUAGE_MAP978.put("99960", Language.of("en"));
-    LANGUAGE_MAP978.put("99961", Language.of("es"));
-    LANGUAGE_MAP978.put("99962", Language.of("mn"));
+    LANGUAGE_MAP978.put("99960", Language.of(ENGLISH));
+    LANGUAGE_MAP978.put("99961", Language.of(SPANISH));
+    LANGUAGE_MAP978.put("99962", Language.of(MONGOLIAN));
     LANGUAGE_MAP978.put("99963", Language.of("km"));
-    LANGUAGE_MAP978.put("99964", Language.of("es"));
-    LANGUAGE_MAP978.put("99965", Language.of("zh"));
-    LANGUAGE_MAP978.put("99966", Language.of("ar"));
+    LANGUAGE_MAP978.put("99964", Language.of(SPANISH));
+    LANGUAGE_MAP978.put("99965", Language.of(CHINESE));
+    LANGUAGE_MAP978.put("99966", Language.of(ARABIC));
     LANGUAGE_MAP978.put("99967", Language.of("gn"));
     LANGUAGE_MAP978.put("99968", Language.of("tn"));
-    LANGUAGE_MAP978.put("99969", Language.of("ar"));
+    LANGUAGE_MAP978.put("99969", Language.of(ARABIC));
     LANGUAGE_MAP978.put("99970", Language.of("ht"));
     LANGUAGE_MAP978.put("99971", Language.of("my"));
     LANGUAGE_MAP978.put("99972", Language.of("fo"));
-    LANGUAGE_MAP978.put("99973", Language.of("mn"));
-    LANGUAGE_MAP978.put("99974", Language.of("es"));
+    LANGUAGE_MAP978.put("99973", Language.of(MONGOLIAN));
+    LANGUAGE_MAP978.put("99974", Language.of(SPANISH));
     LANGUAGE_MAP978.put("99975", Language.of("tg"));
     LANGUAGE_MAP978.put("99976", Language.of("sr"));
     LANGUAGE_MAP978.put("99977", Language.of("rw"));
-    LANGUAGE_MAP978.put("99978", Language.of("mn"));
-    LANGUAGE_MAP978.put("99979", Language.of("es"));
+    LANGUAGE_MAP978.put("99978", Language.of(MONGOLIAN));
+    LANGUAGE_MAP978.put("99979", Language.of(SPANISH));
 
-    LANGUAGE_MAP979.put("8", Language.of("en"));
+    LANGUAGE_MAP979.put("8", Language.of(ENGLISH));
     LANGUAGE_MAP979.put("9", Language.of("de"));
-    LANGUAGE_MAP979.put("10", Language.of("fr"));
+    LANGUAGE_MAP979.put("10", Language.of(FRENCH));
     LANGUAGE_MAP979.put("11", Language.of("ko"));
     LANGUAGE_MAP979.put("12", Language.of("it"));
    }
@@ -569,7 +660,7 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
      }
     /* final String title = */ title(cleanISBN);
     /* final String checksum = */ checksum(cleanISBN);
-    this.isbn13 = cleanISBN;
+    isbn13 = cleanISBN;
    }
 
 
@@ -630,11 +721,12 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
    * @return group number
    * @throws IllegalArgumentException When prefix number is not 978|979 or illegal group number for prefix 978
    */
+  @SuppressWarnings({"PMD.NPathComplexity"})
   private static String group(final String isbn)
    {
     final String prefix = prefix(isbn);
     final int first = Character.getNumericValue(isbn.charAt(3));
-    if ("978".equals(prefix))
+    if (PREFIX_978.equals(prefix))
      {
       if (((first >= 0) && (first <= 5)) || (first == 7))  // 1 Stellig // NO PITEST
        {
@@ -663,7 +755,7 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
         throw new IllegalArgumentException("Illegal group nr for prefix 978");
        }
      }
-    else if ("979".equals(prefix))
+    else if (PREFIX_979.equals(prefix))
      {
       if (first == 1) // NO PITEST
        {
@@ -696,11 +788,11 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
    {
     final String prefix = prefix(isbn);
     final String group = group(isbn);
-    if ("978".equals(prefix))
+    if (PREFIX_978.equals(prefix))
      {
       return COUNTRY_MAP978.get(group);
      }
-    else if ("979".equals(prefix))
+    else if (PREFIX_979.equals(prefix))
      {
       return COUNTRY_MAP979.get(group);
      }
@@ -721,11 +813,11 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
    {
     final String prefix = prefix(isbn);
     final String group = group(isbn);
-    if ("978".equals(prefix))
+    if (PREFIX_978.equals(prefix))
      {
       return LANGUAGE_MAP978.get(group);
      }
-    else if ("979".equals(prefix))
+    else if (PREFIX_979.equals(prefix))
      {
       return LANGUAGE_MAP979.get(group);
      }
@@ -744,13 +836,14 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
    * @throws IllegalArgumentException When an illegal character appears
    * @throws UnsupportedOperationException When a group or prefix is not supported yet
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   private static String publisher(final String isbn)
    {
     final String prefix = prefix(isbn);
     final String group = group(isbn);
     final String rest = isbn.substring(3 + group.length(), 13);
     // TODO 2-7 stellig
-    if ("978".equals(prefix))
+    if (PREFIX_978.equals(prefix))
      {
       if ("0".equals(group)) // english
        {
@@ -992,7 +1085,7 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
   99979 – Honduras
 */
      }
-    else if ("979".equals(prefix))
+    else if (PREFIX_979.equals(prefix))
      {
       /* 979
       8 – USA
@@ -1016,6 +1109,7 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
    * @param isbn ISBN13
    * @return title number
    */
+  @SuppressFBWarnings("USBR_UNNECESSARY_STORE_BEFORE_RETURN")
   private static String title(final String isbn)
    {
     final int groupLength = group(isbn).length();
@@ -1045,7 +1139,7 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.isbn13;
+    return isbn13;
    }
 
 
@@ -1054,14 +1148,15 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
    *
    * @return The text value represented by this object after conversion to type string.
    */
+  @SuppressFBWarnings("STT_STRING_PARSING_A_FIELD")
   public String stringHyphen()
    {
-    final String prefix = prefix(this.isbn13);
-    final String group = group(this.isbn13);
-    final String publisher = publisher(this.isbn13);
-    final String title = title(this.isbn13);
-    final String checksum = this.isbn13.substring(12);
-    return prefix + "-" + group + "-" + publisher + "-" + title + "-" + checksum;
+    final String prefix = prefix(isbn13);
+    final String group = group(isbn13);
+    final String publisher = publisher(isbn13);
+    final String title = title(isbn13);
+    final String checksum = isbn13.substring(12);
+    return prefix + ISBN_SEPARATOR + group + ISBN_SEPARATOR + publisher + ISBN_SEPARATOR + title + ISBN_SEPARATOR + checksum;
    }
 
 
@@ -1074,7 +1169,7 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.isbn13.hashCode();
+    return isbn13.hashCode();
    }
 
 
@@ -1085,6 +1180,7 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -1096,7 +1192,7 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
      {
       return false;
      }
-    return this.isbn13.equals(other.isbn13);
+    return isbn13.equals(other.isbn13);
    }
 
 
@@ -1114,7 +1210,7 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("ISBN13[isbn13=").append(this.isbn13).append(']'); //$NON-NLS-1$
+    builder.append("ISBN13[isbn13=").append(isbn13).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -1130,7 +1226,7 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
   public int compareTo(final ISBN13 obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.isbn13.compareTo(obj.isbn13);
+    return isbn13.compareTo(obj.isbn13);
    }
 
  }

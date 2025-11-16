@@ -110,7 +110,7 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
    */
   public int intValue()
    {
-    return this.millisecond;
+    return millisecond;
    }
 
 
@@ -122,7 +122,7 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.millisecond);
+    return String.valueOf(millisecond);
    }
 
 
@@ -135,7 +135,7 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
   @Override
   public int hashCode()
    {
-    return Integer.hashCode(this.millisecond);
+    return Integer.hashCode(millisecond);
    }
 
 
@@ -146,6 +146,7 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -157,7 +158,7 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
      {
       return false;
      }
-    return this.millisecond == other.millisecond;
+    return (millisecond == other.millisecond);
    }
 
 
@@ -175,7 +176,7 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(25);
-    builder.append("Millisecond[millisecond=").append(this.millisecond).append(']'); //$NON-NLS-1$
+    builder.append("Millisecond[millisecond=").append(millisecond).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -191,7 +192,7 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
   public int compareTo(final Millisecond obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.millisecond, obj.millisecond);
+    return Integer.compare(millisecond, obj.millisecond);
    }
 
 
@@ -202,9 +203,10 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
    * @return New millisecond after adding the milliseconds to this millisecond
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Millisecond add(final Milliseconds milliseconds)
    {
-    final int newMillisecond = Math.toIntExact(Math.addExact(this.millisecond, milliseconds.longValue()));
+    final int newMillisecond = Math.toIntExact(Math.addExact(millisecond, milliseconds.longValue()));
     if (newMillisecond > 999)
      {
       // TODO Listener
@@ -223,7 +225,7 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
    */
   public Millisecond subtract(final Milliseconds milliseconds)
    {
-    final int newMillisecond = Math.toIntExact(Math.subtractExact(this.millisecond, milliseconds.longValue()));
+    final int newMillisecond = Math.toIntExact(Math.subtractExact(millisecond, milliseconds.longValue()));
     if (newMillisecond < 0)
      {
       // TODO Listener
@@ -239,9 +241,10 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
    * @return New millisecond after incrementing this millisecond
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Millisecond increment()
    {
-    final int newMillisecond = Math.incrementExact(this.millisecond);
+    final int newMillisecond = Math.incrementExact(millisecond);
     if (newMillisecond == 1000)
      {
       // TODO Listener
@@ -259,7 +262,7 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
    */
   public Millisecond decrement()
    {
-    final int newMillisecond = Math.decrementExact(this.millisecond);
+    final int newMillisecond = Math.decrementExact(millisecond);
     if (newMillisecond == -1)
      {
       // TODO Listener

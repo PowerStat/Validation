@@ -153,6 +153,7 @@ public final class GregorianDate implements Comparable<GregorianDate>, IValueObj
    * @param value String value of ISO8601 type yyyy-mm-dd
    * @return GregorianDate object
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public static GregorianDate of(final String value)
    {
     final String[] values = value.split(DATE_SEP);

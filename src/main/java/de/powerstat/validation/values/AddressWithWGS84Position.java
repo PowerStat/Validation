@@ -6,6 +6,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Address with wgs84 position.
@@ -102,9 +104,10 @@ public final class AddressWithWGS84Position extends Address
    * @param value country,postalcode,city,province,district,street,buildingnr,buildingname,subbuilding,poboxnumber,department,neighbourhood,block,bfponumber,lines,latitude longitude altitude
    * @return AddressWithWGS84Position object
    */
+  @SuppressWarnings({"PMD.NPathComplexity"})
   public static AddressWithWGS84Position of(final String value)
    {
-    String[] values = value.split(",");
+    final String[] values = value.split(",");
     if ((values.length < 16) || (values.length > 16))
      {
       throw new IllegalArgumentException("value not in expected format: " + values.length);
@@ -184,8 +187,9 @@ public final class AddressWithWGS84Position extends Address
    * @param other Other object
    * @return true if it can be equal; false otherwise
    */
+  @SuppressFBWarnings("COM_COPIED_OVERRIDDEN_METHOD")
   @Override
-  public boolean canEqual(Object other)
+  public boolean canEqual(final Object other)
    {
     return (other instanceof AddressWithWGS84Position);
    }

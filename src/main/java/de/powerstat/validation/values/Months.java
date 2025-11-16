@@ -98,7 +98,7 @@ public final class Months implements Comparable<Months>, IValueObject
    */
   public long longValue()
    {
-    return this.months;
+    return months;
    }
 
 
@@ -110,7 +110,7 @@ public final class Months implements Comparable<Months>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.months);
+    return String.valueOf(months);
    }
 
 
@@ -123,7 +123,7 @@ public final class Months implements Comparable<Months>, IValueObject
   @Override
   public int hashCode()
    {
-    return Long.hashCode(this.months);
+    return Long.hashCode(months);
    }
 
 
@@ -134,6 +134,7 @@ public final class Months implements Comparable<Months>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -145,7 +146,7 @@ public final class Months implements Comparable<Months>, IValueObject
      {
       return false;
      }
-    return this.months == other.months;
+    return (months == other.months);
    }
 
 
@@ -163,7 +164,7 @@ public final class Months implements Comparable<Months>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("Months[months=").append(this.months).append(']'); //$NON-NLS-1$
+    builder.append("Months[months=").append(months).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -179,7 +180,7 @@ public final class Months implements Comparable<Months>, IValueObject
   public int compareTo(final Months obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Long.compare(this.months, obj.months);
+    return Long.compare(months, obj.months);
    }
 
 
@@ -192,7 +193,7 @@ public final class Months implements Comparable<Months>, IValueObject
    */
   public Months add(final Months other)
    {
-    return Months.of(Math.addExact(this.months, other.months));
+    return Months.of(Math.addExact(months, other.months));
    }
 
 
@@ -204,11 +205,11 @@ public final class Months implements Comparable<Months>, IValueObject
    */
   public Months subtract(final Months other)
    {
-    if (other.months > this.months) // NO PITEST
+    if (other.months > months) // NO PITEST
      {
-      return Months.of(other.months - this.months);
+      return Months.of(other.months - months);
      }
-    return Months.of(this.months - other.months);
+    return Months.of(months - other.months);
    }
 
 
@@ -221,7 +222,7 @@ public final class Months implements Comparable<Months>, IValueObject
    */
   public Months multiply(final long multiplier)
    {
-    return Months.of(Math.multiplyExact(this.months, multiplier));
+    return Months.of(Math.multiplyExact(months, multiplier));
    }
 
 
@@ -234,7 +235,7 @@ public final class Months implements Comparable<Months>, IValueObject
    */
   public Months divide(final long divisor)
    {
-    return Months.of(Math.floorDiv(this.months, divisor));
+    return Months.of(Math.floorDiv(months, divisor));
    }
 
 
@@ -247,7 +248,7 @@ public final class Months implements Comparable<Months>, IValueObject
    */
   public Months modulo(final long divisor)
    {
-    return Months.of(Math.floorMod(this.months, divisor));
+    return Months.of(Math.floorMod(months, divisor));
    }
 
  }

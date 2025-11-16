@@ -115,7 +115,7 @@ public final class Hour implements Comparable<Hour>, IValueObject
    */
   public int intValue()
    {
-    return this.hour;
+    return hour;
    }
 
 
@@ -127,7 +127,7 @@ public final class Hour implements Comparable<Hour>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.hour);
+    return String.valueOf(hour);
    }
 
 
@@ -140,7 +140,7 @@ public final class Hour implements Comparable<Hour>, IValueObject
   @Override
   public int hashCode()
    {
-    return Integer.hashCode(this.hour);
+    return Integer.hashCode(hour);
    }
 
 
@@ -151,6 +151,7 @@ public final class Hour implements Comparable<Hour>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -162,7 +163,7 @@ public final class Hour implements Comparable<Hour>, IValueObject
      {
       return false;
      }
-    return this.hour == other.hour;
+    return (hour == other.hour);
    }
 
 
@@ -180,7 +181,7 @@ public final class Hour implements Comparable<Hour>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("Hour[hour=").append(this.hour).append(']'); //$NON-NLS-1$
+    builder.append("Hour[hour=").append(hour).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -196,7 +197,7 @@ public final class Hour implements Comparable<Hour>, IValueObject
   public int compareTo(final Hour obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.hour, obj.hour);
+    return Integer.compare(hour, obj.hour);
    }
 
 
@@ -207,9 +208,10 @@ public final class Hour implements Comparable<Hour>, IValueObject
    * @return New hour after adding the hours to this hour
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Hour add(final Hours hours)
    {
-    final int newHour = Math.toIntExact(Math.addExact(this.hour, hours.longValue()));
+    final int newHour = Math.toIntExact(Math.addExact(hour, hours.longValue()));
     if (newHour > 23)
      {
       // TODO Listener
@@ -228,7 +230,7 @@ public final class Hour implements Comparable<Hour>, IValueObject
    */
   public Hour subtract(final Hours hours)
    {
-    final int newHour = Math.toIntExact(Math.subtractExact(this.hour, hours.longValue()));
+    final int newHour = Math.toIntExact(Math.subtractExact(hour, hours.longValue()));
     if (newHour < 0)
      {
       // TODO Listener
@@ -244,9 +246,10 @@ public final class Hour implements Comparable<Hour>, IValueObject
    * @return New hour after incrementing this hour
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Hour increment()
    {
-    final int newHour = Math.incrementExact(this.hour);
+    final int newHour = Math.incrementExact(hour);
     if (newHour == 24)
      {
       // TODO Listener
@@ -264,7 +267,7 @@ public final class Hour implements Comparable<Hour>, IValueObject
    */
   public Hour decrement()
    {
-    final int newHour = Math.decrementExact(this.hour);
+    final int newHour = Math.decrementExact(hour);
     if (newHour == -1)
      {
       // TODO Listener

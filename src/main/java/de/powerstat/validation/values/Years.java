@@ -98,7 +98,7 @@ public final class Years implements Comparable<Years>, IValueObject
    */
   public long longValue()
    {
-    return this.years;
+    return years;
    }
 
 
@@ -110,7 +110,7 @@ public final class Years implements Comparable<Years>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.years);
+    return String.valueOf(years);
    }
 
 
@@ -123,7 +123,7 @@ public final class Years implements Comparable<Years>, IValueObject
   @Override
   public int hashCode()
    {
-    return Long.hashCode(this.years);
+    return Long.hashCode(years);
    }
 
 
@@ -134,6 +134,7 @@ public final class Years implements Comparable<Years>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -145,7 +146,7 @@ public final class Years implements Comparable<Years>, IValueObject
      {
       return false;
      }
-    return this.years == other.years;
+    return (years == other.years);
    }
 
 
@@ -163,7 +164,7 @@ public final class Years implements Comparable<Years>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("Years[years=").append(this.years).append(']'); //$NON-NLS-1$
+    builder.append("Years[years=").append(years).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -179,7 +180,7 @@ public final class Years implements Comparable<Years>, IValueObject
   public int compareTo(final Years obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Long.compare(this.years, obj.years);
+    return Long.compare(years, obj.years);
    }
 
 
@@ -192,7 +193,7 @@ public final class Years implements Comparable<Years>, IValueObject
    */
   public Years add(final Years other)
    {
-    return Years.of(Math.addExact(this.years, other.years));
+    return Years.of(Math.addExact(years, other.years));
    }
 
 
@@ -204,11 +205,11 @@ public final class Years implements Comparable<Years>, IValueObject
    */
   public Years subtract(final Years other)
    {
-    if (other.years > this.years) // NO PITEST
+    if (other.years > years) // NO PITEST
      {
-      return Years.of(other.years - this.years);
+      return Years.of(other.years - years);
      }
-    return Years.of(this.years - other.years);
+    return Years.of(years - other.years);
    }
 
 
@@ -221,7 +222,7 @@ public final class Years implements Comparable<Years>, IValueObject
    */
   public Years multiply(final long multiplier)
    {
-    return Years.of(Math.multiplyExact(this.years, multiplier));
+    return Years.of(Math.multiplyExact(years, multiplier));
    }
 
 
@@ -234,7 +235,7 @@ public final class Years implements Comparable<Years>, IValueObject
    */
   public Years divide(final long divisor)
    {
-    return Years.of(Math.floorDiv(this.years, divisor));
+    return Years.of(Math.floorDiv(years, divisor));
    }
 
 
@@ -247,7 +248,7 @@ public final class Years implements Comparable<Years>, IValueObject
    */
   public Years modulo(final long divisor)
    {
-    return Years.of(Math.floorMod(this.years, divisor));
+    return Years.of(Math.floorMod(years, divisor));
    }
 
  }

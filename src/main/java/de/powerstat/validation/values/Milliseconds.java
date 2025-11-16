@@ -98,7 +98,7 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
    */
   public long longValue()
    {
-    return this.milliseconds;
+    return milliseconds;
    }
 
 
@@ -110,7 +110,7 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.milliseconds);
+    return String.valueOf(milliseconds);
    }
 
 
@@ -123,7 +123,7 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
   @Override
   public int hashCode()
    {
-    return Long.hashCode(this.milliseconds);
+    return Long.hashCode(milliseconds);
    }
 
 
@@ -134,6 +134,7 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -145,7 +146,7 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
      {
       return false;
      }
-    return this.milliseconds == other.milliseconds;
+    return (milliseconds == other.milliseconds);
    }
 
 
@@ -163,7 +164,7 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
   public String toString()
    {
     final var builder = new StringBuilder(27);
-    builder.append("Milliseconds[milliseconds=").append(this.milliseconds).append(']'); //$NON-NLS-1$
+    builder.append("Milliseconds[milliseconds=").append(milliseconds).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -179,7 +180,7 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
   public int compareTo(final Milliseconds obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Long.compare(this.milliseconds, obj.milliseconds);
+    return Long.compare(milliseconds, obj.milliseconds);
    }
 
 
@@ -192,7 +193,7 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
    */
   public Milliseconds add(final Milliseconds other)
    {
-    return Milliseconds.of(Math.addExact(this.milliseconds, other.milliseconds));
+    return Milliseconds.of(Math.addExact(milliseconds, other.milliseconds));
    }
 
 
@@ -204,11 +205,11 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
    */
   public Milliseconds subtract(final Milliseconds other)
    {
-    if (other.milliseconds > this.milliseconds) // NO PITEST
+    if (other.milliseconds > milliseconds) // NO PITEST
      {
-      return Milliseconds.of(other.milliseconds - this.milliseconds);
+      return Milliseconds.of(other.milliseconds - milliseconds);
      }
-    return Milliseconds.of(this.milliseconds - other.milliseconds);
+    return Milliseconds.of(milliseconds - other.milliseconds);
    }
 
 
@@ -221,7 +222,7 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
    */
   public Milliseconds multiply(final long multiplier)
    {
-    return Milliseconds.of(Math.multiplyExact(this.milliseconds, multiplier));
+    return Milliseconds.of(Math.multiplyExact(milliseconds, multiplier));
    }
 
 
@@ -234,7 +235,7 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
    */
   public Milliseconds divide(final long divisor)
    {
-    return Milliseconds.of(Math.floorDiv(this.milliseconds, divisor));
+    return Milliseconds.of(Math.floorDiv(milliseconds, divisor));
    }
 
 
@@ -247,7 +248,7 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
    */
   public Milliseconds modulo(final long divisor)
    {
-    return Milliseconds.of(Math.floorMod(this.milliseconds, divisor));
+    return Milliseconds.of(Math.floorMod(milliseconds, divisor));
    }
 
  }

@@ -14,6 +14,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * 1:1 2.1:1 3:1 3:2 4:3 5:3 5:4 8:5 9:5 10:6 15:9 16:9 16:10 17:10 25:12 25:16 60:29 64:35 72:35
  */
+@SuppressWarnings({"PMD.ShortVariable"})
 public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>, IValueObject
  {
   /* *
@@ -89,6 +90,7 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>,
    * @return DisplayAspectRatio object
    * @throws IllegalArgumentException If not of correct format
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public static DisplayAspectRatio of(final String value)
    {
     final String[] values = value.split(":");
@@ -107,7 +109,7 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>,
    */
   public int getX()
    {
-    return this.x;
+    return x;
    }
 
 
@@ -118,7 +120,7 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>,
    */
   public int getY()
    {
-    return this.y;
+    return y;
    }
 
 
@@ -130,7 +132,7 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>,
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.x) + ':' + this.y;
+    return String.valueOf(x) + ':' + y;
    }
 
 
@@ -143,8 +145,8 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>,
   @Override
   public int hashCode()
    {
-    final int result = Integer.hashCode(this.x);
-    return (31 * result) + Integer.hashCode(this.y);
+    final int result = Integer.hashCode(x);
+    return (31 * result) + Integer.hashCode(y);
    }
 
 
@@ -162,12 +164,11 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>,
      {
       return true;
      }
-    if (!(obj instanceof DisplayAspectRatio))
+    if (!(obj instanceof final DisplayAspectRatio other))
      {
       return false;
      }
-    final DisplayAspectRatio other = (DisplayAspectRatio)obj;
-    return (this.x == other.x) && (this.y == other.y);
+    return (x == other.x) && (y == other.y);
    }
 
 
@@ -185,7 +186,7 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>,
   public String toString()
    {
     final var builder = new StringBuilder(30);
-    builder.append("DisplayAspectRatio[x=").append(this.x).append(", y=").append(this.y).append(']'); //$NON-NLS-1$ //$NON-NLS-2$
+    builder.append("DisplayAspectRatio[x=").append(x).append(", y=").append(y).append(']'); //$NON-NLS-1$ //$NON-NLS-2$
     return builder.toString();
    }
 
@@ -201,10 +202,10 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>,
   public int compareTo(final DisplayAspectRatio obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    int result = Integer.compare(this.x, obj.x);
+    int result = Integer.compare(x, obj.x);
     if (result == 0)
      {
-      result = Integer.compare(this.y, obj.y);
+      result = Integer.compare(y, obj.y);
      }
     return result;
    }

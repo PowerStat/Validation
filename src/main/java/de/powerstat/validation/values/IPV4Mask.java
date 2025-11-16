@@ -57,6 +57,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
    * @param length Prefix length (0-32)
    * @throws IndexOutOfBoundsException if the prefix length is &lt; 0 or &gt; 32
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   private IPV4Mask(final int length)
    {
     super();
@@ -67,19 +68,19 @@ public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
     this.length = length;
     if (length < 9)
      {
-      this.mask = IPV4Mask.BITMASKS[length] + ".0.0.0"; //$NON-NLS-1$
+      mask = IPV4Mask.BITMASKS[length] + ".0.0.0"; //$NON-NLS-1$
      }
     else if (length < 17)
      {
-      this.mask = "255." + IPV4Mask.BITMASKS[length - 8] + ".0.0"; //$NON-NLS-1$ //$NON-NLS-2$
+      mask = "255." + IPV4Mask.BITMASKS[length - 8] + ".0.0"; //$NON-NLS-1$ //$NON-NLS-2$
      }
     else if (length < 25)
      {
-      this.mask = "255.255." + IPV4Mask.BITMASKS[length - 16] + ".0"; //$NON-NLS-1$ //$NON-NLS-2$
+      mask = "255.255." + IPV4Mask.BITMASKS[length - 16] + ".0"; //$NON-NLS-1$ //$NON-NLS-2$
      }
     else
      {
-      this.mask = "255.255.255." + IPV4Mask.BITMASKS[length - 24]; //$NON-NLS-1$
+      mask = "255.255.255." + IPV4Mask.BITMASKS[length - 24]; //$NON-NLS-1$
      }
    }
 
@@ -192,7 +193,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
    */
   public int intValue()
    {
-    return this.length;
+    return length;
    }
 
 
@@ -204,7 +205,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.mask;
+    return mask;
    }
 
 
@@ -217,7 +218,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
   @Override
   public int hashCode()
    {
-    return Integer.hashCode(this.length);
+    return Integer.hashCode(length);
    }
 
 
@@ -228,6 +229,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings("PMD.SimplifyBooleanReturns")
   @Override
   public boolean equals(final Object obj)
    {
@@ -235,12 +237,11 @@ public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof IPV4Mask))
+    if (!(obj instanceof final IPV4Mask other))
      {
       return false;
      }
-    final IPV4Mask other = (IPV4Mask)obj;
-    return this.length == other.length;
+    return (length == other.length);
    }
 
 
@@ -258,7 +259,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(24);
-    builder.append("IPV4Mask[length=").append(this.length).append(", mask=").append(this.mask).append(']'); //$NON-NLS-1$ //$NON-NLS-2$
+    builder.append("IPV4Mask[length=").append(length).append(", mask=").append(mask).append(']'); //$NON-NLS-1$ //$NON-NLS-2$
     return builder.toString();
    }
 
@@ -274,7 +275,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
   public int compareTo(final IPV4Mask obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.length, obj.length);
+    return Integer.compare(length, obj.length);
    }
 
  }

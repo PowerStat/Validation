@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
@@ -32,6 +33,11 @@ public class Address implements Comparable<Address>, IValueObject
    * Cache for singletons.
    */
   // private static final Map<NTuple15<Country, PostalCode, City, Province, District, Street, BuildingNr, BuildingName, SubBuilding, PoBoxNumber, Department, Neighbourhood, Block, BFPONumber, Lines>, Address> CACHE = new WeakHashMap<>();
+
+  /**
+   * NPath complexity.
+   */
+  private static final String PMD_N_PATH_COMPLEXITY = "PMD.NPathComplexity";
 
   /**
    * Address formats for countries.
@@ -534,6 +540,7 @@ public class Address implements Comparable<Address>, IValueObject
    * @param lines Lines 1-5
    * @throws NullPointerException When country or some other required field is null.
    */
+  @SuppressWarnings({PMD_N_PATH_COMPLEXITY})
   protected Address(final Country country, final PostalCode postalCode, final City city, final Province province, final District district, final Street street, final BuildingNr buildingNr, final BuildingName buildingName, final SubBuilding subBuilding, final PoBoxNumber poBoxNumber, final Department department, final Neighbourhood neighbourhood, final Block block, final BFPONumber bFPONumber, final Lines lines)
    {
     super();
@@ -660,6 +667,8 @@ public class Address implements Comparable<Address>, IValueObject
    * @param value country,postalcode,city,province,district,street,buildingnr,buildingname,subbuilding,poboxnumber,department,neighbourhood,block,bfponumber,lines
    * @return Address object
    */
+  @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
+  @SuppressWarnings({PMD_N_PATH_COMPLEXITY, "PMD.AvoidLiteralsInIfCondition"})
   public static Address of(final String value)
    {
     String[] values = value.split(",");
@@ -742,7 +751,7 @@ public class Address implements Comparable<Address>, IValueObject
    * @param other Other object
    * @return true if it can be equal; false otherwise
    */
-  public boolean canEqual(Object other)
+  public boolean canEqual(final Object other)
    {
     return (other instanceof Address);
    }
@@ -755,6 +764,7 @@ public class Address implements Comparable<Address>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.AvoidDeeplyNestedIfStmts"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -842,6 +852,7 @@ public class Address implements Comparable<Address>, IValueObject
    * @return String representation of this Address
    * @see java.lang.Object#toString()
    */
+  @SuppressWarnings({PMD_N_PATH_COMPLEXITY})
   @Override
   public String toString()
    {
@@ -1017,6 +1028,7 @@ public class Address implements Comparable<Address>, IValueObject
    * 16: Line1-5
    * @return Format with removed blocks for non existing parameters
    */
+  @SuppressWarnings({"PMD.AvoidLiteralsInIfCondition"})
   private String processBlocks(final String formatStr, final String... vars)
    {
     // assert (formatStr != null) && !formatStr.isBlank();
@@ -1124,6 +1136,7 @@ public class Address implements Comparable<Address>, IValueObject
    * @return Formatted address string
    * @throws NullPointerException If recipientName is null
    */
+  @SuppressWarnings({PMD_N_PATH_COMPLEXITY})
   public String getFormattedAddress(final String recipientName)
    {
     Objects.requireNonNull(recipientName, "recipientName"); //$NON-NLS-1$

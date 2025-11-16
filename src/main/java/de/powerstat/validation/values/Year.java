@@ -254,7 +254,7 @@ public final class Year implements Comparable<Year>, IValueObject
      {
       return false;
      }
-    boolean result = calendarSystem.equals(other.calendarSystem);
+    boolean result = (calendarSystem == other.calendarSystem);
     if (result)
      {
       result = (year == other.year);

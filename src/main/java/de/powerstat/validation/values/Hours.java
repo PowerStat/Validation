@@ -98,7 +98,7 @@ public final class Hours implements Comparable<Hours>, IValueObject
    */
   public long longValue()
    {
-    return this.hours;
+    return hours;
    }
 
 
@@ -110,7 +110,7 @@ public final class Hours implements Comparable<Hours>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.hours);
+    return String.valueOf(hours);
    }
 
 
@@ -123,7 +123,7 @@ public final class Hours implements Comparable<Hours>, IValueObject
   @Override
   public int hashCode()
    {
-    return Long.hashCode(this.hours);
+    return Long.hashCode(hours);
    }
 
 
@@ -134,6 +134,7 @@ public final class Hours implements Comparable<Hours>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -145,7 +146,7 @@ public final class Hours implements Comparable<Hours>, IValueObject
      {
       return false;
      }
-    return this.hours == other.hours;
+    return (hours == other.hours);
    }
 
 
@@ -163,7 +164,7 @@ public final class Hours implements Comparable<Hours>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("Hours[hours=").append(this.hours).append(']'); //$NON-NLS-1$
+    builder.append("Hours[hours=").append(hours).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -179,7 +180,7 @@ public final class Hours implements Comparable<Hours>, IValueObject
   public int compareTo(final Hours obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Long.compare(this.hours, obj.hours);
+    return Long.compare(hours, obj.hours);
    }
 
 
@@ -192,7 +193,7 @@ public final class Hours implements Comparable<Hours>, IValueObject
    */
   public Hours add(final Hours other)
    {
-    return Hours.of(Math.addExact(this.hours, other.hours));
+    return Hours.of(Math.addExact(hours, other.hours));
    }
 
 
@@ -204,11 +205,11 @@ public final class Hours implements Comparable<Hours>, IValueObject
    */
   public Hours subtract(final Hours other)
    {
-    if (other.hours > this.hours) // NO PITEST
+    if (other.hours > hours) // NO PITEST
      {
-      return Hours.of(other.hours - this.hours);
+      return Hours.of(other.hours - hours);
      }
-    return Hours.of(this.hours - other.hours);
+    return Hours.of(hours - other.hours);
    }
 
 
@@ -221,7 +222,7 @@ public final class Hours implements Comparable<Hours>, IValueObject
    */
   public Hours multiply(final long multiplier)
    {
-    return Hours.of(Math.multiplyExact(this.hours, multiplier));
+    return Hours.of(Math.multiplyExact(hours, multiplier));
    }
 
 
@@ -234,7 +235,7 @@ public final class Hours implements Comparable<Hours>, IValueObject
    */
   public Hours divide(final long divisor)
    {
-    return Hours.of(Math.floorDiv(this.hours, divisor));
+    return Hours.of(Math.floorDiv(hours, divisor));
    }
 
 
@@ -247,7 +248,7 @@ public final class Hours implements Comparable<Hours>, IValueObject
    */
   public Hours modulo(final long divisor)
    {
-    return Hours.of(Math.floorMod(this.hours, divisor));
+    return Hours.of(Math.floorMod(hours, divisor));
    }
 
  }

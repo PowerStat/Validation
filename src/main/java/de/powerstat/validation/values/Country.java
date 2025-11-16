@@ -44,6 +44,7 @@ public final class Country implements Comparable<Country>, IValueObject
    * @throws NullPointerException if code is null
    * @throws IllegalArgumentException if code is not a known alpha-2 code
    */
+  @SuppressWarnings({"PMD.AvoidLiteralsInIfCondition"})
   private Country(final String alpha2)
    {
     super();
@@ -97,7 +98,7 @@ public final class Country implements Comparable<Country>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.alpha2;
+    return alpha2;
    }
 
 
@@ -108,7 +109,7 @@ public final class Country implements Comparable<Country>, IValueObject
    */
   public String getEnglishCountryName()
    {
-    return GeneratedISO3166A2.getName(this.alpha2);
+    return GeneratedISO3166A2.getName(alpha2);
    }
 
 
@@ -121,7 +122,7 @@ public final class Country implements Comparable<Country>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.alpha2.hashCode();
+    return alpha2.hashCode();
    }
 
 
@@ -132,6 +133,7 @@ public final class Country implements Comparable<Country>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings("PMD.SimplifyBooleanReturns")
   @Override
   public boolean equals(final Object obj)
    {
@@ -139,12 +141,11 @@ public final class Country implements Comparable<Country>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Country))
+    if (!(obj instanceof final Country other))
      {
       return false;
      }
-    final Country other = (Country)obj;
-    return this.alpha2.equals(other.alpha2);
+    return alpha2.equals(other.alpha2);
    }
 
 
@@ -162,7 +163,7 @@ public final class Country implements Comparable<Country>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("Country[alpha2=").append(this.alpha2).append(']'); //$NON-NLS-1$
+    builder.append("Country[alpha2=").append(alpha2).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -178,7 +179,7 @@ public final class Country implements Comparable<Country>, IValueObject
   public int compareTo(final Country obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.alpha2.compareTo(obj.alpha2);
+    return alpha2.compareTo(obj.alpha2);
    }
 
  }

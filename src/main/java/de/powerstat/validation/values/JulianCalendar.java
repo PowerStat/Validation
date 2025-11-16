@@ -7,6 +7,7 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 
 import de.powerstat.validation.interfaces.IValueObject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
@@ -84,6 +85,7 @@ public final class JulianCalendar implements Comparable<JulianCalendar>, IValueO
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -113,7 +115,7 @@ public final class JulianCalendar implements Comparable<JulianCalendar>, IValueO
   public String toString()
    {
     final var builder = new StringBuilder(27);
-    builder.append("JulianCalendar[").append(']'); //$NON-NLS-1$
+    builder.append("JulianCalendar[]"); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -125,6 +127,7 @@ public final class JulianCalendar implements Comparable<JulianCalendar>, IValueO
    * @return 0: equal; 1: greater; -1: smaller
    * @see java.lang.Comparable#compareTo(java.lang.Object)
    */
+  @SuppressFBWarnings("SCRV_SUSPICIOUS_COMPARATOR_RETURN_VALUES")
   @Override
   public int compareTo(final JulianCalendar obj)
    {
@@ -185,6 +188,7 @@ public final class JulianCalendar implements Comparable<JulianCalendar>, IValueO
    * @param year Year
    * @return MonthDay
    */
+  @SuppressWarnings({"PMD.ShortVariable"})
   public MonthDay easterInYear(final Year year)
    {
     final int a = (int)(((19 * (year.longValue() % 19)) + 15) % 30);

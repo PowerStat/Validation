@@ -98,7 +98,7 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
    */
   public long longValue()
    {
-    return this.minutes;
+    return minutes;
    }
 
 
@@ -110,7 +110,7 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.minutes);
+    return String.valueOf(minutes);
    }
 
 
@@ -123,7 +123,7 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
   @Override
   public int hashCode()
    {
-    return Long.hashCode(this.minutes);
+    return Long.hashCode(minutes);
    }
 
 
@@ -134,6 +134,7 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
   public boolean equals(final Object obj)
    {
@@ -145,7 +146,7 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
      {
       return false;
      }
-    return this.minutes == other.minutes;
+    return (minutes == other.minutes);
    }
 
 
@@ -163,7 +164,7 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(17);
-    builder.append("Minutes[minutes=").append(this.minutes).append(']'); //$NON-NLS-1$
+    builder.append("Minutes[minutes=").append(minutes).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -179,7 +180,7 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
   public int compareTo(final Minutes obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Long.compare(this.minutes, obj.minutes);
+    return Long.compare(minutes, obj.minutes);
    }
 
 
@@ -192,7 +193,7 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
    */
   public Minutes add(final Minutes other)
    {
-    return Minutes.of(Math.addExact(this.minutes, other.minutes));
+    return Minutes.of(Math.addExact(minutes, other.minutes));
    }
 
 
@@ -204,11 +205,11 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
    */
   public Minutes subtract(final Minutes other)
    {
-    if (other.minutes > this.minutes) // NO PITEST
+    if (other.minutes > minutes) // NO PITEST
      {
-      return Minutes.of(other.minutes - this.minutes);
+      return Minutes.of(other.minutes - minutes);
      }
-    return Minutes.of(this.minutes - other.minutes);
+    return Minutes.of(minutes - other.minutes);
    }
 
 
@@ -221,7 +222,7 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
    */
   public Minutes multiply(final long multiplier)
    {
-    return Minutes.of(Math.multiplyExact(this.minutes, multiplier));
+    return Minutes.of(Math.multiplyExact(minutes, multiplier));
    }
 
 
@@ -234,7 +235,7 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
    */
   public Minutes divide(final long divisor)
    {
-    return Minutes.of(Math.floorDiv(this.minutes, divisor));
+    return Minutes.of(Math.floorDiv(minutes, divisor));
    }
 
 
@@ -247,7 +248,7 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
    */
   public Minutes modulo(final long divisor)
    {
-    return Minutes.of(Math.floorMod(this.minutes, divisor));
+    return Minutes.of(Math.floorMod(minutes, divisor));
    }
 
  }
