@@ -47,7 +47,7 @@ final class NTuple2Tests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(NTuple2.class).withNonnullFields("object1", "object2").verify();
    }

@@ -180,7 +180,7 @@ final class PortTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Port.class).verify();
    }

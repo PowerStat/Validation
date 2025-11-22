@@ -168,7 +168,7 @@ final class PersonTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Person.class).suppress(Warning.NONFINAL_FIELDS).withNonnullFields("lastname", "sex", "firstnames", "birthday", "deathdate", "bloodGroup").verify();
    }

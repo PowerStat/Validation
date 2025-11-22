@@ -116,7 +116,7 @@ final class LinesTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Lines.class).withNonnullFields("lines").verify();
    }

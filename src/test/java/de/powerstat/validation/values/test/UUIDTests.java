@@ -18,7 +18,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * UUID tests.
  */
-public class UUIDTests
+final class UUIDTests
  {
   /**
    * UUID.
@@ -64,7 +64,7 @@ public class UUIDTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(UUID.class).withNonnullFields("uuid").verify();
    }

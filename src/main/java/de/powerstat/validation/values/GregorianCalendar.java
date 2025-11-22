@@ -313,7 +313,7 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
    * @param country Country
    * @return Reform date
    */
-  private Map<String, Map<String, Long>> getReformDate(final Country country)
+  private static Map<String, Map<String, Long>> getReformDate(final Country country)
    {
     Map<String, Map<String, Long>> reformDate = GregorianCalendar.REFORM_DATES.get(country);
     if (reformDate == null)
@@ -385,7 +385,7 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
      {
       return Days.of(restDaysInMonth);
      }
-    return Days.of(GregorianCalendar.DAYS_IN_MONTH[month.intValue()] + (((month.intValue() == 2) && isLeapYear(year)) ? 1 : 0)); // Calendar system difference already handled in isLeapYear()
+    return Days.of((long)GregorianCalendar.DAYS_IN_MONTH[month.intValue()] + (((month.intValue() == 2) && isLeapYear(year)) ? 1 : 0)); // Calendar system difference already handled in isLeapYear()
    }
 
 
@@ -429,7 +429,7 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
     final int c = (int)(year.longValue() % 100);
     final int d = ((((19 * a) + b) - (b / 4) - (((b - ((b + 8) / 25)) + 1) / 3)) + 15) % 30;
     final int e = ((32 + (2 * (b % 4)) + (2 * (c / 4))) - d - (c % 4)) % 7;
-    final long f = ((d + e) - (7 * ((a + (11 * d) + (22 * e)) / 451))) + 114;
+    final long f = ((d + e) - (7 * ((a + (11 * d) + (22 * e)) / 451))) + 114L;
     return MonthDay.of(Month.of((int)(f / 31)), Day.of((int)((f % 31) + 1)));
    }
 

@@ -116,7 +116,7 @@ final class CurrencyTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Currency.class).withNonnullFields("code").verify();
    }

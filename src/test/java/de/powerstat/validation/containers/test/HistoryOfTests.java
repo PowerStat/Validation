@@ -49,11 +49,6 @@ final class HistoryOfTests
   private static final String LASTNAME = "Lastname"; //$NON-NLS-1$
 
   /**
-   * Test has code constant.
-   */
-  private static final String TEST_HASH_CODE = "testHashCode"; //$NON-NLS-1$
-
-  /**
    * toString not equal constant.
    */
   private static final String TO_STRING_NOT_EQUAL = "toString not equal"; //$NON-NLS-1$
@@ -123,7 +118,7 @@ final class HistoryOfTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(HistoryOf.class).withNonnullFields("history").verify();
    }

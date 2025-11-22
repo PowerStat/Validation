@@ -44,7 +44,7 @@ public final class District implements Comparable<District>, IValueObject
    {
     super();
     Objects.requireNonNull(district, "district"); //$NON-NLS-1$
-    if ((district.length() < 1) || (district.length() > 18))
+    if (district.isEmpty() || (district.length() > 18))
      {
       throw new IllegalArgumentException("District with wrong length"); //$NON-NLS-1$
      }
@@ -89,7 +89,7 @@ public final class District implements Comparable<District>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.district;
+    return district;
    }
 
 
@@ -102,7 +102,7 @@ public final class District implements Comparable<District>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.district.hashCode();
+    return district.hashCode();
    }
 
 
@@ -120,12 +120,11 @@ public final class District implements Comparable<District>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof District))
+    if (!(obj instanceof final District other))
      {
       return false;
      }
-    final District other = (District)obj;
-    return this.district.equals(other.district);
+    return district.equals(other.district);
    }
 
 
@@ -143,7 +142,7 @@ public final class District implements Comparable<District>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(19);
-    builder.append("District[district=").append(this.district).append(']'); //$NON-NLS-1$
+    builder.append("District[district=").append(district).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -159,7 +158,7 @@ public final class District implements Comparable<District>, IValueObject
   public int compareTo(final District obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.district.compareTo(obj.district);
+    return district.compareTo(obj.district);
    }
 
  }

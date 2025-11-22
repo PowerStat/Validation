@@ -32,6 +32,11 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 final class YearTests
  {
   /**
+   * Warning constant.
+   */
+  private static final String RV_RETURN_VALUE_IGNORED_INFERRED = "RV_RETURN_VALUE_IGNORED_INFERRED";
+
+  /**
    * Result nor as expecte constant.
    */
   private static final String RESULT_NOT_AS_EXPECTED = "Result not as expected"; //$NON-NLS-1$
@@ -125,7 +130,7 @@ final class YearTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Year.class).withNonnullFields("calendarSystem").verify();
    }
@@ -210,7 +215,7 @@ final class YearTests
   /**
    * Test add.
    */
-  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testAdd3()
    {
@@ -279,7 +284,7 @@ final class YearTests
   /**
    * Test subtract.
    */
-  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testSubtract3()
    {
@@ -346,7 +351,7 @@ final class YearTests
   /**
    * Test increment.
    */
-  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testIncrement3()
    {
@@ -386,7 +391,7 @@ final class YearTests
   /**
    * Test decrement.
    */
-  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testDecrement3()
    {

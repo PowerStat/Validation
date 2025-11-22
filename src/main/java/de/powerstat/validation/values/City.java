@@ -44,7 +44,7 @@ public final class City implements Comparable<City>, IValueObject
    {
     super();
     Objects.requireNonNull(city, "city"); //$NON-NLS-1$
-    if ((city.length() < 1) || (city.length() > 85))
+    if (city.isEmpty() || (city.length() > 85))
      {
       throw new IllegalArgumentException("City with wrong length"); //$NON-NLS-1$
      }
@@ -89,7 +89,7 @@ public final class City implements Comparable<City>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.city;
+    return city;
    }
 
 
@@ -102,7 +102,7 @@ public final class City implements Comparable<City>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.city.hashCode();
+    return city.hashCode();
    }
 
 
@@ -120,12 +120,11 @@ public final class City implements Comparable<City>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof City))
+    if (!(obj instanceof final City other))
      {
       return false;
      }
-    final City other = (City)obj;
-    return this.city.equals(other.city);
+    return city.equals(other.city);
    }
 
 
@@ -143,7 +142,7 @@ public final class City implements Comparable<City>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("City[city=").append(this.city).append(']'); //$NON-NLS-1$
+    builder.append("City[city=").append(city).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -159,7 +158,7 @@ public final class City implements Comparable<City>, IValueObject
   public int compareTo(final City obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.city.compareTo(obj.city);
+    return city.compareTo(obj.city);
    }
 
  }

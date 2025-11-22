@@ -113,7 +113,7 @@ final class LastnameTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Lastname.class).withNonnullFields(LASTNAME).verify();
    }

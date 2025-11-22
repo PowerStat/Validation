@@ -100,7 +100,7 @@ final class BFPONumberTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(BFPONumber.class).verify();
    }

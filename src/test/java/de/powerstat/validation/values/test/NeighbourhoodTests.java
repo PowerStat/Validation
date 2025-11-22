@@ -116,7 +116,7 @@ final class NeighbourhoodTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Neighbourhood.class).withNonnullFields("neighbourhood").verify();
    }

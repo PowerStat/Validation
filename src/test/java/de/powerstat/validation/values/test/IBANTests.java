@@ -122,7 +122,7 @@ final class IBANTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(IBAN.class).withNonnullFields("iban").verify();
    }

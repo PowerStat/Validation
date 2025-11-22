@@ -395,7 +395,7 @@ final class ISBN13Tests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(ISBN13.class).withNonnullFields("isbn13").verify();
    }

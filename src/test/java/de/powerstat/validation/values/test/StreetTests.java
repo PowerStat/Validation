@@ -116,7 +116,7 @@ final class StreetTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Street.class).withNonnullFields("street").verify();
    }

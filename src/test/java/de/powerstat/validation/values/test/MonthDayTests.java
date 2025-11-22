@@ -163,7 +163,7 @@ final class MonthDayTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(MonthDay.class).withNonnullFields("month", "day").verify();
    }

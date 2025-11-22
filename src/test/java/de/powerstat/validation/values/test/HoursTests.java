@@ -112,7 +112,7 @@ final class HoursTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Hours.class).verify();
    }

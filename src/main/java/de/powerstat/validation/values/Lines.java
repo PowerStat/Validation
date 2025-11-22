@@ -56,7 +56,7 @@ public final class Lines implements Comparable<Lines>, IValueObject
    {
     super();
     Objects.requireNonNull(lines, "lines"); //$NON-NLS-1$
-    if ((lines.length() < 1) || (lines.length() > 200))
+    if (lines.isEmpty() || (lines.length() > 200))
      {
       throw new IllegalArgumentException("Lines with wrong length"); //$NON-NLS-1$
      }

@@ -17,11 +17,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  */
 public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, SubBuilding> CACHE = new WeakHashMap<>();
-
   /**
    * Subbuilding regexp.
    */
@@ -44,7 +39,7 @@ public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
    {
     super();
     Objects.requireNonNull(subBuilding, "subBuilding"); //$NON-NLS-1$
-    if ((subBuilding.length() < 1) || (subBuilding.length() > 32))
+    if (subBuilding.isEmpty() || (subBuilding.length() > 32))
      {
       throw new IllegalArgumentException("SubBuilding with wrong length"); //$NON-NLS-1$
      }
@@ -64,19 +59,6 @@ public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
    */
   public static SubBuilding of(final String subBuilding)
    {
-    /*
-    synchronized (SubBuilding.class)
-     {
-      SubBuilding obj = SubBuilding.CACHE.get(subBuilding);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new SubBuilding(subBuilding);
-      SubBuilding.CACHE.put(subBuilding, obj);
-      return obj;
-     }
-    */
     return new SubBuilding(subBuilding);
    }
 
@@ -89,7 +71,7 @@ public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.subBuilding;
+    return subBuilding;
    }
 
 
@@ -102,7 +84,7 @@ public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.subBuilding.hashCode();
+    return subBuilding.hashCode();
    }
 
 
@@ -120,12 +102,11 @@ public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof SubBuilding))
+    if (!(obj instanceof final SubBuilding other))
      {
       return false;
      }
-    final SubBuilding other = (SubBuilding)obj;
-    return this.subBuilding.equals(other.subBuilding);
+    return subBuilding.equals(other.subBuilding);
    }
 
 
@@ -143,7 +124,7 @@ public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(25);
-    builder.append("SubBuilding[subBuilding=").append(this.subBuilding).append(']'); //$NON-NLS-1$
+    builder.append("SubBuilding[subBuilding=").append(subBuilding).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -159,7 +140,7 @@ public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
   public int compareTo(final SubBuilding obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.subBuilding.compareTo(obj.subBuilding);
+    return subBuilding.compareTo(obj.subBuilding);
    }
 
  }

@@ -26,6 +26,11 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 final class WeekdayTests
  {
   /**
+   * Warning constant.
+   */
+  private static final String RV_RETURN_VALUE_IGNORED_INFERRED = "RV_RETURN_VALUE_IGNORED_INFERRED";
+
+  /**
    * Result not as expected constant.
    */
   private static final String RESULT_NOT_AS_EXPECTED = "Result not as expected"; //$NON-NLS-1$
@@ -119,7 +124,7 @@ final class WeekdayTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Weekday.class).verify();
    }
@@ -174,7 +179,7 @@ final class WeekdayTests
   /**
    * Test add.
    */
-  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testAdd2()
    {
@@ -204,7 +209,7 @@ final class WeekdayTests
   /**
    * Test subtract.
    */
-  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testSubtract2()
    {
@@ -233,7 +238,7 @@ final class WeekdayTests
   /**
    * Test increment.
    */
-  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testIncrement2()
    {
@@ -261,7 +266,7 @@ final class WeekdayTests
   /**
    * Test decrement.
    */
-  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testDecrement2()
    {

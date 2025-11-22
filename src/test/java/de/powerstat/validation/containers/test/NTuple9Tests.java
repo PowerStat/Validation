@@ -21,11 +21,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 final class NTuple9Tests
  {
   /**
-   * Test equals constant.
-   */
-  private static final String TEST_EQUALS = "testEquals"; //$NON-NLS-1$
-
-  /**
    * Test compare to constant.
    */
   private static final String TEST_COMPARE_TO = "testCompareTo"; //$NON-NLS-1$
@@ -105,7 +100,7 @@ final class NTuple9Tests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(NTuple9.class).withNonnullFields("object1", "object2", "object3", "object4", "object5", "object6", "object7", "object8", "object9").verify();
    }

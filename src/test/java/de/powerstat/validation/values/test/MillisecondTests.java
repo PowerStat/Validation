@@ -26,6 +26,11 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 final class MillisecondTests
  {
   /**
+   * Warning constant.
+   */
+  private static final String RV_RETURN_VALUE_IGNORED_INFERRED = "RV_RETURN_VALUE_IGNORED_INFERRED";
+
+  /**
    * Not millisecond constant.
    */
   private static final String NOT_MILLISECOND = "Not millisecond!"; //$NON-NLS-1$
@@ -114,7 +119,7 @@ final class MillisecondTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Millisecond.class).verify();
    }
@@ -169,7 +174,7 @@ final class MillisecondTests
   /**
    * Test add.
    */
-  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testAdd2()
    {
@@ -199,7 +204,7 @@ final class MillisecondTests
   /**
    * Test subtract.
    */
-  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testSubtract2()
    {
@@ -228,7 +233,7 @@ final class MillisecondTests
   /**
    * Test add.
    */
-  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testIncrement2()
    {
@@ -256,7 +261,7 @@ final class MillisecondTests
   /**
    * Test add.
    */
-  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testDecrement2()
    {

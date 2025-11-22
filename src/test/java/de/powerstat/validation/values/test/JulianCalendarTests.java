@@ -66,7 +66,7 @@ final class JulianCalendarTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(JulianCalendar.class).verify();
    }

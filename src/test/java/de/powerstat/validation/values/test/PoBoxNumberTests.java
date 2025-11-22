@@ -120,7 +120,7 @@ final class PoBoxNumberTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(PoBoxNumber.class).verify();
    }

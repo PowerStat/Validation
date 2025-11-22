@@ -116,7 +116,7 @@ final class CountryTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Country.class).withNonnullFields("alpha2").verify();
    }

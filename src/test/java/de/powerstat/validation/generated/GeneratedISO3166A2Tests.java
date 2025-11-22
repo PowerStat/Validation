@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit test for country names.
  */
-public class GeneratedISO3166A2Tests
+final class GeneratedISO3166A2Tests
  {
   /* default */ GeneratedISO3166A2Tests()
    {
@@ -29,7 +29,7 @@ public class GeneratedISO3166A2Tests
    {
     final String countryName = GeneratedISO3166A2.getName("DE");
     assertAll("constructor", //$NON-NLS-1$
-      () -> assertEquals(countryName, "", "Country name is not equal") //$NON-NLS-1$
+      () -> assertEquals("", countryName, "Country name is not equal") //$NON-NLS-1$
     );
    }
 

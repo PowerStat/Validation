@@ -116,7 +116,7 @@ final class TopLevelDomainTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(TopLevelDomain.class).withNonnullFields("topLevelDomain").verify();
    }

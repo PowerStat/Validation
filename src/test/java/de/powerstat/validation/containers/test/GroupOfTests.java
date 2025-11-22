@@ -30,7 +30,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * GroupOf tests.
  */
 @SuppressWarnings({"PMD.LooseCoupling"})
-public class GroupOfTests
+final class GroupOfTests
  {
   /**
    * Could not add.
@@ -157,7 +157,7 @@ public class GroupOfTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(GroupOf.class).withNonnullFields("name", "group").verify();
    }
@@ -275,6 +275,7 @@ public class GroupOfTests
   /**
    * Test toArray.
    */
+  @SuppressWarnings("PMD.OptimizableToArrayCall")
   @Test
   /* default */ void testToArray2()
    {

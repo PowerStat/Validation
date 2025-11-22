@@ -25,7 +25,7 @@ public final class ISBN13Publisher3 implements IISBN13Publisher
    * @return Publisher number (variable length)
    * @throws IllegalArgumentException When an illegal character appears
    */
-  @SuppressWarnings({"PMD.CyclomaticComplexity"})
+  @SuppressWarnings({"PMD.CyclomaticComplexity", "PMD.ImplicitSwitchFallThrough"})
   @Override
   public String publisher(final String rest)
    {

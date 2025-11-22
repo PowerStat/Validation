@@ -217,7 +217,7 @@ final class HostnameTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Hostname.class).withNonnullFields("hostname").withIgnoredFields("reverseHostname").verify();
    }

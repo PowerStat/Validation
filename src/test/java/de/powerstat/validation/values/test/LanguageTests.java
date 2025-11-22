@@ -116,7 +116,7 @@ final class LanguageTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Language.class).withNonnullFields("code").verify();
    }

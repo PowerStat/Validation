@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -44,7 +44,7 @@ public final class Department implements Comparable<Department>, IValueObject
    {
     super();
     Objects.requireNonNull(department, "department"); //$NON-NLS-1$
-    if ((department.length() < 1) || (department.length() > 64))
+    if (department.isEmpty() || (department.length() > 64))
      {
       throw new IllegalArgumentException("Department with wrong length"); //$NON-NLS-1$
      }
@@ -89,7 +89,7 @@ public final class Department implements Comparable<Department>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.department;
+    return department;
    }
 
 
@@ -102,7 +102,7 @@ public final class Department implements Comparable<Department>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.department.hashCode();
+    return department.hashCode();
    }
 
 
@@ -120,12 +120,11 @@ public final class Department implements Comparable<Department>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Department))
+    if (!(obj instanceof final Department other))
      {
       return false;
      }
-    final Department other = (Department)obj;
-    return this.department.equals(other.department);
+    return department.equals(other.department);
    }
 
 
@@ -143,7 +142,7 @@ public final class Department implements Comparable<Department>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(23);
-    builder.append("Department[department=").append(this.department).append(']'); //$NON-NLS-1$
+    builder.append("Department[department=").append(department).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -159,7 +158,7 @@ public final class Department implements Comparable<Department>, IValueObject
   public int compareTo(final Department obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.department.compareTo(obj.department);
+    return department.compareTo(obj.department);
    }
 
  }

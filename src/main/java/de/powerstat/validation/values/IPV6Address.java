@@ -165,16 +165,16 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
     final var start = address.substring(0, expPos);
     final var end = address.substring(expPos + 2);
     int blocks = 8;
-    if (start.length() > 0)
+    if (!start.isEmpty())
      {
       blocks -= countColons(start) + 1;
      }
-    if (end.length() > 0)
+    if (!end.isEmpty())
      {
       blocks -= countColons(end) + 1;
      }
     final var replace = new StringBuilder();
-    if (start.length() > 0)
+    if (!start.isEmpty())
      {
       replace.append(':');
      }
@@ -187,7 +187,7 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
         replace.append(':');
        }
      }
-    if (end.length() > 0)
+    if (!end.isEmpty())
      {
       replace.append(':');
      }

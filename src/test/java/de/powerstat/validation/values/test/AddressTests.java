@@ -284,11 +284,6 @@ final class AddressTests
   private static final String WRONG_ADDRESS = "Wrong address"; //$NON-NLS-1$
 
   /**
-   * Test equals constant.
-   */
-  private static final String TEST_EQUALS = "testEquals"; //$NON-NLS-1$
-
-  /**
    * ToString not equal constant.
    */
   private static final String TO_STRING_NOT_EQUAL = "toString not equal"; //$NON-NLS-1$
@@ -447,7 +442,7 @@ final class AddressTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Address.class).withRedefinedSubclass(AddressWithWGS84Position.class).withNonnullFields("country").verify();
    }

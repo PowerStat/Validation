@@ -156,7 +156,7 @@ final class UsernameTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Username.class).withNonnullFields(USERNAME).withIgnoredFields("conformsToEMailAddressFormat").verify();
    }

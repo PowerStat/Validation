@@ -116,7 +116,7 @@ final class BuildingNameTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(BuildingName.class).withNonnullFields("buildingName").verify();
    }

@@ -116,7 +116,7 @@ final class SubBuildingTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(SubBuilding.class).withNonnullFields("subBuilding").verify();
    }

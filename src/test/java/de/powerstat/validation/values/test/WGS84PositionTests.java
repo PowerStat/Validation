@@ -28,11 +28,6 @@ final class WGS84PositionTests
   private static final String INDEX_OUT_OF_BOUNDS_EXPECTED = "Index out of bounds exception expected"; //$NON-NLS-1$
 
   /**
-   * Test equals constant.
-   */
-  private static final String TEST_EQUALS = "testEquals"; //$NON-NLS-1$
-
-  /**
    * Zero position constant.
    */
   private static final String ZERO = "0.0 0.0 0.0"; //$NON-NLS-1$
@@ -211,7 +206,7 @@ final class WGS84PositionTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(WGS84Position.class).withNonnullFields("latitude").verify();
    }

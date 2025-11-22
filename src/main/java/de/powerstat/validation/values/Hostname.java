@@ -29,16 +29,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class Hostname implements Comparable<Hostname>, IValueObject
  {
   /**
-   * Logger.
-   */
-  // private static final Logger LOGGER = LogManager.getLogger(Hostname.class);
-
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, Hostname> CACHE = new WeakHashMap<>();
-
-  /**
    * Hostname regexp.
    */
   private static final Pattern HOSTNAME_REGEXP = Pattern.compile("^[.0-9a-zA-Z-]+$"); //$NON-NLS-1$
@@ -164,7 +154,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
     final var buffer = new StringBuilder(hostname.length());
     for (int i = parts.length - 1; i >= 0; --i)
      {
-      if (buffer.length() != 0)
+      if (!buffer.isEmpty())
        {
         buffer.append('.');
        }
@@ -182,19 +172,6 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
    */
   public static Hostname of(final String hostname)
    {
-    /*
-    synchronized (Hostname.class)
-     {
-      Hostname obj = Hostname.CACHE.get(hostname);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Hostname(hostname);
-      Hostname.CACHE.put(hostname, obj);
-      return obj;
-     }
-    */
     return new Hostname(hostname);
    }
 
@@ -236,7 +213,6 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
      }
     catch (final UnknownHostException ignored)
      {
-      // LOGGER.debug("UnknownHostException", ignored);
       return false;
      }
     return true;
@@ -258,7 +234,6 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
      }
     catch (final IOException ignored)
      {
-      // LOGGER.debug("IOException", ignored);
       return false;
      }
    }

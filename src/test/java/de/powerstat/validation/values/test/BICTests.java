@@ -117,7 +117,7 @@ final class BICTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(BIC.class).withNonnullFields("bic").verify();
    }

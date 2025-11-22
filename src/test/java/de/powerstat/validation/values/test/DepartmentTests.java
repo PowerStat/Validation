@@ -116,7 +116,7 @@ final class DepartmentTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Department.class).withNonnullFields("department").verify();
    }

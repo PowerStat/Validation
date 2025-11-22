@@ -117,7 +117,7 @@ final class GregorianCalendarTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(GregorianCalendar.class).withNonnullFields("country").verify();
    }

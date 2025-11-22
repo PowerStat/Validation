@@ -116,7 +116,7 @@ final class PostalCodeTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(PostalCode.class).withNonnullFields("postalCode").verify();
    }

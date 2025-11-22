@@ -222,7 +222,7 @@ final class IPV4AddressTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(IPV4Address.class).withNonnullFields("address").withIgnoredFields("parts").verify();
    }

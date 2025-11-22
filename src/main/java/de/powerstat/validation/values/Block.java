@@ -44,7 +44,7 @@ public final class Block implements Comparable<Block>, IValueObject
    {
     super();
     Objects.requireNonNull(block, "block"); //$NON-NLS-1$
-    if ((block.length() < 1) || (block.length() > 16))
+    if (block.isEmpty() || (block.length() > 16))
      {
       throw new IllegalArgumentException("Block with wrong length"); //$NON-NLS-1$
      }
@@ -89,7 +89,7 @@ public final class Block implements Comparable<Block>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.block;
+    return block;
    }
 
 
@@ -102,7 +102,7 @@ public final class Block implements Comparable<Block>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.block.hashCode();
+    return block.hashCode();
    }
 
 
@@ -120,12 +120,11 @@ public final class Block implements Comparable<Block>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Block))
+    if (!(obj instanceof final Block other))
      {
       return false;
      }
-    final Block other = (Block)obj;
-    return this.block.equals(other.block);
+    return block.equals(other.block);
    }
 
 
@@ -143,7 +142,7 @@ public final class Block implements Comparable<Block>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("Block[block=").append(this.block).append(']'); //$NON-NLS-1$
+    builder.append("Block[block=").append(block).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -159,7 +158,7 @@ public final class Block implements Comparable<Block>, IValueObject
   public int compareTo(final Block obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.block.compareTo(obj.block);
+    return block.compareTo(obj.block);
    }
 
  }

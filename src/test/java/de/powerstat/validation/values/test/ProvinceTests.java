@@ -121,7 +121,7 @@ final class ProvinceTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Province.class).withNonnullFields("province").verify();
    }

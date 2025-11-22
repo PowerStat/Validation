@@ -44,7 +44,7 @@ public final class BuildingName implements Comparable<BuildingName>, IValueObjec
    {
     super();
     Objects.requireNonNull(buildingName, "buildingName"); //$NON-NLS-1$
-    if ((buildingName.length() < 1) || (buildingName.length() > 32))
+    if (buildingName.isEmpty() || (buildingName.length() > 32))
      {
       throw new IllegalArgumentException("Building name with wrong length"); //$NON-NLS-1$
      }
@@ -89,7 +89,7 @@ public final class BuildingName implements Comparable<BuildingName>, IValueObjec
   @Override
   public String stringValue()
    {
-    return this.buildingName;
+    return buildingName;
    }
 
 
@@ -102,7 +102,7 @@ public final class BuildingName implements Comparable<BuildingName>, IValueObjec
   @Override
   public int hashCode()
    {
-    return this.buildingName.hashCode();
+    return buildingName.hashCode();
    }
 
 
@@ -120,12 +120,11 @@ public final class BuildingName implements Comparable<BuildingName>, IValueObjec
      {
       return true;
      }
-    if (!(obj instanceof BuildingName))
+    if (!(obj instanceof final BuildingName other))
      {
       return false;
      }
-    final BuildingName other = (BuildingName)obj;
-    return this.buildingName.equals(other.buildingName);
+    return buildingName.equals(other.buildingName);
    }
 
 
@@ -143,7 +142,7 @@ public final class BuildingName implements Comparable<BuildingName>, IValueObjec
   public String toString()
    {
     final var builder = new StringBuilder(27);
-    builder.append("BuildingName[buildingName=").append(this.buildingName).append(']'); //$NON-NLS-1$
+    builder.append("BuildingName[buildingName=").append(buildingName).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -159,7 +158,7 @@ public final class BuildingName implements Comparable<BuildingName>, IValueObjec
   public int compareTo(final BuildingName obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.buildingName.compareTo(obj.buildingName);
+    return buildingName.compareTo(obj.buildingName);
    }
 
  }

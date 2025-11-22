@@ -168,7 +168,7 @@ final class PasswordTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Password.class).withNonnullFields("passwd").withIgnoredFields("read").verify();
    }

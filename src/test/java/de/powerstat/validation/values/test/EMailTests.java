@@ -268,7 +268,7 @@ final class EMailTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(EMail.class).withNonnullFields("email").withIgnoredFields("domainPart", "localPart").verify();
    }

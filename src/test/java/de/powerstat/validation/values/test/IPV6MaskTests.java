@@ -139,7 +139,7 @@ final class IPV6MaskTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(IPV6Mask.class).verify();
    }

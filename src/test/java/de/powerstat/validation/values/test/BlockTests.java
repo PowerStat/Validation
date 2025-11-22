@@ -116,7 +116,7 @@ final class BlockTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Block.class).withNonnullFields("block").verify();
    }

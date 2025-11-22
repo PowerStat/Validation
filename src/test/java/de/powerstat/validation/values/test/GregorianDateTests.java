@@ -150,7 +150,7 @@ final class GregorianDateTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(GregorianDate.class).withNonnullFields("year", "month", "day").withIgnoredFields("calendar").verify();
    }

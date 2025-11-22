@@ -178,7 +178,7 @@ final class DisplayAspectRatioTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(DisplayAspectRatio.class).verify();
    }

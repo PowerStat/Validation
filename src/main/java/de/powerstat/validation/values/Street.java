@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -19,11 +19,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  */
 public final class Street implements Comparable<Street>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, Street> CACHE = new WeakHashMap<>();
-
   /**
    * Street regexp.
    */
@@ -46,7 +41,7 @@ public final class Street implements Comparable<Street>, IValueObject
    {
     super();
     Objects.requireNonNull(street, "street"); //$NON-NLS-1$
-    if ((street.length() < 1) || (street.length() > 32))
+    if (street.isEmpty() || (street.length() > 32))
      {
       throw new IllegalArgumentException("Street with wrong length"); //$NON-NLS-1$
      }
@@ -66,19 +61,6 @@ public final class Street implements Comparable<Street>, IValueObject
    */
   public static Street of(final String street)
    {
-    /*
-    synchronized (Street.class)
-     {
-      Street obj = Street.CACHE.get(street);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Street(street);
-      Street.CACHE.put(street, obj);
-      return obj;
-     }
-    */
     return new Street(street);
    }
 
@@ -91,7 +73,7 @@ public final class Street implements Comparable<Street>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.street;
+    return street;
    }
 
 
@@ -104,7 +86,7 @@ public final class Street implements Comparable<Street>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.street.hashCode();
+    return street.hashCode();
    }
 
 
@@ -122,12 +104,11 @@ public final class Street implements Comparable<Street>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Street))
+    if (!(obj instanceof final Street other))
      {
       return false;
      }
-    final Street other = (Street)obj;
-    return this.street.equals(other.street);
+    return street.equals(other.street);
    }
 
 
@@ -145,7 +126,7 @@ public final class Street implements Comparable<Street>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("Street[street=").append(this.street).append(']'); //$NON-NLS-1$
+    builder.append("Street[street=").append(street).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -161,7 +142,7 @@ public final class Street implements Comparable<Street>, IValueObject
   public int compareTo(final Street obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.street.compareTo(obj.street);
+    return street.compareTo(obj.street);
    }
 
  }

@@ -112,7 +112,7 @@ final class MonthsTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Months.class).verify();
    }

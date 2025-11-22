@@ -24,6 +24,11 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class ISBN13 implements Comparable<ISBN13>, IValueObject
  {
   /**
+   * ISBN separator regexp.
+   */
+  private static final Pattern ISBN_SEPARATOR_REGEXP = Pattern.compile("-| ");
+
+  /**
    * ISBN separator.
    */
   private static final String ISBN_SEPARATOR = "-";
@@ -643,7 +648,7 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
      {
       throw new IllegalArgumentException("ISBN13 with wrong format"); //$NON-NLS-1$
      }
-    final String cleanISBN = isbn.replaceAll("-| ", "");
+    final String cleanISBN = ISBN_SEPARATOR_REGEXP.matcher(isbn).replaceAll("");
     if (!verifyChecksum(cleanISBN))
      {
       throw new IllegalArgumentException("ISBN13 with wrong checksum"); //$NON-NLS-1$

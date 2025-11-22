@@ -110,7 +110,7 @@ final class PercentTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Percent.class).verify();
    }

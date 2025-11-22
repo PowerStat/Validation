@@ -56,7 +56,7 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
    {
     super();
     Objects.requireNonNull(buildingNr, "buildingNr"); //$NON-NLS-1$
-    if ((buildingNr.length() < 1) || (buildingNr.length() > 21))
+    if (buildingNr.isEmpty() || (buildingNr.length() > 21))
      {
       throw new IllegalArgumentException("BuildingNr with wrong length"); //$NON-NLS-1$
      }
@@ -119,7 +119,7 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.buildingNr;
+    return buildingNr;
    }
 
 
@@ -132,7 +132,7 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.buildingNr.hashCode();
+    return buildingNr.hashCode();
    }
 
 
@@ -150,12 +150,11 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof BuildingNr))
+    if (!(obj instanceof final BuildingNr other))
      {
       return false;
      }
-    final BuildingNr other = (BuildingNr)obj;
-    return this.buildingNr.equals(other.buildingNr);
+    return buildingNr.equals(other.buildingNr);
    }
 
 
@@ -173,7 +172,7 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(23);
-    builder.append("BuildingNr[buildingNr=").append(this.buildingNr).append(']'); //$NON-NLS-1$
+    builder.append("BuildingNr[buildingNr=").append(buildingNr).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -191,7 +190,7 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
   public int compareTo(final BuildingNr obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    final var matcher1 = BuildingNr.BUILDINGNR_REGEXP.matcher(this.buildingNr);
+    final var matcher1 = BuildingNr.BUILDINGNR_REGEXP.matcher(buildingNr);
     final var matcher2 = BuildingNr.BUILDINGNR_REGEXP.matcher(obj.buildingNr);
     /* boolean result1 = */ matcher1.matches();
     /* boolean result2 = */ matcher2.matches();

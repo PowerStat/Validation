@@ -238,7 +238,7 @@ final class IPV6AddressTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(IPV6Address.class).withNonnullFields("address").withIgnoredFields("blocks").verify();
    }

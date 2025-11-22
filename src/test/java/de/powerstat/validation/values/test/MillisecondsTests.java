@@ -112,7 +112,7 @@ final class MillisecondsTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Milliseconds.class).verify();
    }

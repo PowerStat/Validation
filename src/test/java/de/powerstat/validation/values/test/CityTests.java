@@ -116,7 +116,7 @@ final class CityTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(City.class).withNonnullFields("city").verify();
    }

@@ -126,7 +126,7 @@ final class BuildingNrTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(BuildingNr.class).withNonnullFields("buildingNr").verify();
    }

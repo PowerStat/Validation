@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  */
 package de.powerstat.validation.values;
 
@@ -22,10 +22,10 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class MACAddress implements Comparable<MACAddress>, IValueObject
  {
-  /* *
-   * Cache for singletons.
+  /**
+   * Suppress warning constant.
    */
-  // private static final Map<String, MACAddress> CACHE = new WeakHashMap<>();
+  private static final String CLI_CONSTANT_LIST_INDEX = "CLI_CONSTANT_LIST_INDEX";
 
   /**
    * Hex 00.
@@ -124,19 +124,6 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    */
   public static MACAddress of(final String address)
    {
-    /*
-    synchronized (MACAddress.class)
-     {
-      MACAddress obj = MACAddress.CACHE.get(address);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new MACAddress(address);
-      MACAddress.CACHE.put(address, obj);
-      return obj;
-     }
-    */
     return new MACAddress(address);
    }
 
@@ -179,7 +166,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    *
    * @return true if broadcast address, false otherwise
    */
-  @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
+  @SuppressFBWarnings(CLI_CONSTANT_LIST_INDEX)
   public boolean isBroadcast()
    {
     return MACAddress.HFF.equals(parts[0]) && MACAddress.HFF.equals(parts[1]) && MACAddress.HFF.equals(parts[2]) && MACAddress.HFF.equals(parts[3]) && MACAddress.HFF.equals(parts[4]) && MACAddress.HFF.equals(parts[5]);
@@ -213,7 +200,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    *
    * @return true if mac is an ip v4 multicast address, false otherwise
    */
-  @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
+  @SuppressFBWarnings(CLI_CONSTANT_LIST_INDEX)
   public boolean isIPV4Multicast()
    {
     return MACAddress.H01.equals(parts[0]) && MACAddress.H00.equals(parts[1]) && MACAddress.H5E.equals(parts[2]) && ((Integer.parseInt(parts[3], 16) & 0x80) == 0);
@@ -225,7 +212,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    *
    * @return true if mac is an ip v6 multicast address, false otherwise
    */
-  @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
+  @SuppressFBWarnings(CLI_CONSTANT_LIST_INDEX)
   public boolean isIPV6Multicast()
    {
     return MACAddress.H33.equals(parts[0]) && MACAddress.H33.equals(parts[1]);
@@ -237,7 +224,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    *
    * @return true if mac is a vrrp address, false otherwise
    */
-  @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
+  @SuppressFBWarnings(CLI_CONSTANT_LIST_INDEX)
   public boolean isVRRP()
    {
     return MACAddress.H00.equals(parts[0]) && MACAddress.H00.equals(parts[1]) && MACAddress.H5E.equals(parts[2]) && MACAddress.H00.equals(parts[3]) && MACAddress.H01.equals(parts[4]);
@@ -251,7 +238,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    *
    * TODO OUI-28 (MA-M), OUI-36 (MA-S)
    */
-  @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
+  @SuppressFBWarnings(CLI_CONSTANT_LIST_INDEX)
   public String getOUI()
    {
     return String.format("%1$02X", Integer.parseInt(parts[0], 16) & 0xfc) + parts[1].toUpperCase(Locale.getDefault()) + parts[2].toUpperCase(Locale.getDefault()); //$NON-NLS-1$
@@ -278,6 +265,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    * @return true when equal, false otherwise
    * @see java.lang.Object#equals(java.lang.Object)
    */
+  @SuppressWarnings("PMD.SimplifyBooleanReturns")
   @Override
   public boolean equals(final Object obj)
    {

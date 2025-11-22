@@ -347,7 +347,7 @@ final class IPV4MaskTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(IPV4Mask.class).withIgnoredFields("mask").verify();
    }

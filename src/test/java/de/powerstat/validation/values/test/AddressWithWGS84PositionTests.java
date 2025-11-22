@@ -28,7 +28,6 @@ import de.powerstat.validation.values.Province;
 import de.powerstat.validation.values.Street;
 import de.powerstat.validation.values.SubBuilding;
 import de.powerstat.validation.values.WGS84Position;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
@@ -57,11 +56,6 @@ final class AddressWithWGS84PositionTests
   private static final String POSTALCODE28307 = "28307"; //$NON-NLS-1$
 
   /**
-   * Postal code.
-   */
-  private static final String POSTALCODE28359 = "28359"; //$NON-NLS-1$
-
-  /**
    * City name.
    */
   private static final String BREMEN = "Bremen"; //$NON-NLS-1$
@@ -72,19 +66,9 @@ final class AddressWithWGS84PositionTests
   private static final String ARBERGER_HEERSTR = "Arberger Heerstr."; //$NON-NLS-1$
 
   /**
-   * Street name.
-   */
-  private static final String BIBLIOTHEKSTRASSE = "Bibliothekstraße"; //$NON-NLS-1$
-
-  /**
    * Building nr 92.
    */
   private static final String BUILDINGNR92 = "92"; //$NON-NLS-1$
-
-  /**
-   * Building nr 1.
-   */
-  private static final String BUIDINGNR1 = "1"; //$NON-NLS-1$
 
   /**
    * Test constant.
@@ -262,7 +246,7 @@ final class AddressWithWGS84PositionTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(AddressWithWGS84Position.class).withRedefinedSuperclass().withNonnullFields("position", "country").verify();
    }

@@ -325,7 +325,7 @@ final class MACAddressTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(MACAddress.class).verify();
    }

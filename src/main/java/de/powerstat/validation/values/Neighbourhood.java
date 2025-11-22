@@ -44,7 +44,7 @@ public final class Neighbourhood implements Comparable<Neighbourhood>, IValueObj
    {
     super();
     Objects.requireNonNull(neighbourhood, "neighbourhood"); //$NON-NLS-1$
-    if ((neighbourhood.length() < 1) || (neighbourhood.length() > 64))
+    if (neighbourhood.isEmpty() || (neighbourhood.length() > 64))
      {
       throw new IllegalArgumentException("Neighbourhood with wrong length"); //$NON-NLS-1$
      }
@@ -89,7 +89,7 @@ public final class Neighbourhood implements Comparable<Neighbourhood>, IValueObj
   @Override
   public String stringValue()
    {
-    return this.neighbourhood;
+    return neighbourhood;
    }
 
 
@@ -102,7 +102,7 @@ public final class Neighbourhood implements Comparable<Neighbourhood>, IValueObj
   @Override
   public int hashCode()
    {
-    return this.neighbourhood.hashCode();
+    return neighbourhood.hashCode();
    }
 
 
@@ -120,12 +120,11 @@ public final class Neighbourhood implements Comparable<Neighbourhood>, IValueObj
      {
       return true;
      }
-    if (!(obj instanceof Neighbourhood))
+    if (!(obj instanceof final Neighbourhood other))
      {
       return false;
      }
-    final Neighbourhood other = (Neighbourhood)obj;
-    return this.neighbourhood.equals(other.neighbourhood);
+    return neighbourhood.equals(other.neighbourhood);
    }
 
 
@@ -143,7 +142,7 @@ public final class Neighbourhood implements Comparable<Neighbourhood>, IValueObj
   public String toString()
    {
     final var builder = new StringBuilder(29);
-    builder.append("Neighbourhood[neighbourhood=").append(this.neighbourhood).append(']'); //$NON-NLS-1$
+    builder.append("Neighbourhood[neighbourhood=").append(neighbourhood).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -159,7 +158,7 @@ public final class Neighbourhood implements Comparable<Neighbourhood>, IValueObj
   public int compareTo(final Neighbourhood obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.neighbourhood.compareTo(obj.neighbourhood);
+    return neighbourhood.compareTo(obj.neighbourhood);
    }
 
  }

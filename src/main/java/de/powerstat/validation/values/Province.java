@@ -44,7 +44,7 @@ public final class Province implements Comparable<Province>, IValueObject
    {
     super();
     Objects.requireNonNull(province, "province"); //$NON-NLS-1$
-    if ((province.length() < 1) || (province.length() > 18))
+    if (province.isEmpty() || (province.length() > 18))
      {
       throw new IllegalArgumentException("Province with wrong length"); //$NON-NLS-1$
      }
@@ -89,7 +89,7 @@ public final class Province implements Comparable<Province>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.province;
+    return province;
    }
 
 
@@ -102,7 +102,7 @@ public final class Province implements Comparable<Province>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.province.hashCode();
+    return province.hashCode();
    }
 
 
@@ -120,12 +120,11 @@ public final class Province implements Comparable<Province>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Province))
+    if (!(obj instanceof final Province other))
      {
       return false;
      }
-    final Province other = (Province)obj;
-    return this.province.equals(other.province);
+    return province.equals(other.province);
    }
 
 
@@ -143,7 +142,7 @@ public final class Province implements Comparable<Province>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(19);
-    builder.append("Province[province=").append(this.province).append(']'); //$NON-NLS-1$
+    builder.append("Province[province=").append(province).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -159,7 +158,7 @@ public final class Province implements Comparable<Province>, IValueObject
   public int compareTo(final Province obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.province.compareTo(obj.province);
+    return province.compareTo(obj.province);
    }
 
  }

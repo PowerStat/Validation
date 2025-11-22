@@ -47,7 +47,7 @@ public final class Firstname implements Comparable<Firstname>, IValueObject
    {
     super();
     Objects.requireNonNull(firstname, "firstname"); //$NON-NLS-1$
-    if ((firstname.length() < 1) || (firstname.length() > 32))
+    if (firstname.isEmpty() || (firstname.length() > 32))
      {
       throw new IllegalArgumentException("Firstname with wrong length"); //$NON-NLS-1$
      }
@@ -92,7 +92,7 @@ public final class Firstname implements Comparable<Firstname>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.firstname;
+    return firstname;
    }
 
 
@@ -105,7 +105,7 @@ public final class Firstname implements Comparable<Firstname>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.firstname.hashCode();
+    return firstname.hashCode();
    }
 
 
@@ -123,12 +123,11 @@ public final class Firstname implements Comparable<Firstname>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Firstname))
+    if (!(obj instanceof final Firstname other))
      {
       return false;
      }
-    final Firstname other = (Firstname)obj;
-    return this.firstname.equals(other.firstname);
+    return firstname.equals(other.firstname);
    }
 
 
@@ -146,7 +145,7 @@ public final class Firstname implements Comparable<Firstname>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(21);
-    builder.append("Firstname[firstname=").append(this.firstname).append(']'); //$NON-NLS-1$
+    builder.append("Firstname[firstname=").append(firstname).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -162,7 +161,7 @@ public final class Firstname implements Comparable<Firstname>, IValueObject
   public int compareTo(final Firstname obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.firstname.compareTo(obj.firstname);
+    return firstname.compareTo(obj.firstname);
    }
 
  }

@@ -53,7 +53,7 @@ public final class GroupOf<T> implements Set<T>
    {
     super();
     Objects.requireNonNull(groupName, "groupName"); //$NON-NLS-1$
-    if ((groupName.length() < 1) || (groupName.length() > 40))
+    if (groupName.isEmpty() || (groupName.length() > 40))
      {
       throw new IllegalArgumentException("groupName with wrong length"); //$NON-NLS-1$
      }

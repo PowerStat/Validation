@@ -145,7 +145,7 @@ public final class JulianCalendar implements Comparable<JulianCalendar>, IValueO
   public boolean isLeapYear(final Year year)
    {
     Objects.requireNonNull(year, JulianCalendar.YEAR);
-    return (year.longValue() <= 0) ? ((-year.longValue()) % 4) == 1 : (year.longValue() % 4) == 0;
+    return (year.longValue() <= 0) ? (((-year.longValue()) % 4) == 1) : ((year.longValue() % 4) == 0);
    }
 
 
@@ -160,7 +160,7 @@ public final class JulianCalendar implements Comparable<JulianCalendar>, IValueO
    {
     Objects.requireNonNull(year, JulianCalendar.YEAR);
     Objects.requireNonNull(month, JulianCalendar.MONTH);
-    return Days.of(DAYS_IN_MONTH[month.intValue()] + (((month.intValue() == 2) && isLeapYear(year)) ? 1 : 0));
+    return Days.of((long)DAYS_IN_MONTH[month.intValue()] + (((month.intValue() == 2) && isLeapYear(year)) ? 1 : 0));
    }
 
 

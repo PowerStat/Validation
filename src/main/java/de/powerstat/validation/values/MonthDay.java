@@ -57,19 +57,10 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
     Objects.requireNonNull(day, "day"); //$NON-NLS-1$
     switch (month.intValue())
      {
-      case 1:
-      case 3:
-      case 5:
-      case 7:
-      case 8:
-      case 10:
-      case 12:
+      case 1, 3, 5, 7, 8, 10, 12:
         break;
 
-      case 4:
-      case 6:
-      case 9:
-      case 11:
+      case 4, 6, 9, 11:
         if (day.intValue() > 30)
          {
           throw new IndexOutOfBoundsException("Day number out of range for the month (31)!"); //$NON-NLS-1$

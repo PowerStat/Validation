@@ -116,7 +116,7 @@ final class DistrictTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(District.class).withNonnullFields("district").verify();
    }

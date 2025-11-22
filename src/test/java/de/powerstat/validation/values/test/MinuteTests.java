@@ -26,6 +26,11 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 final class MinuteTests
  {
   /**
+   * Warning constant.
+   */
+  private static final String RV_RETURN_VALUE_IGNORED_INFERRED = "RV_RETURN_VALUE_IGNORED_INFERRED";
+
+  /**
    * Not a minute constant.
    */
   private static final String NOT_A_MINUTE = "Not a minute!"; //$NON-NLS-1$
@@ -114,7 +119,7 @@ final class MinuteTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(Minute.class).verify();
    }
@@ -169,7 +174,7 @@ final class MinuteTests
   /**
    * Test add.
    */
-  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testAdd2()
    {
@@ -199,7 +204,7 @@ final class MinuteTests
   /**
    * Test subtract.
    */
-  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testSubtract2()
    {
@@ -228,7 +233,7 @@ final class MinuteTests
   /**
    * Test increment.
    */
-  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testIncrement2()
    {
@@ -256,7 +261,7 @@ final class MinuteTests
   /**
    * Test decrement.
    */
-  @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testDecrement2()
    {
