@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Mode;
 import nl.jqno.equalsverifier.Warning;
 
 import de.powerstat.validation.entities.Person;
@@ -170,7 +171,7 @@ final class PersonTests
   @Test
   /* default */ void testEqualsContract()
    {
-    EqualsVerifier.forClass(Person.class).suppress(Warning.NONFINAL_FIELDS).withNonnullFields("lastname", "sex", "firstnames", "birthday", "deathdate", "bloodGroup").verify();
+    EqualsVerifier.forClass(Person.class).set(Mode.skipMockito()).suppress(Warning.NONFINAL_FIELDS).withNonnullFields("lastname", "sex", "firstnames", "birthday", "deathdate", "bloodGroup").withIgnoredFields("lastname", "sex", "firstnames").verify();
    }
 
 

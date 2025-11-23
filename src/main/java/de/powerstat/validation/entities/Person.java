@@ -199,7 +199,7 @@ public final class Person implements Comparable<Person>, IEntity
   @Override
   public int hashCode()
    {
-    return Objects.hash(lastname, sex, firstnames, birthday, deathdate, bloodGroup);
+    return Objects.hash(lastname.getLatestEntry(), sex.getLatestEntry(), firstnames.getLatestEntry(), birthday, deathdate, bloodGroup);
    }
 
 
@@ -221,22 +221,29 @@ public final class Person implements Comparable<Person>, IEntity
      {
       return false;
      }
-    boolean result = lastname.equals(other.lastname);
+    boolean result = lastname.getLatestEntry().equals(other.lastname.getLatestEntry());
     if (result)
      {
-      result = sex.equals(other.sex);
+      result = sex.getLatestEntry().equals(other.sex.getLatestEntry());
       if (result)
        {
-        result = firstnames.equals(other.firstnames);
+        result = (firstnames.isEmpty() == other.firstnames.isEmpty());
         if (result)
          {
-          result = birthday.equals(other.birthday);
+          if (!firstnames.isEmpty() && !other.firstnames.isEmpty())
+           {
+            result = firstnames.getLatestEntry().equals(other.firstnames.getLatestEntry());
+           }
           if (result)
            {
-            result = deathdate.equals(other.deathdate);
+            result = birthday.equals(other.birthday);
             if (result)
              {
-              result = bloodGroup.equals(other.bloodGroup);
+              result = deathdate.equals(other.deathdate);
+              if (result)
+               {
+                result = bloodGroup.equals(other.bloodGroup);
+               }
              }
            }
          }

@@ -29,7 +29,7 @@ echo "   * Static initialization."
 echo "   */"
 echo "  static"
 echo "   {"
-for i in `grep -oE "^[a-z]{2}" $1`; do
+for i in `grep -oE "^\"([a-z]{2})\"" $1 | grep -oE "[a-z]{2}"`; do
   echo "    CODES.add(\"$i\".toUpperCase(Locale.getDefault())); //\$NON-NLS-1\$"
 done
 echo "   }"
