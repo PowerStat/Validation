@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -94,7 +95,7 @@ public final class PostalCode implements Comparable<PostalCode>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.postalCode;
+    return postalCode;
    }
 
 
@@ -107,7 +108,7 @@ public final class PostalCode implements Comparable<PostalCode>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.postalCode.hashCode();
+    return postalCode.hashCode();
    }
 
 
@@ -125,12 +126,11 @@ public final class PostalCode implements Comparable<PostalCode>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof PostalCode))
+    if (!(obj instanceof final PostalCode other))
      {
       return false;
      }
-    final PostalCode other = (PostalCode)obj;
-    return this.postalCode.equals(other.postalCode);
+    return postalCode.equals(other.postalCode);
    }
 
 
@@ -148,7 +148,7 @@ public final class PostalCode implements Comparable<PostalCode>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(23);
-    builder.append("PostalCode[postalCode=").append(this.postalCode).append(']'); //$NON-NLS-1$
+    builder.append("PostalCode[postalCode=").append(postalCode).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -164,7 +164,7 @@ public final class PostalCode implements Comparable<PostalCode>, IValueObject
   public int compareTo(final PostalCode obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.postalCode.compareTo(obj.postalCode);
+    return postalCode.compareTo(obj.postalCode);
    }
 
  }

@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -88,7 +89,7 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>, IValueObject
    */
   public long longValue()
    {
-    return this.poBoxNumber;
+    return poBoxNumber;
    }
 
 
@@ -100,7 +101,7 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>, IValueObject
   @Override
   public String stringValue()
    {
-    return Long.toString(this.poBoxNumber);
+    return Long.toString(poBoxNumber);
    }
 
 
@@ -113,7 +114,7 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>, IValueObject
   @Override
   public int hashCode()
    {
-    return Long.hashCode(this.poBoxNumber);
+    return Long.hashCode(poBoxNumber);
    }
 
 
@@ -131,12 +132,11 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof PoBoxNumber))
+    if (!(obj instanceof final PoBoxNumber other))
      {
       return false;
      }
-    final PoBoxNumber other = (PoBoxNumber)obj;
-    return this.poBoxNumber == other.poBoxNumber;
+    return poBoxNumber == other.poBoxNumber;
    }
 
 
@@ -154,7 +154,7 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(25);
-    builder.append("PoBoxNumber[poBoxNumber=").append(this.poBoxNumber).append(']'); //$NON-NLS-1$
+    builder.append("PoBoxNumber[poBoxNumber=").append(poBoxNumber).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -170,7 +170,7 @@ public final class PoBoxNumber implements Comparable<PoBoxNumber>, IValueObject
   public int compareTo(final PoBoxNumber obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Long.compare(this.poBoxNumber, obj.poBoxNumber);
+    return Long.compare(poBoxNumber, obj.poBoxNumber);
    }
 
  }

@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -91,7 +92,7 @@ public final class BIC implements Comparable<BIC>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.bic;
+    return bic;
    }
 
 
@@ -104,7 +105,7 @@ public final class BIC implements Comparable<BIC>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.bic.hashCode();
+    return bic.hashCode();
    }
 
 
@@ -122,12 +123,11 @@ public final class BIC implements Comparable<BIC>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof BIC))
+    if (!(obj instanceof final BIC other))
      {
       return false;
      }
-    final BIC other = (BIC)obj;
-    return this.bic.equals(other.bic);
+    return bic.equals(other.bic);
    }
 
 
@@ -145,7 +145,7 @@ public final class BIC implements Comparable<BIC>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("BIC[bic=").append(this.bic).append(']'); //$NON-NLS-1$
+    builder.append("BIC[bic=").append(bic).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -161,7 +161,7 @@ public final class BIC implements Comparable<BIC>, IValueObject
   public int compareTo(final BIC obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.bic.compareTo(obj.bic);
+    return bic.compareTo(obj.bic);
    }
 
  }

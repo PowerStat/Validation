@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.containers;
 
@@ -99,15 +100,15 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
     Objects.requireNonNull(obj7, "obj7 is null"); //$NON-NLS-1$
     Objects.requireNonNull(obj8, "obj8 is null"); //$NON-NLS-1$
     Objects.requireNonNull(obj9, "obj9 is null"); //$NON-NLS-1$
-    this.object1 = obj1;
-    this.object2 = obj2;
-    this.object3 = obj3;
-    this.object4 = obj4;
-    this.object5 = obj5;
-    this.object6 = obj6;
-    this.object7 = obj7;
-    this.object8 = obj8;
-    this.object9 = obj9;
+    object1 = obj1;
+    object2 = obj2;
+    object3 = obj3;
+    object4 = obj4;
+    object5 = obj5;
+    object6 = obj6;
+    object7 = obj7;
+    object8 = obj8;
+    object9 = obj9;
    }
 
 
@@ -148,7 +149,7 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
    */
   public T1 t1Value()
    {
-    return this.object1;
+    return object1;
    }
 
 
@@ -159,7 +160,7 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
    */
   public T2 t2Value()
    {
-    return this.object2;
+    return object2;
    }
 
 
@@ -170,7 +171,7 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
    */
   public T3 t3Value()
    {
-    return this.object3;
+    return object3;
    }
 
 
@@ -181,7 +182,7 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
    */
   public T4 t4Value()
    {
-    return this.object4;
+    return object4;
    }
 
 
@@ -192,7 +193,7 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
    */
   public T5 t5Value()
    {
-    return this.object5;
+    return object5;
    }
 
 
@@ -203,7 +204,7 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
    */
   public T6 t6Value()
    {
-    return this.object6;
+    return object6;
    }
 
 
@@ -214,7 +215,7 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
    */
   public T7 t7Value()
    {
-    return this.object7;
+    return object7;
    }
 
 
@@ -225,7 +226,7 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
    */
   public T8 t8Value()
    {
-    return this.object8;
+    return object8;
    }
 
 
@@ -236,7 +237,7 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
    */
   public T9 t9Value()
    {
-    return this.object9;
+    return object9;
    }
 
 
@@ -249,7 +250,7 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
   @Override
   public int hashCode()
    {
-    return Objects.hash(this.object1, this.object2, this.object3, this.object4, this.object5, this.object6, this.object7, this.object8, this.object9);
+    return Objects.hash(object1, object2, object3, object4, object5, object6, object7, object8, object9);
    }
 
 
@@ -272,31 +273,31 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
       return false;
      }
     final NTuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9> other = (NTuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>)obj;
-    boolean result = this.object1.equals(other.object1);
+    boolean result = object1.equals(other.object1);
     if (result)
      {
-      result = this.object2.equals(other.object2);
+      result = object2.equals(other.object2);
       if (result)
        {
-        result = this.object3.equals(other.object3);
+        result = object3.equals(other.object3);
         if (result)
          {
-          result = this.object4.equals(other.object4);
+          result = object4.equals(other.object4);
           if (result)
            {
-            result = this.object5.equals(other.object5);
+            result = object5.equals(other.object5);
             if (result)
              {
-              result = this.object6.equals(other.object6);
+              result = object6.equals(other.object6);
               if (result)
                {
-                result = this.object7.equals(other.object7);
+                result = object7.equals(other.object7);
                 if (result)
                  {
-                  result = this.object8.equals(other.object8);
+                  result = object8.equals(other.object8);
                   if (result)
                    {
-                    result = this.object9.equals(other.object9);
+                    result = object9.equals(other.object9);
                    }
                  }
                }
@@ -323,15 +324,15 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
   public String toString()
    {
     final var builder = new StringBuilder(97);
-    builder.append("NTuple9[object1=").append(this.object1) //$NON-NLS-1$
-      .append(", object2=").append(this.object2) //$NON-NLS-1$
-      .append(", object3=").append(this.object3) //$NON-NLS-1$
-      .append(", object4=").append(this.object4) //$NON-NLS-1$
-      .append(", object5=").append(this.object5) //$NON-NLS-1$
-      .append(", object6=").append(this.object6) //$NON-NLS-1$
-      .append(", object7=").append(this.object7) //$NON-NLS-1$
-      .append(", object8=").append(this.object8) //$NON-NLS-1$
-      .append(", object9=").append(this.object9) //$NON-NLS-1$
+    builder.append("NTuple9[object1=").append(object1) //$NON-NLS-1$
+      .append(", object2=").append(object2) //$NON-NLS-1$
+      .append(", object3=").append(object3) //$NON-NLS-1$
+      .append(", object4=").append(object4) //$NON-NLS-1$
+      .append(", object5=").append(object5) //$NON-NLS-1$
+      .append(", object6=").append(object6) //$NON-NLS-1$
+      .append(", object7=").append(object7) //$NON-NLS-1$
+      .append(", object8=").append(object8) //$NON-NLS-1$
+      .append(", object9=").append(object9) //$NON-NLS-1$
       .append(']');
     return builder.toString();
    }
@@ -348,31 +349,31 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
   public int compareTo(final NTuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9> obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    int result = this.object1.compareTo(obj.object1);
+    int result = object1.compareTo(obj.object1);
     if (result == 0)
      {
-      result = this.object2.compareTo(obj.object2);
+      result = object2.compareTo(obj.object2);
       if (result == 0)
        {
-        result = this.object3.compareTo(obj.object3);
+        result = object3.compareTo(obj.object3);
         if (result == 0)
          {
-          result = this.object4.compareTo(obj.object4);
+          result = object4.compareTo(obj.object4);
           if (result == 0)
            {
-            result = this.object5.compareTo(obj.object5);
+            result = object5.compareTo(obj.object5);
             if (result == 0)
              {
-              result = this.object6.compareTo(obj.object6);
+              result = object6.compareTo(obj.object6);
               if (result == 0)
                {
-                result = this.object7.compareTo(obj.object7);
+                result = object7.compareTo(obj.object7);
                 if (result == 0)
                  {
-                  result = this.object8.compareTo(obj.object8);
+                  result = object8.compareTo(obj.object8);
                   if (result == 0)
                    {
-                    result = this.object9.compareTo(obj.object9);
+                    result = object9.compareTo(obj.object9);
                    }
                  }
                }

@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values.strategies;
 
@@ -95,7 +96,7 @@ public class UsernameConfigurableStrategy implements IUsernameStrategy
      */
     public int getAction()
      {
-      return this.action;
+      return action;
      }
 
    }
@@ -173,11 +174,11 @@ public class UsernameConfigurableStrategy implements IUsernameStrategy
   @Override
   public boolean validationStrategy(final String username)
    {
-    if ((username.length() < this.minLength) || (username.length() > this.maxLength))
+    if ((username.length() < minLength) || (username.length() > maxLength))
      {
       throw new IllegalArgumentException("To short or long for an username"); //$NON-NLS-1$
      }
-    if (!username.matches(this.regexp))
+    if (!username.matches(regexp))
      {
       throw new IllegalArgumentException("Username contains illegal character"); //$NON-NLS-1$
      }
@@ -192,11 +193,11 @@ public class UsernameConfigurableStrategy implements IUsernameStrategy
      {
       // LOGGER.debug("IllegalArgumentException", ignore);
      }
-    if ((this.emailHandling == HandleEMail.EMAIL_REQUIRED) && !checkEMail)
+    if ((emailHandling == HandleEMail.EMAIL_REQUIRED) && !checkEMail)
      {
       throw new IllegalArgumentException("Username must be an email address"); //$NON-NLS-1$
      }
-    if ((this.emailHandling == HandleEMail.EMAIL_DENIED) && checkEMail)
+    if ((emailHandling == HandleEMail.EMAIL_DENIED) && checkEMail)
      {
       throw new IllegalArgumentException("EMail address is not allowed as username"); //$NON-NLS-1$
      }

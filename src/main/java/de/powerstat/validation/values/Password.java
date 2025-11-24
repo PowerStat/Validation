@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -81,8 +82,8 @@ public final class Password implements Comparable<Password>, IValueObject
     Objects.requireNonNull(validationStrategy, "validationStrategy"); //$NON-NLS-1$
     Objects.requireNonNull(password, "password"); //$NON-NLS-1$
     validationStrategy.validationStrategy(password);
-    this.passwd = password;
-    this.read = !noRead;
+    passwd = password;
+    read = !noRead;
    }
 
 
@@ -160,7 +161,7 @@ public final class Password implements Comparable<Password>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.read ? this.passwd : SECRET_PASSWORD;
+    return read ? passwd : SECRET_PASSWORD;
    }
 
 
@@ -174,7 +175,7 @@ public final class Password implements Comparable<Password>, IValueObject
    */
   public boolean verifyPassword(final String password)
    {
-    return this.passwd.equals(password);
+    return passwd.equals(password);
    }
 
 
@@ -187,7 +188,7 @@ public final class Password implements Comparable<Password>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.passwd.hashCode();
+    return passwd.hashCode();
    }
 
 
@@ -205,12 +206,11 @@ public final class Password implements Comparable<Password>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Password))
+    if (!(obj instanceof final Password other))
      {
       return false;
      }
-    final Password other = (Password)obj;
-    return this.passwd.equals(other.passwd);
+    return passwd.equals(other.passwd);
    }
 
 
@@ -245,7 +245,7 @@ public final class Password implements Comparable<Password>, IValueObject
   public int compareTo(final Password obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.passwd.compareTo(obj.passwd);
+    return passwd.compareTo(obj.passwd);
    }
 
  }

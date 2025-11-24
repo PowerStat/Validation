@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -88,7 +89,7 @@ public final class IPV6Mask implements Comparable<IPV6Mask>, IValueObject
    */
   public int intValue()
    {
-    return this.length;
+    return length;
    }
 
 
@@ -100,7 +101,7 @@ public final class IPV6Mask implements Comparable<IPV6Mask>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.length);
+    return String.valueOf(length);
    }
 
 
@@ -113,7 +114,7 @@ public final class IPV6Mask implements Comparable<IPV6Mask>, IValueObject
   @Override
   public int hashCode()
    {
-    return Integer.hashCode(this.length);
+    return Integer.hashCode(length);
    }
 
 
@@ -131,12 +132,11 @@ public final class IPV6Mask implements Comparable<IPV6Mask>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof IPV6Mask))
+    if (!(obj instanceof final IPV6Mask other))
      {
       return false;
      }
-    final IPV6Mask other = (IPV6Mask)obj;
-    return this.length == other.length;
+    return length == other.length;
    }
 
 
@@ -154,7 +154,7 @@ public final class IPV6Mask implements Comparable<IPV6Mask>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(17);
-    builder.append("IPV6Mask[length=").append(this.length).append(']'); //$NON-NLS-1$
+    builder.append("IPV6Mask[length=").append(length).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -170,7 +170,7 @@ public final class IPV6Mask implements Comparable<IPV6Mask>, IValueObject
   public int compareTo(final IPV6Mask obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.length, obj.length);
+    return Integer.compare(length, obj.length);
    }
 
  }

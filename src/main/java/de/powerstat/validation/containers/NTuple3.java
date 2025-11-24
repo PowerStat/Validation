@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.containers;
 
@@ -51,9 +52,9 @@ public final class NTuple3<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
     Objects.requireNonNull(obj1, "obj1 is null"); //$NON-NLS-1$
     Objects.requireNonNull(obj2, "obj2 is null"); //$NON-NLS-1$
     Objects.requireNonNull(obj3, "obj3 is null"); //$NON-NLS-1$
-    this.object1 = obj1;
-    this.object2 = obj2;
-    this.object3 = obj3;
+    object1 = obj1;
+    object2 = obj2;
+    object3 = obj3;
    }
 
 
@@ -82,7 +83,7 @@ public final class NTuple3<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
    */
   public T1 t1Value()
    {
-    return this.object1;
+    return object1;
    }
 
 
@@ -93,7 +94,7 @@ public final class NTuple3<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
    */
   public T2 t2Value()
    {
-    return this.object2;
+    return object2;
    }
 
 
@@ -104,7 +105,7 @@ public final class NTuple3<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
    */
   public T3 t3Value()
    {
-    return this.object3;
+    return object3;
    }
 
 
@@ -117,7 +118,7 @@ public final class NTuple3<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
   @Override
   public int hashCode()
    {
-    return Objects.hash(this.object1, this.object2, this.object3);
+    return Objects.hash(object1, object2, object3);
    }
 
 
@@ -140,13 +141,13 @@ public final class NTuple3<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
       return false;
      }
     final NTuple3<T1, T2, T3> other = (NTuple3<T1, T2, T3>)obj;
-    boolean result = this.object1.equals(other.object1);
+    boolean result = object1.equals(other.object1);
     if (result)
      {
-      result = this.object2.equals(other.object2);
+      result = object2.equals(other.object2);
       if (result)
        {
-        result = this.object3.equals(other.object3);
+        result = object3.equals(other.object3);
        }
      }
     return result;
@@ -167,7 +168,7 @@ public final class NTuple3<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
   public String toString()
    {
     final var builder = new StringBuilder(37);
-    builder.append("NTuple3[object1=").append(this.object1).append(", object2=").append(this.object2).append(", object3=").append(this.object3).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    builder.append("NTuple3[object1=").append(object1).append(", object2=").append(object2).append(", object3=").append(object3).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     return builder.toString();
    }
 
@@ -183,13 +184,13 @@ public final class NTuple3<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
   public int compareTo(final NTuple3<T1, T2, T3> obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    int result = this.object1.compareTo(obj.object1);
+    int result = object1.compareTo(obj.object1);
     if (result == 0)
      {
-      result = this.object2.compareTo(obj.object2);
+      result = object2.compareTo(obj.object2);
       if (result == 0)
        {
-        result = this.object3.compareTo(obj.object3);
+        result = object3.compareTo(obj.object3);
        }
      }
     return result;

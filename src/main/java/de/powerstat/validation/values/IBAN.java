@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -125,7 +126,7 @@ public final class IBAN implements Comparable<IBAN>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.iban;
+    return iban;
    }
 
 
@@ -138,7 +139,7 @@ public final class IBAN implements Comparable<IBAN>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.iban.hashCode();
+    return iban.hashCode();
    }
 
 
@@ -156,12 +157,11 @@ public final class IBAN implements Comparable<IBAN>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof IBAN))
+    if (!(obj instanceof final IBAN other))
      {
       return false;
      }
-    final IBAN other = (IBAN)obj;
-    return this.iban.equals(other.iban);
+    return iban.equals(other.iban);
    }
 
 
@@ -179,7 +179,7 @@ public final class IBAN implements Comparable<IBAN>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder();
-    builder.append("IBAN[iban=").append(this.iban).append(']'); //$NON-NLS-1$
+    builder.append("IBAN[iban=").append(iban).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -195,7 +195,7 @@ public final class IBAN implements Comparable<IBAN>, IValueObject
   public int compareTo(final IBAN obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.iban.compareTo(obj.iban);
+    return iban.compareTo(obj.iban);
    }
 
  }

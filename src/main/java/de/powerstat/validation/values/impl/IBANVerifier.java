@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values.impl;
 
@@ -89,7 +90,7 @@ public final class IBANVerifier
   public boolean verify(final String iban)
    {
     Objects.requireNonNull(iban, "iban"); //$NON-NLS-1$
-    return ((iban.length() == this.length) && iban.matches(this.regexp));
+    return ((iban.length() == length) && iban.matches(regexp));
    }
 
  }

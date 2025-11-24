@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -88,7 +89,7 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
    */
   public int intValue()
    {
-    return this.bFPONumber;
+    return bFPONumber;
    }
 
 
@@ -100,7 +101,7 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
   @Override
   public String stringValue()
    {
-    return Integer.toString(this.bFPONumber);
+    return Integer.toString(bFPONumber);
    }
 
 
@@ -113,7 +114,7 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
   @Override
   public int hashCode()
    {
-    return Integer.hashCode(this.bFPONumber);
+    return Integer.hashCode(bFPONumber);
    }
 
 
@@ -131,12 +132,11 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof BFPONumber))
+    if (!(obj instanceof final BFPONumber other))
      {
       return false;
      }
-    final BFPONumber other = (BFPONumber)obj;
-    return this.bFPONumber == other.bFPONumber;
+    return bFPONumber == other.bFPONumber;
    }
 
 
@@ -154,7 +154,7 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(23);
-    builder.append("BFPONumber[bFPONumber=").append(this.bFPONumber).append(']'); //$NON-NLS-1$
+    builder.append("BFPONumber[bFPONumber=").append(bFPONumber).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -170,7 +170,7 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
   public int compareTo(final BFPONumber obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.bFPONumber, obj.bFPONumber);
+    return Integer.compare(bFPONumber, obj.bFPONumber);
    }
 
  }

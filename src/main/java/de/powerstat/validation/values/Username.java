@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -52,7 +53,7 @@ public final class Username implements Comparable<Username>, IValueObject
     super();
     Objects.requireNonNull(validationStrategy, "validationStrategy"); //$NON-NLS-1$
     Objects.requireNonNull(username, "username"); //$NON-NLS-1$
-    this.conformsToEMailAddressFormat = validationStrategy.validationStrategy(username);
+    conformsToEMailAddressFormat = validationStrategy.validationStrategy(username);
     this.username = username;
    }
 
@@ -104,7 +105,7 @@ public final class Username implements Comparable<Username>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.username;
+    return username;
    }
 
 
@@ -115,7 +116,7 @@ public final class Username implements Comparable<Username>, IValueObject
    */
   public boolean isEMail()
    {
-    return this.conformsToEMailAddressFormat;
+    return conformsToEMailAddressFormat;
    }
 
 
@@ -128,7 +129,7 @@ public final class Username implements Comparable<Username>, IValueObject
   @Override
   public int hashCode()
    {
-    return this.username.hashCode();
+    return username.hashCode();
    }
 
 
@@ -146,12 +147,11 @@ public final class Username implements Comparable<Username>, IValueObject
      {
       return true;
      }
-    if (!(obj instanceof Username))
+    if (!(obj instanceof final Username other))
      {
       return false;
      }
-    final Username other = (Username)obj;
-    return this.username.equals(other.username);
+    return username.equals(other.username);
    }
 
 
@@ -169,7 +169,7 @@ public final class Username implements Comparable<Username>, IValueObject
   public String toString()
    {
     final var builder = new StringBuilder(19);
-    builder.append("Username[username=").append(this.username).append(']'); //$NON-NLS-1$
+    builder.append("Username[username=").append(username).append(']'); //$NON-NLS-1$
     return builder.toString();
    }
 
@@ -185,7 +185,7 @@ public final class Username implements Comparable<Username>, IValueObject
   public int compareTo(final Username obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.username.compareTo(obj.username);
+    return username.compareTo(obj.username);
    }
 
  }
