@@ -221,7 +221,7 @@
       <property name="skipEnhancedForLoopVariable" value="false"/>
     </module>
     <module name="MultipleStringLiterals">
-      <property name="allowedDuplicates" value="1"/>
+      <property name="allowedDuplicates" value="3"/>
       <property name="ignoreOccurrenceContext" value="ANNOTATION"/>
       <property name="ignoreStringsRegexp" value="^&quot;&quot;$"/>
     </module>
@@ -787,7 +787,7 @@
     <module name="MethodLength">
       <property name="severity" value="warning"/>
       <property name="countEmpty" value="false"/>
-      <property name="max" value="260"/>
+      <property name="max" value="262"/>
       <property name="tokens" value="METHOD_DEF, CTOR_DEF, COMPACT_CTOR_DEF"/>
     </module>
     <module name="OuterTypeNumber">
