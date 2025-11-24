@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -77,7 +78,7 @@ public record Days(long days) implements Comparable<Days>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.days);
+    return String.valueOf(days);
    }
 
 
@@ -92,7 +93,7 @@ public record Days(long days) implements Comparable<Days>, IValueObject
   public int compareTo(final Days obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Long.compare(this.days, obj.days);
+    return Long.compare(days, obj.days);
    }
 
 
@@ -105,7 +106,7 @@ public record Days(long days) implements Comparable<Days>, IValueObject
    */
   public Days add(final Days other)
    {
-    return Days.of(Math.addExact(this.days, other.days));
+    return Days.of(Math.addExact(days, other.days));
    }
 
 
@@ -117,11 +118,11 @@ public record Days(long days) implements Comparable<Days>, IValueObject
    */
   public Days subtract(final Days other)
    {
-    if (other.days > this.days) // NO PITEST
+    if (other.days > days) // NO PITEST
      {
-      return Days.of(other.days - this.days);
+      return Days.of(other.days - days);
      }
-    return Days.of(this.days - other.days);
+    return Days.of(days - other.days);
    }
 
 
@@ -134,7 +135,7 @@ public record Days(long days) implements Comparable<Days>, IValueObject
    */
   public Days multiply(final long multiplier)
    {
-    return Days.of(Math.multiplyExact(this.days, multiplier));
+    return Days.of(Math.multiplyExact(days, multiplier));
    }
 
 
@@ -147,7 +148,7 @@ public record Days(long days) implements Comparable<Days>, IValueObject
    */
   public Days divide(final long divisor)
    {
-    return Days.of(Math.floorDiv(this.days, divisor));
+    return Days.of(Math.floorDiv(days, divisor));
    }
 
 
@@ -160,7 +161,7 @@ public record Days(long days) implements Comparable<Days>, IValueObject
    */
   public Days modulo(final long divisor)
    {
-    return Days.of(Math.floorMod(this.days, divisor));
+    return Days.of(Math.floorMod(days, divisor));
    }
 
  }

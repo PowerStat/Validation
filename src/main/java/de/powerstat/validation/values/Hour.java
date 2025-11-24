@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -13,7 +14,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Hour.
  *
  * @param hour Hour 0-23
- * 
+ *
  * Not DSGVO relevant.
  *
  * TODO Listener
@@ -93,7 +94,7 @@ public record Hour(int hour) implements Comparable<Hour>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.hour);
+    return String.valueOf(hour);
    }
 
 
@@ -108,7 +109,7 @@ public record Hour(int hour) implements Comparable<Hour>, IValueObject
   public int compareTo(final Hour obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.hour, obj.hour);
+    return Integer.compare(hour, obj.hour);
    }
 
 
@@ -119,9 +120,10 @@ public record Hour(int hour) implements Comparable<Hour>, IValueObject
    * @return New hour after adding the hours to this hour
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Hour add(final Hours hours)
    {
-    final int newHour = Math.toIntExact(Math.addExact(this.hour, hours.hours()));
+    final int newHour = Math.toIntExact(Math.addExact(hour, hours.hours()));
     if (newHour > 23)
      {
       // TODO Listener
@@ -140,7 +142,7 @@ public record Hour(int hour) implements Comparable<Hour>, IValueObject
    */
   public Hour subtract(final Hours hours)
    {
-    final int newHour = Math.toIntExact(Math.subtractExact(this.hour, hours.hours()));
+    final int newHour = Math.toIntExact(Math.subtractExact(hour, hours.hours()));
     if (newHour < 0)
      {
       // TODO Listener
@@ -156,9 +158,10 @@ public record Hour(int hour) implements Comparable<Hour>, IValueObject
    * @return New hour after incrementing this hour
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Hour increment()
    {
-    final int newHour = Math.incrementExact(this.hour);
+    final int newHour = Math.incrementExact(hour);
     if (newHour == 24)
      {
       // TODO Listener
@@ -176,7 +179,7 @@ public record Hour(int hour) implements Comparable<Hour>, IValueObject
    */
   public Hour decrement()
    {
-    final int newHour = Math.decrementExact(this.hour);
+    final int newHour = Math.decrementExact(hour);
     if (newHour == -1)
      {
       // TODO Listener

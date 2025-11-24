@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2024-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values.test;
 
@@ -12,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
 import de.powerstat.validation.values.Percent;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -19,9 +21,20 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Tests for Percent value class.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
+@SuppressFBWarnings({"RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 final class PercentTests
  {
+  /**
+   * 50.
+   */
+  private static final String PERCENT_50 = "50";
+
+  /**
+   * Percent should be 50.
+   */
+  private static final String PERCENT_SHOULD_BE_50 = "Percent should be 50";
+
+
   /**
    * Default constructor.
    */
@@ -33,6 +46,8 @@ final class PercentTests
 
   /**
    * Is percent.
+   *
+   * @param percent Percent
    */
   @ParameterizedTest
   @ValueSource(ints = {0, 100})
@@ -77,7 +92,7 @@ final class PercentTests
   /* default */ void testStringValue()
    {
     final Percent percent = Percent.of(50);
-    assertEquals("50", percent.stringValue(), "Percent should be 50");
+    assertEquals(PERCENT_50, percent.stringValue(), PERCENT_SHOULD_BE_50);
    }
 
 

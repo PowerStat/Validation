@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -24,11 +25,6 @@ import de.powerstat.validation.interfaces.IValueObject;
  */
 public record WGS84Position(double latitude, double longitude, double altitude) implements Comparable<WGS84Position>, IValueObject
  {
-  /**
-   * Epsilon for double compare.
-   */
-  private static final double EPSILON = 0.000001D;
-
   /**
    * Position separator.
    */
@@ -76,6 +72,7 @@ public record WGS84Position(double latitude, double longitude, double altitude) 
    * @param value latitude longitude altitude separated by one space
    * @return WGS84Position object
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public static WGS84Position of(final String value)
    {
     final String[] values = value.split(SEPARATOR);

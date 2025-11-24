@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2023-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values.test;
 
@@ -33,7 +34,7 @@ final class SIBaseUnitsTests
   @Test
   /* default */ void testFactory1()
    {
-    SIBaseUnits result =  SIBaseUnits.of("SECOND");
+    final SIBaseUnits result = SIBaseUnits.of("SECOND");
     assertNotNull(result, "No base unit");
    }
 
@@ -44,7 +45,7 @@ final class SIBaseUnitsTests
   @Test
   /* default */ void testStringValue1()
    {
-    SIBaseUnits result =  SIBaseUnits.of("SECOND");
+    final SIBaseUnits result = SIBaseUnits.of("SECOND");
     assertEquals("SECOND", result.stringValue(), "No base unit");
    }
 

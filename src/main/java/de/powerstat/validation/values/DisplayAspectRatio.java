@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -17,6 +18,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * 1:1 2.1:1 3:1 3:2 4:3 5:3 5:4 8:5 9:5 10:6 15:9 16:9 16:10 17:10 25:12 25:16 60:29 64:35 72:35
  */
+@SuppressWarnings({"PMD.ShortVariable"})
 public record DisplayAspectRatio(int x, int y) implements Comparable<DisplayAspectRatio>, IValueObject
  {
   /**
@@ -60,6 +62,7 @@ public record DisplayAspectRatio(int x, int y) implements Comparable<DisplayAspe
    * @return DisplayAspectRatio object
    * @throws IllegalArgumentException If not of correct format
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public static DisplayAspectRatio of(final String value)
    {
     final String[] values = value.split(":");
@@ -79,7 +82,7 @@ public record DisplayAspectRatio(int x, int y) implements Comparable<DisplayAspe
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.x) + ':' + this.y;
+    return String.valueOf(x) + ':' + y;
    }
 
 
@@ -94,10 +97,10 @@ public record DisplayAspectRatio(int x, int y) implements Comparable<DisplayAspe
   public int compareTo(final DisplayAspectRatio obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    int result = Integer.compare(this.x, obj.x);
+    int result = Integer.compare(x, obj.x);
     if (result == 0)
      {
-      result = Integer.compare(this.y, obj.y);
+      result = Integer.compare(y, obj.y);
      }
     return result;
    }

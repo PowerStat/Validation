@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values.test;
 
@@ -27,9 +28,14 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Year tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
+@SuppressFBWarnings({"RV_NEGATING_RESULT_OF_COMPARETO", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 final class YearTests
  {
+  /**
+   * Warning constant.
+   */
+  private static final String RV_RETURN_VALUE_IGNORED_INFERRED = "RV_RETURN_VALUE_IGNORED_INFERRED";
+
   /**
    * Result nor as expecte constant.
    */
@@ -188,6 +194,7 @@ final class YearTests
   /**
    * Test add.
    */
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testAdd3()
    {
@@ -256,6 +263,7 @@ final class YearTests
   /**
    * Test subtract.
    */
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testSubtract3()
    {
@@ -322,6 +330,7 @@ final class YearTests
   /**
    * Test increment.
    */
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testIncrement3()
    {
@@ -361,6 +370,7 @@ final class YearTests
   /**
    * Test decrement.
    */
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
   @Test
   /* default */ void testDecrement3()
    {

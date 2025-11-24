@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -35,7 +36,7 @@ public record Province(String province) implements Comparable<Province>, IValueO
   public Province
    {
     Objects.requireNonNull(province, "province"); //$NON-NLS-1$
-    if ((province.length() < 1) || (province.length() > 18))
+    if (province.isEmpty() || (province.length() > 18))
      {
       throw new IllegalArgumentException("Province with wrong length"); //$NON-NLS-1$
      }
@@ -66,7 +67,7 @@ public record Province(String province) implements Comparable<Province>, IValueO
   @Override
   public String stringValue()
    {
-    return this.province;
+    return province;
    }
 
 
@@ -81,7 +82,7 @@ public record Province(String province) implements Comparable<Province>, IValueO
   public int compareTo(final Province obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.province.compareTo(obj.province);
+    return province.compareTo(obj.province);
    }
 
  }

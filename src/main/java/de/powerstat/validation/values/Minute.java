@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -15,7 +16,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Not DSGVO relevant.
  *
  * @param minute Minute 0-59
- * 
+ *
  * TODO Listener
  */
 public record Minute(int minute) implements Comparable<Minute>, IValueObject
@@ -93,7 +94,7 @@ public record Minute(int minute) implements Comparable<Minute>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.minute);
+    return String.valueOf(minute);
    }
 
 
@@ -108,7 +109,7 @@ public record Minute(int minute) implements Comparable<Minute>, IValueObject
   public int compareTo(final Minute obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.minute, obj.minute);
+    return Integer.compare(minute, obj.minute);
    }
 
 
@@ -119,9 +120,10 @@ public record Minute(int minute) implements Comparable<Minute>, IValueObject
    * @return New minute after adding the minutes to this minute
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Minute add(final Minutes minutes)
    {
-    final int newMinute = Math.toIntExact(Math.addExact(this.minute, minutes.minutes()));
+    final int newMinute = Math.toIntExact(Math.addExact(minute, minutes.minutes()));
     if (newMinute > 59)
      {
       // TODO Listener
@@ -140,7 +142,7 @@ public record Minute(int minute) implements Comparable<Minute>, IValueObject
    */
   public Minute subtract(final Minutes minutes)
    {
-    final int newMinute = Math.toIntExact(Math.subtractExact(this.minute, minutes.minutes()));
+    final int newMinute = Math.toIntExact(Math.subtractExact(minute, minutes.minutes()));
     if (newMinute < 0)
      {
       // TODO Listener
@@ -156,9 +158,10 @@ public record Minute(int minute) implements Comparable<Minute>, IValueObject
    * @return New minute after incrementing this minute
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Minute increment()
    {
-    final int newMinute = Math.incrementExact(this.minute);
+    final int newMinute = Math.incrementExact(minute);
     if (newMinute == 60)
      {
       // TODO Listener
@@ -176,7 +179,7 @@ public record Minute(int minute) implements Comparable<Minute>, IValueObject
    */
   public Minute decrement()
    {
-    final int newMinute = Math.decrementExact(this.minute);
+    final int newMinute = Math.decrementExact(minute);
     if (newMinute == -1)
      {
       // TODO Listener

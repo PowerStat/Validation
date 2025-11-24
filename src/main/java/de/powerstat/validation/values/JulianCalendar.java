@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -7,6 +8,7 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 
 import de.powerstat.validation.interfaces.IValueObject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
@@ -70,6 +72,7 @@ public record JulianCalendar() implements Comparable<JulianCalendar>, IValueObje
    * @return 0: equal; 1: greater; -1: smaller
    * @see java.lang.Comparable#compareTo(java.lang.Object)
    */
+  @SuppressFBWarnings("SCRV_SUSPICIOUS_COMPARATOR_RETURN_VALUES")
   @Override
   public int compareTo(final JulianCalendar obj)
    {
@@ -130,6 +133,7 @@ public record JulianCalendar() implements Comparable<JulianCalendar>, IValueObje
    * @param year Year
    * @return MonthDay
    */
+  @SuppressWarnings({"PMD.ShortVariable"})
   public MonthDay easterInYear(final Year year)
    {
     final int a = (int)(((19 * (year.year() % 19)) + 15) % 30);

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -14,7 +15,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * @param calendarSystem Calendar system: julian, gregorian
  * @param year Year != 0
- * 
+ *
  * Not DSGVO relevant.
  */
 public record Year(CalendarSystems calendarSystem, long year) implements Comparable<Year>, IValueObject
@@ -210,8 +211,8 @@ public record Year(CalendarSystems calendarSystem, long year) implements Compara
    */
   public Year add(final Years years)
    {
-    long newYear = Math.addExact(this.year, years.years());
-    if ((this.year < 0) && (newYear >= 0))
+    long newYear = Math.addExact(year, years.years());
+    if ((year < 0) && (newYear >= 0))
      {
       newYear = Math.incrementExact(newYear); // Because there is no year 0!
      }
@@ -228,8 +229,8 @@ public record Year(CalendarSystems calendarSystem, long year) implements Compara
    */
   public Year subtract(final Years years)
    {
-    long newYear = Math.subtractExact(this.year, years.years());
-    if ((this.year > 0) && (newYear <= 0))
+    long newYear = Math.subtractExact(year, years.years());
+    if ((year > 0) && (newYear <= 0))
      {
       newYear = Math.decrementExact(newYear); // Because there is no year 0!
      }

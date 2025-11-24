@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.generated;
 
@@ -13,7 +14,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit test for country names.
  */
-public class GeneratedISO3166A2Tests
+final class GeneratedISO3166A2Tests
  {
   /* default */ GeneratedISO3166A2Tests()
    {
@@ -27,9 +28,9 @@ public class GeneratedISO3166A2Tests
   @Test
   /* default */ void testGetName1()
    {
-    String countryName = GeneratedISO3166A2.getName("DE");
+    final String countryName = GeneratedISO3166A2.getName("DE");
     assertAll("constructor", //$NON-NLS-1$
-      () -> assertEquals(countryName, "", "Country name is not equal") //$NON-NLS-1$
+      () -> assertEquals("", countryName, "Country name is not equal") //$NON-NLS-1$
     );
    }
 

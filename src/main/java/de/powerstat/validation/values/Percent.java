@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2024 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2024-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -12,7 +13,7 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Percent 0-100.
  *
- * @params percent Percent 0-100
+ * @param percent Percent 0-100
  *
  * Not DSGVO relevant.
  */
@@ -75,7 +76,7 @@ public record Percent(int percent) implements Comparable<Percent>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.percent);
+    return String.valueOf(percent);
    }
 
 
@@ -90,7 +91,7 @@ public record Percent(int percent) implements Comparable<Percent>, IValueObject
   public int compareTo(final Percent obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.percent, obj.percent);
+    return Integer.compare(percent, obj.percent);
    }
 
  }

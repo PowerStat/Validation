@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -14,7 +15,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Address Sub building.
  *
  * @param subBuilding Sub building description
- * 
+ *
  * Possibly DSGVO relevant.
  */
 public record SubBuilding(String subBuilding) implements Comparable<SubBuilding>, IValueObject
@@ -35,7 +36,7 @@ public record SubBuilding(String subBuilding) implements Comparable<SubBuilding>
   public SubBuilding
    {
     Objects.requireNonNull(subBuilding, "subBuilding"); //$NON-NLS-1$
-    if ((subBuilding.length() < 1) || (subBuilding.length() > 32))
+    if (subBuilding.isEmpty() || (subBuilding.length() > 32))
      {
       throw new IllegalArgumentException("SubBuilding with wrong length"); //$NON-NLS-1$
      }
@@ -66,7 +67,7 @@ public record SubBuilding(String subBuilding) implements Comparable<SubBuilding>
   @Override
   public String stringValue()
    {
-    return this.subBuilding;
+    return subBuilding;
    }
 
 
@@ -81,7 +82,7 @@ public record SubBuilding(String subBuilding) implements Comparable<SubBuilding>
   public int compareTo(final SubBuilding obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.subBuilding.compareTo(obj.subBuilding);
+    return subBuilding.compareTo(obj.subBuilding);
    }
 
  }

@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -10,19 +11,25 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
  * Canonical Media-Access-Control-Adresse (MAC).
  *
  * @param address MAC address
- * 
+ *
  * TODO getManufacturer name
  * TODO Exists in network
  * http://standards-oui.ieee.org/oui/oui.csv
  */
 public record MACAddress(String address) implements Comparable<MACAddress>, IValueObject
  {
+  /**
+   * Suppress warning constant.
+   */
+  private static final String CLI_CONSTANT_LIST_INDEX = "CLI_CONSTANT_LIST_INDEX";
+
   /**
    * Hex 00.
    */
@@ -156,9 +163,10 @@ public record MACAddress(String address) implements Comparable<MACAddress>, IVal
    *
    * @return true if broadcast address, false otherwise
    */
+  @SuppressFBWarnings(CLI_CONSTANT_LIST_INDEX)
   public boolean isBroadcast()
    {
-	String[] parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
+  	String[] parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
     return MACAddress.HFF.equals(parts[0]) && MACAddress.HFF.equals(parts[1]) && MACAddress.HFF.equals(parts[2]) && MACAddress.HFF.equals(parts[3]) && MACAddress.HFF.equals(parts[4]) && MACAddress.HFF.equals(parts[5]);
    }
 
@@ -192,6 +200,7 @@ public record MACAddress(String address) implements Comparable<MACAddress>, IVal
    *
    * @return true if mac is an ip v4 multicast address, false otherwise
    */
+  @SuppressFBWarnings(CLI_CONSTANT_LIST_INDEX)
   public boolean isIPV4Multicast()
    {
     String[] parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
@@ -204,6 +213,7 @@ public record MACAddress(String address) implements Comparable<MACAddress>, IVal
    *
    * @return true if mac is an ip v6 multicast address, false otherwise
    */
+  @SuppressFBWarnings(CLI_CONSTANT_LIST_INDEX)
   public boolean isIPV6Multicast()
    {
     String[] parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
@@ -216,6 +226,7 @@ public record MACAddress(String address) implements Comparable<MACAddress>, IVal
    *
    * @return true if mac is a vrrp address, false otherwise
    */
+  @SuppressFBWarnings(CLI_CONSTANT_LIST_INDEX)
   public boolean isVRRP()
    {
     String[] parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
@@ -230,6 +241,7 @@ public record MACAddress(String address) implements Comparable<MACAddress>, IVal
    *
    * TODO OUI-28 (MA-M), OUI-36 (MA-S)
    */
+  @SuppressFBWarnings(CLI_CONSTANT_LIST_INDEX)
   public String getOUI()
    {
     String[] parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));

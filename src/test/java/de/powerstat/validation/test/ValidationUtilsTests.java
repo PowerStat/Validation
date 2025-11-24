@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2019-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2019-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.test;
 
@@ -63,6 +64,7 @@ final class ValidationUtilsTests
   /**
    * FE80.
    */
+  @SuppressWarnings({"PMD.AvoidUsingHardCodedIP"})
   private static final String FE80 = "fe:80::"; //$NON-NLS-1$
 
   /**

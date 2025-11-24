@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -140,7 +141,7 @@ public record Password(String passwd) implements Comparable<Password>, IValueObj
    */
   public boolean verifyPassword(final String password)
    {
-    return this.passwd.equals(password);
+    return passwd.equals(password);
    }
 
 
@@ -155,7 +156,7 @@ public record Password(String passwd) implements Comparable<Password>, IValueObj
   public int compareTo(final Password obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.passwd.compareTo(obj.passwd);
+    return passwd.compareTo(obj.passwd);
    }
 
  }

@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -13,7 +14,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Months.
  *
  * @param months Months 0-..
- * 
+ *
  * Not DSGVO relevant.
  */
 public record Months(long months) implements Comparable<Months>, IValueObject
@@ -75,7 +76,7 @@ public record Months(long months) implements Comparable<Months>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.months);
+    return String.valueOf(months);
    }
 
 
@@ -90,7 +91,7 @@ public record Months(long months) implements Comparable<Months>, IValueObject
   public int compareTo(final Months obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Long.compare(this.months, obj.months);
+    return Long.compare(months, obj.months);
    }
 
 
@@ -103,7 +104,7 @@ public record Months(long months) implements Comparable<Months>, IValueObject
    */
   public Months add(final Months other)
    {
-    return Months.of(Math.addExact(this.months, other.months));
+    return Months.of(Math.addExact(months, other.months));
    }
 
 
@@ -115,11 +116,11 @@ public record Months(long months) implements Comparable<Months>, IValueObject
    */
   public Months subtract(final Months other)
    {
-    if (other.months > this.months) // NO PITEST
+    if (other.months > months) // NO PITEST
      {
-      return Months.of(other.months - this.months);
+      return Months.of(other.months - months);
      }
-    return Months.of(this.months - other.months);
+    return Months.of(months - other.months);
    }
 
 
@@ -132,7 +133,7 @@ public record Months(long months) implements Comparable<Months>, IValueObject
    */
   public Months multiply(final long multiplier)
    {
-    return Months.of(Math.multiplyExact(this.months, multiplier));
+    return Months.of(Math.multiplyExact(months, multiplier));
    }
 
 
@@ -145,7 +146,7 @@ public record Months(long months) implements Comparable<Months>, IValueObject
    */
   public Months divide(final long divisor)
    {
-    return Months.of(Math.floorDiv(this.months, divisor));
+    return Months.of(Math.floorDiv(months, divisor));
    }
 
 
@@ -158,7 +159,7 @@ public record Months(long months) implements Comparable<Months>, IValueObject
    */
   public Months modulo(final long divisor)
    {
-    return Months.of(Math.floorMod(this.months, divisor));
+    return Months.of(Math.floorMod(months, divisor));
    }
 
  }

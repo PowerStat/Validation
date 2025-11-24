@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -13,7 +14,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Years.
  *
  * @param years Years &gt;= 0
- * 
+ *
  * Not DSGVO relevant.
  */
 public record Years(long years) implements Comparable<Years>, IValueObject
@@ -75,7 +76,7 @@ public record Years(long years) implements Comparable<Years>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.years);
+    return String.valueOf(years);
    }
 
 
@@ -90,7 +91,7 @@ public record Years(long years) implements Comparable<Years>, IValueObject
   public int compareTo(final Years obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Long.compare(this.years, obj.years);
+    return Long.compare(years, obj.years);
    }
 
 
@@ -103,7 +104,7 @@ public record Years(long years) implements Comparable<Years>, IValueObject
    */
   public Years add(final Years other)
    {
-    return Years.of(Math.addExact(this.years, other.years));
+    return Years.of(Math.addExact(years, other.years));
    }
 
 
@@ -115,11 +116,11 @@ public record Years(long years) implements Comparable<Years>, IValueObject
    */
   public Years subtract(final Years other)
    {
-    if (other.years > this.years) // NO PITEST
+    if (other.years > years) // NO PITEST
      {
-      return Years.of(other.years - this.years);
+      return Years.of(other.years - years);
      }
-    return Years.of(this.years - other.years);
+    return Years.of(years - other.years);
    }
 
 
@@ -132,7 +133,7 @@ public record Years(long years) implements Comparable<Years>, IValueObject
    */
   public Years multiply(final long multiplier)
    {
-    return Years.of(Math.multiplyExact(this.years, multiplier));
+    return Years.of(Math.multiplyExact(years, multiplier));
    }
 
 
@@ -145,7 +146,7 @@ public record Years(long years) implements Comparable<Years>, IValueObject
    */
   public Years divide(final long divisor)
    {
-    return Years.of(Math.floorDiv(this.years, divisor));
+    return Years.of(Math.floorDiv(years, divisor));
    }
 
 
@@ -158,7 +159,7 @@ public record Years(long years) implements Comparable<Years>, IValueObject
    */
   public Years modulo(final long divisor)
    {
-    return Years.of(Math.floorMod(this.years, divisor));
+    return Years.of(Math.floorMod(years, divisor));
    }
 
  }

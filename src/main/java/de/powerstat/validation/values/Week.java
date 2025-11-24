@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -13,7 +14,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Week.
  *
  * @param week Week 1-53
- * 
+ *
  * Not DSGVO relevant.
  *
  * TODO Constructor with year
@@ -94,7 +95,7 @@ public record Week(int week) implements Comparable<Week>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.week);
+    return String.valueOf(week);
    }
 
 
@@ -109,7 +110,7 @@ public record Week(int week) implements Comparable<Week>, IValueObject
   public int compareTo(final Week obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.week, obj.week);
+    return Integer.compare(week, obj.week);
    }
 
 
@@ -120,9 +121,10 @@ public record Week(int week) implements Comparable<Week>, IValueObject
    * @return New week after adding the weeks to this week
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Week add(final Weeks weeks)
    {
-    final int newWeek = Math.toIntExact(Math.addExact(this.week, weeks.weeks()));
+    final int newWeek = Math.toIntExact(Math.addExact(week, weeks.weeks()));
     if (newWeek > 53) // TODO 52 depends on year
      {
       // TODO Listener
@@ -141,7 +143,7 @@ public record Week(int week) implements Comparable<Week>, IValueObject
    */
   public Week subtract(final Weeks weeks)
    {
-    final int newWeek = Math.toIntExact(Math.subtractExact(this.week, weeks.weeks()));
+    final int newWeek = Math.toIntExact(Math.subtractExact(week, weeks.weeks()));
     if (newWeek <= 0)
      {
       // TODO Listener
@@ -157,9 +159,10 @@ public record Week(int week) implements Comparable<Week>, IValueObject
    * @return New week after incrementing this week
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Week increment()
    {
-    final int newWeek = Math.incrementExact(this.week);
+    final int newWeek = Math.incrementExact(week);
     if (newWeek == 54) // TODO 53 depending on year
      {
       // TODO Listener
@@ -177,7 +180,7 @@ public record Week(int week) implements Comparable<Week>, IValueObject
    */
   public Week decrement()
    {
-    final int newWeek = Math.decrementExact(this.week);
+    final int newWeek = Math.decrementExact(week);
     if (newWeek == 0)
      {
       // TODO Listener

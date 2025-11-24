@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2021-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -64,6 +65,7 @@ public record ScreenSize(int width, int height, String name) implements Comparab
    * @param value width (1-8192) x height (1-8192)
    * @return ScreenSize
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public static ScreenSize of(final String value)
    {
     final String[] values = value.split("x");
@@ -83,7 +85,7 @@ public record ScreenSize(int width, int height, String name) implements Comparab
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.width) + 'x' + this.height;
+    return String.valueOf(width) + 'x' + height;
    }
 
 
@@ -98,13 +100,13 @@ public record ScreenSize(int width, int height, String name) implements Comparab
   public int compareTo(final ScreenSize obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    int result = Integer.compare(this.width, obj.width);
+    int result = Integer.compare(width, obj.width);
     if (result == 0)
      {
-      result = Integer.compare(this.height, obj.height);
+      result = Integer.compare(height, obj.height);
       if (result == 0)
        {
-        result = this.name.compareTo(obj.name);
+        result = name.compareTo(obj.name);
        }
      }
     return result;

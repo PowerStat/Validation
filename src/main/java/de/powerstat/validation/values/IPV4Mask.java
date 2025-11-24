@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2024 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -14,7 +15,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * IP V4 mask.
  *
  * @param length Prefix length (0-32)
- * 
+ *
  * Not DSGVO relevant.
  *
  * TODO IPV4Address filterMin(IPV4Address)      0
@@ -78,8 +79,8 @@ public record IPV4Mask(int length) implements Comparable<IPV4Mask>, IValueObject
      }
     return 0;
    }
-  
-  
+
+
   /**
    * Create bitmask from length.
    *
@@ -152,7 +153,7 @@ public record IPV4Mask(int length) implements Comparable<IPV4Mask>, IValueObject
   @Override
   public String stringValue()
    {
-    return lengthToMask(this.length);
+    return lengthToMask(length);
    }
 
 
@@ -167,7 +168,7 @@ public record IPV4Mask(int length) implements Comparable<IPV4Mask>, IValueObject
   public int compareTo(final IPV4Mask obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.length, obj.length);
+    return Integer.compare(length, obj.length);
    }
 
  }

@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -13,7 +14,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Second.
  *
  * @param second Second 0-59/60
- * 
+ *
  * Not DSGVO relevant.
  *
  * TODO Constructor with day, month, year, hour, minute
@@ -94,7 +95,7 @@ public record Second(int second) implements Comparable<Second>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.second);
+    return String.valueOf(second);
    }
 
 
@@ -109,7 +110,7 @@ public record Second(int second) implements Comparable<Second>, IValueObject
   public int compareTo(final Second obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.second, obj.second);
+    return Integer.compare(second, obj.second);
    }
 
 
@@ -120,9 +121,10 @@ public record Second(int second) implements Comparable<Second>, IValueObject
    * @return New second after adding the seconds to this second
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Second add(final Seconds seconds)
    {
-    final int newSecond = Math.toIntExact(Math.addExact(this.second, seconds.seconds()));
+    final int newSecond = Math.toIntExact(Math.addExact(second, seconds.seconds()));
     if (newSecond > 59)
      {
       // TODO Listener
@@ -141,7 +143,7 @@ public record Second(int second) implements Comparable<Second>, IValueObject
    */
   public Second subtract(final Seconds seconds)
    {
-    final int newSecond = Math.toIntExact(Math.subtractExact(this.second, seconds.seconds()));
+    final int newSecond = Math.toIntExact(Math.subtractExact(second, seconds.seconds()));
     if (newSecond < 0)
      {
       // TODO Listener
@@ -157,9 +159,10 @@ public record Second(int second) implements Comparable<Second>, IValueObject
    * @return New second after incrementing this second
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Second increment()
    {
-    final int newSecond = Math.incrementExact(this.second);
+    final int newSecond = Math.incrementExact(second);
     if (newSecond == 60)
      {
       // TODO Listener
@@ -177,7 +180,7 @@ public record Second(int second) implements Comparable<Second>, IValueObject
    */
   public Second decrement()
    {
-    final int newSecond = Math.decrementExact(this.second);
+    final int newSecond = Math.decrementExact(second);
     if (newSecond == -1)
      {
       // TODO Listener

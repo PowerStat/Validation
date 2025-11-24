@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values.test;
 
@@ -10,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
+
 import de.powerstat.validation.values.AddressWithWGS84Position;
 import de.powerstat.validation.values.BuildingNr;
 import de.powerstat.validation.values.City;
@@ -18,13 +20,11 @@ import de.powerstat.validation.values.PoBoxNumber;
 import de.powerstat.validation.values.PostalCode;
 import de.powerstat.validation.values.Street;
 import de.powerstat.validation.values.WGS84Position;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
  * AddressWithWGS84Position tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 final class AddressWithWGS84PositionTests
  {
   /**
@@ -48,11 +48,6 @@ final class AddressWithWGS84PositionTests
   private static final String POSTALCODE28307 = "28307"; //$NON-NLS-1$
 
   /**
-   * Postal code.
-   */
-  private static final String POSTALCODE28359 = "28359"; //$NON-NLS-1$
-
-  /**
    * City name.
    */
   private static final String BREMEN = "Bremen"; //$NON-NLS-1$
@@ -63,19 +58,9 @@ final class AddressWithWGS84PositionTests
   private static final String ARBERGER_HEERSTR = "Arberger Heerstr."; //$NON-NLS-1$
 
   /**
-   * Street name.
-   */
-  private static final String BIBLIOTHEKSTRASSE = "Bibliothekstraße"; //$NON-NLS-1$
-
-  /**
    * Building nr 92.
    */
   private static final String BUILDINGNR92 = "92"; //$NON-NLS-1$
-
-  /**
-   * Building nr 1.
-   */
-  private static final String BUIDINGNR1 = "1"; //$NON-NLS-1$
 
   /**
    * Test constant.

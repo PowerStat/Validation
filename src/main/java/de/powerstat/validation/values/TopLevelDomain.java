@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -15,7 +16,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Top level domain.
  *
  * @param topLevelDomain Top level domain name (without dot)
- * 
+ *
  * Not DSGVO relevant.
  */
 public record TopLevelDomain(String topLevelDomain) implements Comparable<TopLevelDomain>, IValueObject
@@ -75,7 +76,7 @@ public record TopLevelDomain(String topLevelDomain) implements Comparable<TopLev
   @Override
   public String stringValue()
    {
-    return this.topLevelDomain;
+    return topLevelDomain;
    }
 
 
@@ -90,7 +91,7 @@ public record TopLevelDomain(String topLevelDomain) implements Comparable<TopLev
   public int compareTo(final TopLevelDomain obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.topLevelDomain.compareTo(obj.topLevelDomain);
+    return topLevelDomain.compareTo(obj.topLevelDomain);
    }
 
  }

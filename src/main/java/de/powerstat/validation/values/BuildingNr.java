@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -14,7 +15,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Address Building number.
  *
  * @param buildingNr Building number
- * 
+ *
  * Possibly DSGVO relevant.
  *
  * TODO optimize constructor/compareTo
@@ -47,7 +48,7 @@ public record BuildingNr(String buildingNr) implements Comparable<BuildingNr>, I
   public BuildingNr
    {
     Objects.requireNonNull(buildingNr, "buildingNr"); //$NON-NLS-1$
-    if ((buildingNr.length() < 1) || (buildingNr.length() > 21))
+    if (buildingNr.isEmpty() || (buildingNr.length() > 21))
      {
       throw new IllegalArgumentException("BuildingNr with wrong length"); //$NON-NLS-1$
      }
@@ -96,7 +97,7 @@ public record BuildingNr(String buildingNr) implements Comparable<BuildingNr>, I
   @Override
   public String stringValue()
    {
-    return this.buildingNr;
+    return buildingNr;
    }
 
 
@@ -113,7 +114,7 @@ public record BuildingNr(String buildingNr) implements Comparable<BuildingNr>, I
   public int compareTo(final BuildingNr obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    final var matcher1 = BuildingNr.BUILDINGNR_REGEXP.matcher(this.buildingNr);
+    final var matcher1 = BuildingNr.BUILDINGNR_REGEXP.matcher(buildingNr);
     final var matcher2 = BuildingNr.BUILDINGNR_REGEXP.matcher(obj.buildingNr);
     /* boolean result1 = */ matcher1.matches();
     /* boolean result2 = */ matcher2.matches();

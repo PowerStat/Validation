@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -14,7 +15,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Address District.
  *
  * @param district District name
- * 
+ *
  * Not DSGVO relevant.
  */
 public record District(String district) implements Comparable<District>, IValueObject
@@ -35,7 +36,7 @@ public record District(String district) implements Comparable<District>, IValueO
   public District
    {
     Objects.requireNonNull(district, "district"); //$NON-NLS-1$
-    if ((district.length() < 1) || (district.length() > 18))
+    if (district.isEmpty() || (district.length() > 18))
      {
       throw new IllegalArgumentException("District with wrong length"); //$NON-NLS-1$
      }
@@ -66,7 +67,7 @@ public record District(String district) implements Comparable<District>, IValueO
   @Override
   public String stringValue()
    {
-    return this.district;
+    return district;
    }
 
 
@@ -81,7 +82,7 @@ public record District(String district) implements Comparable<District>, IValueO
   public int compareTo(final District obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.district.compareTo(obj.district);
+    return district.compareTo(obj.district);
    }
 
  }

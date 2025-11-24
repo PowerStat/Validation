@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.entities.test;
 
@@ -18,7 +19,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.*;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Mode;
+import nl.jqno.equalsverifier.Warning;
 
 import de.powerstat.validation.entities.Person;
 import de.powerstat.validation.values.BloodGroup;
@@ -31,10 +34,25 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Person tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"RV_NEGATING_RESULT_OF_COMPARETO", "SPP_USE_ZERO_WITH_COMPARATOR"})
 @SuppressWarnings("java:S2925")
 final class PersonTests
  {
+  /**
+   * Law of demeter.
+   */
+  private static final String PMD_LAW_OF_DEMETER = "PMD.LawOfDemeter";
+
+  /**
+   * Not smaller.
+   */
+  private static final String NOT_SMALLER = "not smaller";
+
+  /**
+   * Not greater.
+   */
+  private static final String NOT_GREATER = "not greater";
+
   /**
    * Lastname constant.
    */
@@ -152,15 +170,16 @@ final class PersonTests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
-    EqualsVerifier.forClass(Person.class).suppress(Warning.NONFINAL_FIELDS).withNonnullFields("lastname", "sex", "firstnames", "birthday", "deathdate", "bloodGroup").verify();
+    EqualsVerifier.forClass(Person.class).set(Mode.skipMockito()).suppress(Warning.NONFINAL_FIELDS).withNonnullFields("lastname", "sex", "firstnames", "birthday", "deathdate", "bloodGroup").withIgnoredFields("lastname", "sex", "firstnames").verify();
    }
 
 
   /**
    * Test toString.
    */
+  @SuppressFBWarnings("CE_CLASS_ENVY")
   @Test
   /* default */ void testToString()
    {
@@ -260,7 +279,7 @@ final class PersonTests
     person1.addFirstnames(OffsetDateTime.now(), firstnames);
     person2.addFirstnames(OffsetDateTime.now(), firstnames);
     person1.setBirthday(OffsetDateTime.of(1970, 9, 18, 0, 0, 0, 0, ZoneOffset.ofHours(1)));
-    assertTrue(person1.compareTo(person2) > 0, "not greater");
+    assertTrue(person1.compareTo(person2) > 0, NOT_GREATER);
    }
 
 
@@ -277,7 +296,7 @@ final class PersonTests
     person1.addFirstnames(OffsetDateTime.now(), firstnames);
     person2.addFirstnames(OffsetDateTime.now(), firstnames);
     person2.setBirthday(OffsetDateTime.of(1970, 9, 18, 0, 0, 0, 0, ZoneOffset.ofHours(1)));
-    assertTrue(person1.compareTo(person2) < 0, "not smaller");
+    assertTrue(person1.compareTo(person2) < 0, NOT_SMALLER);
    }
 
 
@@ -294,7 +313,7 @@ final class PersonTests
     person1.addFirstnames(OffsetDateTime.now(), firstnames);
     person2.addFirstnames(OffsetDateTime.now(), firstnames);
     person1.setDeathdate(OffsetDateTime.of(2037, 9, 25, 0, 0, 0, 0, ZoneOffset.ofHours(1)));
-    assertTrue(person1.compareTo(person2) > 0, "not greater");
+    assertTrue(person1.compareTo(person2) > 0, NOT_GREATER);
    }
 
 
@@ -311,7 +330,7 @@ final class PersonTests
     person1.addFirstnames(OffsetDateTime.now(), firstnames);
     person2.addFirstnames(OffsetDateTime.now(), firstnames);
     person2.setDeathdate(OffsetDateTime.of(2037, 9, 25, 0, 0, 0, 0, ZoneOffset.ofHours(1)));
-    assertTrue(person1.compareTo(person2) < 0, "not smaller");
+    assertTrue(person1.compareTo(person2) < 0, NOT_SMALLER);
    }
 
 
@@ -328,7 +347,7 @@ final class PersonTests
     person1.addFirstnames(OffsetDateTime.now(), firstnames);
     person2.addFirstnames(OffsetDateTime.now(), firstnames);
     person1.setBloodGroup(BloodGroup.OP);
-    assertTrue(person1.compareTo(person2) > 0, "not greater");
+    assertTrue(person1.compareTo(person2) > 0, NOT_GREATER);
    }
 
 
@@ -345,7 +364,7 @@ final class PersonTests
     person1.addFirstnames(OffsetDateTime.now(), firstnames);
     person2.addFirstnames(OffsetDateTime.now(), firstnames);
     person2.setBloodGroup(BloodGroup.OP);
-    assertTrue(person1.compareTo(person2) < 0, "not smaller");
+    assertTrue(person1.compareTo(person2) < 0, NOT_SMALLER);
    }
 
 
@@ -372,6 +391,7 @@ final class PersonTests
    *
    * @throws InterruptedException Interrupted sleep
    */
+  @SuppressWarnings({PMD_LAW_OF_DEMETER})
   @Test
   /* default */ void testGetLastnameAtBirth() throws InterruptedException
    {
@@ -388,6 +408,7 @@ final class PersonTests
   /**
    * Get lastname actual test.
    */
+  @SuppressWarnings({PMD_LAW_OF_DEMETER})
   @Test
   /* default */ void testGetLastnameActual()
    {
@@ -403,6 +424,7 @@ final class PersonTests
    *
    * @throws InterruptedException Interrupted sleep
    */
+  @SuppressWarnings({PMD_LAW_OF_DEMETER})
   @Test
   /* default */ void testGetLastnamePrevious() throws InterruptedException
    {
@@ -419,6 +441,7 @@ final class PersonTests
   /**
    * Add lastname test.
    */
+  @SuppressWarnings({PMD_LAW_OF_DEMETER})
   @Test
   /* default */ void testAddLastname()
    {

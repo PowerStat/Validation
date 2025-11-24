@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -13,7 +14,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Seconds.
  *
  * @param seconds Seconds 0-..
- * 
+ *
  * Not DSGVO relevant.
  *
  * TODO inMinutes()
@@ -77,7 +78,7 @@ public record Seconds(long seconds) implements Comparable<Seconds>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.seconds);
+    return String.valueOf(seconds);
    }
 
 
@@ -92,7 +93,7 @@ public record Seconds(long seconds) implements Comparable<Seconds>, IValueObject
   public int compareTo(final Seconds obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Long.compare(this.seconds, obj.seconds);
+    return Long.compare(seconds, obj.seconds);
    }
 
 
@@ -105,7 +106,7 @@ public record Seconds(long seconds) implements Comparable<Seconds>, IValueObject
    */
   public Seconds add(final Seconds other)
    {
-    return Seconds.of(Math.addExact(this.seconds, other.seconds));
+    return Seconds.of(Math.addExact(seconds, other.seconds));
    }
 
 
@@ -117,11 +118,11 @@ public record Seconds(long seconds) implements Comparable<Seconds>, IValueObject
    */
   public Seconds subtract(final Seconds other)
    {
-    if (other.seconds > this.seconds) // NO PITEST
+    if (other.seconds > seconds) // NO PITEST
      {
-      return Seconds.of(other.seconds - this.seconds);
+      return Seconds.of(other.seconds - seconds);
      }
-    return Seconds.of(this.seconds - other.seconds);
+    return Seconds.of(seconds - other.seconds);
    }
 
 
@@ -134,7 +135,7 @@ public record Seconds(long seconds) implements Comparable<Seconds>, IValueObject
    */
   public Seconds multiply(final long multiplier)
    {
-    return Seconds.of(Math.multiplyExact(this.seconds, multiplier));
+    return Seconds.of(Math.multiplyExact(seconds, multiplier));
    }
 
 
@@ -147,7 +148,7 @@ public record Seconds(long seconds) implements Comparable<Seconds>, IValueObject
    */
   public Seconds divide(final long divisor)
    {
-    return Seconds.of(Math.floorDiv(this.seconds, divisor));
+    return Seconds.of(Math.floorDiv(seconds, divisor));
    }
 
 
@@ -160,7 +161,7 @@ public record Seconds(long seconds) implements Comparable<Seconds>, IValueObject
    */
   public Seconds modulo(final long divisor)
    {
-    return Seconds.of(Math.floorMod(this.seconds, divisor));
+    return Seconds.of(Math.floorMod(seconds, divisor));
    }
 
  }

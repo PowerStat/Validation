@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -13,7 +14,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Port.
  *
  * @param port Port 0-65535
- * 
+ *
  * Not DSGVO relevant.
  */
 public record Port(int port) implements Comparable<Port>, IValueObject
@@ -74,7 +75,7 @@ public record Port(int port) implements Comparable<Port>, IValueObject
    */
   public boolean isSystem()
    {
-    return this.port <= 1023;
+    return port <= 1023;
    }
 
 
@@ -85,7 +86,7 @@ public record Port(int port) implements Comparable<Port>, IValueObject
    */
   public boolean isRegistered()
    {
-    return (this.port >= 1024) && (this.port <= 49151);
+    return (port >= 1024) && (port <= 49151);
    }
 
 
@@ -96,7 +97,7 @@ public record Port(int port) implements Comparable<Port>, IValueObject
    */
   public boolean isDynamic()
    {
-    return (this.port >= 49152);
+    return (port >= 49152);
    }
 
 
@@ -108,7 +109,7 @@ public record Port(int port) implements Comparable<Port>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.port);
+    return String.valueOf(port);
    }
 
 
@@ -123,7 +124,7 @@ public record Port(int port) implements Comparable<Port>, IValueObject
   public int compareTo(final Port obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.port, obj.port);
+    return Integer.compare(port, obj.port);
    }
 
  }

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values.test;
 
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
 import de.powerstat.validation.values.Password;
 import de.powerstat.validation.values.strategies.IPasswordStrategy;
 import de.powerstat.validation.values.strategies.PasswordConfigurableStrategy;
@@ -23,9 +25,14 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Password tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"RV_NEGATING_RESULT_OF_COMPARETO", "SPP_USE_ZERO_WITH_COMPARATOR"})
 final class PasswordTests
  {
+  /**
+   * Username.
+   */
+  private static final String USERNAME = "username";
+
   /**
    * Password.
    */
@@ -72,7 +79,7 @@ final class PasswordTests
    * @param password Password
    */
   @ParameterizedTest
-  @ValueSource(strings = {"username", "username@example.com", "a2345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234"})
+  @ValueSource(strings = {USERNAME, "username@example.com", "a2345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234"})
   /* default */ void testPasswordOk0(final String password)
    {
     final Password cleanPassword = Password.of(password);
@@ -82,8 +89,6 @@ final class PasswordTests
 
   /**
    * Test Password with valid values.
-   *
-   * @param password Password
    */
   @Test
   /* default */ void testPasswordOk1()

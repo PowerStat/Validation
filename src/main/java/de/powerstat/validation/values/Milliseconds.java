@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -13,7 +14,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Milliseconds.
  *
  * @param milliseconds Milliseconds &gt;= 0
- * 
+ *
  * Not DSGVO relevant.
  */
 public record Milliseconds(long milliseconds) implements Comparable<Milliseconds>, IValueObject
@@ -75,7 +76,7 @@ public record Milliseconds(long milliseconds) implements Comparable<Milliseconds
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.milliseconds);
+    return String.valueOf(milliseconds);
    }
 
 
@@ -90,7 +91,7 @@ public record Milliseconds(long milliseconds) implements Comparable<Milliseconds
   public int compareTo(final Milliseconds obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Long.compare(this.milliseconds, obj.milliseconds);
+    return Long.compare(milliseconds, obj.milliseconds);
    }
 
 
@@ -103,7 +104,7 @@ public record Milliseconds(long milliseconds) implements Comparable<Milliseconds
    */
   public Milliseconds add(final Milliseconds other)
    {
-    return Milliseconds.of(Math.addExact(this.milliseconds, other.milliseconds));
+    return Milliseconds.of(Math.addExact(milliseconds, other.milliseconds));
    }
 
 
@@ -115,11 +116,11 @@ public record Milliseconds(long milliseconds) implements Comparable<Milliseconds
    */
   public Milliseconds subtract(final Milliseconds other)
    {
-    if (other.milliseconds > this.milliseconds) // NO PITEST
+    if (other.milliseconds > milliseconds) // NO PITEST
      {
-      return Milliseconds.of(other.milliseconds - this.milliseconds);
+      return Milliseconds.of(other.milliseconds - milliseconds);
      }
-    return Milliseconds.of(this.milliseconds - other.milliseconds);
+    return Milliseconds.of(milliseconds - other.milliseconds);
    }
 
 
@@ -132,7 +133,7 @@ public record Milliseconds(long milliseconds) implements Comparable<Milliseconds
    */
   public Milliseconds multiply(final long multiplier)
    {
-    return Milliseconds.of(Math.multiplyExact(this.milliseconds, multiplier));
+    return Milliseconds.of(Math.multiplyExact(milliseconds, multiplier));
    }
 
 
@@ -145,7 +146,7 @@ public record Milliseconds(long milliseconds) implements Comparable<Milliseconds
    */
   public Milliseconds divide(final long divisor)
    {
-    return Milliseconds.of(Math.floorDiv(this.milliseconds, divisor));
+    return Milliseconds.of(Math.floorDiv(milliseconds, divisor));
    }
 
 
@@ -158,7 +159,7 @@ public record Milliseconds(long milliseconds) implements Comparable<Milliseconds
    */
   public Milliseconds modulo(final long divisor)
    {
-    return Milliseconds.of(Math.floorMod(this.milliseconds, divisor));
+    return Milliseconds.of(Math.floorMod(milliseconds, divisor));
    }
 
  }

@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -13,7 +14,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Minutes.
  *
  * @param minutes Minutes 0-..
- * 
+ *
  * Not DSGVO relevant.
  */
 public record Minutes(long minutes) implements Comparable<Minutes>, IValueObject
@@ -75,7 +76,7 @@ public record Minutes(long minutes) implements Comparable<Minutes>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.minutes);
+    return String.valueOf(minutes);
    }
 
 
@@ -90,7 +91,7 @@ public record Minutes(long minutes) implements Comparable<Minutes>, IValueObject
   public int compareTo(final Minutes obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Long.compare(this.minutes, obj.minutes);
+    return Long.compare(minutes, obj.minutes);
    }
 
 
@@ -103,7 +104,7 @@ public record Minutes(long minutes) implements Comparable<Minutes>, IValueObject
    */
   public Minutes add(final Minutes other)
    {
-    return Minutes.of(Math.addExact(this.minutes, other.minutes));
+    return Minutes.of(Math.addExact(minutes, other.minutes));
    }
 
 
@@ -115,11 +116,11 @@ public record Minutes(long minutes) implements Comparable<Minutes>, IValueObject
    */
   public Minutes subtract(final Minutes other)
    {
-    if (other.minutes > this.minutes) // NO PITEST
+    if (other.minutes > minutes) // NO PITEST
      {
-      return Minutes.of(other.minutes - this.minutes);
+      return Minutes.of(other.minutes - minutes);
      }
-    return Minutes.of(this.minutes - other.minutes);
+    return Minutes.of(minutes - other.minutes);
    }
 
 
@@ -132,7 +133,7 @@ public record Minutes(long minutes) implements Comparable<Minutes>, IValueObject
    */
   public Minutes multiply(final long multiplier)
    {
-    return Minutes.of(Math.multiplyExact(this.minutes, multiplier));
+    return Minutes.of(Math.multiplyExact(minutes, multiplier));
    }
 
 
@@ -145,7 +146,7 @@ public record Minutes(long minutes) implements Comparable<Minutes>, IValueObject
    */
   public Minutes divide(final long divisor)
    {
-    return Minutes.of(Math.floorDiv(this.minutes, divisor));
+    return Minutes.of(Math.floorDiv(minutes, divisor));
    }
 
 
@@ -158,7 +159,7 @@ public record Minutes(long minutes) implements Comparable<Minutes>, IValueObject
    */
   public Minutes modulo(final long divisor)
    {
-    return Minutes.of(Math.floorMod(this.minutes, divisor));
+    return Minutes.of(Math.floorMod(minutes, divisor));
    }
 
  }

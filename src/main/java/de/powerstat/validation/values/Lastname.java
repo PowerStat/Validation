@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2023-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -14,7 +15,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Lastname.
  *
  * @param lastname Lastname
- * 
+ *
  * DSGVO relevant.
  */
 public record Lastname(String lastname) implements Comparable<Lastname>, IValueObject
@@ -36,7 +37,7 @@ public record Lastname(String lastname) implements Comparable<Lastname>, IValueO
   public Lastname
    {
     Objects.requireNonNull(lastname, "lastname"); //$NON-NLS-1$
-    if ((lastname.length() < 1) || (lastname.length() > 40))
+    if (lastname.isEmpty() || (lastname.length() > 40))
      {
       throw new IllegalArgumentException("Lastname with wrong length"); //$NON-NLS-1$
      }
@@ -67,7 +68,7 @@ public record Lastname(String lastname) implements Comparable<Lastname>, IValueO
   @Override
   public String stringValue()
    {
-    return this.lastname;
+    return lastname;
    }
 
 
@@ -82,7 +83,7 @@ public record Lastname(String lastname) implements Comparable<Lastname>, IValueO
   public int compareTo(final Lastname obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.lastname.compareTo(obj.lastname);
+    return lastname.compareTo(obj.lastname);
    }
 
  }

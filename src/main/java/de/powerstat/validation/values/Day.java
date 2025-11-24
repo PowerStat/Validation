@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -13,7 +14,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Day.
  *
  * @param day Day 1-31
- * 
+ *
  * Not DSGVO relevant.
  *
  * TODO Constructor with day, month
@@ -95,7 +96,7 @@ public record Day(int day) implements Comparable<Day>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.day);
+    return String.valueOf(day);
    }
 
 
@@ -110,7 +111,7 @@ public record Day(int day) implements Comparable<Day>, IValueObject
   public int compareTo(final Day obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.day, obj.day);
+    return Integer.compare(day, obj.day);
    }
 
 
@@ -121,9 +122,10 @@ public record Day(int day) implements Comparable<Day>, IValueObject
    * @return New day after adding the days to this day
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings({"PMD.AvoidLiteralsInIfCondition"})
   public Day add(final Days days)
    {
-    final int newDay = Math.toIntExact(Math.addExact(this.day, days.days()));
+    final int newDay = Math.toIntExact(Math.addExact(day, days.days()));
     if (newDay > 31) // TODO depends on month and year
      {
       // TODO Listener
@@ -142,7 +144,7 @@ public record Day(int day) implements Comparable<Day>, IValueObject
    */
   public Day subtract(final Days days)
    {
-    final int newDay = Math.toIntExact(Math.subtractExact(this.day, days.days()));
+    final int newDay = Math.toIntExact(Math.subtractExact(day, days.days()));
     if (newDay <= 0)
      {
       // TODO Listener
@@ -158,9 +160,10 @@ public record Day(int day) implements Comparable<Day>, IValueObject
    * @return New day after incrementing this day
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings({"PMD.AvoidLiteralsInIfCondition"})
   public Day increment()
    {
-    final int newDay = Math.incrementExact(this.day);
+    final int newDay = Math.incrementExact(day);
     if (newDay == 32) // TODO depends on month and year
      {
       // TODO Listener
@@ -178,7 +181,7 @@ public record Day(int day) implements Comparable<Day>, IValueObject
    */
   public Day decrement()
    {
-    final int newDay = Math.decrementExact(this.day);
+    final int newDay = Math.decrementExact(day);
     if (newDay == 0)
      {
       // TODO Listener

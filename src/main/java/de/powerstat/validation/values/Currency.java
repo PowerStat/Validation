@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -15,7 +16,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Currency ISO 4217 codes.
  *
  * @param code ISO 4217 code
- * 
+ *
  * Not DSGVO relevant.
  *
  * TODO Translations
@@ -36,6 +37,7 @@ public record Currency(String code) implements Comparable<Currency>, IValueObjec
    * @throws NullPointerException if code is null
    * @throws IllegalArgumentException if code is not a known 4217 code
    */
+  @SuppressWarnings({"PMD.AvoidLiteralsInIfCondition"})
   public Currency
    {
     Objects.requireNonNull(code, "code"); //$NON-NLS-1$
@@ -74,7 +76,7 @@ public record Currency(String code) implements Comparable<Currency>, IValueObjec
   @Override
   public String stringValue()
    {
-    return this.code;
+    return code;
    }
 
 
@@ -89,7 +91,7 @@ public record Currency(String code) implements Comparable<Currency>, IValueObjec
   public int compareTo(final Currency obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.code.compareTo(obj.code);
+    return code.compareTo(obj.code);
    }
 
  }

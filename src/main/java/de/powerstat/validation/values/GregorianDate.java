@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -115,6 +116,7 @@ public record GregorianDate(GregorianCalendar calendar, Year year, Month month, 
    * @param value String value of ISO8601 type yyyy-mm-dd
    * @return GregorianDate object
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public static GregorianDate of(final String value)
    {
     final String[] values = value.split(DATE_SEP);

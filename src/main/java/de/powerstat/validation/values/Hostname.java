@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -12,6 +13,7 @@ import java.util.regex.Pattern;
 
 import de.powerstat.validation.generated.GeneratedTlds;
 import de.powerstat.validation.interfaces.IValueObject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
@@ -89,6 +91,7 @@ public record Hostname(String hostname) implements Comparable<Hostname>, IValueO
    * @param hostname Hostname
    * @return Hostname
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   private static String checkHostname(final String hostname)
    {
     if (!Hostname.HOSTNAME_REGEXP.matcher(hostname).matches())
@@ -133,7 +136,7 @@ public record Hostname(String hostname) implements Comparable<Hostname>, IValueO
     final var buffer = new StringBuilder(hostname.length());
     for (int i = parts.length - 1; i >= 0; --i)
      {
-      if (buffer.length() != 0)
+      if (!buffer.isEmpty())
        {
         buffer.append('.');
        }
@@ -183,6 +186,7 @@ public record Hostname(String hostname) implements Comparable<Hostname>, IValueO
    *
    * @return true if hostname was found, false otherwise
    */
+  @SuppressFBWarnings("EXS_EXCEPTION_SOFTENING_RETURN_FALSE")
   public boolean exist()
    {
     try
@@ -191,7 +195,6 @@ public record Hostname(String hostname) implements Comparable<Hostname>, IValueO
      }
     catch (final UnknownHostException ignored)
      {
-      // LOGGER.debug("UnknownHostException", ignored);
       return false;
      }
     return true;
@@ -213,7 +216,6 @@ public record Hostname(String hostname) implements Comparable<Hostname>, IValueO
      }
     catch (final IOException ignored)
      {
-      // LOGGER.debug("IOException", ignored);
       return false;
      }
    }

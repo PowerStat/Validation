@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -65,7 +66,7 @@ public record BFPONumber(int bFPONumber) implements Comparable<BFPONumber>, IVal
   @Override
   public String stringValue()
    {
-    return Integer.toString(this.bFPONumber);
+    return Integer.toString(bFPONumber);
    }
 
 
@@ -80,7 +81,7 @@ public record BFPONumber(int bFPONumber) implements Comparable<BFPONumber>, IVal
   public int compareTo(final BFPONumber obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.bFPONumber, obj.bFPONumber);
+    return Integer.compare(bFPONumber, obj.bFPONumber);
    }
 
  }

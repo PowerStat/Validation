@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -15,7 +16,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Country - ISO 3166-1 codes.
  *
  * @param alpha2 Alpha-2 code
- * 
+ *
  * Not DSGVO relevant.
  *
  * TODO Translations
@@ -36,6 +37,7 @@ public record Country(String alpha2) implements Comparable<Country>, IValueObjec
    * @throws NullPointerException if code is null
    * @throws IllegalArgumentException if code is not a known alpha-2 code
    */
+  @SuppressWarnings({"PMD.AvoidLiteralsInIfCondition"})
   public Country
    {
     Objects.requireNonNull(alpha2, "alpha2"); //$NON-NLS-1$
@@ -74,7 +76,7 @@ public record Country(String alpha2) implements Comparable<Country>, IValueObjec
   @Override
   public String stringValue()
    {
-    return this.alpha2;
+    return alpha2;
    }
 
 
@@ -85,7 +87,7 @@ public record Country(String alpha2) implements Comparable<Country>, IValueObjec
    */
   public String getEnglishCountryName()
    {
-    return GeneratedISO3166A2.getName(this.alpha2);
+    return GeneratedISO3166A2.getName(alpha2);
    }
 
 
@@ -100,7 +102,7 @@ public record Country(String alpha2) implements Comparable<Country>, IValueObjec
   public int compareTo(final Country obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.alpha2.compareTo(obj.alpha2);
+    return alpha2.compareTo(obj.alpha2);
    }
 
  }

@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -16,7 +17,7 @@ import de.powerstat.validation.values.impl.IBANVerifierAbstractFactory;
  * IBAN.
  *
  * @param iban IBAN
- * 
+ *
  * Probably DSGVO relevant.
  *
  * TODO https://openiban.com/
@@ -101,7 +102,7 @@ public record IBAN(String iban) implements Comparable<IBAN>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.iban;
+    return iban;
    }
 
 
@@ -116,7 +117,7 @@ public record IBAN(String iban) implements Comparable<IBAN>, IValueObject
   public int compareTo(final IBAN obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.iban.compareTo(obj.iban);
+    return iban.compareTo(obj.iban);
    }
 
  }

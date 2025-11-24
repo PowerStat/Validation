@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -13,7 +14,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * IP V6 mask.
  *
  * @param length Prefix length (0-128)
- * 
+ *
  * Not DSGVO relevant.
  */
 public record IPV6Mask(int length) implements Comparable<IPV6Mask>, IValueObject
@@ -65,7 +66,7 @@ public record IPV6Mask(int length) implements Comparable<IPV6Mask>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.length);
+    return String.valueOf(length);
    }
 
 
@@ -80,7 +81,7 @@ public record IPV6Mask(int length) implements Comparable<IPV6Mask>, IValueObject
   public int compareTo(final IPV6Mask obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.length, obj.length);
+    return Integer.compare(length, obj.length);
    }
 
  }

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values.test;
 
@@ -22,9 +23,14 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Julian calendar tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR"})
+@SuppressFBWarnings({"RV_NEGATING_RESULT_OF_COMPARETO", "SPP_USE_ZERO_WITH_COMPARATOR"})
 final class JulianCalendarTests
  {
+  /**
+   * 1900 is a leap year.
+   */
+  private static final String YEAR_1900_IS_A_LEAP_YEAR = "1900 is a leap year";
+
   /**
    * Test is leap year constant.
    */
@@ -88,7 +94,7 @@ final class JulianCalendarTests
     final JulianCalendar calendarDE = JulianCalendar.of();
     final JulianCalendar calendarRU = JulianCalendar.of();
     assertAll(JulianCalendarTests.TEST_IS_LEAP_YEAR,
-      () -> assertTrue(calendarIT.isLeapYear(Year.of(1900)), "1900 is a leap year"), //$NON-NLS-1$
+      () -> assertTrue(calendarIT.isLeapYear(Year.of(1900)), YEAR_1900_IS_A_LEAP_YEAR),
       () -> assertTrue(calendarIT.isLeapYear(Year.of(2000)), "2000 is a leap year"), //$NON-NLS-1$
       () -> assertTrue(calendarIT.isLeapYear(Year.of(2020)), "2020 is a leap year"), //$NON-NLS-1$
       () -> assertFalse(calendarIT.isLeapYear(Year.of(2019)), "2019 is not a leap year"), //$NON-NLS-1$
@@ -96,7 +102,7 @@ final class JulianCalendarTests
       () -> assertTrue(calendarIT.isLeapYear(Year.of(1580)), "1580 is a leap year"), //$NON-NLS-1$
       () -> assertTrue(calendarDE.isLeapYear(Year.of(1580)), "1700 is a leap year"), //$NON-NLS-1$
       () -> assertTrue(calendarRU.isLeapYear(Year.of(1920)), "1920 is a leap year"), //$NON-NLS-1$
-      () -> assertTrue(calendarRU.isLeapYear(Year.of(1900)), "1900 is a leap year") //$NON-NLS-1$
+      () -> assertTrue(calendarRU.isLeapYear(Year.of(1900)), YEAR_1900_IS_A_LEAP_YEAR)
      );
    }
 

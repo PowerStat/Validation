@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values.impl;
 
@@ -16,6 +17,6 @@ public interface IISBN13Publisher
    * @return Publisher number (variable length)
    * @throws IllegalArgumentException When an illegal character appears
    */
-  public String publisher(final String rest);
+  String publisher(String rest);
 
  }

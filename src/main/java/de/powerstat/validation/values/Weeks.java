@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -13,7 +14,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Weeks.
  *
  * @param weeks Weeks 0-..
- * 
+ *
  * Not DSGVO relevant.
  */
 public record Weeks(long weeks) implements Comparable<Weeks>, IValueObject
@@ -75,7 +76,7 @@ public record Weeks(long weeks) implements Comparable<Weeks>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.weeks);
+    return String.valueOf(weeks);
    }
 
 
@@ -90,7 +91,7 @@ public record Weeks(long weeks) implements Comparable<Weeks>, IValueObject
   public int compareTo(final Weeks obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Long.compare(this.weeks, obj.weeks);
+    return Long.compare(weeks, obj.weeks);
    }
 
 
@@ -103,7 +104,7 @@ public record Weeks(long weeks) implements Comparable<Weeks>, IValueObject
    */
   public Weeks add(final Weeks other)
    {
-    return Weeks.of(Math.addExact(this.weeks, other.weeks));
+    return Weeks.of(Math.addExact(weeks, other.weeks));
    }
 
 
@@ -115,11 +116,11 @@ public record Weeks(long weeks) implements Comparable<Weeks>, IValueObject
    */
   public Weeks subtract(final Weeks other)
    {
-    if (other.weeks > this.weeks) // NO PITEST
+    if (other.weeks > weeks) // NO PITEST
      {
-      return Weeks.of(other.weeks - this.weeks);
+      return Weeks.of(other.weeks - weeks);
      }
-    return Weeks.of(this.weeks - other.weeks);
+    return Weeks.of(weeks - other.weeks);
    }
 
 
@@ -132,7 +133,7 @@ public record Weeks(long weeks) implements Comparable<Weeks>, IValueObject
    */
   public Weeks multiply(final long multiplier)
    {
-    return Weeks.of(Math.multiplyExact(this.weeks, multiplier));
+    return Weeks.of(Math.multiplyExact(weeks, multiplier));
    }
 
 
@@ -145,7 +146,7 @@ public record Weeks(long weeks) implements Comparable<Weeks>, IValueObject
    */
   public Weeks divide(final long divisor)
    {
-    return Weeks.of(Math.floorDiv(this.weeks, divisor));
+    return Weeks.of(Math.floorDiv(weeks, divisor));
    }
 
 
@@ -158,7 +159,7 @@ public record Weeks(long weeks) implements Comparable<Weeks>, IValueObject
    */
   public Weeks modulo(final long divisor)
    {
-    return Weeks.of(Math.floorMod(this.weeks, divisor));
+    return Weeks.of(Math.floorMod(weeks, divisor));
    }
 
  }

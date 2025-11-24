@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -8,13 +9,14 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
  * IP V4 address.
  *
  * @param address IP V4 address
- * 
+ *
  * DSGVO relevant.
  *
  * TODO convert to IP V6 format
@@ -97,9 +99,11 @@ public record IPV4Address(String address) implements Comparable<IPV4Address>, IV
    *
    * @return true when private address, otherwise false
    */
+  @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public boolean isPrivate()
    {
-    final String[] parts = this.address.split(SEPARATOR); //$NON-NLS-1$
+    final String[] parts = address.split(SEPARATOR);
     if ("10".equals(parts[0]) || (IPV4Address.CLASS_C_192.equals(parts[0]) && "168".equals(parts[1])) || ("169".equals(parts[0]) && "254".equals(parts[1]))) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
      {
       return true;
@@ -134,9 +138,11 @@ public record IPV4Address(String address) implements Comparable<IPV4Address>, IV
    *
    * @return true when special address, otherwise false
    */
+  @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
+  @SuppressWarnings({"PMD.NPathComplexity"})
   public boolean isSpecial()
    {
-    final String[] parts = this.address.split(SEPARATOR); //$NON-NLS-1$
+    final String[] parts = address.split(SEPARATOR);
     if (IPV4Address.ZERO.equals(parts[0]) ||
         "127".equals(parts[0]) || //$NON-NLS-1$
         (IPV4Address.CLASS_C_192.equals(parts[0]) && IPV4Address.ZERO.equals(parts[1]) && IPV4Address.ZERO.equals(parts[2])) ||
@@ -188,7 +194,7 @@ public record IPV4Address(String address) implements Comparable<IPV4Address>, IV
   @Override
   public String stringValue()
    {
-    return this.address;
+    return address;
    }
 
 
@@ -203,7 +209,7 @@ public record IPV4Address(String address) implements Comparable<IPV4Address>, IV
   public int compareTo(final IPV4Address obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.address.compareTo(obj.address);
+    return address.compareTo(obj.address);
    }
 
  }

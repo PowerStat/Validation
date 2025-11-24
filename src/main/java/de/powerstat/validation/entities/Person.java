@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.entities;
 
@@ -12,8 +13,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+// import org.apache.logging.log4j.LogManager;
+// import org.apache.logging.log4j.Logger;
 
 import de.powerstat.validation.containers.HistoryOf;
 import de.powerstat.validation.interfaces.IEntity;
@@ -64,7 +65,7 @@ public final class Person implements Comparable<Person>, IEntity
   /**
    * Logger.
    */
-  private static final Logger LOGGER = LogManager.getLogger(Person.class);
+  // private static final Logger LOGGER = LogManager.getLogger(Person.class);
 
   /**
    * Universally Unique Identifier.
@@ -199,7 +200,7 @@ public final class Person implements Comparable<Person>, IEntity
   @Override
   public int hashCode()
    {
-    return Objects.hash(lastname, sex, firstnames, birthday, deathdate, bloodGroup);
+    return Objects.hash(lastname.getLatestEntry(), sex.getLatestEntry(), firstnames.getLatestEntry(), birthday, deathdate, bloodGroup);
    }
 
 
@@ -221,22 +222,29 @@ public final class Person implements Comparable<Person>, IEntity
      {
       return false;
      }
-    boolean result = lastname.equals(other.lastname);
+    boolean result = lastname.getLatestEntry().equals(other.lastname.getLatestEntry());
     if (result)
      {
-      result = sex.equals(other.sex);
+      result = sex.getLatestEntry().equals(other.sex.getLatestEntry());
       if (result)
        {
-        result = firstnames.equals(other.firstnames);
+        result = (firstnames.isEmpty() == other.firstnames.isEmpty());
         if (result)
          {
-          result = birthday.equals(other.birthday);
+          if (!firstnames.isEmpty() && !other.firstnames.isEmpty())
+           {
+            result = firstnames.getLatestEntry().equals(other.firstnames.getLatestEntry());
+           }
           if (result)
            {
-            result = deathdate.equals(other.deathdate);
+            result = birthday.equals(other.birthday);
             if (result)
              {
-              result = bloodGroup.equals(other.bloodGroup);
+              result = deathdate.equals(other.deathdate);
+              if (result)
+               {
+                result = bloodGroup.equals(other.bloodGroup);
+               }
              }
            }
          }
@@ -309,7 +317,7 @@ public final class Person implements Comparable<Person>, IEntity
    * @return 0: equal; 1: greater; -1: smaller
    * @see java.lang.Comparable#compareTo(java.lang.Object)
    */
-  @SuppressWarnings("PMD.ConfusingTernary")
+  @SuppressWarnings({"PMD.ConfusingTernary", "PMD.NPathComplexity"})
   @Override
   public int compareTo(final Person obj)
    {

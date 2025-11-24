@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values.test;
 
@@ -11,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
 import de.powerstat.validation.values.Address;
 import de.powerstat.validation.values.BFPONumber;
 import de.powerstat.validation.values.Block;
@@ -33,7 +35,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Address tests.
  */
-@SuppressFBWarnings({"EC_NULL_ARG", "RV_NEGATING_RESULT_OF_COMPARETO", "RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
+@SuppressFBWarnings({"RV_NEGATING_RESULT_OF_COMPARETO", "SPP_USE_ZERO_WITH_COMPARATOR", "PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS"})
 final class AddressTests
  {
   /**
@@ -280,11 +282,6 @@ final class AddressTests
    * Wrong address constant.
    */
   private static final String WRONG_ADDRESS = "Wrong address"; //$NON-NLS-1$
-
-  /**
-   * Test equals constant.
-   */
-  private static final String TEST_EQUALS = "testEquals"; //$NON-NLS-1$
 
   /**
    * ToString not equal constant.

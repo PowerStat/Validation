@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -35,7 +36,7 @@ public record Block(String block) implements Comparable<Block>, IValueObject
   public Block
    {
     Objects.requireNonNull(block, "block"); //$NON-NLS-1$
-    if ((block.length() < 1) || (block.length() > 16))
+    if (block.isEmpty() || (block.length() > 16))
      {
       throw new IllegalArgumentException("Block with wrong length"); //$NON-NLS-1$
      }
@@ -66,7 +67,7 @@ public record Block(String block) implements Comparable<Block>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.block;
+    return block;
    }
 
 
@@ -81,7 +82,7 @@ public record Block(String block) implements Comparable<Block>, IValueObject
   public int compareTo(final Block obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.block.compareTo(obj.block);
+    return block.compareTo(obj.block);
    }
 
  }

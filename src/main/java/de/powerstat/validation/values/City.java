@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -14,7 +15,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Address City.
  *
  * @param city City name
- * 
+ *
  * Not DSGVO relevant.
  */
 public record City(String city) implements Comparable<City>, IValueObject
@@ -35,7 +36,7 @@ public record City(String city) implements Comparable<City>, IValueObject
   public City
    {
     Objects.requireNonNull(city, "city"); //$NON-NLS-1$
-    if ((city.length() < 1) || (city.length() > 85))
+    if (city.isEmpty() || (city.length() > 85))
      {
       throw new IllegalArgumentException("City with wrong length"); //$NON-NLS-1$
      }
@@ -66,7 +67,7 @@ public record City(String city) implements Comparable<City>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.city;
+    return city;
    }
 
 
@@ -81,7 +82,7 @@ public record City(String city) implements Comparable<City>, IValueObject
   public int compareTo(final City obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.city.compareTo(obj.city);
+    return city.compareTo(obj.city);
    }
 
  }

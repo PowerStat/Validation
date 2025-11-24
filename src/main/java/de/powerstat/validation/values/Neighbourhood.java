@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -14,7 +15,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Address Neighbourhood.
  *
  * @param neighbourhood Neighbourhood
- * 
+ *
  * Not DSGVO relevant.
  */
 public record Neighbourhood(String neighbourhood) implements Comparable<Neighbourhood>, IValueObject
@@ -35,7 +36,7 @@ public record Neighbourhood(String neighbourhood) implements Comparable<Neighbou
   public Neighbourhood
    {
     Objects.requireNonNull(neighbourhood, "neighbourhood"); //$NON-NLS-1$
-    if ((neighbourhood.length() < 1) || (neighbourhood.length() > 64))
+    if (neighbourhood.isEmpty() || (neighbourhood.length() > 64))
      {
       throw new IllegalArgumentException("Neighbourhood with wrong length"); //$NON-NLS-1$
      }
@@ -66,7 +67,7 @@ public record Neighbourhood(String neighbourhood) implements Comparable<Neighbou
   @Override
   public String stringValue()
    {
-    return this.neighbourhood;
+    return neighbourhood;
    }
 
 
@@ -81,7 +82,7 @@ public record Neighbourhood(String neighbourhood) implements Comparable<Neighbou
   public int compareTo(final Neighbourhood obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.neighbourhood.compareTo(obj.neighbourhood);
+    return neighbourhood.compareTo(obj.neighbourhood);
    }
 
  }

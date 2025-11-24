@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values.test;
 
@@ -17,6 +18,11 @@ import de.powerstat.validation.values.MonthEnum;
  */
 final class MonthEnumTests
  {
+  /**
+   * January.
+   */
+  private static final String JANUARY = "JANUARY";
+
   /**
    * JANUARY action not as expected constant.
    */
@@ -38,7 +44,7 @@ final class MonthEnumTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(1, MonthEnum.of("JANUARY").getAction(), JANUARY_ACTION_NOT_AS_EXPECTED); //$NON-NLS-1$
+    assertEquals(1, MonthEnum.of(JANUARY).getAction(), JANUARY_ACTION_NOT_AS_EXPECTED);
    }
 
 
@@ -72,7 +78,7 @@ final class MonthEnumTests
   /* default */ void testStringValue()
    {
     final MonthEnum wd = MonthEnum.JANUARY;
-    assertEquals("JANUARY", wd.stringValue(), "stringValue not as expected");
+    assertEquals(JANUARY, wd.stringValue(), "stringValue not as expected");
    }
 
 

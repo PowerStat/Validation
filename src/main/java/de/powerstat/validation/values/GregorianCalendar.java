@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -22,6 +23,11 @@ import de.powerstat.validation.interfaces.IValueObject;
  */
 public record GregorianCalendar(Country country) implements Comparable<GregorianCalendar>, IValueObject
  {
+  /**
+   * Country code italian.
+   */
+  private static final String COUNTRY_IT = "IT";
+
   /**
    * Days per month.
    */
@@ -80,7 +86,7 @@ public record GregorianCalendar(Country country) implements Comparable<Gregorian
     final Map<String, Map<String, Long>> it = new ConcurrentHashMap<>();
     it.put(GregorianCalendar.BEFORE, itBefore);
     it.put(GregorianCalendar.AFTER, itAfter);
-    GregorianCalendar.REFORM_DATES.put(Country.of("IT"), it); //$NON-NLS-1$
+    GregorianCalendar.REFORM_DATES.put(Country.of(COUNTRY_IT), it);
 
     final Map<String, Long> beBefore = new ConcurrentHashMap<>();
     beBefore.put(GregorianCalendar.YEAR, Long.valueOf(1582));
@@ -184,7 +190,7 @@ public record GregorianCalendar(Country country) implements Comparable<Gregorian
    * @return GregorianCalendar object
    */
   public static GregorianCalendar of(final Country country)
-   { 
+   {
     return new GregorianCalendar(country);
    }
 
@@ -208,7 +214,7 @@ public record GregorianCalendar(Country country) implements Comparable<Gregorian
    */
   public static GregorianCalendar of()
    {
-    return of(Country.of("IT"));
+    return of(Country.of(COUNTRY_IT));
    }
 
 
@@ -220,7 +226,7 @@ public record GregorianCalendar(Country country) implements Comparable<Gregorian
   @Override
   public String stringValue()
    {
-    return this.country.stringValue();
+    return country.stringValue();
    }
 
 
@@ -232,12 +238,12 @@ public record GregorianCalendar(Country country) implements Comparable<Gregorian
    * @param country Country
    * @return Reform date
    */
-  private Map<String, Map<String, Long>> getReformDate(Country country)
+  private static Map<String, Map<String, Long>> getReformDate(final Country country)
    {
     Map<String, Map<String, Long>> reformDate = GregorianCalendar.REFORM_DATES.get(country);
     if (reformDate == null)
      {
-      reformDate = GregorianCalendar.REFORM_DATES.get(Country.of("IT"));
+      reformDate = GregorianCalendar.REFORM_DATES.get(Country.of(COUNTRY_IT));
      }
     return reformDate;
    }
@@ -254,10 +260,10 @@ public record GregorianCalendar(Country country) implements Comparable<Gregorian
   public int compareTo(final GregorianCalendar obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    int result = getReformDate(this.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.YEAR).compareTo(getReformDate(obj.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.YEAR));
+    int result = getReformDate(country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.YEAR).compareTo(getReformDate(obj.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.YEAR));
     if (result == 0)
      {
-      result = getReformDate(this.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.MONTH).compareTo(getReformDate(obj.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.MONTH));
+      result = getReformDate(country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.MONTH).compareTo(getReformDate(obj.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.MONTH));
      }
     return result;
    }
@@ -273,7 +279,7 @@ public record GregorianCalendar(Country country) implements Comparable<Gregorian
    {
     Objects.requireNonNull(year, GregorianCalendar.YEAR);
 
-    Map<String, Map<String, Long>> reformDate = getReformDate(this.country);
+    final Map<String, Map<String, Long>> reformDate = getReformDate(country);
     final String beforeAfter = reformDate.get(GregorianCalendar.BEFORE).get(GregorianCalendar.DAYS) == null ? GregorianCalendar.AFTER : GregorianCalendar.BEFORE;
     final long reformYear = reformDate.get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
     if (year.year() > reformYear) // NO PITEST
@@ -296,10 +302,10 @@ public record GregorianCalendar(Country country) implements Comparable<Gregorian
     Objects.requireNonNull(year, GregorianCalendar.YEAR);
     Objects.requireNonNull(month, GregorianCalendar.MONTH);
 
-    final String beforeAfter = getReformDate(this.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.DAYS) == null ? GregorianCalendar.AFTER : GregorianCalendar.BEFORE;
-    final long reformYear = getReformDate(this.country).get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
-    final int reformMonth = getReformDate(this.country).get(beforeAfter).get(GregorianCalendar.MONTH).intValue();
-    final int restDaysInMonth = getReformDate(this.country).get(beforeAfter).get(GregorianCalendar.DAYS).intValue();
+    final String beforeAfter = getReformDate(country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.DAYS) == null ? GregorianCalendar.AFTER : GregorianCalendar.BEFORE;
+    final long reformYear = getReformDate(country).get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
+    final int reformMonth = getReformDate(country).get(beforeAfter).get(GregorianCalendar.MONTH).intValue();
+    final int restDaysInMonth = getReformDate(country).get(beforeAfter).get(GregorianCalendar.DAYS).intValue();
     if ((year.year() == reformYear) && (month.month() == reformMonth)) // Depend on country
      {
       return Days.of(restDaysInMonth);
@@ -332,12 +338,13 @@ public record GregorianCalendar(Country country) implements Comparable<Gregorian
    * @param year Year
    * @return MonthDay
    */
+  @SuppressWarnings({"PMD.ShortVariable"})
   public MonthDay easterInYear(final Year year)
    {
     Objects.requireNonNull(year, GregorianCalendar.YEAR);
 
-    final String beforeAfter = getReformDate(this.country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.DAYS) == null ? GregorianCalendar.AFTER : GregorianCalendar.BEFORE;
-    final long reformYear = getReformDate(this.country).get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
+    final String beforeAfter = getReformDate(country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.DAYS) == null ? GregorianCalendar.AFTER : GregorianCalendar.BEFORE;
+    final long reformYear = getReformDate(country).get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
     if (year.year() <= reformYear)
      {
       return JulianCalendar.of().easterInYear(year);
@@ -347,7 +354,7 @@ public record GregorianCalendar(Country country) implements Comparable<Gregorian
     final int c = (int)(year.year() % 100);
     final int d = ((((19 * a) + b) - (b / 4) - (((b - ((b + 8) / 25)) + 1) / 3)) + 15) % 30;
     final int e = ((32 + (2 * (b % 4)) + (2 * (c / 4))) - d - (c % 4)) % 7;
-    final long f = ((d + e) - (7 * ((a + (11 * d) + (22 * e)) / 451))) + 114;
+    final long f = ((d + e) - (7 * ((a + (11 * d) + (22 * e)) / 451))) + 114L;
     return MonthDay.of(Month.of((int)(f / 31)), Day.of((int)((f % 31) + 1)));
    }
 

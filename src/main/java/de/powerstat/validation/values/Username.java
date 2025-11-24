@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -86,7 +87,7 @@ public record Username(String username) implements Comparable<Username>, IValueO
   @Override
   public String stringValue()
    {
-    return this.username;
+    return username;
    }
 
 
@@ -99,7 +100,7 @@ public record Username(String username) implements Comparable<Username>, IValueO
    {
     try
      {
-      /* EMail email = */ new EMail(this.username);
+      /* EMail email = */ new EMail(username);
      }
     catch (IllegalArgumentException ignore)
      {
@@ -120,7 +121,7 @@ public record Username(String username) implements Comparable<Username>, IValueO
   public int compareTo(final Username obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.username.compareTo(obj.username);
+    return username.compareTo(obj.username);
    }
 
  }

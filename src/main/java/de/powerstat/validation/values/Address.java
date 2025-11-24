@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -13,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
 import de.powerstat.validation.interfaces.IValueObject;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
@@ -44,6 +46,11 @@ import de.powerstat.validation.interfaces.IValueObject;
 @SuppressWarnings({"java:S923", "java:S3776", "PMD.ExcessiveClassLength"})
 public record Address(Country country, PostalCode postalCode, City city, Province province, District district, Street street, BuildingNr buildingNr, BuildingName buildingName, SubBuilding subBuilding, PoBoxNumber poBoxNumber, Department department, Neighbourhood neighbourhood, Block block, BFPONumber bFPONumber, Lines lines) implements Comparable<Address>, IValueObject
  {
+  /**
+   * NPath complexity.
+   */
+  private static final String PMD_N_PATH_COMPLEXITY = "PMD.NPathComplexity";
+
   /**
    * Address formats for countries.
    */
@@ -470,6 +477,7 @@ public record Address(Country country, PostalCode postalCode, City city, Provinc
    * @param lines Lines 1-5
    * @throws NullPointerException When country or some other required field is null.
    */
+  @SuppressWarnings({PMD_N_PATH_COMPLEXITY})
   public Address
    {
     Objects.requireNonNull(country, "country"); //$NON-NLS-1$
@@ -569,6 +577,8 @@ public record Address(Country country, PostalCode postalCode, City city, Provinc
    * @throws NullPointerException When country or some other required field is null.
    * @throws IllegalArgumentException If the value has less than 1 or more than 15 commas
    */
+  @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
+  @SuppressWarnings({PMD_N_PATH_COMPLEXITY, "PMD.AvoidLiteralsInIfCondition"})
   public static Address of(final String value)
    {
     String[] values = value.split(",");
@@ -727,6 +737,7 @@ public record Address(Country country, PostalCode postalCode, City city, Provinc
    * 16: Line1-5
    * @return Format with removed blocks for non existing parameters
    */
+  @SuppressWarnings({"PMD.AvoidLiteralsInIfCondition"})
   private String processBlocks(final String formatStr, final String... vars)
    {
     // assert (formatStr != null) && !formatStr.isBlank();
@@ -745,7 +756,7 @@ public record Address(Country country, PostalCode postalCode, City city, Provinc
         final int posEndBlock = format.indexOf(']', posStartBlock + 1);
         if (posEndBlock == -1)
          {
-          throw new IllegalArgumentException("Block without end found in: " + this.country.alpha2()); //$NON-NLS-1$
+          throw new IllegalArgumentException("Block without end found in: " + country.alpha2()); //$NON-NLS-1$
          }
         pos = posEndBlock + 1;
         final var blk = format.substring(posStartBlock + 1, posEndBlock);
@@ -767,7 +778,7 @@ public record Address(Country country, PostalCode postalCode, City city, Provinc
             final int posFieldEnd = blk.indexOf('$', posFieldStart);
             if (posFieldEnd == -1)
              {
-              throw new IllegalArgumentException("Unsupported field format code found in: " + this.country.alpha2()); //$NON-NLS-1$
+              throw new IllegalArgumentException("Unsupported field format code found in: " + country.alpha2()); //$NON-NLS-1$
              }
             final int fieldNr = Integer.parseInt(blk.substring(posFieldStart + 1, posFieldEnd));
             fieldPos = posFieldEnd + 1;
@@ -822,7 +833,7 @@ public record Address(Country country, PostalCode postalCode, City city, Provinc
   private String getAddressFormat(final String... vars)
    {
     // assert vars.length == 16;
-    final String format = Address.ADDRESS_FORMATS.get(this.country.alpha2());
+    final String format = Address.ADDRESS_FORMATS.get(country.alpha2());
     return processBlocks(format, vars);
    }
 
@@ -834,28 +845,29 @@ public record Address(Country country, PostalCode postalCode, City city, Provinc
    * @return Formatted address string
    * @throws NullPointerException If recipientName is null
    */
+  @SuppressWarnings({PMD_N_PATH_COMPLEXITY})
   public String getFormattedAddress(final String recipientName)
    {
     Objects.requireNonNull(recipientName, "recipientName"); //$NON-NLS-1$
     final var builder = new StringBuilder();
     try (var formatter = new Formatter(builder, Locale.getDefault()))
      {
-      final String tmpPostalCode = this.postalCode == null ? null : this.postalCode.postalCode();
-      final String tmpCity = this.city == null ? null : this.city.city();
-      final String tmpProvince = this.province == null ? null : this.province.province();
-      final String tmpDistrict = this.district == null ? null : this.district.district();
-      final String tmpStreet = this.street == null ? null : this.street.street();
-      final String tmpBuildingNr = this.buildingNr == null ? null : this.buildingNr.buildingNr();
-      final String tmpBuildingName = this.buildingName == null ? null : this.buildingName.buildingName();
-      final String tmpSubBuilding = this.subBuilding == null ? null : this.subBuilding.subBuilding();
-      final String tmpPoBoxNumber = this.poBoxNumber == null ? null : this.poBoxNumber.stringValue();
-      final String tmpDepartment = this.department == null ? null : this.department.department();
-      final String tmpNeighbourhood = this.neighbourhood == null ? null : this.neighbourhood.neighbourhood();
-      final String tmpBlock = this.block == null ? null : this.block.block();
-      final String tmpBFPONumber = this.bFPONumber == null ? null : this.bFPONumber.stringValue();
-      final String tmpLines = this.lines == null ? null : this.lines.lines();
-      final String format = getAddressFormat(this.country.getEnglishCountryName(), recipientName, tmpPostalCode, tmpCity, tmpProvince, tmpDistrict, tmpStreet, tmpBuildingNr, tmpBuildingName, tmpSubBuilding, tmpPoBoxNumber, tmpDepartment, tmpNeighbourhood, tmpBlock, tmpBFPONumber, tmpLines);
-      formatter.format(format, this.country.getEnglishCountryName(), recipientName, tmpPostalCode, tmpCity, tmpProvince, tmpDistrict, tmpStreet, tmpBuildingNr, tmpBuildingName, tmpSubBuilding, tmpPoBoxNumber, tmpDepartment, tmpNeighbourhood, tmpBlock, tmpBFPONumber, tmpLines);
+      final String tmpPostalCode = postalCode == null ? null : postalCode.postalCode();
+      final String tmpCity = city == null ? null : city.city();
+      final String tmpProvince = province == null ? null : province.province();
+      final String tmpDistrict = district == null ? null : district.district();
+      final String tmpStreet = street == null ? null : street.street();
+      final String tmpBuildingNr = buildingNr == null ? null : buildingNr.buildingNr();
+      final String tmpBuildingName = buildingName == null ? null : buildingName.buildingName();
+      final String tmpSubBuilding = subBuilding == null ? null : subBuilding.subBuilding();
+      final String tmpPoBoxNumber = poBoxNumber == null ? null : poBoxNumber.stringValue();
+      final String tmpDepartment = department == null ? null : department.department();
+      final String tmpNeighbourhood = neighbourhood == null ? null : neighbourhood.neighbourhood();
+      final String tmpBlock = block == null ? null : block.block();
+      final String tmpBFPONumber = bFPONumber == null ? null : bFPONumber.stringValue();
+      final String tmpLines = lines == null ? null : lines.lines();
+      final String format = getAddressFormat(country.getEnglishCountryName(), recipientName, tmpPostalCode, tmpCity, tmpProvince, tmpDistrict, tmpStreet, tmpBuildingNr, tmpBuildingName, tmpSubBuilding, tmpPoBoxNumber, tmpDepartment, tmpNeighbourhood, tmpBlock, tmpBFPONumber, tmpLines);
+      formatter.format(format, country.getEnglishCountryName(), recipientName, tmpPostalCode, tmpCity, tmpProvince, tmpDistrict, tmpStreet, tmpBuildingNr, tmpBuildingName, tmpSubBuilding, tmpPoBoxNumber, tmpDepartment, tmpNeighbourhood, tmpBlock, tmpBFPONumber, tmpLines);
      }
     return builder.toString();
    }

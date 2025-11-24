@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -14,7 +15,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Address Lines.
  *
  * @param lines Lines (1-5)
- * 
+ *
  * Not DSGVO relevant.
  */
 public record Lines(String lines) implements Comparable<Lines>, IValueObject
@@ -43,10 +44,11 @@ public record Lines(String lines) implements Comparable<Lines>, IValueObject
    * @throws NullPointerException if lines is null
    * @throws IllegalArgumentException if lines is not a correct Lines
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Lines
    {
     Objects.requireNonNull(lines, "lines"); //$NON-NLS-1$
-    if ((lines.length() < 1) || (lines.length() > 200))
+    if (lines.isEmpty() || (lines.length() > 200))
      {
       throw new IllegalArgumentException("Lines with wrong length"); //$NON-NLS-1$
      }
@@ -81,7 +83,7 @@ public record Lines(String lines) implements Comparable<Lines>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.lines;
+    return lines;
    }
 
 
@@ -96,7 +98,7 @@ public record Lines(String lines) implements Comparable<Lines>, IValueObject
   public int compareTo(final Lines obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.lines.compareTo(obj.lines);
+    return lines.compareTo(obj.lines);
    }
 
  }

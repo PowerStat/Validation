@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2022-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -19,7 +20,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * TODO compareTo(): AddressWithWGS84Position
  */
-public record AddressWithWGS84Position(Address address, WGS84Position position) implements IValueObject // Comparable<AddressWithWGS84Position>, 
+public record AddressWithWGS84Position(Address address, WGS84Position position) implements IValueObject // Comparable<AddressWithWGS84Position>,
  {
   /**
    * Constructor.
@@ -81,9 +82,10 @@ public record AddressWithWGS84Position(Address address, WGS84Position position) 
    * @param value country,postalcode,city,province,district,street,buildingnr,buildingname,subbuilding,poboxnumber,department,neighbourhood,block,bfponumber,lines,latitude longitude altitude
    * @return AddressWithWGS84Position object
    */
+  @SuppressWarnings({"PMD.NPathComplexity"})
   public static AddressWithWGS84Position of(final String value)
    {
-    String[] values = value.split(",");
+    final String[] values = value.split(",");
     if ((values.length < 16) || (values.length > 16))
      {
       throw new IllegalArgumentException("value not in expected format: " + values.length);
@@ -130,7 +132,7 @@ public record AddressWithWGS84Position(Address address, WGS84Position position) 
   @Override
   public String stringValue()
    {
-    return this.address.stringValue() + this.position.stringValue();
+    return address.stringValue() + position.stringValue();
    }
 
  }

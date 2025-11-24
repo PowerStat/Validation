@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -14,7 +15,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Address Street.
  *
  * @param street Street name
- * 
+ *
  * Not DSGVO relevant.
  *
  * TODO Verify with openstreetmap
@@ -37,7 +38,7 @@ public record Street(String street) implements Comparable<Street>, IValueObject
   public Street
    {
     Objects.requireNonNull(street, "street"); //$NON-NLS-1$
-    if ((street.length() < 1) || (street.length() > 32))
+    if (street.isEmpty() || (street.length() > 32))
      {
       throw new IllegalArgumentException("Street with wrong length"); //$NON-NLS-1$
      }
@@ -68,7 +69,7 @@ public record Street(String street) implements Comparable<Street>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.street;
+    return street;
    }
 
 
@@ -83,7 +84,7 @@ public record Street(String street) implements Comparable<Street>, IValueObject
   public int compareTo(final Street obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.street.compareTo(obj.street);
+    return street.compareTo(obj.street);
    }
 
  }

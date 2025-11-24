@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -13,7 +14,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Hours.
  *
  * @param hours Hours 0-..
- * 
+ *
  * Not DSGVO relevant.
  */
 public record Hours(long hours) implements Comparable<Hours>, IValueObject
@@ -75,7 +76,7 @@ public record Hours(long hours) implements Comparable<Hours>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.hours);
+    return String.valueOf(hours);
    }
 
 
@@ -90,7 +91,7 @@ public record Hours(long hours) implements Comparable<Hours>, IValueObject
   public int compareTo(final Hours obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Long.compare(this.hours, obj.hours);
+    return Long.compare(hours, obj.hours);
    }
 
 
@@ -103,7 +104,7 @@ public record Hours(long hours) implements Comparable<Hours>, IValueObject
    */
   public Hours add(final Hours other)
    {
-    return Hours.of(Math.addExact(this.hours, other.hours));
+    return Hours.of(Math.addExact(hours, other.hours));
    }
 
 
@@ -115,11 +116,11 @@ public record Hours(long hours) implements Comparable<Hours>, IValueObject
    */
   public Hours subtract(final Hours other)
    {
-    if (other.hours > this.hours) // NO PITEST
+    if (other.hours > hours) // NO PITEST
      {
-      return Hours.of(other.hours - this.hours);
+      return Hours.of(other.hours - hours);
      }
-    return Hours.of(this.hours - other.hours);
+    return Hours.of(hours - other.hours);
    }
 
 
@@ -132,7 +133,7 @@ public record Hours(long hours) implements Comparable<Hours>, IValueObject
    */
   public Hours multiply(final long multiplier)
    {
-    return Hours.of(Math.multiplyExact(this.hours, multiplier));
+    return Hours.of(Math.multiplyExact(hours, multiplier));
    }
 
 
@@ -145,7 +146,7 @@ public record Hours(long hours) implements Comparable<Hours>, IValueObject
    */
   public Hours divide(final long divisor)
    {
-    return Hours.of(Math.floorDiv(this.hours, divisor));
+    return Hours.of(Math.floorDiv(hours, divisor));
    }
 
 
@@ -158,7 +159,7 @@ public record Hours(long hours) implements Comparable<Hours>, IValueObject
    */
   public Hours modulo(final long divisor)
    {
-    return Hours.of(Math.floorMod(this.hours, divisor));
+    return Hours.of(Math.floorMod(hours, divisor));
    }
 
  }

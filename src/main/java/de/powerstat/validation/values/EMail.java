@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -15,7 +16,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Electronic mail.
  *
  * @param email EMail
- * 
+ *
  * Probably DSGVO relevant.
  *
  * TODO Hostname exists?
@@ -38,6 +39,7 @@ public record EMail(String email) implements Comparable<EMail>, IValueObject
    * @throws NullPointerException if email is null
    * @throws IllegalArgumentException if email is not an supported email address
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public EMail
    {
     Objects.requireNonNull(email, "email"); //$NON-NLS-1$
@@ -108,7 +110,7 @@ public record EMail(String email) implements Comparable<EMail>, IValueObject
   @Override
   public String stringValue()
    {
-    return this.email;
+    return email;
    }
 
 
@@ -162,7 +164,7 @@ public record EMail(String email) implements Comparable<EMail>, IValueObject
   public int compareTo(final EMail obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.email.compareTo(obj.email); // TODO hostname, username
+    return email.compareTo(obj.email); // TODO hostname, username
    }
 
  }

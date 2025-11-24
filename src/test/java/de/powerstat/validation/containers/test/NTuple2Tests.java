@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2022-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2022-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.containers.test;
 
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.*;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.containers.NTuple2;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -18,7 +19,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * NTuple2 tests.
  */
-@SuppressFBWarnings({"CE_CLASS_ENVY", "RV_NEGATING_RESULT_OF_COMPARETO", "SPP_USE_ZERO_WITH_COMPARATOR", "EC_NULL_ARG"})
+@SuppressFBWarnings({"RV_NEGATING_RESULT_OF_COMPARETO", "SPP_USE_ZERO_WITH_COMPARATOR"})
 final class NTuple2Tests
  {
   /**
@@ -48,7 +49,7 @@ final class NTuple2Tests
    * Equalsverifier.
    */
   @Test
-  public void equalsContract()
+  /* default */ void testEqualsContract()
    {
     EqualsVerifier.forClass(NTuple2.class).withNonnullFields("object1", "object2").verify();
    }

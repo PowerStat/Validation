@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values.strategies;
 
@@ -190,11 +191,11 @@ public class PasswordConfigurableStrategy implements IPasswordStrategy
   @Override
   public void validationStrategy(final String password)
    {
-    if ((password.length() < this.minLength) || (password.length() > this.maxLength))
+    if ((password.length() < minLength) || (password.length() > maxLength))
      {
       throw new IllegalArgumentException("To short or long for a password"); //$NON-NLS-1$
      }
-    if (!password.matches(this.regexp))
+    if (!password.matches(regexp))
      {
       throw new IllegalArgumentException("Password contains illegal character"); //$NON-NLS-1$
      }
@@ -228,7 +229,7 @@ public class PasswordConfigurableStrategy implements IPasswordStrategy
       if (chr == lastChar)
        {
         ++same;
-        if ((this.maxRepeated != 0) && (same > this.maxRepeated))
+        if ((maxRepeated != 0) && (same > maxRepeated))
          {
           throw new IllegalArgumentException("To much repeated characters after each other in password"); //$NON-NLS-1$
          }
@@ -239,23 +240,23 @@ public class PasswordConfigurableStrategy implements IPasswordStrategy
         lastChar = chr;
        }
      }
-    if (numeric < this.minNumeric)
+    if (numeric < minNumeric)
      {
       throw new IllegalArgumentException("Not enougth numeric characters in password"); //$NON-NLS-1$
      }
-    if (lower < this.minLower)
+    if (lower < minLower)
      {
       throw new IllegalArgumentException("Not enougth lower case characters in password"); //$NON-NLS-1$
      }
-    if (upper < this.minUpper)
+    if (upper < minUpper)
      {
       throw new IllegalArgumentException("Not enougth upper case characters in password"); //$NON-NLS-1$
      }
-    if (special < this.minSpecial)
+    if (special < minSpecial)
      {
       throw new IllegalArgumentException("Not enougth special characters in password"); //$NON-NLS-1$
      }
-    if (cset.size() < this.minUnique)
+    if (cset.size() < minUnique)
      {
       throw new IllegalArgumentException("Not enougth unique characters in password"); //$NON-NLS-1$
      }

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -13,7 +14,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Month.
  *
  * @param month Month 1-12
- * 
+ *
  * Not DSGVO relevant.
  *
  * TODO constructor with year ?
@@ -107,7 +108,7 @@ public record Month(int month) implements Comparable<Month>, IValueObject
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.month);
+    return String.valueOf(month);
    }
 
 
@@ -122,7 +123,7 @@ public record Month(int month) implements Comparable<Month>, IValueObject
   public int compareTo(final Month obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.month, obj.month);
+    return Integer.compare(month, obj.month);
    }
 
 
@@ -133,7 +134,7 @@ public record Month(int month) implements Comparable<Month>, IValueObject
    */
   public Days daysInMonth()
    {
-    return Days.of(DAYS_IN_MONTH[this.month]); // TODO depends on year == leapYear for february
+    return Days.of(DAYS_IN_MONTH[month]); // TODO depends on year == leapYear for february
    }
 
 
@@ -144,9 +145,10 @@ public record Month(int month) implements Comparable<Month>, IValueObject
    * @return New month after adding the months to this month
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Month add(final Months months)
    {
-    final long newMonth = Math.toIntExact(Math.addExact(this.month, months.months()));
+    final long newMonth = Math.toIntExact(Math.addExact(month, months.months()));
     if (newMonth > 12) // while (newMonth > 12)
      {
       // TODO Listener
@@ -167,7 +169,7 @@ public record Month(int month) implements Comparable<Month>, IValueObject
    */
   public Month subtract(final Months months)
    {
-    final long newMonth = Math.toIntExact(Math.subtractExact(this.month, months.months()));
+    final long newMonth = Math.toIntExact(Math.subtractExact(month, months.months()));
     if (newMonth <= 0) // while (newMonth <= 0)
      {
       // TODO Listener
@@ -185,9 +187,10 @@ public record Month(int month) implements Comparable<Month>, IValueObject
    * @return New month after incrementing this month
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Month increment()
    {
-    final int newMonth = Math.incrementExact(this.month);
+    final int newMonth = Math.incrementExact(month);
     if (newMonth == 13)
      {
       // TODO Listener
@@ -207,7 +210,7 @@ public record Month(int month) implements Comparable<Month>, IValueObject
    */
   public Month decrement()
    {
-    final int newMonth = Math.decrementExact(this.month);
+    final int newMonth = Math.decrementExact(month);
     if (newMonth == 0)
      {
       // TODO Listener

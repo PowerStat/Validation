@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2021-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2021-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -13,7 +14,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Millisecond.
  *
  * @param millisecond Millisecond 0-999
- * 
+ *
  * Not DSGVO relevant.
  *
  * TODO Listener
@@ -88,7 +89,7 @@ public record Millisecond(int millisecond) implements Comparable<Millisecond>, I
   @Override
   public String stringValue()
    {
-    return String.valueOf(this.millisecond);
+    return String.valueOf(millisecond);
    }
 
 
@@ -103,7 +104,7 @@ public record Millisecond(int millisecond) implements Comparable<Millisecond>, I
   public int compareTo(final Millisecond obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Integer.compare(this.millisecond, obj.millisecond);
+    return Integer.compare(millisecond, obj.millisecond);
    }
 
 
@@ -114,9 +115,10 @@ public record Millisecond(int millisecond) implements Comparable<Millisecond>, I
    * @return New millisecond after adding the milliseconds to this millisecond
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Millisecond add(final Milliseconds milliseconds)
    {
-    final int newMillisecond = Math.toIntExact(Math.addExact(this.millisecond, milliseconds.milliseconds()));
+    final int newMillisecond = Math.toIntExact(Math.addExact(millisecond, milliseconds.milliseconds()));
     if (newMillisecond > 999)
      {
       // TODO Listener
@@ -135,7 +137,7 @@ public record Millisecond(int millisecond) implements Comparable<Millisecond>, I
    */
   public Millisecond subtract(final Milliseconds milliseconds)
    {
-    final int newMillisecond = Math.toIntExact(Math.subtractExact(this.millisecond, milliseconds.milliseconds()));
+    final int newMillisecond = Math.toIntExact(Math.subtractExact(millisecond, milliseconds.milliseconds()));
     if (newMillisecond < 0)
      {
       // TODO Listener
@@ -151,9 +153,10 @@ public record Millisecond(int millisecond) implements Comparable<Millisecond>, I
    * @return New millisecond after incrementing this millisecond
    * @throws ArithmeticException In case of an overflow
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Millisecond increment()
    {
-    final int newMillisecond = Math.incrementExact(this.millisecond);
+    final int newMillisecond = Math.incrementExact(millisecond);
     if (newMillisecond == 1000)
      {
       // TODO Listener
@@ -171,7 +174,7 @@ public record Millisecond(int millisecond) implements Comparable<Millisecond>, I
    */
   public Millisecond decrement()
    {
-    final int newMillisecond = Math.decrementExact(this.millisecond);
+    final int newMillisecond = Math.decrementExact(millisecond);
     if (newMillisecond == -1)
      {
       // TODO Listener

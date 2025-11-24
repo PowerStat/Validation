@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2024 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -15,7 +16,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * IP V6 address.
  *
  * @param address IP V6 address
- * 
+ *
  * DSGVO relevant.
  *
  * TODO ping ok?
@@ -152,16 +153,16 @@ public record IPV6Address(String address) implements Comparable<IPV6Address>, IV
     final var start = address.substring(0, expPos);
     final var end = address.substring(expPos + 2);
     int blocks = 8;
-    if (start.length() > 0)
+    if (!start.isEmpty())
      {
       blocks -= countColons(start) + 1;
      }
-    if (end.length() > 0)
+    if (!end.isEmpty())
      {
       blocks -= countColons(end) + 1;
      }
     final var replace = new StringBuilder();
-    if (start.length() > 0)
+    if (!start.isEmpty())
      {
       replace.append(':');
      }
@@ -174,7 +175,7 @@ public record IPV6Address(String address) implements Comparable<IPV6Address>, IV
         replace.append(':');
        }
      }
-    if (end.length() > 0)
+    if (!end.isEmpty())
      {
       replace.append(':');
      }
@@ -224,11 +225,11 @@ public record IPV6Address(String address) implements Comparable<IPV6Address>, IV
    *
    * @return true if private, false otherwise
    */
-  @SuppressWarnings("java:S1313")
+  @SuppressWarnings({"java:S1313", "PMD.AvoidLiteralsInIfCondition", "PMD.AvoidUsingHardCodedIP"})
   public boolean isPrivate()
    {
-    final String[] blocks = this.address.split(IPV6Address.IV6_SEP);
-    return ("00fe:0080:0000:0000:0000:0000:0000:0000".equals(this.address) || // Link-Local //$NON-NLS-1$
+    final String[] blocks = address.split(IPV6Address.IV6_SEP);
+    return ("00fe:0080:0000:0000:0000:0000:0000:0000".equals(address) || // Link-Local //$NON-NLS-1$
             "00fc".equals(blocks[0]) || "00fd".equals(blocks[0]) // Unique Local Unicast //$NON-NLS-1$ //$NON-NLS-2$
            );
    }
@@ -243,10 +244,11 @@ public record IPV6Address(String address) implements Comparable<IPV6Address>, IV
    *
    * @return true if special, false otherwise
    */
+  @SuppressWarnings({"PMD.AvoidLiteralsInIfCondition", "PMD.AvoidUsingHardCodedIP"})
   public boolean isSpecial()
    {
-    final String[] blocks = this.address.split(IPV6Address.IV6_SEP);
-    return ("0000:0000:0000:0000:0000:0000:0000:0000".equals(this.address) || "0000:0000:0000:0000:0000:0000:0000:0001".equals(this.address) || // default route, loopback //$NON-NLS-1$ //$NON-NLS-2$
+    final String[] blocks = address.split(IPV6Address.IV6_SEP);
+    return ("0000:0000:0000:0000:0000:0000:0000:0000".equals(address) || "0000:0000:0000:0000:0000:0000:0000:0001".equals(address) || // default route, loopback //$NON-NLS-1$ //$NON-NLS-2$
             "00ff".equals(blocks[0]) // Multicast //$NON-NLS-1$
            );
    }

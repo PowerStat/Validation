@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2023-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -23,14 +24,9 @@ import de.powerstat.validation.interfaces.IValueObject;
 public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IValueObject
  {
   /**
-   * Overflow constant.
+   * Avoid literals in if conditions.
    */
-  private static final String OVERFLOW = "Overflow"; //$NON-NLS-1$
-
-  /**
-   * Underflow constant.
-   */
-  private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
+  private static final String PMD_AVOID_LITERALS_IN_IF_CONDITION = "PMD.AvoidLiteralsInIfCondition";
 
   /**
    * Date separator.
@@ -47,25 +43,17 @@ public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IV
    * @throws IndexOutOfBoundsException When the day is less than 1 or greater than 31 or the day is to large for the month.
    * @throws IllegalStateException When the month is in an illegal state
    */
+  @SuppressWarnings(PMD_AVOID_LITERALS_IN_IF_CONDITION)
   public MonthDay
    {
     Objects.requireNonNull(month, "month"); //$NON-NLS-1$
     Objects.requireNonNull(day, "day"); //$NON-NLS-1$
     switch (month.month())
      {
-      case 1:
-      case 3:
-      case 5:
-      case 7:
-      case 8:
-      case 10:
-      case 12:
+      case 1, 3, 5, 7, 8, 10, 12:
         break;
 
-      case 4:
-      case 6:
-      case 9:
-      case 11:
+      case 4, 6, 9, 11:
         if (day.day() > 30)
          {
           throw new IndexOutOfBoundsException("Day number out of range for the month (31)!"); //$NON-NLS-1$
@@ -104,6 +92,7 @@ public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IV
    * @param value ISO8601 format [m]m-[d]d
    * @return DayMonth object
    */
+  @SuppressWarnings(PMD_AVOID_LITERALS_IN_IF_CONDITION)
   public static MonthDay of(final String value)
    {
     final String[] values = value.split(DATE_SEP);
@@ -123,7 +112,7 @@ public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IV
   @Override
   public String stringValue()
    {
-    return this.month.stringValue() + DATE_SEP + this.day.stringValue();
+    return month.stringValue() + DATE_SEP + day.stringValue();
    }
 
 
@@ -138,10 +127,10 @@ public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IV
   public int compareTo(final MonthDay obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    int result = this.month.compareTo(obj.month);
+    int result = month.compareTo(obj.month);
     if (result == 0)
      {
-      result = this.day.compareTo(obj.day);
+      result = day.compareTo(obj.day);
      }
     return result;
    }
@@ -153,11 +142,11 @@ public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IV
    * @param month Month
    * @return Fixed day
    */
-  private int fixDay(Month month)
+  private int fixDay(final Month month)
    {
     long lastDayInMonth = month.daysInMonth().days();
-    int newDay = this.day.day();
-    if (this.day.day() > lastDayInMonth) // NO PITEST
+    int newDay = day.day();
+    if (day.day() > lastDayInMonth) // NO PITEST
      {
       newDay = (int)lastDayInMonth;
      }
@@ -173,7 +162,7 @@ public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IV
    */
   public MonthDay add(final Months months)
    {
-    long newMonth = Math.toIntExact(Math.addExact(this.month.month(), months.months()));
+    long newMonth = Math.toIntExact(Math.addExact(month.month(), months.months()));
     while (newMonth > 12)
      {
       // TODO Listener year
@@ -187,76 +176,16 @@ public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IV
 
 
   /**
-   * Subtract months from this MonthDay.
-   *
-   * @param months Months to subtract from this MonthDay
-   * @return New MonthDay after subtracting months from this MonthDay
-   */
-  public MonthDay subtract(final Months months)
-   {
-    long newMonth = Math.toIntExact(Math.subtractExact(this.month.month(), months.months()));
-    while (newMonth <= 0)
-     {
-      // TODO Listener year
-      newMonth += 12;
-      // decrementYear();
-     }
-    Month month = Month.of(Math.toIntExact(newMonth));
-    int newDay = fixDay(month);
-    return MonthDay.of(month, Day.of(newDay));
-   }
-
-
-  /**
-   * Increment this MonthDay by one month.
-   *
-   * @return New MonthDay after incrementing this MonthDay by one month
-   */
-  public MonthDay incrementMonth()
-   {
-    int newMonth = Math.incrementExact(this.month.month());
-    if (newMonth == 13)
-     {
-      // TODO Listener year
-      newMonth = 1;
-      // incrementYear();
-     }
-    Month month = Month.of(Math.toIntExact(newMonth));
-    int newDay = fixDay(month);
-    return MonthDay.of(month, Day.of(newDay));
-   }
-
-
-  /**
-   * Decrement this MonthDay by one month.
-   *
-   * @return New MonthDay after decrement this MonthDay by one month
-   */
-  public MonthDay decrementMonth()
-   {
-    int newMonth = Math.decrementExact(this.month.month());
-    if (newMonth == 0)
-     {
-      // TODO Listener year
-      newMonth = 12;
-      // decrementYear();
-     }
-    Month month = Month.of(Math.toIntExact(newMonth));
-    int newDay = fixDay(month);
-    return MonthDay.of(month, Day.of(newDay));
-   }
-
-
-  /**
    * Add days to this MonthDay.
    *
    * @param days Days to add to this MonthDay
    * @return New MonthDay after adding the days to this MonthDay
    */
+  @SuppressWarnings(PMD_AVOID_LITERALS_IN_IF_CONDITION)
   public MonthDay add(final Days days)
    {
-    long newDay = Math.toIntExact(Math.addExact(this.day.day(), days.days()));
-    int newMonth = this.month.month();
+    long newDay = Math.toIntExact(Math.addExact(day.day(), days.days()));
+    int newMonth = month.month();
     while (newDay > Month.of(newMonth).daysInMonth().days())
      {
       newDay -= Month.of(newMonth).daysInMonth().days();
@@ -273,6 +202,27 @@ public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IV
 
 
   /**
+   * Subtract months from this MonthDay.
+   *
+   * @param months Months to subtract from this MonthDay
+   * @return New MonthDay after subtracting months from this MonthDay
+   */
+  public MonthDay subtract(final Months months)
+   {
+    long newMonth = Math.toIntExact(Math.subtractExact(month.month(), months.months()));
+    while (newMonth <= 0)
+     {
+      // TODO Listener year
+      newMonth += 12;
+      // decrementYear();
+     }
+    Month month = Month.of(Math.toIntExact(newMonth));
+    int newDay = fixDay(month);
+    return MonthDay.of(month, Day.of(newDay));
+   }
+
+
+  /**
    * Subtract days from this MonthDay.
    *
    * @param days Days to subtract from this MonthDay
@@ -280,8 +230,8 @@ public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IV
    */
   public MonthDay subtract(final Days days)
    {
-    long newDay = Math.toIntExact(Math.subtractExact(this.day.day(), days.days()));
-    int newMonth = this.month.month();
+    long newDay = Math.toIntExact(Math.subtractExact(day.day(), days.days()));
+    int newMonth = month.month();
     while (newDay < 1)
      {
       --newMonth;
@@ -298,17 +248,59 @@ public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IV
 
 
   /**
+   * Increment this MonthDay by one month.
+   *
+   * @return New MonthDay after incrementing this MonthDay by one month
+   */
+  @SuppressWarnings(PMD_AVOID_LITERALS_IN_IF_CONDITION)
+  public MonthDay incrementMonth()
+   {
+    int newMonth = Math.incrementExact(month.month());
+    if (newMonth == 13)
+     {
+      // TODO Listener year
+      newMonth = 1;
+      // incrementYear();
+     }
+    final Month month = Month.of(Math.toIntExact(newMonth));
+    final int newDay = fixDay(month);
+    return MonthDay.of(month, Day.of(newDay));
+   }
+
+
+  /**
+   * Decrement this MonthDay by one month.
+   *
+   * @return New MonthDay after decrement this MonthDay by one month
+   */
+  public MonthDay decrementMonth()
+   {
+    int newMonth = Math.decrementExact(month.month());
+    if (newMonth == 0)
+     {
+      // TODO Listener year
+      newMonth = 12;
+      // decrementYear();
+     }
+    final Month month = Month.of(Math.toIntExact(newMonth));
+    final int newDay = fixDay(month);
+    return MonthDay.of(month, Day.of(newDay));
+   }
+
+
+  /**
    * Increment this MonthDay by one day.
    *
    * @return New MonthDay after incrementing this MonthDay by one day
    */
+  @SuppressWarnings(PMD_AVOID_LITERALS_IN_IF_CONDITION)
   public MonthDay incrementDay()
    {
-    int newMonth = this.month.month();
-    int newDay = Math.incrementExact(this.day.day());
-    if (newDay > this.month.daysInMonth().days())
+    int newMonth = month.month();
+    int newDay = Math.incrementExact(day.day());
+    if (newDay > month.daysInMonth().days())
      {
-      newDay -= this.month.daysInMonth().days();
+      newDay -= month.daysInMonth().days();
       // TODO Listener month
       ++newMonth;
       if (newMonth > 12)
@@ -329,8 +321,8 @@ public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IV
    */
   public MonthDay decrementDay()
    {
-    int newMonth = this.month.month();
-    int newDay = Math.decrementExact(this.day.day());
+    int newMonth = month.month();
+    int newDay = Math.decrementExact(day.day());
     if (newDay < 1)
      {
       // TODO Listener month

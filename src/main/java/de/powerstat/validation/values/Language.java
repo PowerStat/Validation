@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -15,7 +16,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Language ISO 639-1.
  *
  * @param code ISO 639-1 code
- * 
+ *
  * Not DSGVO relevant.
  *
  * TODO Languages names in english
@@ -37,6 +38,7 @@ public record Language(String code) implements Comparable<Language>, IValueObjec
    * @throws NullPointerException if code is null
    * @throws IllegalArgumentException if code is not a known 639-1 code
    */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Language
    {
     Objects.requireNonNull(code, "code"); //$NON-NLS-1$
@@ -75,7 +77,7 @@ public record Language(String code) implements Comparable<Language>, IValueObjec
   @Override
   public String stringValue()
    {
-    return this.code;
+    return code;
    }
 
 
@@ -90,7 +92,7 @@ public record Language(String code) implements Comparable<Language>, IValueObjec
   public int compareTo(final Language obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.code.compareTo(obj.code);
+    return code.compareTo(obj.code);
    }
 
  }

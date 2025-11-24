@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2020-2023 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.values;
 
@@ -33,7 +34,7 @@ public record Department(String department) implements Comparable<Department>, I
   public Department
    {
     Objects.requireNonNull(department, "department"); //$NON-NLS-1$
-    if ((department.length() < 1) || (department.length() > 64))
+    if (department.isEmpty() || (department.length() > 64))
      {
       throw new IllegalArgumentException("Department with wrong length"); //$NON-NLS-1$
      }
@@ -64,7 +65,7 @@ public record Department(String department) implements Comparable<Department>, I
   @Override
   public String stringValue()
    {
-    return this.department;
+    return department;
    }
 
 
@@ -79,7 +80,7 @@ public record Department(String department) implements Comparable<Department>, I
   public int compareTo(final Department obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return this.department.compareTo(obj.department);
+    return department.compareTo(obj.department);
    }
 
  }
