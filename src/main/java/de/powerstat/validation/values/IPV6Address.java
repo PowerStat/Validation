@@ -9,6 +9,9 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -19,6 +22,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * TODO ping ok?
  */
+@ValueObject
 public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
  {
   /* *
@@ -332,7 +336,7 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
    */
   @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
-  public boolean equals(final Object obj)
+  public boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {

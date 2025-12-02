@@ -7,6 +7,9 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -19,6 +22,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Listener
  * TODO Translations short/long name
  */
+@ValueObject
 public final class Weekday implements Comparable<Weekday>, IValueObject
  {
   /**
@@ -135,7 +139,7 @@ public final class Weekday implements Comparable<Weekday>, IValueObject
    */
   @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
-  public boolean equals(final Object obj)
+  public boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {

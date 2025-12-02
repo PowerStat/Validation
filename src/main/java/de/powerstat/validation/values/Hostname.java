@@ -11,6 +11,9 @@ import java.net.UnknownHostException;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 // import org.apache.logging.log4j.LogManager;
 // import org.apache.logging.log4j.Logger;
 
@@ -27,6 +30,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * TODO Verify TopLevelDomain
  * TODO ping ok?
  */
+@ValueObject
 public final class Hostname implements Comparable<Hostname>, IValueObject
  {
   /**
@@ -262,7 +266,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
    */
   @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
-  public boolean equals(final Object obj)
+  public boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {

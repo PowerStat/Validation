@@ -8,6 +8,9 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -19,6 +22,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO IPV4Address filterMin(IPV4Address)      0
  * TODO IPV4Address filterMax(IPV4Address)      255
  */
+@ValueObject
 public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
  {
   /* *
@@ -232,7 +236,7 @@ public final class IPV4Mask implements Comparable<IPV4Mask>, IValueObject
    */
   @SuppressWarnings("PMD.SimplifyBooleanReturns")
   @Override
-  public boolean equals(final Object obj)
+  public boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {

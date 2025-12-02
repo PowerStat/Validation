@@ -7,6 +7,9 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -16,6 +19,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * 1:1 2.1:1 3:1 3:2 4:3 5:3 5:4 8:5 9:5 10:6 15:9 16:9 16:10 17:10 25:12 25:16 60:29 64:35 72:35
  */
 @SuppressWarnings({"PMD.ShortVariable"})
+@ValueObject
 public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>, IValueObject
  {
   /* *
@@ -159,7 +163,7 @@ public final class DisplayAspectRatio implements Comparable<DisplayAspectRatio>,
    * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
-  public boolean equals(final Object obj)
+  public boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {

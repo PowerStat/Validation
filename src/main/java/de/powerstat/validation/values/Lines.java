@@ -8,6 +8,9 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -16,6 +19,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * Not DSGVO relevant.
  */
+@ValueObject
 public final class Lines implements Comparable<Lines>, IValueObject
  {
   /**
@@ -132,7 +136,7 @@ public final class Lines implements Comparable<Lines>, IValueObject
    */
   @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
-  public boolean equals(final Object obj)
+  public boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {

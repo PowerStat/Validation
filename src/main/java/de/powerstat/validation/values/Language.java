@@ -8,6 +8,9 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.generated.GeneratedISO6391;
 import de.powerstat.validation.interfaces.IValueObject;
 
@@ -20,6 +23,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Languages names in english
  * TODO Translations
  */
+@ValueObject
 public final class Language implements Comparable<Language>, IValueObject
  {
   /* *
@@ -126,7 +130,7 @@ public final class Language implements Comparable<Language>, IValueObject
    */
   @SuppressWarnings("PMD.SimplifyBooleanReturns")
   @Override
-  public boolean equals(final Object obj)
+  public boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {

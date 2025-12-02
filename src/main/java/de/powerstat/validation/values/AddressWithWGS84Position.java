@@ -7,6 +7,9 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
@@ -17,6 +20,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * TODO compareTo(): AddressWithWGS84Position
  */
+@ValueObject
 public final class AddressWithWGS84Position extends Address
  {
   /* *
@@ -50,7 +54,7 @@ public final class AddressWithWGS84Position extends Address
    * @param lines Lines 1-5
    * @param position WGS84Position
    */
-  private AddressWithWGS84Position(final Country country, final PostalCode postalCode, final City city, final Province province, final District district, final Street street, final BuildingNr buildingNr, final BuildingName buildingName, final SubBuilding subBuilding, final PoBoxNumber poBoxNumber, final Department department, final Neighbourhood neighbourhood, final Block block, final BFPONumber bFPONumber, final Lines lines, final WGS84Position position)
+  private AddressWithWGS84Position(final Country country, final @Nullable PostalCode postalCode, final @Nullable City city, final @Nullable Province province, final @Nullable District district, final @Nullable Street street, final @Nullable BuildingNr buildingNr, final @Nullable BuildingName buildingName, final @Nullable SubBuilding subBuilding, final @Nullable PoBoxNumber poBoxNumber, final @Nullable Department department, final @Nullable Neighbourhood neighbourhood, final @Nullable Block block, final @Nullable BFPONumber bFPONumber, final @Nullable Lines lines, final WGS84Position position)
    {
     super(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines);
     Objects.requireNonNull(position, "position"); //$NON-NLS-1$
@@ -79,7 +83,7 @@ public final class AddressWithWGS84Position extends Address
    * @param position WGS84Position
    * @return AddressWithWGS84Position object
    */
-  public static AddressWithWGS84Position of(final Country country, final PostalCode postalCode, final City city, final Province province, final District district, final Street street, final BuildingNr buildingNr, final BuildingName buildingName, final SubBuilding subBuilding, final PoBoxNumber poBoxNumber, final Department department, final Neighbourhood neighbourhood, final Block block, final BFPONumber bFPONumber, final Lines lines, final WGS84Position position)
+  public static AddressWithWGS84Position of(final Country country, final @Nullable PostalCode postalCode, final @Nullable City city, final @Nullable Province province, final @Nullable District district, final @Nullable Street street, final @Nullable BuildingNr buildingNr, final @Nullable BuildingName buildingName, final @Nullable SubBuilding subBuilding, final @Nullable PoBoxNumber poBoxNumber, final @Nullable Department department, final @Nullable Neighbourhood neighbourhood, final @Nullable Block block, final @Nullable BFPONumber bFPONumber, final @Nullable Lines lines, final WGS84Position position)
    {
     /*
     final NTuple16<Country, PostalCode, City, Province, District, Street, BuildingNr, BuildingName, SubBuilding, PoBoxNumber, Department, Neighbourhood, Block, BFPONumber, Lines, WGS84Position> tuple = NTuple16.of(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines, position);
@@ -108,6 +112,7 @@ public final class AddressWithWGS84Position extends Address
   @SuppressWarnings({"PMD.NPathComplexity"})
   public static AddressWithWGS84Position of(final String value)
    {
+    Objects.requireNonNull(value, "value"); //$NON-NLS-1$
     final String[] values = value.split(",");
     if ((values.length < 16) || (values.length > 16))
      {
@@ -204,7 +209,7 @@ public final class AddressWithWGS84Position extends Address
    * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
-  public boolean equals(final Object obj)
+  public boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {

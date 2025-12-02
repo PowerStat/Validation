@@ -7,6 +7,8 @@ package de.powerstat.validation.containers;
 
 import java.util.Objects;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 
 /**
  * N-Tuple 9.
@@ -262,7 +264,7 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
    * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
-  public boolean equals(final Object obj)
+  public boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {

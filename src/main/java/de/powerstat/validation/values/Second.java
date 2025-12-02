@@ -7,6 +7,9 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -18,6 +21,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Constructor with day, month, year, hour, minute
  * TODO Listener  (mod 60 = 0)
  */
+@ValueObject
 public final class Second implements Comparable<Second>, IValueObject
  {
   /**
@@ -155,7 +159,7 @@ public final class Second implements Comparable<Second>, IValueObject
    */
   @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
-  public boolean equals(final Object obj)
+  public boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {

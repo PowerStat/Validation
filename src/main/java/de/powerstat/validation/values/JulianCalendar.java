@@ -7,6 +7,9 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -16,6 +19,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * Not DSGVO relevant.
  */
+@ValueObject
 public final class JulianCalendar implements Comparable<JulianCalendar>, IValueObject
  {
   /**
@@ -88,7 +92,7 @@ public final class JulianCalendar implements Comparable<JulianCalendar>, IValueO
    */
   @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
-  public boolean equals(final Object obj)
+  public boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {
@@ -146,7 +150,7 @@ public final class JulianCalendar implements Comparable<JulianCalendar>, IValueO
   public boolean isLeapYear(final Year year)
    {
     Objects.requireNonNull(year, JulianCalendar.YEAR);
-    return (year.longValue() <= 0) ? (((-year.longValue()) % 4) == 1) : ((year.longValue() % 4) == 0);
+    return (year.longValue() <= 0) ? ((-year.longValue() % 4) == 1) : ((year.longValue() % 4) == 0);
    }
 
 

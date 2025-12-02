@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -20,6 +22,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * Not DSGVO relevant.
  */
+@ValueObject
 public enum BloodGroup implements IValueObject
  {
   /**
@@ -239,7 +242,8 @@ public enum BloodGroup implements IValueObject
    */
   public boolean couldDonateTo(final BloodGroup other)
    {
-    return BloodGroup.DONATE_TO.get(this).contains(other);
+    final List<BloodGroup> list = BloodGroup.DONATE_TO.get(this);
+    return (list == null) ? false : list.contains(other);
    }
 
 
@@ -251,7 +255,8 @@ public enum BloodGroup implements IValueObject
    */
   public boolean couldReceiveFrom(final BloodGroup other)
    {
-    return BloodGroup.RECEIVE_FROM.get(this).contains(other);
+    final List<BloodGroup> list = BloodGroup.RECEIVE_FROM.get(this);
+    return (list == null) ? false : list.contains(other);
    }
 
  }

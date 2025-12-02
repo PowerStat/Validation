@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
@@ -198,7 +199,7 @@ final class HistoryOfTests
   /* default */ void testAddEntry3()
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
-    final OffsetDateTime now = OffsetDateTime.now();
+    final OffsetDateTime now = OffsetDateTime.now(ZoneId.systemDefault());
     assertThrows(NullPointerException.class, () ->
      {
       lastname.addEntry(now, null);
@@ -214,7 +215,7 @@ final class HistoryOfTests
   /* default */ void testAddEntry4()
    {
     final HistoryOf<Lastname> lastnameHistory = new HistoryOf<>();
-    final OffsetDateTime nowPlusOneDay = OffsetDateTime.now().plusDays(1);
+    final OffsetDateTime nowPlusOneDay = OffsetDateTime.now(ZoneId.systemDefault()).plusDays(1);
     final Lastname lastname = Lastname.of(HistoryOfTests.HOFMANN);
     assertThrows(IndexOutOfBoundsException.class, () ->
      {
@@ -231,8 +232,8 @@ final class HistoryOfTests
   /* default */ void testAddEntry5()
    {
     final HistoryOf<Lastname> lastnameHistory = new HistoryOf<>();
-    lastnameHistory.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
-    final OffsetDateTime now = OffsetDateTime.now();
+    lastnameHistory.addEntry(OffsetDateTime.now(ZoneId.systemDefault()), Lastname.of(HistoryOfTests.HOFMANN));
+    final OffsetDateTime now = OffsetDateTime.now(ZoneId.systemDefault());
     final Lastname lastname = Lastname.of(HistoryOfTests.HOFMANN);
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -250,7 +251,7 @@ final class HistoryOfTests
   /* default */ void testGetFirstEntry1()
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
-    lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
+    lastname.addEntry(OffsetDateTime.now(ZoneId.systemDefault()), Lastname.of(HistoryOfTests.HOFMANN));
     final Lastname name = lastname.getFirstEntry();
     assertEquals(HistoryOfTests.HOFMANN, name.stringValue(), HistoryOfTests.GET_FIRST_ENTRY);
    }
@@ -266,9 +267,9 @@ final class HistoryOfTests
   /* default */ void testGetFirstEntry2() throws InterruptedException
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
-    lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.LASTNAME));
+    lastname.addEntry(OffsetDateTime.now(ZoneId.systemDefault()), Lastname.of(HistoryOfTests.LASTNAME));
     TimeUnit.MICROSECONDS.sleep(1);
-    lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
+    lastname.addEntry(OffsetDateTime.now(ZoneId.systemDefault()), Lastname.of(HistoryOfTests.HOFMANN));
     final Lastname name = lastname.getFirstEntry();
     assertEquals(HistoryOfTests.LASTNAME, name.stringValue(), HistoryOfTests.GET_FIRST_ENTRY);
    }
@@ -297,7 +298,7 @@ final class HistoryOfTests
   /* default */ void testGetLatestEntry1()
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
-    lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
+    lastname.addEntry(OffsetDateTime.now(ZoneId.systemDefault()), Lastname.of(HistoryOfTests.HOFMANN));
     final Lastname name = lastname.getLatestEntry();
     assertEquals(HistoryOfTests.HOFMANN, name.stringValue(), HistoryOfTests.GET_LATEST_ENTRY);
    }
@@ -313,9 +314,9 @@ final class HistoryOfTests
   /* default */ void testGetLatestEntry2() throws InterruptedException
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
-    lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.LASTNAME));
+    lastname.addEntry(OffsetDateTime.now(ZoneId.systemDefault()), Lastname.of(HistoryOfTests.LASTNAME));
     TimeUnit.MICROSECONDS.sleep(1);
-    lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
+    lastname.addEntry(OffsetDateTime.now(ZoneId.systemDefault()), Lastname.of(HistoryOfTests.HOFMANN));
     final Lastname name = lastname.getLatestEntry();
     assertEquals(HistoryOfTests.HOFMANN, name.stringValue(), HistoryOfTests.GET_LATEST_ENTRY);
    }
@@ -344,7 +345,7 @@ final class HistoryOfTests
   /* default */ void testGetPreviousEntry1()
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
-    lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
+    lastname.addEntry(OffsetDateTime.now(ZoneId.systemDefault()), Lastname.of(HistoryOfTests.HOFMANN));
     final Lastname name = lastname.getPreviousEntry();
     assertEquals(HistoryOfTests.HOFMANN, name.stringValue(), HistoryOfTests.GET_PREVIOUS_ENTRY);
    }
@@ -360,9 +361,9 @@ final class HistoryOfTests
   /* default */ void testGetPreviousEntry2() throws InterruptedException
    {
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
-    lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.LASTNAME));
+    lastname.addEntry(OffsetDateTime.now(ZoneId.systemDefault()), Lastname.of(HistoryOfTests.LASTNAME));
     TimeUnit.MICROSECONDS.sleep(1);
-    lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
+    lastname.addEntry(OffsetDateTime.now(ZoneId.systemDefault()), Lastname.of(HistoryOfTests.HOFMANN));
     final Lastname name = lastname.getPreviousEntry();
     assertEquals(HistoryOfTests.LASTNAME, name.stringValue(), HistoryOfTests.GET_PREVIOUS_ENTRY);
    }
@@ -404,7 +405,7 @@ final class HistoryOfTests
     final List<Lastname> expected = new ArrayList<>();
     expected.add(Lastname.of(HistoryOfTests.HOFMANN));
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
-    lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
+    lastname.addEntry(OffsetDateTime.now(ZoneId.systemDefault()), Lastname.of(HistoryOfTests.HOFMANN));
     final SortedMap<OffsetDateTime, Lastname> history = lastname.getHistory();
     assertEquals(1, history.size(), HistoryOfTests.HISTORY_CORRECT);
     assertIterableEquals(expected, history.values(), HistoryOfTests.HISTORY_NOT_AS_EXPECTED);
@@ -423,9 +424,9 @@ final class HistoryOfTests
     expected.add(Lastname.of(HistoryOfTests.HOFMANN));
     expected.add(Lastname.of(HistoryOfTests.LASTNAME));
     final HistoryOf<Lastname> lastname = new HistoryOf<>();
-    lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.HOFMANN));
+    lastname.addEntry(OffsetDateTime.now(ZoneId.systemDefault()), Lastname.of(HistoryOfTests.HOFMANN));
     TimeUnit.MICROSECONDS.sleep(1);
-    lastname.addEntry(OffsetDateTime.now(), Lastname.of(HistoryOfTests.LASTNAME));
+    lastname.addEntry(OffsetDateTime.now(ZoneId.systemDefault()), Lastname.of(HistoryOfTests.LASTNAME));
     final SortedMap<OffsetDateTime, Lastname> history = lastname.getHistory();
     assertEquals(2, history.size(), HistoryOfTests.HISTORY_CORRECT);
     assertIterableEquals(expected, history.values(), HistoryOfTests.HISTORY_NOT_AS_EXPECTED);

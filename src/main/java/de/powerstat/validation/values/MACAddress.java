@@ -10,6 +10,9 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -21,6 +24,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * TODO Exists in network
  * http://standards-oui.ieee.org/oui/oui.csv
  */
+@ValueObject
 public final class MACAddress implements Comparable<MACAddress>, IValueObject
  {
   /**
@@ -268,7 +272,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    */
   @SuppressWarnings("PMD.SimplifyBooleanReturns")
   @Override
-  public boolean equals(final Object obj)
+  public boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {

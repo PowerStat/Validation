@@ -14,6 +14,9 @@ import java.util.SortedSet;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.regex.Pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.Entity;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
@@ -100,7 +103,7 @@ public final class GroupOf<T> implements Set<T>
    */
   @SuppressWarnings({"PMD.LooseCoupling"})
   @Override
-  public final boolean equals(final Object obj)
+  public final boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {

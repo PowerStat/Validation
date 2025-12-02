@@ -21,11 +21,15 @@ open module de.powerstat.validation
   requires org.apache.commons.net;
 
   requires com.github.spotbugs.annotations;
+  requires org.checkerframework.checker.qual;
+  requires org.jmolecules.ddd;
+
   requires org.junit.jupiter.api;
   requires org.junit.jupiter.params;
   requires org.junit.platform.launcher;
   requires org.junit.platform.suite.api;
   requires nl.jqno.equalsverifier;
+  // requires org.jmolecules.ddd;
   // requires io.cucumber.java;
   // requires io.cucumber.junit.platform.engine;
 

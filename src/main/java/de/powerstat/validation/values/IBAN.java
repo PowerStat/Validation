@@ -9,6 +9,9 @@ import java.math.BigInteger;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 import de.powerstat.validation.values.impl.IBANVerifierAbstractFactory;
 
@@ -21,6 +24,7 @@ import de.powerstat.validation.values.impl.IBANVerifierAbstractFactory;
  * TODO https://openiban.com/
  * TODO Human format in/out
  */
+@ValueObject
 public final class IBAN implements Comparable<IBAN>, IValueObject
  {
   /* *
@@ -151,7 +155,7 @@ public final class IBAN implements Comparable<IBAN>, IValueObject
    * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
-  public boolean equals(final Object obj)
+  public boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {

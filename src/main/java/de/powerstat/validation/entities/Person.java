@@ -6,12 +6,16 @@ package de.powerstat.validation.entities;
 
 
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.Entity;
 
 // import org.apache.logging.log4j.LogManager;
 // import org.apache.logging.log4j.Logger;
@@ -60,6 +64,7 @@ import de.powerstat.validation.values.Lastname;
  *
  * TODO Change DateTime of an entry to an earlier entry
  */
+@Entity
 public final class Person implements Comparable<Person>, IEntity
  {
   /**
@@ -138,8 +143,8 @@ public final class Person implements Comparable<Person>, IEntity
   public static Person of(final Lastname lastname, final Gender gender)
    {
     final var person = Person.of();
-    person.addLastname(OffsetDateTime.now(), lastname);
-    person.addGender(OffsetDateTime.now(), gender);
+    person.addLastname(OffsetDateTime.now(ZoneId.systemDefault()), lastname);
+    person.addGender(OffsetDateTime.now(ZoneId.systemDefault()), gender);
     return person;
    }
 
@@ -155,7 +160,7 @@ public final class Person implements Comparable<Person>, IEntity
   public static Person of(final Lastname lastname, final Gender gender, final List<Firstname> firstnames)
    {
     final var person = Person.of(lastname, gender);
-    person.addFirstnames(OffsetDateTime.now(), firstnames);
+    person.addFirstnames(OffsetDateTime.now(ZoneId.systemDefault()), firstnames);
     return person;
    }
 
@@ -212,7 +217,7 @@ public final class Person implements Comparable<Person>, IEntity
    * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
-  public boolean equals(final Object obj)
+  public boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {

@@ -13,6 +13,9 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -28,6 +31,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 // @SuppressFBWarnings{("CC_CYCLOMATIC_COMPLEXITY", "PMB_POSSIBLE_MEMORY_BLOAT"})
 @SuppressWarnings({"java:S923", "java:S3776", "PMD.ExcessiveClassLength"})
+@ValueObject
 public class Address implements Comparable<Address>, IValueObject
  {
   /* *
@@ -179,72 +183,72 @@ public class Address implements Comparable<Address>, IValueObject
   /**
    * Postal code.
    */
-  private final PostalCode postalCode;
+  private final @Nullable PostalCode postalCode;
 
   /**
    * City.
    */
-  private final City city;
+  private final @Nullable City city;
 
   /**
    * Province.
    */
-  private final Province province;
+  private final @Nullable Province province;
 
   /**
    * District.
    */
-  private final District district;
+  private final @Nullable District district;
 
   /**
    * Street.
    */
-  private final Street street;
+  private final @Nullable Street street;
 
   /**
    * Building number.
    */
-  private final BuildingNr buildingNr;
+  private final @Nullable BuildingNr buildingNr;
 
   /**
    * Building name.
    */
-  private final BuildingName buildingName;
+  private final @Nullable BuildingName buildingName;
 
   /**
    * Sub building.
    */
-  private final SubBuilding subBuilding;
+  private final @Nullable SubBuilding subBuilding;
 
   /**
    * Post office box number.
    */
-  private final PoBoxNumber poBoxNumber;
+  private final @Nullable PoBoxNumber poBoxNumber;
 
   /**
    * Department.
    */
-  private final Department department;
+  private final @Nullable Department department;
 
   /**
-   * Neighbourhood.
+   * Neighborhood.
    */
-  private final Neighbourhood neighbourhood;
+  private final @Nullable Neighbourhood neighbourhood;
 
   /**
    * Block.
    */
-  private final Block block;
+  private final @Nullable Block block;
 
   /**
    * British Forces Post Office number.
    */
-  private final BFPONumber bFPONumber;
+  private final @Nullable BFPONumber bFPONumber;
 
   /**
    * Lines 1-5.
    */
-  private final Lines lines;
+  private final @Nullable Lines lines;
 
 
   /* *
@@ -542,11 +546,12 @@ public class Address implements Comparable<Address>, IValueObject
    * @throws NullPointerException When country or some other required field is null.
    */
   @SuppressWarnings({PMD_N_PATH_COMPLEXITY})
-  protected Address(final Country country, final PostalCode postalCode, final City city, final Province province, final District district, final Street street, final BuildingNr buildingNr, final BuildingName buildingName, final SubBuilding subBuilding, final PoBoxNumber poBoxNumber, final Department department, final Neighbourhood neighbourhood, final Block block, final BFPONumber bFPONumber, final Lines lines)
+  protected Address(final Country country, final @Nullable PostalCode postalCode, final @Nullable City city, final @Nullable Province province, final @Nullable District district, final @Nullable Street street, final @Nullable BuildingNr buildingNr, final @Nullable BuildingName buildingName, final @Nullable SubBuilding subBuilding, final @Nullable PoBoxNumber poBoxNumber, final @Nullable Department department, final @Nullable Neighbourhood neighbourhood, final @Nullable Block block, final @Nullable BFPONumber bFPONumber, final @Nullable Lines lines)
    {
     super();
     Objects.requireNonNull(country, "country"); //$NON-NLS-1$
     final String format = Address.ADDRESS_FORMATS.get(country.stringValue());
+    Objects.requireNonNull(format, "format: " + country.stringValue()); //$NON-NLS-1$
     final String formatWithoutOptionals = Address.NOOPTIONALS_REGEXP.matcher(format).replaceAll(""); //$NON-NLS-1$
     if (formatWithoutOptionals.contains("%3$")) //$NON-NLS-1$
      {
@@ -641,8 +646,9 @@ public class Address implements Comparable<Address>, IValueObject
    * @param bFPONumber British Forces Post Office Number
    * @param lines Lines 1-5
    * @return Address object
+   * @throws NullPointerException When country or some other required field is null.
    */
-  public static Address of(final Country country, final PostalCode postalCode, final City city, final Province province, final District district, final Street street, final BuildingNr buildingNr, final BuildingName buildingName, final SubBuilding subBuilding, final PoBoxNumber poBoxNumber, final Department department, final Neighbourhood neighbourhood, final Block block, final BFPONumber bFPONumber, final Lines lines)
+  public static Address of(final Country country, final @Nullable PostalCode postalCode, final @Nullable City city, final @Nullable Province province, final @Nullable District district, final @Nullable Street street, final @Nullable BuildingNr buildingNr, final @Nullable BuildingName buildingName, final @Nullable SubBuilding subBuilding, final @Nullable PoBoxNumber poBoxNumber, final @Nullable Department department, final @Nullable Neighbourhood neighbourhood, final @Nullable Block block, final @Nullable BFPONumber bFPONumber, final @Nullable Lines lines)
    {
     /*
     final NTuple15<Country, PostalCode, City, Province, District, Street, BuildingNr, BuildingName, SubBuilding, PoBoxNumber, Department, Neighbourhood, Block, BFPONumber, Lines> tuple = NTuple15.of(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines);
@@ -667,11 +673,13 @@ public class Address implements Comparable<Address>, IValueObject
    *
    * @param value country,postalcode,city,province,district,street,buildingnr,buildingname,subbuilding,poboxnumber,department,neighbourhood,block,bfponumber,lines
    * @return Address object
+   * @throws NullPointerException When value, country or some other required field is null.
    */
   @SuppressFBWarnings("CLI_CONSTANT_LIST_INDEX")
   @SuppressWarnings({PMD_N_PATH_COMPLEXITY, "PMD.AvoidLiteralsInIfCondition"})
   public static Address of(final String value)
    {
+    Objects.requireNonNull(value, "value"); //$NON-NLS-1$
     String[] values = value.split(",");
     if ((values.length < 3) || (values.length > 15))
      {
@@ -740,7 +748,7 @@ public class Address implements Comparable<Address>, IValueObject
    * @param obj2 Field 2 (other)
    * @return true: equal; false: not equal
    */
-  private static <T> boolean equalField(final T obj1, final T obj2)
+  private static <T> boolean equalField(final @Nullable T obj1, final @Nullable T obj2)
    {
     return (obj1 == null) ? (obj2 == null) : obj1.equals(obj2);
    }
@@ -767,7 +775,7 @@ public class Address implements Comparable<Address>, IValueObject
    */
   @SuppressWarnings({"PMD.AvoidDeeplyNestedIfStmts"})
   @Override
-  public boolean equals(final Object obj)
+  public boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {
@@ -928,7 +936,7 @@ public class Address implements Comparable<Address>, IValueObject
    * @param obj2 Field 2 (other)
    * @return 0: equal; 1 field 1 greater than field 2; -1 field 1 smaller than field 2
    */
-  private static <T extends Comparable<T>> int compareField(final T obj1, final T obj2)
+  private static <T extends Comparable<T>> int compareField(final @Nullable T obj1, final @Nullable T obj2)
    {
     return (obj1 == null) ? ((obj2 == null) ? 0 : -1) : ((obj2 == null) ? 1 : obj1.compareTo(obj2));
    }

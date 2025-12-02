@@ -7,6 +7,9 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 import de.powerstat.validation.values.strategies.IPasswordStrategy;
 import de.powerstat.validation.values.strategies.PasswordDefaultStrategy;
@@ -43,6 +46,7 @@ import de.powerstat.validation.values.strategies.PasswordDefaultStrategy;
  *      https://wiki.skullsecurity.org/Passwords
  *      https://thehacktoday.com/password-cracking-dictionarys-download-for-free/
  */
+@ValueObject
 public final class Password implements Comparable<Password>, IValueObject
  {
   /* *
@@ -200,7 +204,7 @@ public final class Password implements Comparable<Password>, IValueObject
    * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
-  public boolean equals(final Object obj)
+  public boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {
