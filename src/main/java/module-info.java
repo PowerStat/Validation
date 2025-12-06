@@ -23,6 +23,4 @@ module de.powerstat.validation
   requires org.checkerframework.checker.qual;
   requires org.jmolecules.ddd;
 
-  // requires org.jmolecules.ddd;
-
  }

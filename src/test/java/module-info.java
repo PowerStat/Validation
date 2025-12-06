@@ -29,7 +29,6 @@ open module de.powerstat.validation
   requires org.junit.platform.launcher;
   requires org.junit.platform.suite.api;
   requires nl.jqno.equalsverifier;
-  // requires org.jmolecules.ddd;
   // requires io.cucumber.java;
   // requires io.cucumber.junit.platform.engine;
 
