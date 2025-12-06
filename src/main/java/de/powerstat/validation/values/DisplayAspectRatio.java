@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -19,6 +21,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * 1:1 2.1:1 3:1 3:2 4:3 5:3 5:4 8:5 9:5 10:6 15:9 16:9 16:10 17:10 25:12 25:16 60:29 64:35 72:35
  */
 @SuppressWarnings({"PMD.ShortVariable"})
+@ValueObject
 public record DisplayAspectRatio(int x, int y) implements Comparable<DisplayAspectRatio>, IValueObject
  {
   /**

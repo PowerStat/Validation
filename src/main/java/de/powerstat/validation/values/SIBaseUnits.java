@@ -5,6 +5,8 @@
 package de.powerstat.validation.values;
 
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -15,6 +17,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * Not DSGVO relevant.
  */
+@ValueObject
 public enum SIBaseUnits implements IValueObject
  {
   /**

@@ -9,6 +9,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -23,6 +25,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  */
 // @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
 @SuppressWarnings("PMD.UseConcurrentHashMap")
+@ValueObject
 public record IPV6Address(String address) implements Comparable<IPV6Address>, IValueObject
  {
   /* *

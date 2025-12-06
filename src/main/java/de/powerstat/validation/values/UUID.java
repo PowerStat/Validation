@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -17,6 +19,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * Possibly DSGVO relevant.
  */
+@ValueObject
 public record UUID(java.util.UUID uuid) implements Comparable<UUID>, IValueObject
  {
   /**

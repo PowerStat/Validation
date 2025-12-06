@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 import de.powerstat.validation.values.strategies.IPasswordStrategy;
 import de.powerstat.validation.values.strategies.PasswordDefaultStrategy;
@@ -45,6 +47,7 @@ import de.powerstat.validation.values.strategies.PasswordDefaultStrategy;
  *      https://wiki.skullsecurity.org/Passwords
  *      https://thehacktoday.com/password-cracking-dictionarys-download-for-free/
  */
+@ValueObject
 public record Password(String passwd) implements Comparable<Password>, IValueObject
  {
   /**

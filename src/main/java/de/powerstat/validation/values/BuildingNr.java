@@ -8,6 +8,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -20,6 +22,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * TODO optimize constructor/compareTo
  */
+@ValueObject
 public record BuildingNr(String buildingNr) implements Comparable<BuildingNr>, IValueObject
  {
   /* *
@@ -62,15 +65,15 @@ public record BuildingNr(String buildingNr) implements Comparable<BuildingNr>, I
     // group 6: numerator 3/4:         3
     // group 7: denominator 3/4:       4
     // group 8: alphabetic character:  a
-    if (Integer.parseInt(matcher.group(1)) > BuildingNr.MAX_KNOWN_BUILDING_NR)
+    if ((matcher.group(1) != null) && (Integer.parseInt(matcher.group(1)) > BuildingNr.MAX_KNOWN_BUILDING_NR))
      {
       throw new IllegalArgumentException("BuildingNr > " + BuildingNr.MAX_KNOWN_BUILDING_NR); //$NON-NLS-1$
      }
-    if ((matcher.group(4) != null) && (Integer.compare(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(4))) >= 0))
+    if ((matcher.group(1) != null) && (matcher.group(4) != null) && (Integer.compare(Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(4))) >= 0))
      {
       throw new IllegalArgumentException("BuildingNr from >= BuildingNr to"); //$NON-NLS-1$
      }
-    if ((matcher.group(7) != null) && (Integer.compare(Integer.parseInt(matcher.group(6)), Integer.parseInt(matcher.group(7))) > 0))
+    if ((matcher.group(6) != null) && (matcher.group(7) != null) && (Integer.compare(Integer.parseInt(matcher.group(6)), Integer.parseInt(matcher.group(7))) > 0))
      {
       throw new IllegalArgumentException("BuildingNr numerator > denominator"); //$NON-NLS-1$
      }
@@ -123,7 +126,9 @@ public record BuildingNr(String buildingNr) implements Comparable<BuildingNr>, I
     // group 6: numerator 3/4:         3
     // group 7: denominator 3/4:       4
     // group 8: alphabetic character:  a
-    int result = Integer.compare(Integer.parseInt(matcher1.group(1)), Integer.parseInt(matcher2.group(1)));
+    final String bnr1 = matcher1.group(1);
+    final String bnr2 = matcher2.group(1);
+    int result = Integer.compare(Integer.parseInt(bnr1), Integer.parseInt(bnr2));
     if (result == 0)
      {
       if ((matcher1.group(7) != null) || (matcher2.group(7) != null)) // 3/4
@@ -136,7 +141,7 @@ public record BuildingNr(String buildingNr) implements Comparable<BuildingNr>, I
          {
           return 1;
          }
-        if (matcher1.group(7).compareTo(matcher2.group(7)) != 0)
+        if ((matcher1.group(7) != null) && (matcher2.group(7) != null) && (matcher1.group(7).compareTo(matcher2.group(7)) != 0))
          {
           throw new IllegalStateException("BuildingNrs do not have the same denominator"); //$NON-NLS-1$
          }

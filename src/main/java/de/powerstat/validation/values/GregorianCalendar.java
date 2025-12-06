@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -21,6 +24,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * TODO More country reform dates
  */
+@ValueObject
 public record GregorianCalendar(Country country) implements Comparable<GregorianCalendar>, IValueObject
  {
   /**

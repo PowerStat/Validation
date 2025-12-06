@@ -5,6 +5,8 @@
 package de.powerstat.validation.values;
 
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -22,6 +24,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO: subtract months mod 12 (month - 2)
  * TODO: iterate from first to last month
  */
+@ValueObject
 public enum MonthEnum implements IValueObject
  {
   /**

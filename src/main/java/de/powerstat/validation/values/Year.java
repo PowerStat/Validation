@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -18,6 +20,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * Not DSGVO relevant.
  */
+@ValueObject
 public record Year(CalendarSystems calendarSystem, long year) implements Comparable<Year>, IValueObject
  {
   /**

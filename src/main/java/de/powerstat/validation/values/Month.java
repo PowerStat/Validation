@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -21,6 +23,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Listener for over-/underflow
  * TODO Translations short/long name
  */
+@ValueObject
 public record Month(int month) implements Comparable<Month>, IValueObject
  {
   /**

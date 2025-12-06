@@ -6,6 +6,7 @@ package de.powerstat.validation.containers;
 
 
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -13,6 +14,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentSkipListMap;
+
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 
 /**
@@ -65,7 +68,7 @@ public final class HistoryOf<T>
    * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
-  public final boolean equals(final Object obj)
+  public final boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {
@@ -76,9 +79,9 @@ public final class HistoryOf<T>
       return false;
      }
     final HistoryOf<T> other = (HistoryOf<T>)obj;
-    if ((history.isEmpty()) || (other.history.isEmpty()))
+    if (history.isEmpty() || other.history.isEmpty())
      {
-      return ((history.isEmpty()) && (other.history.isEmpty()));
+      return (history.isEmpty() && other.history.isEmpty());
      }
     // return this.getLatestEntry().equals(other.getLatestEntry());
     return history.equals(other.history);
@@ -138,11 +141,11 @@ public final class HistoryOf<T>
    {
     Objects.requireNonNull(since, "since"); //$NON-NLS-1$
     Objects.requireNonNull(entry, "entry"); //$NON-NLS-1$
-    if (since.isAfter(OffsetDateTime.now()))
+    if (since.isAfter(OffsetDateTime.now(ZoneId.systemDefault())))
      {
       throw new IndexOutOfBoundsException("since lies in the future!"); //$NON-NLS-1$
      }
-    if ((!history.isEmpty()) && entry.equals(this.getLatestEntry()))
+    if (!history.isEmpty() && entry.equals(this.getLatestEntry()))
      {
       throw new IllegalArgumentException("entry is already latest in HistoryOf!");
      }
@@ -177,10 +180,10 @@ public final class HistoryOf<T>
   /**
    * Get entry before latest entry.
    *
-   * @return Entry before latest entry
+   * @return Entry before latest entry or null
    * @throws NoSuchElementException If there is no entry in this HistoryOf
    */
-  public T getPreviousEntry()
+  public @Nullable T getPreviousEntry()
    {
     final Set<OffsetDateTime> keys = history.keySet();
     OffsetDateTime previous = history.firstKey();

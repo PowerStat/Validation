@@ -8,6 +8,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.generated.GeneratedISO6391;
 import de.powerstat.validation.interfaces.IValueObject;
 
@@ -22,6 +24,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Languages names in english
  * TODO Translations
  */
+@ValueObject
 public record Language(String code) implements Comparable<Language>, IValueObject
  {
   /**

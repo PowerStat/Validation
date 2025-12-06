@@ -11,6 +11,12 @@ import java.net.UnknownHostException;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
+// import org.apache.logging.log4j.LogManager;
+// import org.apache.logging.log4j.Logger;
+
 import de.powerstat.validation.generated.GeneratedTlds;
 import de.powerstat.validation.interfaces.IValueObject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -26,6 +32,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * TODO Verify TopLevelDomain
  * TODO ping ok?
  */
+@ValueObject
 public record Hostname(String hostname) implements Comparable<Hostname>, IValueObject
  {
   /**

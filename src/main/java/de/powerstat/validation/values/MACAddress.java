@@ -10,6 +10,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -23,6 +25,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * TODO Exists in network
  * http://standards-oui.ieee.org/oui/oui.csv
  */
+@ValueObject
 public record MACAddress(String address) implements Comparable<MACAddress>, IValueObject
  {
   /**

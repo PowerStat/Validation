@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -21,6 +23,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * TODO min, max
  */
+@ValueObject
 public record ScreenSize(int width, int height, String name) implements Comparable<ScreenSize>, IValueObject
  {
   /**

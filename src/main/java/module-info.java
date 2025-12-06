@@ -20,5 +20,7 @@ module de.powerstat.validation
   requires org.apache.logging.log4j;
   requires org.apache.commons.net;
   requires com.github.spotbugs.annotations;
+  requires org.checkerframework.checker.qual;
+  requires org.jmolecules.ddd;
 
  }

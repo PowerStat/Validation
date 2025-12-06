@@ -8,6 +8,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -18,6 +20,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * @see <a href="https://de.wikipedia.org/wiki/Vorname_(Deutschland)">Vorname</a>
  */
+@ValueObject
 public record Firstname(String firstname) implements Comparable<Firstname>, IValueObject
  {
   /**

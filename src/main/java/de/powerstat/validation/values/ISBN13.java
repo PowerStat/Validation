@@ -10,6 +10,9 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 import de.powerstat.validation.values.impl.ISBN13Publisher0;
 import de.powerstat.validation.values.impl.ISBN13Publisher1;
@@ -24,6 +27,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * Can not be converted to a record because of cleanup during constructor.
  */
+@ValueObject
 public final class ISBN13 implements Comparable<ISBN13>, IValueObject
  {
   /**
@@ -790,9 +794,9 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
    * Get country.
    *
    * @param isbn ISBN13
-   * @return Country
+   * @return Country or null
    */
-  private static Country country(final String isbn)
+  private static @Nullable Country country(final String isbn)
    {
     final String prefix = prefix(isbn);
     final String group = group(isbn);
@@ -815,9 +819,9 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
    * Get language.
    *
    * @param isbn ISBN13
-   * @return Country
+   * @return Language or null
    */
-  private static Language language(final String isbn)
+  private static @Nullable Language language(final String isbn)
    {
     final String prefix = prefix(isbn);
     final String group = group(isbn);
@@ -1190,7 +1194,7 @@ public final class ISBN13 implements Comparable<ISBN13>, IValueObject
    */
   @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
   @Override
-  public boolean equals(final Object obj)
+  public boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {

@@ -13,6 +13,9 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -44,7 +47,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 // @SuppressFBWarnings{("CC_CYCLOMATIC_COMPLEXITY", "PMB_POSSIBLE_MEMORY_BLOAT"})
 @SuppressWarnings({"java:S923", "java:S3776", "PMD.ExcessiveClassLength"})
-public record Address(Country country, PostalCode postalCode, City city, Province province, District district, Street street, BuildingNr buildingNr, BuildingName buildingName, SubBuilding subBuilding, PoBoxNumber poBoxNumber, Department department, Neighbourhood neighbourhood, Block block, BFPONumber bFPONumber, Lines lines) implements Comparable<Address>, IValueObject
+@ValueObject
+public record Address(Country country, @Nullable PostalCode postalCode, @Nullable City city, @Nullable Province province, @Nullable District district, @Nullable Street street, @Nullable BuildingNr buildingNr, @Nullable BuildingName buildingName, @Nullable SubBuilding subBuilding, @Nullable PoBoxNumber poBoxNumber, @Nullable Department department, @Nullable Neighbourhood neighbourhood, @Nullable Block block, @Nullable BFPONumber bFPONumber, @Nullable Lines lines) implements Comparable<Address>, IValueObject
  {
   /**
    * NPath complexity.
@@ -563,7 +567,7 @@ public record Address(Country country, PostalCode postalCode, City city, Provinc
    * @return Address object
    * @throws NullPointerException When country or some other required field is null.
    */
-  public static Address of(final Country country, final PostalCode postalCode, final City city, final Province province, final District district, final Street street, final BuildingNr buildingNr, final BuildingName buildingName, final SubBuilding subBuilding, final PoBoxNumber poBoxNumber, final Department department, final Neighbourhood neighbourhood, final Block block, final BFPONumber bFPONumber, final Lines lines)
+  public static Address of(final Country country, final @Nullable PostalCode postalCode, final @Nullable City city, final @Nullable Province province, final @Nullable District district, final @Nullable Street street, final @Nullable BuildingNr buildingNr, final @Nullable BuildingName buildingName, final @Nullable SubBuilding subBuilding, final @Nullable PoBoxNumber poBoxNumber, final @Nullable Department department, final @Nullable Neighbourhood neighbourhood, final @Nullable Block block, final @Nullable BFPONumber bFPONumber, final @Nullable Lines lines)
    {
     return new Address(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines);
    }
@@ -581,6 +585,7 @@ public record Address(Country country, PostalCode postalCode, City city, Provinc
   @SuppressWarnings({PMD_N_PATH_COMPLEXITY, "PMD.AvoidLiteralsInIfCondition"})
   public static Address of(final String value)
    {
+    Objects.requireNonNull(value, "value"); //$NON-NLS-1$
     String[] values = value.split(",");
     if ((values.length < 3) || (values.length > 15))
      {
@@ -636,7 +641,7 @@ public record Address(Country country, PostalCode postalCode, City city, Provinc
    * @param obj2 Field 2 (other)
    * @return 0: equal; 1 field 1 greater than field 2; -1 field 1 smaller than field 2
    */
-  private static <T extends Comparable<T>> int compareField(final T obj1, final T obj2)
+  private static <T extends Comparable<T>> int compareField(final @Nullable T obj1, final @Nullable T obj2)
    {
     return (obj1 == null) ? ((obj2 == null) ? 0 : -1) : ((obj2 == null) ? 1 : obj1.compareTo(obj2));
    }

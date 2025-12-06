@@ -7,6 +7,9 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -36,6 +39,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO parse date
  * TODO min, max
  */
+@ValueObject
 public record GregorianDate(GregorianCalendar calendar, Year year, Month month, Day day) implements Comparable<GregorianDate>, IValueObject
  {
   /**
@@ -136,7 +140,7 @@ public record GregorianDate(GregorianCalendar calendar, Year year, Month month, 
   @Override
   public String stringValue()
    {
-    return String.format(GregorianDate.FORMAT_FOURDIGIT, this.year.year()) + GregorianDate.DATE_SEP + String.format(GregorianDate.FORMAT_TWODIGIT, this.month.month()) + GregorianDate.DATE_SEP + String.format(GregorianDate.FORMAT_TWODIGIT, this.day.day());
+    return String.format(GregorianDate.FORMAT_FOURDIGIT, year.year()) + GregorianDate.DATE_SEP + String.format(GregorianDate.FORMAT_TWODIGIT, month.month()) + GregorianDate.DATE_SEP + String.format(GregorianDate.FORMAT_TWODIGIT, day.day());
    }
 
 

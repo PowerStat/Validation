@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 import de.powerstat.validation.values.strategies.IUsernameStrategy;
 import de.powerstat.validation.values.strategies.UsernameDefaultStrategy;
@@ -23,6 +25,7 @@ import de.powerstat.validation.values.strategies.UsernameDefaultStrategy;
  * TODO case sensitive or insensitive?
  * TODO Comparable&lt;EMail&gt;
  */
+@ValueObject
 public record Username(String username) implements Comparable<Username>, IValueObject
  {
   /**

@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -20,6 +22,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Constructor with year
  * TODO Listener
  */
+@ValueObject
 public record Week(int week) implements Comparable<Week>, IValueObject
  {
   /**

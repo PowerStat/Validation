@@ -11,6 +11,9 @@ import java.util.NavigableSet;
 import java.util.NoSuchElementException;
 import java.util.TreeSet;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -20,6 +23,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * https://en.wikipedia.org/wiki/Metric_prefix
  */
 @SuppressWarnings("PMD.AvoidFieldNameMatchingMethodName")
+@ValueObject
 public enum SIPrefixes implements IValueObject
  {
   /**
@@ -266,10 +270,10 @@ public enum SIPrefixes implements IValueObject
   /**
    * Get next prefix.
    *
-   * @return Next higher prefix
+   * @return Next higher prefix or null
    * @throws NoSuchElementException If there is no higher prefix
    */
-  public SIPrefixes next()
+  public @Nullable SIPrefixes next()
    {
     if (this == QUETTA)
      {
@@ -282,10 +286,10 @@ public enum SIPrefixes implements IValueObject
   /**
    * Get previous prefix.
    *
-   * @return Previous lower prefix
+   * @return Previous lower prefix or null
    * @throws NoSuchElementException If there is no lower prefix
    */
-  public SIPrefixes previous()
+  public @Nullable SIPrefixes previous()
    {
     if (this == QUECTO)
      {

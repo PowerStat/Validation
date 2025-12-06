@@ -7,6 +7,8 @@ package de.powerstat.validation.containers;
 
 import java.util.Objects;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
@@ -423,7 +425,7 @@ public final class NTuple16<T1 extends Comparable<T1>, T2 extends Comparable<T2>
   @SuppressFBWarnings("CC_CYCLOMATIC_COMPLEXITY")
   @SuppressWarnings({"PMD.AvoidDeeplyNestedIfStmts", "PMD.NPathComplexity"})
   @Override
-  public boolean equals(final Object obj)
+  public boolean equals(final @Nullable Object obj)
    {
     if (this == obj)
      {

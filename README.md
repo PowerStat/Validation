@@ -76,6 +76,10 @@ To make a new release:
     git push -–tags
     git push origin master
     
+To run jacoco:
+
+    mvn -Pjacoco clean test site
+
 To run checkstyle:
 
     mvn checkstyle:check
@@ -88,6 +92,14 @@ To run spotbugs:
 
     mvn spotbugs:check
     
+To run errorprone:
+
+    mvn -Perrorprone clean test -DSkipTests
+    
+To run checkerframework:
+
+    mvn -Pcheckerframework clean test -DskipTests
+
 To run arch-unit:
 
     mvn arch-unit:arch-test
@@ -107,6 +119,10 @@ If you use a sonar server:
 If you use [infer][https://fbinfer.com/]:
 
     infer run -- mvn clean compile
+
+Apache-rat:
+
+     mvn apache-rat:check
 
 To create a cycloneDX:
 

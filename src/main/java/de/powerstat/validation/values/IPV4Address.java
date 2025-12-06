@@ -8,6 +8,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -23,6 +25,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * TODO https://datahub.io/core/geoip2-ipv4/r/geoip2-ipv4.csv
  * TODO ping ok?
  */
+@ValueObject
 public record IPV4Address(String address) implements Comparable<IPV4Address>, IValueObject
  {
   /**

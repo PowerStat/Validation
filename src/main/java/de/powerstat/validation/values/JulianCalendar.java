@@ -7,6 +7,9 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -16,6 +19,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * Not DSGVO relevant.
  */
+@ValueObject
 public record JulianCalendar() implements Comparable<JulianCalendar>, IValueObject
  {
   /**

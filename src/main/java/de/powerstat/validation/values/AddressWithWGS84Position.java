@@ -8,6 +8,10 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 
 import de.powerstat.validation.interfaces.IValueObject;
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
@@ -20,6 +24,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * TODO compareTo(): AddressWithWGS84Position
  */
+@ValueObject
 public record AddressWithWGS84Position(Address address, WGS84Position position) implements IValueObject // Comparable<AddressWithWGS84Position>,
  {
   /**
@@ -69,7 +74,7 @@ public record AddressWithWGS84Position(Address address, WGS84Position position) 
    * @param position WGS84Position
    * @return AddressWithWGS84Position object
    */
-  public static AddressWithWGS84Position of(final Country country, final PostalCode postalCode, final City city, final Province province, final District district, final Street street, final BuildingNr buildingNr, final BuildingName buildingName, final SubBuilding subBuilding, final PoBoxNumber poBoxNumber, final Department department, final Neighbourhood neighbourhood, final Block block, final BFPONumber bFPONumber, final Lines lines, final WGS84Position position)
+  public static AddressWithWGS84Position of(final Country country, final @Nullable PostalCode postalCode, final @Nullable City city, final @Nullable Province province, final @Nullable District district, final @Nullable Street street, final @Nullable BuildingNr buildingNr, final @Nullable BuildingName buildingName, final @Nullable SubBuilding subBuilding, final @Nullable PoBoxNumber poBoxNumber, final @Nullable Department department, final @Nullable Neighbourhood neighbourhood, final @Nullable Block block, final @Nullable BFPONumber bFPONumber, final @Nullable Lines lines, final WGS84Position position)
    {
     Address address = Address.of(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines);
     return new AddressWithWGS84Position(address, position);
@@ -85,6 +90,7 @@ public record AddressWithWGS84Position(Address address, WGS84Position position) 
   @SuppressWarnings({"PMD.NPathComplexity"})
   public static AddressWithWGS84Position of(final String value)
    {
+    Objects.requireNonNull(value, "value"); //$NON-NLS-1$
     final String[] values = value.split(",");
     if ((values.length < 16) || (values.length > 16))
      {

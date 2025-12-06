@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -21,6 +23,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO LeapYear support
  * TODO min, max  01.01.    31.12.
  */
+@ValueObject
 public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IValueObject
  {
   /**

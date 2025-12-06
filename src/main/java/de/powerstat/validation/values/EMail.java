@@ -9,6 +9,9 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -22,6 +25,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Hostname exists?
  * TODO email exists check
  */
+@ValueObject
 public record EMail(String email) implements Comparable<EMail>, IValueObject
  {
   /**
@@ -58,7 +62,7 @@ public record EMail(String email) implements Comparable<EMail>, IValueObject
      }
     if (parts[1].charAt(0) == '[')
      {
-      parts[1] = (parts[1].toLowerCase(Locale.getDefault()).startsWith("[ipv6:")) ? parts[1].substring(6) : parts[1].substring(1); //$NON-NLS-1$
+      parts[1] = parts[1].toLowerCase(Locale.getDefault()).startsWith("[ipv6:") ? parts[1].substring(6) : parts[1].substring(1); //$NON-NLS-1$
       if (!parts[1].endsWith("]")) //$NON-NLS-1$
        {
         throw new IllegalArgumentException("Missing end of IPv4/IPv6 address"); //$NON-NLS-1$

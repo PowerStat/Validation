@@ -5,6 +5,8 @@
 package de.powerstat.validation.values;
 
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -23,6 +25,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO: subtract days mod 7 (weekday - 2)
  * TODO: iterate from first to last weekday dependend on FirstWeekday ???
  */
+@ValueObject
 public enum WeekdayEnum implements IValueObject
  {
   /**

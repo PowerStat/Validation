@@ -8,6 +8,8 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.generated.GeneratedISO4217;
 import de.powerstat.validation.interfaces.IValueObject;
 
@@ -21,6 +23,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * TODO Translations
  */
+@ValueObject
 public record Currency(String code) implements Comparable<Currency>, IValueObject
  {
   /**

@@ -7,6 +7,8 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import org.jmolecules.ddd.annotation.ValueObject;
+
 import de.powerstat.validation.interfaces.IValueObject;
 
 
@@ -23,6 +25,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO output formats
  * TODO Get address for position if possible
  */
+@ValueObject
 public record WGS84Position(double latitude, double longitude, double altitude) implements Comparable<WGS84Position>, IValueObject
  {
   /**
