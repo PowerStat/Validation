@@ -200,6 +200,20 @@ final class IPV6AddressTests
 
 
   /**
+   * Test if ip v6 is multicast.
+   *
+   * @param ipv6 IP V6 address string
+   */
+  @ParameterizedTest
+  @ValueSource(strings = {"ff00::", "ff0f::1"})
+  /* default */ void testIsMulticast1(final String ipv6)
+   {
+    final IPV6Address address = IPV6Address.of(ipv6);
+    assertTrue(address.isMulticast(), "Address is not multicast"); //$NON-NLS-1$
+   }
+
+
+  /**
    * Test if ip v6 is public.
    */
   @Test

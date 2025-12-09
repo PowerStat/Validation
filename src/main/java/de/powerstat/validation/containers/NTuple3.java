@@ -101,7 +101,7 @@ public final class NTuple3<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
 
 
   /**
-   * Returns the second value of this NTuple3 as a T3.
+   * Returns the third value of this NTuple3 as a T3.
    *
    * @return The T3 value represented by this object.
    */

@@ -283,6 +283,46 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
 
 
   /**
+   * Is an IP V6 multicast address.
+   *
+   * @return true if multicast, false otherwise
+   */
+  public boolean isMulticast()
+   {
+    return "ff".equals(blocks[0].substring(0, 2));
+    /*
+    Danach folgen 4 Bit für Flags (in der Regel 0 = 0000)
+    weitere 4 Bit für die Angabe des Multicast Scope (Gültigkeitsbereich).
+
+    ff00 = reserved
+    ff01 = Interface-Local Scope
+    ff02 = Link-Local Scope
+    ff03 = reserved
+    ff04 = Admin-Local Scope
+    ff05 = Site-Local Scope
+    ff06 = (unassigned)
+    ff07 = (unassigned)
+    ff08 = Organization-Local Scope
+    ff09 = (unassigned)
+    ff0a = (unassigned)
+    ff0b = (unassigned)
+    ff0c = (unassigned)
+    ff0d = (unassigned)
+    ff0e = Global scope
+    ff0f = reserved
+
+    Ein Auszug der Multicast-Gruppen:
+
+    ff0X::1 : alle IPv6-Hosts
+    ff0X::2 : alle Router
+    ff0X::f : UPnP
+    ff0X::101 : alle Zeitserver (NTP)
+    ff0X::1:2 : DHCPv6-Server
+   */
+   }
+
+
+  /**
    * Is an IP V6 public address.
    *
    * 0:0:0:0:0:ffff::/96 IPv4 mapped (abgebildete) IPv6 Adressen

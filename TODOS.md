@@ -10,32 +10,28 @@ https://en.wikipedia.org/wiki/EAN-8
 https://de.wikipedia.org/wiki/European_Article_Number
 
 
-- [ ] Month (enum) names (language dependend)
-- [ ] YearMonthDay    Geburtsdatum (Tag Monat Jahr), Datum   Julian/Gregorian
+- [ ] YearMonthDay    Geburtsdatum (Tag Monat Jahr), Datum/Date   Julian/Gregorian
 - [ ] YearWeek     Julian/Gregorian
 - [ ] YearWeekWeekday   Julian/Gregorian
 - [ ] Timezone
-- [ ] Date   Julian/Gregorian  -> YearMonthDay
-- [ ] Format
-- [ ] Holidays
+- [ ] Recurring Date / Time
+- [ ] Holidays  Fix/Variable  Country/Region dependend
 - [ ] DateDuration, TimeDuration, DateTimeDuration     Julian/Gregorian
 - [ ] DateRange, TimeRange, DateTimeRange              Julian/Gregorian
-- [ ] Recurring Date / Time
 - [ ] Time
 - [ ] DateTime            Julian/Gregorian
 - [ ] UnixEpoche
 
 
 
-Datum, Unterschrift
-Familienstand: Verheiratet, Verpartnert, geschieden, verwitwert, ledig
-  https://de.wikipedia.org/wiki/Familienstand
-Staatsangehörigkeit(en)? = Country?
-  https://de.wikipedia.org/wiki/Staatsb%C3%BCrgerschaft
 Telefonnummer/Fax
   Internationale Vorwahlen: https://de.wikipedia.org/wiki/L%C3%A4ndervorwahlliste_sortiert_nach_Nummern
   Ortsvorwahl(de) https://de.wikipedia.org/wiki/Telefonvorwahl_(Deutschland)
   Rufnummer https://de.wikipedia.org/wiki/Rufnummer
+Familienstand: Verheiratet, Verpartnert, geschieden, verwitwert, ledig
+  https://de.wikipedia.org/wiki/Familienstand
+Staatsangehörigkeit(en)? = Country?
+  https://de.wikipedia.org/wiki/Staatsb%C3%BCrgerschaft
 Krankenkasse: Name, Verischertennr
   https://de.wikipedia.org/wiki/Liste_deutscher_Krankenkassen
 Personalausweisnummer(n)
@@ -73,6 +69,7 @@ Wohnungsnummer
 Kundennummer
 Vertragsnummer
 Foto(s)
+Unterschrift
 
 # TODOS
 
@@ -105,12 +102,10 @@ https://datahub.io/collections/reference-data#currency-codes
      4. Erlaubte Zeichen sind: 
    Leerzeichen, a-z A-Z 0-9 ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~
 
-- [ ] Country names, Language names
-
 - [ ] PhoneNumber Area Codes   https://datahub.io/core/country-codes/r/country-codes.csv
       https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers
 - [ ] PostCodes https://de.wikipedia.org/wiki/Liste_der_Postleitsysteme
-- [ ] Salutations   Frau, Herrn, Frau und Herrn, Firma, "empty", Berufsbezeichnung, Akademischer Titel
+- [ ] Salutations   Frau, Herrn, Frau und Herrn, Firma, "empty", Berufsbezeichnung, Akademischer Titel   Language dependend
 - [ ] Organisations / Companies, types of (legal forms)
 
 - [ ] NationalityPlates
@@ -143,11 +138,7 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] CommunicationTypes
 - [ ] Locations
 - [ ] Continents   https://datahub.io/core/continent-codes/r/continent-codes.csv
-- [ ] Planets
-- [ ] Moons
-- [ ] SolarSystems
-- [ ] Galaxies
-- [ ] Universes
+
 - [ ] TaxNumber
 - [ ] SocialSecurityNumber
 - [ ] TypeOfCompany / Organisation
@@ -163,10 +154,12 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] QRCodes
 - [ ] GPCProductClassifications
 
+- [ ] Planets, Zwergplaneten
+- [ ] Moons
+- [ ] SolarSystems
+- [ ] Galaxies
+
 - [ ] Promille
-- [ ] NumberRange
-- [ ] Text
-- [ ] RegExp  
 - [ ] VersionNumber
 
 - [ ] Signature

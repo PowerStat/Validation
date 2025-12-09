@@ -175,6 +175,72 @@ final class HostnameTests
 
 
   /**
+   * Test is ipv4 address.
+   */
+  @Test
+  /* default */ void testIsIPV4Address1()
+   {
+    final Hostname hostname = Hostname.of(PRIVATE_IP_192_168_1_1);
+    assertTrue(hostname.isIPV4Address(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test is ipv4 address.
+   */
+  @Test
+  /* default */ void testIsIPV4Address2()
+   {
+    final Hostname hostname = Hostname.of(FD00);
+    assertFalse(hostname.isIPV4Address(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test is ipv4 address.
+   */
+  @Test
+  /* default */ void testIsIPV4Address3()
+   {
+    final Hostname hostname = Hostname.of(WWW_POWERSTAT_DE);
+    assertFalse(hostname.isIPV4Address(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test is ipv6 address.
+   */
+  @Test
+  /* default */ void testIsIPV6Address1()
+   {
+    final Hostname hostname = Hostname.of(PRIVATE_IP_192_168_1_1);
+    assertFalse(hostname.isIPV6Address(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test is ipv6 address.
+   */
+  @Test
+  /* default */ void testIsIPV6Address2()
+   {
+    final Hostname hostname = Hostname.of(FD00);
+    assertTrue(hostname.isIPV6Address(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test is ipv6 address.
+   */
+  @Test
+  /* default */ void testIsIPV6Address3()
+   {
+    final Hostname hostname = Hostname.of(WWW_POWERSTAT_DE);
+    assertFalse(hostname.isIPV6Address(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
+   }
+
+
+  /**
    * Exists hostname in DNS.
    */
   @Test
@@ -220,7 +286,7 @@ final class HostnameTests
   @Test
   /* default */ void testEqualsContract()
    {
-    EqualsVerifier.forClass(Hostname.class).withNonnullFields("hostname").withIgnoredFields("reverseHostname").verify();
+    EqualsVerifier.forClass(Hostname.class).withNonnullFields("hostname").withIgnoredFields("reverseHostname", "ipv4", "ipv6").verify();
    }
 
 

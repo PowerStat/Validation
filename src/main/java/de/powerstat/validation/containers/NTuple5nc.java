@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
  * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.validation.containers;
@@ -11,21 +11,17 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 
 /**
- * N-Tuple 4.
+ * N-Tuple 5 not comparable.
  *
  * @param <T1> Type 1
  * @param <T2> Type 2
  * @param <T3> Type 3
  * @param <T4> Type 4
+ * @param <T5> Type 5
  */
 @SuppressWarnings({"checkstyle:ClassTypeParameterName", "checkstyle:MethodTypeParameterName", "checkstyle:NoWhitespaceBefore", "checkstyle:SeparatorWrap", "PMD.GenericsNaming"})
-public final class NTuple4<T1 extends Comparable<T1>, T2 extends Comparable<T2>, T3 extends Comparable<T3>, T4 extends Comparable<T4>> implements Comparable<NTuple4<T1, T2, T3, T4>>
+public final class NTuple5nc<T1, T2, T3, T4, T5>
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<?, NTuple4<T1 extends Comparable<T1>, T2 extends Comparable<T2>, T3 extends Comparable<T3>, T4 extends Comparable<T4>>> CACHE = new ConcurrentHashMap<>();
-
   /**
    * Object1 of type T1.
    */
@@ -46,6 +42,11 @@ public final class NTuple4<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
    */
   private final T4 object4;
 
+  /**
+   * Object4 of type T5.
+   */
+  private final T5 object5;
+
 
   /**
    * Private constructor.
@@ -54,43 +55,48 @@ public final class NTuple4<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
    * @param obj2 Object 2 of Type T2
    * @param obj3 Object 3 of Type T3
    * @param obj4 Object 4 of Type T4
+   * @param obj5 Object 5 of Type T5
    */
-  private NTuple4(final T1 obj1, final T2 obj2, final T3 obj3, final T4 obj4)
+  private NTuple5nc(final T1 obj1, final T2 obj2, final T3 obj3, final T4 obj4, final T5 obj5)
    {
     super();
     Objects.requireNonNull(obj1, "obj1 is null"); //$NON-NLS-1$
     Objects.requireNonNull(obj2, "obj2 is null"); //$NON-NLS-1$
     Objects.requireNonNull(obj3, "obj3 is null"); //$NON-NLS-1$
     Objects.requireNonNull(obj4, "obj4 is null"); //$NON-NLS-1$
+    Objects.requireNonNull(obj5, "obj5 is null"); //$NON-NLS-1$
     object1 = obj1;
     object2 = obj2;
     object3 = obj3;
     object4 = obj4;
+    object5 = obj5;
    }
 
 
   /**
-   * NTuple4 factory.
+   * NTuple5nc factory.
    *
    * @param <T1> Type 1
    * @param <T2> Type 2
    * @param <T3> Type 3
    * @param <T4> Type 4
+   * @param <T5> Type 5
    * @param obj1 Object 1 of type T1
    * @param obj2 Object 2 of Type T2
    * @param obj3 Object 3 of Type T3
    * @param obj4 Object 4 of Type T4
-   * @return NTuple4 object
+   * @param obj5 Object 5 of Type T5
+   * @return NTuple5 object
    */
-  public static <T1 extends Comparable<T1>, T2 extends Comparable<T2>, T3 extends Comparable<T3>, T4 extends Comparable<T4>> NTuple4<T1, T2, T3, T4> of(final T1 obj1, final T2 obj2, final T3 obj3, final T4 obj4)
+  public static <T1, T2, T3, T4, T5> NTuple5nc<T1, T2, T3, T4, T5> of(final T1 obj1, final T2 obj2, final T3 obj3, final T4 obj4, final T5 obj5)
    {
-    return new NTuple4<>(obj1, obj2, obj3, obj4);
+    return new NTuple5nc<>(obj1, obj2, obj3, obj4, obj5);
    }
 
 
 
   /**
-   * Returns the first value of this NTuple4 as a T1.
+   * Returns the first value of this NTuple5nc as a T1.
    *
    * @return The T1 value represented by this object.
    */
@@ -101,7 +107,7 @@ public final class NTuple4<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
 
 
   /**
-   * Returns the second value of this NTuple4 as a T2.
+   * Returns the second value of this NTuple5nc as a T2.
    *
    * @return The T2 value represented by this object.
    */
@@ -112,7 +118,7 @@ public final class NTuple4<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
 
 
   /**
-   * Returns the third value of this NTuple4 as a T3.
+   * Returns the third value of this NTuple5nc as a T3.
    *
    * @return The T3 value represented by this object.
    */
@@ -123,13 +129,24 @@ public final class NTuple4<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
 
 
   /**
-   * Returns the fourth value of this NTuple4 as a T4.
+   * Returns the fourth value of this NTuple5nc as a T4.
    *
    * @return The T4 value represented by this object.
    */
   public T4 t4Value()
    {
     return object4;
+   }
+
+
+  /**
+   * Returns the fifth value of this NTuple5nc as a T5.
+   *
+   * @return The T5 value represented by this object.
+   */
+  public T5 t5Value()
+   {
+    return object5;
    }
 
 
@@ -142,7 +159,7 @@ public final class NTuple4<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
   @Override
   public int hashCode()
    {
-    return Objects.hash(object1, object2, object3, object4);
+    return Objects.hash(object1, object2, object3, object4, object5);
    }
 
 
@@ -160,11 +177,11 @@ public final class NTuple4<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
      {
       return true;
      }
-    if (!(obj instanceof NTuple4))
+    if (!(obj instanceof NTuple5nc))
      {
       return false;
      }
-    final NTuple4<T1, T2, T3, T4> other = (NTuple4<T1, T2, T3, T4>)obj;
+    final NTuple5nc<T1, T2, T3, T4, T5> other = (NTuple5nc<T1, T2, T3, T4, T5>)obj;
     boolean result = object1.equals(other.object1);
     if (result)
      {
@@ -175,6 +192,10 @@ public final class NTuple4<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
         if (result)
          {
           result = object4.equals(other.object4);
+          if (result)
+           {
+            result = object5.equals(other.object5);
+           }
          }
        }
      }
@@ -183,53 +204,26 @@ public final class NTuple4<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
 
 
   /**
-   * Returns the string representation of this NTuple4.
+   * Returns the string representation of this NTuple5nc.
    *
    * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
    *
-   * "NTuple4[object1=..., object2=..., object3=..., object4=...]"
+   * "NTuple5[object1=..., object2=..., object3=..., object4=..., object5=...]"
    *
-   * @return String representation of this NTuple4
+   * @return String representation of this NTuple5nc
    * @see java.lang.Object#toString()
    */
   @Override
   public String toString()
    {
     final var builder = new StringBuilder(47);
-    builder.append("NTuple4[object1=").append(object1) //$NON-NLS-1$
+    builder.append("NTuple5nc[object1=").append(object1) //$NON-NLS-1$
       .append(", object2=").append(object2) //$NON-NLS-1$
       .append(", object3=").append(object3) //$NON-NLS-1$
       .append(", object4=").append(object4) //$NON-NLS-1$
+      .append(", object5=").append(object5) //$NON-NLS-1$
       .append(']');
     return builder.toString();
-   }
-
-
-  /**
-   * Compare with another object.
-   *
-   * @param obj Object to compare with
-   * @return 0: equal; 1: greater; -1: smaller
-   * @see java.lang.Comparable#compareTo(java.lang.Object)
-   */
-  @Override
-  public int compareTo(final NTuple4<T1, T2, T3, T4> obj)
-   {
-    Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    int result = object1.compareTo(obj.object1);
-    if (result == 0)
-     {
-      result = object2.compareTo(obj.object2);
-      if (result == 0)
-       {
-        result = object3.compareTo(obj.object3);
-        if (result == 0)
-         {
-          result = object4.compareTo(obj.object4);
-         }
-       }
-     }
-    return result;
    }
 
  }

@@ -19,11 +19,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 @SuppressWarnings({"checkstyle:ClassTypeParameterName", "checkstyle:MethodTypeParameterName", "PMD.GenericsNaming"})
 public final class NTuple2<T1 extends Comparable<T1>, T2 extends Comparable<T2>> implements Comparable<NTuple2<T1, T2>>
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<?, NTuple2<T1 extends Comparable<T1>, T2 extends Comparable<T2>>> CACHE = new ConcurrentHashMap<>();
-
   /**
    * Object1 of type T1.
    */

@@ -6,11 +6,14 @@ package de.powerstat.validation.values.test;
 
 
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -146,6 +149,18 @@ final class MACAddressTests
    {
     final MACAddress address = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
     assertEquals(MACAddressTests.MAC_ZERO, address.stringValue(""), MACAddressTests.ADDRESS_NOT_AS_EXPECTED); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Test get address.
+   */
+  @Test
+  /* default */ void testByteValue1()
+   {
+    byte[] expected = new byte[] {0, 0, 0, 0, 0, 0};
+    final MACAddress address = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
+    assertArrayEquals(expected, address.byteValue(), MACAddressTests.ADDRESS_NOT_AS_EXPECTED);
    }
 
 
@@ -323,12 +338,25 @@ final class MACAddressTests
 
 
   /**
+   * Test sendlocalWakeOnLan.
+   *
+   * @throws IOException On IOExceptions
+   */
+  @Test
+  /* default */ void testSendWakeOnLan() throws IOException
+   {
+    final MACAddress address = MACAddress.of("00:07:e9:00:00:00"); //$NON-NLS-1$
+    address.sendLocalWakeOnLan(); // TODO assert
+   }
+
+
+  /**
    * Equalsverifier.
    */
   @Test
   /* default */ void testEqualsContract()
    {
-    EqualsVerifier.forClass(MACAddress.class).verify();
+    EqualsVerifier.forClass(MACAddress.class).withIgnoredFields("ipv4address", "ipv6address", "magicPackage").verify();
    }
 
 

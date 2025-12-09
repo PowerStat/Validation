@@ -5,7 +5,16 @@
 package de.powerstat.validation.values;
 
 
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HexFormat;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -20,9 +29,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Canonical Media-Access-Control-Adresse (MAC).
  *
- * TODO getManufacturer name
- * TODO Exists in network
- * http://standards-oui.ieee.org/oui/oui.csv
+ * TODO getManufacturer name: http://standards-oui.ieee.org/oui/oui.csv
+ * TODO Exists in network (raw-socket)
  */
 @ValueObject
 public final class MACAddress implements Comparable<MACAddress>, IValueObject
@@ -93,9 +101,54 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
   private static final Pattern IPV6_SEPARATOR_REGEXP = Pattern.compile("[:-]"); //$NON-NLS-1$
 
   /**
+   * UDP port 7 echo.
+   */
+  private static Port PORT_ECHO = Port.of(7);
+
+  /**
+   * UDP port 9 discard.
+   */
+  private static Port PORT_DISCARD = Port.of(9);
+
+  /**
+   * UDP ports list.
+   */
+  private static List<Port> WOL_PORTS = new ArrayList<>(Arrays.asList(PORT_ECHO, PORT_DISCARD));
+
+  /**
+   * Wake on lan magic package header.
+   */
+  private static byte[] MAGIC_HEADER = HexFormat.ofDelimiter(":").parseHex("ff:ff:ff:ff:ff:ff");
+
+  /**
+   * IPV4 limited broadcast address.
+   */
+  private static String IPV4_LIMITED_BROADCAST = "255.255.255.255";
+
+  /**
+   * IPv6-enabled nodes on the link.
+   */
+  private static String IPV6_LINK_LOCAL = "ff02::1";
+
+  /**
+   * IP V4 limited broadcast address.
+   */
+  private final InetAddress ipv4address;
+
+  /**
+   * IP V6 link local address.
+   */
+  private final InetAddress ipv6address;
+
+  /**
    * MAC address parts.
    */
   private final String[] parts;
+
+  /**
+   * Magic wake on lan package.
+   */
+  private byte[] magicPackage;
 
 
   /**
@@ -118,6 +171,32 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
       throw new IllegalArgumentException("Not a mac address"); //$NON-NLS-1$
      }
     parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
+    ByteBuffer buffer = ByteBuffer.allocate(112).put(MAGIC_HEADER);
+    for (int i = 0; i < 16; ++i)
+     {
+      buffer.put(HexFormat.of().parseHex(String.join("", parts)));
+     }
+    magicPackage = buffer.array();
+    InetAddress ipv4address;
+    InetAddress ipv6address;
+    try
+     {
+      ipv4address = InetAddress.getByName(IPV4_LIMITED_BROADCAST);
+     }
+    catch (UnknownHostException e)
+     {
+      ipv4address = null;
+     }
+    try
+     {
+      ipv6address = InetAddress.getByName(IPV6_LINK_LOCAL);
+     }
+    catch (UnknownHostException e)
+     {
+      ipv6address = null;
+     }
+    this.ipv4address = ipv4address;
+    this.ipv6address = ipv6address;
    }
 
 
@@ -155,7 +234,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
 
 
   /**
-   * Returns the value of this MACADdress as a string with delimiter ':'.
+   * Returns the value of this MACAdddress as a string with delimiter ':'.
    *
    * @return The text value represented by this object after conversion to type string.
    */
@@ -163,6 +242,17 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
   public String stringValue()
    {
     return stringValue(MACAddress.SEPARATOR);
+   }
+
+
+  /**
+   * Returns the value of this MacAddress as byte array.
+   *
+   * @return The text value represented by this object after conversion to type byte array.
+   */
+  public byte[] byteValue()
+   {
+    return HexFormat.of().parseHex(String.join("", parts));
    }
 
 
@@ -247,6 +337,28 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
   public String getOUI()
    {
     return String.format("%1$02X", Integer.parseInt(parts[0], 16) & 0xfc) + parts[1].toUpperCase(Locale.getDefault()) + parts[2].toUpperCase(Locale.getDefault()); //$NON-NLS-1$
+   }
+
+
+  /**
+   * Send local wake on lan for mac address on IPV4 and IPV6.
+   *
+   * @throws IOException If an I/O error occurs.
+   *
+   * TODO directly over Ethernet using EtherType 0x0842.
+   */
+  public void sendLocalWakeOnLan() throws IOException
+   {
+    try (DatagramSocket socket = new DatagramSocket())
+     {
+      for (Port port : WOL_PORTS)
+       {
+        DatagramPacket packetv4 = new DatagramPacket(magicPackage, magicPackage.length, ipv4address, port.intValue());
+        socket.send(packetv4);
+        DatagramPacket packetv6 = new DatagramPacket(magicPackage, magicPackage.length, ipv6address, port.intValue());
+        socket.send(packetv6);
+       }
+     }
    }
 
 

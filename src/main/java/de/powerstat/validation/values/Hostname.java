@@ -49,6 +49,16 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
   private static final Pattern HOSTNAME_BY_DOTS = Pattern.compile(Hostname.ESC_DOT);
 
   /**
+   * Is Hostname a valid ipv4 address.
+   */
+  private final boolean ipv4;
+
+  /**
+   * Is Hostname a valid ipv6 address.
+   */
+  private final boolean ipv6;
+
+  /**
    * Hostname.
    */
   private final String hostname;
@@ -76,9 +86,12 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
       throw new IllegalArgumentException("To short or long for a hostname"); //$NON-NLS-1$
      }
     var tempHostname = ""; //$NON-NLS-1$
+    boolean ipv4 = false;
+    boolean ipv6 = false;
     try
      {
       tempHostname = IPV4Address.of(hostname).stringValue();
+      ipv4 = true;
      }
     catch (final IllegalArgumentException ignored)
      {
@@ -89,6 +102,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
       if (tempHostname.isEmpty())
        {
         tempHostname = IPV6Address.of(hostname).stringValue();
+        ipv6 = true;
        }
      }
     catch (final IllegalArgumentException ignored)
@@ -105,6 +119,8 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
       reverseHostname = tempHostname;
      }
     this.hostname = tempHostname;
+    this.ipv4 = ipv4;
+    this.ipv6 = ipv6;
    }
 
 
@@ -201,6 +217,28 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
   public String getReverseHostname()
    {
     return reverseHostname;
+   }
+
+
+  /**
+   * Is Hostname a valid IPV4 address.
+   *
+   * @return true: ipv4 address; false otherwise
+   */
+  public boolean isIPV4Address()
+   {
+    return ipv4;
+   }
+
+
+  /**
+   * Is Hostname a valid IPV6 address.
+   *
+   * @return true: ipv6 address; false otherwise
+   */
+  public boolean isIPV6Address()
+   {
+    return ipv6;
    }
 
 

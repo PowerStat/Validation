@@ -167,7 +167,7 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
 
 
   /**
-   * Returns the second value of this NTuple9 as a T3.
+   * Returns the third value of this NTuple9 as a T3.
    *
    * @return The T3 value represented by this object.
    */
@@ -178,7 +178,7 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
 
 
   /**
-   * Returns the second value of this NTuple9 as a T4.
+   * Returns the fourth value of this NTuple9 as a T4.
    *
    * @return The T4 value represented by this object.
    */
@@ -189,7 +189,7 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
 
 
   /**
-   * Returns the second value of this NTuple9 as a T5.
+   * Returns the fifth value of this NTuple9 as a T5.
    *
    * @return The T5 value represented by this object.
    */
@@ -200,7 +200,7 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
 
 
   /**
-   * Returns the second value of this NTuple9 as a T6.
+   * Returns the sixth value of this NTuple9 as a T6.
    *
    * @return The T6 value represented by this object.
    */
@@ -211,7 +211,7 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
 
 
   /**
-   * Returns the second value of this NTuple9 as a T7.
+   * Returns the seventh value of this NTuple9 as a T7.
    *
    * @return The T7 value represented by this object.
    */
@@ -222,7 +222,7 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
 
 
   /**
-   * Returns the second value of this NTuple9 as a T8.
+   * Returns the eighth value of this NTuple9 as a T8.
    *
    * @return The T8 value represented by this object.
    */
@@ -233,7 +233,7 @@ public final class NTuple9<T1 extends Comparable<T1>, T2 extends Comparable<T2>,
 
 
   /**
-   * Returns the second value of this NTuple9 as a T9.
+   * Returns the nineth value of this NTuple9 as a T9.
    *
    * @return The T9 value represented by this object.
    */
