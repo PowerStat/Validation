@@ -7,7 +7,6 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -16,6 +15,8 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Month.
  *
+ * @param month Month 1-12
+ *
  * Not DSGVO relevant.
  *
  * TODO constructor with year ?
@@ -23,7 +24,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Translations short/long name
  */
 @ValueObject
-public final class Month implements Comparable<Month>, IValueObject
+public record Month(int month) implements Comparable<Month>, IValueObject
  {
   /**
    * Minimum allowed value 1.
@@ -45,11 +46,6 @@ public final class Month implements Comparable<Month>, IValueObject
    */
   public static final Days MAX_DAYS_WITHIN = Days.of(31);
 
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<Integer, Month> CACHE = new WeakHashMap<>();
-
   /**
    * Overflow constant.
    */
@@ -65,11 +61,6 @@ public final class Month implements Comparable<Month>, IValueObject
    */
   private static final int[] DAYS_IN_MONTH = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-  /**
-   * Month.
-   */
-  private final int month;
-
 
   /**
    * Constructor.
@@ -77,14 +68,12 @@ public final class Month implements Comparable<Month>, IValueObject
    * @param month Month 1-12
    * @throws IndexOutOfBoundsException When the month is less than 1 or greater than 12
    */
-  private Month(final int month)
+  public Month
    {
-    super();
     if ((month < 1) || (month > 12))
      {
       throw new IndexOutOfBoundsException("Month number out of range (1-12)!"); //$NON-NLS-1$
      }
-    this.month = month;
    }
 
 
@@ -97,19 +86,6 @@ public final class Month implements Comparable<Month>, IValueObject
    */
   public static Month of(final int month)
    {
-    /*
-    synchronized (Month.class)
-     {
-      Month obj = Month.CACHE.get(month);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Month(month);
-      Month.CACHE.put(Integer.valueOf(month), obj);
-      return obj;
-     }
-    */
     return new Month(month);
    }
 
@@ -128,17 +104,6 @@ public final class Month implements Comparable<Month>, IValueObject
 
 
   /**
-   * Returns the value of this Month as an int.
-   *
-   * @return The numeric value represented by this object after conversion to type int.
-   */
-  public int intValue()
-   {
-    return month;
-   }
-
-
-  /**
    * Returns the value of this Month as an String.
    *
    * @return The numeric value represented by this object after conversion to type String.
@@ -147,61 +112,6 @@ public final class Month implements Comparable<Month>, IValueObject
   public String stringValue()
    {
     return String.valueOf(month);
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Integer.hashCode(month);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Month other))
-     {
-      return false;
-     }
-    return (month == other.month);
-   }
-
-
-  /**
-   * Returns the string representation of this Month.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Month[month=1]"
-   *
-   * @return String representation of this Month
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder();
-    builder.append("Month[month=").append(month).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 
@@ -241,7 +151,7 @@ public final class Month implements Comparable<Month>, IValueObject
   @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Month add(final Months months)
    {
-    final long newMonth = Math.toIntExact(Math.addExact(month, months.longValue()));
+    final long newMonth = Math.toIntExact(Math.addExact(month, months.months()));
     if (newMonth > 12) // while (newMonth > 12)
      {
       // TODO Listener
@@ -262,7 +172,7 @@ public final class Month implements Comparable<Month>, IValueObject
    */
   public Month subtract(final Months months)
    {
-    final long newMonth = Math.toIntExact(Math.subtractExact(month, months.longValue()));
+    final long newMonth = Math.toIntExact(Math.subtractExact(month, months.months()));
     if (newMonth <= 0) // while (newMonth <= 0)
      {
       // TODO Listener

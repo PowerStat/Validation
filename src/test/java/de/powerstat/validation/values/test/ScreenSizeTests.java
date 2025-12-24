@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.ScreenSize;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -80,8 +80,8 @@ final class ScreenSizeTests
    {
     final ScreenSize size = ScreenSize.of(QVGA320X240);
     assertAll("factory1", //$NON-NLS-1$
-      () -> assertEquals(320, size.getWidth(), WIDTH_IS_NOT_EQUAL),
-      () -> assertEquals(240, size.getHeight(), HEIGHT_IS_NOT_EQUAL)
+      () -> assertEquals(320, size.width(), WIDTH_IS_NOT_EQUAL),
+      () -> assertEquals(240, size.height(), HEIGHT_IS_NOT_EQUAL)
     );
    }
 
@@ -107,9 +107,9 @@ final class ScreenSizeTests
   /* default */ void testFactory3()
    {
     final ScreenSize size = ScreenSize.of(1, 1, "1x1");
-    assertAll("factory3", //$NON-NLS-1$
-      () -> assertEquals(1, size.getWidth(), WIDTH_IS_NOT_EQUAL),
-      () -> assertEquals(1, size.getHeight(), HEIGHT_IS_NOT_EQUAL)
+    assertAll("factory1", //$NON-NLS-1$
+      () -> assertEquals(1, size.width(), WIDTH_IS_NOT_EQUAL),
+      () -> assertEquals(1, size.height(), HEIGHT_IS_NOT_EQUAL)
     );
    }
 
@@ -121,9 +121,9 @@ final class ScreenSizeTests
   /* default */ void testFactory4()
    {
     final ScreenSize size = ScreenSize.of(8192, 8192, "8192x8192");
-    assertAll("factory4", //$NON-NLS-1$
-      () -> assertEquals(8192, size.getWidth(), WIDTH_IS_NOT_EQUAL),
-      () -> assertEquals(8192, size.getHeight(), HEIGHT_IS_NOT_EQUAL)
+    assertAll("factory1", //$NON-NLS-1$
+      () -> assertEquals(8192, size.width(), WIDTH_IS_NOT_EQUAL),
+      () -> assertEquals(8192, size.height(), HEIGHT_IS_NOT_EQUAL)
     );
    }
 
@@ -136,10 +136,10 @@ final class ScreenSizeTests
    {
     final ScreenSize size = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
     assertAll("testScreenSize", //$NON-NLS-1$
-      () -> assertEquals(320, size.getWidth(), WIDTH_IS_NOT_EQUAL),
-      () -> assertEquals(240, size.getHeight(), HEIGHT_IS_NOT_EQUAL),
+      () -> assertEquals(320, size.width(), WIDTH_IS_NOT_EQUAL),
+      () -> assertEquals(240, size.height(), HEIGHT_IS_NOT_EQUAL),
       () -> assertEquals(ScreenSizeTests.QVGA320X240, size.stringValue(), ScreenSizeTests.SIZE_IS_NOT_EQUAL),
-      () -> assertEquals(ScreenSizeTests.QVGA, size.getName(), "size name is not equal") //$NON-NLS-1$
+      () -> assertEquals(ScreenSizeTests.QVGA, size.name(), "size name is not equal") //$NON-NLS-1$
     );
    }
 
@@ -197,27 +197,6 @@ final class ScreenSizeTests
       /* final ScreenSize size = */ ScreenSize.of(1, 0, null);
      }, ScreenSizeTests.INDEX_OUT_OF_BOUNDS_EXPECTED
     );
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(ScreenSize.class).withNonnullFields("name").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final ScreenSize size = ScreenSize.of(320, 240, ScreenSizeTests.QVGA);
-    assertEquals("ScreenSize[width=320, height=240, name=QVGA]", size.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

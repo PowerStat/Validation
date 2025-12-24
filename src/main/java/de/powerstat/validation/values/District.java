@@ -8,7 +8,6 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -17,25 +16,17 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Address District.
  *
+ * @param district District name
+ *
  * Not DSGVO relevant.
  */
 @ValueObject
-public final class District implements Comparable<District>, IValueObject
+public record District(String district) implements Comparable<District>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, District> CACHE = new WeakHashMap<>();
-
   /**
    * District egexp.
    */
   private static final Pattern DISTRICT_REGEXP = Pattern.compile("^[\\p{L}\\p{Digit}][\\p{L}\\p{Digit} -]*$"); //$NON-NLS-1$
-
-  /**
-   * District.
-   */
-  private final String district;
 
 
   /**
@@ -45,9 +36,8 @@ public final class District implements Comparable<District>, IValueObject
    * @throws NullPointerException if district is null
    * @throws IllegalArgumentException if district is not a correct district name
    */
-  private District(final String district)
+  public District
    {
-    super();
     Objects.requireNonNull(district, "district"); //$NON-NLS-1$
     if (district.isEmpty() || (district.length() > 18))
      {
@@ -57,7 +47,6 @@ public final class District implements Comparable<District>, IValueObject
      {
       throw new IllegalArgumentException("District with wrong format"); //$NON-NLS-1$
      }
-    this.district = district;
    }
 
 
@@ -69,19 +58,6 @@ public final class District implements Comparable<District>, IValueObject
    */
   public static District of(final String district)
    {
-    /*
-    synchronized (District .class)
-     {
-      District obj = District.CACHE.get(district);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new District(district);
-      District .CACHE.put(district, obj);
-      return obj;
-     }
-    */
     return new District(district);
    }
 
@@ -95,60 +71,6 @@ public final class District implements Comparable<District>, IValueObject
   public String stringValue()
    {
     return district;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return district.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final District other))
-     {
-      return false;
-     }
-    return district.equals(other.district);
-   }
-
-
-  /**
-   * Returns the string representation of this District.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "District[district=9]"
-   *
-   * @return String representation of this District
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(19);
-    builder.append("District[district=").append(district).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

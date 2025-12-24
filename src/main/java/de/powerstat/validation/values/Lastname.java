@@ -8,7 +8,6 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -17,38 +16,29 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Lastname.
  *
+ * @param lastname Lastname
+ *
  * DSGVO relevant.
  */
 @ValueObject
-public final class Lastname implements Comparable<Lastname>, IValueObject
+public record Lastname(String lastname) implements Comparable<Lastname>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, Lastname> CACHE = new WeakHashMap<>();
-
   /**
    * Lastname regexp.
    */
   private static final Pattern LASTNAME_REGEXP = Pattern.compile("^[\\p{L}][\\p{L} -]*$"); //$NON-NLS-1$
 
-  /**
-   * Lastname.
-   */
-  private final String lastname;
-
 
   /**
    * Constructor.
    *
-   * @param lastname Lastname  (maximum 40 characters)
+   * @param lastname Lastname (maximum 40 characters)
    *
    * @throws NullPointerException if lastname is null
    * @throws IllegalArgumentException if lastname contains unsupported characters or is to long or short
    */
-  private Lastname(final String lastname)
+  public Lastname
    {
-    super();
     Objects.requireNonNull(lastname, "lastname"); //$NON-NLS-1$
     if (lastname.isEmpty() || (lastname.length() > 40))
      {
@@ -58,7 +48,6 @@ public final class Lastname implements Comparable<Lastname>, IValueObject
      {
       throw new IllegalArgumentException("Lastname with wrong format"); //$NON-NLS-1$
      }
-    this.lastname = lastname;
    }
 
 
@@ -70,19 +59,6 @@ public final class Lastname implements Comparable<Lastname>, IValueObject
    */
   public static Lastname of(final String lastname)
    {
-    /*
-    synchronized (Lastname.class)
-     {
-      Lastname obj = Lastname.CACHE.get(lastname);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Lastname(lastname);
-      Lastname.CACHE.put(lastname, obj);
-      return obj;
-     }
-    */
     return new Lastname(lastname);
    }
 
@@ -96,60 +72,6 @@ public final class Lastname implements Comparable<Lastname>, IValueObject
   public String stringValue()
    {
     return lastname;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return lastname.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Lastname other))
-     {
-      return false;
-     }
-    return lastname.equals(other.lastname);
-   }
-
-
-  /**
-   * Returns the string representation of this Lastname.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Lastname[lastname=Hofmann]"
-   *
-   * @return String representation of this Lastname
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(19);
-    builder.append("Lastname[lastname=").append(lastname).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

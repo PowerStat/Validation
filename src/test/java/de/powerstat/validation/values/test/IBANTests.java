@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.IBAN;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -70,7 +70,7 @@ final class IBANTests
   /* default */ void testIbanCorrect(final String iban)
    {
     final IBAN cleanIban = IBAN.of(iban);
-    assertEquals(iban, cleanIban.stringValue(), IBANTests.IBAN_NOT_AS_EXPECTED);
+    assertEquals(iban, cleanIban.iban(), IBANTests.IBAN_NOT_AS_EXPECTED);
    }
 
 
@@ -116,27 +116,6 @@ final class IBANTests
    {
     final IBAN iban = IBAN.of(IBANTests.IBAN_DE68210501700012345678);
     assertEquals(IBANTests.IBAN_DE68210501700012345678, iban.stringValue(), IBANTests.IBAN_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(IBAN.class).withNonnullFields("iban").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final IBAN iban = IBAN.of(IBANTests.IBAN_DE68210501700012345678);
-    assertEquals("IBAN[iban=DE68210501700012345678]", iban.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

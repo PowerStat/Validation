@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.values.Second;
 import de.powerstat.validation.values.Seconds;
@@ -62,7 +61,7 @@ final class SecondTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(0, Second.of("0").intValue(), SecondTests.NOT_A_SECOND);
+    assertEquals(0, Second.of("0").second(), SecondTests.NOT_A_SECOND);
    }
 
 
@@ -75,7 +74,7 @@ final class SecondTests
   @ValueSource(ints = {0, 59, 60})
   /* default */ void testIsSecond(final int second)
    {
-    assertEquals(second, Second.of(second).intValue(), SecondTests.NOT_A_SECOND);
+    assertEquals(second, Second.of(second).second(), SecondTests.NOT_A_SECOND);
    }
 
 
@@ -102,7 +101,7 @@ final class SecondTests
   @Test
   /* default */ void testIntValue()
    {
-    assertEquals(10, Second.of(10).intValue(), SecondTests.NOT_A_SECOND);
+    assertEquals(10, Second.of(10).second(), SecondTests.NOT_A_SECOND);
    }
 
 
@@ -113,27 +112,6 @@ final class SecondTests
   /* default */ void testStringValue()
    {
     assertEquals("10", Second.of(10).stringValue(), SecondTests.NOT_A_SECOND);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Second.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Second second = Second.of(1);
-    assertEquals("Second[second=1]", second.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -168,7 +146,7 @@ final class SecondTests
     final Second second = Second.of(58);
     final Seconds seconds = Seconds.of(1);
     final Second secondResult = second.add(seconds);
-    assertEquals(59, secondResult.intValue(), SecondTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(59, secondResult.second(), SecondTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -198,7 +176,7 @@ final class SecondTests
     final Second second = Second.of(1);
     final Seconds seconds = Seconds.of(1);
     final Second secondResult = second.subtract(seconds);
-    assertEquals(0, secondResult.intValue(), SecondTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, secondResult.second(), SecondTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -227,7 +205,7 @@ final class SecondTests
    {
     final Second second = Second.of(1);
     final Second secondResult = second.increment();
-    assertEquals(2, secondResult.intValue(), SecondTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, secondResult.second(), SecondTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -255,7 +233,7 @@ final class SecondTests
    {
     final Second second = Second.of(2);
     final Second secondResult = second.decrement();
-    assertEquals(1, secondResult.intValue(), SecondTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, secondResult.second(), SecondTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

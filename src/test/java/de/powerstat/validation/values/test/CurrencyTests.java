@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Currency;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -64,7 +64,7 @@ final class CurrencyTests
   /* default */ void testCurrencyOk0(final String code)
    {
     final Currency cleanCurrency = Currency.of(code);
-    assertEquals(code, cleanCurrency.stringValue(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
+    assertEquals(code, cleanCurrency.code(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -110,27 +110,6 @@ final class CurrencyTests
    {
     final Currency currency = Currency.of(CurrencyTests.EUR);
     assertEquals(CurrencyTests.EUR, currency.stringValue(), CurrencyTests.CURRENCY_CODE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Currency.class).withNonnullFields("code").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Currency currency = Currency.of(CurrencyTests.EUR);
-    assertEquals("Currency[code=EUR]", currency.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

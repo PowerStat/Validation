@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.values.BIC;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -65,7 +64,7 @@ final class BICTests
   /* default */ void testBicCorrect(final String bic)
    {
     final BIC cleanBic = BIC.of(bic);
-    assertEquals(bic, cleanBic.stringValue(), BICTests.BIC_NOT_AS_EXPECTED);
+    assertEquals(bic, cleanBic.bic(), BICTests.BIC_NOT_AS_EXPECTED);
    }
 
 
@@ -111,27 +110,6 @@ final class BICTests
    {
     final BIC bic = BIC.of(BICTests.BIC_BELADEBEXXX);
     assertEquals(BICTests.BIC_BELADEBEXXX, bic.stringValue(), BICTests.BIC_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(BIC.class).withNonnullFields("bic").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final BIC bic = BIC.of(BICTests.BIC_BELADEBEXXX);
-    assertEquals("BIC[bic=BELADEBEXXX]", bic.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Months;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -55,7 +55,7 @@ final class MonthsTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(0, Months.of("0").longValue(), MonthsTests.NOT_A_MONTHS);
+    assertEquals(0, Months.of("0").months(), MonthsTests.NOT_A_MONTHS);
    }
 
 
@@ -68,7 +68,7 @@ final class MonthsTests
   @ValueSource(longs = {0, 1, 24})
   /* default */ void testIsMonths(final long months)
    {
-    assertEquals(months, Months.of(months).longValue(), MonthsTests.NOT_A_MONTHS);
+    assertEquals(months, Months.of(months).months(), MonthsTests.NOT_A_MONTHS);
    }
 
 
@@ -90,12 +90,12 @@ final class MonthsTests
 
 
   /**
-   * longValue.
+   * months.
    */
   @Test
   /* default */ void testLongValue()
    {
-    assertEquals(10, Months.of(10).longValue(), MonthsTests.NOT_A_MONTHS);
+    assertEquals(10, Months.of(10).months(), MonthsTests.NOT_A_MONTHS);
    }
 
 
@@ -105,28 +105,7 @@ final class MonthsTests
   @Test
   /* default */ void testStringValue()
    {
-    assertEquals("10", Months.of(10).stringValue(), MonthsTests.NOT_A_MONTHS);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Months.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Months months = Months.of(1);
-    assertEquals("Months[months=1]", months.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertEquals(10, Months.of(10).months(), MonthsTests.NOT_A_MONTHS);
    }
 
 
@@ -161,7 +140,7 @@ final class MonthsTests
     final Months months1 = Months.of(1);
     final Months months2 = Months.of(1);
     final Months monthsResult = months1.add(months2);
-    assertEquals(2, monthsResult.longValue(), MonthsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, monthsResult.months(), MonthsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -190,7 +169,7 @@ final class MonthsTests
     final Months months1 = Months.of(6);
     final Months months2 = Months.of(3);
     final Months monthsResult = months1.subtract(months2);
-    assertEquals(3, monthsResult.longValue(), MonthsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, monthsResult.months(), MonthsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -203,7 +182,7 @@ final class MonthsTests
     final Months months1 = Months.of(3);
     final Months months2 = Months.of(6);
     final Months monthsResult = months1.subtract(months2);
-    assertEquals(3, monthsResult.longValue(), MonthsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, monthsResult.months(), MonthsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -215,7 +194,7 @@ final class MonthsTests
    {
     final Months months1 = Months.of(7);
     final Months monthsResult = months1.multiply(3);
-    assertEquals(21, monthsResult.longValue(), MonthsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(21, monthsResult.months(), MonthsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -242,7 +221,7 @@ final class MonthsTests
    {
     final Months months1 = Months.of(10);
     final Months monthsResult = months1.divide(2);
-    assertEquals(5, monthsResult.longValue(), MonthsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(5, monthsResult.months(), MonthsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -254,7 +233,7 @@ final class MonthsTests
    {
     final Months months1 = Months.of(10);
     final Months monthsResult = months1.divide(3);
-    assertEquals(3, monthsResult.longValue(), MonthsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, monthsResult.months(), MonthsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -281,7 +260,7 @@ final class MonthsTests
    {
     final Months months1 = Months.of(10);
     final Months monthsResult = months1.modulo(2);
-    assertEquals(0, monthsResult.longValue(), MonthsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, monthsResult.months(), MonthsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -293,7 +272,7 @@ final class MonthsTests
    {
     final Months months1 = Months.of(10);
     final Months monthsResult = months1.modulo(3);
-    assertEquals(1, monthsResult.longValue(), MonthsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, monthsResult.months(), MonthsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

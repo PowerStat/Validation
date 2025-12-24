@@ -8,7 +8,6 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.generated.GeneratedISO6391;
@@ -18,29 +17,21 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Language ISO 639-1.
  *
+ * @param code ISO 639-1 code
+ *
  * Not DSGVO relevant.
  *
  * TODO Languages names in english
  * TODO Translations
  */
 @ValueObject
-public final class Language implements Comparable<Language>, IValueObject
+public record Language(String code) implements Comparable<Language>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, Language> CACHE = new WeakHashMap<>();
-
   /**
    * Language regexp.
    */
   @SuppressWarnings("java:S5867")
   private static final Pattern LANGUAGE_REGEXP = Pattern.compile("^[a-z]{2}$"); //$NON-NLS-1$
-
-  /**
-   * ISO 639-1 language code.
-   */
-  private final String code;
 
 
   /**
@@ -51,9 +42,8 @@ public final class Language implements Comparable<Language>, IValueObject
    * @throws IllegalArgumentException if code is not a known 639-1 code
    */
   @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
-  private Language(final String code)
+  public Language
    {
-    super();
     Objects.requireNonNull(code, "code"); //$NON-NLS-1$
     if (code.length() != 2)
      {
@@ -67,7 +57,6 @@ public final class Language implements Comparable<Language>, IValueObject
      {
       throw new IllegalArgumentException("Unknown ISO639-1 code: " + code); //$NON-NLS-1$
      }
-    this.code = code;
    }
 
 
@@ -79,19 +68,6 @@ public final class Language implements Comparable<Language>, IValueObject
    */
   public static Language of(final String code)
    {
-    /*
-    synchronized (Language.class)
-     {
-      Language obj = Language.CACHE.get(code);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Language(code);
-      Language.CACHE.put(code, obj);
-      return obj;
-     }
-    */
     return new Language(code);
    }
 
@@ -105,61 +81,6 @@ public final class Language implements Comparable<Language>, IValueObject
   public String stringValue()
    {
     return code;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return code.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings("PMD.SimplifyBooleanReturns")
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Language other))
-     {
-      return false;
-     }
-    return code.equals(other.code);
-   }
-
-
-  /**
-   * Returns the string representation of this Language.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Language[code=de]"
-   *
-   * @return String representation of this Language
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder();
-    builder.append("Language[code=").append(code).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

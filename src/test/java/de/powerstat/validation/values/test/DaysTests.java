@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Days;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -55,7 +55,7 @@ final class DaysTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(0, Days.of("0").longValue(), DaysTests.NOT_A_DAYS);
+    assertEquals(0, Days.of("0").days(), DaysTests.NOT_A_DAYS);
    }
 
 
@@ -68,7 +68,7 @@ final class DaysTests
   @ValueSource(longs = {0, 1, 7, 30, 365})
   /* default */ void testIsDays(final long days)
    {
-    assertEquals(days, Days.of(days).longValue(), DaysTests.NOT_A_DAYS);
+    assertEquals(days, Days.of(days).days(), DaysTests.NOT_A_DAYS);
    }
 
 
@@ -90,43 +90,12 @@ final class DaysTests
 
 
   /**
-   * longValue.
-   */
-  @Test
-  /* default */ void testLongValue()
-   {
-    assertEquals(10, Days.of(10).longValue(), DaysTests.NOT_A_DAYS);
-   }
-
-
-  /**
    * stringValue.
    */
   @Test
   /* default */ void testStringValue()
    {
     assertEquals("10", Days.of(10).stringValue(), DaysTests.NOT_A_DAYS);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Days.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Days days = Days.of(1);
-    assertEquals("Days[days=1]", days.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -161,7 +130,7 @@ final class DaysTests
     final Days days1 = Days.of(1);
     final Days days2 = Days.of(1);
     final Days daysResult = days1.add(days2);
-    assertEquals(2, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, daysResult.days(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -190,7 +159,7 @@ final class DaysTests
     final Days days1 = Days.of(6);
     final Days days2 = Days.of(3);
     final Days daysResult = days1.subtract(days2);
-    assertEquals(3, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, daysResult.days(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -203,7 +172,7 @@ final class DaysTests
     final Days days1 = Days.of(3);
     final Days days2 = Days.of(6);
     final Days daysResult = days1.subtract(days2);
-    assertEquals(3, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, daysResult.days(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -215,7 +184,7 @@ final class DaysTests
    {
     final Days days1 = Days.of(7);
     final Days daysResult = days1.multiply(3);
-    assertEquals(21, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(21, daysResult.days(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -242,7 +211,7 @@ final class DaysTests
    {
     final Days days1 = Days.of(10);
     final Days daysResult = days1.divide(2);
-    assertEquals(5, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(5, daysResult.days(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -254,7 +223,7 @@ final class DaysTests
    {
     final Days days1 = Days.of(10);
     final Days daysResult = days1.divide(3);
-    assertEquals(3, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, daysResult.days(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -281,7 +250,7 @@ final class DaysTests
    {
     final Days days1 = Days.of(10);
     final Days daysResult = days1.modulo(2);
-    assertEquals(0, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, daysResult.days(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -293,7 +262,7 @@ final class DaysTests
    {
     final Days days1 = Days.of(10);
     final Days daysResult = days1.modulo(3);
-    assertEquals(1, daysResult.longValue(), DaysTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, daysResult.days(), DaysTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

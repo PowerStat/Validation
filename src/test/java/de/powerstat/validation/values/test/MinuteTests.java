@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.values.Minute;
 import de.powerstat.validation.values.Minutes;
@@ -62,7 +61,7 @@ final class MinuteTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(0, Minute.of("0").intValue(), MinuteTests.NOT_A_MINUTE);
+    assertEquals(0, Minute.of("0").minute(), MinuteTests.NOT_A_MINUTE);
    }
 
 
@@ -75,7 +74,7 @@ final class MinuteTests
   @ValueSource(ints = {0, 59})
   /* default */ void testIsMinute(final int minute)
    {
-    assertEquals(minute, Minute.of(minute).intValue(), MinuteTests.NOT_A_MINUTE);
+    assertEquals(minute, Minute.of(minute).minute(), MinuteTests.NOT_A_MINUTE);
    }
 
 
@@ -97,12 +96,12 @@ final class MinuteTests
 
 
   /**
-   * intValue.
+   * minute.
    */
   @Test
   /* default */ void testIntValue()
    {
-    assertEquals(10, Minute.of(10).intValue(), MinuteTests.NOT_A_MINUTE);
+    assertEquals(10, Minute.of(10).minute(), MinuteTests.NOT_A_MINUTE);
    }
 
 
@@ -113,27 +112,6 @@ final class MinuteTests
   /* default */ void testStringValue()
    {
     assertEquals("10", Minute.of(10).stringValue(), MinuteTests.NOT_A_MINUTE);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Minute.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Minute minute = Minute.of(1);
-    assertEquals("Minute[minute=1]", minute.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -168,7 +146,7 @@ final class MinuteTests
     final Minute minute = Minute.of(58);
     final Minutes minutes = Minutes.of(1);
     final Minute minuteResult = minute.add(minutes);
-    assertEquals(59, minuteResult.intValue(), MinuteTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(59, minuteResult.minute(), MinuteTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -198,7 +176,7 @@ final class MinuteTests
     final Minute minute = Minute.of(1);
     final Minutes minutes = Minutes.of(1);
     final Minute minuteResult = minute.subtract(minutes);
-    assertEquals(0, minuteResult.intValue(), MinuteTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, minuteResult.minute(), MinuteTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -227,7 +205,7 @@ final class MinuteTests
    {
     final Minute minute = Minute.of(1);
     final Minute minuteResult = minute.increment();
-    assertEquals(2, minuteResult.intValue(), MinuteTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, minuteResult.minute(), MinuteTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -255,7 +233,7 @@ final class MinuteTests
    {
     final Minute minute = Minute.of(2);
     final Minute minuteResult = minute.decrement();
-    assertEquals(1, minuteResult.intValue(), MinuteTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, minuteResult.minute(), MinuteTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

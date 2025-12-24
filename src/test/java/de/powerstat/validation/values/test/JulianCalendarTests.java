@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.values.Day;
 import de.powerstat.validation.values.JulianCalendar;
@@ -60,27 +59,6 @@ final class JulianCalendarTests
    {
     final JulianCalendar cleanCalendar = JulianCalendar.of();
     assertEquals("", cleanCalendar.stringValue(), CALENDAR_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(JulianCalendar.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final JulianCalendar calendar = JulianCalendar.of();
-    assertEquals("JulianCalendar[]", calendar.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -137,21 +115,21 @@ final class JulianCalendarTests
    {
     final JulianCalendar calendar = JulianCalendar.of();
     assertAll(JulianCalendarTests.TEST_IS_LEAP_YEAR,
-      () -> assertEquals(31, calendar.daysInMonth(Year.of(2020), Month.of(1)).longValue(), "January should have 31 days"), //$NON-NLS-1$
-      () -> assertEquals(29, calendar.daysInMonth(Year.of(2020), Month.of(2)).longValue(), "February should have 29 days"), //$NON-NLS-1$
-      () -> assertEquals(31, calendar.daysInMonth(Year.of(2020), Month.of(3)).longValue(), "March should have 31 days"), //$NON-NLS-1$
-      () -> assertEquals(30, calendar.daysInMonth(Year.of(2020), Month.of(4)).longValue(), "April should have 30 days"), //$NON-NLS-1$
-      () -> assertEquals(31, calendar.daysInMonth(Year.of(2020), Month.of(5)).longValue(), "May should have 31 days"), //$NON-NLS-1$
-      () -> assertEquals(30, calendar.daysInMonth(Year.of(2020), Month.of(6)).longValue(), "June should have 30 days"), //$NON-NLS-1$
-      () -> assertEquals(31, calendar.daysInMonth(Year.of(2020), Month.of(7)).longValue(), "July should have 31 days"), //$NON-NLS-1$
-      () -> assertEquals(31, calendar.daysInMonth(Year.of(2020), Month.of(8)).longValue(), "August should have 31 days"), //$NON-NLS-1$
-      () -> assertEquals(30, calendar.daysInMonth(Year.of(2020), Month.of(9)).longValue(), "September should have 30 days"), //$NON-NLS-1$
-      () -> assertEquals(31, calendar.daysInMonth(Year.of(2020), Month.of(10)).longValue(), "October should have 31 days"), //$NON-NLS-1$
-      () -> assertEquals(30, calendar.daysInMonth(Year.of(2020), Month.of(11)).longValue(), "November should have 30 days"), //$NON-NLS-1$
-      () -> assertEquals(31, calendar.daysInMonth(Year.of(2020), Month.of(12)).longValue(), "December should have 31 days"), //$NON-NLS-1$
-      () -> assertEquals(28, calendar.daysInMonth(Year.of(2019), Month.of(2)).longValue(), "February should have 28 days"), //$NON-NLS-1$
-      () -> assertEquals(31, calendar.daysInMonth(Year.of(1582), Month.of(10)).longValue(), "October 1582 should have 31 days"), //$NON-NLS-1$
-      () -> assertEquals(30, calendar.daysInMonth(Year.of(1582), Month.of(9)).longValue(), "September 1582 should have 30 days") //$NON-NLS-1$
+      () -> assertEquals(31, calendar.daysInMonth(Year.of(2020), Month.of(1)).days(), "January should have 31 days"), //$NON-NLS-1$
+      () -> assertEquals(29, calendar.daysInMonth(Year.of(2020), Month.of(2)).days(), "February should have 29 days"), //$NON-NLS-1$
+      () -> assertEquals(31, calendar.daysInMonth(Year.of(2020), Month.of(3)).days(), "March should have 31 days"), //$NON-NLS-1$
+      () -> assertEquals(30, calendar.daysInMonth(Year.of(2020), Month.of(4)).days(), "April should have 30 days"), //$NON-NLS-1$
+      () -> assertEquals(31, calendar.daysInMonth(Year.of(2020), Month.of(5)).days(), "May should have 31 days"), //$NON-NLS-1$
+      () -> assertEquals(30, calendar.daysInMonth(Year.of(2020), Month.of(6)).days(), "June should have 30 days"), //$NON-NLS-1$
+      () -> assertEquals(31, calendar.daysInMonth(Year.of(2020), Month.of(7)).days(), "July should have 31 days"), //$NON-NLS-1$
+      () -> assertEquals(31, calendar.daysInMonth(Year.of(2020), Month.of(8)).days(), "August should have 31 days"), //$NON-NLS-1$
+      () -> assertEquals(30, calendar.daysInMonth(Year.of(2020), Month.of(9)).days(), "September should have 30 days"), //$NON-NLS-1$
+      () -> assertEquals(31, calendar.daysInMonth(Year.of(2020), Month.of(10)).days(), "October should have 31 days"), //$NON-NLS-1$
+      () -> assertEquals(30, calendar.daysInMonth(Year.of(2020), Month.of(11)).days(), "November should have 30 days"), //$NON-NLS-1$
+      () -> assertEquals(31, calendar.daysInMonth(Year.of(2020), Month.of(12)).days(), "December should have 31 days"), //$NON-NLS-1$
+      () -> assertEquals(28, calendar.daysInMonth(Year.of(2019), Month.of(2)).days(), "February should have 28 days"), //$NON-NLS-1$
+      () -> assertEquals(31, calendar.daysInMonth(Year.of(1582), Month.of(10)).days(), "October 1582 should have 31 days"), //$NON-NLS-1$
+      () -> assertEquals(30, calendar.daysInMonth(Year.of(1582), Month.of(9)).days(), "September 1582 should have 30 days") //$NON-NLS-1$
      );
    }
 
@@ -164,10 +142,10 @@ final class JulianCalendarTests
    {
     final JulianCalendar calendar = JulianCalendar.of();
     assertAll(JulianCalendarTests.TEST_IS_LEAP_YEAR,
-      () -> assertEquals(366, calendar.daysInYear(Year.of(1900)).longValue(), "1900 should have 366 days"), //$NON-NLS-1$
-      () -> assertEquals(366, calendar.daysInYear(Year.of(2000)).longValue(), "2000 should have 366 days"), //$NON-NLS-1$
-      () -> assertEquals(365, calendar.daysInYear(Year.of(2019)).longValue(), "2019 should have 365 days"), //$NON-NLS-1$
-      () -> assertEquals(365, calendar.daysInYear(Year.of(1582)).longValue(), "1582 should have 366 days") //$NON-NLS-1$
+      () -> assertEquals(366, calendar.daysInYear(Year.of(1900)).days(), "1900 should have 366 days"), //$NON-NLS-1$
+      () -> assertEquals(366, calendar.daysInYear(Year.of(2000)).days(), "2000 should have 366 days"), //$NON-NLS-1$
+      () -> assertEquals(365, calendar.daysInYear(Year.of(2019)).days(), "2019 should have 365 days"), //$NON-NLS-1$
+      () -> assertEquals(365, calendar.daysInYear(Year.of(1582)).days(), "1582 should have 366 days") //$NON-NLS-1$
      );
    }
 

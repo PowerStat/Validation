@@ -7,7 +7,6 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -17,6 +16,8 @@ import de.powerstat.validation.values.strategies.PasswordDefaultStrategy;
 
 /**
  * Password.
+ *
+ * @param passwd Password
  *
  * DSGVO relevant.
  *
@@ -47,75 +48,48 @@ import de.powerstat.validation.values.strategies.PasswordDefaultStrategy;
  *      https://thehacktoday.com/password-cracking-dictionarys-download-for-free/
  */
 @ValueObject
-public final class Password implements Comparable<Password>, IValueObject
+public record Password(String passwd) implements Comparable<Password>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, Password> CACHE = new WeakHashMap<>();
-
   /**
    * Hidden password.
    */
   @SuppressWarnings("java:S2068")
   private static final String SECRET_PASSWORD = "********"; //$NON-NLS-1$
 
-  /**
-   * Password.
-   */
-  private final String passwd;
-
-  /**
-   * Password could be read via stringValue() if true.
-   */
-  private final boolean read;
-
 
   /**
    * Constructor.
    *
-   * @param validationStrategy Validation strategy
+   * @param passwd Password
+   * @throws NullPointerException if password is null
+   * @throws IllegalArgumentException if password is empty
+   *
+   * Prefer using the factory methods.
+   */
+  public Password
+   {
+    Objects.requireNonNull(passwd, "passwd"); //$NON-NLS-1$
+    if (passwd.isEmpty())
+     {
+      throw new IllegalArgumentException("passwd is empty"); //$NON-NLS-1$
+     }
+   }
+
+
+  /**
+   * Password factory with PasswordDefaultStrategy.
+   *
    * @param password Password
-   * @param noRead true: password could not be read via stringValue(); false: password could be read
+   * @return Password object
    * @throws NullPointerException if password or validationStrategy is null
    * @throws IllegalArgumentException if password contains unsupported characters or is to long or short etc.
    */
-  private Password(final IPasswordStrategy validationStrategy, final String password, final boolean noRead)
+  public static Password of(final String password)
    {
-    super();
-    Objects.requireNonNull(validationStrategy, "validationStrategy"); //$NON-NLS-1$
     Objects.requireNonNull(password, "password"); //$NON-NLS-1$
-    validationStrategy.validationStrategy(password);
-    passwd = password;
-    read = !noRead;
-   }
-
-
-  /**
-   * Password factory.
-   *
-   * @param validationStrategy Validation strategy
-   * @param password Password
-   * @param noRead true: password could not be read via stringValue(); false: password could be read
-   * @return Password object
-   */
-  public static Password of(final IPasswordStrategy validationStrategy, final String password, final boolean noRead)
-   {
-    /*
-    synchronized (Password.class)
-     {
-      Password obj = Password.CACHE.get(password);
-      if (obj != null)
-       {
-        validationStrategy.validationStrategy(password);
-        return obj;
-       }
-      obj = new Password(validationStrategy, password, noRead);
-      Password.CACHE.put(password, obj);
-      return obj;
-     }
-    */
-    return new Password(validationStrategy, password, noRead);
+    IPasswordStrategy strategy = PasswordDefaultStrategy.of();
+    strategy.validationStrategy(password);
+    return new Password(password);
    }
 
 
@@ -125,47 +99,38 @@ public final class Password implements Comparable<Password>, IValueObject
    * @param validationStrategy Validation strategy
    * @param password Password
    * @return Password object
+   * @throws NullPointerException if password or validationStrategy is null
+   * @throws IllegalArgumentException if password contains unsupported characters or is to long or short etc.
    */
   public static Password of(final IPasswordStrategy validationStrategy, final String password)
    {
-    return of(validationStrategy, password, false);
+    Objects.requireNonNull(validationStrategy, "validationStrategy"); //$NON-NLS-1$
+    Objects.requireNonNull(password, "password"); //$NON-NLS-1$
+    validationStrategy.validationStrategy(password);
+    return new Password(password);
    }
 
 
   /**
-   * Password factory with PasswordDefaultStrategy.
+   * Accessor.
    *
-   * @param password Password
-   * @param noRead true: password could not be read via stringValue(); false: password could be read
-   * @return Password object
+   * @return Hidden password as ********
    */
-  public static Password of(final String password, final boolean noRead)
+  public String passwd()
    {
-    return of(PasswordDefaultStrategy.of(), password, noRead);
+    return SECRET_PASSWORD;
    }
 
 
   /**
-   * Password factory with PasswordDefaultStrategy.
-   *
-   * @param password Password
-   * @return Password object
-   */
-  public static Password of(final String password)
-   {
-    return of(PasswordDefaultStrategy.of(), password, false);
-   }
-
-
-  /**
-   * Returns the value of this Password as a string or ******** if noRead was set during object creation.
+   * Returns the value of this Password as a string of ********.
    *
    * @return The text value represented by this object after conversion to type string.
    */
   @Override
   public String stringValue()
    {
-    return read ? passwd : SECRET_PASSWORD;
+    return passwd; // read ? passwd : SECRET_PASSWORD;
    }
 
 
@@ -180,61 +145,6 @@ public final class Password implements Comparable<Password>, IValueObject
   public boolean verifyPassword(final String password)
    {
     return passwd.equals(password);
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return passwd.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Password other))
-     {
-      return false;
-     }
-    return passwd.equals(other.passwd);
-   }
-
-
-  /**
-   * Returns the string representation of this Password.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Password[password=********]"
-   *
-   * @return String representation of this Password
-   * @see java.lang.Object#toString()
-   */
-  @SuppressWarnings("java:S2068")
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(27);
-    builder.append("Password[password=********]"); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

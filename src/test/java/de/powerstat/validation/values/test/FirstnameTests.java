@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Firstname;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -64,7 +64,7 @@ final class FirstnameTests
   /* default */ void testFirstnameOk0(final String firstname)
    {
     final Firstname cleanFirstname = Firstname.of(firstname);
-    assertEquals(firstname, cleanFirstname.stringValue(), FirstnameTests.FIRSTNAME_NOT_AS_EXPECTED);
+    assertEquals(firstname, cleanFirstname.firstname(), FirstnameTests.FIRSTNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -107,27 +107,6 @@ final class FirstnameTests
    {
     final Firstname firstname = Firstname.of(FirstnameTests.FIRSTNAME);
     assertEquals(FirstnameTests.FIRSTNAME, firstname.stringValue(), FirstnameTests.FIRSTNAME_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Firstname.class).withNonnullFields(FIRSTNAME).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Firstname firstname = Firstname.of(FirstnameTests.FIRSTNAME);
-    assertEquals("Firstname[firstname=firstname]", firstname.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

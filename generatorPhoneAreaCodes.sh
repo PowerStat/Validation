@@ -3,7 +3,7 @@
 # $1 Path to downloaded file
 # cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 echo "/*"
-echo " * Code generator Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!"
+echo " * Code generator Copyright (C) 2022-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!"
 echo " */"
 echo "package de.powerstat.validation.generated;"
 echo ""
@@ -30,7 +30,7 @@ echo "   */"
 echo "  static"
 echo "   {"
 for i in `grep -oE "^([A-Z]+),([0-9]+),([A-Z]+),([a-zA-Z]+),(Yes|No),([0-9]+),([0-9]+),([A-Z]+),([A-Z]+),([A-Z]{2})," $1`; do
-  echo "    PHONEAREAS.put(\"$i\".toUpperCase(Locale.getDefault()), \"\"); //\$NON-NLS-1\$"
+  echo "    PHONEAREAS.put(\"$i\", \"\"); //\$NON-NLS-1\$"
 done
 echo "   }"
 echo ""

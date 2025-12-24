@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Hostname;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -35,6 +35,11 @@ final class HostnameTests
    * Private ip address 192.168.1.2.
    */
   private static final String PRIVATE_IP_192_168_1_2 = "192.168.1.2"; //$NON-NLS-1$
+
+  /**
+   * IPV6 0000:0000:0000:0000:0000:0000:0000:0000.
+   */
+  private static final String IPV6ZERO = "::"; //$NON-NLS-1$
 
   /**
    * IPV6 FD.
@@ -81,7 +86,7 @@ final class HostnameTests
   /* default */ void testHostnameOk0(final String hostname)
    {
     final Hostname cleanHostname = Hostname.of(hostname);
-    assertEquals(hostname, cleanHostname.stringValue(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
+    assertEquals(hostname, cleanHostname.hostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -91,8 +96,8 @@ final class HostnameTests
   @Test
   /* default */ void testHostnameOk1()
    {
-    final Hostname cleanHostname = Hostname.of("::"); //$NON-NLS-1$
-    assertEquals("0000:0000:0000:0000:0000:0000:0000:0000", cleanHostname.stringValue(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED); //$NON-NLS-1$
+    final Hostname cleanHostname = Hostname.of(IPV6ZERO);
+    assertEquals(IPV6ZERO, cleanHostname.hostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -148,7 +153,7 @@ final class HostnameTests
   /* default */ void testGetReverseHostname1()
    {
     final Hostname hostname = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
-    assertEquals(HostnameTests.PRIVATE_IP_192_168_1_1, hostname.getReverseHostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED);
+    assertEquals("1.1.168.192", hostname.getReverseHostname(), HostnameTests.HOSTNAME_NOT_AS_EXPECTED); //$NON-NLS-1$
    }
 
 
@@ -277,27 +282,6 @@ final class HostnameTests
   /* default */ void testIsReachableFalse()
    {
     assertFalse(Hostname.of(HostnameTests.NONEXISTANT_EXAMPLE_COM).isReachable(1000), "Should not be a reachable hostname"); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Hostname.class).withNonnullFields("hostname").withIgnoredFields("reverseHostname", "ipv4", "ipv6").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Hostname hostname = Hostname.of(HostnameTests.PRIVATE_IP_192_168_1_1);
-    assertEquals("Hostname[hostname=192.168.1.1]", hostname.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

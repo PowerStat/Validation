@@ -7,7 +7,6 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -16,44 +15,27 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Screen size.
  *
+ * @param width Screen width in pixel (1-8192)
+ * @param height Screen height in pixel (1-8192)
+ * @param name Screen size name
+ *
  * Not DSGVO relevant.
  *
  * TODO min, max
  */
 @ValueObject
-public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
+public record ScreenSize(int width, int height, String name) implements Comparable<ScreenSize>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<NTuple3<Integer, Integer, String>, ScreenSize> CACHE = new WeakHashMap<>();
-
-  /**
-   * Screen width (1-8192).
-   */
-  private final int width;
-
-  /**
-   * Screen height (1-8192).
-   */
-  private final int height;
-
-  /**
-   * Screen size name.
-   */
-  private final String name;
-
-
   /**
    * Constructor.
    *
    * @param width Screen width in pixel (1-8192)
    * @param height Screen height in pixel (1-8192)
    * @param name Screen size name
+   * @throws IndexOutOfBoundsException If width or height is out of range
    */
-  private ScreenSize(final int width, final int height, final String name)
+  public ScreenSize
    {
-    super();
     if ((width < 1) || (width > 8192))
      {
       throw new IndexOutOfBoundsException("Width out of range (1-8192)"); //$NON-NLS-1$
@@ -63,9 +45,6 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
       throw new IndexOutOfBoundsException("Height out of range (1-8192)"); //$NON-NLS-1$
      }
     Objects.requireNonNull(name);
-    this.width = width;
-    this.height = height;
-    this.name = name;
    }
 
 
@@ -79,28 +58,6 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
    */
   public static ScreenSize of(final int width, final int height, final String name)
    {
-    /*
-    if ((width < 1) || (width > 8192))
-     {
-      throw new IndexOutOfBoundsException("Width out of range (1-8192)"); //$NON-NLS-1$
-     }
-    if ((height < 1) || (height > 8192))
-     {
-      throw new IndexOutOfBoundsException("Height out of range (1-8192)"); //$NON-NLS-1$
-     }
-    final NTuple3<Integer, Integer, String> tuple = NTuple3.of(width, height, name);
-    synchronized (ScreenSize.class)
-     {
-      ScreenSize obj = ScreenSize.CACHE.get(tuple);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new ScreenSize(width, height, name);
-      ScreenSize.CACHE.put(tuple, obj);
-      return obj;
-     }
-    */
     return new ScreenSize(width, height, name);
    }
 
@@ -124,28 +81,6 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
 
 
   /**
-   * Get screen width.
-   *
-   * @return Screen width in pixel
-   */
-  public int getWidth()
-   {
-    return width;
-   }
-
-
-  /**
-   * Get screen height.
-   *
-   * @return Screen height in pixel
-   */
-  public int getHeight()
-   {
-    return height;
-   }
-
-
-  /**
    * Returns the value of this ScreenSize as a string.
    *
    * @return The text value represented by this object after conversion to type string format 320x200.
@@ -154,73 +89,6 @@ public final class ScreenSize implements Comparable<ScreenSize>, IValueObject
   public String stringValue()
    {
     return String.valueOf(width) + 'x' + height;
-   }
-
-
-  /**
-   * Get screen size name.
-   *
-   * @return Screen size name
-   */
-  public String getName()
-   {
-    return name;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    int result = Integer.hashCode(width);
-    result = (31 * result) + Integer.hashCode(height);
-    return (31 * result) + name.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final ScreenSize other))
-     {
-      return false;
-     }
-    return (width == other.width) && (height == other.height) && name.equals(other.name);
-   }
-
-
-  /**
-   * Returns the string representation of this ScreenSize.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "ScreenSize[width=320, height=200, name=QVGA]"
-   *
-   * @return String representation of this ScreenSize
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(47);
-    builder.append("ScreenSize[width=").append(width).append(", height=").append(height).append(", name=").append(name).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-    return builder.toString();
    }
 
 

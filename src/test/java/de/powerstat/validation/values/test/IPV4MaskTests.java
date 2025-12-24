@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.IPV4Mask;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -170,7 +170,7 @@ final class IPV4MaskTests
    {
     final IPV4Mask mask = IPV4Mask.of(0);
     assertAll("constructorSuccess0", //$NON-NLS-1$
-      () -> assertEquals(0, mask.intValue(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
+      () -> assertEquals(0, mask.length(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
       () -> assertEquals(IPV4MaskTests.IP_ZERO, mask.stringValue(), IPV4MaskTests.MASK_IS_NOT_EQUAL)
     );
    }
@@ -184,7 +184,7 @@ final class IPV4MaskTests
    {
     final IPV4Mask mask = IPV4Mask.of(32);
     assertAll("constructorSuccess1", //$NON-NLS-1$
-      () -> assertEquals(32, mask.intValue(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
+      () -> assertEquals(32, mask.length(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
       () -> assertEquals(IPV4MaskTests.IP255, mask.stringValue(), IPV4MaskTests.MASK_IS_NOT_EQUAL)
     );
    }
@@ -198,7 +198,7 @@ final class IPV4MaskTests
    {
     final IPV4Mask mask = IPV4Mask.of(IPV4MaskTests.IP_ZERO);
     assertAll("constructorSuccess2", //$NON-NLS-1$
-      () -> assertEquals(0, mask.intValue(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
+      () -> assertEquals(0, mask.length(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
       () -> assertEquals(IPV4MaskTests.IP_ZERO, mask.stringValue(), IPV4MaskTests.MASK_IS_NOT_EQUAL)
     );
    }
@@ -212,7 +212,7 @@ final class IPV4MaskTests
    {
     final IPV4Mask mask = IPV4Mask.of(IPV4MaskTests.IP255);
     assertAll("constructorSuccess3", //$NON-NLS-1$
-      () -> assertEquals(32, mask.intValue(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
+      () -> assertEquals(32, mask.length(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
       () -> assertEquals(IPV4MaskTests.IP255, mask.stringValue(), IPV4MaskTests.MASK_IS_NOT_EQUAL)
     );
    }
@@ -226,7 +226,7 @@ final class IPV4MaskTests
    {
     final IPV4Mask mask = IPV4Mask.of(8);
     assertAll("constructorSuccess4", //$NON-NLS-1$
-      () -> assertEquals(8, mask.intValue(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
+      () -> assertEquals(8, mask.length(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
       () -> assertEquals(IPV4MaskTests.IPMASK_255_0_0_0, mask.stringValue(), IPV4MaskTests.MASK_IS_NOT_EQUAL)
     );
    }
@@ -240,7 +240,7 @@ final class IPV4MaskTests
    {
     final IPV4Mask mask = IPV4Mask.of(16);
     assertAll("constructorSuccess5", //$NON-NLS-1$
-      () -> assertEquals(16, mask.intValue(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
+      () -> assertEquals(16, mask.length(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
       () -> assertEquals(IPV4MaskTests.IPMASK_255_255_0_0, mask.stringValue(), IPV4MaskTests.MASK_IS_NOT_EQUAL)
     );
    }
@@ -254,7 +254,7 @@ final class IPV4MaskTests
    {
     final IPV4Mask mask = IPV4Mask.of(24);
     assertAll("constructorSuccess6", //$NON-NLS-1$
-      () -> assertEquals(24, mask.intValue(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
+      () -> assertEquals(24, mask.length(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
       () -> assertEquals(IPV4MaskTests.IPMASK_255_255_255_0, mask.stringValue(), IPV4MaskTests.MASK_IS_NOT_EQUAL)
     );
    }
@@ -268,7 +268,7 @@ final class IPV4MaskTests
    {
     final IPV4Mask mask = IPV4Mask.of(IPV4MaskTests.IPMASK_255_255_255_0);
     assertAll("constructorSuccess7", //$NON-NLS-1$
-      () -> assertEquals(24, mask.intValue(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
+      () -> assertEquals(24, mask.length(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
       () -> assertEquals(IPV4MaskTests.IPMASK_255_255_255_0, mask.stringValue(), IPV4MaskTests.MASK_IS_NOT_EQUAL)
     );
    }
@@ -282,7 +282,7 @@ final class IPV4MaskTests
    {
     final IPV4Mask mask = IPV4Mask.of(IPV4MaskTests.IPMASK_255_255_0_0);
     assertAll("constructorSuccess8", //$NON-NLS-1$
-      () -> assertEquals(16, mask.intValue(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
+      () -> assertEquals(16, mask.length(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
       () -> assertEquals(IPV4MaskTests.IPMASK_255_255_0_0, mask.stringValue(), IPV4MaskTests.MASK_IS_NOT_EQUAL)
     );
    }
@@ -296,7 +296,7 @@ final class IPV4MaskTests
    {
     final IPV4Mask mask = IPV4Mask.of(IPV4MaskTests.IPMASK_255_0_0_0);
     assertAll("constructorSuccess9", //$NON-NLS-1$
-      () -> assertEquals(8, mask.intValue(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
+      () -> assertEquals(8, mask.length(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
       () -> assertEquals(IPV4MaskTests.IPMASK_255_0_0_0, mask.stringValue(), IPV4MaskTests.MASK_IS_NOT_EQUAL)
     );
    }
@@ -310,7 +310,7 @@ final class IPV4MaskTests
    {
     final IPV4Mask mask = IPV4Mask.of(9);
     assertAll("constructorSuccess10", //$NON-NLS-1$
-      () -> assertEquals(9, mask.intValue(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
+      () -> assertEquals(9, mask.length(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
       () -> assertEquals("255.128.0.0", mask.stringValue(), IPV4MaskTests.MASK_IS_NOT_EQUAL) //$NON-NLS-1$
     );
    }
@@ -324,7 +324,7 @@ final class IPV4MaskTests
    {
     final IPV4Mask mask = IPV4Mask.of(17);
     assertAll("constructorSuccess11", //$NON-NLS-1$
-      () -> assertEquals(17, mask.intValue(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
+      () -> assertEquals(17, mask.length(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
       () -> assertEquals("255.255.128.0", mask.stringValue(), IPV4MaskTests.MASK_IS_NOT_EQUAL) //$NON-NLS-1$
     );
    }
@@ -338,30 +338,9 @@ final class IPV4MaskTests
    {
     final IPV4Mask mask = IPV4Mask.of(25);
     assertAll("constructorSuccess12", //$NON-NLS-1$
-      () -> assertEquals(25, mask.intValue(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
+      () -> assertEquals(25, mask.length(), IPV4MaskTests.LENGTH_IS_NOT_EQUAL),
       () -> assertEquals("255.255.255.128", mask.stringValue(), IPV4MaskTests.MASK_IS_NOT_EQUAL) //$NON-NLS-1$
     );
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(IPV4Mask.class).withIgnoredFields("mask").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final IPV4Mask mask = IPV4Mask.of(IPV4MaskTests.IPMASK_255_255_255_0);
-    assertEquals("IPV4Mask[length=24, mask=255.255.255.0]", mask.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

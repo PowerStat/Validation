@@ -7,7 +7,6 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -16,13 +15,16 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Day within month.
  *
+ * @param month Month
+ * @param day Day
+ *
  * Not DSGVO relevant.
  *
  * TODO LeapYear support
  * TODO min, max  01.01.    31.12.
  */
 @ValueObject
-public final class MonthDay implements Comparable<MonthDay>, IValueObject
+public record MonthDay(Month month, Day day) implements Comparable<MonthDay>, IValueObject
  {
   /**
    * Avoid literals in if conditions.
@@ -33,16 +35,6 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
    * Date separator.
    */
   private static final String DATE_SEP = "-"; //$NON-NLS-1$
-
-  /**
-   * Month.
-   */
-  private final Month month;
-
-  /**
-   * Day.
-   */
-  private final Day day;
 
 
   /**
@@ -55,25 +47,24 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
    * @throws IllegalStateException When the month is in an illegal state
    */
   @SuppressWarnings(PMD_AVOID_LITERALS_IN_IF_CONDITION)
-  private MonthDay(final Month month, final Day day)
+  public MonthDay
    {
-    super();
     Objects.requireNonNull(month, "month"); //$NON-NLS-1$
     Objects.requireNonNull(day, "day"); //$NON-NLS-1$
-    switch (month.intValue())
+    switch (month.month())
      {
       case 1, 3, 5, 7, 8, 10, 12:
         break;
 
       case 4, 6, 9, 11:
-        if (day.intValue() > 30)
+        if (day.day() > 30)
          {
           throw new IndexOutOfBoundsException("Day number out of range for the month (31)!"); //$NON-NLS-1$
          }
         break;
 
       case 2:
-        if (day.intValue() > 29)
+        if (day.day() > 29)
          {
           throw new IndexOutOfBoundsException("Day number out of range for the month (30-31)!"); //$NON-NLS-1$
          }
@@ -82,8 +73,6 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
       default:
         throw new IllegalStateException("Illegal month!"); //$NON-NLS-1$
      }
-    this.month = month;
-    this.day = day;
    }
 
 
@@ -119,28 +108,6 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
 
 
   /**
-   * Returns the month value of this DayMonth.
-   *
-   * @return The month value represented by this object.
-   */
-  public Month monthValue()
-   {
-    return month;
-   }
-
-
-  /**
-   * Returns the day value of this DayMonth.
-   *
-   * @return The day value represented by this object.
-   */
-  public Day dayValue()
-   {
-    return day;
-   }
-
-
-  /**
    * Returns the String value of this DayMonth in ISO8601 format.
    *
    * @return The String value represented by this object ([m]m-[d]d).
@@ -149,66 +116,6 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
   public String stringValue()
    {
     return month.stringValue() + DATE_SEP + day.stringValue();
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Objects.hash(month, day);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    // if ((obj == null) || (this.getClass() != obj.getClass()))
-    if (!(obj instanceof final MonthDay other))
-     {
-      return false;
-     }
-    boolean result = month.equals(other.month);
-    if (result)
-     {
-      result = day.equals(other.day);
-     }
-    return result;
-   }
-
-
-  /**
-   * Returns the string representation of this DayMonth.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "DayMonth[month=1, day=1]"
-   *
-   * @return String representation of this DayMonth
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(22);
-    builder.append("MonthDay[month=").append(month).append(", day=").append(day).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 
@@ -240,9 +147,9 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
    */
   private int fixDay(final Month month)
    {
-    final long lastDayInMonth = month.daysInMonth().longValue();
-    int newDay = day.intValue();
-    if (day.intValue() > lastDayInMonth) // NO PITEST
+    long lastDayInMonth = month.daysInMonth().days();
+    int newDay = day.day();
+    if (day.day() > lastDayInMonth) // NO PITEST
      {
       newDay = (int)lastDayInMonth;
      }
@@ -258,15 +165,15 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
    */
   public MonthDay add(final Months months)
    {
-    long newMonth = Math.toIntExact(Math.addExact(month.intValue(), months.longValue()));
+    long newMonth = Math.toIntExact(Math.addExact(month.month(), months.months()));
     while (newMonth > 12)
      {
       // TODO Listener year
       newMonth -= 12;
       // incrementYear();
      }
-    final Month month = Month.of(Math.toIntExact(newMonth));
-    final int newDay = fixDay(month);
+    Month month = Month.of(Math.toIntExact(newMonth));
+    int newDay = fixDay(month);
     return MonthDay.of(month, Day.of(newDay));
    }
 
@@ -280,11 +187,11 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
   @SuppressWarnings(PMD_AVOID_LITERALS_IN_IF_CONDITION)
   public MonthDay add(final Days days)
    {
-    long newDay = Math.toIntExact(Math.addExact(day.intValue(), days.longValue()));
-    int newMonth = month.intValue();
-    while (newDay > Month.of(newMonth).daysInMonth().longValue())
+    long newDay = Math.toIntExact(Math.addExact(day.day(), days.days()));
+    int newMonth = month.month();
+    while (newDay > Month.of(newMonth).daysInMonth().days())
      {
-      newDay -= Month.of(newMonth).daysInMonth().longValue();
+      newDay -= Month.of(newMonth).daysInMonth().days();
       ++newMonth;
       if (newMonth > 12)
        {
@@ -305,15 +212,15 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
    */
   public MonthDay subtract(final Months months)
    {
-    long newMonth = Math.toIntExact(Math.subtractExact(month.intValue(), months.longValue()));
+    long newMonth = Math.toIntExact(Math.subtractExact(month.month(), months.months()));
     while (newMonth <= 0)
      {
       // TODO Listener year
       newMonth += 12;
       // decrementYear();
      }
-    final Month month = Month.of(Math.toIntExact(newMonth));
-    final int newDay = fixDay(month);
+    Month month = Month.of(Math.toIntExact(newMonth));
+    int newDay = fixDay(month);
     return MonthDay.of(month, Day.of(newDay));
    }
 
@@ -326,8 +233,8 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
    */
   public MonthDay subtract(final Days days)
    {
-    long newDay = Math.toIntExact(Math.subtractExact(day.intValue(), days.longValue()));
-    int newMonth = month.intValue();
+    long newDay = Math.toIntExact(Math.subtractExact(day.day(), days.days()));
+    int newMonth = month.month();
     while (newDay < 1)
      {
       --newMonth;
@@ -337,7 +244,7 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
         // decrementYear()
         // TODO Listener Year
        }
-      newDay += Month.of(newMonth).daysInMonth().longValue();
+      newDay += Month.of(newMonth).daysInMonth().days();
      }
     return MonthDay.of(Month.of(newMonth), Day.of(Math.toIntExact(newDay)));
    }
@@ -351,7 +258,7 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
   @SuppressWarnings(PMD_AVOID_LITERALS_IN_IF_CONDITION)
   public MonthDay incrementMonth()
    {
-    int newMonth = Math.incrementExact(month.intValue());
+    int newMonth = Math.incrementExact(month.month());
     if (newMonth == 13)
      {
       // TODO Listener year
@@ -371,7 +278,7 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
    */
   public MonthDay decrementMonth()
    {
-    int newMonth = Math.decrementExact(month.intValue());
+    int newMonth = Math.decrementExact(month.month());
     if (newMonth == 0)
      {
       // TODO Listener year
@@ -392,11 +299,11 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
   @SuppressWarnings(PMD_AVOID_LITERALS_IN_IF_CONDITION)
   public MonthDay incrementDay()
    {
-    int newMonth = month.intValue();
-    int newDay = Math.incrementExact(day.intValue());
-    if (newDay > month.daysInMonth().longValue())
+    int newMonth = month.month();
+    int newDay = Math.incrementExact(day.day());
+    if (newDay > month.daysInMonth().days())
      {
-      newDay -= month.daysInMonth().longValue();
+      newDay -= month.daysInMonth().days();
       // TODO Listener month
       ++newMonth;
       if (newMonth > 12)
@@ -417,8 +324,8 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
    */
   public MonthDay decrementDay()
    {
-    int newMonth = month.intValue();
-    int newDay = Math.decrementExact(day.intValue());
+    int newMonth = month.month();
+    int newDay = Math.decrementExact(day.day());
     if (newDay < 1)
      {
       // TODO Listener month
@@ -429,7 +336,7 @@ public final class MonthDay implements Comparable<MonthDay>, IValueObject
         // TODO Listener year
         // incrementYear();
        }
-      newDay += Month.of(newMonth).daysInMonth().longValue();
+      newDay += Month.of(newMonth).daysInMonth().days();
      }
     return MonthDay.of(Month.of(Math.toIntExact(newMonth)), Day.of(newDay));
    }

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Percent;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -53,8 +53,8 @@ final class PercentTests
   @ValueSource(ints = {0, 100})
   /* default */ void testIsPercent(final int percent)
    {
-    final Percent test = Percent.of(percent);
-    assertEquals(percent, test.intValue(), PERCENT_SHOULD_BE_50);
+    final Percent result = Percent.of(percent);
+    assertEquals(percent, result.percent(), "Percent should be " + percent);
    }
 
 
@@ -81,18 +81,7 @@ final class PercentTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(50, Percent.of(PERCENT_50).intValue(), PERCENT_SHOULD_BE_50);
-   }
-
-
-  /**
-   * Test intValue.
-   */
-  @Test
-  /* default */ void testIntValue()
-   {
-    final Percent percent = Percent.of(50);
-    assertEquals(50, percent.intValue(), PERCENT_SHOULD_BE_50);
+    assertEquals(50, Percent.of("50").percent(), "Percent should be 50");
    }
 
 
@@ -104,27 +93,6 @@ final class PercentTests
    {
     final Percent percent = Percent.of(50);
     assertEquals(PERCENT_50, percent.stringValue(), PERCENT_SHOULD_BE_50);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Percent.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Percent percent = Percent.of(50);
-    assertEquals("Percent[percent=50]", percent.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

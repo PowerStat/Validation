@@ -20,7 +20,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Not DSGVO relevant.
  */
 @ValueObject
-public final class JulianCalendar implements Comparable<JulianCalendar>, IValueObject
+public record JulianCalendar() implements Comparable<JulianCalendar>, IValueObject
  {
   /**
    * Days per month.
@@ -41,9 +41,8 @@ public final class JulianCalendar implements Comparable<JulianCalendar>, IValueO
   /**
    * Default constructor.
    */
-  private JulianCalendar()
+  public JulianCalendar
    {
-    super();
    }
 
 
@@ -67,61 +66,6 @@ public final class JulianCalendar implements Comparable<JulianCalendar>, IValueO
   public String stringValue()
    {
     return "";
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Objects.hash();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof JulianCalendar))
-     {
-      return false;
-     }
-    return true;
-   }
-
-
-  /**
-   * Returns the string representation of this JulianCalendar.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "JulianCalendar[]"
-   *
-   * @return String representation of this JulianCalendar
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(27);
-    builder.append("JulianCalendar[]"); //$NON-NLS-1$
-    return builder.toString();
    }
 
 
@@ -150,7 +94,7 @@ public final class JulianCalendar implements Comparable<JulianCalendar>, IValueO
   public boolean isLeapYear(final Year year)
    {
     Objects.requireNonNull(year, JulianCalendar.YEAR);
-    return (year.longValue() <= 0) ? ((-year.longValue() % 4) == 1) : ((year.longValue() % 4) == 0);
+    return (year.year() <= 0) ? ((-year.year()) % 4) == 1 : (year.year() % 4) == 0;
    }
 
 
@@ -165,7 +109,7 @@ public final class JulianCalendar implements Comparable<JulianCalendar>, IValueO
    {
     Objects.requireNonNull(year, JulianCalendar.YEAR);
     Objects.requireNonNull(month, JulianCalendar.MONTH);
-    return Days.of((long)DAYS_IN_MONTH[month.intValue()] + (((month.intValue() == 2) && isLeapYear(year)) ? 1 : 0));
+    return Days.of(DAYS_IN_MONTH[month.month()] + (((month.month() == 2) && isLeapYear(year)) ? 1 : 0));
    }
 
 
@@ -181,7 +125,7 @@ public final class JulianCalendar implements Comparable<JulianCalendar>, IValueO
     long days = 0;
     for (int day = 1; day <= 12; ++day)
      {
-      days += daysInMonth(year, Month.of(day)).longValue();
+      days += daysInMonth(year, Month.of(day)).days();
      }
     return Days.of(days);
    }
@@ -196,8 +140,8 @@ public final class JulianCalendar implements Comparable<JulianCalendar>, IValueO
   @SuppressWarnings({"PMD.ShortVariable"})
   public MonthDay easterInYear(final Year year)
    {
-    final int a = (int)(((19 * (year.longValue() % 19)) + 15) % 30);
-    final int b = (int)(((((2 * (year.longValue() % 4)) + (4 * (year.longValue() % 7))) - a) + 34) % 7);
+    final int a = (int)(((19 * (year.year() % 19)) + 15) % 30);
+    final int b = (int)(((((2 * (year.year() % 4)) + (4 * (year.year() % 7))) - a) + 34) % 7);
     final int c = a + b + 114;
     return MonthDay.of(Month.of(c / 31), Day.of((c % 31) + 1));
    }

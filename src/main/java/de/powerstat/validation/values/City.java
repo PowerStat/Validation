@@ -8,7 +8,6 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -17,25 +16,17 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Address City.
  *
+ * @param city City name
+ *
  * Not DSGVO relevant.
  */
 @ValueObject
-public final class City implements Comparable<City>, IValueObject
+public record City(String city) implements Comparable<City>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, City> CACHE = new WeakHashMap<>();
-
   /**
    * City name regexp.
    */
   private static final Pattern CITY_REGEXP = Pattern.compile("^[\\p{L}][\\p{L} -]*$"); //$NON-NLS-1$
-
-  /**
-   * City.
-   */
-  private final String city;
 
 
   /**
@@ -45,9 +36,8 @@ public final class City implements Comparable<City>, IValueObject
    * @throws NullPointerException if city is null
    * @throws IllegalArgumentException if city is not a correct City name
    */
-  private City(final String city)
+  public City
    {
-    super();
     Objects.requireNonNull(city, "city"); //$NON-NLS-1$
     if (city.isEmpty() || (city.length() > 85))
      {
@@ -57,7 +47,6 @@ public final class City implements Comparable<City>, IValueObject
      {
       throw new IllegalArgumentException("City with wrong format"); //$NON-NLS-1$
      }
-    this.city = city;
    }
 
 
@@ -69,19 +58,6 @@ public final class City implements Comparable<City>, IValueObject
    */
   public static City of(final String city)
    {
-    /*
-    synchronized (City.class)
-     {
-      City obj = City.CACHE.get(city);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new City(city);
-      City.CACHE.put(city, obj);
-      return obj;
-     }
-    */
     return new City(city);
    }
 
@@ -95,60 +71,6 @@ public final class City implements Comparable<City>, IValueObject
   public String stringValue()
    {
     return city;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return city.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final City other))
-     {
-      return false;
-     }
-    return city.equals(other.city);
-   }
-
-
-  /**
-   * Returns the string representation of this City.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "City[city=Bremen]"
-   *
-   * @return String representation of this City
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder();
-    builder.append("City[city=").append(city).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

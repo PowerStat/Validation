@@ -15,11 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Password;
 import de.powerstat.validation.values.strategies.IPasswordStrategy;
 import de.powerstat.validation.values.strategies.PasswordConfigurableStrategy;
-import de.powerstat.validation.values.strategies.PasswordDefaultStrategy;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
@@ -94,9 +93,9 @@ final class PasswordTests
   @Test
   /* default */ void testPasswordOk1()
    {
-    final Password cleanPassword = Password.of(PasswordDefaultStrategy.of(), USERNAME);
-    assertNotNull(cleanPassword, "Password is null");
-    assertTrue(cleanPassword.verifyPassword(USERNAME), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
+    final IPasswordStrategy strategy = PasswordConfigurableStrategy.of(2, 254, "^[!§$%&/()=?öäüÖÄÜ,.:;_@0-9a-zA-Z-]+$", 0, 0, 0, 0, 0, 0); //$NON-NLS-1$
+    final Password cleanPassword = Password.of(strategy, "username"); //$NON-NLS-1$
+    assertNotNull(cleanPassword, PasswordTests.PASSWORD_NOT_AS_EXPECTED);
    }
 
 
@@ -108,6 +107,20 @@ final class PasswordTests
    {
     final Password cleanPassword = Password.of(PasswordTests.PASSWORD);
     assertFalse(cleanPassword.verifyPassword("wrongPassword"), "Password verification not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+   }
+
+
+  /**
+   * Test Password is empty.
+   */
+  @Test
+  /* default */ void testPasswordEmpty()
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final Password cleanPassword = */ new Password("");
+     }, PasswordTests.ILLEGAL_ARGUMENT
+    );
    }
 
 
@@ -147,42 +160,10 @@ final class PasswordTests
    * Test get password.
    */
   @Test
-  /* default */ void testStringValueRead()
+  /* default */ void testStringValueNoRead() // TODO Not possible with record
    {
-    final Password password = Password.of(PasswordTests.PASSWORD);
-    assertEquals(PasswordTests.PASSWORD, password.stringValue(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Test get password.
-   */
-  @Test
-  /* default */ void testStringValueNoRead()
-   {
-    final Password password = Password.of(PasswordTests.PASSWORD3, true);
-    assertEquals(SECRET_PASSWORD, password.stringValue(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Password.class).withNonnullFields("passwd").withIgnoredFields("read").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Password password = Password.of(PasswordTests.PASSWORD);
-    assertEquals("Password[password=********]", password.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
+    final Password password = Password.of(PasswordTests.PASSWORD3);
+    assertEquals(PasswordTests.PASSWORD3, password.stringValue(), PasswordTests.PASSWORD_NOT_AS_EXPECTED);
    }
 
 

@@ -8,7 +8,6 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -17,10 +16,12 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Address Lines.
  *
+ * @param lines Lines (1-5)
+ *
  * Not DSGVO relevant.
  */
 @ValueObject
-public final class Lines implements Comparable<Lines>, IValueObject
+public record Lines(String lines) implements Comparable<Lines>, IValueObject
  {
   /**
    * Minimum allowed value 1.
@@ -32,21 +33,11 @@ public final class Lines implements Comparable<Lines>, IValueObject
    */
   public static final int MAX_VALUE = 5;
 
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, Lines> CACHE = new WeakHashMap<>();
-
   /**
    * Lines fregexp.
    */
   @SuppressWarnings("java:S6035")
   private static final Pattern LINES_REGEXP = Pattern.compile("^([\\p{L}\\p{Digit},.& -]|\\R)*+$"); //$NON-NLS-1$
-
-  /**
-   * Lines.
-   */
-  private final String lines;
 
 
   /**
@@ -57,9 +48,8 @@ public final class Lines implements Comparable<Lines>, IValueObject
    * @throws IllegalArgumentException if lines is not a correct Lines
    */
   @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
-  private Lines(final String lines)
+  public Lines
    {
-    super();
     Objects.requireNonNull(lines, "lines"); //$NON-NLS-1$
     if (lines.isEmpty() || (lines.length() > 200))
      {
@@ -73,7 +63,6 @@ public final class Lines implements Comparable<Lines>, IValueObject
      {
       throw new IllegalArgumentException("Do not use more than 5 lines"); //$NON-NLS-1$
      }
-    this.lines = lines;
    }
 
 
@@ -85,19 +74,6 @@ public final class Lines implements Comparable<Lines>, IValueObject
    */
   public static Lines of(final String lines)
    {
-    /*
-    synchronized (Lines.class)
-     {
-      Lines obj = Lines.CACHE.get(lines);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Lines(lines);
-      Lines.CACHE.put(lines, obj);
-      return obj;
-     }
-    */
     return new Lines(lines);
    }
 
@@ -111,61 +87,6 @@ public final class Lines implements Comparable<Lines>, IValueObject
   public String stringValue()
    {
     return lines;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return lines.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Lines other))
-     {
-      return false;
-     }
-    return lines.equals(other.lines);
-   }
-
-
-  /**
-   * Returns the string representation of this Lines.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Lines[lines=Example1]"
-   *
-   * @return String representation of this Lines
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder();
-    builder.append("Lines[lines=").append(lines.replace("\n", "\\n").replace("\r", "\\r")).append(']'); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-    return builder.toString();
    }
 
 

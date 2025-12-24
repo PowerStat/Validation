@@ -16,12 +16,14 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Hour.
  *
+ * @param hour Hour 0-23
+ *
  * Not DSGVO relevant.
  *
  * TODO Listener
  */
 @ValueObject
-public final class Hour implements Comparable<Hour>, IValueObject
+public record Hour(int hour) implements Comparable<Hour>, IValueObject
  {
   /**
    * Minimum allowed value 0.
@@ -48,16 +50,6 @@ public final class Hour implements Comparable<Hour>, IValueObject
    */
   private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
 
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<Integer, Hour> CACHE = new WeakHashMap<>();
-
-  /**
-   * Hour.
-   */
-  private final int hour;
-
 
   /**
    * Constructor.
@@ -65,14 +57,12 @@ public final class Hour implements Comparable<Hour>, IValueObject
    * @param hour Hour 0-23
    * @throws IndexOutOfBoundsException When the hour is less than 0 or greater than 23
    */
-  private Hour(final int hour)
+  public Hour
    {
-    super();
     if ((hour < 0) || (hour > 23))
      {
       throw new IndexOutOfBoundsException("Hour number out of range (0-23)!"); //$NON-NLS-1$
      }
-    this.hour = hour;
    }
 
 
@@ -84,19 +74,6 @@ public final class Hour implements Comparable<Hour>, IValueObject
    */
   public static Hour of(final int hour)
    {
-    /*
-    synchronized (Hour.class)
-     {
-      Hour obj = Hour.CACHE.get(hour);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Hour(hour);
-      Hour.CACHE.put(Integer.valueOf(hour), obj);
-      return obj;
-     }
-    */
     return new Hour(hour);
    }
 
@@ -114,17 +91,6 @@ public final class Hour implements Comparable<Hour>, IValueObject
 
 
   /**
-   * Returns the value of this Hour as an int.
-   *
-   * @return The numeric value represented by this object after conversion to type int.
-   */
-  public int intValue()
-   {
-    return hour;
-   }
-
-
-  /**
    * Returns the value of this Hour as a String.
    *
    * @return The numeric value represented by this object after conversion to type String.
@@ -133,61 +99,6 @@ public final class Hour implements Comparable<Hour>, IValueObject
   public String stringValue()
    {
     return String.valueOf(hour);
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Integer.hashCode(hour);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Hour other))
-     {
-      return false;
-     }
-    return (hour == other.hour);
-   }
-
-
-  /**
-   * Returns the string representation of this Hour.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Hour[hour=1]"
-   *
-   * @return String representation of this Hour
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder();
-    builder.append("Hour[hour=").append(hour).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 
@@ -216,7 +127,7 @@ public final class Hour implements Comparable<Hour>, IValueObject
   @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Hour add(final Hours hours)
    {
-    final int newHour = Math.toIntExact(Math.addExact(hour, hours.longValue()));
+    final int newHour = Math.toIntExact(Math.addExact(hour, hours.hours()));
     if (newHour > 23)
      {
       // TODO Listener
@@ -235,7 +146,7 @@ public final class Hour implements Comparable<Hour>, IValueObject
    */
   public Hour subtract(final Hours hours)
    {
-    final int newHour = Math.toIntExact(Math.subtractExact(hour, hours.longValue()));
+    final int newHour = Math.toIntExact(Math.subtractExact(hour, hours.hours()));
     if (newHour < 0)
      {
       // TODO Listener

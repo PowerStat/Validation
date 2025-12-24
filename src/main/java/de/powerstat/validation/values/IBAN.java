@@ -9,7 +9,6 @@ import java.math.BigInteger;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -19,29 +18,20 @@ import de.powerstat.validation.values.impl.IBANVerifierAbstractFactory;
 /**
  * IBAN.
  *
+ * @param iban IBAN
+ *
  * Probably DSGVO relevant.
  *
  * TODO https://openiban.com/
  * TODO Human format in/out
  */
 @ValueObject
-public final class IBAN implements Comparable<IBAN>, IValueObject
+public record IBAN(String iban) implements Comparable<IBAN>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, IBAN> CACHE = new WeakHashMap<>();
-
   /**
    * IBAN regexp.
    */
-  @SuppressWarnings("java:S5867")
-  private static final Pattern IBAN_REGEXP = Pattern.compile("^[A-Z]{2}\\d{2}[0-9A-Z]{11,30}$"); //$NON-NLS-1$
-
-  /**
-   * IBAN.
-   */
-  private final String iban;
+  private static final Pattern IBAN_REGEXP = Pattern.compile("^[A-Z]{2}[0-9]{2}[0-9A-Z]{11,30}$"); //$NON-NLS-1$
 
 
   /**
@@ -51,9 +41,8 @@ public final class IBAN implements Comparable<IBAN>, IValueObject
    * @throws NullPointerException if iban is null
    * @throws IllegalArgumentException if iban is not an correct iban
    */
-  private IBAN(final String iban)
+  public IBAN
    {
-    super();
     Objects.requireNonNull(iban, "iban"); //$NON-NLS-1$
     if ((iban.length() < 15) || (iban.length() > 34))
      {
@@ -77,7 +66,6 @@ public final class IBAN implements Comparable<IBAN>, IValueObject
      {
       throw new IllegalArgumentException("IBAN not correct in country context: " + iban); //$NON-NLS-1$
      }
-    this.iban = iban;
    }
 
 
@@ -105,19 +93,6 @@ public final class IBAN implements Comparable<IBAN>, IValueObject
    */
   public static IBAN of(final String iban)
    {
-    /*
-    synchronized (IBAN.class)
-     {
-      IBAN obj = IBAN.CACHE.get(iban);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new IBAN(iban);
-      IBAN.CACHE.put(iban, obj);
-      return obj;
-     }
-    */
     return new IBAN(iban);
    }
 
@@ -131,60 +106,6 @@ public final class IBAN implements Comparable<IBAN>, IValueObject
   public String stringValue()
    {
     return iban;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return iban.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final IBAN other))
-     {
-      return false;
-     }
-    return iban.equals(other.iban);
-   }
-
-
-  /**
-   * Returns the string representation of this IBAN.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "IBAN[iban=DE68210501700012345678]"
-   *
-   * @return String representation of this IBAN
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder();
-    builder.append("IBAN[iban=").append(iban).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

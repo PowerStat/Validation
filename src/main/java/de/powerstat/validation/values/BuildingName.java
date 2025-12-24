@@ -8,7 +8,6 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -17,25 +16,17 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Address Building name.
  *
+ * @param buildingName Building name
+ *
  * Not DSGVO relevant.
  */
 @ValueObject
-public final class BuildingName implements Comparable<BuildingName>, IValueObject
+public record BuildingName(String buildingName) implements Comparable<BuildingName>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, BuildingName> CACHE = new WeakHashMap<>();
-
   /**
    * Building name regexp.
    */
   private static final Pattern BUILDNINGNAME_REGEXP = Pattern.compile("^[\\p{L}][\\p{L} -]*$");
-
-  /**
-   * Building name.
-   */
-  private final String buildingName;
 
 
   /**
@@ -45,9 +36,8 @@ public final class BuildingName implements Comparable<BuildingName>, IValueObjec
    * @throws NullPointerException if buildingName is null
    * @throws IllegalArgumentException if buildingName is not a correct building name
    */
-  private BuildingName(final String buildingName)
+  public BuildingName
    {
-    super();
     Objects.requireNonNull(buildingName, "buildingName"); //$NON-NLS-1$
     if (buildingName.isEmpty() || (buildingName.length() > 32))
      {
@@ -57,7 +47,6 @@ public final class BuildingName implements Comparable<BuildingName>, IValueObjec
      {
       throw new IllegalArgumentException("Building name with wrong format"); //$NON-NLS-1$
      }
-    this.buildingName = buildingName;
    }
 
 
@@ -69,19 +58,6 @@ public final class BuildingName implements Comparable<BuildingName>, IValueObjec
    */
   public static BuildingName of(final String buildingName)
    {
-    /*
-    synchronized (BuildingName.class)
-     {
-      BuildingName obj = BuildingName.CACHE.get(buildingName);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new BuildingName(buildingName);
-      BuildingName.CACHE.put(buildingName, obj);
-      return obj;
-     }
-    */
     return new BuildingName(buildingName);
    }
 
@@ -95,60 +71,6 @@ public final class BuildingName implements Comparable<BuildingName>, IValueObjec
   public String stringValue()
    {
     return buildingName;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return buildingName.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final BuildingName other))
-     {
-      return false;
-     }
-    return buildingName.equals(other.buildingName);
-   }
-
-
-  /**
-   * Returns the string representation of this BuildingName.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "BuildingName[buildingName=Rathaus]"
-   *
-   * @return String representation of this BuildingName
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(27);
-    builder.append("BuildingName[buildingName=").append(buildingName).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

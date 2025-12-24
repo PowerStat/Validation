@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Street;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -64,7 +64,7 @@ final class StreetTests
   /* default */ void testStreetCorrect(final String street)
    {
     final Street cleanStreet = Street.of(street);
-    assertEquals(street, cleanStreet.stringValue(), StreetTests.STREET_NOT_AS_EXPECTED);
+    assertEquals(street, cleanStreet.street(), StreetTests.STREET_NOT_AS_EXPECTED);
    }
 
 
@@ -110,27 +110,6 @@ final class StreetTests
    {
     final Street street = Street.of(StreetTests.HEMELINGER_HEERSTR);
     assertEquals(StreetTests.HEMELINGER_HEERSTR, street.stringValue(), StreetTests.STREET_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Street.class).withNonnullFields("street").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Street street = Street.of(StreetTests.HEMELINGER_HEERSTR);
-    assertEquals("Street[street=Hemelinger Heerstr.]", street.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

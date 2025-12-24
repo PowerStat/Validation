@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.containers.HistoryOf;
 import de.powerstat.validation.values.Lastname;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

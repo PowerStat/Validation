@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.BuildingName;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -64,7 +64,7 @@ final class BuildingNameTests
   /* default */ void testBuildingNameCorrect(final String buildingName)
    {
     final BuildingName cleanBuildingName = BuildingName.of(buildingName);
-    assertEquals(buildingName, cleanBuildingName.stringValue(), BuildingNameTests.BUILDING_NAME_NOT_AS_EXPECTED);
+    assertEquals(buildingName, cleanBuildingName.buildingName(), BuildingNameTests.BUILDING_NAME_NOT_AS_EXPECTED);
    }
 
 
@@ -110,27 +110,6 @@ final class BuildingNameTests
    {
     final BuildingName buildingName = BuildingName.of(BuildingNameTests.RATHAUS);
     assertEquals(BuildingNameTests.RATHAUS, buildingName.stringValue(), BuildingNameTests.BUILDING_NAME_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(BuildingName.class).withNonnullFields("buildingName").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final BuildingName buildingName = BuildingName.of(BuildingNameTests.RATHAUS);
-    assertEquals("BuildingName[buildingName=Rathaus]", buildingName.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

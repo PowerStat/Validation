@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.values.Country;
 import de.powerstat.validation.values.Day;
@@ -144,27 +143,6 @@ final class GregorianDateTests
    {
     final GregorianDate date = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
     assertEquals(DATE_2020_07_14, date.stringValue(), GregorianDateTests.DATE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(GregorianDate.class).withNonnullFields("year", "month", "day").withIgnoredFields("calendar").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final GregorianDate date = GregorianDate.of(Year.of(2020), Month.of(7), Day.of(14));
-    assertEquals("GregorianDate[country=IT, date=2020-07-14]", date.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

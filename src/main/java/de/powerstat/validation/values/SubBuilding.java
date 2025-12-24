@@ -8,7 +8,6 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -17,20 +16,17 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Address Sub building.
  *
+ * @param subBuilding Sub building description
+ *
  * Possibly DSGVO relevant.
  */
 @ValueObject
-public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
+public record SubBuilding(String subBuilding) implements Comparable<SubBuilding>, IValueObject
  {
   /**
    * Subbuilding regexp.
    */
   private static final Pattern SUBBUILDING_REGEXP = Pattern.compile("^[\\p{L}][\\p{L}\\p{Digit}., -]*$"); //$NON-NLS-1$
-
-  /**
-   * Sub building.
-   */
-  private final String subBuilding;
 
 
   /**
@@ -40,9 +36,8 @@ public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
    * @throws NullPointerException if subBuilding is null
    * @throws IllegalArgumentException if subBuilding is not correct
    */
-  private SubBuilding(final String subBuilding)
+  public SubBuilding
    {
-    super();
     Objects.requireNonNull(subBuilding, "subBuilding"); //$NON-NLS-1$
     if (subBuilding.isEmpty() || (subBuilding.length() > 32))
      {
@@ -52,7 +47,6 @@ public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
      {
       throw new IllegalArgumentException("SubBuilding with wrong format"); //$NON-NLS-1$
      }
-    this.subBuilding = subBuilding;
    }
 
 
@@ -77,60 +71,6 @@ public final class SubBuilding implements Comparable<SubBuilding>, IValueObject
   public String stringValue()
    {
     return subBuilding;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return subBuilding.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final SubBuilding other))
-     {
-      return false;
-     }
-    return subBuilding.equals(other.subBuilding);
-   }
-
-
-  /**
-   * Returns the string representation of this SubBuilding.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "SubBuilding[subBuilding=Floor 13, Apart. 0815]"
-   *
-   * @return String representation of this SubBuilding
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(25);
-    builder.append("SubBuilding[subBuilding=").append(subBuilding).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

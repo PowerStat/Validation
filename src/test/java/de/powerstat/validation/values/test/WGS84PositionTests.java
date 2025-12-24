@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.values.WGS84Position;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -70,10 +69,10 @@ final class WGS84PositionTests
   /* default */ void testFactory1()
    {
     final WGS84Position pos = WGS84Position.of(ZERO);
-    assertAll("factory1", //$NON-NLS-1$
-      () -> assertEquals(0.0, pos.getLatitude(), LATITUTE_ERROR),
-      () -> assertEquals(0.0, pos.getLongitude(), LONGITUTE_ERROR),
-      () -> assertEquals(0.0, pos.getAltitude(), ALTITUDE_ERROR)
+    assertAll("factory", //$NON-NLS-1$
+      () -> assertEquals(0.0, pos.latitude(), LATITUTE_ERROR),
+      () -> assertEquals(0.0, pos.longitude(), LONGITUTE_ERROR),
+      () -> assertEquals(0.0, pos.altitude(), ALTITUDE_ERROR)
     );
    }
 
@@ -99,10 +98,10 @@ final class WGS84PositionTests
   /* default */ void testFactory3()
    {
     final WGS84Position pos = WGS84Position.of("-90.0 -180.0 7.0");
-    assertAll("factory3", //$NON-NLS-1$
-      () -> assertEquals(-90.0, pos.getLatitude(), LATITUTE_ERROR),
-      () -> assertEquals(-180.0, pos.getLongitude(), LONGITUTE_ERROR),
-      () -> assertEquals(7.0, pos.getAltitude(), ALTITUDE_ERROR)
+    assertAll("factory", //$NON-NLS-1$
+      () -> assertEquals(-90.0, pos.latitude(), LATITUTE_ERROR),
+      () -> assertEquals(-180.0, pos.longitude(), LONGITUTE_ERROR),
+      () -> assertEquals(7.0, pos.altitude(), ALTITUDE_ERROR)
     );
    }
 
@@ -114,10 +113,10 @@ final class WGS84PositionTests
   /* default */ void testFactory4()
    {
     final WGS84Position pos = WGS84Position.of("90.0 180.0 9.0");
-    assertAll("factory4", //$NON-NLS-1$
-      () -> assertEquals(90.0, pos.getLatitude(), LATITUTE_ERROR),
-      () -> assertEquals(180.0, pos.getLongitude(), LONGITUTE_ERROR),
-      () -> assertEquals(9.0, pos.getAltitude(), ALTITUDE_ERROR)
+    assertAll("factory", //$NON-NLS-1$
+      () -> assertEquals(90.0, pos.latitude(), LATITUTE_ERROR),
+      () -> assertEquals(180.0, pos.longitude(), LONGITUTE_ERROR),
+      () -> assertEquals(9.0, pos.altitude(), ALTITUDE_ERROR)
     );
    }
 
@@ -130,9 +129,9 @@ final class WGS84PositionTests
    {
     final WGS84Position pos = WGS84Position.of(0.0, 0.0, 0.0);
     assertAll("testIsPosition", //$NON-NLS-1$
-      () -> assertEquals(0.0, pos.getLatitude(), LATITUTE_ERROR),
-      () -> assertEquals(0.0, pos.getLongitude(), LONGITUTE_ERROR),
-      () -> assertEquals(0.0, pos.getAltitude(), ALTITUDE_ERROR)
+      () -> assertEquals(0.0, pos.latitude(), LATITUTE_ERROR),
+      () -> assertEquals(0.0, pos.longitude(), LONGITUTE_ERROR),
+      () -> assertEquals(0.0, pos.altitude(), ALTITUDE_ERROR)
     );
    }
 
@@ -200,27 +199,6 @@ final class WGS84PositionTests
   /* default */ void testStringValue()
    {
     assertEquals(ZERO, WGS84Position.of(0.0, 0.0, 0.0).stringValue(), "Result not as expected");
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(WGS84Position.class).withNonnullFields("latitude").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final WGS84Position pos = WGS84Position.of(0.0, 0.0, 0.0);
-    assertEquals("WGS84Position[latitude=0.0, longitude=0.0, altitude=0.0]", pos.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

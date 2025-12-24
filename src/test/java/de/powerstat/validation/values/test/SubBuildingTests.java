@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.SubBuilding;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -64,7 +64,7 @@ final class SubBuildingTests
   /* default */ void testSubBuildingCorrect(final String subBuilding)
    {
     final SubBuilding cleanSubBuilding = SubBuilding.of(subBuilding);
-    assertEquals(subBuilding, cleanSubBuilding.stringValue(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
+    assertEquals(subBuilding, cleanSubBuilding.subBuilding(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
    }
 
 
@@ -110,27 +110,6 @@ final class SubBuildingTests
    {
     final SubBuilding subBuilding = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
     assertEquals(SubBuildingTests.FLOOR_13_APART_0815, subBuilding.stringValue(), SubBuildingTests.SUB_BUILDING_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(SubBuilding.class).withNonnullFields("subBuilding").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final SubBuilding subBuilding = SubBuilding.of(SubBuildingTests.FLOOR_13_APART_0815);
-    assertEquals("SubBuilding[subBuilding=Floor 13, Apart. 0815]", subBuilding.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

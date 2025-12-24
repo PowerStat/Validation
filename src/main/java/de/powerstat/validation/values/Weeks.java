@@ -7,7 +7,6 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -16,10 +15,12 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Weeks.
  *
+ * @param weeks Weeks 0-..
+ *
  * Not DSGVO relevant.
  */
 @ValueObject
-public final class Weeks implements Comparable<Weeks>, IValueObject
+public record Weeks(long weeks) implements Comparable<Weeks>, IValueObject
  {
   /**
    * Minimum allowed value 0.
@@ -31,31 +32,18 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
    */
   public static final long MAX_VALUE = Long.MAX_VALUE;
 
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<Long, Weeks> CACHE = new WeakHashMap<>();
-
-  /**
-   * Weeks.
-   */
-  private final long weeks;
-
-
   /**
    * Constructor.
    *
    * @param weeks Weeks 0-..
    * @throws IndexOutOfBoundsException When the week is less than 0
    */
-  private Weeks(final long weeks)
+  public Weeks
    {
-    super();
     if (weeks < 0)
      {
       throw new IndexOutOfBoundsException("Negative weeks are not allowed"); //$NON-NLS-1$
      }
-    this.weeks = weeks;
    }
 
 
@@ -67,19 +55,6 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
    */
   public static Weeks of(final long weeks)
    {
-    /*
-    synchronized (Weeks.class)
-     {
-      Weeks obj = Weeks.CACHE.get(weeks);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Weeks(weeks);
-      Weeks.CACHE.put(Long.valueOf(weeks), obj);
-      return obj;
-     }
-    */
     return new Weeks(weeks);
    }
 
@@ -97,17 +72,6 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
 
 
   /**
-   * Returns the value of this Weeks as an long.
-   *
-   * @return The numeric value represented by this object after conversion to type long.
-   */
-  public long longValue()
-   {
-    return weeks;
-   }
-
-
-  /**
    * Returns the value of this Weeks as a String.
    *
    * @return The numeric value represented by this object after conversion to type String.
@@ -116,61 +80,6 @@ public final class Weeks implements Comparable<Weeks>, IValueObject
   public String stringValue()
    {
     return String.valueOf(weeks);
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Long.hashCode(weeks);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Weeks other))
-     {
-      return false;
-     }
-    return (weeks == other.weeks);
-   }
-
-
-  /**
-   * Returns the string representation of this Weeks.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Weeks[weeks=1]"
-   *
-   * @return String representation of this Weeks
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder();
-    builder.append("Weeks[weeks=").append(weeks).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

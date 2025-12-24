@@ -7,7 +7,6 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -16,10 +15,12 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Milliseconds.
  *
+ * @param milliseconds Milliseconds &gt;= 0
+ *
  * Not DSGVO relevant.
  */
 @ValueObject
-public final class Milliseconds implements Comparable<Milliseconds>, IValueObject
+public record Milliseconds(long milliseconds) implements Comparable<Milliseconds>, IValueObject
  {
   /**
    * Minimum allowed value 0.
@@ -31,31 +32,18 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
    */
   public static final long MAX_VALUE = Long.MAX_VALUE;
 
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<Long, Milliseconds> CACHE = new WeakHashMap<>();
-
-  /**
-   * Milliseonds.
-   */
-  private final long milliseconds;
-
-
   /**
    * Constructor.
    *
    * @param milliseconds Milliseconds &gt;= 0
    * @throws IndexOutOfBoundsException When the milliseonds is less than 0
    */
-  private Milliseconds(final long milliseconds)
+  public Milliseconds
    {
-    super();
     if (milliseconds < 0)
      {
       throw new IndexOutOfBoundsException("Milliseconds out of range (0-Long.MAX_VALUE)!"); //$NON-NLS-1$
      }
-    this.milliseconds = milliseconds;
    }
 
 
@@ -67,19 +55,6 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
    */
   public static Milliseconds of(final long milliseconds)
    {
-    /*
-    synchronized (Milliseconds.class)
-     {
-      Milliseconds obj = Milliseconds.CACHE.get(milliseconds);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Milliseconds(milliseconds);
-      Milliseconds.CACHE.put(Long.valueOf(milliseconds), obj);
-      return obj;
-     }
-    */
     return new Milliseconds(milliseconds);
    }
 
@@ -97,17 +72,6 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
 
 
   /**
-   * Returns the value of this Milliseconds as a long.
-   *
-   * @return The numeric value represented by this object after conversion to type long (0-Long.MAX_VALUE).
-   */
-  public long longValue()
-   {
-    return milliseconds;
-   }
-
-
-  /**
    * Returns the value of this Milliseconds as a String.
    *
    * @return The numeric value represented by this object after conversion to type String (0-Long.MAX_VALUE).
@@ -116,61 +80,6 @@ public final class Milliseconds implements Comparable<Milliseconds>, IValueObjec
   public String stringValue()
    {
     return String.valueOf(milliseconds);
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Long.hashCode(milliseconds);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Milliseconds other))
-     {
-      return false;
-     }
-    return (milliseconds == other.milliseconds);
-   }
-
-
-  /**
-   * Returns the string representation of this Milliseconds.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Milliseconds[milliseconds=0]"
-   *
-   * @return String representation of this Milliseconds
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(27);
-    builder.append("Milliseconds[milliseconds=").append(milliseconds).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

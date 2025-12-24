@@ -7,7 +7,6 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -16,10 +15,12 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Port.
  *
+ * @param port Port 0-65535
+ *
  * Not DSGVO relevant.
  */
 @ValueObject
-public final class Port implements Comparable<Port>, IValueObject
+public record Port(int port) implements Comparable<Port>, IValueObject
  {
   /**
    * Minimum allowed value 0.
@@ -31,31 +32,18 @@ public final class Port implements Comparable<Port>, IValueObject
    */
   public static final int MAX_VALUE = 65535;
 
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<Integer, Port> CACHE = new WeakHashMap<>();
-
-  /**
-   * Port.
-   */
-  private final int port;
-
-
   /**
    * Constructor.
    *
    * @param port Port 0-65535
    * @throws IndexOutOfBoundsException When the port is less than 0 or greater than 65535
    */
-  private Port(final int port)
+  public Port
    {
-    super();
     if ((port < 0) || (port > 65535))
      {
       throw new IndexOutOfBoundsException("Port number out of range (0-65535)!"); //$NON-NLS-1$
      }
-    this.port = port;
    }
 
 
@@ -67,19 +55,6 @@ public final class Port implements Comparable<Port>, IValueObject
    */
   public static Port of(final int port)
    {
-    /*
-    synchronized (Port.class)
-     {
-      Port obj = Port.CACHE.get(port);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Port(port);
-      Port.CACHE.put(Integer.valueOf(port), obj);
-      return obj;
-     }
-    */
     return new Port(port);
    }
 
@@ -130,17 +105,6 @@ public final class Port implements Comparable<Port>, IValueObject
 
 
   /**
-   * Returns the value of this Port as an int.
-   *
-   * @return The numeric value represented by this object after conversion to type int.
-   */
-  public int intValue()
-   {
-    return port;
-   }
-
-
-  /**
    * Returns the value of this Port as an String.
    *
    * @return The numeric value represented by this object after conversion to type String.
@@ -149,61 +113,6 @@ public final class Port implements Comparable<Port>, IValueObject
   public String stringValue()
    {
     return String.valueOf(port);
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Integer.hashCode(port);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Port other))
-     {
-      return false;
-     }
-    return (port == other.port);
-   }
-
-
-  /**
-   * Returns the string representation of this Port.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Port[port=0]"
-   *
-   * @return String representation of this Port
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder();
-    builder.append("Port[port=").append(port).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

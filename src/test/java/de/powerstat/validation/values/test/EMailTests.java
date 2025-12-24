@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.EMail;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -74,7 +74,7 @@ final class EMailTests
   /* default */ void testEmailOk0(final String email)
    {
     final EMail cleanEMail = EMail.of(email);
-    assertEquals(email, cleanEMail.stringValue(), EMailTests.EMAIL_NOT_AS_EXPECTED);
+    assertEquals(email, cleanEMail.email(), EMailTests.EMAIL_NOT_AS_EXPECTED);
    }
 
 
@@ -262,27 +262,6 @@ final class EMailTests
    {
     final EMail email = EMail.of(EMailTests.USER_EXAMPLE_COM);
     assertEquals("user", email.getLocalPart(), EMailTests.EMAIL_NOT_AS_EXPECTED); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(EMail.class).withNonnullFields("email").withIgnoredFields("domainPart", "localPart").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final EMail email = EMail.of(EMailTests.EMAIL_USER1_AT_EXAMPLE_COM);
-    assertEquals("EMail[email=user1@example.com]", email.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

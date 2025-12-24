@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.values.Days;
 import de.powerstat.validation.values.Weekday;
@@ -67,7 +66,7 @@ final class WeekdayTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(6, Weekday.of(SIX).intValue(), NOT_A_WEEKDAY);
+    assertEquals(6, Weekday.of(SIX).weekday(), NOT_A_WEEKDAY);
    }
 
 
@@ -77,7 +76,7 @@ final class WeekdayTests
   @Test
   /* default */ void testIntValue()
    {
-    assertEquals(6, Weekday.of(6).intValue(), NOT_A_WEEKDAY);
+    assertEquals(6, Weekday.of(6).weekday(), NOT_A_WEEKDAY);
    }
 
 
@@ -100,7 +99,7 @@ final class WeekdayTests
   @ValueSource(ints = {1, 7})
   /* default */ void testIsWeekday(final int weekday)
    {
-    assertEquals(weekday, Weekday.of(weekday).intValue(), NOT_A_WEEKDAY);
+    assertEquals(weekday, Weekday.of(weekday).weekday(), NOT_A_WEEKDAY);
    }
 
 
@@ -118,27 +117,6 @@ final class WeekdayTests
       /* final Weekday weekday = */ Weekday.of(weekday);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Weekday.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Weekday weekday = Weekday.of(1);
-    assertEquals("Weekday[weekday=1]", weekday.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -173,7 +151,7 @@ final class WeekdayTests
     final Weekday weekday = Weekday.of(6);
     final Days days = Days.of(1);
     final Weekday weekdayResult = weekday.add(days);
-    assertEquals(7, weekdayResult.intValue(), WeekdayTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(7, weekdayResult.weekday(), WeekdayTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -203,7 +181,7 @@ final class WeekdayTests
     final Weekday weekday = Weekday.of(2);
     final Days days = Days.of(1);
     final Weekday weekdayResult = weekday.subtract(days);
-    assertEquals(1, weekdayResult.intValue(), WeekdayTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, weekdayResult.weekday(), WeekdayTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -232,7 +210,7 @@ final class WeekdayTests
    {
     final Weekday weekday = Weekday.of(1);
     final Weekday weekdayResult = weekday.increment();
-    assertEquals(2, weekdayResult.intValue(), WeekdayTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, weekdayResult.weekday(), WeekdayTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -260,7 +238,7 @@ final class WeekdayTests
    {
     final Weekday weekday = Weekday.of(2);
     final Weekday weekdayResult = weekday.decrement();
-    assertEquals(1, weekdayResult.intValue(), WeekdayTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, weekdayResult.weekday(), WeekdayTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

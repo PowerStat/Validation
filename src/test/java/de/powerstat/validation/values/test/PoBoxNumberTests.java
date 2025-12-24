@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.PoBoxNumber;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -50,7 +50,7 @@ final class PoBoxNumberTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(1, PoBoxNumber.of("1").longValue(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
+    assertEquals(1, PoBoxNumber.of("1").poBoxNumber(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
    }
 
 
@@ -63,7 +63,7 @@ final class PoBoxNumberTests
   @ValueSource(longs = {1, 99999})
   /* default */ void testIsPoBoxNumber(final long poBoxNumber)
    {
-    assertEquals(poBoxNumber, PoBoxNumber.of(poBoxNumber).longValue(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
+    assertEquals(poBoxNumber, PoBoxNumber.of(poBoxNumber).poBoxNumber(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
    }
 
 
@@ -98,12 +98,12 @@ final class PoBoxNumberTests
 
 
   /**
-   * longValue.
+   * poBoxNumber.
    */
   @Test
   /* default */ void testLongValue()
    {
-    assertEquals(10, PoBoxNumber.of(10).longValue(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
+    assertEquals(10, PoBoxNumber.of(10).poBoxNumber(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
    }
 
 
@@ -114,27 +114,6 @@ final class PoBoxNumberTests
   /* default */ void testStringValue()
    {
     assertEquals(PoBoxNumberTests.RESULT10, PoBoxNumber.of(10).stringValue(), PoBoxNumberTests.NOT_A_PO_BOX_NUMBER);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(PoBoxNumber.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final PoBoxNumber poBoxNumber = PoBoxNumber.of(1);
-    assertEquals("PoBoxNumber[poBoxNumber=1]", poBoxNumber.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

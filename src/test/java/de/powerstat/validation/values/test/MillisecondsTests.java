@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Milliseconds;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -55,7 +55,7 @@ final class MillisecondsTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(0, Milliseconds.of("0").longValue(), MillisecondsTests.NOT_MILLISECONDS);
+    assertEquals(0, Milliseconds.of("0").milliseconds(), MillisecondsTests.NOT_MILLISECONDS);
    }
 
 
@@ -68,7 +68,7 @@ final class MillisecondsTests
   @ValueSource(longs = {0, 2147483647})
   /* default */ void testIsMilliseconds(final long milliseconds)
    {
-    assertEquals(milliseconds, Milliseconds.of(milliseconds).longValue(), MillisecondsTests.NOT_MILLISECONDS);
+    assertEquals(milliseconds, Milliseconds.of(milliseconds).milliseconds(), MillisecondsTests.NOT_MILLISECONDS);
    }
 
 
@@ -95,7 +95,7 @@ final class MillisecondsTests
   @Test
   /* default */ void testLongValue()
    {
-    assertEquals(10, Milliseconds.of(10).longValue(), MillisecondsTests.NOT_MILLISECONDS);
+    assertEquals(10, Milliseconds.of(10).milliseconds(), MillisecondsTests.NOT_MILLISECONDS);
    }
 
 
@@ -106,27 +106,6 @@ final class MillisecondsTests
   /* default */ void testStringValue()
    {
     assertEquals("10", Milliseconds.of(10).stringValue(), MillisecondsTests.NOT_MILLISECONDS);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Milliseconds.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Milliseconds milliseconds = Milliseconds.of(0);
-    assertEquals("Milliseconds[milliseconds=0]", milliseconds.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -161,7 +140,7 @@ final class MillisecondsTests
     final Milliseconds milliseconds1 = Milliseconds.of(1);
     final Milliseconds milliseconds2 = Milliseconds.of(1);
     final Milliseconds millisecondsResult = milliseconds1.add(milliseconds2);
-    assertEquals(2, millisecondsResult.longValue(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, millisecondsResult.milliseconds(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -190,7 +169,7 @@ final class MillisecondsTests
     final Milliseconds milliseconds1 = Milliseconds.of(6);
     final Milliseconds milliseconds2 = Milliseconds.of(3);
     final Milliseconds millisecondsResult = milliseconds1.subtract(milliseconds2);
-    assertEquals(3, millisecondsResult.longValue(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, millisecondsResult.milliseconds(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -203,7 +182,7 @@ final class MillisecondsTests
     final Milliseconds milliseconds1 = Milliseconds.of(3);
     final Milliseconds milliseconds2 = Milliseconds.of(6);
     final Milliseconds millisecondsResult = milliseconds1.subtract(milliseconds2);
-    assertEquals(3, millisecondsResult.longValue(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, millisecondsResult.milliseconds(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -215,7 +194,7 @@ final class MillisecondsTests
    {
     final Milliseconds milliseconds1 = Milliseconds.of(7);
     final Milliseconds millisecondsResult = milliseconds1.multiply(3);
-    assertEquals(21, millisecondsResult.longValue(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(21, millisecondsResult.milliseconds(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -242,7 +221,7 @@ final class MillisecondsTests
    {
     final Milliseconds milliseconds1 = Milliseconds.of(10);
     final Milliseconds millisecondsResult = milliseconds1.divide(2);
-    assertEquals(5, millisecondsResult.longValue(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(5, millisecondsResult.milliseconds(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -254,7 +233,7 @@ final class MillisecondsTests
    {
     final Milliseconds milliseconds1 = Milliseconds.of(10);
     final Milliseconds millisecondsResult = milliseconds1.divide(3);
-    assertEquals(3, millisecondsResult.longValue(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, millisecondsResult.milliseconds(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -281,7 +260,7 @@ final class MillisecondsTests
    {
     final Milliseconds milliseconds1 = Milliseconds.of(10);
     final Milliseconds millisecondsResult = milliseconds1.modulo(2);
-    assertEquals(0, millisecondsResult.longValue(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, millisecondsResult.milliseconds(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -293,7 +272,7 @@ final class MillisecondsTests
    {
     final Milliseconds milliseconds1 = Milliseconds.of(10);
     final Milliseconds millisecondsResult = milliseconds1.modulo(3);
-    assertEquals(1, millisecondsResult.longValue(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, millisecondsResult.milliseconds(), MillisecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

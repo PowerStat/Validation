@@ -8,7 +8,6 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -17,25 +16,17 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Address Neighbourhood.
  *
+ * @param neighbourhood Neighbourhood
+ *
  * Not DSGVO relevant.
  */
 @ValueObject
-public final class Neighbourhood implements Comparable<Neighbourhood>, IValueObject
+public record Neighbourhood(String neighbourhood) implements Comparable<Neighbourhood>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, Neighbourhood> CACHE = new WeakHashMap<>();
-
   /**
    * Neighbourhood fregexp.
    */
   private static final Pattern NEIGHBOURHOOD_REGEXP = Pattern.compile("^[\\p{L}][\\p{L}\\p{Digit}. -]*$"); //$NON-NLS-1$
-
-  /**
-   * Neighbourhood.
-   */
-  private final String neighbourhood;
 
 
   /**
@@ -45,9 +36,8 @@ public final class Neighbourhood implements Comparable<Neighbourhood>, IValueObj
    * @throws NullPointerException if neighbourhood is null
    * @throws IllegalArgumentException if neighbourhood is not a correct neighbourhood
    */
-  private Neighbourhood(final String neighbourhood)
+  public Neighbourhood
    {
-    super();
     Objects.requireNonNull(neighbourhood, "neighbourhood"); //$NON-NLS-1$
     if (neighbourhood.isEmpty() || (neighbourhood.length() > 64))
      {
@@ -57,7 +47,6 @@ public final class Neighbourhood implements Comparable<Neighbourhood>, IValueObj
      {
       throw new IllegalArgumentException("Neighbourhood with wrong format"); //$NON-NLS-1$
      }
-    this.neighbourhood = neighbourhood;
    }
 
 
@@ -69,19 +58,6 @@ public final class Neighbourhood implements Comparable<Neighbourhood>, IValueObj
    */
   public static Neighbourhood of(final String neighbourhood)
    {
-    /*
-    synchronized (Neighbourhood.class)
-     {
-      Neighbourhood obj = Neighbourhood.CACHE.get(neighbourhood);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Neighbourhood(neighbourhood);
-      Neighbourhood.CACHE.put(neighbourhood, obj);
-      return obj;
-     }
-    */
     return new Neighbourhood(neighbourhood);
    }
 
@@ -95,60 +71,6 @@ public final class Neighbourhood implements Comparable<Neighbourhood>, IValueObj
   public String stringValue()
    {
     return neighbourhood;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return neighbourhood.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Neighbourhood other))
-     {
-      return false;
-     }
-    return neighbourhood.equals(other.neighbourhood);
-   }
-
-
-  /**
-   * Returns the string representation of this Neighbourhood.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Neighbourhood[neighbourhood=...]"
-   *
-   * @return String representation of this Neighbourhood
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(29);
-    builder.append("Neighbourhood[neighbourhood=").append(neighbourhood).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

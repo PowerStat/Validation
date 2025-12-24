@@ -8,7 +8,6 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -16,6 +15,8 @@ import de.powerstat.validation.interfaces.IValueObject;
 
 /**
  * Address Postal code.
+ *
+ * @param postalCode Postal code
  *
  * Not DSGVO relevant.
  *
@@ -25,22 +26,12 @@ import de.powerstat.validation.interfaces.IValueObject;
  * TODO Country specific
  */
 @ValueObject
-public final class PostalCode implements Comparable<PostalCode>, IValueObject
+public record PostalCode(String postalCode) implements Comparable<PostalCode>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, PostalCode> CACHE = new WeakHashMap<>();
-
   /**
    * Postal code regexp.
    */
   private static final Pattern POSTALCODE_REGEXP = Pattern.compile("^[0-9A-Z -]{3,11}$"); //$NON-NLS-1$
-
-  /**
-   * Postal code.
-   */
-  private final String postalCode;
 
 
   /**
@@ -50,9 +41,8 @@ public final class PostalCode implements Comparable<PostalCode>, IValueObject
    * @throws NullPointerException if postalCode is null
    * @throws IllegalArgumentException if postalCode is not a correct postalCode
    */
-  private PostalCode(final String postalCode)
+  public PostalCode
    {
-    super();
     Objects.requireNonNull(postalCode, "postalCode"); //$NON-NLS-1$
     if ((postalCode.length() < 3) || (postalCode.length() > 11))
      {
@@ -62,7 +52,6 @@ public final class PostalCode implements Comparable<PostalCode>, IValueObject
      {
       throw new IllegalArgumentException("postalCode with wrong format"); //$NON-NLS-1$
      }
-    this.postalCode = postalCode;
    }
 
 
@@ -74,19 +63,6 @@ public final class PostalCode implements Comparable<PostalCode>, IValueObject
    */
   public static PostalCode of(final String postalCode)
    {
-    /*
-    synchronized (PostalCode.class)
-     {
-      PostalCode obj = PostalCode.CACHE.get(postalCode);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new PostalCode(postalCode);
-      PostalCode.CACHE.put(postalCode, obj);
-      return obj;
-     }
-    */
     return new PostalCode(postalCode);
    }
 
@@ -100,60 +76,6 @@ public final class PostalCode implements Comparable<PostalCode>, IValueObject
   public String stringValue()
    {
     return postalCode;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return postalCode.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final PostalCode other))
-     {
-      return false;
-     }
-    return postalCode.equals(other.postalCode);
-   }
-
-
-  /**
-   * Returns the string representation of this PostalCode.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "PostalCode[postalCode=28000]"
-   *
-   * @return String representation of this PostalCode
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(23);
-    builder.append("PostalCode[postalCode=").append(postalCode).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

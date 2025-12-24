@@ -11,7 +11,6 @@ import java.net.UnknownHostException;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 // import org.apache.logging.log4j.LogManager;
@@ -25,13 +24,15 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Hostname.
  *
+ * @param hostname Hostname
+ *
  * Probably DSGVO relevant.
  *
  * TODO Verify TopLevelDomain
  * TODO ping ok?
  */
 @ValueObject
-public final class Hostname implements Comparable<Hostname>, IValueObject
+public record Hostname(String hostname) implements Comparable<Hostname>, IValueObject
  {
   /**
    * Hostname regexp.
@@ -48,27 +49,6 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
    */
   private static final Pattern HOSTNAME_BY_DOTS = Pattern.compile(Hostname.ESC_DOT);
 
-  /**
-   * Is Hostname a valid ipv4 address.
-   */
-  private final boolean ipv4;
-
-  /**
-   * Is Hostname a valid ipv6 address.
-   */
-  private final boolean ipv6;
-
-  /**
-   * Hostname.
-   */
-  private final String hostname;
-
-  /**
-   * Reverse hostname.
-   */
-  @SuppressWarnings("PMD.AvoidFieldNameMatchingMethodName")
-  private final String reverseHostname;
-
 
   /**
    * Constructor.
@@ -77,9 +57,8 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
    * @throws NullPointerException if hostname is null
    * @throws IllegalArgumentException if hostname is not a hostname
    */
-  private Hostname(final String hostname)
+  public Hostname
    {
-    super();
     Objects.requireNonNull(hostname, "hostname"); //$NON-NLS-1$
     if ((hostname.length() < 2) || (hostname.length() > 253))
      {
@@ -90,8 +69,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
     boolean ipv6 = false;
     try
      {
-      tempHostname = IPV4Address.of(hostname).stringValue();
-      ipv4 = true;
+      tempHostname = IPV4Address.of(hostname).address();
      }
     catch (final IllegalArgumentException ignored)
      {
@@ -102,7 +80,6 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
       if (tempHostname.isEmpty())
        {
         tempHostname = IPV6Address.of(hostname).stringValue();
-        ipv6 = true;
        }
      }
     catch (final IllegalArgumentException ignored)
@@ -112,16 +89,16 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
     if (tempHostname.isEmpty())
      {
       tempHostname = checkHostname(hostname);
-      reverseHostname = reverseHostname(tempHostname);
      }
-    else
-     {
-      reverseHostname = tempHostname;
-     }
-    this.hostname = tempHostname;
-    this.ipv4 = ipv4;
-    this.ipv6 = ipv6;
    }
+
+
+/*
+host        = IP-literal / IPv4address / reg-name
+IP-literal = "[" ( IPv6address / IPvFuture  ) "]"
+IPvFuture  = "v" 1*HEXDIG "." 1*( unreserved / sub-delims / ":" )
+reg-name    = *( unreserved / pct-encoded / sub-delims )
+*/
 
 
   /**
@@ -216,7 +193,7 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
    */
   public String getReverseHostname()
    {
-    return reverseHostname;
+    return reverseHostname(hostname);
    }
 
 
@@ -227,7 +204,15 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
    */
   public boolean isIPV4Address()
    {
-    return ipv4;
+    try
+     {
+      /* IPV4Address ipv4 = */ IPV4Address.of(hostname);
+      return true;
+     }
+    catch (IllegalArgumentException e)
+     {
+      return false;
+     }
    }
 
 
@@ -238,7 +223,15 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
    */
   public boolean isIPV6Address()
    {
-    return ipv6;
+    try
+     {
+      /* IPV6Address ipv6 = */ IPV6Address.of(hostname);
+      return true;
+     }
+    catch (IllegalArgumentException e)
+     {
+      return false;
+     }
    }
 
 
@@ -279,61 +272,6 @@ public final class Hostname implements Comparable<Hostname>, IValueObject
      {
       return false;
      }
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return hostname.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Hostname other))
-     {
-      return false;
-     }
-    return hostname.equals(other.hostname);
-   }
-
-
-  /**
-   * Returns the string representation of this Hostname.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Hostname[hostname=192.168.0.0]"
-   *
-   * @return String representation of this Hostname
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(19);
-    builder.append("Hostname[hostname=").append(hostname).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

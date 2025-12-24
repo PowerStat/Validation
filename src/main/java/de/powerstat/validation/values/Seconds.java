@@ -7,7 +7,6 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -16,12 +15,14 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Seconds.
  *
+ * @param seconds Seconds 0-..
+ *
  * Not DSGVO relevant.
  *
  * TODO inMinutes()
  */
 @ValueObject
-public final class Seconds implements Comparable<Seconds>, IValueObject
+public record Seconds(long seconds) implements Comparable<Seconds>, IValueObject
  {
   /**
    * Minimum allowed value 0.
@@ -33,31 +34,18 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
    */
   public static final long MAX_VALUE = Long.MAX_VALUE;
 
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<Long, Seconds> CACHE = new WeakHashMap<>();
-
-  /**
-   * Seconds.
-   */
-  private final long seconds;
-
-
   /**
    * Constructor.
    *
    * @param seconds Seconds 0-..
    * @throws IndexOutOfBoundsException When the seconds is less than 0
    */
-  private Seconds(final long seconds)
+  public Seconds
    {
-    super();
     if (seconds < 0)
      {
       throw new IndexOutOfBoundsException("Negative seconds are not allowed"); //$NON-NLS-1$
      }
-    this.seconds = seconds;
    }
 
 
@@ -69,19 +57,6 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
    */
   public static Seconds of(final long seconds)
    {
-    /*
-    synchronized (Seconds.class)
-     {
-      Seconds obj = Seconds.CACHE.get(seconds);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Seconds(seconds);
-      Seconds.CACHE.put(Long.valueOf(seconds), obj);
-      return obj;
-     }
-    */
     return new Seconds(seconds);
    }
 
@@ -99,17 +74,6 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
 
 
   /**
-   * Returns the value of this Seconds as a long.
-   *
-   * @return The numeric value represented by this object after conversion to type long.
-   */
-  public long longValue()
-   {
-    return seconds;
-   }
-
-
-  /**
    * Returns the value of this Seconds as a String.
    *
    * @return The numeric value represented by this object after conversion to type String.
@@ -118,61 +82,6 @@ public final class Seconds implements Comparable<Seconds>, IValueObject
   public String stringValue()
    {
     return String.valueOf(seconds);
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Long.hashCode(seconds);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Seconds other))
-     {
-      return false;
-     }
-    return (seconds == other.seconds);
-   }
-
-
-  /**
-   * Returns the string representation of this Seconds.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Seconds[seconds=1]"
-   *
-   * @return String representation of this Seconds
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(17);
-    builder.append("Seconds[seconds=").append(seconds).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

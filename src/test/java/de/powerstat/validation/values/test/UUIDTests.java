@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.values.UUID;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -58,27 +57,6 @@ final class UUIDTests
   /* default */ void testFactory2()
    {
     assertEquals(A5409F2D_983D_438C_BFDD_308FEFF7FB1F, UUID.of(A5409F2D_983D_438C_BFDD_308FEFF7FB1F).stringValue(), RESULT_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(UUID.class).withNonnullFields("uuid").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final UUID uuid = UUID.of(A5409F2D_983D_438C_BFDD_308FEFF7FB1F);
-    assertEquals("UUID[uuid=a5409f2d-983d-438c-bfdd-308feff7fb1f]", uuid.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

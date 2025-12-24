@@ -8,7 +8,6 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.generated.GeneratedTlds;
@@ -18,25 +17,17 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Top level domain.
  *
+ * @param topLevelDomain Top level domain name (without dot)
+ *
  * Not DSGVO relevant.
  */
 @ValueObject
-public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueObject
+public record TopLevelDomain(String topLevelDomain) implements Comparable<TopLevelDomain>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, TopLevelDomain> CACHE = new WeakHashMap<>();
-
   /**
    * Top level domain regexp.
    */
   private static final Pattern TOPLEVELDOMAIN_REGEXP = Pattern.compile("^[0-9a-zA-Z-]+$"); //$NON-NLS-1$
-
-  /**
-   * Top level domain.
-   */
-  private final String topLevelDomain;
 
 
   /**
@@ -46,9 +37,8 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueO
    * @throws NullPointerException if top level domain is null
    * @throws IllegalArgumentException if top level domain is not a known top level domain
    */
-  private TopLevelDomain(final String topLevelDomain)
+  public TopLevelDomain
    {
-    super();
     Objects.requireNonNull(topLevelDomain, "topLevelDomain"); //$NON-NLS-1$
     if ((topLevelDomain.length() < 2) || (topLevelDomain.length() > 63)) // actual (2020) longest in use is 24  // NO PITEST
      {
@@ -66,7 +56,6 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueO
      {
       throw new IllegalArgumentException("Unknown top level domain"); //$NON-NLS-1$
      }
-    this.topLevelDomain = topLevelDomain;
    }
 
 
@@ -78,19 +67,6 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueO
    */
   public static TopLevelDomain of(final String topLevelDomain)
    {
-    /*
-    synchronized (TopLevelDomain.class)
-     {
-      TopLevelDomain obj = TopLevelDomain.CACHE.get(topLevelDomain);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new TopLevelDomain(topLevelDomain);
-      TopLevelDomain.CACHE.put(topLevelDomain, obj);
-      return obj;
-     }
-    */
     return new TopLevelDomain(topLevelDomain);
    }
 
@@ -104,61 +80,6 @@ public final class TopLevelDomain implements Comparable<TopLevelDomain>, IValueO
   public String stringValue()
    {
     return topLevelDomain;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return topLevelDomain.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final TopLevelDomain other))
-     {
-      return false;
-     }
-    return topLevelDomain.equals(other.topLevelDomain);
-   }
-
-
-  /**
-   * Returns the string representation of this TopLevelDomain.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "TopLevelDomain[topLevelDomain=de]"
-   *
-   * @return String representation of this TopLevelDomain
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(31);
-    builder.append("TopLevelDomain[topLevelDomain=").append(topLevelDomain).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.PostalCode;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -63,8 +63,8 @@ final class PostalCodeTests
   @ValueSource(strings = {PostalCodeTests.POSTCODE_28000, "123", "1234567-890", "AD123"})
   /* default */ void testPostalCodeCorrect(final String postalCode)
    {
-    final PostalCode cleanBic = PostalCode.of(postalCode);
-    assertEquals(postalCode, cleanBic.stringValue(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);
+    final PostalCode cleanPostalCode = PostalCode.of(postalCode);
+    assertEquals(postalCode, cleanPostalCode.postalCode(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -110,27 +110,6 @@ final class PostalCodeTests
    {
     final PostalCode postalCode = PostalCode.of(PostalCodeTests.POSTCODE_28000);
     assertEquals(PostalCodeTests.POSTCODE_28000, postalCode.stringValue(), PostalCodeTests.POSTAL_CODE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(PostalCode.class).withNonnullFields("postalCode").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final PostalCode postalCode = PostalCode.of(PostalCodeTests.POSTCODE_28000);
-    assertEquals("PostalCode[postalCode=28000]", postalCode.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

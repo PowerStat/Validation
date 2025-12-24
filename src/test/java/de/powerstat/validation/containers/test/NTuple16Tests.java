@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.containers.NTuple16;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -190,22 +191,22 @@ final class NTuple16Tests
    {
     final NTuple16<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = NTuple16.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(815), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
     assertAll("testGetValue", //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t1Value().intValue(), "t1 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(4711, tuple.t2Value().intValue(), "t2 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(815, tuple.t3Value().intValue(), "t3 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t4Value().intValue(), "t4 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t5Value().intValue(), "t5 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t6Value().intValue(), "t6 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t7Value().intValue(), "t7 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t8Value().intValue(), "t8 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t9Value().intValue(), "t9 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t10Value().intValue(), "t10 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t11Value().intValue(), "t11 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t12Value().intValue(), "t12 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t13Value().intValue(), "t13 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t14Value().intValue(), "t14 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t15Value().intValue(), "t15 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t16Value().intValue(), "t16 not as expected") //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj1().intValue(), "obj1 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(4711, tuple.obj2().intValue(), "obj2 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(815, tuple.obj3().intValue(), "obj3 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj4().intValue(), "obj4 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj5().intValue(), "obj5 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj6().intValue(), "obj6 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj7().intValue(), "obj7 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj8().intValue(), "obj8 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj9().intValue(), "obj9 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj10().intValue(), "obj10 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj11().intValue(), "obj11 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj12().intValue(), "obj12 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj13().intValue(), "obj13 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj14().intValue(), "obj14 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj15().intValue(), "obj15 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj16().intValue(), "obj16 not as expected") //$NON-NLS-1$
     );
    }
 
@@ -216,7 +217,7 @@ final class NTuple16Tests
   @Test
   /* default */ void testEqualsContract()
    {
-    EqualsVerifier.forClass(NTuple16.class).withNonnullFields("object1", "object16").verify();
+    EqualsVerifier.forClass(NTuple16.class).withNonnullFields("obj1", "obj16").verify();
    }
 
 
@@ -227,7 +228,7 @@ final class NTuple16Tests
   /* default */ void testToString()
    {
     final NTuple16<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple16.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(815), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
-    assertEquals("NTuple16[object1=1, object2=4711, object3=815, object4=1, object5=1, object6=1, object7=1, object8=1, object9=1, object10=1, object11=1, object12=1, object13=1, object14=1, object15=1, object16=1]", tuple1.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
+    assertEquals("NTuple16[obj1=1, obj2=4711, obj3=815, obj4=1, obj5=1, obj6=1, obj7=1, obj8=1, obj9=1, obj10=1, obj11=1, obj12=1, obj13=1, obj14=1, obj15=1, obj16=1]", tuple1.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

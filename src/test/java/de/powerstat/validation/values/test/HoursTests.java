@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Hours;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -55,7 +55,7 @@ final class HoursTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(0, Hours.of("0").longValue(), HoursTests.NOT_A_HOURS);
+    assertEquals(0, Hours.of("0").hours(), HoursTests.NOT_A_HOURS);
    }
 
 
@@ -68,7 +68,7 @@ final class HoursTests
   @ValueSource(longs = {0, 48})
   /* default */ void testIsHours(final long hours)
    {
-    assertEquals(hours, Hours.of(hours).longValue(), HoursTests.NOT_A_HOURS);
+    assertEquals(hours, Hours.of(hours).hours(), HoursTests.NOT_A_HOURS);
    }
 
 
@@ -90,43 +90,12 @@ final class HoursTests
 
 
   /**
-   * longValue.
-   */
-  @Test
-  /* default */ void testLongValue()
-   {
-    assertEquals(10, Hours.of(10).longValue(), HoursTests.NOT_A_HOURS);
-   }
-
-
-  /**
    * stringValue.
    */
   @Test
   /* default */ void testStringValue()
    {
     assertEquals("10", Hours.of(10).stringValue(), HoursTests.NOT_A_HOURS);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Hours.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Hours hours = Hours.of(1);
-    assertEquals("Hours[hours=1]", hours.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -161,7 +130,7 @@ final class HoursTests
     final Hours hours1 = Hours.of(1);
     final Hours hours2 = Hours.of(1);
     final Hours hoursResult = hours1.add(hours2);
-    assertEquals(2, hoursResult.longValue(), HoursTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, hoursResult.hours(), HoursTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -190,7 +159,7 @@ final class HoursTests
     final Hours hours1 = Hours.of(6);
     final Hours hours2 = Hours.of(3);
     final Hours hoursResult = hours1.subtract(hours2);
-    assertEquals(3, hoursResult.longValue(), HoursTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, hoursResult.hours(), HoursTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -203,7 +172,7 @@ final class HoursTests
     final Hours hours1 = Hours.of(3);
     final Hours hours2 = Hours.of(6);
     final Hours hoursResult = hours1.subtract(hours2);
-    assertEquals(3, hoursResult.longValue(), HoursTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, hoursResult.hours(), HoursTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -215,7 +184,7 @@ final class HoursTests
    {
     final Hours hours1 = Hours.of(7);
     final Hours hoursResult = hours1.multiply(3);
-    assertEquals(21, hoursResult.longValue(), HoursTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(21, hoursResult.hours(), HoursTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -242,7 +211,7 @@ final class HoursTests
    {
     final Hours hours1 = Hours.of(10);
     final Hours hoursResult = hours1.divide(2);
-    assertEquals(5, hoursResult.longValue(), HoursTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(5, hoursResult.hours(), HoursTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -254,7 +223,7 @@ final class HoursTests
    {
     final Hours hours1 = Hours.of(10);
     final Hours hoursResult = hours1.divide(3);
-    assertEquals(3, hoursResult.longValue(), HoursTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, hoursResult.hours(), HoursTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -281,7 +250,7 @@ final class HoursTests
    {
     final Hours hours1 = Hours.of(10);
     final Hours hoursResult = hours1.modulo(2);
-    assertEquals(0, hoursResult.longValue(), HoursTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, hoursResult.hours(), HoursTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -293,7 +262,7 @@ final class HoursTests
    {
     final Hours hours1 = Hours.of(10);
     final Hours hoursResult = hours1.modulo(3);
-    assertEquals(1, hoursResult.longValue(), HoursTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, hoursResult.hours(), HoursTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

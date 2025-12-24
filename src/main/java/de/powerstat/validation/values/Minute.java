@@ -18,10 +18,12 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * Not DSGVO relevant.
  *
+ * @param minute Minute 0-59
+ *
  * TODO Listener
  */
 @ValueObject
-public final class Minute implements Comparable<Minute>, IValueObject
+public record Minute(int minute) implements Comparable<Minute>, IValueObject
  {
   /**
    * Minimum allowed value 0.
@@ -48,16 +50,6 @@ public final class Minute implements Comparable<Minute>, IValueObject
    */
   private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
 
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<Integer, Minute> CACHE = new WeakHashMap<>();
-
-  /**
-   * Minute.
-   */
-  private final int minute;
-
 
   /**
    * Constructor.
@@ -65,14 +57,12 @@ public final class Minute implements Comparable<Minute>, IValueObject
    * @param minute Minute 0-59
    * @throws IndexOutOfBoundsException When the minute is less than 0 or greater than 59
    */
-  private Minute(final int minute)
+  public Minute
    {
-    super();
     if ((minute < 0) || (minute > 59))
      {
       throw new IndexOutOfBoundsException("Minute number out of range (0-59)!"); //$NON-NLS-1$
      }
-    this.minute = minute;
    }
 
 
@@ -84,19 +74,6 @@ public final class Minute implements Comparable<Minute>, IValueObject
    */
   public static Minute of(final int minute)
    {
-    /*
-    synchronized (Minute.class)
-     {
-      Minute obj = Minute.CACHE.get(minute);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Minute(minute);
-      Minute.CACHE.put(Integer.valueOf(minute), obj);
-      return obj;
-     }
-    */
     return new Minute(minute);
    }
 
@@ -114,17 +91,6 @@ public final class Minute implements Comparable<Minute>, IValueObject
 
 
   /**
-   * Returns the value of this Minute as an int.
-   *
-   * @return The numeric value represented by this object after conversion to type int.
-   */
-  public int intValue()
-   {
-    return minute;
-   }
-
-
-  /**
    * Returns the value of this Minute as an String.
    *
    * @return The numeric value represented by this object after conversion to type String.
@@ -133,61 +99,6 @@ public final class Minute implements Comparable<Minute>, IValueObject
   public String stringValue()
    {
     return String.valueOf(minute);
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Integer.hashCode(minute);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Minute other))
-     {
-      return false;
-     }
-    return (minute == other.minute);
-   }
-
-
-  /**
-   * Returns the string representation of this Minute.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Minute[minute=1]"
-   *
-   * @return String representation of this Minute
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder();
-    builder.append("Minute[minute=").append(minute).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 
@@ -216,7 +127,7 @@ public final class Minute implements Comparable<Minute>, IValueObject
   @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Minute add(final Minutes minutes)
    {
-    final int newMinute = Math.toIntExact(Math.addExact(minute, minutes.longValue()));
+    final int newMinute = Math.toIntExact(Math.addExact(minute, minutes.minutes()));
     if (newMinute > 59)
      {
       // TODO Listener
@@ -235,7 +146,7 @@ public final class Minute implements Comparable<Minute>, IValueObject
    */
   public Minute subtract(final Minutes minutes)
    {
-    final int newMinute = Math.toIntExact(Math.subtractExact(minute, minutes.longValue()));
+    final int newMinute = Math.toIntExact(Math.subtractExact(minute, minutes.minutes()));
     if (newMinute < 0)
      {
       // TODO Listener

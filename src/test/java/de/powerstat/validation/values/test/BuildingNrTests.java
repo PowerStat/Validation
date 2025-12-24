@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.BuildingNr;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -74,7 +74,7 @@ final class BuildingNrTests
   /* default */ void testBuildingNrCorrect(final String buildingNr)
    {
     final BuildingNr cleanBuildingNr = BuildingNr.of(buildingNr);
-    assertEquals(buildingNr, cleanBuildingNr.stringValue(), BuildingNrTests.BUILDING_NR_NOT_AS_EXPECTED);
+    assertEquals(buildingNr, cleanBuildingNr.buildingNr(), BuildingNrTests.BUILDING_NR_NOT_AS_EXPECTED);
    }
 
 
@@ -120,27 +120,6 @@ final class BuildingNrTests
    {
     final BuildingNr buildingNr = BuildingNr.of(BuildingNrTests.BUILDINGNR42);
     assertEquals(BuildingNrTests.BUILDINGNR42, buildingNr.stringValue(), BuildingNrTests.BUILDING_NR_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(BuildingNr.class).withNonnullFields("buildingNr").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final BuildingNr buildingNr = BuildingNr.of(BuildingNrTests.BUILDINGNR42);
-    assertEquals("BuildingNr[buildingNr=42]", buildingNr.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

@@ -9,7 +9,6 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -18,22 +17,21 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * IP V6 address.
  *
+ * @param address IP V6 address
+ *
  * DSGVO relevant.
  *
  * TODO ping ok?
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 @ValueObject
-public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
+public record IPV6Address(String address) implements Comparable<IPV6Address>, IValueObject
  {
   /* *
    * Logger.
    */
   // private static final Logger LOGGER = LogManager.getLogger(IPV6Address.class);
-
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, IPV6Address> CACHE = new WeakHashMap<>();
 
   /**
    * IP V6 regexp.
@@ -60,16 +58,6 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
    */
   private static final String IV6_SEP = ":"; //$NON-NLS-1$
 
-  /**
-   * IP V6 address.
-   */
-  private final String address;
-
-  /**
-   * IP V6 address parts.
-   */
-  private final String[] blocks;
-
 
   /**
    * Constructor.
@@ -78,9 +66,8 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
    * @throws NullPointerException if address is null
    * @throws IllegalArgumentException if address is not an ip v6 address
    */
-  private IPV6Address(final String address)
+  public IPV6Address
    {
-    super();
     Objects.requireNonNull(address, "address"); //$NON-NLS-1$
     if ((address.length() < 2) || (address.length() > 45)) // 39, ipv4 embedding
      {
@@ -94,9 +81,27 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
       throw new IllegalArgumentException("Not an IP V6 address"); //$NON-NLS-1$
      }
     expandedAddress = normalizeIPV6Address(expandedAddress);
-    this.address = expandedAddress;
-    blocks = expandedAddress.split(IPV6Address.IV6_SEP);
+    // TODO this.address = expandedAddress;
    }
+
+
+/*
+IPv6address =                            6( h16 ":" ) ls32
+                  /                       "::" 5( h16 ":" ) ls32
+                  / [               h16 ] "::" 4( h16 ":" ) ls32
+                  / [ *1( h16 ":" ) h16 ] "::" 3( h16 ":" ) ls32
+                  / [ *2( h16 ":" ) h16 ] "::" 2( h16 ":" ) ls32
+                  / [ *3( h16 ":" ) h16 ] "::"    h16 ":"   ls32
+                  / [ *4( h16 ":" ) h16 ] "::"              ls32
+                  / [ *5( h16 ":" ) h16 ] "::"              h16
+                  / [ *6( h16 ":" ) h16 ] "::"
+
+      ls32        = ( h16 ":" h16 ) / IPv4address
+                  ; least-significant 32 bits of address
+
+      h16         = 1*4HEXDIG
+                  ; 16 bits of address represented in hexadecimal
+*/
 
 
   /**
@@ -229,19 +234,6 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
    */
   public static IPV6Address of(final String address)
    {
-    /*
-    synchronized (IPV6Address.class)
-     {
-      IPV6Address obj = IPV6Address.CACHE.get(address);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new IPV6Address(address);
-      IPV6Address.CACHE.put(address, obj);
-      return obj;
-     }
-    */
     return new IPV6Address(address);
    }
 
@@ -258,6 +250,7 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
   @SuppressWarnings({"java:S1313", "PMD.AvoidLiteralsInIfCondition", "PMD.AvoidUsingHardCodedIP"})
   public boolean isPrivate()
    {
+    final String[] blocks = address.split(IPV6Address.IV6_SEP);
     return ("00fe:0080:0000:0000:0000:0000:0000:0000".equals(address) || // Link-Local //$NON-NLS-1$
             "00fc".equals(blocks[0]) || "00fd".equals(blocks[0]) // Unique Local Unicast //$NON-NLS-1$ //$NON-NLS-2$
            );
@@ -276,6 +269,7 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
   @SuppressWarnings({"PMD.AvoidLiteralsInIfCondition", "PMD.AvoidUsingHardCodedIP"})
   public boolean isSpecial()
    {
+    final String[] blocks = address.split(IPV6Address.IV6_SEP);
     return ("0000:0000:0000:0000:0000:0000:0000:0000".equals(address) || "0000:0000:0000:0000:0000:0000:0000:0001".equals(address) || // default route, loopback //$NON-NLS-1$ //$NON-NLS-2$
             "00ff".equals(blocks[0]) // Multicast //$NON-NLS-1$
            );
@@ -289,6 +283,7 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
    */
   public boolean isMulticast()
    {
+    final String[] blocks = address.split(IPV6Address.IV6_SEP);
     return "ff".equals(blocks[0].substring(0, 2));
     /*
     Danach folgen 4 Bit für Flags (in der Regel 0 = 0000)
@@ -351,61 +346,6 @@ public final class IPV6Address implements Comparable<IPV6Address>, IValueObject
   public String stringValue()
    {
     return address;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return address.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final IPV6Address other))
-     {
-      return false;
-     }
-    return address.equals(other.address);
-   }
-
-
-  /**
-   * Returns the string representation of this IPV6Address.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "IPV6Address[address=ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff]"
-   *
-   * @return String representation of this IPV6Address
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(21);
-    builder.append("IPV6Address[address=").append(address).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Neighbourhood;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -64,7 +64,7 @@ final class NeighbourhoodTests
   /* default */ void testNeighbourhoodCorrect(final String neighbourhood)
    {
     final Neighbourhood cleanNeighbourhood = Neighbourhood.of(neighbourhood);
-    assertEquals(neighbourhood, cleanNeighbourhood.stringValue(), NeighbourhoodTests.NEIGHBOURHOOD_NOT_AS_EXPECTED);
+    assertEquals(neighbourhood, cleanNeighbourhood.neighbourhood(), NeighbourhoodTests.NEIGHBOURHOOD_NOT_AS_EXPECTED);
    }
 
 
@@ -110,27 +110,6 @@ final class NeighbourhoodTests
    {
     final Neighbourhood neighbourhood = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
     assertEquals(NeighbourhoodTests.UNKNOWN, neighbourhood.stringValue(), NeighbourhoodTests.NEIGHBOURHOOD_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Neighbourhood.class).withNonnullFields("neighbourhood").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Neighbourhood neighbourhood = Neighbourhood.of(NeighbourhoodTests.UNKNOWN);
-    assertEquals("Neighbourhood[neighbourhood=Unknown]", neighbourhood.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

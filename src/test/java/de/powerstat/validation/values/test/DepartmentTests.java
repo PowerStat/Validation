@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Department;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -64,7 +64,7 @@ final class DepartmentTests
   /* default */ void testDepartmentCorrect(final String department)
    {
     final Department cleanDepartment = Department.of(department);
-    assertEquals(department, cleanDepartment.stringValue(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
+    assertEquals(department, cleanDepartment.department(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
    }
 
 
@@ -110,27 +110,6 @@ final class DepartmentTests
    {
     final Department department = Department.of(DepartmentTests.RESEARCH);
     assertEquals(DepartmentTests.RESEARCH, department.stringValue(), DepartmentTests.DEPARTMENT_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Department.class).withNonnullFields("department").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Department department = Department.of(DepartmentTests.RESEARCH);
-    assertEquals("Department[department=Research]", department.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Years;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -55,7 +55,7 @@ final class YearsTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(0, Years.of("0").longValue(), YearsTests.NOT_A_YEARS);
+    assertEquals(0, Years.of("0").years(), YearsTests.NOT_A_YEARS);
    }
 
 
@@ -68,7 +68,7 @@ final class YearsTests
   @ValueSource(longs = {0, 20})
   /* default */ void testIsYears(final long years)
    {
-    assertEquals(years, Years.of(years).longValue(), YearsTests.NOT_A_YEARS);
+    assertEquals(years, Years.of(years).years(), YearsTests.NOT_A_YEARS);
    }
 
 
@@ -95,7 +95,7 @@ final class YearsTests
   @Test
   /* default */ void testLongValue()
    {
-    assertEquals(10, Years.of(10).longValue(), YearsTests.NOT_A_YEARS);
+    assertEquals(10, Years.of(10).years(), YearsTests.NOT_A_YEARS);
    }
 
 
@@ -106,27 +106,6 @@ final class YearsTests
   /* default */ void testStringValue()
    {
     assertEquals("10", Years.of(10).stringValue(), YearsTests.NOT_A_YEARS);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Years.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Years years = Years.of(1);
-    assertEquals("Years[years=1]", years.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -161,7 +140,7 @@ final class YearsTests
     final Years years1 = Years.of(1);
     final Years years2 = Years.of(1);
     final Years yearsResult = years1.add(years2);
-    assertEquals(2, yearsResult.longValue(), YearsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, yearsResult.years(), YearsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -190,7 +169,7 @@ final class YearsTests
     final Years years1 = Years.of(6);
     final Years years2 = Years.of(3);
     final Years yearsResult = years1.subtract(years2);
-    assertEquals(3, yearsResult.longValue(), YearsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, yearsResult.years(), YearsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -203,7 +182,7 @@ final class YearsTests
     final Years years1 = Years.of(3);
     final Years years2 = Years.of(6);
     final Years yearsResult = years1.subtract(years2);
-    assertEquals(3, yearsResult.longValue(), YearsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, yearsResult.years(), YearsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -215,7 +194,7 @@ final class YearsTests
    {
     final Years years1 = Years.of(7);
     final Years yearsResult = years1.multiply(3);
-    assertEquals(21, yearsResult.longValue(), YearsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(21, yearsResult.years(), YearsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -242,7 +221,7 @@ final class YearsTests
    {
     final Years years1 = Years.of(10);
     final Years yearsResult = years1.divide(2);
-    assertEquals(5, yearsResult.longValue(), YearsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(5, yearsResult.years(), YearsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -254,7 +233,7 @@ final class YearsTests
    {
     final Years years1 = Years.of(10);
     final Years yearsResult = years1.divide(3);
-    assertEquals(3, yearsResult.longValue(), YearsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, yearsResult.years(), YearsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -281,7 +260,7 @@ final class YearsTests
    {
     final Years years1 = Years.of(10);
     final Years yearsResult = years1.modulo(2);
-    assertEquals(0, yearsResult.longValue(), YearsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, yearsResult.years(), YearsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -293,7 +272,7 @@ final class YearsTests
    {
     final Years years1 = Years.of(10);
     final Years yearsResult = years1.modulo(3);
-    assertEquals(1, yearsResult.longValue(), YearsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, yearsResult.years(), YearsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

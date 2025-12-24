@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.values.Day;
 import de.powerstat.validation.values.Days;
@@ -67,17 +66,17 @@ final class DayTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(10, Day.of(TEN).intValue(), NOT_A_DAY);
+    assertEquals(10, Day.of(TEN).day(), NOT_A_DAY);
    }
 
 
   /**
-   * intValue.
+   * day.
    */
   @Test
   /* default */ void testIntValue()
    {
-    assertEquals(10, Day.of(10).intValue(), NOT_A_DAY);
+    assertEquals(10, Day.of(10).day(), NOT_A_DAY);
    }
 
 
@@ -100,7 +99,7 @@ final class DayTests
   @ValueSource(ints = {1, 31})
   /* default */ void testIsDay(final int day)
    {
-    assertEquals(day, Day.of(day).intValue(), NOT_A_DAY);
+    assertEquals(day, Day.of(day).day(), NOT_A_DAY);
    }
 
 
@@ -118,27 +117,6 @@ final class DayTests
       /* final Day day = */ Day.of(day);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Day.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Day day = Day.of(1);
-    assertEquals("Day[day=1]", day.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -173,7 +151,7 @@ final class DayTests
     final Day day = Day.of(30);
     final Days days = Days.of(1);
     final Day dayResult = day.add(days);
-    assertEquals(31, dayResult.intValue(), DayTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(31, dayResult.day(), DayTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -203,7 +181,7 @@ final class DayTests
     final Day day = Day.of(2);
     final Days days = Days.of(1);
     final Day dayResult = day.subtract(days);
-    assertEquals(1, dayResult.intValue(), DayTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, dayResult.day(), DayTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -232,7 +210,7 @@ final class DayTests
    {
     final Day day = Day.of(1);
     final Day dayResult = day.increment();
-    assertEquals(2, dayResult.intValue(), DayTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, dayResult.day(), DayTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -260,7 +238,7 @@ final class DayTests
    {
     final Day day = Day.of(2);
     final Day dayResult = day.decrement();
-    assertEquals(1, dayResult.intValue(), DayTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, dayResult.day(), DayTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

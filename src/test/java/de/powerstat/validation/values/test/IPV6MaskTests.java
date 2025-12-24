@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.IPV6Mask;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -83,7 +83,7 @@ final class IPV6MaskTests
    {
     final IPV6Mask mask = IPV6Mask.of(0);
     assertAll("constructorSuccess0", //$NON-NLS-1$
-      () -> assertEquals(0, mask.intValue(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL)
+      () -> assertEquals(0, mask.length(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL)
     );
    }
 
@@ -96,7 +96,7 @@ final class IPV6MaskTests
    {
     final IPV6Mask mask = IPV6Mask.of(128);
     assertAll(CONSTRUCTOR_SUCCESS,
-      () -> assertEquals(128, mask.intValue(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL)
+      () -> assertEquals(128, mask.length(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL)
     );
    }
 
@@ -109,19 +109,19 @@ final class IPV6MaskTests
    {
     final IPV6Mask mask = IPV6Mask.of("128");
     assertAll(CONSTRUCTOR_SUCCESS,
-      () -> assertEquals(128, mask.intValue(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL)
+      () -> assertEquals(128, mask.length(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL)
     );
    }
 
 
   /**
-   * Test intValue.
+   * Test mask.
    */
   @Test
   /* default */ void testIntValue()
    {
     final IPV6Mask mask = IPV6Mask.of(0);
-    assertEquals(0, mask.intValue(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL);
+    assertEquals(0, mask.length(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL);
    }
 
 
@@ -133,27 +133,6 @@ final class IPV6MaskTests
    {
     final IPV6Mask mask = IPV6Mask.of(0);
     assertEquals("0", mask.stringValue(), IPV6MaskTests.LENGTH_IS_NOT_EQUAL);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(IPV6Mask.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final IPV6Mask mask = IPV6Mask.of(112);
-    assertEquals("IPV6Mask[length=112]", mask.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

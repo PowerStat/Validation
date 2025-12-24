@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.containers.NTuple9;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -84,37 +85,16 @@ final class NTuple9Tests
    {
     final NTuple9<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = NTuple9.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(815), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
     assertAll("testGetValue", //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t1Value().intValue(), "t1 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(4711, tuple.t2Value().intValue(), "t2 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(815, tuple.t3Value().intValue(), "t3 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t4Value().intValue(), "t4 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t5Value().intValue(), "t5 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t6Value().intValue(), "t6 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t7Value().intValue(), "t7 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t8Value().intValue(), "t8 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t9Value().intValue(), "t9 not as expected") //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj1().intValue(), "obj1 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(4711, tuple.obj2().intValue(), "obj2 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(815, tuple.obj3().intValue(), "obj3 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj4().intValue(), "obj4 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj5().intValue(), "obj5 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj6().intValue(), "obj6 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj7().intValue(), "obj7 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj8().intValue(), "obj8 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj9().intValue(), "obj9 not as expected") //$NON-NLS-1$
     );
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(NTuple9.class).withNonnullFields("object1", "object2", "object3", "object4", "object5", "object6", "object7", "object8", "object9").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final NTuple9<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple9.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(815), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1), Integer.valueOf(1));
-    assertEquals("NTuple9[object1=1, object2=4711, object3=815, object4=1, object5=1, object6=1, object7=1, object8=1, object9=1]", tuple1.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

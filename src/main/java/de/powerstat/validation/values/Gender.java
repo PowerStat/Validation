@@ -22,7 +22,7 @@ import de.powerstat.validation.interfaces.IValueObject;
  *
  * @see <a href="https://at.wikimannia.org/60_Geschlechtsidentitäten">Geschlechtsidentitäten</a>
  *
- * Not DSGVO relevant.
+ * DSGVO relevant.
  */
 @ValueObject
 public enum Gender implements IValueObject
@@ -43,17 +43,17 @@ public enum Gender implements IValueObject
   MALE(2),
 
   /**
-   * Both female and male at the same time.
+   * Both female and male at the same time (Polygender).
    */
   BOTH(3),
 
   /**
-   * Variable, female today, male tomorrow for example (not trans).
+   * Variable, female today, male tomorrow for example (not trans) (Genderfluid, Polygender).
    */
   VARIABLE(4),
 
   /**
-   * Without a gender/sex.
+   * Without a gender/sex (Agender).
    */
   NEUTRAL(5),
 

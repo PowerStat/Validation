@@ -8,7 +8,6 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -17,22 +16,19 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Address Building number.
  *
+ * @param buildingNr Building number
+ *
  * Possibly DSGVO relevant.
  *
  * TODO optimize constructor/compareTo
  */
 @ValueObject
-public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
+public record BuildingNr(String buildingNr) implements Comparable<BuildingNr>, IValueObject
  {
   /* *
    * Logger.
    */
   // private static final Logger LOGGER = LogManager.getLogger(BuildingNr.class);
-
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, BuildingNr> CACHE = new WeakHashMap<>();
 
   /**
    * Building nr regexp.
@@ -44,11 +40,6 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
    */
   private static final int MAX_KNOWN_BUILDING_NR = 29999;
 
-  /**
-   * Building number.
-   */
-  private final String buildingNr;
-
 
   /**
    * Constructor.
@@ -57,9 +48,8 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
    * @throws NullPointerException if buildingNr is null
    * @throws IllegalArgumentException if buildingNr is not an correct buildingNr
    */
-  private BuildingNr(final String buildingNr)
+  public BuildingNr
    {
-    super();
     Objects.requireNonNull(buildingNr, "buildingNr"); //$NON-NLS-1$
     if (buildingNr.isEmpty() || (buildingNr.length() > 21))
      {
@@ -87,7 +77,6 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
      {
       throw new IllegalArgumentException("BuildingNr numerator > denominator"); //$NON-NLS-1$
      }
-    this.buildingNr = buildingNr;
    }
 
 
@@ -99,19 +88,6 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
    */
   public static BuildingNr of(final String buildingNr)
    {
-    /*
-    synchronized (BuildingNr.class)
-     {
-      BuildingNr obj = BuildingNr.CACHE.get(buildingNr);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new BuildingNr(buildingNr);
-      BuildingNr.CACHE.put(buildingNr, obj);
-      return obj;
-     }
-    */
     return new BuildingNr(buildingNr);
    }
 
@@ -125,60 +101,6 @@ public final class BuildingNr implements Comparable<BuildingNr>, IValueObject
   public String stringValue()
    {
     return buildingNr;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return buildingNr.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final BuildingNr other))
-     {
-      return false;
-     }
-    return buildingNr.equals(other.buildingNr);
-   }
-
-
-  /**
-   * Returns the string representation of this BuildingNr.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "BuildingNr[buildingNr=42]"
-   *
-   * @return String representation of this BuildingNr
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(23);
-    builder.append("BuildingNr[buildingNr=").append(buildingNr).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

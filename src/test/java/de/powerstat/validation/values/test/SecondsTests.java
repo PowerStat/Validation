@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Seconds;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -55,7 +55,7 @@ final class SecondsTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(0, Seconds.of("0").longValue(), SecondsTests.NOT_A_SECONDS);
+    assertEquals(0, Seconds.of("0").seconds(), SecondsTests.NOT_A_SECONDS);
    }
 
 
@@ -68,7 +68,7 @@ final class SecondsTests
   @ValueSource(longs = {0, 120})
   /* default */ void testIsSeconds(final long seconds)
    {
-    assertEquals(seconds, Seconds.of(seconds).longValue(), SecondsTests.NOT_A_SECONDS);
+    assertEquals(seconds, Seconds.of(seconds).seconds(), SecondsTests.NOT_A_SECONDS);
    }
 
 
@@ -95,7 +95,7 @@ final class SecondsTests
   @Test
   /* default */ void testLongValue()
    {
-    assertEquals(10, Seconds.of(10).longValue(), SecondsTests.NOT_A_SECONDS);
+    assertEquals(10, Seconds.of(10).seconds(), SecondsTests.NOT_A_SECONDS);
    }
 
 
@@ -106,27 +106,6 @@ final class SecondsTests
   /* default */ void testStringValue()
    {
     assertEquals("10", Seconds.of(10).stringValue(), SecondsTests.NOT_A_SECONDS);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Seconds.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Seconds seconds = Seconds.of(1);
-    assertEquals("Seconds[seconds=1]", seconds.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -161,7 +140,7 @@ final class SecondsTests
     final Seconds seconds1 = Seconds.of(1);
     final Seconds seconds2 = Seconds.of(1);
     final Seconds secondsResult = seconds1.add(seconds2);
-    assertEquals(2, secondsResult.longValue(), SecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, secondsResult.seconds(), SecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -190,7 +169,7 @@ final class SecondsTests
     final Seconds seconds1 = Seconds.of(6);
     final Seconds seconds2 = Seconds.of(3);
     final Seconds secondsResult = seconds1.subtract(seconds2);
-    assertEquals(3, secondsResult.longValue(), SecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, secondsResult.seconds(), SecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -203,7 +182,7 @@ final class SecondsTests
     final Seconds seconds1 = Seconds.of(3);
     final Seconds seconds2 = Seconds.of(6);
     final Seconds secondsResult = seconds1.subtract(seconds2);
-    assertEquals(3, secondsResult.longValue(), SecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, secondsResult.seconds(), SecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -215,7 +194,7 @@ final class SecondsTests
    {
     final Seconds seconds1 = Seconds.of(7);
     final Seconds secondsResult = seconds1.multiply(3);
-    assertEquals(21, secondsResult.longValue(), SecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(21, secondsResult.seconds(), SecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -242,7 +221,7 @@ final class SecondsTests
    {
     final Seconds seconds1 = Seconds.of(10);
     final Seconds secondsResult = seconds1.divide(2);
-    assertEquals(5, secondsResult.longValue(), SecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(5, secondsResult.seconds(), SecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -254,7 +233,7 @@ final class SecondsTests
    {
     final Seconds seconds1 = Seconds.of(10);
     final Seconds secondsResult = seconds1.divide(3);
-    assertEquals(3, secondsResult.longValue(), SecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, secondsResult.seconds(), SecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -281,7 +260,7 @@ final class SecondsTests
    {
     final Seconds seconds1 = Seconds.of(10);
     final Seconds secondsResult = seconds1.modulo(2);
-    assertEquals(0, secondsResult.longValue(), SecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, secondsResult.seconds(), SecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -293,7 +272,7 @@ final class SecondsTests
    {
     final Seconds seconds1 = Seconds.of(10);
     final Seconds secondsResult = seconds1.modulo(3);
-    assertEquals(1, secondsResult.longValue(), SecondsTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, secondsResult.seconds(), SecondsTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

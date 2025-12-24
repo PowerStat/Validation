@@ -11,12 +11,12 @@
 
   <groupId>de.powerstat.validation</groupId>
   <artifactId>validation</artifactId>
-  <version>3.2.0-SNAPSHOT</version>
+  <version>4.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>PowerStatsValidationUtilities</name>
-  <description>PowerStats validation utilities.</description>
-  <url>https://www.powerstat.de/ValidationUtils.html</url>
+  <name>PowerStatsValueObjectLibrary</name>
+  <description>PowerStats value object library.</description>
+  <url>https://www.powerstat.de/ValueObjectLib.html</url>
 
   <properties>
     <license.inceptionYear>2018</license.inceptionYear>
@@ -25,7 +25,9 @@
     <sonarTypeHost>oss.sonatype.org</sonarTypeHost>
 
     <sonar.host.url>http://localhost:9000</sonar.host.url>
-
+    
+    <javaRelease>17</javaRelease>
+ 
   </properties>
 
 
@@ -79,6 +81,12 @@
                       <arg value="${project.build.directory}\downloaded\country-codes.csv" />
                       <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated\GeneratedInternationalPhoneAreaCodes.java" />
                     </exec>
+                    <exec executable="cmd.exe">
+                      <arg value="/c" />
+                      <arg value="${project.basedir}\generatorURISchemes.bat" />
+                      <arg value="${project.build.directory}\downloaded\uri-schemes.csv" />
+                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated\GeneratedURISchemeNames.java" />
+                    </exec>
                   </target>
                 </configuration>
                 <goals>
@@ -126,6 +134,9 @@
                     <exec executable="${project.basedir}/generatorPhoneAreaCodes.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/validation/generated/GeneratedInternationalPhoneAreaCodes.java" error="${project.build.directory}/error.log">
                       <arg value="${project.build.directory}/downloaded/country-codes.csv" />
                     </exec>
+                    <exec executable="${project.basedir}/generatorIRISchemessh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/validation/generated/GeneratedURISchemeNames.java" error="${project.build.directory}/error.log">
+                      <arg value="${project.build.directory}/downloaded/uri-schemes.csv" />
+                    </exec>
                   </target>
                 </configuration>
                 <goals>
@@ -144,7 +155,7 @@
   <distributionManagement>
     <site>
       <id>powerstat</id>
-      <url>sftp://${web.server}/ValidationUtils/</url>
+      <url>sftp://${web.server}/ValueObjectLib/</url>
     </site>
   </distributionManagement>
 
@@ -246,6 +257,19 @@
               <url>https://datahub.io/core/country-codes/r/country-codes.csv</url>
               <outputDirectory>${project.build.directory}/downloaded</outputDirectory>
               <outputFileName>country-codes.csv</outputFileName>
+              <!-- <skipCache>true</skipCache> -->
+            </configuration>
+          </execution>
+          <execution>
+            <id>get-urischemes</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>wget</goal>
+            </goals>
+            <configuration>
+              <url>https://www.iana.org/assignments/uri-schemes/uri-schemes-1.csv</url>
+              <outputDirectory>${project.build.directory}/downloaded</outputDirectory>
+              <outputFileName>uri-schemes.csv</outputFileName>
               <!-- <skipCache>true</skipCache> -->
             </configuration>
           </execution>

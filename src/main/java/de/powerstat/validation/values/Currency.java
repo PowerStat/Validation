@@ -8,7 +8,6 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.generated.GeneratedISO4217;
@@ -18,28 +17,20 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Currency ISO 4217 codes.
  *
+ * @param code ISO 4217 code
+ *
  * Not DSGVO relevant.
  *
  * TODO Translations
  */
 @ValueObject
-public final class Currency implements Comparable<Currency>, IValueObject
+public record Currency(String code) implements Comparable<Currency>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, Currency> CACHE = new WeakHashMap<>();
-
   /**
    * Currency regexp.
    */
   @SuppressWarnings("java:S5867")
   private static final Pattern CURRENCY_REGEXP = Pattern.compile("^[A-Z]{3}$"); //$NON-NLS-1$
-
-  /**
-   * ISO 4217 currency code.
-   */
-  private final String code;
 
 
   /**
@@ -50,9 +41,8 @@ public final class Currency implements Comparable<Currency>, IValueObject
    * @throws IllegalArgumentException if code is not a known 4217 code
    */
   @SuppressWarnings({"PMD.AvoidLiteralsInIfCondition"})
-  private Currency(final String code)
+  public Currency
    {
-    super();
     Objects.requireNonNull(code, "code"); //$NON-NLS-1$
     if (code.length() != 3)
      {
@@ -66,7 +56,6 @@ public final class Currency implements Comparable<Currency>, IValueObject
      {
       throw new IllegalArgumentException("Unknown ISO4217 code: " + code); //$NON-NLS-1$
      }
-    this.code = code;
    }
 
 
@@ -78,19 +67,6 @@ public final class Currency implements Comparable<Currency>, IValueObject
    */
   public static Currency of(final String code)
    {
-    /*
-    synchronized (Currency.class)
-     {
-      Currency obj = Currency.CACHE.get(code);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Currency(code);
-      Currency.CACHE.put(code, obj);
-      return obj;
-     }
-    */
     return new Currency(code);
    }
 
@@ -104,61 +80,6 @@ public final class Currency implements Comparable<Currency>, IValueObject
   public String stringValue()
    {
     return code;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return code.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings("PMD.SimplifyBooleanReturns")
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Currency other))
-     {
-      return false;
-     }
-    return code.equals(other.code);
-   }
-
-
-  /**
-   * Returns the string representation of this Currency.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Currency[code=EUR]"
-   *
-   * @return String representation of this Currency
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder();
-    builder.append("Currency[code=").append(code).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

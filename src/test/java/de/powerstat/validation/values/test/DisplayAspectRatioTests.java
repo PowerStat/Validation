@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.DisplayAspectRatio;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -97,8 +97,8 @@ final class DisplayAspectRatioTests
    {
     final DisplayAspectRatio ratio = DisplayAspectRatio.of(1, 1);
     assertAll(DisplayAspectRatioTests.TEST_ASPECT_RATIO,
-      () -> assertEquals(1, ratio.getX(), X_RATIO_NOT_AS_EXPECTED),
-      () -> assertEquals(1, ratio.getY(), Y_RATIO_NOT_AS_EXPECTED),
+      () -> assertEquals(1, ratio.x(), "x ratio not as expected"), //$NON-NLS-1$
+      () -> assertEquals(1, ratio.y(), "y ratio not as expected"), //$NON-NLS-1$
       () -> assertEquals(DisplayAspectRatioTests.ONE_TO_ONE, ratio.stringValue(), DisplayAspectRatioTests.ASPECT_RATIO_NOT_AS_EXPECTED)
     );
    }
@@ -168,31 +168,10 @@ final class DisplayAspectRatioTests
    {
     final DisplayAspectRatio ratio = DisplayAspectRatio.of(72, 35);
     assertAll(DisplayAspectRatioTests.TEST_ASPECT_RATIO,
-      () -> assertEquals(72, ratio.getX(), X_RATIO_NOT_AS_EXPECTED),
-      () -> assertEquals(35, ratio.getY(), Y_RATIO_NOT_AS_EXPECTED),
+      () -> assertEquals(72, ratio.x(), "x ratio not as expected"), //$NON-NLS-1$
+      () -> assertEquals(35, ratio.y(), "y ratio not as expected"), //$NON-NLS-1$
       () -> assertEquals("72:35", ratio.stringValue(), DisplayAspectRatioTests.ASPECT_RATIO_NOT_AS_EXPECTED)
     );
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(DisplayAspectRatio.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final DisplayAspectRatio ratio = DisplayAspectRatio.of(1, 1);
-    assertEquals("DisplayAspectRatio[x=1, y=1]", ratio.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

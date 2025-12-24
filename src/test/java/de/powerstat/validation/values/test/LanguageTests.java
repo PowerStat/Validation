@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Language;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -64,7 +64,7 @@ final class LanguageTests
   /* default */ void testLanguageOk0(final String code)
    {
     final Language cleanLanguage = Language.of(code);
-    assertEquals(code, cleanLanguage.stringValue(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
+    assertEquals(code, cleanLanguage.code(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
    }
 
 
@@ -110,27 +110,6 @@ final class LanguageTests
    {
     final Language language = Language.of(LanguageTests.DE);
     assertEquals(LanguageTests.DE, language.stringValue(), LanguageTests.LANGUAGE_CODE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Language.class).withNonnullFields("code").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Language language = Language.of(LanguageTests.DE);
-    assertEquals("Language[code=de]", language.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

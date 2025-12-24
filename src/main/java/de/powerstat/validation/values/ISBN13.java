@@ -24,6 +24,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * ISBN 13.
  *
  * Not DSGVO relevant.
+ *
+ * Can not be converted to a record because of cleanup during constructor.
  */
 @ValueObject
 public final class ISBN13 implements Comparable<ISBN13>, IValueObject

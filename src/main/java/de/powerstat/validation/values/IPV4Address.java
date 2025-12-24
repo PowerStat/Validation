@@ -8,7 +8,6 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -18,6 +17,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * IP V4 address.
  *
+ * @param address IP V4 address
+ *
  * DSGVO relevant.
  *
  * TODO convert to IP V6 format
@@ -25,12 +26,12 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * TODO ping ok?
  */
 @ValueObject
-public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
+public record IPV4Address(String address) implements Comparable<IPV4Address>, IValueObject
  {
-  /* *
-   * Cache for singletons.
+  /**
+   * IPV4 separator.
    */
-  // private static final Map<String, IPV4Address> CACHE = new WeakHashMap<>();
+  private static final String SEPARATOR = "\\."; //$NON-NLS-1$
 
   /**
    * Class c 192.
@@ -57,16 +58,6 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
    */
   private static final Pattern IPV4_REGEXP = Pattern.compile("^((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)\\.){3}(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d|\\d)$"); //$NON-NLS-1$
 
-  /**
-   * IP V4 address.
-   */
-  private final String address;
-
-  /**
-   * IP V4 address parts.
-   */
-  private final String[] parts;
-
 
   /**
    * Constructor.
@@ -75,9 +66,8 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
    * @throws NullPointerException if address is null
    * @throws IllegalArgumentException if address is not an ip v4 address
    */
-  private IPV4Address(final String address)
+  public IPV4Address
    {
-    super();
     Objects.requireNonNull(address, "address"); //$NON-NLS-1$
     if ((address.length() < 7) || (address.length() > 15))
      {
@@ -87,10 +77,18 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
      {
       throw new IllegalArgumentException("Not an IP V4 address"); //$NON-NLS-1$
      }
-    this.address = address;
-    parts = address.split("\\."); //$NON-NLS-1$
    }
 
+
+/*
+IPv4address = dec-octet "." dec-octet "." dec-octet "." dec-octet
+
+      dec-octet   = DIGIT                 ; 0-9
+                  / %x31-39 DIGIT         ; 10-99
+                  / "1" 2DIGIT            ; 100-199
+                  / "2" %x30-34 DIGIT     ; 200-249
+                  / "25" %x30-35          ; 250-255
+*/
 
   /**
    * IPV4Address factory.
@@ -100,19 +98,6 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
    */
   public static IPV4Address of(final String address)
    {
-    /*
-    synchronized (IPV4Address.class)
-     {
-      IPV4Address obj = IPV4Address.CACHE.get(address);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new IPV4Address(address);
-      IPV4Address.CACHE.put(address, obj);
-      return obj;
-     }
-    */
     return new IPV4Address(address);
    }
 
@@ -131,6 +116,7 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
   @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public boolean isPrivate()
    {
+    final String[] parts = address.split(SEPARATOR);
     if ("10".equals(parts[0]) || (IPV4Address.CLASS_C_192.equals(parts[0]) && "168".equals(parts[1])) || ("169".equals(parts[0]) && "254".equals(parts[1]))) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
      {
       return true;
@@ -169,6 +155,7 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
   @SuppressWarnings({"PMD.NPathComplexity"})
   public boolean isSpecial()
    {
+    final String[] parts = address.split(SEPARATOR);
     if (IPV4Address.ZERO.equals(parts[0]) ||
         "127".equals(parts[0]) || //$NON-NLS-1$
         (IPV4Address.CLASS_C_192.equals(parts[0]) && IPV4Address.ZERO.equals(parts[1]) && IPV4Address.ZERO.equals(parts[2])) ||
@@ -221,61 +208,6 @@ public final class IPV4Address implements Comparable<IPV4Address>, IValueObject
   public String stringValue()
    {
     return address;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return address.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final IPV4Address other))
-     {
-      return false;
-     }
-    return address.equals(other.address);
-   }
-
-
-  /**
-   * Returns the string representation of this IPV4Address.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "IPV4Address[address=192.168.0.0]"
-   *
-   * @return String representation of this IPV4Address
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(21);
-    builder.append("IPV4Address[address=").append(address).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

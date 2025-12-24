@@ -7,7 +7,6 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -16,10 +15,12 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Years.
  *
+ * @param years Years &gt;= 0
+ *
  * Not DSGVO relevant.
  */
 @ValueObject
-public final class Years implements Comparable<Years>, IValueObject
+public record Years(long years) implements Comparable<Years>, IValueObject
  {
   /**
    * Minimum allowed value 0.
@@ -31,31 +32,18 @@ public final class Years implements Comparable<Years>, IValueObject
    */
   public static final long MAX_VALUE = Long.MAX_VALUE;
 
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<Long, Years> CACHE = new WeakHashMap<>();
-
-  /**
-   * Years.
-   */
-  private final long years;
-
-
   /**
    * Constructor.
    *
    * @param years Years &gt;= 0
    * @throws IndexOutOfBoundsException When the year is smaller than 0
    */
-  private Years(final long years)
+  public Years
    {
-    super();
     if (years < 0)
      {
       throw new IndexOutOfBoundsException("Negative years are not allowed"); //$NON-NLS-1$
      }
-    this.years = years;
    }
 
 
@@ -67,19 +55,6 @@ public final class Years implements Comparable<Years>, IValueObject
    */
   public static Years of(final long years)
    {
-    /*
-    synchronized (Years.class)
-     {
-      Years obj = Years.CACHE.get(years);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Years(years);
-      Years.CACHE.put(Long.valueOf(years), obj);
-      return obj;
-     }
-    */
     return new Years(years);
    }
 
@@ -97,17 +72,6 @@ public final class Years implements Comparable<Years>, IValueObject
 
 
   /**
-   * Returns the value of this Years as an long.
-   *
-   * @return The numeric value represented by this object after conversion to type long.
-   */
-  public long longValue()
-   {
-    return years;
-   }
-
-
-  /**
    * Returns the value of this Years as an String.
    *
    * @return The numeric value represented by this object after conversion to type String.
@@ -116,61 +80,6 @@ public final class Years implements Comparable<Years>, IValueObject
   public String stringValue()
    {
     return String.valueOf(years);
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Long.hashCode(years);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Years other))
-     {
-      return false;
-     }
-    return (years == other.years);
-   }
-
-
-  /**
-   * Returns the string representation of this Years.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Years[years=20]"
-   *
-   * @return String representation of this Years
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder();
-    builder.append("Years[years=").append(years).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

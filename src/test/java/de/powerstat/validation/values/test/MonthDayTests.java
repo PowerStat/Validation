@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.values.Day;
 import de.powerstat.validation.values.Days;
@@ -71,8 +70,8 @@ final class MonthDayTests
    {
     final MonthDay test = MonthDay.of(Month.of(10), Day.of(13));
     assertAll(TEST_OF,
-      () -> assertEquals(10, test.monthValue().intValue(), MONTH_NOT_AS_EXPECTED),
-      () -> assertEquals(13, test.dayValue().intValue(), DAY_NOT_AS_EXPECTED)
+      () -> assertEquals(10, test.month().month(), MONTH_NOT_AS_EXPECTED),
+      () -> assertEquals(13, test.day().day(), DAY_NOT_AS_EXPECTED)
     );
    }
 
@@ -85,8 +84,8 @@ final class MonthDayTests
    {
     final MonthDay test = MonthDay.of(DAYMONTH_10_13);
     assertAll(TEST_OF,
-      () -> assertEquals(10, test.monthValue().intValue(), MONTH_NOT_AS_EXPECTED),
-      () -> assertEquals(13, test.dayValue().intValue(), DAY_NOT_AS_EXPECTED)
+      () -> assertEquals(10, test.month().month(), MONTH_NOT_AS_EXPECTED),
+      () -> assertEquals(13, test.day().day(), DAY_NOT_AS_EXPECTED)
     );
    }
 
@@ -113,8 +112,8 @@ final class MonthDayTests
    {
     final MonthDay test = MonthDay.of(Month.of(2), Day.of(1));
     assertAll(TEST_OF,
-      () -> assertEquals(2, test.monthValue().intValue(), MONTH_NOT_AS_EXPECTED),
-      () -> assertEquals(1, test.dayValue().intValue(), DAY_NOT_AS_EXPECTED)
+      () -> assertEquals(2, test.month().month(), MONTH_NOT_AS_EXPECTED),
+      () -> assertEquals(1, test.day().day(), DAY_NOT_AS_EXPECTED)
     );
    }
 
@@ -143,8 +142,8 @@ final class MonthDayTests
    {
     final MonthDay test = MonthDay.of(Month.of(2), Day.of(29));
     assertAll(TEST_OF,
-      () -> assertEquals(2, test.monthValue().intValue(), MONTH_NOT_AS_EXPECTED),
-      () -> assertEquals(29, test.dayValue().intValue(), DAY_NOT_AS_EXPECTED)
+      () -> assertEquals(2, test.month().month(), MONTH_NOT_AS_EXPECTED),
+      () -> assertEquals(29, test.day().day(), DAY_NOT_AS_EXPECTED)
     );
    }
 
@@ -157,42 +156,6 @@ final class MonthDayTests
    {
     final MonthDay test = MonthDay.of(DAYMONTH_10_13);
     assertEquals(DAYMONTH_10_13, test.stringValue(), MONTH_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(MonthDay.class).withNonnullFields("month", "day").verify();
-   }
-
-
-  /**
-   * Test equals.
-   */
-  @Test
-  @SuppressWarnings("java:S5785")
-  /* default */ void testEquals2()
-   {
-    final MonthDay test1 = MonthDay.of(Month.of(10), Day.of(13));
-    final MonthDay test2 = MonthDay.of(Month.of(9), Day.of(13));
-    assertAll("testEquals", //$NON-NLS-1$
-      () -> assertFalse(test1.equals(test2), "test12 is not equal") //$NON-NLS-1$
-    );
-   }
-
-
-  /**
-   * toString test.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final MonthDay test = MonthDay.of(DAYMONTH_10_13);
-    assertEquals("MonthDay[month=Month[month=10], day=Day[day=13]]", test.toString(), "toString not as expected");
    }
 
 
@@ -226,9 +189,9 @@ final class MonthDayTests
    {
     final MonthDay test1 = MonthDay.of(Month.of(11), Day.of(13));
     final MonthDay result = test1.add(Months.of(1));
-    assertAll("addMonths1", //$NON-NLS-1$
-      () -> assertEquals(12, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(13, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+    assertAll("add", //$NON-NLS-1$
+      () -> assertEquals(12, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(13, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -242,8 +205,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(10), Day.of(13));
     final MonthDay result = test1.add(Months.of(3));
     assertAll("addMonths2", //$NON-NLS-1$
-      () -> assertEquals(1, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(13, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(1, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(13, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -257,8 +220,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(3), Day.of(31));
     final MonthDay result = test1.add(Months.of(1));
     assertAll("addMonths3", //$NON-NLS-1$
-      () -> assertEquals(4, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(30, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(4, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(30, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -272,8 +235,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(11), Day.of(30));
     final MonthDay result = test1.subtract(Months.of(1));
     assertAll("subtractMonths1", //$NON-NLS-1$
-      () -> assertEquals(10, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(30, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(10, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(30, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -287,8 +250,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(11), Day.of(30));
     final MonthDay result = test1.subtract(Months.of(2));
     assertAll("subtractMonths2", //$NON-NLS-1$
-      () -> assertEquals(9, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(30, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(9, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(30, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -299,11 +262,27 @@ final class MonthDayTests
   @Test
   /* default */ void testSubtractMonths3()
    {
-    final MonthDay test1 = MonthDay.of(Month.of(12), Day.of(31));
-    final MonthDay result = test1.subtract(Months.of(1));
-    assertAll("subtractMonths3", //$NON-NLS-1$
-      () -> assertEquals(11, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(30, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+    final MonthDay test1 = MonthDay.of(Month.of(2), Day.of(13));
+    final Months months = Months.of(2);
+    final MonthDay result = test1.subtract(months);
+    assertAll("subtractMonths2", //$NON-NLS-1$
+      () -> assertEquals(12, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(13, result.day().day(), RESULT_NOT_AS_EXPECTED)
+    );
+   }
+
+
+  /**
+   * Test increment.
+   */
+  @Test
+  /* default */ void testIncrement1()
+   {
+    final MonthDay test1 = MonthDay.of(Month.of(10), Day.of(13));
+    final MonthDay result = test1.incrementMonth();
+    assertAll("add", //$NON-NLS-1$
+      () -> assertEquals(11, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(13, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -316,9 +295,9 @@ final class MonthDayTests
    {
     final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(31));
     final MonthDay result = test1.subtract(Months.of(1));
-    assertAll("subtractMonths4", //$NON-NLS-1$
-      () -> assertEquals(12, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(31, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+    assertAll("subtractMonths3", //$NON-NLS-1$
+      () -> assertEquals(12, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(31, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -332,8 +311,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(10), Day.of(30));
     final MonthDay result = test1.incrementMonth();
     assertAll("incrementMonth1", //$NON-NLS-1$
-      () -> assertEquals(11, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(30, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(11, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(30, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -347,8 +326,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(12), Day.of(31));
     final MonthDay result = test1.incrementMonth();
     assertAll("incfrementMonth2", //$NON-NLS-1$
-      () -> assertEquals(1, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(31, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(1, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(31, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -362,8 +341,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(31));
     final MonthDay result = test1.incrementMonth();
     assertAll("incrementMonth3", //$NON-NLS-1$
-      () -> assertEquals(2, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(28, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(2, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(28, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -376,9 +355,9 @@ final class MonthDayTests
    {
     final MonthDay test1 = MonthDay.of(Month.of(12), Day.of(30));
     final MonthDay result = test1.decrementMonth();
-    assertAll("decrementMonth1", //$NON-NLS-1$
-      () -> assertEquals(11, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(30, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+    assertAll("add", //$NON-NLS-1$
+      () -> assertEquals(11, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(30, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -392,8 +371,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(31));
     final MonthDay result = test1.decrementMonth();
     assertAll("decrementMonth2", //$NON-NLS-1$
-      () -> assertEquals(12, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(31, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(12, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(31, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -407,8 +386,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(12), Day.of(31));
     final MonthDay result = test1.decrementMonth();
     assertAll("decrementMonth3", //$NON-NLS-1$
-      () -> assertEquals(11, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(30, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(11, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(30, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -422,8 +401,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(11), Day.of(30));
     final MonthDay result = test1.add(Days.of(1));
     assertAll("addDays1", //$NON-NLS-1$
-      () -> assertEquals(12, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(1, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(12, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(1, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -437,8 +416,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(31));
     final MonthDay result = test1.add(Days.of(1));
     assertAll("addDays2", //$NON-NLS-1$
-      () -> assertEquals(2, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(1, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(2, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(1, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -452,8 +431,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(12), Day.of(31));
     final MonthDay result = test1.add(Days.of(1));
     assertAll("addDays3", //$NON-NLS-1$
-      () -> assertEquals(1, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(1, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(1, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(1, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -466,9 +445,9 @@ final class MonthDayTests
    {
     final MonthDay test1 = MonthDay.of(Month.of(12), Day.of(30));
     final MonthDay result = test1.add(Days.of(1));
-    assertAll("addDays4", //$NON-NLS-1$
-      () -> assertEquals(12, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(31, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+    assertAll("addDays3", //$NON-NLS-1$
+      () -> assertEquals(12, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(31, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -481,8 +460,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(2));
     final MonthDay result = test1.subtract(Days.of(1));
     assertAll("subtractDays1", //$NON-NLS-1$
-      () -> assertEquals(1, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(1, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(1, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(1, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -496,8 +475,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(2), Day.of(1));
     final MonthDay result = test1.subtract(Days.of(1));
     assertAll("subtractDays2", //$NON-NLS-1$
-      () -> assertEquals(1, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(31, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(1, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(31, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -511,8 +490,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(1));
     final MonthDay result = test1.subtract(Days.of(1));
     assertAll("subtractDays3", //$NON-NLS-1$
-      () -> assertEquals(12, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(31, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(12, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(31, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -526,8 +505,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(1));
     final MonthDay result = test1.incrementDay();
     assertAll("incrementDay1", //$NON-NLS-1$
-      () -> assertEquals(1, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(2, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(1, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(2, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -541,8 +520,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(31));
     final MonthDay result = test1.incrementDay();
     assertAll("incrementDay2", //$NON-NLS-1$
-      () -> assertEquals(2, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(1, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(2, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(1, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -556,8 +535,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(12), Day.of(31));
     final MonthDay result = test1.incrementDay();
     assertAll("incrementDay3", //$NON-NLS-1$
-      () -> assertEquals(1, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(1, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(1, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(1, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -570,9 +549,9 @@ final class MonthDayTests
    {
     final MonthDay test1 = MonthDay.of(Month.of(11), Day.of(30));
     final MonthDay result = test1.incrementDay();
-    assertAll("incrementDay4", //$NON-NLS-1$
-      () -> assertEquals(12, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(1, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+    assertAll("incrementDay3", //$NON-NLS-1$
+      () -> assertEquals(12, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(1, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -585,9 +564,9 @@ final class MonthDayTests
    {
     final MonthDay test1 = MonthDay.of(Month.of(11), Day.of(29));
     final MonthDay result = test1.incrementDay();
-    assertAll("incrementDay5", //$NON-NLS-1$
-      () -> assertEquals(11, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(30, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+    assertAll("incrementDay3", //$NON-NLS-1$
+      () -> assertEquals(11, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(30, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -601,8 +580,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(2));
     final MonthDay result = test1.decrementDay();
     assertAll("decrementDay1", //$NON-NLS-1$
-      () -> assertEquals(1, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(1, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(1, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(1, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -616,8 +595,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(2), Day.of(1));
     final MonthDay result = test1.decrementDay();
     assertAll("decrementDay2", //$NON-NLS-1$
-      () -> assertEquals(1, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(31, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(1, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(31, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 
@@ -631,8 +610,8 @@ final class MonthDayTests
     final MonthDay test1 = MonthDay.of(Month.of(1), Day.of(1));
     final MonthDay result = test1.decrementDay();
     assertAll("decrementDay3", //$NON-NLS-1$
-      () -> assertEquals(12, result.monthValue().intValue(), RESULT_NOT_AS_EXPECTED),
-      () -> assertEquals(31, result.dayValue().intValue(), RESULT_NOT_AS_EXPECTED)
+      () -> assertEquals(12, result.month().month(), RESULT_NOT_AS_EXPECTED),
+      () -> assertEquals(31, result.day().day(), RESULT_NOT_AS_EXPECTED)
     );
    }
 

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.City;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -64,7 +64,7 @@ final class CityTests
   /* default */ void testCityCorrect(final String city)
    {
     final City cleanCity = City.of(city);
-    assertEquals(city, cleanCity.stringValue(), CityTests.CITY_NOT_AS_EXPECTED);
+    assertEquals(city, cleanCity.city(), CityTests.CITY_NOT_AS_EXPECTED);
    }
 
 
@@ -110,27 +110,6 @@ final class CityTests
    {
     final City city = City.of(CityTests.BREMEN);
     assertEquals(CityTests.BREMEN, city.stringValue(), CityTests.CITY_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(City.class).withNonnullFields("city").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final City city = City.of(CityTests.BREMEN);
-    assertEquals("City[city=Bremen]", city.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

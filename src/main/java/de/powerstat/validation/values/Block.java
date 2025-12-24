@@ -8,7 +8,6 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -17,37 +16,28 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Address Block.
  *
+ * @param block Address block
+ *
  * Not DSGVO relevant.
  */
 @ValueObject
-public final class Block implements Comparable<Block>, IValueObject
+public record Block(String block) implements Comparable<Block>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, Block> CACHE = new WeakHashMap<>();
-
   /**
    * Block regexp.
    */
   private static final Pattern BLOCK_REGEXP = Pattern.compile("^[\\p{L}\\p{Digit}]*$"); //$NON-NLS-1$
 
-  /**
-   * Block.
-   */
-  private final String block;
-
 
   /**
    * Constructor.
    *
-   * @param block Block
+   * @param block Address block
    * @throws NullPointerException if block is null
    * @throws IllegalArgumentException if block is not a correct Block
    */
-  private Block(final String block)
+  public Block
    {
-    super();
     Objects.requireNonNull(block, "block"); //$NON-NLS-1$
     if (block.isEmpty() || (block.length() > 16))
      {
@@ -57,7 +47,6 @@ public final class Block implements Comparable<Block>, IValueObject
      {
       throw new IllegalArgumentException("Block with wrong format"); //$NON-NLS-1$
      }
-    this.block = block;
    }
 
 
@@ -69,19 +58,6 @@ public final class Block implements Comparable<Block>, IValueObject
    */
   public static Block of(final String block)
    {
-    /*
-    synchronized (Block.class)
-     {
-      Block obj = Block.CACHE.get(block);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Block(block);
-      Block.CACHE.put(block, obj);
-      return obj;
-     }
-    */
     return new Block(block);
    }
 
@@ -95,60 +71,6 @@ public final class Block implements Comparable<Block>, IValueObject
   public String stringValue()
    {
     return block;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return block.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Block other))
-     {
-      return false;
-     }
-    return block.equals(other.block);
-   }
-
-
-  /**
-   * Returns the string representation of this Block.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Block[block=A]"
-   *
-   * @return String representation of this Block
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder();
-    builder.append("Block[block=").append(block).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

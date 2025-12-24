@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.ISBN13;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -389,27 +389,6 @@ final class ISBN13Tests
    {
     final ISBN13 isbn = ISBN13.of("9792996272776");
     assertEquals("979-2-9962-7277-6", isbn.stringHyphen(), ISBN13_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(ISBN13.class).withNonnullFields("isbn13").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final ISBN13 isbn = ISBN13.of(ISBN_978_3_8362_7277_3);
-    assertEquals("ISBN13[isbn13=9783836272773]", isbn.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

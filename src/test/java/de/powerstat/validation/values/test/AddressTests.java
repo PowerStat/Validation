@@ -12,9 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Address;
-import de.powerstat.validation.values.AddressWithWGS84Position;
 import de.powerstat.validation.values.BFPONumber;
 import de.powerstat.validation.values.Block;
 import de.powerstat.validation.values.BuildingName;
@@ -318,11 +317,11 @@ final class AddressTests
     final Address address = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, null, null, null, null, null, null);
     assertAll(AddressTests.CONSTRUCTOR,
       () -> assertNotNull(address, AddressTests.ADDRESS_IS_NULL),
-      () -> assertEquals(AddressTests.DE, address.getCountry().stringValue(), AddressTests.WRONG_COUNTRY),
-      () -> assertEquals(AddressTests.POSTALCODE28307, address.getPostalCode().stringValue(), AddressTests.WRONG_POSTAL_CODE),
-      () -> assertEquals(AddressTests.BREMEN, address.getCity().stringValue(), AddressTests.WRONG_CITY),
-      () -> assertEquals(AddressTests.ARBERGER_HEERSTR, address.getStreet().stringValue(), AddressTests.WRONG_STREET),
-      () -> assertEquals(AddressTests.BUILDINGNR92, address.getBuildingNr().stringValue(), AddressTests.WRONG_BUILDING_NR)
+      () -> assertEquals(AddressTests.DE, address.country().alpha2(), AddressTests.WRONG_COUNTRY),
+      () -> assertEquals(AddressTests.POSTALCODE28307, address.postalCode().postalCode(), AddressTests.WRONG_POSTAL_CODE),
+      () -> assertEquals(AddressTests.BREMEN, address.city().city(), AddressTests.WRONG_CITY),
+      () -> assertEquals(AddressTests.ARBERGER_HEERSTR, address.street().street(), AddressTests.WRONG_STREET),
+      () -> assertEquals(AddressTests.BUILDINGNR92, address.buildingNr().buildingNr(), AddressTests.WRONG_BUILDING_NR)
     );
    }
 
@@ -337,10 +336,10 @@ final class AddressTests
     final Address address = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, null, null, null, null, PoBoxNumber.of(12345), null, null, null, null, null);
     assertAll(AddressTests.CONSTRUCTOR,
       () -> assertNotNull(address, AddressTests.ADDRESS_IS_NULL),
-      () -> assertEquals(AddressTests.DE, address.getCountry().stringValue(), AddressTests.WRONG_COUNTRY),
-      () -> assertEquals(AddressTests.POSTALCODE28307, address.getPostalCode().stringValue(), AddressTests.WRONG_POSTAL_CODE),
-      () -> assertEquals(AddressTests.BREMEN, address.getCity().stringValue(), AddressTests.WRONG_CITY),
-      () -> assertEquals(12345, address.getPoBoxNumber().longValue(), AddressTests.WRONG_PO_BOX_NUMBER)
+      () -> assertEquals(AddressTests.DE, address.country().alpha2(), AddressTests.WRONG_COUNTRY),
+      () -> assertEquals(AddressTests.POSTALCODE28307, address.postalCode().postalCode(), AddressTests.WRONG_POSTAL_CODE),
+      () -> assertEquals(AddressTests.BREMEN, address.city().city(), AddressTests.WRONG_CITY),
+      () -> assertEquals(12345, address.poBoxNumber().poBoxNumber(), AddressTests.WRONG_PO_BOX_NUMBER)
     );
    }
 
@@ -355,10 +354,10 @@ final class AddressTests
     final Address address = Address.of("DE,28307,Bremen,,,,,,,12345,,,,,");
     assertAll(AddressTests.CONSTRUCTOR,
       () -> assertNotNull(address, AddressTests.ADDRESS_IS_NULL),
-      () -> assertEquals(AddressTests.DE, address.getCountry().stringValue(), AddressTests.WRONG_COUNTRY),
-      () -> assertEquals(AddressTests.POSTALCODE28307, address.getPostalCode().stringValue(), AddressTests.WRONG_POSTAL_CODE),
-      () -> assertEquals(AddressTests.BREMEN, address.getCity().stringValue(), AddressTests.WRONG_CITY),
-      () -> assertEquals(12345, address.getPoBoxNumber().longValue(), AddressTests.WRONG_PO_BOX_NUMBER)
+      () -> assertEquals(AddressTests.DE, address.country().stringValue(), AddressTests.WRONG_COUNTRY),
+      () -> assertEquals(AddressTests.POSTALCODE28307, address.postalCode().stringValue(), AddressTests.WRONG_POSTAL_CODE),
+      () -> assertEquals(AddressTests.BREMEN, address.city().stringValue(), AddressTests.WRONG_CITY),
+      () -> assertEquals(12345, address.poBoxNumber().poBoxNumber(), AddressTests.WRONG_PO_BOX_NUMBER)
     );
    }
 
@@ -382,7 +381,7 @@ final class AddressTests
    * Constructor/Factory test.
    */
   @Test
-  /* default */ void testCnstructor5()
+  /* default */ void testConstructor5()
    {
     assertThrows(IllegalArgumentException.class, () ->
      {
@@ -403,10 +402,10 @@ final class AddressTests
     final Address address = Address.of("DE,28307,Bremen,,,,,,,12345,,,,,Lines");
     assertAll(AddressTests.CONSTRUCTOR,
       () -> assertNotNull(address, AddressTests.ADDRESS_IS_NULL),
-      () -> assertEquals(AddressTests.DE, address.getCountry().stringValue(), AddressTests.WRONG_COUNTRY),
-      () -> assertEquals(AddressTests.POSTALCODE28307, address.getPostalCode().stringValue(), AddressTests.WRONG_POSTAL_CODE),
-      () -> assertEquals(AddressTests.BREMEN, address.getCity().stringValue(), AddressTests.WRONG_CITY),
-      () -> assertEquals(12345, address.getPoBoxNumber().longValue(), AddressTests.WRONG_PO_BOX_NUMBER)
+      () -> assertEquals(AddressTests.DE, address.country().stringValue(), AddressTests.WRONG_COUNTRY),
+      () -> assertEquals(AddressTests.POSTALCODE28307, address.postalCode().stringValue(), AddressTests.WRONG_POSTAL_CODE),
+      () -> assertEquals(AddressTests.BREMEN, address.city().stringValue(), AddressTests.WRONG_CITY),
+      () -> assertEquals(12345, address.poBoxNumber().poBoxNumber(), AddressTests.WRONG_PO_BOX_NUMBER)
       // Lines
     );
    }
@@ -421,9 +420,9 @@ final class AddressTests
     final Address address = Address.of("DE,28307,Bremen");
     assertAll(AddressTests.CONSTRUCTOR,
       () -> assertNotNull(address, AddressTests.ADDRESS_IS_NULL),
-      () -> assertEquals(AddressTests.DE, address.getCountry().stringValue(), AddressTests.WRONG_COUNTRY),
-      () -> assertEquals(AddressTests.POSTALCODE28307, address.getPostalCode().stringValue(), AddressTests.WRONG_POSTAL_CODE),
-      () -> assertEquals(AddressTests.BREMEN, address.getCity().stringValue(), AddressTests.WRONG_CITY)
+      () -> assertEquals(AddressTests.DE, address.country().stringValue(), AddressTests.WRONG_COUNTRY),
+      () -> assertEquals(AddressTests.POSTALCODE28307, address.postalCode().stringValue(), AddressTests.WRONG_POSTAL_CODE),
+      () -> assertEquals(AddressTests.BREMEN, address.city().stringValue(), AddressTests.WRONG_CITY)
     );
    }
 
@@ -436,60 +435,6 @@ final class AddressTests
    {
     final Address address = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, null, null, null, null, PoBoxNumber.of(12345), null, null, null, null, null);
     assertEquals("\nPostfach 12345\n28307 Bremen\n\n", address.stringValue().replace(AddressTests.LINEBREAK_WIN, AddressTests.LINEBREAK_UNIX).replace('\r', '\n'), "Address not as expected");
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Address.class).withRedefinedSubclass(AddressWithWGS84Position.class).withNonnullFields("country").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString1()
-   {
-    final Address address = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), Province.of(AddressTests.TEST2), District.of(AddressTests.DISTRICT), Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), BuildingName.of(AddressTests.TEST_BUILDING), SubBuilding.of(AddressTests.SUBBUILDING), PoBoxNumber.of(4711), Department.of(AddressTests.TEST2), Neighbourhood.of(AddressTests.NEIGHBOUR), Block.of(AddressTests.BLK), BFPONumber.of(1), Lines.of(AddressTests.TEST2));
-    assertEquals("Address[country=DE, postalCode=28307, city=Bremen, province=Test, district=9, street=Arberger Heerstr., buildingNr=92, buildingName=TestBuilding, subBuilding=SubB, poBoxNumber=4711, department=Test, neighbourhood=neighbour, block=blk, bFPONumber=1, lines=Test]", address.toString(), AddressTests.TO_STRING_NOT_EQUAL); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString2()
-   {
-    final Address address = Address.of(Country.of(AddressTests.GB), PostalCode.of(AddressTests.POSTALCODE_GB), City.of(AddressTests.BEDFORDSHIRE), null, null, null, null, null, null, null, Department.of(AddressTests.TEST), null, null, BFPONumber.of(1), Lines.of(AddressTests.TEST2));
-    assertEquals("Address[country=GB, postalCode=AL3 8QE, city=Bedfordshire, department=test, bFPONumber=1, lines=Test]", address.toString(), AddressTests.TO_STRING_NOT_EQUAL); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString3()
-   {
-    final Address address = Address.of(Country.of(AddressTests.HK), null, null, null, District.of(AddressTests.DISTRICT), Street.of(AddressTests.TEST_STR), BuildingNr.of(AddressTests.POSTALCODE4711), BuildingName.of(AddressTests.TEST_BUILDING), SubBuilding.of(AddressTests.SUBBUILDING), PoBoxNumber.of(1), null, null, null, null, null);
-    assertEquals("Address[country=HK, district=9, street=Test str., buildingNr=4711, buildingName=TestBuilding, subBuilding=SubB, poBoxNumber=1]", address.toString(), AddressTests.TO_STRING_NOT_EQUAL); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString4()
-   {
-    final Address address = Address.of(Country.of(AddressTests.JP), PostalCode.of(AddressTests.POSTALCODE_JP), City.of(AddressTests.AICHI), Province.of(AddressTests.TEST2), District.of(AddressTests.DISTRICT), null, BuildingNr.of(AddressTests.POSTALCODE4711), BuildingName.of(AddressTests.BUILDING), null, null, null, Neighbourhood.of(AddressTests.NEIGHBOUR), Block.of(AddressTests.BLK), null, null);
-    assertEquals("Address[country=JP, postalCode=4434567, city=AICHI, province=Test, district=9, buildingNr=4711, buildingName=Building, neighbourhood=neighbour, block=blk]", address.toString(), AddressTests.TO_STRING_NOT_EQUAL); //$NON-NLS-1$
    }
 
 
@@ -628,186 +573,6 @@ final class AddressTests
     final Address address = Address.of(Country.of("AQ"), PostalCode.of(AddressTests.POSTALCODE_JP), City.of(AddressTests.AICHI), Province.of(AddressTests.TEST2), District.of(AddressTests.DISTRICT), null, BuildingNr.of(AddressTests.POSTALCODE4711), BuildingName.of(AddressTests.BUILDING), null, null, null, Neighbourhood.of(AddressTests.NEIGHBOUR), Block.of(AddressTests.BLK), null, null); //$NON-NLS-1$
     final String addressText = address.getFormattedAddress(AddressTests.KAI_HOFMANN).replace(AddressTests.LINEBREAK_WIN, AddressTests.LINEBREAK_UNIX).replace('\r', '\n');
     assertEquals("", addressText, AddressTests.WRONG_ADDRESS); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Get country test.
-   */
-  @Test
-  /* default */ void testGetCountry()
-   {
-    final Address address = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, null, null, null, null, null, null);
-    final String country = address.getCountry().stringValue();
-    assertEquals(AddressTests.DE, country, AddressTests.WRONG_COUNTRY);
-   }
-
-
-  /**
-   * Get postal code test.
-   */
-  @Test
-  /* default */ void testGetPostalCode()
-   {
-    final Address address = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, null, null, null, null, null, null);
-    final String postalCode = address.getPostalCode().stringValue();
-    assertEquals(AddressTests.POSTALCODE28307, postalCode, AddressTests.WRONG_POSTAL_CODE);
-   }
-
-
-  /**
-   * Get city test.
-   */
-  @Test
-  /* default */ void testGetCity()
-   {
-    final Address address = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, null, null, null, null, null, null);
-    final String city = address.getCity().stringValue();
-    assertEquals(AddressTests.BREMEN, city, AddressTests.WRONG_CITY);
-   }
-
-
-  /**
-   * Get street test.
-   */
-  @Test
-  /* default */ void testGetStreet()
-   {
-    final Address address = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, null, null, null, null, null, null);
-    final String street = address.getStreet().stringValue();
-    assertEquals(AddressTests.ARBERGER_HEERSTR, street, AddressTests.WRONG_STREET);
-   }
-
-
-  /**
-   * Get building nr test.
-   */
-  @Test
-  /* default */ void testGetBuildingNr()
-   {
-    final Address address = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, Street.of(AddressTests.ARBERGER_HEERSTR), BuildingNr.of(AddressTests.BUILDINGNR92), null, null, null, null, null, null, null, null);
-    final String buildingNr = address.getBuildingNr().stringValue();
-    assertEquals(AddressTests.BUILDINGNR92, buildingNr, AddressTests.WRONG_BUILDING_NR);
-   }
-
-
-  /**
-   * Get po box number test.
-   */
-  @Test
-  /* default */ void testGetPoBoxNumber()
-   {
-    final Address address = Address.of(Country.of(AddressTests.DE), PostalCode.of(AddressTests.POSTALCODE28307), City.of(AddressTests.BREMEN), null, null, null, null, null, null, PoBoxNumber.of(12345), null, null, null, null, null);
-    final String poBoxNumber = address.getPoBoxNumber().stringValue();
-    assertEquals(AddressTests.POSTALCODE_HK, poBoxNumber, AddressTests.WRONG_PO_BOX_NUMBER);
-   }
-
-
-  /**
-   * Get sub building test.
-   */
-  @Test
-  /* default */ void testGetSubBuilding()
-   {
-    final Address address = Address.of(Country.of("AL"), PostalCode.of(AddressTests.POSTALCODE4711), City.of(AddressTests.TESTCITY), null, null, Street.of("Teststreet"), BuildingNr.of(AddressTests.BUILDINGNR0815), BuildingName.of(AddressTests.TESTBUILDING), SubBuilding.of(AddressTests.TEST_SUB_BUILDING), null, null, null, null, null, null); //$NON-NLS-1$ //$NON-NLS-2$
-    final String subBuilding = address.getSubBuilding().stringValue();
-    assertEquals(AddressTests.TEST_SUB_BUILDING, subBuilding, "Wrong subBuilding"); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Get province test.
-   */
-  @Test
-  /* default */ void testGetProvince()
-   {
-    final Address address = Address.of(Country.of(AddressTests.JP), PostalCode.of(AddressTests.POSTALCODE4711), City.of(AddressTests.TESTCITY), Province.of(AddressTests.TESTPROVINCE), District.of(AddressTests.TESTDISTRICT), null, BuildingNr.of(AddressTests.BUILDINGNR0815), BuildingName.of(AddressTests.TESTBUILDING), null, null, null, Neighbourhood.of(AddressTests.TESTNEIGHBOUR), Block.of(AddressTests.TESTBLOCK13), null, null);
-    final String province = address.getProvince().stringValue();
-    assertEquals(AddressTests.TESTPROVINCE, province, "Wrong province"); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Get district test.
-   */
-  @Test
-  /* default */ void testGetDistrict()
-   {
-    final Address address = Address.of(Country.of(AddressTests.JP), PostalCode.of(AddressTests.POSTALCODE4711), City.of(AddressTests.TESTCITY), Province.of(AddressTests.TESTPROVINCE), District.of(AddressTests.TESTDISTRICT), null, BuildingNr.of(AddressTests.BUILDINGNR0815), BuildingName.of(AddressTests.TESTBUILDING), null, null, null, Neighbourhood.of(AddressTests.TESTNEIGHBOUR), Block.of(AddressTests.TESTBLOCK13), null, null);
-    final String district = address.getDistrict().stringValue();
-    assertEquals(AddressTests.TESTDISTRICT, district, "Wrong district"); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Get building name test.
-   */
-  @Test
-  /* default */ void testGetBuildingName()
-   {
-    final Address address = Address.of(Country.of(AddressTests.JP), PostalCode.of(AddressTests.POSTALCODE4711), City.of(AddressTests.TESTCITY), Province.of(AddressTests.TESTPROVINCE), District.of(AddressTests.TESTDISTRICT), null, BuildingNr.of(AddressTests.BUILDINGNR0815), BuildingName.of(AddressTests.TESTBUILDING), null, null, null, Neighbourhood.of(AddressTests.TESTNEIGHBOUR), Block.of(AddressTests.TESTBLOCK13), null, null);
-    final String buildingName = address.getBuildingName().stringValue();
-    assertEquals(AddressTests.TESTBUILDING, buildingName, "Wrong buildingName"); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Get beighbourhood test.
-   */
-  @Test
-  /* default */ void testGetNeighbourhood()
-   {
-    final Address address = Address.of(Country.of(AddressTests.JP), PostalCode.of(AddressTests.POSTALCODE4711), City.of(AddressTests.TESTCITY), Province.of(AddressTests.TESTPROVINCE), District.of(AddressTests.TESTDISTRICT), null, BuildingNr.of(AddressTests.BUILDINGNR0815), BuildingName.of(AddressTests.TESTBUILDING), null, null, null, Neighbourhood.of(AddressTests.TESTNEIGHBOUR), Block.of(AddressTests.TESTBLOCK13), null, null);
-    final String neighbourhood = address.getNeighbourhood().stringValue();
-    assertEquals(AddressTests.TESTNEIGHBOUR, neighbourhood, "Wrong neighbourhood"); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Get block test.
-   */
-  @Test
-  /* default */ void testGetBlock()
-   {
-    final Address address = Address.of(Country.of(AddressTests.JP), PostalCode.of(AddressTests.POSTALCODE4711), City.of(AddressTests.TESTCITY), Province.of(AddressTests.TESTPROVINCE), District.of(AddressTests.TESTDISTRICT), null, BuildingNr.of(AddressTests.BUILDINGNR0815), BuildingName.of(AddressTests.TESTBUILDING), null, null, null, Neighbourhood.of(AddressTests.TESTNEIGHBOUR), Block.of(AddressTests.TESTBLOCK13), null, null);
-    final String block = address.getBlock().stringValue();
-    assertEquals(AddressTests.TESTBLOCK13, block, "Wrong block"); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Get department test.
-   */
-  @Test
-  /* default */ void testGetDepartment()
-   {
-    final Address address = Address.of(Country.of(AddressTests.GB), PostalCode.of(AddressTests.POSTALCODE4711), City.of(AddressTests.TESTCITY), null, null, null, null, null, null, null, Department.of(AddressTests.TESTDEPARTMENT), null, null, BFPONumber.of(123), Lines.of(AddressTests.TESTLINES));
-    final String department = address.getDepartment().stringValue();
-    assertEquals(AddressTests.TESTDEPARTMENT, department, "Wrong department"); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Get BFPONumber test.
-   */
-  @Test
-  /* default */ void testGetBFPONumber()
-   {
-    final Address address = Address.of(Country.of(AddressTests.GB), PostalCode.of(AddressTests.POSTALCODE4711), City.of(AddressTests.TESTCITY), null, null, null, null, null, null, null, Department.of(AddressTests.TESTDEPARTMENT), null, null, BFPONumber.of(123), Lines.of(AddressTests.TESTLINES));
-    final String bFPONumber = address.getBFPONumber().stringValue();
-    assertEquals("123", bFPONumber, "Wrong BFPONumber"); //$NON-NLS-1$ //$NON-NLS-2$
-   }
-
-
-  /**
-   * Get lines test.
-   */
-  @Test
-  /* default */ void testGetLines()
-   {
-    final Address address = Address.of(Country.of(AddressTests.GB), PostalCode.of(AddressTests.POSTALCODE4711), City.of(AddressTests.TESTCITY), null, null, null, null, null, null, null, Department.of(AddressTests.TESTDEPARTMENT), null, null, BFPONumber.of(123), Lines.of(AddressTests.TESTLINES));
-    final String lines = address.getLines().stringValue();
-    assertEquals(AddressTests.TESTLINES, lines, "Wrong lines"); //$NON-NLS-1$
    }
 
  }

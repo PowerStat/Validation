@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Province;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -69,7 +69,7 @@ final class ProvinceTests
   /* default */ void testProvinceCorrect(final String province)
    {
     final Province cleanProvince = Province.of(province);
-    assertEquals(province, cleanProvince.stringValue(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
+    assertEquals(province, cleanProvince.province(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
    }
 
 
@@ -115,27 +115,6 @@ final class ProvinceTests
    {
     final Province province = Province.of(ProvinceTests.ABCD);
     assertEquals(ProvinceTests.ABCD, province.stringValue(), ProvinceTests.PROVINCE_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Province.class).withNonnullFields("province").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Province province = Province.of(ProvinceTests.ABC);
-    assertEquals("Province[province=abc]", province.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

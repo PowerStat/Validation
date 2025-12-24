@@ -16,10 +16,12 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Hours.
  *
+ * @param hours Hours 0-..
+ *
  * Not DSGVO relevant.
  */
 @ValueObject
-public final class Hours implements Comparable<Hours>, IValueObject
+public record Hours(long hours) implements Comparable<Hours>, IValueObject
  {
   /**
    * Minimum allowed value 0.
@@ -31,31 +33,18 @@ public final class Hours implements Comparable<Hours>, IValueObject
    */
   public static final long MAX_VALUE = Long.MAX_VALUE;
 
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<Long, Hours> CACHE = new WeakHashMap<>();
-
-  /**
-   * Hours.
-   */
-  private final long hours;
-
-
   /**
    * Constructor.
    *
    * @param hours Hours 0-..
    * @throws IndexOutOfBoundsException When the hours is less than 0
    */
-  private Hours(final long hours)
+  public Hours
    {
-    super();
     if (hours < 0)
      {
       throw new IndexOutOfBoundsException("Negative hours are not allowed"); //$NON-NLS-1$
      }
-    this.hours = hours;
    }
 
 
@@ -67,19 +56,6 @@ public final class Hours implements Comparable<Hours>, IValueObject
    */
   public static Hours of(final long hours)
    {
-    /*
-    synchronized (Hours.class)
-     {
-      Hours obj = Hours.CACHE.get(hours);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Hours(hours);
-      Hours.CACHE.put(Long.valueOf(hours), obj);
-      return obj;
-     }
-    */
     return new Hours(hours);
    }
 
@@ -97,17 +73,6 @@ public final class Hours implements Comparable<Hours>, IValueObject
 
 
   /**
-   * Returns the value of this BFPONumber as a long.
-   *
-   * @return The numeric value represented by this object after conversion to type long.
-   */
-  public long longValue()
-   {
-    return hours;
-   }
-
-
-  /**
    * Returns the value of this BFPONumber as a String.
    *
    * @return The numeric value represented by this object after conversion to type String.
@@ -116,61 +81,6 @@ public final class Hours implements Comparable<Hours>, IValueObject
   public String stringValue()
    {
     return String.valueOf(hours);
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Long.hashCode(hours);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Hours other))
-     {
-      return false;
-     }
-    return (hours == other.hours);
-   }
-
-
-  /**
-   * Returns the string representation of this Hours.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Hours[hours=1]"
-   *
-   * @return String representation of this Hours
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder();
-    builder.append("Hours[hours=").append(hours).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

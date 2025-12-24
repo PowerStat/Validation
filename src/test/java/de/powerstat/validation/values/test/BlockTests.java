@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Block;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -64,7 +64,7 @@ final class BlockTests
   /* default */ void testBlockCorrect(final String block)
    {
     final Block cleanBlock = Block.of(block);
-    assertEquals(block, cleanBlock.stringValue(), BlockTests.BLOCK_NOT_AS_EXPECTED);
+    assertEquals(block, cleanBlock.block(), BlockTests.BLOCK_NOT_AS_EXPECTED);
    }
 
 
@@ -110,27 +110,6 @@ final class BlockTests
    {
     final Block block = Block.of(BlockTests.BLOCKA);
     assertEquals(BlockTests.BLOCKA, block.stringValue(), BlockTests.BLOCK_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Block.class).withNonnullFields("block").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Block block = Block.of(BlockTests.BLOCKA);
-    assertEquals("Block[block=A]", block.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

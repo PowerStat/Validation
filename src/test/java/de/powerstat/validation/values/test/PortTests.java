@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Port;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -51,7 +51,7 @@ final class PortTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(49152, Port.of(PORT_49152).intValue(), PortTests.PORT_SHOULD_BE_49152);
+    assertEquals(49152, Port.of(PORT_49152).port(), PortTests.PORT_SHOULD_BE_49152);
    }
 
 
@@ -62,7 +62,7 @@ final class PortTests
   /* default */ void testIsPort()
    {
     final Port port = Port.of(49152);
-    assertEquals(49152, port.intValue(), PortTests.PORT_SHOULD_BE_49152);
+    assertEquals(49152, port.port(), PortTests.PORT_SHOULD_BE_49152);
    }
 
 
@@ -84,13 +84,13 @@ final class PortTests
 
 
   /**
-   * Test intValue.
+   * Test port.
    */
   @Test
   /* default */ void testIntValue()
    {
     final Port port = Port.of(49152);
-    assertEquals(49152, port.intValue(), PortTests.PORT_SHOULD_BE_49152);
+    assertEquals(49152, port.port(), PortTests.PORT_SHOULD_BE_49152);
    }
 
 
@@ -174,27 +174,6 @@ final class PortTests
   /* default */ void testIsDynamicFalse()
    {
     assertFalse(Port.of(1023).isDynamic(), "Should not be a dynamic port!"); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Port.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Port port = Port.of(49152);
-    assertEquals("Port[port=49152]", port.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

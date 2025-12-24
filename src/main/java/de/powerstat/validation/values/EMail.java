@@ -18,38 +18,20 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Electronic mail.
  *
+ * @param email EMail
+ *
  * Probably DSGVO relevant.
  *
  * TODO Hostname exists?
  * TODO email exists check
  */
 @ValueObject
-public final class EMail implements Comparable<EMail>, IValueObject
+public record EMail(String email) implements Comparable<EMail>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, EMail> CACHE = new WeakHashMap<>();
-
   /**
    * Local part regexp.
    */
   private static final Pattern LOCAL_REGEXP = Pattern.compile("^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+$"); //$NON-NLS-1$
-
-  /**
-   * EMail.
-   */
-  private final String email;
-
-  /**
-   * EMails domain part.
-   */
-  private final Hostname domainPart;
-
-  /**
-   * EMails local part.
-   */
-  private final String localPart;
 
 
   /**
@@ -62,9 +44,8 @@ public final class EMail implements Comparable<EMail>, IValueObject
    * @throws IllegalArgumentException if email is not an supported email address
    */
   @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
-  private EMail(final String email)
+  public EMail
    {
-    super();
     Objects.requireNonNull(email, "email"); //$NON-NLS-1$
     if ((email.length() < 6) || (email.length() > 254))
      {
@@ -88,7 +69,7 @@ public final class EMail implements Comparable<EMail>, IValueObject
        }
       parts[1] = parts[1].substring(0, parts[1].length() - 1);
      }
-    domainPart = Hostname.of(parts[1]); // Check hostname and store for isReachable
+    Hostname domainPart = Hostname.of(parts[1]); // Check hostname and store for isReachable
     if ((parts[0].charAt(0) == '(') || (parts[0].charAt(parts[0].length() - 1) == ')'))
      {
       throw new IllegalArgumentException("Comments in email addresses are not supported"); //$NON-NLS-1$
@@ -109,8 +90,7 @@ public final class EMail implements Comparable<EMail>, IValueObject
      {
       throw new IllegalArgumentException("Illegal character found in emails local part or unsupported UTF-8 character"); //$NON-NLS-1$
      }
-    localPart = parts[0]; // Store for check receiver
-    this.email = email;
+    String localPart = parts[0]; // Store for check receiver
    }
 
 
@@ -122,19 +102,6 @@ public final class EMail implements Comparable<EMail>, IValueObject
    */
   public static EMail of(final String email)
    {
-    /*
-    synchronized (EMail.class)
-     {
-      EMail obj = EMail.CACHE.get(email);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new EMail(email);
-      EMail.CACHE.put(email, obj);
-      return obj;
-     }
-    */
     return new EMail(email);
    }
 
@@ -158,7 +125,9 @@ public final class EMail implements Comparable<EMail>, IValueObject
    */
   public String getDomainPart()
    {
-    return domainPart.stringValue();
+    final String[] parts = email.split("@"); //$NON-NLS-1$
+    final Hostname domainPart = Hostname.of(parts[1]); // Check hostname and store for isReachable
+    return domainPart.hostname();
    }
 
 
@@ -169,6 +138,8 @@ public final class EMail implements Comparable<EMail>, IValueObject
    */
   public String getReverseDomainPart()
    {
+    final String[] parts = email.split("@"); //$NON-NLS-1$
+    final Hostname domainPart = Hostname.of(parts[1]); // Check hostname and store for isReachable
     return domainPart.getReverseHostname();
    }
 
@@ -180,62 +151,9 @@ public final class EMail implements Comparable<EMail>, IValueObject
    */
   public String getLocalPart()
    {
+    final String[] parts = email.split("@"); //$NON-NLS-1$
+    final String localPart = parts[0]; // Store for check receiver
     return localPart;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return email.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings("PMD.SimplifyBooleanReturns")
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final EMail other))
-     {
-      return false;
-     }
-    return email.equals(other.email);
-   }
-
-
-  /**
-   * Returns the string representation of this EMail.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "EMail[email=user@example.com]"
-   *
-   * @return String representation of this EMail
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder();
-    builder.append("EMail[email=").append(email).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

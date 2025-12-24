@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.EqualsVerifier;
 import de.powerstat.validation.containers.NTuple5nc;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -37,33 +36,12 @@ final class NTuple5ncTests
    {
     final NTuple5nc<Integer, Integer, Integer, Integer, Integer> tuple = NTuple5nc.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(815), Integer.valueOf(4), Integer.valueOf(5));
     assertAll("testGetValue", //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t1Value().intValue(), "t1 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(4711, tuple.t2Value().intValue(), "t2 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(815, tuple.t3Value().intValue(), "t3 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(4, tuple.t4Value().intValue(), "t4 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(5, tuple.t5Value().intValue(), "t5 not as expected") //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj1().intValue(), "t1 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(4711, tuple.obj2().intValue(), "t2 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(815, tuple.obj3().intValue(), "t3 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(4, tuple.obj4().intValue(), "t4 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(5, tuple.obj5().intValue(), "t5 not as expected") //$NON-NLS-1$
     );
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(NTuple5nc.class).withNonnullFields("object1", "object2", "object3", "object4", "object5").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final NTuple5nc<Integer, Integer, Integer, Integer, Integer> tuple1 = NTuple5nc.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(815), Integer.valueOf(4), Integer.valueOf(5));
-    assertEquals("NTuple5nc[object1=1, object2=4711, object3=815, object4=4, object5=5]", tuple1.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
  }

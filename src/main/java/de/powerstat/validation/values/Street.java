@@ -8,7 +8,6 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -17,22 +16,19 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Address Street.
  *
+ * @param street Street name
+ *
  * Not DSGVO relevant.
  *
  * TODO Verify with openstreetmap
  */
 @ValueObject
-public final class Street implements Comparable<Street>, IValueObject
+public record Street(String street) implements Comparable<Street>, IValueObject
  {
   /**
    * Street regexp.
    */
   private static final Pattern STREET_REGEXP = Pattern.compile("^[\\p{L}][\\p{L}. -]*$"); //$NON-NLS-1$
-
-  /**
-   * Street.
-   */
-  private final String street;
 
 
   /**
@@ -42,9 +38,8 @@ public final class Street implements Comparable<Street>, IValueObject
    * @throws NullPointerException if street is null
    * @throws IllegalArgumentException if street is not a correct Street name
    */
-  private Street(final String street)
+  public Street
    {
-    super();
     Objects.requireNonNull(street, "street"); //$NON-NLS-1$
     if (street.isEmpty() || (street.length() > 32))
      {
@@ -54,7 +49,6 @@ public final class Street implements Comparable<Street>, IValueObject
      {
       throw new IllegalArgumentException("Street with wrong format"); //$NON-NLS-1$
      }
-    this.street = street;
    }
 
 
@@ -79,60 +73,6 @@ public final class Street implements Comparable<Street>, IValueObject
   public String stringValue()
    {
     return street;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return street.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Street other))
-     {
-      return false;
-     }
-    return street.equals(other.street);
-   }
-
-
-  /**
-   * Returns the string representation of this Street.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Street[street=Hemelinger Heerstraße]"
-   *
-   * @return String representation of this Street
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder();
-    builder.append("Street[street=").append(street).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

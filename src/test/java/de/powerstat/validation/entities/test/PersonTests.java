@@ -402,7 +402,7 @@ final class PersonTests
     TimeUnit.MICROSECONDS.sleep(1);
     person.addLastname(OffsetDateTime.now(ZoneId.systemDefault()), Lastname.of(PersonTests.LASTNAME));
     final Lastname name = person.getLastnameAtBirth();
-    assertEquals(PersonTests.HOFMANN, name.stringValue(), PersonTests.LASTNAME_NOT_AS_EXPECTED);
+    assertEquals(PersonTests.HOFMANN, name.lastname(), PersonTests.LASTNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -416,7 +416,7 @@ final class PersonTests
     final Person person = Person.of(Lastname.of(PersonTests.LASTNAME), Gender.MALE);
     person.addLastname(OffsetDateTime.now(ZoneId.systemDefault()), Lastname.of(PersonTests.HOFMANN));
     final Lastname name = person.getLastnameActual();
-    assertEquals(PersonTests.HOFMANN, name.stringValue(), PersonTests.LASTNAME_NOT_AS_EXPECTED);
+    assertEquals(PersonTests.HOFMANN, name.lastname(), PersonTests.LASTNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -435,7 +435,7 @@ final class PersonTests
     TimeUnit.MICROSECONDS.sleep(1);
     person.addLastname(OffsetDateTime.now(ZoneId.systemDefault()), Lastname.of(PersonTests.LASTNAME));
     final Lastname name = person.getLastnamePrevious();
-    assertEquals(PersonTests.HOFMANN, name.stringValue(), PersonTests.LASTNAME_NOT_AS_EXPECTED);
+    assertEquals(PersonTests.HOFMANN, name.lastname(), PersonTests.LASTNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -448,7 +448,7 @@ final class PersonTests
    {
     final Person person = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE);
     final Lastname name = person.getLastnameActual();
-    assertEquals(PersonTests.HOFMANN, name.stringValue(), PersonTests.LASTNAME_NOT_AS_EXPECTED);
+    assertEquals(PersonTests.HOFMANN, name.lastname(), PersonTests.LASTNAME_NOT_AS_EXPECTED);
    }
 
 
@@ -528,7 +528,7 @@ final class PersonTests
     firstnames2.add(Firstname.of(PersonTests.THIRDNAME));
     person.addFirstnames(OffsetDateTime.now(ZoneId.systemDefault()), firstnames2);
     final List<Firstname> names = person.getFirstnamesAtBirth();
-    assertEquals(PersonTests.KAI_SECONDNAME, names.stream().map(Firstname::stringValue).collect(Collectors.joining(PersonTests.SPACE)), PersonTests.FIRSTNAMES_NOT_AS_EXPECTED);
+    assertEquals(PersonTests.KAI_SECONDNAME, names.stream().map(Firstname::firstname).collect(Collectors.joining(PersonTests.SPACE)), PersonTests.FIRSTNAMES_NOT_AS_EXPECTED);
    }
 
 
@@ -546,7 +546,7 @@ final class PersonTests
     firstnames2.add(Firstname.of(PersonTests.THIRDNAME));
     person.addFirstnames(OffsetDateTime.now(ZoneId.systemDefault()), firstnames2);
     final List<Firstname> names = person.getFirstnamesActual();
-    assertEquals(PersonTests.THIRDNAME, names.stream().map(Firstname::stringValue).collect(Collectors.joining(PersonTests.SPACE)), PersonTests.FIRSTNAMES_NOT_AS_EXPECTED);
+    assertEquals(PersonTests.THIRDNAME, names.stream().map(Firstname::firstname).collect(Collectors.joining(PersonTests.SPACE)), PersonTests.FIRSTNAMES_NOT_AS_EXPECTED);
    }
 
 
@@ -567,7 +567,7 @@ final class PersonTests
     firstnames2.add(Firstname.of(PersonTests.THIRDNAME));
     person.addFirstnames(OffsetDateTime.now(ZoneId.systemDefault()), firstnames2);
     final List<Firstname> names = person.getFirstnamesPrevious();
-    assertEquals(PersonTests.KAI_SECONDNAME, names.stream().map(Firstname::stringValue).collect(Collectors.joining(PersonTests.SPACE)), PersonTests.FIRSTNAMES_NOT_AS_EXPECTED);
+    assertEquals(PersonTests.KAI_SECONDNAME, names.stream().map(Firstname::firstname).collect(Collectors.joining(PersonTests.SPACE)), PersonTests.FIRSTNAMES_NOT_AS_EXPECTED);
    }
 
 
@@ -582,7 +582,7 @@ final class PersonTests
     firstnames.add(Firstname.of(PersonTests.SECONDNAME));
     final Person person = Person.of(Lastname.of(PersonTests.HOFMANN), Gender.MALE, firstnames);
     final List<Firstname> names = person.getFirstnamesActual();
-    assertEquals(PersonTests.KAI_SECONDNAME, names.stream().map(Firstname::stringValue).collect(Collectors.joining(PersonTests.SPACE)), PersonTests.FIRSTNAMES_NOT_AS_EXPECTED);
+    assertEquals(PersonTests.KAI_SECONDNAME, names.stream().map(Firstname::firstname).collect(Collectors.joining(PersonTests.SPACE)), PersonTests.FIRSTNAMES_NOT_AS_EXPECTED);
    }
 
 

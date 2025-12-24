@@ -19,7 +19,6 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -29,11 +28,13 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Canonical Media-Access-Control-Adresse (MAC).
  *
- * TODO getManufacturer name: http://standards-oui.ieee.org/oui/oui.csv
- * TODO Exists in network (raw-socket)
+ * @param address MAC address
+ *
+ * TODO getManufacturer name http://standards-oui.ieee.org/oui/oui.csv
+ * TODO Exists in network  (raw-socket)
  */
 @ValueObject
-public final class MACAddress implements Comparable<MACAddress>, IValueObject
+public record MACAddress(String address) implements Comparable<MACAddress>, IValueObject
  {
   /**
    * Suppress warning constant.
@@ -130,26 +131,6 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    */
   private static String IPV6_LINK_LOCAL = "ff02::1";
 
-  /**
-   * IP V4 limited broadcast address.
-   */
-  private final InetAddress ipv4address;
-
-  /**
-   * IP V6 link local address.
-   */
-  private final InetAddress ipv6address;
-
-  /**
-   * MAC address parts.
-   */
-  private final String[] parts;
-
-  /**
-   * Magic wake on lan package.
-   */
-  private byte[] magicPackage;
-
 
   /**
    * Constructor.
@@ -158,9 +139,8 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    * @throws NullPointerException if address is null
    * @throws IllegalArgumentException if address is not a mac address
    */
-  private MACAddress(final String address)
+  public MACAddress
    {
-    super();
     Objects.requireNonNull(address, "address"); //$NON-NLS-1$
     if ((address.length() != 12) && (address.length() != 17))
      {
@@ -170,33 +150,6 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
      {
       throw new IllegalArgumentException("Not a mac address"); //$NON-NLS-1$
      }
-    parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
-    ByteBuffer buffer = ByteBuffer.allocate(112).put(MAGIC_HEADER);
-    for (int i = 0; i < 16; ++i)
-     {
-      buffer.put(HexFormat.of().parseHex(String.join("", parts)));
-     }
-    magicPackage = buffer.array();
-    InetAddress ipv4address;
-    InetAddress ipv6address;
-    try
-     {
-      ipv4address = InetAddress.getByName(IPV4_LIMITED_BROADCAST);
-     }
-    catch (UnknownHostException e)
-     {
-      ipv4address = null;
-     }
-    try
-     {
-      ipv6address = InetAddress.getByName(IPV6_LINK_LOCAL);
-     }
-    catch (UnknownHostException e)
-     {
-      ipv6address = null;
-     }
-    this.ipv4address = ipv4address;
-    this.ipv6address = ipv6address;
    }
 
 
@@ -229,6 +182,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
      {
       throw new IllegalArgumentException(MACAddress.ILLEGAL_DELIMITER_CHARACTER);
      }
+    String[] parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
     return String.join(delimiter, parts);
    }
 
@@ -252,6 +206,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    */
   public byte[] byteValue()
    {
+    String[] parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
     return HexFormat.of().parseHex(String.join("", parts));
    }
 
@@ -264,6 +219,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
   @SuppressFBWarnings(CLI_CONSTANT_LIST_INDEX)
   public boolean isBroadcast()
    {
+  	String[] parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
     return MACAddress.HFF.equals(parts[0]) && MACAddress.HFF.equals(parts[1]) && MACAddress.HFF.equals(parts[2]) && MACAddress.HFF.equals(parts[3]) && MACAddress.HFF.equals(parts[4]) && MACAddress.HFF.equals(parts[5]);
    }
 
@@ -275,6 +231,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    */
   public boolean isGroup()
    {
+    String[] parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
     return (Integer.parseInt(parts[0], 16) & 0x01) != 0;
    }
 
@@ -286,8 +243,18 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    */
   public boolean isLocal()
    {
+    String[] parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
     return (Integer.parseInt(parts[0], 16) & 0x02) != 0;
    }
+
+
+  /*
+  Die folgenden Adressbereiche sind lokal und können z. B. für virtuelle Maschinen verwendet werden:
+  x2:xx:xx:xx:xx:xx
+  x6:xx:xx:xx:xx:xx
+  xA:xx:xx:xx:xx:xx
+  xE:xx:xx:xx:xx:xx
+  */
 
 
   /**
@@ -298,6 +265,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
   @SuppressFBWarnings(CLI_CONSTANT_LIST_INDEX)
   public boolean isIPV4Multicast()
    {
+    String[] parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
     return MACAddress.H01.equals(parts[0]) && MACAddress.H00.equals(parts[1]) && MACAddress.H5E.equals(parts[2]) && ((Integer.parseInt(parts[3], 16) & 0x80) == 0);
    }
 
@@ -310,6 +278,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
   @SuppressFBWarnings(CLI_CONSTANT_LIST_INDEX)
   public boolean isIPV6Multicast()
    {
+    String[] parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
     return MACAddress.H33.equals(parts[0]) && MACAddress.H33.equals(parts[1]);
    }
 
@@ -322,6 +291,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
   @SuppressFBWarnings(CLI_CONSTANT_LIST_INDEX)
   public boolean isVRRP()
    {
+    String[] parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
     return MACAddress.H00.equals(parts[0]) && MACAddress.H00.equals(parts[1]) && MACAddress.H5E.equals(parts[2]) && MACAddress.H00.equals(parts[3]) && MACAddress.H01.equals(parts[4]);
    }
 
@@ -336,6 +306,7 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
   @SuppressFBWarnings(CLI_CONSTANT_LIST_INDEX)
   public String getOUI()
    {
+    String[] parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
     return String.format("%1$02X", Integer.parseInt(parts[0], 16) & 0xfc) + parts[1].toUpperCase(Locale.getDefault()) + parts[2].toUpperCase(Locale.getDefault()); //$NON-NLS-1$
    }
 
@@ -349,71 +320,48 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
    */
   public void sendLocalWakeOnLan() throws IOException
    {
+    String[] parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
+    InetAddress ipv4address;
+    InetAddress ipv6address;
+    byte[] magicPackage;
+    try
+     {
+      ipv4address = InetAddress.getByName(IPV4_LIMITED_BROADCAST);
+     }
+    catch (UnknownHostException e)
+     {
+      ipv4address = null;
+     }
+    try
+     {
+      ipv6address = InetAddress.getByName(IPV6_LINK_LOCAL);
+     }
+    catch (UnknownHostException e)
+     {
+      ipv6address = null;
+     }
+    ByteBuffer buffer = ByteBuffer.allocate(112).put(MAGIC_HEADER);
+    for (int i = 0; i < 16; ++i)
+     {
+      buffer.put(HexFormat.of().parseHex(String.join("", parts)));
+     }
+    magicPackage = buffer.array();
     try (DatagramSocket socket = new DatagramSocket())
      {
       for (Port port : WOL_PORTS)
        {
-        DatagramPacket packetv4 = new DatagramPacket(magicPackage, magicPackage.length, ipv4address, port.intValue());
-        socket.send(packetv4);
-        DatagramPacket packetv6 = new DatagramPacket(magicPackage, magicPackage.length, ipv6address, port.intValue());
-        socket.send(packetv6);
+        if (ipv4address != null)
+         {
+          DatagramPacket packetv4 = new DatagramPacket(magicPackage, magicPackage.length, ipv4address, port.port());
+          socket.send(packetv4);
+         }
+        if (ipv6address != null)
+         {
+          DatagramPacket packetv6 = new DatagramPacket(magicPackage, magicPackage.length, ipv6address, port.port());
+          socket.send(packetv6);
+         }
        }
      }
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Arrays.hashCode(parts);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings("PMD.SimplifyBooleanReturns")
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final MACAddress other))
-     {
-      return false;
-     }
-    return Arrays.equals(parts, other.parts);
-   }
-
-
-  /**
-   * Returns the string representation of this MACAddress.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "MACAddress[address=00:00:00:00:00:00]"
-   *
-   * @return String representation of this MACAddress
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(21);
-    builder.append("MACAddress[address=").append(String.join(MACAddress.SEPARATOR, parts)).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 
@@ -428,7 +376,9 @@ public final class MACAddress implements Comparable<MACAddress>, IValueObject
   public int compareTo(final MACAddress obj)
    {
     Objects.requireNonNull(obj, "obj"); //$NON-NLS-1$
-    return Arrays.compare(parts, obj.parts);
+    String[] parts = MACAddress.IPV6_SEPARATOR_REGEXP.split(address.toLowerCase(Locale.getDefault()));
+    String[] objparts = MACAddress.IPV6_SEPARATOR_REGEXP.split(obj.address.toLowerCase(Locale.getDefault()));
+    return Arrays.compare(parts, objparts);
    }
 
  }

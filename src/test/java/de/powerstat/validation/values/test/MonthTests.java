@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.values.Month;
 import de.powerstat.validation.values.Months;
@@ -67,17 +66,17 @@ final class MonthTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(10, Month.of(TEN).intValue(), NOT_A_MONTH);
+    assertEquals(10, Month.of(TEN).month(), NOT_A_MONTH);
    }
 
 
   /**
-   * intValue.
+   * month.
    */
   @Test
   /* default */ void testIntValue()
    {
-    assertEquals(10, Month.of(10).intValue(), NOT_A_MONTH);
+    assertEquals(10, Month.of(10).month(), NOT_A_MONTH);
    }
 
 
@@ -100,7 +99,7 @@ final class MonthTests
   @ValueSource(ints = {1, 12})
   /* default */ void testIsMonth(final int month)
    {
-    assertEquals(month, Month.of(month).intValue(), NOT_A_MONTH);
+    assertEquals(month, Month.of(month).month(), NOT_A_MONTH);
    }
 
 
@@ -118,27 +117,6 @@ final class MonthTests
       /* final Month month = */ Month.of(month);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Month.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Month month = Month.of(1);
-    assertEquals("Month[month=1]", month.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -173,7 +151,7 @@ final class MonthTests
     final Month month = Month.of(11);
     final Months months = Months.of(1);
     final Month monthResult = month.add(months);
-    assertEquals(12, monthResult.intValue(), MonthTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(12, monthResult.month(), MonthTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -203,7 +181,7 @@ final class MonthTests
     final Month month = Month.of(2);
     final Months months = Months.of(1);
     final Month monthResult = month.subtract(months);
-    assertEquals(1, monthResult.intValue(), MonthTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, monthResult.month(), MonthTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -232,7 +210,7 @@ final class MonthTests
    {
     final Month month = Month.of(1);
     final Month monthResult = month.increment();
-    assertEquals(2, monthResult.intValue(), MonthTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, monthResult.month(), MonthTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -260,7 +238,7 @@ final class MonthTests
    {
     final Month month = Month.of(2);
     final Month monthResult = month.decrement();
-    assertEquals(1, monthResult.intValue(), MonthTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, monthResult.month(), MonthTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

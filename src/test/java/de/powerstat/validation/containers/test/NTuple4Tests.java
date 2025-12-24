@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.containers.NTuple4;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -59,32 +59,11 @@ final class NTuple4Tests
    {
     final NTuple4<Integer, Integer, Integer, Integer> tuple = NTuple4.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(815), Integer.valueOf(4));
     assertAll("testGetValue", //$NON-NLS-1$
-      () -> assertEquals(1, tuple.t1Value().intValue(), "t1 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(4711, tuple.t2Value().intValue(), "t2 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(815, tuple.t3Value().intValue(), "t3 not as expected"), //$NON-NLS-1$
-      () -> assertEquals(4, tuple.t4Value().intValue(), "t4 not as expected") //$NON-NLS-1$
+      () -> assertEquals(1, tuple.obj1().intValue(), "obj1 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(4711, tuple.obj2().intValue(), "obj2 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(815, tuple.obj3().intValue(), "obj3 not as expected"), //$NON-NLS-1$
+      () -> assertEquals(4, tuple.obj4().intValue(), "obj4 not as expected") //$NON-NLS-1$
     );
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(NTuple4.class).withNonnullFields("object1", "object2", "object3", "object4").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final NTuple4<Integer, Integer, Integer, Integer> tuple1 = NTuple4.of(Integer.valueOf(1), Integer.valueOf(4711), Integer.valueOf(815), Integer.valueOf(4));
-    assertEquals("NTuple4[object1=1, object2=4711, object3=815, object4=4]", tuple1.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

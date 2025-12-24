@@ -38,7 +38,7 @@ public final class IBANVerifierAbstractFactory
   @SuppressWarnings({"java:S1479", "PMD.CyclomaticComplexity"})
   public static IBANVerifier createIBANVerifier(final Country country)
    {
-    return switch (country.stringValue())
+    return switch (country.alpha2())
      {
       case "EG" -> IBANVerifier.of(27, "^EG[0-9]{2}[0-9]{23}$"); //$NON-NLS-1$ //$NON-NLS-2$
       case "AL" -> IBANVerifier.of(28, "^AL[0-9]{2}[0-9]{7}[0-9A-Z][0-9]{16}$"); //$NON-NLS-1$ //$NON-NLS-2$

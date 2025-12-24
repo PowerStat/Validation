@@ -6,7 +6,7 @@ rem $1 Path to downloaded file
 setlocal ENABLEDELAYEDEXPANSION
 pushd %~dp0
 echo /*
-echo  * Code generator Copyright (C) 2022 Dipl.-Inform. Kai Hofmann. All rights reserved!
+echo  * Code generator Copyright (C) 2022-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
 echo  */
 echo package de.powerstat.validation.generated;
 echo:
@@ -35,9 +35,9 @@ echo    {
 FOR /F "usebackq tokens=2 delims=," %%i IN (`findstr /R "^[A-Z][A-Z][A-Z],[0-9-]*," %1`) DO (
   set t=%%i
   if "!t!"=="!t: =!" (
-    echo     PHONEAREAS.put("%%i".toUpperCase(Locale.getDefault(^)^), ""^); //$NON-NLS-1$
+    echo     PHONEAREAS.put("%%i", ""^); //$NON-NLS-1$
   ) else (
-    echo     PHONEAREAS.put("%%i".toUpperCase(Locale.getDefault(^)^), ""^); //$NON-NLS-1$
+    echo     PHONEAREAS.put("%%i", ""^); //$NON-NLS-1$
   )
 )
 echo    }

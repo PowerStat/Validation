@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Weeks;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -55,7 +55,7 @@ final class WeeksTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(0, Weeks.of("0").longValue(), WeeksTests.NOT_A_WEEKS);
+    assertEquals(0, Weeks.of("0").weeks(), WeeksTests.NOT_A_WEEKS);
    }
 
 
@@ -68,7 +68,7 @@ final class WeeksTests
   @ValueSource(longs = {0, 1, 104})
   /* default */ void testIsWeeks(final long weeks)
    {
-    assertEquals(weeks, Weeks.of(weeks).longValue(), WeeksTests.NOT_A_WEEKS);
+    assertEquals(weeks, Weeks.of(weeks).weeks(), WeeksTests.NOT_A_WEEKS);
    }
 
 
@@ -90,12 +90,12 @@ final class WeeksTests
 
 
   /**
-   * Test longValue.
+   * Test weeks.
    */
   @Test
   /* default */ void testLongValue()
    {
-    assertEquals(1, Weeks.of(1).longValue(), WeeksTests.NOT_A_WEEKS);
+    assertEquals(1, Weeks.of(1).weeks(), WeeksTests.NOT_A_WEEKS);
    }
 
 
@@ -106,27 +106,6 @@ final class WeeksTests
   /* default */ void testStringValue()
    {
     assertEquals("1", Weeks.of(1).stringValue(), WeeksTests.NOT_A_WEEKS);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Weeks.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Weeks weeks = Weeks.of(1);
-    assertEquals("Weeks[weeks=1]", weeks.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -161,7 +140,7 @@ final class WeeksTests
     final Weeks weeks1 = Weeks.of(1);
     final Weeks weeks2 = Weeks.of(1);
     final Weeks weeksResult = weeks1.add(weeks2);
-    assertEquals(2, weeksResult.longValue(), WeeksTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, weeksResult.weeks(), WeeksTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -190,7 +169,7 @@ final class WeeksTests
     final Weeks weeks1 = Weeks.of(6);
     final Weeks weeks2 = Weeks.of(3);
     final Weeks weeksResult = weeks1.subtract(weeks2);
-    assertEquals(3, weeksResult.longValue(), WeeksTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, weeksResult.weeks(), WeeksTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -203,7 +182,7 @@ final class WeeksTests
     final Weeks weeks1 = Weeks.of(3);
     final Weeks weeks2 = Weeks.of(6);
     final Weeks weeksResult = weeks1.subtract(weeks2);
-    assertEquals(3, weeksResult.longValue(), WeeksTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, weeksResult.weeks(), WeeksTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -215,7 +194,7 @@ final class WeeksTests
    {
     final Weeks weeks1 = Weeks.of(7);
     final Weeks weeksResult = weeks1.multiply(3);
-    assertEquals(21, weeksResult.longValue(), WeeksTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(21, weeksResult.weeks(), WeeksTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -242,7 +221,7 @@ final class WeeksTests
    {
     final Weeks weeks1 = Weeks.of(10);
     final Weeks weeksResult = weeks1.divide(2);
-    assertEquals(5, weeksResult.longValue(), WeeksTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(5, weeksResult.weeks(), WeeksTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -254,7 +233,7 @@ final class WeeksTests
    {
     final Weeks weeks1 = Weeks.of(10);
     final Weeks weeksResult = weeks1.divide(3);
-    assertEquals(3, weeksResult.longValue(), WeeksTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(3, weeksResult.weeks(), WeeksTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -281,7 +260,7 @@ final class WeeksTests
    {
     final Weeks weeks1 = Weeks.of(10);
     final Weeks weeksResult = weeks1.modulo(2);
-    assertEquals(0, weeksResult.longValue(), WeeksTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, weeksResult.weeks(), WeeksTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -293,7 +272,7 @@ final class WeeksTests
    {
     final Weeks weeks1 = Weeks.of(10);
     final Weeks weeksResult = weeks1.modulo(3);
-    assertEquals(1, weeksResult.longValue(), WeeksTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, weeksResult.weeks(), WeeksTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

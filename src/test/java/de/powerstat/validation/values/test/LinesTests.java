@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Lines;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -64,7 +64,7 @@ final class LinesTests
   /* default */ void testLinesCorrect(final String lines)
    {
     final Lines cleanLines = Lines.of(lines);
-    assertEquals(lines, cleanLines.stringValue(), LinesTests.LINES_NOT_AS_EXPECTED);
+    assertEquals(lines, cleanLines.lines(), LinesTests.LINES_NOT_AS_EXPECTED);
    }
 
 
@@ -110,27 +110,6 @@ final class LinesTests
    {
     final Lines lines = Lines.of(LinesTests.EXAMPLE1);
     assertEquals(LinesTests.EXAMPLE1, lines.stringValue(), LinesTests.LINES_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Lines.class).withNonnullFields("lines").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Lines lines = Lines.of(LinesTests.EXAMPLE1);
-    assertEquals("Lines[lines=Example1]", lines.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

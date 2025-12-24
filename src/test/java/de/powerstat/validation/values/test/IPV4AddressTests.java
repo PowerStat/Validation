@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.IPV4Address;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -216,27 +216,6 @@ final class IPV4AddressTests
    {
     final IPV4Address address = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
     assertEquals(IPV4AddressTests.PRIVATE_IP_192_168_1_1, address.stringValue(), IPV4AddressTests.ADDRESS_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(IPV4Address.class).withNonnullFields("address").withIgnoredFields("parts").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final IPV4Address address = IPV4Address.of(IPV4AddressTests.PRIVATE_IP_192_168_1_1);
-    assertEquals("IPV4Address[address=192.168.1.1]", address.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

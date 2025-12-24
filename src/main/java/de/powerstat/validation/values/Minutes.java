@@ -7,7 +7,6 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -16,10 +15,12 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Minutes.
  *
+ * @param minutes Minutes 0-..
+ *
  * Not DSGVO relevant.
  */
 @ValueObject
-public final class Minutes implements Comparable<Minutes>, IValueObject
+public record Minutes(long minutes) implements Comparable<Minutes>, IValueObject
  {
   /**
    * Minimum allowed value 0.
@@ -31,31 +32,18 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
    */
   public static final long MAX_VALUE = Long.MAX_VALUE;
 
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<Long, Minutes> CACHE = new WeakHashMap<>();
-
-  /**
-   * Minutes.
-   */
-  private final long minutes;
-
-
   /**
    * Constructor.
    *
    * @param minutes Minutes 0-..
    * @throws IndexOutOfBoundsException When the minutes is less than 0
    */
-  private Minutes(final long minutes)
+  public Minutes
    {
-    super();
     if (minutes < 0)
      {
       throw new IndexOutOfBoundsException("Negative minutes are not allowed"); //$NON-NLS-1$
      }
-    this.minutes = minutes;
    }
 
 
@@ -67,19 +55,6 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
    */
   public static Minutes of(final long minutes)
    {
-    /*
-    synchronized (Minutes.class)
-     {
-      Minutes obj = Minutes.CACHE.get(minutes);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Minutes(minutes);
-      Minutes.CACHE.put(Long.valueOf(minutes), obj);
-      return obj;
-     }
-    */
     return new Minutes(minutes);
    }
 
@@ -97,17 +72,6 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
 
 
   /**
-   * Returns the value of this Minutes as a long.
-   *
-   * @return The numeric value represented by this object after conversion to type long.
-   */
-  public long longValue()
-   {
-    return minutes;
-   }
-
-
-  /**
    * Returns the value of this Minutes as a String.
    *
    * @return The numeric value represented by this object after conversion to type String.
@@ -116,61 +80,6 @@ public final class Minutes implements Comparable<Minutes>, IValueObject
   public String stringValue()
    {
     return String.valueOf(minutes);
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Long.hashCode(minutes);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Minutes other))
-     {
-      return false;
-     }
-    return (minutes == other.minutes);
-   }
-
-
-  /**
-   * Returns the string representation of this Minutes.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Minutes[minutes=1]"
-   *
-   * @return String representation of this Minutes
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(17);
-    builder.append("Minutes[minutes=").append(minutes).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

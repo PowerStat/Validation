@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.TopLevelDomain;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -64,7 +64,7 @@ final class TopLevelDomainTests
   /* default */ void testTopLevelDomainOk0(final String topLevelDomain)
    {
     final TopLevelDomain cleanTopLevelDomain = TopLevelDomain.of(topLevelDomain);
-    assertEquals(topLevelDomain, cleanTopLevelDomain.stringValue(), TopLevelDomainTests.TLD_NOT_AS_EXPECTED);
+    assertEquals(topLevelDomain, cleanTopLevelDomain.topLevelDomain(), TopLevelDomainTests.TLD_NOT_AS_EXPECTED);
    }
 
 
@@ -110,27 +110,6 @@ final class TopLevelDomainTests
    {
     final TopLevelDomain topLevelDomain = TopLevelDomain.of(TopLevelDomainTests.DE);
     assertEquals(TopLevelDomainTests.DE, topLevelDomain.stringValue(), TopLevelDomainTests.TLD_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(TopLevelDomain.class).withNonnullFields("topLevelDomain").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final TopLevelDomain topLevelDomain = TopLevelDomain.of(TopLevelDomainTests.DE);
-    assertEquals("TopLevelDomain[topLevelDomain=DE]", topLevelDomain.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

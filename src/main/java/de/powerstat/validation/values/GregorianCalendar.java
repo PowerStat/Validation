@@ -18,18 +18,15 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Gregorian calendar.
  *
+ * @param country Country of gregorian calendar reform
+ *
  * Not DSGVO relevant.
  *
  * TODO More country reform dates
  */
 @ValueObject
-public final class GregorianCalendar implements Comparable<GregorianCalendar>, IValueObject
+public record GregorianCalendar(Country country) implements Comparable<GregorianCalendar>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<Country, GregorianCalendar> CACHE = new WeakHashMap<>();
-
   /**
    * Country code italian.
    */
@@ -74,11 +71,6 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
    * Year.
    */
   private static final String YEAR = "year"; //$NON-NLS-1$
-
-  /**
-   * Country of gregorian calendar reform.
-   */
-  private final Country country;
 
 
   /* *
@@ -189,11 +181,9 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
    *
    * @param country Country of gregorian calendar reform
    */
-  private GregorianCalendar(final Country country)
+  public GregorianCalendar
    {
-    super();
     Objects.requireNonNull(country, "country"); //$NON-NLS-1$
-    this.country = country;
    }
 
 
@@ -233,17 +223,6 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
 
 
   /**
-   * Get country.
-   *
-   * @return Country
-   */
-  public Country getCountry()
-   {
-    return country;
-   }
-
-
-  /**
    * Returns the value of this GregorianCalendar as a string.
    *
    * @return The text value represented by this object after conversion to type string.
@@ -252,61 +231,6 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
   public String stringValue()
    {
     return country.stringValue();
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Objects.hash(country);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final GregorianCalendar other))
-     {
-      return false;
-     }
-    return country.equals(other.country);
-   }
-
-
-  /**
-   * Returns the string representation of this GregorianCalendar.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "GregorianCalendar[]"
-   *
-   * @return String representation of this GregorianCalendar
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(27);
-    builder.append("GregorianCalendar[country=").append(country.stringValue()).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 
@@ -362,9 +286,9 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
     final Map<String, Map<String, Long>> reformDate = getReformDate(country);
     final String beforeAfter = reformDate.get(GregorianCalendar.BEFORE).get(GregorianCalendar.DAYS) == null ? GregorianCalendar.AFTER : GregorianCalendar.BEFORE;
     final long reformYear = reformDate.get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
-    if (year.longValue() > reformYear) // NO PITEST
+    if (year.year() > reformYear) // NO PITEST
      {
-      return ((year.longValue() % 4) == 0) && (((year.longValue() % 100) != 0) || ((year.longValue() % 400) == 0));
+      return ((year.year() % 4) == 0) && (((year.year() % 100) != 0) || ((year.year() % 400) == 0));
      }
     return JulianCalendar.of().isLeapYear(year);
    }
@@ -386,11 +310,11 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
     final long reformYear = getReformDate(country).get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
     final int reformMonth = getReformDate(country).get(beforeAfter).get(GregorianCalendar.MONTH).intValue();
     final int restDaysInMonth = getReformDate(country).get(beforeAfter).get(GregorianCalendar.DAYS).intValue();
-    if ((year.longValue() == reformYear) && (month.intValue() == reformMonth)) // Depend on country
+    if ((year.year() == reformYear) && (month.month() == reformMonth)) // Depend on country
      {
       return Days.of(restDaysInMonth);
      }
-    return Days.of((long)GregorianCalendar.DAYS_IN_MONTH[month.intValue()] + (((month.intValue() == 2) && isLeapYear(year)) ? 1 : 0)); // Calendar system difference already handled in isLeapYear()
+    return Days.of(GregorianCalendar.DAYS_IN_MONTH[month.month()] + (((month.month() == 2) && isLeapYear(year)) ? 1 : 0)); // Calendar system difference already handled in isLeapYear()
    }
 
 
@@ -406,7 +330,7 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
     long days = 0;
     for (int day = 1; day <= 12; ++day)
      {
-      days += daysInMonth(year, Month.of(day)).longValue();
+      days += daysInMonth(year, Month.of(day)).days();
      }
     return Days.of(days);
    }
@@ -425,13 +349,13 @@ public final class GregorianCalendar implements Comparable<GregorianCalendar>, I
 
     final String beforeAfter = getReformDate(country).get(GregorianCalendar.BEFORE).get(GregorianCalendar.DAYS) == null ? GregorianCalendar.AFTER : GregorianCalendar.BEFORE;
     final long reformYear = getReformDate(country).get(beforeAfter).get(GregorianCalendar.YEAR).longValue();
-    if (year.longValue() <= reformYear)
+    if (year.year() <= reformYear)
      {
       return JulianCalendar.of().easterInYear(year);
      }
-    final int a = (int)(year.longValue() % 19);
-    final int b = (int)(year.longValue() / 100);
-    final int c = (int)(year.longValue() % 100);
+    final int a = (int)(year.year() % 19);
+    final int b = (int)(year.year() / 100);
+    final int c = (int)(year.year() % 100);
     final int d = ((((19 * a) + b) - (b / 4) - (((b - ((b + 8) / 25)) + 1) / 3)) + 15) % 30;
     final int e = ((32 + (2 * (b % 4)) + (2 * (c / 4))) - d - (c % 4)) % 7;
     final long f = ((d + e) - (7 * ((a + (11 * d) + (22 * e)) / 451))) + 114L;

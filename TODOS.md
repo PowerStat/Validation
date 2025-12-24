@@ -24,12 +24,20 @@ https://de.wikipedia.org/wiki/European_Article_Number
 
 
 
-Telefonnummer/Fax
-  Internationale Vorwahlen: https://de.wikipedia.org/wiki/L%C3%A4ndervorwahlliste_sortiert_nach_Nummern
-  Ortsvorwahl(de) https://de.wikipedia.org/wiki/Telefonvorwahl_(Deutschland)
-  Rufnummer https://de.wikipedia.org/wiki/Rufnummer
-Familienstand: Verheiratet, Verpartnert, geschieden, verwitwert, ledig
-  https://de.wikipedia.org/wiki/Familienstand
+- Job Title
+
+Wohnungsnummer
+  https://de.wikipedia.org/wiki/Wohnungsnummer
+
+Firmenname/arten
+  https://de.wikipedia.org/wiki/Firma
+  Organisation
+- [ ] Organisations / Companies, types of (legal forms)
+
+Bundesländer (de)
+  https://de.wikipedia.org/wiki/Land_(Deutschland)
+Europäische Union
+  https://de.wikipedia.org/wiki/Europ%C3%A4ische_Union
 Staatsangehörigkeit(en)? = Country?
   https://de.wikipedia.org/wiki/Staatsb%C3%BCrgerschaft
 Krankenkasse: Name, Verischertennr
@@ -47,13 +55,9 @@ Steueridentifikationsnummer
   https://de.wikipedia.org/wiki/Steuerliche_Identifikationsnummer
 Steuernummer
   https://de.wikipedia.org/wiki/Steuernummer
-Bundesländer (de)
-  https://de.wikipedia.org/wiki/Land_(Deutschland)
-Europäische Union
-  https://de.wikipedia.org/wiki/Europ%C3%A4ische_Union
 Umsatzsteueridentifikationsnr
   https://de.wikipedia.org/wiki/Umsatzsteuer-Identifikationsnummer
-Aktezeichen
+Aktenzeichen
   https://de.wikipedia.org/wiki/Aktenzeichen_(Deutschland)
 Flurstückskennzeichen (Gemarkung / Flur / Flurstück)
   https://de.wikipedia.org/wiki/Gemarkung
@@ -62,14 +66,12 @@ Flurstückskennzeichen (Gemarkung / Flur / Flurstück)
 Grundbuch: Grundbuchbezirk, Blatt, Laufendrnr
   https://de.wikipedia.org/wiki/Kataster
   https://de.wikipedia.org/wiki/Katasterbezirk
-Firmenname/arten
-  https://de.wikipedia.org/wiki/Firma
-Wohnungsnummer
-  https://de.wikipedia.org/wiki/Wohnungsnummer
 Kundennummer
 Vertragsnummer
-Foto(s)
 Unterschrift
+Foto(s)/Bilder (Logos)
+Sound (mp3)
+
 
 # TODOS
 
@@ -90,10 +92,22 @@ VCARD:
 - URL: IMPP, Sound, Photo, Logo, Phone, Web
 - Phone
 - Time zone
-- UUID
 
 
 https://datahub.io/collections/reference-data#currency-codes
+  core/world-cities
+  core/airport-codes
+  core/continent-codes
+  core/smdg-master-terminal-facilities-list
+  core/imo-imdg-codes
+  core/geoip2-ipv4
+  core/cofog
+  core/unece-package-codes
+  core/unece-units-of-measure
+  core/un-locode
+  core/media-types
+  core/iso-container-codes
+  core/ICC-Incoterms
 
 - [ ] SSID
      1. Dürfen nicht mit einem Leerzeichen beginnen und/oder enden
@@ -102,11 +116,8 @@ https://datahub.io/collections/reference-data#currency-codes
      4. Erlaubte Zeichen sind: 
    Leerzeichen, a-z A-Z 0-9 ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~
 
-- [ ] PhoneNumber Area Codes   https://datahub.io/core/country-codes/r/country-codes.csv
-      https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers
 - [ ] PostCodes https://de.wikipedia.org/wiki/Liste_der_Postleitsysteme
 - [ ] Salutations   Frau, Herrn, Frau und Herrn, Firma, "empty", Berufsbezeichnung, Akademischer Titel   Language dependend
-- [ ] Organisations / Companies, types of (legal forms)
 
 - [ ] NationalityPlates
       https://en.wikipedia.org/wiki/International_vehicle_registration_code
@@ -120,8 +131,8 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] UN-Nummern
 
 - [ ] Colors
-- [ ] FileType
-- [ ] ImageType
+- [ ] FileType    MimeTypes
+- [ ] ImageType   MimeTypes
 
 - [ ] ISBN-10
       https://de.wikipedia.org/wiki/Internationale_Standardbuchnummer
@@ -184,7 +195,6 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] Knowledges
 - [ ] Interests
 - [ ] Things: Items, Products
-- [ ] Lifeforms: Persons, Animals, Plant, Virus, Bacterium
 - [ ] Roles
 - [ ] Functions
 - [ ] Requirements
@@ -279,4 +289,4 @@ https://datahub.io/collections/reference-data#currency-codes
 
 - https://datahub.io/collections/reference-data
 
-- 
+

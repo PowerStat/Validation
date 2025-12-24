@@ -7,7 +7,6 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -16,13 +15,15 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Week.
  *
+ * @param week Week 1-53
+ *
  * Not DSGVO relevant.
  *
  * TODO Constructor with year
  * TODO Listener
  */
 @ValueObject
-public final class Week implements Comparable<Week>, IValueObject
+public record Week(int week) implements Comparable<Week>, IValueObject
  {
   /**
    * Minimum allowed value 1.
@@ -49,16 +50,6 @@ public final class Week implements Comparable<Week>, IValueObject
    */
   private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
 
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<Integer, Week> CACHE = new WeakHashMap<>();
-
-  /**
-   * Week.
-   */
-  private final int week;
-
 
   /**
    * Constructor.
@@ -66,14 +57,12 @@ public final class Week implements Comparable<Week>, IValueObject
    * @param week Week 1-53
    * @throws IndexOutOfBoundsException When the week is less than 1 or greater than 53
    */
-  private Week(final int week)
+  public Week
    {
-    super();
     if ((week < 1) || (week > 53))
      {
       throw new IndexOutOfBoundsException("Week number out of range (1-53)!"); //$NON-NLS-1$
      }
-    this.week = week;
    }
 
 
@@ -85,19 +74,6 @@ public final class Week implements Comparable<Week>, IValueObject
    */
   public static Week of(final int week)
    {
-    /*
-    synchronized (Week.class)
-     {
-      Week obj = Week.CACHE.get(week);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Week(week);
-      Week.CACHE.put(Integer.valueOf(week), obj);
-      return obj;
-     }
-    */
     return new Week(week);
    }
 
@@ -115,17 +91,6 @@ public final class Week implements Comparable<Week>, IValueObject
 
 
   /**
-   * Returns the value of this Week as an int.
-   *
-   * @return The numeric value represented by this object after conversion to type int.
-   */
-  public int intValue()
-   {
-    return week;
-   }
-
-
-  /**
    * Returns the value of this Week as an String.
    *
    * @return The numeric value represented by this object after conversion to type String.
@@ -134,61 +99,6 @@ public final class Week implements Comparable<Week>, IValueObject
   public String stringValue()
    {
     return String.valueOf(week);
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Integer.hashCode(week);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Week other))
-     {
-      return false;
-     }
-    return (week == other.week);
-   }
-
-
-  /**
-   * Returns the string representation of this Week.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Week[week=1]"
-   *
-   * @return String representation of this Week
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder();
-    builder.append("Week[week=").append(week).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 
@@ -217,7 +127,7 @@ public final class Week implements Comparable<Week>, IValueObject
   @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Week add(final Weeks weeks)
    {
-    final int newWeek = Math.toIntExact(Math.addExact(week, weeks.longValue()));
+    final int newWeek = Math.toIntExact(Math.addExact(week, weeks.weeks()));
     if (newWeek > 53) // TODO 52 depends on year
      {
       // TODO Listener
@@ -236,7 +146,7 @@ public final class Week implements Comparable<Week>, IValueObject
    */
   public Week subtract(final Weeks weeks)
    {
-    final int newWeek = Math.toIntExact(Math.subtractExact(week, weeks.longValue()));
+    final int newWeek = Math.toIntExact(Math.subtractExact(week, weeks.weeks()));
     if (newWeek <= 0)
      {
       // TODO Listener

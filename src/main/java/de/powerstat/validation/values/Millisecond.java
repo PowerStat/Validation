@@ -7,7 +7,6 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -16,12 +15,14 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Millisecond.
  *
+ * @param millisecond Millisecond 0-999
+ *
  * Not DSGVO relevant.
  *
  * TODO Listener
  */
 @ValueObject
-public final class Millisecond implements Comparable<Millisecond>, IValueObject
+public record Millisecond(int millisecond) implements Comparable<Millisecond>, IValueObject
  {
   /**
    * Minimum allowed value 0.
@@ -33,11 +34,6 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
    */
   public static final int MAX_VALUE = 999;
 
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<Integer, Millisecond> CACHE = new WeakHashMap<>();
-
   /**
    * Overflow constant.
    */
@@ -48,11 +44,6 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
    */
   private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
 
-  /**
-   * Milliseond.
-   */
-  private final int millisecond;
-
 
   /**
    * Constructor.
@@ -60,14 +51,12 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
    * @param millisecond Millisecond 0-999
    * @throws IndexOutOfBoundsException When the milliseond is less than 0 or greater than 999
    */
-  private Millisecond(final int millisecond)
+  public Millisecond
    {
-    super();
     if ((millisecond < 0) || (millisecond > 999))
      {
       throw new IndexOutOfBoundsException("Millisecond out of range (0-999)!"); //$NON-NLS-1$
      }
-    this.millisecond = millisecond;
    }
 
 
@@ -79,19 +68,6 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
    */
   public static Millisecond of(final int millisecond)
    {
-    /*
-    synchronized (Millisecond.class)
-     {
-      Millisecond obj = Millisecond.CACHE.get(millisecond);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Millisecond(millisecond);
-      Millisecond.CACHE.put(Integer.valueOf(millisecond), obj);
-      return obj;
-     }
-    */
     return new Millisecond(millisecond);
    }
 
@@ -109,17 +85,6 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
 
 
   /**
-   * Returns the value of this Millisecond as an int.
-   *
-   * @return The numeric value represented by this object after conversion to type int (0-999).
-   */
-  public int intValue()
-   {
-    return millisecond;
-   }
-
-
-  /**
    * Returns the value of this Millisecond as an String.
    *
    * @return The numeric value represented by this object after conversion to type String (0-999).
@@ -128,61 +93,6 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
   public String stringValue()
    {
     return String.valueOf(millisecond);
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Integer.hashCode(millisecond);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Millisecond other))
-     {
-      return false;
-     }
-    return (millisecond == other.millisecond);
-   }
-
-
-  /**
-   * Returns the string representation of this Millisecond.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Millisecond[millisecond=0]"
-   *
-   * @return String representation of this Millisecond
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(25);
-    builder.append("Millisecond[millisecond=").append(millisecond).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 
@@ -211,7 +121,7 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
   @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
   public Millisecond add(final Milliseconds milliseconds)
    {
-    final int newMillisecond = Math.toIntExact(Math.addExact(millisecond, milliseconds.longValue()));
+    final int newMillisecond = Math.toIntExact(Math.addExact(millisecond, milliseconds.milliseconds()));
     if (newMillisecond > 999)
      {
       // TODO Listener
@@ -230,7 +140,7 @@ public final class Millisecond implements Comparable<Millisecond>, IValueObject
    */
   public Millisecond subtract(final Milliseconds milliseconds)
    {
-    final int newMillisecond = Math.toIntExact(Math.subtractExact(millisecond, milliseconds.longValue()));
+    final int newMillisecond = Math.toIntExact(Math.subtractExact(millisecond, milliseconds.milliseconds()));
     if (newMillisecond < 0)
      {
       // TODO Listener

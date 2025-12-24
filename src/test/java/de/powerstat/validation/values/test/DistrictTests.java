@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.District;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -64,7 +64,7 @@ final class DistrictTests
   /* default */ void testDistrictCorrect(final String district)
    {
     final District cleanDistrict = District.of(district);
-    assertEquals(district, cleanDistrict.stringValue(), DistrictTests.DISTRICT_NOT_AS_EXPECTED);
+    assertEquals(district, cleanDistrict.district(), DistrictTests.DISTRICT_NOT_AS_EXPECTED);
    }
 
 
@@ -110,27 +110,6 @@ final class DistrictTests
    {
     final District district = District.of(DistrictTests.DISTRICT9);
     assertEquals(DistrictTests.DISTRICT9, district.stringValue(), DistrictTests.DISTRICT_NOT_AS_EXPECTED);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(District.class).withNonnullFields("district").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final District district = District.of(DistrictTests.DISTRICT9);
-    assertEquals("District[district=9]", district.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

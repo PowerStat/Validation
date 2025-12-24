@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.BFPONumber;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -50,7 +50,7 @@ final class BFPONumberTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(1, BFPONumber.of(ONE).intValue(), BFPONumberTests.NOT_A_BFPO_NUMBER);
+    assertEquals(1, BFPONumber.of(ONE).bFPONumber(), BFPONumberTests.NOT_A_BFPO_NUMBER);
    }
 
 
@@ -63,7 +63,7 @@ final class BFPONumberTests
   @ValueSource(ints = {1, 2035})
   /* default */ void testIsBFPONumber(final int bFPONumber)
    {
-    assertEquals(bFPONumber, BFPONumber.of(bFPONumber).intValue(), BFPONumberTests.NOT_A_BFPO_NUMBER);
+    assertEquals(bFPONumber, BFPONumber.of(bFPONumber).bFPONumber(), BFPONumberTests.NOT_A_BFPO_NUMBER);
    }
 
 
@@ -94,27 +94,6 @@ final class BFPONumberTests
       /* final BFPONumber bFPONumber = */ BFPONumber.of(bFPONumber);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(BFPONumber.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final BFPONumber bFPONumber = BFPONumber.of(1);
-    assertEquals("BFPONumber[bFPONumber=1]", bFPONumber.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

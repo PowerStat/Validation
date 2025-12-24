@@ -18,7 +18,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.MACAddress;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -347,27 +347,6 @@ final class MACAddressTests
    {
     final MACAddress address = MACAddress.of("00:07:e9:00:00:00"); //$NON-NLS-1$
     address.sendLocalWakeOnLan(); // TODO assert
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(MACAddress.class).withIgnoredFields("ipv4address", "ipv6address", "magicPackage").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final MACAddress address = MACAddress.of(MACAddressTests.MAC_00_00_00_00_00_00);
-    assertEquals("MACAddress[address=00:00:00:00:00:00]", address.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

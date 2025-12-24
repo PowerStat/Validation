@@ -7,7 +7,6 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -16,36 +15,25 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Address BFPONumber.
  *
+ * @param bFPONumber BFPONumber bFPONumber
+ *
  * Not DSGVO relevant.
  */
 @ValueObject
-public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
+public record BFPONumber(int bFPONumber) implements Comparable<BFPONumber>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<Integer, BFPONumber> CACHE = new WeakHashMap<>();
-
-  /**
-   * BFPONumber.
-   */
-  private final int bFPONumber;
-
-
   /**
    * Constructor.
    *
-   * @param bFPONumber BFPONumber
+   * @param bFPONumber BFPONumber bFPONumber
    * @throws IndexOutOfBoundsException When the bFPONumber is out of bounds
    */
-  private BFPONumber(final int bFPONumber)
+  public BFPONumber
    {
-    super();
     if ((bFPONumber < 1) || (bFPONumber > 2035))
      {
       throw new IndexOutOfBoundsException("BFPONumber illegal value!!"); //$NON-NLS-1$
      }
-    this.bFPONumber = bFPONumber;
    }
 
 
@@ -57,19 +45,6 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
    */
   public static BFPONumber of(final int bFPONumber)
    {
-    /*
-    synchronized (BFPONumber.class)
-     {
-      BFPONumber obj = BFPONumber.CACHE.get(bFPONumber);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new BFPONumber(bFPONumber);
-      BFPONumber.CACHE.put(Integer.valueOf(bFPONumber), obj);
-      return obj;
-     }
-    */
     return new BFPONumber(bFPONumber);
    }
 
@@ -87,17 +62,6 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
 
 
   /**
-   * Returns the value of this BFPONumber as an int.
-   *
-   * @return The numeric value represented by this object after conversion to type int.
-   */
-  public int intValue()
-   {
-    return bFPONumber;
-   }
-
-
-  /**
    * Returns the value of this BFPONumber as a string.
    *
    * @return The text value represented by this object after conversion to type string.
@@ -106,60 +70,6 @@ public final class BFPONumber implements Comparable<BFPONumber>, IValueObject
   public String stringValue()
    {
     return Integer.toString(bFPONumber);
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Integer.hashCode(bFPONumber);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final BFPONumber other))
-     {
-      return false;
-     }
-    return bFPONumber == other.bFPONumber;
-   }
-
-
-  /**
-   * Returns the string representation of this BFPONumber.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "BFPONumber[bFPONumber=2]"
-   *
-   * @return String representation of this BFPONumber
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(23);
-    builder.append("BFPONumber[bFPONumber=").append(bFPONumber).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

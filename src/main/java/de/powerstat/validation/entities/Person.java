@@ -305,7 +305,7 @@ public final class Person implements Comparable<Person>, IEntity
    {
     try
      {
-      return firstnames.getLatestEntry().stream().map(Firstname::stringValue).collect(Collectors.joining(" ")); //$NON-NLS-1$
+      return firstnames.getLatestEntry().stream().map(Firstname::firstname).collect(Collectors.joining(" ")); //$NON-NLS-1$
      }
     catch (final NoSuchElementException e)
      {

@@ -8,7 +8,6 @@ package de.powerstat.validation.values;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -17,25 +16,17 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Address Province.
  *
+ * @param province Province name
+ *
  * Not DSGVO relevant.
  */
 @ValueObject
-public final class Province implements Comparable<Province>, IValueObject
+public record Province(String province) implements Comparable<Province>, IValueObject
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<String, Province> CACHE = new WeakHashMap<>();
-
   /**
    * Province regexp.
    */
   private static final Pattern PROVINCE_REGEXP = Pattern.compile("^[\\p{L}][\\p{L} -]*$"); //$NON-NLS-1$
-
-  /**
-   * Province.
-   */
-  private final String province;
 
 
   /**
@@ -45,9 +36,8 @@ public final class Province implements Comparable<Province>, IValueObject
    * @throws NullPointerException if province is null
    * @throws IllegalArgumentException if province is not a correct province name
    */
-  private Province(final String province)
+  public Province
    {
-    super();
     Objects.requireNonNull(province, "province"); //$NON-NLS-1$
     if (province.isEmpty() || (province.length() > 18))
      {
@@ -57,7 +47,6 @@ public final class Province implements Comparable<Province>, IValueObject
      {
       throw new IllegalArgumentException("Province with wrong format"); //$NON-NLS-1$
      }
-    this.province = province;
    }
 
 
@@ -69,19 +58,6 @@ public final class Province implements Comparable<Province>, IValueObject
    */
   public static Province of(final String province)
    {
-    /*
-    synchronized (Province.class)
-     {
-      Province obj = Province.CACHE.get(province);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Province(province);
-      Province.CACHE.put(province, obj);
-      return obj;
-     }
-    */
     return new Province(province);
    }
 
@@ -95,60 +71,6 @@ public final class Province implements Comparable<Province>, IValueObject
   public String stringValue()
    {
     return province;
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return province.hashCode();
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Province other))
-     {
-      return false;
-     }
-    return province.equals(other.province);
-   }
-
-
-  /**
-   * Returns the string representation of this Province.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Province[province=]"
-   *
-   * @return String representation of this Province
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(19);
-    builder.append("Province[province=").append(province).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

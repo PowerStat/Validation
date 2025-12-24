@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.values.Millisecond;
 import de.powerstat.validation.values.Milliseconds;
@@ -62,7 +61,7 @@ final class MillisecondTests
   @Test
   /* default */ void testFatory1()
    {
-    assertEquals(0, Millisecond.of("0").intValue(), MillisecondTests.NOT_MILLISECOND);
+    assertEquals(0, Millisecond.of("0").millisecond(), MillisecondTests.NOT_MILLISECOND);
    }
 
 
@@ -75,7 +74,7 @@ final class MillisecondTests
   @ValueSource(ints = {0, 999})
   /* default */ void testIsMilliseconds(final int millisecond)
    {
-    assertEquals(millisecond, Millisecond.of(millisecond).intValue(), MillisecondTests.NOT_MILLISECOND);
+    assertEquals(millisecond, Millisecond.of(millisecond).millisecond(), MillisecondTests.NOT_MILLISECOND);
    }
 
 
@@ -102,7 +101,7 @@ final class MillisecondTests
   @Test
   /* default */ void testIntValue()
    {
-    assertEquals(10, Millisecond.of(10).intValue(), MillisecondTests.NOT_MILLISECOND);
+    assertEquals(10, Millisecond.of(10).millisecond(), MillisecondTests.NOT_MILLISECOND);
    }
 
 
@@ -113,27 +112,6 @@ final class MillisecondTests
   /* default */ void testStringValue()
    {
     assertEquals("10", Millisecond.of(10).stringValue(), MillisecondTests.NOT_MILLISECOND);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Millisecond.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Millisecond millisecond = Millisecond.of(0);
-    assertEquals("Millisecond[millisecond=0]", millisecond.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -168,7 +146,7 @@ final class MillisecondTests
     final Millisecond millisecond = Millisecond.of(998);
     final Milliseconds milliseconds = Milliseconds.of(1);
     final Millisecond millisecondResult = millisecond.add(milliseconds);
-    assertEquals(999, millisecondResult.intValue(), MillisecondTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(999, millisecondResult.millisecond(), MillisecondTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -198,7 +176,7 @@ final class MillisecondTests
     final Millisecond millisecond = Millisecond.of(1);
     final Milliseconds milliseconds = Milliseconds.of(1);
     final Millisecond millisecondResult = millisecond.subtract(milliseconds);
-    assertEquals(0, millisecondResult.intValue(), MillisecondTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, millisecondResult.millisecond(), MillisecondTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -227,7 +205,7 @@ final class MillisecondTests
    {
     final Millisecond millisecond = Millisecond.of(0);
     final Millisecond millisecondResult = millisecond.increment();
-    assertEquals(1, millisecondResult.intValue(), MillisecondTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, millisecondResult.millisecond(), MillisecondTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -255,7 +233,7 @@ final class MillisecondTests
    {
     final Millisecond millisecond = Millisecond.of(2);
     final Millisecond millisecondResult = millisecond.decrement();
-    assertEquals(1, millisecondResult.intValue(), MillisecondTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, millisecondResult.millisecond(), MillisecondTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

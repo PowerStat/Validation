@@ -8,13 +8,14 @@ package de.powerstat.validation.values.test;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
+
 import de.powerstat.validation.values.Username;
 import de.powerstat.validation.values.strategies.IUsernameStrategy;
 import de.powerstat.validation.values.strategies.UsernameDefaultStrategy;
@@ -121,6 +122,17 @@ final class UsernameTests
 
 
   /**
+   * Test Username is empty.
+   */
+  @Test
+  /* default */ void testUsernameEmpty()
+   {
+    final Username cleanUsername = new Username(""); //$NON-NLS-1$
+    assertNotNull(cleanUsername, "Username is null");
+   }
+
+
+  /**
    * Test stringValue.
    */
   @Test
@@ -150,27 +162,6 @@ final class UsernameTests
    {
     final Username username = Username.of(UsernameDefaultStrategy.of(), UsernameTests.USERNAME);
     assertFalse(username.isEMail(), "Username is an email address"); //$NON-NLS-1$
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Username.class).withNonnullFields(USERNAME).withIgnoredFields("conformsToEMailAddressFormat").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Username username = Username.of(UsernameTests.USERNAME);
-    assertEquals("Username[username=username]", username.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 

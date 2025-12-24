@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.values.Hour;
 import de.powerstat.validation.values.Hours;
@@ -62,7 +61,7 @@ final class HourTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(0, Hour.of("0").intValue(), HourTests.NOT_A_HOUR);
+    assertEquals(0, Hour.of("0").hour(), HourTests.NOT_A_HOUR);
    }
 
 
@@ -75,7 +74,7 @@ final class HourTests
   @ValueSource(ints = {0, 23})
   /* default */ void testIsHour(final int hour)
    {
-    assertEquals(hour, Hour.of(hour).intValue(), HourTests.NOT_A_HOUR);
+    assertEquals(hour, Hour.of(hour).hour(), HourTests.NOT_A_HOUR);
    }
 
 
@@ -97,43 +96,12 @@ final class HourTests
 
 
   /**
-   * intValue.
-   */
-  @Test
-  /* default */ void testIntValue()
-   {
-    assertEquals(10, Hour.of(10).intValue(), HourTests.NOT_A_HOUR);
-   }
-
-
-  /**
    * stringValue.
    */
   @Test
   /* default */ void testStringValue()
    {
     assertEquals("10", Hour.of(10).stringValue(), HourTests.NOT_A_HOUR);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Hour.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Hour hour = Hour.of(1);
-    assertEquals("Hour[hour=1]", hour.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -168,7 +136,7 @@ final class HourTests
     final Hour hour = Hour.of(22);
     final Hours hours = Hours.of(1);
     final Hour hourResult = hour.add(hours);
-    assertEquals(23, hourResult.intValue(), HourTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(23, hourResult.hour(), HourTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -198,7 +166,7 @@ final class HourTests
     final Hour hour = Hour.of(1);
     final Hours hours = Hours.of(1);
     final Hour hourResult = hour.subtract(hours);
-    assertEquals(0, hourResult.intValue(), HourTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, hourResult.hour(), HourTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -227,7 +195,7 @@ final class HourTests
    {
     final Hour hour = Hour.of(0);
     final Hour hourResult = hour.increment();
-    assertEquals(1, hourResult.intValue(), HourTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, hourResult.hour(), HourTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -255,7 +223,7 @@ final class HourTests
    {
     final Hour hour = Hour.of(1);
     final Hour hourResult = hour.decrement();
-    assertEquals(0, hourResult.intValue(), HourTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(0, hourResult.hour(), HourTests.RESULT_NOT_AS_EXPECTED);
    }
 
 

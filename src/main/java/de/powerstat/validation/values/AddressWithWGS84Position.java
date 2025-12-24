@@ -7,6 +7,7 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
+import de.powerstat.validation.interfaces.IValueObject;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
@@ -16,49 +17,39 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Address with wgs84 position.
  *
+ * @param address Address
+ * @param position WGS84Position
+ *
  * DSGVO relevant.
  *
  * TODO compareTo(): AddressWithWGS84Position
  */
 @ValueObject
-public final class AddressWithWGS84Position extends Address
+public record AddressWithWGS84Position(Address address, WGS84Position position) implements IValueObject // Comparable<AddressWithWGS84Position>,
  {
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<NTuple16<Country, PostalCode, City, Province, District, Street, BuildingNr, BuildingName, SubBuilding, PoBoxNumber, Department, Neighbourhood, Block, BFPONumber, Lines, WGS84Position>, AddressWithWGS84Position> CACHE = new WeakHashMap<>();
-
-  /**
-   * WGS84 position.
-   */
-  private final WGS84Position position;
-
-
   /**
    * Constructor.
    *
-   * @param country Country
-   * @param postalCode Postal code
-   * @param city City
-   * @param province Province
-   * @param district District
-   * @param street Street
-   * @param buildingNr Bulding number
-   * @param buildingName Building name
-   * @param subBuilding Sub building
-   * @param poBoxNumber Post office box number
-   * @param department Department
-   * @param neighbourhood Neighbourhood
-   * @param block Block
-   * @param bFPONumber British Forces Post Office Number
-   * @param lines Lines 1-5
+   * @param address Address
    * @param position WGS84Position
    */
-  private AddressWithWGS84Position(final Country country, final @Nullable PostalCode postalCode, final @Nullable City city, final @Nullable Province province, final @Nullable District district, final @Nullable Street street, final @Nullable BuildingNr buildingNr, final @Nullable BuildingName buildingName, final @Nullable SubBuilding subBuilding, final @Nullable PoBoxNumber poBoxNumber, final @Nullable Department department, final @Nullable Neighbourhood neighbourhood, final @Nullable Block block, final @Nullable BFPONumber bFPONumber, final @Nullable Lines lines, final WGS84Position position)
+  public AddressWithWGS84Position
    {
-    super(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines);
+    Objects.requireNonNull(address, "address"); //$NON-NLS-1$
     Objects.requireNonNull(position, "position"); //$NON-NLS-1$
-    this.position = position;
+   }
+
+
+  /**
+   * AddressWithWGS84Position factory.
+   *
+   * @param address Address
+   * @param position WGS84Position
+   * @return AddressWithWGS84Position object
+   */
+  public static AddressWithWGS84Position of(final Address address, final WGS84Position position)
+   {
+    return new AddressWithWGS84Position(address, position);
    }
 
 
@@ -85,21 +76,8 @@ public final class AddressWithWGS84Position extends Address
    */
   public static AddressWithWGS84Position of(final Country country, final @Nullable PostalCode postalCode, final @Nullable City city, final @Nullable Province province, final @Nullable District district, final @Nullable Street street, final @Nullable BuildingNr buildingNr, final @Nullable BuildingName buildingName, final @Nullable SubBuilding subBuilding, final @Nullable PoBoxNumber poBoxNumber, final @Nullable Department department, final @Nullable Neighbourhood neighbourhood, final @Nullable Block block, final @Nullable BFPONumber bFPONumber, final @Nullable Lines lines, final WGS84Position position)
    {
-    /*
-    final NTuple16<Country, PostalCode, City, Province, District, Street, BuildingNr, BuildingName, SubBuilding, PoBoxNumber, Department, Neighbourhood, Block, BFPONumber, Lines, WGS84Position> tuple = NTuple16.of(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines, position);
-    synchronized (AddressWithWGS84Position.class)
-     {
-      AddressWithWGS84Position obj = AddressWithWGS84Position.CACHE.get(tuple);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new AddressWithWGS84Position(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines, position);
-      AddressWithWGS84Position.CACHE.put(tuple, obj);
-      return obj;
-     }
-    */
-    return new AddressWithWGS84Position(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines, position);
+    Address address = Address.of(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines);
+    return new AddressWithWGS84Position(address, position);
    }
 
 
@@ -146,19 +124,9 @@ public final class AddressWithWGS84Position extends Address
     final Block block = values[12].isEmpty() ? null : Block.of(values[12]);
     final BFPONumber bFPONumber = values[13].isEmpty() ? null : BFPONumber.of(values[13]);
     final Lines lines = values[14].isEmpty() ? null : Lines.of(values[14]);
+    final Address address = Address.of(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines);
     final WGS84Position position = values[15].isEmpty() ? null : WGS84Position.of(values[15]);
-    return of(country, postalCode, city, province, district, street, buildingNr, buildingName, subBuilding, poBoxNumber, department, neighbourhood, block, bFPONumber, lines, position);
-   }
-
-
-  /**
-   * Get position.
-   *
-   * @return The position
-   */
-  public WGS84Position getPosition()
-   {
-    return position;
+    return of(address, position);
    }
 
 
@@ -170,87 +138,7 @@ public final class AddressWithWGS84Position extends Address
   @Override
   public String stringValue()
    {
-    return super.stringValue() + position.stringValue();
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Objects.hash(super.hashCode(), position);
-   }
-
-
-  /**
-   * Can equal.
-   *
-   * @param other Other object
-   * @return true if it can be equal; false otherwise
-   */
-  @SuppressFBWarnings("COM_COPIED_OVERRIDDEN_METHOD")
-  @Override
-  public boolean canEqual(final Object other)
-   {
-    return (other instanceof AddressWithWGS84Position);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final AddressWithWGS84Position other))
-     {
-      return false;
-     }
-    boolean result = other.canEqual(this);
-    if (result)
-     {
-      result = position.equals(other.position);
-      if (result)
-       {
-        result = super.equals(other);
-       }
-     }
-    return result;
-   }
-
-
-  /**
-   * Returns the string representation of this AddressWithWGS84Position.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "AddressWithWGS84Position[]"
-   *
-   * @return String representation of this AddressWithWGS84Position
-   * @see java.lang.Object#toString()
-   */
-  @SuppressWarnings({"checkstyle:NoWhitespaceBefore", "checkstyle:SeparatorWrap"})
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder(182);
-    builder.append("AddressWithWGS84Position[position=").append(position) //$NON-NLS-1$
-      .append(", ").append(super.toString()) //$NON-NLS-1$
-      .append(']');
-    return builder.toString();
+    return address.stringValue() + position.stringValue();
    }
 
  }

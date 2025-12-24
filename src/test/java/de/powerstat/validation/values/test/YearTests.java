@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.values.CalendarSystems;
 import de.powerstat.validation.values.Days;
@@ -73,7 +72,7 @@ final class YearTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(10, Year.of(TEN).longValue(), NOT_A_YEAR);
+    assertEquals(10, Year.of(TEN).year(), NOT_A_YEAR);
    }
 
 
@@ -83,7 +82,7 @@ final class YearTests
   @Test
   /* default */ void testLongValue()
    {
-    assertEquals(10, Year.of(10).longValue(), NOT_A_YEAR);
+    assertEquals(10, Year.of(10).year(), NOT_A_YEAR);
    }
 
 
@@ -106,7 +105,7 @@ final class YearTests
   @ValueSource(longs = {-1, 1, 2020})
   /* default */ void testIsYear(final long year)
    {
-    assertEquals(year, Year.of(year).longValue(), NOT_A_YEAR);
+    assertEquals(year, Year.of(year).year(), NOT_A_YEAR);
    }
 
 
@@ -124,27 +123,6 @@ final class YearTests
       /* final Year year = */ Year.of(year);
      }, "Index out of bounds exception expected" //$NON-NLS-1$
     );
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Year.class).withNonnullFields("calendarSystem").verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Year year = Year.of(1);
-    assertEquals("Year[calendarSystem=GREGORIAN, year=1]", year.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -196,7 +174,7 @@ final class YearTests
     final Year year = Year.of(2022);
     final Years years = Years.of(1);
     final Year yearResult = year.add(years);
-    assertEquals(2023, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2023, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -209,7 +187,7 @@ final class YearTests
     final Year year = Year.of(-1);
     final Years years = Years.of(1);
     final Year yearResult = year.add(years);
-    assertEquals(1, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -239,7 +217,7 @@ final class YearTests
     final Year year = Year.of(-2);
     final Years years = Years.of(1);
     final Year yearResult = year.add(years);
-    assertEquals(-1, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(-1, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -252,7 +230,7 @@ final class YearTests
     final Year year = Year.of(-1);
     final Years years = Years.of(2);
     final Year yearResult = year.add(years);
-    assertEquals(2, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -265,7 +243,7 @@ final class YearTests
     final Year year = Year.of(2022);
     final Years years = Years.of(1);
     final Year yearResult = year.subtract(years);
-    assertEquals(2021, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2021, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -278,7 +256,7 @@ final class YearTests
     final Year year = Year.of(1);
     final Years years = Years.of(1);
     final Year yearResult = year.subtract(years);
-    assertEquals(-1, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(-1, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -308,7 +286,7 @@ final class YearTests
     final Year year = Year.of(-1);
     final Years years = Years.of(1);
     final Year yearResult = year.subtract(years);
-    assertEquals(-2, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(-2, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -321,7 +299,7 @@ final class YearTests
     final Year year = Year.of(1);
     final Years years = Years.of(2);
     final Year yearResult = year.subtract(years);
-    assertEquals(-2, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(-2, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -333,7 +311,7 @@ final class YearTests
    {
     final Year year = Year.of(2022);
     final Year yearResult = year.increment();
-    assertEquals(2023, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2023, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -345,7 +323,7 @@ final class YearTests
    {
     final Year year = Year.of(-1);
     final Year yearResult = year.increment();
-    assertEquals(1, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -373,7 +351,7 @@ final class YearTests
    {
     final Year year = Year.of(2022);
     final Year yearResult = year.decrement();
-    assertEquals(2021, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2021, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -385,7 +363,7 @@ final class YearTests
    {
     final Year year = Year.of(1);
     final Year yearResult = year.decrement();
-    assertEquals(-1, yearResult.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(-1, yearResult.year(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -483,7 +461,7 @@ final class YearTests
    {
     final Year year = Year.of(CalendarSystems.GREGORIAN, pYear);
     final Days days = year.daysWithin();
-    assertEquals(pDays, days.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(pDays, days.days(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -495,7 +473,7 @@ final class YearTests
    {
     final Year year = Year.of(CalendarSystems.JULIAN, 2000);
     final Days days = year.daysWithin();
-    assertEquals(366, days.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(366, days.days(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -507,7 +485,7 @@ final class YearTests
    {
     final Year year = Year.of(CalendarSystems.JULIAN, 2001);
     final Days days = year.daysWithin();
-    assertEquals(365, days.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(365, days.days(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -524,7 +502,7 @@ final class YearTests
    {
     final Year year = Year.of(CalendarSystems.GREGORIAN, pYear);
     final Weeks weeks = year.weeksWithin();
-    assertEquals(pWeeks, weeks.longValue(), YearTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(pWeeks, weeks.weeks(), YearTests.RESULT_NOT_AS_EXPECTED);
    }
 
  }

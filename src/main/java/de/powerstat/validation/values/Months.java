@@ -7,7 +7,6 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -16,10 +15,12 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Months.
  *
+ * @param months Months 0-..
+ *
  * Not DSGVO relevant.
  */
 @ValueObject
-public final class Months implements Comparable<Months>, IValueObject
+public record Months(long months) implements Comparable<Months>, IValueObject
  {
   /**
    * Minimum allowed value 0.
@@ -31,31 +32,18 @@ public final class Months implements Comparable<Months>, IValueObject
    */
   public static final long MAX_VALUE = Long.MAX_VALUE;
 
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<Long, Months> CACHE = new WeakHashMap<>();
-
-  /**
-   * Month.
-   */
-  private final long months;
-
-
   /**
    * Constructor.
    *
    * @param months Months 0-..
    * @throws IndexOutOfBoundsException When the months is less than 0
    */
-  private Months(final long months)
+  public Months
    {
-    super();
     if (months < 0)
      {
       throw new IndexOutOfBoundsException("Negative months are not allowed"); //$NON-NLS-1$
      }
-    this.months = months;
    }
 
 
@@ -67,19 +55,6 @@ public final class Months implements Comparable<Months>, IValueObject
    */
   public static Months of(final long months)
    {
-    /*
-    synchronized (Months.class)
-     {
-      Months obj = Months.CACHE.get(months);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Months(months);
-      Months.CACHE.put(Long.valueOf(months), obj);
-      return obj;
-     }
-    */
     return new Months(months);
    }
 
@@ -97,17 +72,6 @@ public final class Months implements Comparable<Months>, IValueObject
 
 
   /**
-   * Returns the value of this Months as a long.
-   *
-   * @return The numeric value represented by this object after conversion to type long.
-   */
-  public long longValue()
-   {
-    return months;
-   }
-
-
-  /**
    * Returns the value of this Months as a String.
    *
    * @return The numeric value represented by this object after conversion to type String.
@@ -116,61 +80,6 @@ public final class Months implements Comparable<Months>, IValueObject
   public String stringValue()
    {
     return String.valueOf(months);
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Long.hashCode(months);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Months other))
-     {
-      return false;
-     }
-    return (months == other.months);
-   }
-
-
-  /**
-   * Returns the string representation of this Months.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Months[months=1]"
-   *
-   * @return String representation of this Months
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder();
-    builder.append("Months[months=").append(months).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

@@ -7,7 +7,6 @@ package de.powerstat.validation.values;
 
 import java.util.Objects;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.ValueObject;
 
 import de.powerstat.validation.interfaces.IValueObject;
@@ -16,10 +15,14 @@ import de.powerstat.validation.interfaces.IValueObject;
 /**
  * Days.
  *
+ * @param days Days 0-..
+ *
  * Not DSGVO relevant.
  */
+// @SuppressFBWarnings("PMB_POSSIBLE_MEMORY_BLOAT")
+@SuppressWarnings("PMD.UseConcurrentHashMap")
 @ValueObject
-public final class Days implements Comparable<Days>, IValueObject
+public record Days(long days) implements Comparable<Days>, IValueObject
  {
   /**
    * Minimum allowed value 0.
@@ -31,31 +34,18 @@ public final class Days implements Comparable<Days>, IValueObject
    */
   public static final long MAX_VALUE = Long.MAX_VALUE;
 
-  /* *
-   * Cache for singletons.
-   */
-  // private static final Map<Long, Days> CACHE = new WeakHashMap<>();
-
-  /**
-   * Days.
-   */
-  private final long days;
-
-
   /**
    * Constructor.
    *
    * @param days Days 0-..
    * @throws IndexOutOfBoundsException When the day is less than 0
    */
-  private Days(final long days)
+  public Days
    {
-    super();
     if (days < 0)
      {
       throw new IndexOutOfBoundsException("Negative days are not allowed"); //$NON-NLS-1$
      }
-    this.days = days;
    }
 
 
@@ -67,19 +57,6 @@ public final class Days implements Comparable<Days>, IValueObject
    */
   public static Days of(final long days)
    {
-    /*
-    synchronized (Days.class)
-     {
-      Days obj = Days.CACHE.get(days);
-      if (obj != null)
-       {
-        return obj;
-       }
-      obj = new Days(days);
-      Days.CACHE.put(Long.valueOf(days), obj);
-      return obj;
-     }
-    */
     return new Days(days);
    }
 
@@ -97,17 +74,6 @@ public final class Days implements Comparable<Days>, IValueObject
 
 
   /**
-   * Returns the value of this Days as a long.
-   *
-   * @return The numeric value represented by this object after conversion to type long.
-   */
-  public long longValue()
-   {
-    return days;
-   }
-
-
-  /**
    * Returns the value of this Days as a String.
    *
    * @return The numeric value represented by this object after conversion to type STring.
@@ -116,61 +82,6 @@ public final class Days implements Comparable<Days>, IValueObject
   public String stringValue()
    {
     return String.valueOf(days);
-   }
-
-
-  /**
-   * Calculate hash code.
-   *
-   * @return Hash
-   * @see java.lang.Object#hashCode()
-   */
-  @Override
-  public int hashCode()
-   {
-    return Long.hashCode(days);
-   }
-
-
-  /**
-   * Is equal with another object.
-   *
-   * @param obj Object
-   * @return true when equal, false otherwise
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  @SuppressWarnings({"PMD.SimplifyBooleanReturns"})
-  @Override
-  public boolean equals(final @Nullable Object obj)
-   {
-    if (this == obj)
-     {
-      return true;
-     }
-    if (!(obj instanceof final Days other))
-     {
-      return false;
-     }
-    return (days == other.days);
-   }
-
-
-  /**
-   * Returns the string representation of this Days.
-   *
-   * The exact details of this representation are unspecified and subject to change, but the following may be regarded as typical:
-   *
-   * "Days[days=1]"
-   *
-   * @return String representation of this Days
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString()
-   {
-    final var builder = new StringBuilder();
-    builder.append("Days[days=").append(days).append(']'); //$NON-NLS-1$
-    return builder.toString();
    }
 
 

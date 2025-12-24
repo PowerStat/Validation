@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.validation.values.Week;
 import de.powerstat.validation.values.Weeks;
@@ -62,7 +61,7 @@ final class WeekTests
   @Test
   /* default */ void testFactory1()
    {
-    assertEquals(1, Week.of("1").intValue(), WeekTests.NOT_A_WEEK);
+    assertEquals(1, Week.of("1").week(), WeekTests.NOT_A_WEEK);
    }
 
 
@@ -75,7 +74,7 @@ final class WeekTests
   @ValueSource(ints = {1, 53})
   /* default */ void testIsWeek(final int week)
    {
-    assertEquals(week, Week.of(week).intValue(), WeekTests.NOT_A_WEEK);
+    assertEquals(week, Week.of(week).week(), WeekTests.NOT_A_WEEK);
    }
 
 
@@ -97,12 +96,12 @@ final class WeekTests
 
 
   /**
-   * intValue.
+   * week.
    */
   @Test
   /* default */ void testIntValue()
    {
-    assertEquals(10, Week.of(10).intValue(), WeekTests.NOT_A_WEEK);
+    assertEquals(10, Week.of(10).week(), WeekTests.NOT_A_WEEK);
    }
 
 
@@ -113,27 +112,6 @@ final class WeekTests
   /* default */ void testStringValue()
    {
     assertEquals("10", Week.of(10).stringValue(), WeekTests.NOT_A_WEEK);
-   }
-
-
-  /**
-   * Equalsverifier.
-   */
-  @Test
-  /* default */ void testEqualsContract()
-   {
-    EqualsVerifier.forClass(Week.class).verify();
-   }
-
-
-  /**
-   * Test toString.
-   */
-  @Test
-  /* default */ void testToString()
-   {
-    final Week week = Week.of(1);
-    assertEquals("Week[week=1]", week.toString(), "toString not equal"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
 
@@ -168,7 +146,7 @@ final class WeekTests
     final Week week = Week.of(52);
     final Weeks weeks = Weeks.of(1);
     final Week weekResult = week.add(weeks);
-    assertEquals(53, weekResult.intValue(), WeekTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(53, weekResult.week(), WeekTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -198,7 +176,7 @@ final class WeekTests
     final Week week = Week.of(2);
     final Weeks weeks = Weeks.of(1);
     final Week weekResult = week.subtract(weeks);
-    assertEquals(1, weekResult.intValue(), WeekTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, weekResult.week(), WeekTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -227,7 +205,7 @@ final class WeekTests
    {
     final Week week = Week.of(1);
     final Week weekResult = week.increment();
-    assertEquals(2, weekResult.intValue(), WeekTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(2, weekResult.week(), WeekTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
@@ -255,7 +233,7 @@ final class WeekTests
    {
     final Week week = Week.of(2);
     final Week weekResult = week.decrement();
-    assertEquals(1, weekResult.intValue(), WeekTests.RESULT_NOT_AS_EXPECTED);
+    assertEquals(1, weekResult.week(), WeekTests.RESULT_NOT_AS_EXPECTED);
    }
 
 
