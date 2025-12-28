@@ -21,7 +21,7 @@ echo " {"
 echo "  /**"
 echo "   * URI scheme name list."
 echo "   */"
-echo "  private static final List<String> URISCHEMES = new ArrayList<>();"
+echo "  private static final Set<String> URISCHEMES = new HashSet<>();"
 echo ""
 echo ""
 echo "  /**"
@@ -29,7 +29,7 @@ echo "   * Static initialization."
 echo "   */"
 echo "  static"
 echo "   {"
-for i in `grep -oE "^([a-z][a-z0-9+-]+)," $1`; do
+for i in `grep -oE "^([a-z][a-z0-9+-]+)" $1`; do
   echo "    URISCHEMES.add(\"$i\"); //\$NON-NLS-1\$"
 done
 echo "   }"

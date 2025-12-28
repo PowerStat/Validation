@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import de.powerstat.validation.values.Country;
 import de.powerstat.validation.values.InternationalPhoneAreaCode;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -126,14 +127,14 @@ final class InternationalPhoneAreaCodeTests
 
 
   /**
-   * Test getName.
+   * Test getCountry.
    */
   @Test
-  /* default */ void testGetName()
+  /* default */ void testGetCountry()
    {
     final InternationalPhoneAreaCode code = InternationalPhoneAreaCode.of("49");
-    final String name = code.getEnglishCountryName();
-    assertEquals("", name, "getEnglishCountryName not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
+    final Country country = code.getCountry();
+    assertEquals(Country.of("DE"), country, "getCountry not as expected"); //$NON-NLS-1$ //$NON-NLS-2$
    }
 
  }

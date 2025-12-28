@@ -15,6 +15,8 @@ echo import java.util.Map;
 echo import java.util.Locale;
 echo import java.util.concurrent.ConcurrentHashMap;
 echo:
+echo import de.powerstat.validation.values.Country;
+echo:
 echo:
 echo /**
 echo  * International phone area codes.
@@ -24,7 +26,7 @@ echo  {
 echo   /**
 echo    * Phone area codes map.
 echo    */
-echo   private static final Map^<String, String^> PHONEAREAS = new ConcurrentHashMap^<^>();
+echo   private static final Map^<String, Country^> PHONEAREAS = new ConcurrentHashMap^<^>();
 echo:
 echo:
 echo   /**
@@ -32,14 +34,35 @@ echo    * Static initialization.
 echo    */
 echo   static
 echo    {
-FOR /F "usebackq tokens=2 delims=," %%i IN (`findstr /R "^[A-Z][A-Z][A-Z],[0-9-]*," %1`) DO (
+FOR /F "usebackq tokens=2,7,9,10 delims=," %%i IN (`findstr /R "^[A-Z]*,[0-9][0-9-]*,[A-Z][A-Z][A-Z],[a-z]*,[a-zA-Z ]*,[0-9]*,[0-9]*,[A-Z]*,[A-Z]*,[A-Z][A-Z]," %1`) DO (
   set t=%%i
-  if "!t!"=="!t: =!" (
-    echo     PHONEAREAS.put("%%i", ""^); //$NON-NLS-1$
+  if "!t!"=="!t:-=!" (
+    if 1%%i equ +1%%i (
+      echo %%l > %TMP%\country.txt
+      for %%a in (%TMP%\country.txt) do set /a len=%%~za
+      if !len! EQU 5 (
+        echo     PHONEAREAS.put("%%i", Country.of^("%%l"^)^); //$NON-NLS-1$
+      ) else (
+        if !len! EQU 6 (
+          echo     PHONEAREAS.put("%%i", Country.of^("%%k"^)^); //$NON-NLS-1$
+        ) else (
+          echo     PHONEAREAS.put("%%i", Country.of^("%%j"^)^); //$NON-NLS-1$
+        )
+      )
+    )
   ) else (
-    echo     PHONEAREAS.put("%%i", ""^); //$NON-NLS-1$
+    if '!t!'=='!t:^"=!' (
+      echo %%l > %TMP%\country.txt
+      for %%a in (%TMP%\country.txt) do set /a len=%%~za
+      if !len! EQU 5 (
+        echo     PHONEAREAS.put("%%i", Country.of^("%%l"^)^); //$NON-NLS-1$
+      ) else (
+        echo     PHONEAREAS.put("%%i", Country.of^("%%k"^)^); //$NON-NLS-1$
+      )
+    )
   )
 )
+del /f %TMP%\country.txt
 echo    }
 echo:
 echo:
@@ -65,14 +88,33 @@ echo    }
 echo:
 echo:
 echo   /**
-echo    * Get english country name for phone area code.
+echo    * Get country for phone area code.
 echo    *
 echo    * @param phoneArea Phone area code
-echo    * @return Country name in english
+echo    * @return Country
 echo    */
-echo   public static String getName(final String phoneArea)
+echo   public static Country getCountry(final String phoneArea)
 echo    {
 echo     return PHONEAREAS.get(phoneArea.toUpperCase(Locale.getDefault()));
+echo    }
+echo:
+echo:
+echo   /**
+echo    * Get phone area code for country.
+echo    *
+echo    * @param country Country
+echo    * @return Phone area code or empty string
+echo    */
+echo   public static String getForCountry(final Country country)
+echo    {
+echo     for (Map.Entry^<String, Country^> entry : PHONEAREAS.entrySet())
+echo      {
+echo       if (country.equals(entry.getValue()))
+echo        {
+echo         return entry.getKey();
+echo        }
+echo      }
+echo     return "";
 echo    }
 echo:
 echo }

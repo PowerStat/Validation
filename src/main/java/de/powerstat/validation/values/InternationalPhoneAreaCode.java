@@ -22,6 +22,15 @@ import de.powerstat.validation.interfaces.IValueObject;
  * Not DSGVO relevant.
  *
  * TODO Related countries
+ * Zone 1 (Nordamerikanischer Nummerierungsplan)
+ * Zone 2 (Afrika, Atlantikinseln und Inseln im Indischen Ozean)
+ * Zone 3 (West-, Süd- und Osteuropa)
+ * Zone 4 (Nord- und Zentraleuropa)
+ * Zone 5 (Mexiko, Zentralamerika und Südamerika)
+ * Zone 6 (Südostasien und Ozeanien)
+ * Zone 7 (Russland und benachbarte Gebiete)
+ * Zone 8 (Ostasien und Sondernummern)
+ * Zone 9 (West-, Zentral- und Südasien, Naher Osten)
  */
 @ValueObject
 public record InternationalPhoneAreaCode(String code) implements Comparable<InternationalPhoneAreaCode>, IValueObject
@@ -84,13 +93,13 @@ public record InternationalPhoneAreaCode(String code) implements Comparable<Inte
 
 
   /**
-   * Get country name in english language.
+   * Get country.
    *
-   * @return Country name in english language
+   * @return Country
    */
-  public String getEnglishCountryName()
+  public Country getCountry()
    {
-    return GeneratedInternationalPhoneAreaCodes.getName(code);
+    return GeneratedInternationalPhoneAreaCodes.getCountry(code);
    }
 
 

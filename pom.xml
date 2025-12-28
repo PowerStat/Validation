@@ -134,7 +134,7 @@
                     <exec executable="${project.basedir}/generatorPhoneAreaCodes.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/validation/generated/GeneratedInternationalPhoneAreaCodes.java" error="${project.build.directory}/error.log">
                       <arg value="${project.build.directory}/downloaded/country-codes.csv" />
                     </exec>
-                    <exec executable="${project.basedir}/generatorIRISchemessh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/validation/generated/GeneratedURISchemeNames.java" error="${project.build.directory}/error.log">
+                    <exec executable="${project.basedir}/generatorURISchemes.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/validation/generated/GeneratedURISchemeNames.java" error="${project.build.directory}/error.log">
                       <arg value="${project.build.directory}/downloaded/uri-schemes.csv" />
                     </exec>
                   </target>
