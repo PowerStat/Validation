@@ -9,8 +9,8 @@
     <version>17.3.0-SNAPSHOT</version>
   </parent>
 
-  <groupId>de.powerstat.validation</groupId>
-  <artifactId>validation</artifactId>
+  <groupId>de.powerstat.ddd</groupId>
+  <artifactId>valueobjectlib</artifactId>
   <version>4.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
@@ -50,42 +50,42 @@
                 <phase>generate-sources</phase>
                 <configuration>
                   <target>
-                    <mkdir dir="${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated" />
+                    <mkdir dir="${project.build.directory}\generated-sources\main\java\de\powerstat\ddd\generated" />
                     <exec executable="cmd.exe">
                       <arg value="/c" />
                       <arg value="${project.basedir}\generatorTLD.bat" />
                       <arg value="${project.build.directory}\downloaded\tlds-alpha-by-domain.txt" />
-                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated\GeneratedTlds.java" />
+                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\ddd\generated\GeneratedTlds.java" />
                     </exec>
                     <exec executable="cmd.exe">
                       <arg value="/c" />
                       <arg value="${project.basedir}\generatorCountries.bat" />
                       <arg value="${project.build.directory}\downloaded\countries.csv" />
-                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated\GeneratedISO3166A2.java" />
+                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\ddd\generated\GeneratedISO3166A2.java" />
                     </exec>
                     <exec executable="cmd.exe">
                       <arg value="/c" />
                       <arg value="${project.basedir}\generatorLanguages.bat" />
                       <arg value="${project.build.directory}\downloaded\languages.csv" />
-                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated\GeneratedISO6391.java" />
+                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\ddd\generated\GeneratedISO6391.java" />
                     </exec>
                     <exec executable="cmd.exe">
                       <arg value="/c" />
                       <arg value="${project.basedir}\generatorCurrencies.bat" />
                       <arg value="${project.build.directory}\downloaded\currencies.csv" />
-                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated\GeneratedISO4217.java" />
+                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\ddd\generated\GeneratedISO4217.java" />
                     </exec>
                     <exec executable="cmd.exe">
                       <arg value="/c" />
                       <arg value="${project.basedir}\generatorPhoneAreaCodes.bat" />
                       <arg value="${project.build.directory}\downloaded\country-codes.csv" />
-                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated\GeneratedInternationalPhoneAreaCodes.java" />
+                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\ddd\generated\GeneratedInternationalPhoneAreaCodes.java" />
                     </exec>
                     <exec executable="cmd.exe">
                       <arg value="/c" />
                       <arg value="${project.basedir}\generatorURISchemes.bat" />
                       <arg value="${project.build.directory}\downloaded\uri-schemes.csv" />
-                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\validation\generated\GeneratedURISchemeNames.java" />
+                      <arg value="&gt;${project.build.directory}\generated-sources\main\java\de\powerstat\ddd\generated\GeneratedURISchemeNames.java" />
                     </exec>
                   </target>
                 </configuration>
@@ -118,23 +118,23 @@
                 <phase>generate-sources</phase>
                 <configuration>
                   <target>
-                    <mkdir dir="${project.build.directory}/generated-sources/main/java/de/powerstat/validation/generated" />
-                    <exec executable="${project.basedir}/generatorTLD.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/validation/generated/GeneratedTlds.java" error="${project.build.directory}/error.log">
+                    <mkdir dir="${project.build.directory}/generated-sources/main/java/de/powerstat/ddd/generated" />
+                    <exec executable="${project.basedir}/generatorTLD.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/ddd/generated/GeneratedTlds.java" error="${project.build.directory}/error.log">
                       <arg value="${project.build.directory}/downloaded/tlds-alpha-by-domain.txt" />
                     </exec>
-                    <exec executable="${project.basedir}/generatorCountries.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/validation/generated/GeneratedISO3166A2.java" error="${project.build.directory}/error.log">
+                    <exec executable="${project.basedir}/generatorCountries.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/ddd/generated/GeneratedISO3166A2.java" error="${project.build.directory}/error.log">
                       <arg value="${project.build.directory}/downloaded/countries.csv" />
                     </exec>
-                    <exec executable="${project.basedir}/generatorLanguages.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/validation/generated/GeneratedISO6391.java" error="${project.build.directory}/error.log">
+                    <exec executable="${project.basedir}/generatorLanguages.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/ddd/generated/GeneratedISO6391.java" error="${project.build.directory}/error.log">
                       <arg value="${project.build.directory}/downloaded/languages.csv" />
                     </exec>
-                    <exec executable="${project.basedir}/generatorCurrencies.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/validation/generated/GeneratedISO4217.java" error="${project.build.directory}/error.log">
+                    <exec executable="${project.basedir}/generatorCurrencies.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/ddd/generated/GeneratedISO4217.java" error="${project.build.directory}/error.log">
                       <arg value="${project.build.directory}/downloaded/currencies.csv" />
                     </exec>
-                    <exec executable="${project.basedir}/generatorPhoneAreaCodes.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/validation/generated/GeneratedInternationalPhoneAreaCodes.java" error="${project.build.directory}/error.log">
+                    <exec executable="${project.basedir}/generatorPhoneAreaCodes.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/ddd/generated/GeneratedInternationalPhoneAreaCodes.java" error="${project.build.directory}/error.log">
                       <arg value="${project.build.directory}/downloaded/country-codes.csv" />
                     </exec>
-                    <exec executable="${project.basedir}/generatorURISchemes.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/validation/generated/GeneratedURISchemeNames.java" error="${project.build.directory}/error.log">
+                    <exec executable="${project.basedir}/generatorURISchemes.sh" output="${project.build.directory}/generated-sources/main/java/de/powerstat/ddd/generated/GeneratedURISchemeNames.java" error="${project.build.directory}/error.log">
                       <arg value="${project.build.directory}/downloaded/uri-schemes.csv" />
                     </exec>
                   </target>
@@ -160,9 +160,9 @@
   </distributionManagement>
 
   <scm>
-    <connection>scm:git:https://github.com/PowerStat/Validation.git</connection>
-    <developerConnection>scm:git:https://github.com/PowerStat/Validation.git</developerConnection>
-    <url>https://github.com/PowerStat/Validation</url>
+    <connection>scm:git:https://github.com/PowerStat/ValueObjectLib.git</connection>
+    <developerConnection>scm:git:https://github.com/PowerStat/ValueObjectLib.git</developerConnection>
+    <url>https://github.com/PowerStat/ValueObjectLib</url>
     <tag>HEAD</tag>
   </scm>
 
@@ -182,7 +182,7 @@
             <manifestEntries>
               <!-- <Build-Number>${buildNumber}</Build-Number> -->
               <Version>${project.version}</Version>
-              <GIT>https://github.com/PowerStat/Validation.git</GIT>
+              <GIT>https://github.com/PowerStat/ValueObjectLib.git</GIT>
               <SCM-Revision>${buildNumber}</SCM-Revision>
             </manifestEntries>
             <addMavenDescriptor>false</addMavenDescriptor>
@@ -300,7 +300,7 @@
         <artifactId>maven-jdeps-plugin</artifactId>
         <version>3.1.2</version>
         <configuration>
-          <module>de.powerstat.validation</module>
+          <module>de.powerstat.ddd</module>
           <multiRelease>11</multiRelease>
         </configuration>
       </plugin>

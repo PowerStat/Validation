@@ -3,9 +3,9 @@
 # $1 Path to downloaded file
 # cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 echo "/*"
-echo " * Code generator Copyright (C) 2020 Dipl.-Inform. Kai Hofmann. All rights reserved!"
+echo " * Code generator Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!"
 echo " */"
-echo "package de.powerstat.validation.generated;"
+echo "package de.powerstat.ddd.generated;"
 echo ""
 echo ""
 echo "import java.util.HashSet;"

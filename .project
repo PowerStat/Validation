@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>validationRecords</name>
+	<name>ValueObjectsLib</name>
 	<comment>PowerStat&apos;s validation utility records and classes.</comment>
 	<projects>
 	</projects>

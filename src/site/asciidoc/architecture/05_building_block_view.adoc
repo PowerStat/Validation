@@ -5,27 +5,27 @@
 
 [plantuml, target=building-block, format=png]   
 ....
-package de.powerstat.validation
+package de.powerstat.ddd
 {
   class ValidationUtils
 }
 
-package de.powerstat.validation.comparators
+package de.powerstat.ddd.comparators
 {
   class ComparatorEMailByDomain
 }
 
-package de.powerstat.validation.entities
+package de.powerstat.ddd.entities
 {
   class Person
 }
 
-package de.powerstat.validation.entities.impl
+package de.powerstat.ddd.entities.impl
 {
   class HistoryOf
 }
 
-package de.powerstat.validation.values
+package de.powerstat.ddd.values
 {
   class Address
   class AddressWithWGS84Position
@@ -86,7 +86,7 @@ package de.powerstat.validation.values
   class Years
 }
 
-package de.powerstat.validation.values.containers
+package de.powerstat.ddd.values.containers
 {
   class NTuple15
   class NTuple16
@@ -96,13 +96,13 @@ package de.powerstat.validation.values.containers
   class NTuple9
 }
 
-package de.powerstat.validation.values.impl
+package de.powerstat.ddd.values.impl
 {
   class IBANVerifier
   class IBANVerifierAbstractFactory
 }
 
-package de.powerstat.validation.values.strategies
+package de.powerstat.ddd.values.strategies
 {
   class IPasswordStrategy
   class IUsernameStrategy
@@ -112,7 +112,7 @@ package de.powerstat.validation.values.strategies
   class UsernameDefaultStrategy
 }
 
-package de.powerstat.validation.generated
+package de.powerstat.ddd.generated
 {
   class GeneratedInternationalPhoneAreaCodes
   class GeneratedISO3166A2
@@ -141,31 +141,31 @@ package java.math
 {
 }
 
-java.net <-- de.powerstat.validation
-java.net <-- de.powerstat.validation.values
-java.util <-- de.powerstat.validation
-java.util <-- de.powerstat.validation.comparators
-java.util <-- de.powerstat.validation.entities
-java.util <-- de.powerstat.validation.entities.impl
-java.util <-- de.powerstat.validation.values.impl
-java.util <-- de.powerstat.validation.values.strategies
-java.util <-- de.powerstat.validation.values
-java.util <-- de.powerstat.validation.generated
-java.time <-- de.powerstat.validation.entities
-java.time <-- de.powerstat.validation.entities.impl
-java.io <-- de.powerstat.validation.comparators
-java.math <-- de.powerstat.validation.values
-de.powerstat.validation.generated <-- de.powerstat.validation
-de.powerstat.validation.generated <-- de.powerstat.validation.values
-de.powerstat.validation.entities.impl <-- de.powerstat.validation.entities
-de.powerstat.validation.values <-- de.powerstat.validation.entities
-de.powerstat.validation.values <-- de.powerstat.validation.values.impl
-de.powerstat.validation.values <-- de.powerstat.validation.values.strategies
-de.powerstat.validation.values.impl <-- de.powerstat.validation.values
-de.powerstat.validation.values.strategies <-- de.powerstat.validation.values
-de.powerstat.validation.values.containers <-- de.powerstat.validation.values
-de.powerstat.validation.values.containers <-- de.powerstat.validation.values.impl
-de.powerstat.validation.values.containers <-- de.powerstat.validation.values.strategies
+java.net <-- de.powerstat.ddd
+java.net <-- de.powerstat.ddd.values
+java.util <-- de.powerstat.ddd
+java.util <-- de.powerstat.ddd.comparators
+java.util <-- de.powerstat.ddd.entities
+java.util <-- de.powerstat.ddd.entities.impl
+java.util <-- de.powerstat.ddd.values.impl
+java.util <-- de.powerstat.ddd.values.strategies
+java.util <-- de.powerstat.ddd.values
+java.util <-- de.powerstat.ddd.generated
+java.time <-- de.powerstat.ddd.entities
+java.time <-- de.powerstat.ddd.entities.impl
+java.io <-- de.powerstat.ddd.comparators
+java.math <-- de.powerstat.ddd.values
+de.powerstat.ddd.generated <-- de.powerstat.ddd
+de.powerstat.ddd.generated <-- de.powerstat.ddd.values
+de.powerstat.ddd.entities.impl <-- de.powerstat.ddd.entities
+de.powerstat.ddd.values <-- de.powerstat.ddd.entities
+de.powerstat.ddd.values <-- de.powerstat.ddd.values.impl
+de.powerstat.ddd.values <-- de.powerstat.ddd.values.strategies
+de.powerstat.ddd.values.impl <-- de.powerstat.ddd.values
+de.powerstat.ddd.values.strategies <-- de.powerstat.ddd.values
+de.powerstat.ddd.values.containers <-- de.powerstat.ddd.values
+de.powerstat.ddd.values.containers <-- de.powerstat.ddd.values.impl
+de.powerstat.ddd.values.containers <-- de.powerstat.ddd.values.strategies
 ....
 
 
@@ -173,7 +173,7 @@ de.powerstat.validation.values.containers <-- de.powerstat.validation.values.str
 
 [plantuml, target=whitebox-diagram, format=png]   
 ....
-package de.powerstat.validation
+package de.powerstat.ddd
  {
   class ValidationUtils
    {
@@ -182,7 +182,7 @@ package de.powerstat.validation
    }
  }
 
-package de.powerstat.validation.comparators
+package de.powerstat.ddd.comparators
  {
   class ComparatorEMailByDomain
    {
@@ -191,7 +191,7 @@ package de.powerstat.validation.comparators
    }
  }
 
-package de.powerstat.validation.entities
+package de.powerstat.ddd.entities
  {
   class Person
    {
@@ -224,7 +224,7 @@ package de.powerstat.validation.entities
    }
  }
 
-package de.powerstat.validation.entities.impl
+package de.powerstat.ddd.entities.impl
  {
   class HistoryOf<T>
    {
@@ -240,7 +240,7 @@ package de.powerstat.validation.entities.impl
    }
  }
 
-package de.powerstat.validation.values
+package de.powerstat.ddd.values
  {
   class Address
    {
@@ -910,7 +910,7 @@ package de.powerstat.validation.values
    }
  }
 
-package de.powerstat.validation.values.containers
+package de.powerstat.ddd.values.containers
  {
   class NTuple15
    {
@@ -1016,7 +1016,7 @@ package de.powerstat.validation.values.containers
    }   
  }
 
-package de.powerstat.validation.values.impl
+package de.powerstat.ddd.values.impl
  {
   class IBANVerifier
    {
@@ -1030,7 +1030,7 @@ package de.powerstat.validation.values.impl
    }
  }
 
-package de.powerstat.validation.values.strategies
+package de.powerstat.ddd.values.strategies
  {
   class IPasswordStrategy
    {
@@ -1068,7 +1068,7 @@ package de.powerstat.validation.values.strategies
    }
  }
 
-package de.powerstat.validation.generated
+package de.powerstat.ddd.generated
  {
   class GeneratedInternationalPhoneAreaCodes
    {
@@ -1118,29 +1118,29 @@ package java.math
  {
  }
 
-java.net <-- de.powerstat.validation
-java.net <-- de.powerstat.validation.values
-java.util <-- de.powerstat.validation
-java.util <-- de.powerstat.validation.comparators
-java.util <-- de.powerstat.validation.entities
-java.util <-- de.powerstat.validation.entities.impl
-java.util <-- de.powerstat.validation.values.impl
-java.util <-- de.powerstat.validation.values.strategies
-java.util <-- de.powerstat.validation.values
-java.util <-- de.powerstat.validation.generated
-java.time <-- de.powerstat.validation.entities
-java.time <-- de.powerstat.validation.entities.impl
-java.io <-- de.powerstat.validation.comparators
-java.math <-- de.powerstat.validation.values
-de.powerstat.validation.generated <-- de.powerstat.validation
-de.powerstat.validation.generated <-- de.powerstat.validation.values
-de.powerstat.validation.entities.impl <-- de.powerstat.validation.entities
-de.powerstat.validation.values <-- de.powerstat.validation.entities
-de.powerstat.validation.values <-- de.powerstat.validation.values.impl
-de.powerstat.validation.values <-- de.powerstat.validation.values.strategies
-de.powerstat.validation.values.impl <-- de.powerstat.validation.values
-de.powerstat.validation.values.strategies <-- de.powerstat.validation.values
-de.powerstat.validation.values.containers <-- de.powerstat.validation.values
-de.powerstat.validation.values.containers <-- de.powerstat.validation.values.impl
-de.powerstat.validation.values.containers <-- de.powerstat.validation.values.strategies
+java.net <-- de.powerstat.ddd
+java.net <-- de.powerstat.ddd.values
+java.util <-- de.powerstat.ddd
+java.util <-- de.powerstat.ddd.comparators
+java.util <-- de.powerstat.ddd.entities
+java.util <-- de.powerstat.ddd.entities.impl
+java.util <-- de.powerstat.ddd.values.impl
+java.util <-- de.powerstat.ddd.values.strategies
+java.util <-- de.powerstat.ddd.values
+java.util <-- de.powerstat.ddd.generated
+java.time <-- de.powerstat.ddd.entities
+java.time <-- de.powerstat.ddd.entities.impl
+java.io <-- de.powerstat.ddd.comparators
+java.math <-- de.powerstat.ddd.values
+de.powerstat.ddd.generated <-- de.powerstat.ddd
+de.powerstat.ddd.generated <-- de.powerstat.ddd.values
+de.powerstat.ddd.entities.impl <-- de.powerstat.ddd.entities
+de.powerstat.ddd.values <-- de.powerstat.ddd.entities
+de.powerstat.ddd.values <-- de.powerstat.ddd.values.impl
+de.powerstat.ddd.values <-- de.powerstat.ddd.values.strategies
+de.powerstat.ddd.values.impl <-- de.powerstat.ddd.values
+de.powerstat.ddd.values.strategies <-- de.powerstat.ddd.values
+de.powerstat.ddd.values.containers <-- de.powerstat.ddd.values
+de.powerstat.ddd.values.containers <-- de.powerstat.ddd.values.impl
+de.powerstat.ddd.values.containers <-- de.powerstat.ddd.values.strategies
 ....

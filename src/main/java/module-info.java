@@ -5,17 +5,17 @@
 
 
 /**
- * Validation module.
+ * DDD module.
  */
-module de.powerstat.validation
+module de.powerstat.ddd
  {
-  exports de.powerstat.validation;
-  exports de.powerstat.validation.comparators;
-  exports de.powerstat.validation.containers;
-  exports de.powerstat.validation.entities;
-  exports de.powerstat.validation.interfaces;
-  exports de.powerstat.validation.values;
-  exports de.powerstat.validation.values.strategies;
+  exports de.powerstat.ddd;
+  exports de.powerstat.ddd.comparators;
+  exports de.powerstat.ddd.containers;
+  exports de.powerstat.ddd.entities;
+  exports de.powerstat.ddd.interfaces;
+  exports de.powerstat.ddd.values;
+  exports de.powerstat.ddd.values.strategies;
 
   requires org.apache.logging.log4j;
   requires org.apache.commons.net;

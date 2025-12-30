@@ -1,6 +1,6 @@
-# PowerStat's validation value objects/entities
+# PowerStat's ddd value objects/entities library
 
-These validation value objects and entities should be useful classes.
+These ddd value objects and entities should be useful classes.
 
 ## Installation
 
@@ -10,8 +10,8 @@ For example when using Apache Maven you could add the following dependency to yo
 
     <dependency>
       <groupId>de.powerstat</groupId>
-      <artifactId>validation</artifactId>
-      <version>3.1.0</version>
+      <artifactId>ddd</artifactId>
+      <version>4.0.0</version>
     </dependency>
 
 Also please copy the `checkstyle-config.xml` and `PMD.xml` into your project.
@@ -30,13 +30,13 @@ Java platform module system:
 
     module com.example.java.app
      {
-      requires de.powerstat.validation;
-      requires de.powerstat.validation.comparators;
-      requires de.powerstat.validation.containers;
-      requires de.powerstat.validation.entities;
-      requires de.powerstat.validation.interfaces;
-      requires de.powerstat.validation.values;
-      requires de.powerstat.validation.values.strategies;
+      requires de.powerstat.ddd;
+      requires de.powerstat.ddd.comparators;
+      requires de.powerstat.ddd.containers;
+      requires de.powerstat.ddd.entities;
+      requires de.powerstat.ddd.interfaces;
+      requires de.powerstat.ddd.values;
+      requires de.powerstat.ddd.values.strategies;
      }
 
 To compile this project yourself you could use:
