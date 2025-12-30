@@ -9,8 +9,8 @@ Because this library is only useful for developers the installation depends on y
 For example when using Apache Maven you could add the following dependency to your project:
 
     <dependency>
-      <groupId>de.powerstat</groupId>
-      <artifactId>ddd</artifactId>
+      <groupId>de.powerstat.ddd</groupId>
+      <artifactId>valueobjectslib</artifactId>
       <version>4.0.0</version>
     </dependency>
 

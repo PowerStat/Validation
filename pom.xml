@@ -10,13 +10,13 @@
   </parent>
 
   <groupId>de.powerstat.ddd</groupId>
-  <artifactId>valueobjectlib</artifactId>
+  <artifactId>valueobjectslib</artifactId>
   <version>4.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>PowerStatsValueObjectLibrary</name>
-  <description>PowerStats value object library.</description>
-  <url>https://www.powerstat.de/ValueObjectLib.html</url>
+  <name>PowerStatsValueObjectsLibrary</name>
+  <description>PowerStats value objects library.</description>
+  <url>https://www.powerstat.de/ValueObjectsLib.html</url>
 
   <properties>
     <license.inceptionYear>2018</license.inceptionYear>
@@ -155,14 +155,14 @@
   <distributionManagement>
     <site>
       <id>powerstat</id>
-      <url>sftp://${web.server}/ValueObjectLib/</url>
+      <url>sftp://${web.server}/ValueObjectsLib/</url>
     </site>
   </distributionManagement>
 
   <scm>
-    <connection>scm:git:https://github.com/PowerStat/ValueObjectLib.git</connection>
-    <developerConnection>scm:git:https://github.com/PowerStat/ValueObjectLib.git</developerConnection>
-    <url>https://github.com/PowerStat/ValueObjectLib</url>
+    <connection>scm:git:https://github.com/PowerStat/ValueObjectsLib.git</connection>
+    <developerConnection>scm:git:https://github.com/PowerStat/ValueObjectsLib.git</developerConnection>
+    <url>https://github.com/PowerStat/ValueObjectsLib</url>
     <tag>HEAD</tag>
   </scm>
 
@@ -180,10 +180,8 @@
         <configuration>
           <archive>
             <manifestEntries>
-              <!-- <Build-Number>${buildNumber}</Build-Number> -->
               <Version>${project.version}</Version>
-              <GIT>https://github.com/PowerStat/ValueObjectLib.git</GIT>
-              <SCM-Revision>${buildNumber}</SCM-Revision>
+              <GIT>https://github.com/PowerStat/ValueObjectsLib.git</GIT>
             </manifestEntries>
             <addMavenDescriptor>false</addMavenDescriptor>
           </archive>
