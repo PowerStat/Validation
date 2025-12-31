@@ -17,12 +17,15 @@ import java.util.stream.Collectors;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jmolecules.ddd.annotation.Entity;
 
+// import org.apache.logging.log4j.LogManager;
+// import org.apache.logging.log4j.Logger;
+
 import de.powerstat.ddd.containers.HistoryOf;
 import de.powerstat.ddd.interfaces.IEntity;
-import de.powerstat.ddd.values.BloodGroup;
-import de.powerstat.ddd.values.Firstname;
-import de.powerstat.ddd.values.Gender;
-import de.powerstat.ddd.values.Lastname;
+import de.powerstat.ddd.values.science.BloodGroup;
+import de.powerstat.ddd.values.social.Firstname;
+import de.powerstat.ddd.values.social.Gender;
+import de.powerstat.ddd.values.social.Lastname;
 
 
 /**

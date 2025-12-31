@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 import de.powerstat.ddd.containers.NTuple4;
-import de.powerstat.ddd.values.EMail;
+import de.powerstat.ddd.values.comm.EMail;
 
 
 /**

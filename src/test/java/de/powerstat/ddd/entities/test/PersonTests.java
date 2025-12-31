@@ -25,10 +25,10 @@ import nl.jqno.equalsverifier.Mode;
 import nl.jqno.equalsverifier.Warning;
 
 import de.powerstat.ddd.entities.Person;
-import de.powerstat.ddd.values.BloodGroup;
-import de.powerstat.ddd.values.Firstname;
-import de.powerstat.ddd.values.Gender;
-import de.powerstat.ddd.values.Lastname;
+import de.powerstat.ddd.values.science.BloodGroup;
+import de.powerstat.ddd.values.social.Firstname;
+import de.powerstat.ddd.values.social.Gender;
+import de.powerstat.ddd.values.social.Lastname;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 

@@ -22,8 +22,8 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.ddd.containers.GroupOf;
 import de.powerstat.ddd.entities.Person;
-import de.powerstat.ddd.values.Gender;
-import de.powerstat.ddd.values.Lastname;
+import de.powerstat.ddd.values.social.Gender;
+import de.powerstat.ddd.values.social.Lastname;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 

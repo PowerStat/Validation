@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import de.powerstat.ddd.comparators.ComparatorEMailByDomain;
-import de.powerstat.ddd.values.EMail;
+import de.powerstat.ddd.values.comm.EMail;
 
 
 /**

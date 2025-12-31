@@ -15,19 +15,39 @@ package de.powerstat.ddd.comparators
   class ComparatorEMailByDomain
 }
 
+package de.powerstat.ddd.containers
+{
+  class GroupOf
+  class HistoryOf
+  class NTuple15
+  class NTuple16
+  class NTuple2
+  class NTuple2nc
+  class NTuple3
+  class Ntuple4
+  class NTuple5
+  class NTuple5nc
+  class NTuple9
+}
+
 package de.powerstat.ddd.entities
 {
   class Person
 }
 
-package de.powerstat.ddd.entities.impl
+package de.powerstat.ddd.interfaces
 {
-  class HistoryOf
+  class IAggregateRoot
+  class IDomainEvent
+  class IEntity
+  class IService
+  class IValueObject
 }
 
 package de.powerstat.ddd.values
 {
   class Address
+  class AddressType
   class AddressWithWGS84Position
   class BFPONumber
   class BIC
@@ -35,7 +55,10 @@ package de.powerstat.ddd.values
   class BloodGroup
   class BuildingName
   class BuildingNr
+  class CalendarSystems
   class City
+  class CivilStatus
+  class CommunicatioonChannel
   class Country
   class Currency
   class Day
@@ -45,19 +68,23 @@ package de.powerstat.ddd.values
   class District
   class EMail
   class Firstname
-  class Gener
+  class Gender
   class GregorianCalendar
   class GregorianDate
   class Hostname
   class Hour
   class Hours
   class IBAN
+  class InternationalPhoneAreaCode
   class IPV4Address
   class IPV4Mask
   class IPV6Address
   class IPV6Mask
+  class ISBN13
+  class JulianCalendar
   class Language
   class Lastname
+  class Lifeform
   class Lines
   class MACAddress
   class Millisecond
@@ -65,41 +92,47 @@ package de.powerstat.ddd.values
   class Minute
   class Minutes
   class Month
+  class MonthDay
+  class MonthEnum
   class Months
   class Neighburhood
   class Password
+  class Percent
   class PoBoxNumber
   class Port
   class PostalCode
   class Province
+  class Relationship
   class ScreenSize
   class Second
   class Seconds
+  class SexualOrientation
+  class SIBaseUnits
+  class SIDerivedUnits
+  class SIPrefixes
   class Street
   class SubBuilding
   class TopLevelDomain
+  class URISchemeName
   class Username
+  class UUID
   class Week
+  class Weekday
+  class WeekdayEnum
   class Weeks
   class WGS84Position
   class Year
   class Years
 }
 
-package de.powerstat.ddd.values.containers
-{
-  class NTuple15
-  class NTuple16
-  class NTuple2
-  class NTuple3
-  class NTuple4
-  class NTuple9
-}
-
 package de.powerstat.ddd.values.impl
 {
   class IBANVerifier
   class IBANVerifierAbstractFactory
+  class IISBN13Publisher
+  class ISBN13Publisher0
+  class ISBN13Publisher1
+  class ISBN13Publisher3
 }
 
 package de.powerstat.ddd.values.strategies
@@ -119,6 +152,7 @@ package de.powerstat.ddd.generated
   class GeneratedISO4217
   class GeneratedISO6391
   class GeneratedTlds
+  class GeneratedURISchemeNames
 }
 
 package java.net
@@ -191,6 +225,141 @@ package de.powerstat.ddd.comparators
    }
  }
 
+package de.powerstat.ddd.containers
+ {
+  class GroupOf<T>
+   {
+   }
+   
+  class HistoryOf<T>
+   {
+    +HistoryOf()
+    +hashCode() : int
+    +equals(obj : Object) : boolean
+    +toString() : String
+    +addEntry(since : OffsetDateTime, entry : T)
+    +getFirstEntry() : T
+    +getLatestEntry() : T
+    +getPreviousEntry() : T
+    +getHistory() : SortedMap<OffsetDateTime, T>
+   }
+
+  class NTuple15
+   {
+    +{static} of(obj1 : T1, obj2 : T2, obj3 : T3, obj4 : T4, obj5 : T5, obj6 : T6, obj7 : T7, obj8 : T8, obj9 : T9, obj10 : T10, obj11 : T11, obj12 : T12, obj13 : T13, obj14 : T14, obj15 : T15) : NTuple15
+    +t1Value() : T1
+    +t2Value() : T2
+    +t3Value() : T3
+    +t4Value() : T4
+    +t5Value() : T5
+    +t6Value() : T6
+    +t7Value() : T7
+    +t8Value() : T8
+    +t9Value() : T9
+    +t10Value() : T10
+    +t11Value() : T11
+    +t12Value() : T12
+    +t13Value() : T13
+    +t14Value() : T14
+    +t15Value() : T15
+    +hashCode() : int
+    +equals(obj : Object) : boolean
+    +toString() : String
+    +compareTo(obj : NTuple15) : int
+   }
+   
+  class NTuple16
+   {
+    +{static} of(obj1 : T1, obj2 : T2, obj3 : T3, obj4 : T4, obj5 : T5, obj6 : T6, obj7 : T7, obj8 : T8, obj9 : T9, obj10 : T10, obj11 : T11, obj12 : T12, obj13 : T13, obj14 : T14, obj15 : T15, obj16 : T16) : NTuple16
+    +t1Value() : T1
+    +t2Value() : T2
+    +t3Value() : T3
+    +t4Value() : T4
+    +t5Value() : T5
+    +t6Value() : T6
+    +t7Value() : T7
+    +t8Value() : T8
+    +t9Value() : T9
+    +t10Value() : T10
+    +t11Value() : T11
+    +t12Value() : T12
+    +t13Value() : T13
+    +t14Value() : T14
+    +t15Value() : T15
+    +t16Value() : T16
+    +hashCode() : int
+    +equals(obj : Object) : boolean
+    +toString() : String
+    +compareTo(obj : NTuple16) : int
+   }
+   
+  class NTuple2
+   {
+    +{static} of(obj1 : T1, obj2 : T2) : NTuple2
+    +t1Value() : T1
+    +t2Value() : T2
+    +hashCode() : int
+    +equals(obj : Object) : boolean
+    +toString() : String
+    +compareTo(obj : NTuple2) : int
+   }
+   
+  class NTuple2nc
+   {
+   }
+   
+  class NTuple3
+   {
+    +{static} of(obj1 : T1, obj2 : T2, obj3 : T3) : NTuple3
+    +t1Value() : T1
+    +t2Value() : T2
+    +t3Value() : T3
+    +hashCode() : int
+    +equals(obj : Object) : boolean
+    +toString() : String
+    +compareTo(obj : NTuple3) : int
+   }
+   
+  class NTuple4
+   {
+    +{static} of(obj1 : T1, obj2 : T2, obj3 : T3, obj4 : T4) : NTuple4
+    +t1Value() : T1
+    +t2Value() : T2
+    +t3Value() : T3
+    +t4Value() : T4
+    +hashCode() : int
+    +equals(obj : Object) : boolean
+    +toString() : String
+    +compareTo(obj : NTuple4) : int
+   }
+   
+  class NTuple5
+   {
+   }
+   
+  class NTuple5nc
+   {
+   }
+   
+  class NTuple9
+   {
+    +{static} of(obj1 : T1, obj2 : T2, obj3 : T3, obj4 : T4, obj5 : T5, obj6 : T6, obj7 : T7, obj8 : T8, obj9 : T9) : NTuple9
+    +t1Value() : T1
+    +t2Value() : T2
+    +t3Value() : T3
+    +t4Value() : T4
+    +t5Value() : T5
+    +t6Value() : T6
+    +t7Value() : T7
+    +t8Value() : T8
+    +t9Value() : T9
+    +hashCode() : int
+    +equals(obj : Object) : boolean
+    +toString() : String
+    +compareTo(obj : NTuple9) : int
+   }   
+ }
+
 package de.powerstat.ddd.entities
  {
   class Person
@@ -224,19 +393,26 @@ package de.powerstat.ddd.entities
    }
  }
 
-package de.powerstat.ddd.entities.impl
+package de.powerstat.ddd.interfaces
  {
-  class HistoryOf<T>
+  class IAggregateRoot
    {
-    +HistoryOf()
-    +hashCode() : int
-    +equals(obj : Object) : boolean
-    +toString() : String
-    +addEntry(since : OffsetDateTime, entry : T)
-    +getFirstEntry() : T
-    +getLatestEntry() : T
-    +getPreviousEntry() : T
-    +getHistory() : SortedMap<OffsetDateTime, T>
+   }
+
+  class IDomainEvent
+   {
+   }
+
+  class IEntity
+   {
+   }
+
+  class IService
+   {
+   }
+
+  class IValueObject
+   {
    }
  }
 
@@ -266,6 +442,10 @@ package de.powerstat.ddd.values
     +getBlock() : Block
     +getBFPONumber() : BFPONumber
     +getLines() : Lines
+   }
+   
+  enum AddressType
+   {
    }
 
   class AddressWithWGS84Position
@@ -338,6 +518,10 @@ package de.powerstat.ddd.values
     +compareTo(obj : BuildingNr) : int
    }
 
+  class CalendarSystems
+   {
+   }
+
   class City
    {
     +{static} of(city : String) : City
@@ -346,6 +530,14 @@ package de.powerstat.ddd.values
     +equals(obj : Object) : boolean
     +toString() : String
     +compareTo(obj : City) : int
+   }
+   
+  enum CivilStatus
+   {
+   }
+   
+  enum CommunicationChannel
+   {
    }
 
   class Country
@@ -529,6 +721,10 @@ package de.powerstat.ddd.values
     +toString() : String
     +compareTo(obj : IBAN) : int
    }
+   
+  class InternationalPhoneAreaCode
+   {
+   }
 
   class IPV4Address
    {
@@ -577,6 +773,14 @@ package de.powerstat.ddd.values
     +toString() : String
     +compareTo(obj : IPV6Mask) : int
    }
+   
+  class ISBN13
+   {
+   }
+   
+  class JulianCalendar
+   {
+   }
 
   class Language
    {
@@ -596,6 +800,10 @@ package de.powerstat.ddd.values
     +equals(obj : Object) : boolean
     +toString() : String
     +compareTo(obj : Lastname) : int
+   }
+   
+  class Lifeform
+   {
    }
 
   class Lines
@@ -685,6 +893,14 @@ package de.powerstat.ddd.values
     +toString() : String
     +compareTo(obj : Month) : int
    }
+   
+  class MonthDay
+   {
+   }
+   
+  enum MonthEnum
+   {
+   }
 
   class Months
    {
@@ -721,6 +937,10 @@ package de.powerstat.ddd.values
     +equals(obj : Object) : boolean
     +toString() : String
     +compareTo(obj : Password) : int
+   }
+   
+  class Percent
+   {
    }
 
   class PoBoxNumber
@@ -766,6 +986,10 @@ package de.powerstat.ddd.values
     +toString() : String
     +compareTo(obj : Province) : int
    }
+   
+  enum Relationship
+   {
+   }
 
   class ScreenSize
    {
@@ -804,6 +1028,22 @@ package de.powerstat.ddd.values
     +divide(divisor : long) : Seconds
     +modulo(divisor : long) : Seconds
    }
+   
+  enum SexualOrientation
+   {
+   }
+   
+  enum SIBaseUnits
+   {
+   }
+   
+  enum SIDerivedUnits
+   {
+   }
+   
+  enum SIPrefixes
+   {
+   }
 
   class Street
    {
@@ -834,6 +1074,10 @@ package de.powerstat.ddd.values
     +toString() : String
     +compareTo(obj : TopLevelDomain) : int
    }
+   
+  class URISchemeName
+   {
+   }
 
   class Username
    {
@@ -846,6 +1090,10 @@ package de.powerstat.ddd.values
     +toString() : String
     +compareTo(obj : Username) : int
    }
+   
+  class UUID
+   {
+   }
 
   class Week
    {
@@ -855,6 +1103,14 @@ package de.powerstat.ddd.values
     +equals(obj : Object) : boolean
     +toString() : String
     +compareTo(obj : Week) : int
+   }
+   
+  class Weekday
+   {
+   }
+   
+  enum WeekdayEnum
+   {
    }
 
   class Weeks
@@ -910,112 +1166,6 @@ package de.powerstat.ddd.values
    }
  }
 
-package de.powerstat.ddd.values.containers
- {
-  class NTuple15
-   {
-    +{static} of(obj1 : T1, obj2 : T2, obj3 : T3, obj4 : T4, obj5 : T5, obj6 : T6, obj7 : T7, obj8 : T8, obj9 : T9, obj10 : T10, obj11 : T11, obj12 : T12, obj13 : T13, obj14 : T14, obj15 : T15) : NTuple15
-    +t1Value() : T1
-    +t2Value() : T2
-    +t3Value() : T3
-    +t4Value() : T4
-    +t5Value() : T5
-    +t6Value() : T6
-    +t7Value() : T7
-    +t8Value() : T8
-    +t9Value() : T9
-    +t10Value() : T10
-    +t11Value() : T11
-    +t12Value() : T12
-    +t13Value() : T13
-    +t14Value() : T14
-    +t15Value() : T15
-    +hashCode() : int
-    +equals(obj : Object) : boolean
-    +toString() : String
-    +compareTo(obj : NTuple15) : int
-   }
-   
-  class NTuple16
-   {
-    +{static} of(obj1 : T1, obj2 : T2, obj3 : T3, obj4 : T4, obj5 : T5, obj6 : T6, obj7 : T7, obj8 : T8, obj9 : T9, obj10 : T10, obj11 : T11, obj12 : T12, obj13 : T13, obj14 : T14, obj15 : T15, obj16 : T16) : NTuple16
-    +t1Value() : T1
-    +t2Value() : T2
-    +t3Value() : T3
-    +t4Value() : T4
-    +t5Value() : T5
-    +t6Value() : T6
-    +t7Value() : T7
-    +t8Value() : T8
-    +t9Value() : T9
-    +t10Value() : T10
-    +t11Value() : T11
-    +t12Value() : T12
-    +t13Value() : T13
-    +t14Value() : T14
-    +t15Value() : T15
-    +t16Value() : T16
-    +hashCode() : int
-    +equals(obj : Object) : boolean
-    +toString() : String
-    +compareTo(obj : NTuple16) : int
-   }
-   
-  class NTuple2
-   {
-    +{static} of(obj1 : T1, obj2 : T2) : NTuple2
-    +t1Value() : T1
-    +t2Value() : T2
-    +hashCode() : int
-    +equals(obj : Object) : boolean
-    +toString() : String
-    +compareTo(obj : NTuple2) : int
-   }
-   
-  class NTuple3
-   {
-    +{static} of(obj1 : T1, obj2 : T2, obj3 : T3) : NTuple3
-    +t1Value() : T1
-    +t2Value() : T2
-    +t3Value() : T3
-    +hashCode() : int
-    +equals(obj : Object) : boolean
-    +toString() : String
-    +compareTo(obj : NTuple3) : int
-   }
-   
-  class NTuple4
-   {
-    +{static} of(obj1 : T1, obj2 : T2, obj3 : T3, obj4 : T4) : NTuple4
-    +t1Value() : T1
-    +t2Value() : T2
-    +t3Value() : T3
-    +t4Value() : T4
-    +hashCode() : int
-    +equals(obj : Object) : boolean
-    +toString() : String
-    +compareTo(obj : NTuple4) : int
-   }
-   
-  class NTuple9
-   {
-    +{static} of(obj1 : T1, obj2 : T2, obj3 : T3, obj4 : T4, obj5 : T5, obj6 : T6, obj7 : T7, obj8 : T8, obj9 : T9) : NTuple9
-    +t1Value() : T1
-    +t2Value() : T2
-    +t3Value() : T3
-    +t4Value() : T4
-    +t5Value() : T5
-    +t6Value() : T6
-    +t7Value() : T7
-    +t8Value() : T8
-    +t9Value() : T9
-    +hashCode() : int
-    +equals(obj : Object) : boolean
-    +toString() : String
-    +compareTo(obj : NTuple9) : int
-   }   
- }
-
 package de.powerstat.ddd.values.impl
  {
   class IBANVerifier
@@ -1028,6 +1178,23 @@ package de.powerstat.ddd.values.impl
    {
     +{static} createIBANVerifier(country : Country) : IBANVerifier
    }
+   
+  class IISBN13Publisher
+   {
+   }
+   
+  class ISBN13Publisher0
+   {
+   }
+   
+  class ISBN13Publisher1
+   {
+   }
+      
+  class ISBN13Publisher3
+   {
+   }
+   
  }
 
 package de.powerstat.ddd.values.strategies
@@ -1095,6 +1262,10 @@ package de.powerstat.ddd.generated
   class GeneratedTlds
    {
     +{static}  contains(tld : String) : boolean
+   } 
+
+  class GeneratedURISchemeNames
+   {
    } 
  }
 

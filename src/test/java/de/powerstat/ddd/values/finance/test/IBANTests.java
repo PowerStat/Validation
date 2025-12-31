@@ -1,0 +1,143 @@
+/*
+ * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
+ */
+package de.powerstat.ddd.values.finance.test;
+
+
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import de.powerstat.ddd.values.finance.IBAN;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+
+/**
+ * IBAN tests.
+ *
+ * TODO Human formatted output
+ */
+@SuppressFBWarnings({"RV_NEGATING_RESULT_OF_COMPARETO", "SPP_USE_ZERO_WITH_COMPARATOR"})
+final class IBANTests
+ {
+  /**
+   * Test iban.
+   */
+  private static final String IBAN_DE07123412341234123412 = "DE07123412341234123412"; //$NON-NLS-1$
+
+  /**
+   * Test iban.
+   */
+  private static final String IBAN_DE68210501700012345678 = "DE68210501700012345678"; //$NON-NLS-1$
+
+  /**
+   * IBAN not as expected constant.
+   */
+  private static final String IBAN_NOT_AS_EXPECTED = "IBAN not as expected"; //$NON-NLS-1$
+
+  /**
+   * Illegal argument exception expected constant.
+   */
+  private static final String ILLEGAL_ARGUMENT = "Illegal argument exception expected"; //$NON-NLS-1$
+
+
+  /**
+   * Default constructor.
+   */
+  /* default */ IBANTests()
+   {
+    super();
+   }
+
+
+  /**
+   * Test correct IBAN.
+   *
+   * @param iban IBAN
+   */
+  @ParameterizedTest
+  @ValueSource(strings = {IBANTests.IBAN_DE68210501700012345678, IBANTests.IBAN_DE07123412341234123412, "NO2156789012345", "LC965678901234567890123456789012", "TT83567890123456789012345678901234",
+    "EG5156789012345678901234567", "AL185678901A3456789012345678", "DZ79567890123456789012AB", "AD0556789012345678901234", "AO455678901234567890123AB", "AZ84567890123456789012345678", "BH72567890123456789012", "BE365678901234AB", "BJ705678901234567890123456AB", "BA0456789012345678AB", "BR305678901234567890123456789", "VG9856789012345678901234", "BG75567890123456789012", "BF96567890123456789012345AB", "BI57567890123456", "CR82056789012345678901", "CI645678901234567890123456AB", "DK195678901234567A", "DO90567890123456789012345678", "SV31567890123456789012345678", "EE54567890123456789A", "FO865678901234567A", "FI075678901234567A", "FR24567890123456789012345AB", "GA66567890123456789012345AB", "GE36567890123456789012", "GI895678901234567890123", "GR9756789012345678901234567", "GL865678901234567A", "GT48567890123456789012345678", "IQ475678901234567890123", "IR035678901234567890123456", "IE18567890123456789012", "IS08567890123456XXXXXXXXXX", "IL625678901234567890123", "IT37A5678901234567890123456", "JO0556789012345678901234567890", "CM66567890123456789012345AB", "CV065678901234567890123AB", "KZ275678901234567890", "QA435678901234567890123456789", "CG84567890123456789012345AB",
+    // "XK525678901234567890", // Not an ISO3166 alpha 2 code
+    "HR3756789012345678901", "KW6956789012345678901234567890", "LV8656789012345678901", "LB57567890123456789012345678", "LI2856789012345678901", "LT365678901234567890", "LU335678901234567890", "MG91567890123456789012345AB", "ML625678901234567890123456AB", "MT25567890123456789012345678901", "MR58567890123456789012345AB", "MU7956789012345678901234567ABC", "MD9156789012345678901234", "MC06567890123456789012345AB", "ME955678901234567890AB", "MZ985678901234567890123AB", "NL9556789012345678", "MK315678901234567AB", "AT385678901234567890", "TL3056789012345678901AB", "PK4356789012345678901234", "PS955678901234567890123456789", "PL775678901A3456789012345678", "PT895678901234567890123AB", "RO1356789012345678901234", "SM24A6789012345678901234567", "ST625678901234567890123AB", "SA4656789012345678901234", "CH1556789012345678901", "SN025678901234567890123456AB", "RS085678901234567890AB", "SC98567890123456789012345678XXX", "SK1656789012345678901234", "SI805678901234567AB", "ES4456789012AB5678901234", "CZ1856789012345678901234", "TN68567890123456789012AB", "TR985678901234567890123456", "UA075678901234567890123456789", "HU505678901A345678901234567A", "VA345678901234567890123456", "AE585678901234567890123", "GB45567890123456789012", "BY78567890123456789012345678", "CY69567890123456789012345678", "CF87567890123456789012345AB"
+   })
+  /* default */ void testIbanCorrect(final String iban)
+   {
+    final IBAN cleanIban = IBAN.of(iban);
+    assertEquals(iban, cleanIban.iban(), IBANTests.IBAN_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test IBAN with wrong lengths.
+   *
+   * @param iban IBAN
+   */
+  @ParameterizedTest
+  @ValueSource(strings = {"DE345678901234", "DE345678901234567890123456789012345"})
+  /* default */ void testIbanLength(final String iban)
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final IBAN cleanIban = */ IBAN.of(iban);
+     }, IBANTests.ILLEGAL_ARGUMENT
+    );
+   }
+
+
+  /**
+   * Test wrong IBAN.
+   *
+   * @param iban IBAN
+   */
+  @ParameterizedTest
+  @ValueSource(strings = {"ZZ0056789012345", "DE0156789012345", "DE9956789012345", "DE025678A012345", "DE67210501700012345678", "DE7321050170001234567X", "DE0021050170001234567Ä"})
+  /* default */ void testIbanWrong(final String iban)
+   {
+    assertThrows(IllegalArgumentException.class, () ->
+     {
+      /* final IBAN cleanIban = */ IBAN.of(iban);
+     }, IBANTests.ILLEGAL_ARGUMENT
+    );
+   }
+
+
+  /**
+   * Test get iban.
+   */
+  @Test
+  /* default */ void testStringValue()
+   {
+    final IBAN iban = IBAN.of(IBANTests.IBAN_DE68210501700012345678);
+    assertEquals(IBANTests.IBAN_DE68210501700012345678, iban.stringValue(), IBANTests.IBAN_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test compareTo.
+   */
+  @Test
+  @SuppressWarnings("java:S5785")
+  /* default */ void testCompareTo()
+   {
+    final IBAN iban1 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);
+    final IBAN iban2 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);
+    final IBAN iban3 = IBAN.of(IBANTests.IBAN_DE68210501700012345678);
+    final IBAN iban4 = IBAN.of("SE3550000000054910000003"); //$NON-NLS-1$
+    final IBAN iban5 = IBAN.of(IBANTests.IBAN_DE07123412341234123412);
+    assertAll("testCompareTo", //$NON-NLS-1$
+      () -> assertTrue(iban1.compareTo(iban2) == -iban2.compareTo(iban1), "reflexive1"), //$NON-NLS-1$
+      () -> assertTrue(iban1.compareTo(iban3) == -iban3.compareTo(iban1), "reflexive2"), //$NON-NLS-1$
+      () -> assertTrue((iban4.compareTo(iban3) > 0) && (iban3.compareTo(iban1) > 0) && (iban4.compareTo(iban1) > 0), "transitive1"), //$NON-NLS-1$
+      () -> assertTrue((iban1.compareTo(iban2) == 0) && (Math.abs(iban1.compareTo(iban5)) == Math.abs(iban2.compareTo(iban5))), "sgn1"), //$NON-NLS-1$
+      () -> assertTrue((iban1.compareTo(iban2) == 0) && iban1.equals(iban2), "equals") //$NON-NLS-1$
+    );
+   }
+
+ }

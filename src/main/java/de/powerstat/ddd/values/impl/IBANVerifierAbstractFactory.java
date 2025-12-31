@@ -5,7 +5,7 @@
 package de.powerstat.ddd.values.impl;
 
 
-import de.powerstat.ddd.values.Country;
+import de.powerstat.ddd.values.geo.Country;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 // import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

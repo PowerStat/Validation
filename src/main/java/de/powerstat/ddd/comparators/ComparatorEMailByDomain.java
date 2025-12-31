@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
 
-import de.powerstat.ddd.values.EMail;
+import de.powerstat.ddd.values.comm.EMail;
 
 
 /**

@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import de.powerstat.ddd.containers.HistoryOf;
-import de.powerstat.ddd.values.Lastname;
+import de.powerstat.ddd.values.social.Lastname;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 

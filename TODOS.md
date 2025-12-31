@@ -1,3 +1,4 @@
+
 Entity: MeterReader
 ID, Hersteller/Company name, Bezeichnung/Description, Installationsort/place of installation, History meter reader (Datum, Zählerstand, [Foto})
 
@@ -22,6 +23,10 @@ https://de.wikipedia.org/wiki/European_Article_Number
 - [ ] DateTime            Julian/Gregorian
 - [ ] UnixEpoche
 
+
+- Länge: Gerade, Kurve, ...
+- Fläche: Rechteck (Quadrat), Dreieck, Ellipse (Kreis), Polygon, n-eck
+- Volumen: Quader, Zylinder, Pyramide, Kugel, Torus, Kegel, ...
 
 
 - Job Role
@@ -131,7 +136,7 @@ https://datahub.io/collections/reference-data#currency-codes
       https://datahub.io/core/airport-codes/r/airport-codes.csv
 - [ ] UN-Nummern
 
-- [ ] Colors
+- [ ] Colors      https://en.wikipedia.org/wiki/Lists_of_colors
 - [ ] FileType    MimeTypes
 - [ ] ImageType   MimeTypes
 
@@ -147,7 +152,6 @@ https://datahub.io/collections/reference-data#currency-codes
 
 - [ ] CountryUnions
 - [ ] URI (encoding, decoding, exists)
-- [ ] CommunicationTypes
 - [ ] Locations
 - [ ] Continents   https://datahub.io/core/continent-codes/r/continent-codes.csv
 
@@ -155,8 +159,6 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] SocialSecurityNumber
 - [ ] TypeOfCompany / Organisation
 - [ ] JobTitle
-- [ ] RelationshipTypes
-- [ ] CivilStatus
 - [ ] AcademicDegrees
 - [ ] EconomicSectors
 - [ ] ReligiousCommunities
@@ -178,8 +180,10 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] FaceId
 - [ ] FingerId
 - [ ] EyeId
-- [ ] Eye colors
-- [ ] Body height
+- [ ] Eye colors   https://en.wikipedia.org/wiki/Lists_of_colors
+- [ ] Body height    54,6 - 272 cm
+- [ ] Body weight    1 - 610 kg
+- [ ] Konfektionsgröße   https://de.wikipedia.org/wiki/Konfektionsgr%C3%B6%C3%9Fe
 - [ ] Characteristics
 - [ ] identification card(s)
 - [ ] passport
@@ -201,51 +205,21 @@ https://datahub.io/collections/reference-data#currency-codes
 - [ ] Requirements
 
 
-- [ ] SI base units
-      Mass                        M  kilogram  kg
-      Length                      L  metre     m
-      Temperature                    kelvin    K
-      Time                        T  second    s
-      Amount of substance         N  mole      mol
-      Electric current intensity  I  ampere    A
-      Luminous intensity          J  candela   cd
-      
-      
+
+https://de.wikipedia.org/wiki/Gebr%C3%A4uchliche_Nicht-SI-Einheiten#Zur_Verwendung_mit_dem_SI_zugelassene_Einheiten
+
      Supplementary SI units
-     
+
      Plane angle  radiant     rad
      Solid angle  steradiant  sr
-     
+
      Energy    Radiant intensity
      Visible   Luminous intensity
      Particle  Photon intensity
-     
-     
-     SI derived Units
-     
-     becquerel
-     coulomb
-     farad
-     gray
-     henry
-     hertz
-     joule
-     lumen
-     lux
-     newton
-     ohm
-     pascal
-     poiseuille
-     siemens
-     sievert
-     tesla
-     volt
-     watt
-     weber
-     
-     
+
+
      non-SI units
-     
+
      ampere-hour
      day
      degree
@@ -258,22 +232,8 @@ https://datahub.io/collections/reference-data#currency-codes
      second of angle
      tex
      tonne
-     
-     
-     SI Prefixes
-     
-     deca  da  10
-     hecto h   10^2
-     kilo  k   10^3
-     mega  M   10^6
-     giga  G   10^9
-     tera  T   10^12
-     peta  P   10^15
-     exa   E   10^18
-     zetta Z   10^21
-     yotta Y   10^24
-     
-     
+
+
      Kilobyte  KB 2^10 = 1024 bytes
      Megabyte  MB 2^20 
      Gigabyte  GB 2^30
