@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2026 Dipl.-Inform. Kai Hofmann. All rights reserved!
  * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.ddd.values.time.test;
@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import de.powerstat.ddd.values.time.Hours;
 import de.powerstat.ddd.values.time.Seconds;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -38,6 +39,11 @@ final class SecondsTests
    * Arithmetic exception expected constant.
    */
   private static final String ARITHMETIC_EXCEPTION_EXPECTED = "Arithmetic exception expected"; //$NON-NLS-1$
+
+  /**
+   * Warning constant.
+   */
+  private static final String RV_RETURN_VALUE_IGNORED_INFERRED = "RV_RETURN_VALUE_IGNORED_INFERRED";
 
 
   /**
@@ -253,7 +259,7 @@ final class SecondsTests
 
 
   /**
-   * Test divide.
+   * Test modulo.
    */
   @Test
   /* default */ void testModulo1()
@@ -265,7 +271,7 @@ final class SecondsTests
 
 
   /**
-   * Test divide.
+   * Test modulo.
    */
   @Test
   /* default */ void testModulo2()
@@ -277,7 +283,7 @@ final class SecondsTests
 
 
   /**
-   * Test divide.
+   * Test modulo.
    */
   @Test
   /* default */ void testModulo3()
@@ -287,6 +293,62 @@ final class SecondsTests
      {
       /* final Seconds secondsResult = */ seconds1.modulo(0);
      }, SecondsTests.ARITHMETIC_EXCEPTION_EXPECTED
+    );
+   }
+
+
+  /**
+   * Test increment.
+   */
+  @Test
+  /* default */ void testIncrement1()
+   {
+    final Seconds seconds = Seconds.of(0);
+    final Seconds result = seconds.increment();
+    assertEquals(1, result.seconds(), RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test increment.
+   */
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
+  @Test
+  /* default */ void testIncrement2()
+   {
+    final Seconds seconds = Seconds.of(Long.MAX_VALUE);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Seconds result = */ seconds.increment();
+     }, ARITHMETIC_EXCEPTION_EXPECTED
+    );
+   }
+
+
+  /**
+   * Test decrement.
+   */
+  @Test
+  /* default */ void testDecrement1()
+   {
+    final Seconds seconds = Seconds.of(1);
+    final Seconds result = seconds.decrement();
+    assertEquals(0, result.seconds(), RESULT_NOT_AS_EXPECTED);
+   }
+
+
+  /**
+   * Test decrement.
+   */
+  @SuppressFBWarnings(RV_RETURN_VALUE_IGNORED_INFERRED)
+  @Test
+  /* default */ void testDecrement2()
+   {
+    final Seconds seconds = Seconds.of(0);
+    assertThrows(ArithmeticException.class, () ->
+     {
+      /* final Seconds result = */ seconds.decrement();
+     }, ARITHMETIC_EXCEPTION_EXPECTED
     );
    }
 

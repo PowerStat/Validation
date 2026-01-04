@@ -188,7 +188,7 @@ final class HourTests
 
 
   /**
-   * Test incement.
+   * Test increment.
    */
   @Test
   /* default */ void testIncrement1()

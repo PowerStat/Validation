@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2026 Dipl.-Inform. Kai Hofmann. All rights reserved!
  * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.ddd.values.time;
@@ -32,6 +32,12 @@ public record Hours(long hours) implements Comparable<Hours>, IValueObject
    * Maximum allowed value Long.MAX_VALUE.
    */
   public static final long MAX_VALUE = Long.MAX_VALUE;
+
+  /**
+   * Underflow contant.
+   */
+  private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
+
 
   /**
    * Constructor.
@@ -73,7 +79,7 @@ public record Hours(long hours) implements Comparable<Hours>, IValueObject
 
 
   /**
-   * Returns the value of this BFPONumber as a String.
+   * Returns the value of this Hours as a String.
    *
    * @return The numeric value represented by this object after conversion to type String.
    */
@@ -164,6 +170,38 @@ public record Hours(long hours) implements Comparable<Hours>, IValueObject
   public Hours modulo(final long divisor)
    {
     return Hours.of(Math.floorMod(hours, divisor));
+   }
+
+
+  /**
+   * Increment hours.
+   *
+   * @return New hours after incrementing
+   * @throws ArithmeticException In case of an overflow
+   */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
+  public Hours increment()
+   {
+    final long newHours = Math.incrementExact(hours);
+    return Hours.of(newHours);
+   }
+
+
+  /**
+   * Decrement hours.
+   *
+   * @return New hours after decrementing
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Hours decrement()
+   {
+    final long newHours = Math.decrementExact(hours);
+    if (newHours == -1)
+     {
+      // TODO Listener
+      throw new ArithmeticException(UNDERFLOW);
+     }
+    return Hours.of(newHours);
    }
 
  }

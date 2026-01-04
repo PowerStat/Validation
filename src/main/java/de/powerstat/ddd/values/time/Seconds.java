@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2025 Dipl.-Inform. Kai Hofmann. All rights reserved!
+ * Copyright (C) 2020-2026 Dipl.-Inform. Kai Hofmann. All rights reserved!
  * Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements; and to You under the Apache License, Version 2.0.
  */
 package de.powerstat.ddd.values.time;
@@ -33,6 +33,12 @@ public record Seconds(long seconds) implements Comparable<Seconds>, IValueObject
    * Maximum allowed value Long.MAX_VALUE.
    */
   public static final long MAX_VALUE = Long.MAX_VALUE;
+
+  /**
+   * Underflow contant.
+   */
+  private static final String UNDERFLOW = "Underflow"; //$NON-NLS-1$
+
 
   /**
    * Constructor.
@@ -165,6 +171,38 @@ public record Seconds(long seconds) implements Comparable<Seconds>, IValueObject
   public Seconds modulo(final long divisor)
    {
     return Seconds.of(Math.floorMod(seconds, divisor));
+   }
+
+
+  /**
+   * Increment seconds.
+   *
+   * @return New seconds after incrementing
+   * @throws ArithmeticException In case of an overflow
+   */
+  @SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
+  public Seconds increment()
+   {
+    final long newSeconds = Math.incrementExact(seconds);
+    return Seconds.of(newSeconds);
+   }
+
+
+  /**
+   * Decrement seconds.
+   *
+   * @return New seconds after decrementing
+   * @throws ArithmeticException In case of an overflow
+   */
+  public Seconds decrement()
+   {
+    final long newSeconds = Math.decrementExact(seconds);
+    if (newSeconds == -1)
+     {
+      // TODO Listener
+      throw new ArithmeticException(UNDERFLOW);
+     }
+    return Seconds.of(newSeconds);
    }
 
  }

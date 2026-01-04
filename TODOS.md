@@ -12,16 +12,15 @@ https://de.wikipedia.org/wiki/European_Article_Number
 
 
 - [ ] YearMonthDay    Geburtsdatum (Tag Monat Jahr), Datum/Date   Julian/Gregorian
+- [ ] DateTime            Julian/Gregorian
+- [ ] UnixEpoche
+- [ ] DateDuration, DateTimeDuration     Julian/Gregorian
 - [ ] YearWeek     Julian/Gregorian
 - [ ] YearWeekWeekday   Julian/Gregorian
 - [ ] Timezone
-- [ ] Recurring Date / Time
-- [ ] Holidays  Fix/Variable  Country/Region dependend
-- [ ] DateDuration, TimeDuration, DateTimeDuration     Julian/Gregorian
 - [ ] DateRange, TimeRange, DateTimeRange              Julian/Gregorian
-- [ ] Time
-- [ ] DateTime            Julian/Gregorian
-- [ ] UnixEpoche
+- [ ] Recurring Date / Time:    once, 1-31 daily, 1-4 Weekly, 1-12 monthly, 1-10 yearly; on fixed weekday (mo-su) or day (15.) within range; last friday in month, second monday in month
+- [ ] Holidays  Fix/Variable  Country/Region dependend
 
 
 - Länge: Gerade, Kurve, ...
@@ -115,12 +114,6 @@ https://datahub.io/collections/reference-data#currency-codes
   core/iso-container-codes
   core/ICC-Incoterms
 
-- [ ] SSID
-     1. Dürfen nicht mit einem Leerzeichen beginnen und/oder enden
-     2. können max. 32 Zeichen lang sein
-     3. darf nicht leer sein
-     4. Erlaubte Zeichen sind: 
-   Leerzeichen, a-z A-Z 0-9 ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ ` { | } ~
 
 - [ ] PostCodes https://de.wikipedia.org/wiki/Liste_der_Postleitsysteme
 - [ ] Salutations   Frau, Herrn, Frau und Herrn, Firma, "empty", Berufsbezeichnung, Akademischer Titel   Language dependend
