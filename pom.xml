@@ -207,6 +207,19 @@
             </configuration>
           </execution>
           <execution>
+            <id>get-urischemes</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>wget</goal>
+            </goals>
+            <configuration>
+              <url>https://www.iana.org/assignments/uri-schemes/uri-schemes-1.csv</url>
+              <outputDirectory>${project.build.directory}/downloaded</outputDirectory>
+              <outputFileName>uri-schemes.csv</outputFileName>
+              <!-- <skipCache>true</skipCache> -->
+            </configuration>
+          </execution>
+          <execution>
             <id>get-countrycodes</id>
             <phase>initialize</phase>
             <goals>
@@ -255,19 +268,6 @@
               <url>https://datahub.io/core/country-codes/r/country-codes.csv</url>
               <outputDirectory>${project.build.directory}/downloaded</outputDirectory>
               <outputFileName>country-codes.csv</outputFileName>
-              <!-- <skipCache>true</skipCache> -->
-            </configuration>
-          </execution>
-          <execution>
-            <id>get-urischemes</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>wget</goal>
-            </goals>
-            <configuration>
-              <url>https://www.iana.org/assignments/uri-schemes/uri-schemes-1.csv</url>
-              <outputDirectory>${project.build.directory}/downloaded</outputDirectory>
-              <outputFileName>uri-schemes.csv</outputFileName>
               <!-- <skipCache>true</skipCache> -->
             </configuration>
           </execution>

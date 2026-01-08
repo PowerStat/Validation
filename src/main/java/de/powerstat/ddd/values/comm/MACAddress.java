@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.NoRouteToHostException;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -357,8 +358,15 @@ public record MACAddress(String address) implements Comparable<MACAddress>, IVal
          }
         if (ipv6address != null)
          {
-          DatagramPacket packetv6 = new DatagramPacket(magicPackage, magicPackage.length, ipv6address, port.port());
-          socket.send(packetv6);
+          try
+           {
+            DatagramPacket packetv6 = new DatagramPacket(magicPackage, magicPackage.length, ipv6address, port.port());
+            socket.send(packetv6);
+           }
+          catch (NoRouteToHostException e)
+           {
+        	// ignore, could happen if no ip V6 is available
+           }
          }
        }
      }
